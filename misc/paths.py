@@ -1,5 +1,7 @@
 # XXX - this should have os awarenss
+import pathlib
 from talon import Context, Module, actions
+
 
 mod = Module()
 mod.list("paths_public", desc="Common paths")
@@ -117,9 +119,14 @@ def paths(m)-> str:
     "One public or private path that represents a file or folder"
     return m
 
-
 @mod.action_class
 class Actions:
     def path_traverse(num:int) -> str:
         """creates a string num path traversal sequences"""
         return "../"*num
+
+    # XXX - this should be an overridable type of method so that we can
+    # have language specific escaping, for multiple types of scenarios
+    def escape_path(path:str):
+        """Escape separators in a path string"""
+        return path.replace("/", "\\/")
