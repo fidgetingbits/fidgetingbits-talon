@@ -366,7 +366,7 @@ spell add: user.vim_normal_mode('zg')
 spell wrong: user.vim_normal_mode('zw')
 spell undo add: user.vim_normal_mode('zug')
 spell undo wrong: user.vim_normal_mode('zug')
-spell suggest: user.vim_normal_mode('z=')
+spell (suggest|fix): user.vim_normal_mode('z=')
 spell next: user.vim_normal_mode(']s')
 spell last: user.vim_normal_mode('[s')
 
