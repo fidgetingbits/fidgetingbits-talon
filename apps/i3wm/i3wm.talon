@@ -23,7 +23,7 @@ portal left: user.system_command("i3-msg workspace prev")
 (win|window) default: user.system_command("i3-msg layout toggle split")
 (win|window) tabbed: user.system_command("i3-msg layout tabbed")
 (win|window) flip: user.system_command("/home/aa/scripts/i3/i3-focus-last.py --switch")
-(win|window) [focus] <digits>:
+(win|window) [focus] <numbers_small>:
     user.system_command("/home/aa/scripts/i3/i3-nth_window_in_workspace.py $(i3-msg -t get_workspaces | jq -r '.[] | select(.focused==true).name') {number_small-1}")
 window focus parent: user.system_command("i3-msg focus parent")
 window focus child: user.system_command("i3-msg focus child")
