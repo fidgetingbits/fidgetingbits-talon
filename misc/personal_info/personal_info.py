@@ -1,9 +1,7 @@
 import json
 import os
-import sys
-from typing import Set
 
-from talon import Context, Module, actions, fs, imgui, settings, ui
+from talon import Context, Module, actions, app, fs, imgui, settings, ui
 
 mod = Module()
 mod.mode("personal_info")
@@ -125,3 +123,7 @@ class Actions:
         )
         app.notify(error)
         raise error
+    
+    def print_talon_version():
+        """print the current talon version"""
+        actions.insert(app.version)

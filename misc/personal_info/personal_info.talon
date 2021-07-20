@@ -8,5 +8,7 @@ my full name:
     user.personal_info("first-name")
     key(space)
     user.personal_info("last-name")
+my talon version:
+    user.print_talon_version()
 
 my <user.ordinals> <user.personal_info>: user.personal_info_by_id(personal_info, ordinals)
