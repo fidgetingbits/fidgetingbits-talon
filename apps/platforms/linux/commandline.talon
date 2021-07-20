@@ -306,10 +306,10 @@ terminate session:
     key(enter ~ .)
 
 # process management
-pee kill <user.text>: "pkill {text}"
-kill <number>: "kill -9 {number}"
-kill job <number>: "kill -9 %{number}"
-kill: "kill -9 "
+process fuzzy kill <user.text>: "pkill {text}"
+process kill <number>: "kill -9 {number}"
+process kill job <number>: "kill -9 %{number}"
+process kill: "kill -9 "
 reboot system: "sudo reboot -h now"
 
 # hardware
