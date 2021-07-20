@@ -8,7 +8,9 @@ tag: user.vim_fugitive
 (fugitive|git) add everything: user.vim_command_mode(":G add -u\n")
 (fugitive|git) blame: user.vim_command_mode(":Git blame\n")
 (fugitive|git) browse: user.vim_command_mode(":G Browse\n")
-(fugitive|git) commit: user.vim_command_mode(":G commit\n")
+(fugitive|git) commit: 
+    user.vim_command_mode(":G commit\n")
+    user.vim_set_insert_mode()
 (fugitive|git) (delete|remove): user.vim_command_mode(":GDelete")
 (fugitive|git) diff staged: user.vim_command_mode(":G! diff --staged\n")
 (fugitive|git) diff: user.vim_command_mode(":Gdiffsplit\n")

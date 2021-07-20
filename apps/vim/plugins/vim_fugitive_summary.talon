@@ -30,6 +30,7 @@ preview file: key(p)
 
 commit [changes]: 
     insert("cc")
+    user.vim_set_insert_mode()
 amend [last commit]: "ca"
 
 # Checkout/branch maps
