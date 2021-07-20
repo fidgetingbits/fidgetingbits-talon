@@ -31,5 +31,5 @@ class Actions:
         old = subprocess.check_output(['xsel', '-o', '-b'])
         clip.set_text(text)
         actions.edit.paste()
-        actions.sleep("100ms")
+        actions.sleep("50ms")
         clip.set_text(old.decode("utf-8"))
