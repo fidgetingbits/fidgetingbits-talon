@@ -41,23 +41,23 @@ tag(): user.vim_treesitter_textobjects
 # XXX - I still need to investigate whether or not a subset of these should be
 # exposed in terminal mode
 <user.vim_normal_counted_motion_command>:
-    insert("{vim_normal_counted_motion_command}")
+    user.vim_any_motion_mode("{vim_normal_counted_motion_command}")
 <user.vim_normal_counted_motion_keys>:
-    key("{vim_normal_counted_motion_keys}")
+    user.vim_any_motion_mode_key("{vim_normal_counted_motion_keys}")
 <user.vim_motions_all_adjust>:
-    insert("{vim_motions_all_adjust}")
+    user.vim_any_motion_mode("{vim_motions_all_adjust}")
 <user.vim_normal_counted_action>:
-    insert("{vim_normal_counted_action}")
+    user.vim_any_motion_mode("{vim_normal_counted_action}")
 <user.vim_normal_counted_actions_keys>:
-    key("{vim_normal_counted_actions_keys}")
+    user.vim_any_motion_mode_key("{vim_normal_counted_actions_keys}")
 <user.vim_counted_motion_command_with_ordinals>:
-    insert("{vim_counted_motion_command_with_ordinals}")
+   user.vim_any_motion_mode("{vim_counted_motion_command_with_ordinals}")
 
 
-    ###
-    # File editing and management
-    ###
-    # These are prefix with `file` to match the `file save` action defined by talon
+###
+# File editing and management
+###
+# These are prefix with `file` to match the `file save` action defined by talon
 sage:
     user.vim_command_mode(":w\n")
 file save as:
