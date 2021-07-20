@@ -1,6 +1,5 @@
-from talon import Context, Module, actions, settings, ui
-
 import re
+from talon import Context, Module, actions, settings, ui
 
 ctx = Context()
 ctx.matches = r"""
@@ -27,7 +26,7 @@ def parse_vim_term_title(window):
         or "TERM:" not in window.title
     ):
 
-        ctx.tags = []
+        #ctx.tags = []
         return
 
     # pull a TERM: line out of something potentially like
