@@ -55,17 +55,17 @@ shadow <number_small> <user.ordinals>:
     edit.paste()
     key(space)
     
-    # echo commands are for copying words from a given point
+# echo commands are for copying words from a given point
 echo <number_small>:
     user.vim_normal_mode_exterm("{number_small}k")
     key('0')
     insert("yE")
-    user.vim_command_mode(":set nohls\n")
     # See `:help pattern`
     # \_s   - match single white space
     # \{2,} - at least two in a row
-    user.vim_command_mode(":let @+=substitute(strtrans(@+), '\\_s\\{{2,}}', '', 'g')\n")
+    user.vim_command_mode(":set nohls | let @+=substitute(strtrans(@+), '\\_s\\{{2,}}', '', 'g')\n")
     user.vim_set_insert_mode()
+    #insert("i")
     edit.paste()
     key(space)
     
