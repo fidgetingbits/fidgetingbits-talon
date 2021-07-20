@@ -13,6 +13,7 @@ import enum
 
 from talon import Context, Module, actions, app, settings, ui, scripting
 import logging
+
 try:
     import pynvim
 
@@ -20,7 +21,7 @@ try:
 except Exception:
     has_pynvim = False
 
-logger = logging.getLogger('talon.vim')
+logger = logging.getLogger("talon.vim")
 FORMAT = "!!![%(filename)s:%(lineno)s - %(funcName)20s() ] %(message)s"
 logging.basicConfig(format=FORMAT)
 logger.setLevel(logging.DEBUG)
@@ -34,7 +35,7 @@ app: vim
 
 # talon vim plugins. see apps/vim/plugins/
 # to enable plugins you'll want to set these inside the corresponding mode
-# talon file. 
+# talon file.
 # XXX - that should just be automatically done based off the file names inside
 # of the plugin folder since it's annoying to manage
 plugin_tag_list = [
@@ -95,16 +96,13 @@ class win_actions:
     def filename():
         title = actions.win.title()
         result = title.split(")")
-        # Assumes the last word after the last ) entry has the filename
+        # print(f"vim.filename(): {result}")
         if len(result) > 1:
+            # Assumes the last word after the last ) entry has the filename
             result = result[-1]
-        # print(f"{result}")
-        return result.strip()
-
-#    def file_ext():
-#        ext = actions.win.filename().split(".")[-1]
-#        # print(ext)
-#        return ext
+            return result.strip()
+        else:
+            return ""
 
 
 ctx.lists["self.vim_arrow"] = {
@@ -184,7 +182,7 @@ custom_counted_action = {
     "drop": "x",
     "ochre": "o",
     "orca": "O",
-#    "slide left": "<<",
+    #    "slide left": "<<",
     "dedent": "<<",
     "indent": ">>",
 }
@@ -221,12 +219,17 @@ ctx.lists["self.vim_counted_actions_args"] = {
     "macro play": "@",  # takes char arg
 }
 
+#  XXX - We need to break this up so that commands related to thing that
+#  requires a motion can't be triggered otherwise, are only if they're in there
+#  associated mode. For instance fold shouldn't be something that can be
+#  triggered from normal or insert unless it's followed by some motion, whereas
+#  in visual mode it's fine.
 # normal mode commands that require motion, and that are counted
 # includes motions and no motions :|
 commands_with_motion = {
     # no motions
     "join": "J",
-    "merge": "gJ", # won't produce spaces between joined words
+    "merge": "gJ",  # won't produce spaces between joined words
     # "filter": "=",  # XXX - not sure about how to use this
     "paste": "p",  # XXX this really have motion
     "undo": "u",  # XXX this really have motion
@@ -284,16 +287,16 @@ motions = {
     "word": "w",
     "big word": "W",
     "biggie": "W",
-    #"tail": "ge",
-    #"big tail": "gE",
+    # "tail": "ge",
+    # "big tail": "gE",
     "right": "l",
     "left": "h",
-    #"down": "j",
+    # "down": "j",
     "south": "j",
     # XXX - up is starting to conflict too much with me moving back to
     # using op instead of cop in operators.talon, switching to north and
     # south ala @rntz
-    #"up": "k",
+    # "up": "k",
     "north": "k",
     "next": "n",
     "previous": "N",
@@ -363,10 +366,10 @@ vim_character_motions = {
 }
 
 custom_vim_motions_with_character_commands = {
-# XXX - these don't work due to comboing had to be moved into commands in a
-# talon file
-#    "last": "$F",  # find starting end of line
-#    "first": "^f",  # find starting beginning of line
+    # XXX - these don't work due to comboing had to be moved into commands in a
+    # talon file
+    #    "last": "$F",  # find starting end of line
+    #    "first": "^f",  # find starting beginning of line
 }
 
 ctx.lists["self.vim_motions_with_character"] = {
@@ -445,6 +448,7 @@ ctx.lists["self.vim_surround_targets"] = {
     "braces": "}",
     "squares": "]",
     "graves": "`",
+    "gravy": "```",
     "sentence": "s",
     "paragraph": "p",
     "spaces": "  ",  # double spaces is required because surround gets confused
@@ -507,7 +511,7 @@ mod.setting(
 mod.setting(
     "vim_mode_change_timeout",
     type=float,
-    default=0.3,
+    default=0.2,
     desc="It how long to wait before issuing commands after a mode change",
 )
 
@@ -631,7 +635,7 @@ def vim_motions_all_adjust(m) -> str:
     "Returns a rule matching a vim motion, and adjusts the vim mode"
     v = VimMode()
     v.set_any_motion_mode()
-    #print(m)
+    # print(m)
     return "".join(list(m))
 
 
@@ -784,8 +788,9 @@ def vim_select_motion(m) -> str:
     "Returns a string of some selection motion"
     return "".join(str(x) for x in list(m))
 
-#@ctx.action_class("main")
-#class main_actions:
+
+# @ctx.action_class("main")
+# class main_actions:
 #    def insert(text):
 #        """override insert action to allow us to enter insert mode"""
 #        v = VimMode()
@@ -856,7 +861,6 @@ class Actions:
         """set visual mode"""
         v = VimMode()
         v.set_visual_replace_mode()
-
 
     def vim_insert_mode(cmd: str):
         """run a given list of commands in normal mode, preserve mode"""
@@ -1037,14 +1041,9 @@ class VimMode:
     VREPLACE = 9  # XXX - call this VISUAL_REPLACE to be consistent
 
     # This is replicated from :help mode()
-    vim_modes_new = {
-        "NORMAL": {
-            "mode": "n",
-            "desc": "Normal"
-        }
-    }
+    vim_modes_new = {"NORMAL": {"mode": "n", "desc": "Normal"}}
 
-    #modes = enum.Enum("NORMAL VISUAL")
+    # modes = enum.Enum("NORMAL VISUAL")
 
     # XXX - incomplete see :help mode
     vim_modes = {
@@ -1082,7 +1081,16 @@ class VimMode:
             print(f"VIM DEBUG: {s}")
 
     def is_normal_mode(self):
-        return self.current_mode in ["n", "no", "nov", "noV", "no^V", "niI", "niR", "niV"]
+        return self.current_mode in [
+            "n",
+            "no",
+            "nov",
+            "noV",
+            "no^V",
+            "niI",
+            "niR",
+            "niV",
+        ]
 
     def is_visual_mode(self):
         return self.current_mode in ["v", "V", "^V"]
@@ -1140,10 +1148,10 @@ class VimMode:
         scmd = cmd.rstrip("\n")
         if scmd[0] == ":":
             self.insert_text(scmd[1:])
-            #actions.user.paste(scmd[1:])
+            # actions.user.paste(scmd[1:])
         else:
             self.insert_text(scmd)
-            #actions.user.paste(scmd)
+            # actions.user.paste(scmd)
         if cmd[-1] == "\n":
             actions.key("enter")
 
@@ -1202,7 +1210,7 @@ class VimMode:
         if auto is True and settings.get("user.vim_adjust_modes") == 0:
             return
 
-        #self.get_active_mode()
+        # self.get_active_mode()
         cur = self.current_mode_id()
         if type(valid_mode_ids) != list:
             valid_mode_ids = [valid_mode_ids]
@@ -1235,11 +1243,13 @@ class VimMode:
         max_check_count = 20
         if self.nvrpc.init_ok:
             while wanted != self.nvrpc.get_active_mode()["mode"]:
-                logger.debug("%s vs %s" % (wanted, self.nvrpc.get_active_mode()["mode"]))
-                print(f"!!! wanted:{type(wanted)}, mode:{type(self.nvrpc.get_active_mode()['mode'])}")
+                logger.debug(
+                    "%s vs %s" % (wanted, self.nvrpc.get_active_mode()["mode"])
+                )
+                # XXX - for wait value should be configurable
                 time.sleep(0.005)
                 # try to force redraw to prevent weird infinite loops
-                self.nvrpc.nvim.command('redraw')
+                self.nvrpc.nvim.command("redraw")
                 check_count += 1
                 if check_count > max_check_count:
                     # prevent occasional infinite loops stalling talon
