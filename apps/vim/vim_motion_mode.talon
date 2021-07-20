@@ -93,13 +93,13 @@ open [this] link:
     key(ctrl-r ctrl-a enter)
 open this file: user.vim_normal_mode("gf")
 open this file offset: user.vim_normal_mode("gF")
-(river this|open this file in [split|window]):
+(river this [file]|open this file in [split|window]):
     user.vim_set_normal_mode()
     key(ctrl-w)
     key(f)
 open this file in vertical [split|window]:
     user.vim_command_mode(":vertical wincmd f\n")
-pillar this:
+pillar this [file]:
     user.vim_command_mode(":vertical wincmd f\n")
 
 
@@ -228,20 +228,24 @@ file append:
 
 push:
     user.vim_normal_mode_np("$a")
+# NOTE - We need a separate key() call because some unmodified keys have
+# special names, like backspace.
 push <user.unmodified_key>:
-    user.vim_normal_mode_np("$a{unmodified_key}")
+    user.vim_normal_mode_np("$a")
+    key('{unmodified_key}')
 
-    # paste to the end of a line
-    # XXX
+# paste to the end of a line
+# XXX
 push it:
     user.vim_normal_mode_np("A ")
     key(escape p)
 
-    # insert at the end of the current word
+# insert at the end of the current word
 jam:
     user.vim_normal_mode_np("ea")
 jam <user.unmodified_key>:
-    user.vim_normal_mode_np("ea{unmodified_key}")
+    user.vim_normal_mode_np("ea")
+    key("{unmodified_key}")
 
 chomp:
     user.vim_normal_mode_np("ex")
@@ -316,11 +320,11 @@ clear <user.vim_text_objects> (into|to) [register] <user.unmodified_key>:
     user.vim_any_motion_mode('"{unmodified_key}d{vim_text_objects}')
 
 
-    ###
-    # Folding
-    ###
+###
+# Folding
+###
 
-    # creation
+# creation
 fold (row|line): user.vim_normal_mode("zF")
 # NOTE: see vim.py for zf usage
 
