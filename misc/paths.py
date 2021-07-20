@@ -24,6 +24,7 @@ linux_folder_paths = {
     "user": "/usr/",
     "user bin": "/usr/bin/",
     "user lib": "/usr/lib/",
+    "user src": "/usr/src/",
     "user local": "/usr/local/",
     "user local bin": "/usr/local/bin/",
     "user local lib": "/usr/local/lib/",
