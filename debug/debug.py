@@ -4,7 +4,8 @@ from talon import Context, Module, registry, ui, speech_system, scope
 ctx = Context()
 mod = Module()
 
-ui.register('', print)
+# Unable to print all window updates the talon sees
+# ui.register('', print)
 
 @mod.action_class
 class module_actions:
