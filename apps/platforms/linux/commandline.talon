@@ -218,12 +218,19 @@ so do that:
     key(enter)
 so do edit: "sudoedit "
 d message: "dmesg"
-disk usage: "df -h\n"
-disk list: "lsblk -l\n"
-disk file systems: "lsblk -f\n"
-disk mounted: "mount\n"
-disk mount: "mount "
-disk unmount: "umount "
+
+# disk management
+# NOTE - talon doesn't like the word disk with on MD431-II
+(disk|drive) usage: "df -h\n"
+(disk|drive) list: "lsblk -l\n"
+(disk|drive) file systems: "lsblk -f\n"
+(disk|drive) mounted: "mount\n"
+(disk|drive) mount: "mount "
+(disk|drive) unmount: "umount "
+(disk|drive) key dump: "sudo cryptsetup luksDump /dev/"
+(disk|drive) key add: "sudo cryptsetup luksAddKey --key-slot "
+
+# system configuration
 sis cuddle: "sysctl "
 sis cuddle set: "sysctl -w "
 
@@ -311,6 +318,10 @@ list processor: "lscpu\n"
 list pee bus: "lspci\n"
 list yew bus: "lsusb\n"
 
+# debugging
+debug server: "gdbserver"
+debug remote server: "gdbserver --multi :9999\n"
+
 
 
 errors to [standard] out: "2>&1 "
@@ -359,4 +370,5 @@ screen resolution: "xdpyinfo | awk '/dimensions/{{print $2}}'\n"
 ###
 arch source check out: "asp checkout "
 arch source export: "asp export "
+
 
