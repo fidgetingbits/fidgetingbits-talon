@@ -6,5 +6,6 @@ tag(): user.zsh_cd_gitroot
 # zsh commands
 reload shell config: "source ~/.zshrc\n"
 
-^<user.zsh_completion>:
-    insert(user.zsh_completion)
+# XXX - This functionality is disabled for now
+#^<user.zsh_completion>:
+#    insert(user.zsh_completion)
