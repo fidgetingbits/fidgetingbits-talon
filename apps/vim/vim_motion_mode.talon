@@ -156,7 +156,7 @@ patch (ship|upper|upper case) <user.letters>:
     user.vim_any_motion_mode_key("r")
     user.insert_formatted(letters, "ALL_CAPS")
 
-    # deleting
+# deleting
 (delete|trim) remaining [line]:
     user.vim_normal_mode_key("D")
     # XXX - are temporarily disabled for speed testing
@@ -170,48 +170,48 @@ patch (ship|upper|upper case) <user.letters>:
     #    user.vim_set_visual_line_mode()
     #    insert("''d")
 
-    # XXX - i don't use this
+# XXX - i don't use this
 wipe line:
     user.vim_normal_mode("0d$")
 
-    # delete a line without clobbering the paste register
-    # XXX - this should become a general yank, delete, etc command prefix imo
+# delete a line without clobbering the paste register
+# XXX - this should become a general yank, delete, etc command prefix imo
 forget line:
     user.vim_normal_mode("\"_dd")
 
-    # copying
-    # XXX - are temporarily disabled for speed testing
+# copying
+# XXX - are temporarily disabled for speed testing
 yank line <number>$:
     user.vim_command_mode_exterm(":{number}y\n")
-    #(copy|yank) <number_small> lines at line <number>$:
-    #    user.vim_command_mode_exterm(":{number}\n")
-    #    user.vim_normal_mode_exterm("y{number_small}y")
-    #(copy|yank) line (at|number) <number> through <number>:
-    #    user.vim_command_mode_exterm(":{number_1},{number_2}y\n")
-    #    user.vim_command_mode(":{number_1},{number_2}y\n")
-    #    user.vim_command_mode("p")
-    #
-    #(copy|yank) line relative up <number>:
-    #    user.vim_command_mode_exterm("{number}k")
-    #    user.vim_command_mode("yy")
-    #(copy|yank) <number_small> lines relative up <number>:
-    #    user.vim_command_mode_exterm("{number}k")
-    #    user.vim_command_mode("{number_small}yy")
+#(copy|yank) <number_small> lines at line <number>$:
+#    user.vim_command_mode_exterm(":{number}\n")
+#    user.vim_normal_mode_exterm("y{number_small}y")
+#(copy|yank) line (at|number) <number> through <number>:
+#    user.vim_command_mode_exterm(":{number_1},{number_2}y\n")
+#    user.vim_command_mode(":{number_1},{number_2}y\n")
+#    user.vim_command_mode("p")
+#
+#(copy|yank) line relative up <number>:
+#    user.vim_command_mode_exterm("{number}k")
+#    user.vim_command_mode("yy")
+#(copy|yank) <number_small> lines relative up <number>:
+#    user.vim_command_mode_exterm("{number}k")
+#    user.vim_command_mode("{number_small}yy")
 (copy|yank) (above|last) <number_small> lines:
     user.vim_normal_mode_exterm("{number_small}k")
     user.vim_normal_mode_exterm("y{number_small}y")
     user.vim_normal_mode_exterm("{number_small}j")
 
-    # duplicating
-    # These are multi-line like this to perserve INSERT.
-    # XXX - are temporarily disabled for speed testing
-    #(duplicate|paste) line <number> on line <number>$:
-    #    user.vim_command_mode(":{number_1}y\n")
-    #    user.vim_command_mode(":{number_2}\n")
-    #    user.vim_command_mode("p")
-    #(duplicate|paste) lines <number> through <number>$:
-    #     user.vim_command_mode(":{number_1},{number_2}y\n")
-    #     user.vim_command_mode("p")
+# duplicating
+# These are multi-line like this to perserve INSERT.
+# XXX - are temporarily disabled for speed testing
+#(duplicate|paste) line <number> on line <number>$:
+#    user.vim_command_mode(":{number_1}y\n")
+#    user.vim_command_mode(":{number_2}\n")
+#    user.vim_command_mode("p")
+#(duplicate|paste) lines <number> through <number>$:
+#     user.vim_command_mode(":{number_1},{number_2}y\n")
+#     user.vim_command_mode("p")
 (duplicate|paste) line <number>$:
     user.vim_command_mode(":{number}y\n")
     user.vim_normal_mode("p")
@@ -222,7 +222,7 @@ paste below:
     user.vim_normal_mode_np("o")
     user.vim_normal_mode("p")
 
-    # start ending at end of file
+# start ending at end of file
 file append:
     user.vim_normal_mode_np("Go")
 
@@ -253,7 +253,7 @@ chomp:
 insert <user.text>:
     user.vim_insert_mode("{text}")
 
-    # helpful for fixing typos or bad lexicons that miss a character
+# helpful for fixing typos or bad lexicons that miss a character
 (inject|cram) <user.unmodified_key> [before]:
     user.vim_insert_mode_key("{unmodified_key}")
     # since there is no ctrl-o equiv coming from normal
@@ -264,7 +264,7 @@ insert <user.text>:
     # since we can't perserve mode with ctrl-o
     key(escape)
 
-    # XXX - look into how this works
+# XXX - look into how this works
 filter line: "=="
 
 [add] gap above:
@@ -274,7 +274,7 @@ filter line: "=="
     user.vim_command_mode(":pu _\n")
     user.vim_command_mode(":'[-1\n")
 
-    # Selects current line in visual mode and triggers a word swap
+# Selects current line in visual mode and triggers a word swap
 swap [word] on [this] line:
     key(V)
     insert(":")
@@ -295,9 +295,9 @@ global inverted clear:
     key(left:3)
 
 
-    ###
-    # Macros and registers ''
-    ###
+###
+# Macros and registers ''
+###
 macro play <user.letter>: user.vim_any_motion_mode("@{letter}")
 macro (again|repeat|replay): user.vim_any_motion_mode("@@")
 macro record <user.letter>: user.vim_any_motion_mode("q{letter}")
@@ -311,9 +311,9 @@ yank (into|to) [register] <user.unmodified_key>:
 clear (into|to) [register] <user.unmodified_key>:
     user.vim_any_motion_mode('"{unmodified_key}d')
 
-    # XXX - this should allow counted yanking, into register should become an
-    # optional part of vim.py matching
-    # XXX - I can't get this to work
+# XXX - this should allow counted yanking, into register should become an
+# optional part of vim.py matching
+# XXX - I can't get this to work
 yank <user.vim_text_objects> (into|to) [register] <user.unmodified_key>:
     user.vim_any_motion_mode('"{unmodified_key}y{vim_text_objects}')
 clear <user.vim_text_objects> (into|to) [register] <user.unmodified_key>:
@@ -443,9 +443,9 @@ set auto write all: user.vim_command_mode(":set autowriteall\n")
 (arg|argument) last:
     user.vim_command_mode(":last\n")
 
-    ###
-    # Informational
-    ###
+###
+# Informational
+###
 man page this: user.vim_normal_mode("K")
 file info: user.vim_normal_mode_key(ctrl-g)
 # shows buffer number by pressing 2
@@ -477,9 +477,9 @@ find <user.ordinals> <user.unmodified_key>:
 find (reversed|previous) <user.ordinals> <user.unmodified_key>:
     user.vim_any_motion_mode("F{unmodified_key}{ordinals-1};")
 
-    ###
-    # Visual Text Selection
-    ###
+###
+# Visual Text Selection
+###
 make ascending: user.vim_normal_mode_key("g ctrl-a")
 (light|highlight) line: user.vim_visual_mode("V")
 block (light|highlight): user.vim_any_motion_mode_exterm_key("ctrl-v")
@@ -547,9 +547,9 @@ light this:
     user.vim_normal_mode_np("B")
     user.vim_visual_mode("E")
 
-    ###
-    # Visual Text Editing
-    ###
+###
+# Visual Text Editing
+###
 prefix <user.vim_select_motion> with <user.unmodified_key>:
     user.vim_visual_mode("{vim_select_motion}")
     insert(":")
@@ -557,9 +557,9 @@ prefix <user.vim_select_motion> with <user.unmodified_key>:
     sleep(50ms)
     insert("s/^/{unmodified_key}/g\n")
 
-    ###
-    # Command execution
-    ###
+###
+# Command execution
+###
 run python script:
     user.vim_normal_mode_np(":w\n")
     user.insert_cursor(":exec '!python3 [|]'")
@@ -567,7 +567,7 @@ run sandbox script:
     user.vim_normal_mode_np(":w\n")
     user.insert_cursor(":exec '!env/bin/python3 [|]'")
 
-    # Change how these get displayed in splits?
+# Change how these get displayed in splits?
 run make:
     user.vim_normal_mode_np(":w\n")
     insert(":!make\n")
@@ -583,8 +583,8 @@ script repeat:
     user.vim_normal_mode_np(":!")
     key(up)
 
-    # Run the current script view the command line
-    # XXX - These should only enable in python lang mode
+# Run the current script view the command line
+# XXX - These should only enable in python lang mode
 invoke this:
     user.vim_command_mode(":!%\n")
 run as python:
@@ -597,9 +597,9 @@ run as sandbox:
     user.vim_normal_mode_np(":w\n")
     insert(":exec '!env/bin/python3' shellescape(@%, 1)\n")
 
-    ###
-    # Convenience
-    ###
+###
+# Convenience
+###
 
 trim white space: user.vim_normal_mode(":%s/\\s\\+$//e\n")
 (remove all|normalize) tabs: user.vim_normal_mode(":%s/\\t/    /eg\n")
@@ -610,7 +610,7 @@ normalize spaces: user.vim_normal_mode(":%s/\\S\\zs\\s\\+/ /g\n")
     insert("g/^$/d\n")
 
 
-    # remove first byte from a line
+# remove first byte from a line
 pinch: user.vim_normal_mode("0x")
 prefix <user.unmodified_key>: user.vim_normal_mode("I{unmodified_key}")
 squish: user.vim_command_mode(":s/  / /g\n")
@@ -629,13 +629,13 @@ show unsaved changes:
 swap again:
     key(g &)
 
-    # XXX - should be switched to support any motion mode, but needs np
-    # which isn't supported yet
+# XXX - should be switched to support any motion mode, but needs np
+# which isn't supported yet
 first <user.unmodified_key>:
     user.vim_normal_mode_np("^f{unmodified_key}")
 
-    # XXX - should be switched to support any motion mode, but needs np
-    # which isn't supported yet
+# XXX - should be switched to support any motion mode, but needs np
+# which isn't supported yet
 last <user.unmodified_key>:
     user.vim_normal_mode_np("$F{unmodified_key}")
 
