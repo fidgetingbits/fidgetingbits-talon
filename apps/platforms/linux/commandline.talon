@@ -18,7 +18,7 @@ file find all folders: "find . -maxdepth 1 -type d  -ls\n"
 file fine all files: "find . -maxdepth 1 -type f  -ls\n"
 
 # TODO - revisit the grammar for $() commands
-call list latest: "$(ls -Art | tail -n1)"
+call file latest: "$(ls -Art | tail -n1)"
 
 # TODO - somehow make this scriptable to print anything
 file edit latest: "edit $(ls -Art | tail -n1)\n"
@@ -40,7 +40,7 @@ file edit: insert("edit ")
 file edit here: insert("edit .\n")
 file remove: "rm -I "
 file real remove: "/bin/rm -I "
-file deed copy: user.insert_cursor("dd bs=4M if=[|] of=/dev/sdX conv=fsync oflag=direct status=progress")
+file deep copy: user.insert_cursor("dd bs=4M if=[|] of=/dev/sdX conv=fsync oflag=direct status=progress")
 (file|folder) deep remove: "rm -rIf "
 (file|folder) real deep remove: "/bin/rm -rIf "
 file diff: "diff "
@@ -118,11 +118,12 @@ folder pop: "popd\n"
 folder yank path: "pwd | tr -d \\\\n\\\\r | xclip -sel clipboard\n"
 
 # permissions
-make executable: "chmod +x "
-change ownership: "chown "
+file [change] mode: "chmod "
+file make executable: "chmod +x "
+file [change] ownership: "chown "
 
 # file viewing
-less: "less "
+file less: "less "
 now less [that]:
     edit.up()
     insert("| less\n")
@@ -166,9 +167,9 @@ net connect <user.domains>: "nc -vv {domains} "
 net cat listener: "nc -v -l -p "
 net my I P: "dig +short myip.opendns.com @resolver1.opendns.com\n"
 net port <user.ports>: "{ports}"
+net dump: "tcpdump "
 show hosts file: "cat /etc/hosts\n"
 edit hosts file: "sudoedit /etc/hosts\n"
-tcp dump: "tcpdump "
 remote desktop: "xfreerdp /timeout:90000 /size:1280x800 /v: /u: /p:"
 
 generate see tags: "ctags --recurse --exclude=.git --exclude=.pc *"
@@ -279,7 +280,7 @@ parameter:
 
 
 # bash convenience stuff
-history: "history\n"
+history show: "history\n"
 
 net man log: "journalctl -u NetworkManager --no-pager --lines 100\n"
 
@@ -310,19 +311,17 @@ process fuzzy kill <user.text>: "pkill {text}"
 process kill <number>: "kill -9 {number}"
 process kill job <number>: "kill -9 %{number}"
 process kill: "kill -9 "
-reboot system: "sudo reboot -h now"
+system reboot: "sudo reboot -h now"
 
 # hardware
-list memory: "lshw -short -C memory"
-list processor: "lscpu\n"
-list pee bus: "lspci\n"
-list yew bus: "lsusb\n"
+system [list] memory: "lshw -short -C memory"
+system [list] processor: "lscpu\n"
+system [list] pee bus: "lspci\n"
+system [list] yew bus: "lsusb\n"
 
 # debugging
 debug server: "gdbserver"
 debug remote server: "gdbserver --multi :9999\n"
-
-
 
 errors to [standard] out: "2>&1 "
 errors ignore: "2>/dev/null"
@@ -330,7 +329,6 @@ errors ignore: "2>/dev/null"
 ###
 # Wallpaper
 ###
-
 wallpaper set: "feh --bg-scale "
 wallpaper set latest: "feh --bg-scale $(find ~/images/wallpaper/ -name $(ls -Art ~/images/wallpaper/ | tail -n1))\n"
 
@@ -338,7 +336,6 @@ wallpaper set latest: "feh --bg-scale $(find ~/images/wallpaper/ -name $(ls -Art
 ###
 # ELF file
 ###
-
 elf header: "eu-readelf -h "
 elf symbols: "eu-readelf -s "
 
@@ -346,11 +343,10 @@ elf symbols: "eu-readelf -s "
 ###
 # Python
 ###
-
 (pie|python) new [virtual] (env|environment): "python -m venv env"
 python module: "python -m "
-(activate|enter python environment): "source env/bin/activate\n"
-(deactivate|leave python environment): "deactivate\n"
+python (activate|enter) [env|environment]: "source env/bin/activate\n"
+python (deactivate|leave) [env|environment]: "deactivate\n"
 
 
 ###
@@ -370,5 +366,3 @@ screen resolution: "xdpyinfo | awk '/dimensions/{{print $2}}'\n"
 ###
 arch source check out: "asp checkout "
 arch source export: "asp export "
-
-
