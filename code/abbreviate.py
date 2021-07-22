@@ -140,6 +140,7 @@ ctx.lists["user.abbreviation"] = {
     "image": "img",
     "import table": "iat",
     "import address table": "iat",
+    "index": "idx",
     "increment": "inc",
     "information": "info",
     "initialize": "init",
