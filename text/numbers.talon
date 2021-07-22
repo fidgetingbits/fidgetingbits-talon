@@ -8,3 +8,4 @@ numb <user.number_string> dot <user.number_string>: "{number_string_1}.{number_s
 negative <user.number_string>: "-{number_string}"
 # XXX - should handle more complex hexadecimal number invocations
 (hex|hexadecimal) [(num|number)] <user.number_string>: "0x{number_string}"
+hex string <user.hex_letters>: user.escape_hex_string(hex_letters)
