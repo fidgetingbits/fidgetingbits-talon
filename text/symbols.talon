@@ -4,6 +4,7 @@ double dash: "--"
 triple quote: '"""'
 triple tick: "'''"
 gravy: "```"
+riddle: "???"
 (dot dot | dotdot): ".."
 ellipses: "..."
 (comma and | spamma): ", "
