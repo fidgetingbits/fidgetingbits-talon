@@ -209,3 +209,15 @@ class Actions:
         for n in range(num1, num2 + 1):
             s += f"{n} "
         actions.insert(s)
+
+    def escape_hex_string(hex_letters: str):
+        """convert a string of hex letters into a \\xNN\\xNN sequence"""
+        s = ""
+        idx = 0
+        while idx < len(hex_letters):
+            if len(hex_letters) - idx == 1:
+                s += f"\\x0{hex_letters[idx:]}"
+            else:
+                s += f"\\x{hex_letters[idx:idx+2]}"
+            idx += 2
+        actions.insert(s)

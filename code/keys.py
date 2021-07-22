@@ -14,6 +14,9 @@ default_alphabet = "air bat cap drum each fin gust harp sit jail crunch look mad
 )
 letters_string = "abcdefghijklmnopqrstuvwxyz"
 
+hex_alphabet = "A B C D E F".split(" ")
+hex_letters_string = "abcdef"
+
 default_digits = "zero one two three four five six seven eight nine".split(" ")
 numbers = [str(i) for i in range(10)]
 default_f_digits = (
@@ -22,6 +25,7 @@ default_f_digits = (
 
 mod = Module()
 mod.list("letter", desc="The spoken phonetic alphabet")
+mod.list("hex_letter", desc="Spoken hex letters (a-f)")
 mod.list("symbol_key", desc="All symbols from the keyboard")
 mod.list("arrow_key", desc="All arrow keys")
 mod.list("number_key", desc="All number keys")
@@ -60,6 +64,10 @@ def letter(m) -> str:
     "One letter key"
     return m.letter
 
+@mod.capture(rule="{self.hex_letter}")
+def hex_letter(m) -> str:
+    "One hex letter key"
+    return m.hex_letter
 
 @mod.capture(rule="{self.letter}")
 def upper_letter(m) -> str:
@@ -72,6 +80,10 @@ def letters(m) -> str:
     "Multiple letter keys"
     return m.letters
 
+@mod.capture(rule="{self.hex_letters}")
+def hex_letters(m) -> str:
+    "Multiple hex letter keys"
+    return m.letters
 
 @mod.capture(rule="{self.special_key}")
 def special_key(m) -> str:
@@ -139,6 +151,15 @@ def letters(m) -> str:
     "Multiple letter keys"
     return "".join(m.letter_list)
 
+@mod.capture(rule="{self.hex_letter}+")
+def hex_letters(m) -> str:
+    "Multiple letter keys"
+    return "".join(m.hex_letter_list)
+
+#@mod.capture(rule="(<self.hex_letter>|number+")
+#def hex(m) -> str:
+#    "Multiple hex keys"
+#    return "".join(m.letter_list)
 
 ctx = Context()
 modifier_keys = {
@@ -154,6 +175,9 @@ if app.platform == "mac":
 ctx.lists["self.modifier_key"] = modifier_keys
 alphabet = dict(zip(default_alphabet, letters_string))
 ctx.lists["self.letter"] = alphabet
+
+hex_alphabet = dict(zip(hex_alphabet, hex_letters_string))
+ctx.lists["self.hex_letter"] = hex_alphabet
 
 # `punctuation_words` is for words you want available BOTH in dictation and as
 # key names in command mode. `symbol_key_words` is for key names that should be
