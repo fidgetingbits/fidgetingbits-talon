@@ -39,6 +39,7 @@ file show: "cat "
 file edit: insert("edit ")
 file edit here: insert("edit .\n")
 file remove: "rm -I "
+file safe remove all: "rm -i -- *"
 file real remove: "/bin/rm -I "
 file deep copy: user.insert_cursor("dd bs=4M if=[|] of=/dev/sdX conv=fsync oflag=direct status=progress")
 (file|folder) deep remove: "rm -rIf "
