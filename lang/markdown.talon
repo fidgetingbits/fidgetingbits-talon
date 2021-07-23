@@ -9,6 +9,14 @@ code block:
     insert("```\n\n")
     insert("```\n")
     key(up:2)
+code block clip:
+    insert("```\n\n")
+    insert("```\n")
+    key(up:2)
+    edit.paste()
+    # XXX - would be nice if this had something like the ability to then find
+    # the next set of ```
+
 state task: "- [ ] "
 paste as code: 
     insert("```\n\n")
