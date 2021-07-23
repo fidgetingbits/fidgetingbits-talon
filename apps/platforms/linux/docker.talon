@@ -85,7 +85,7 @@ docker system prune all:
 
 ## docker Compose
 docker compose up: "docker-compose up\n"
-docker compose stop: "docker-compose start\n"
+docker compose start: "docker-compose start\n"
 docker compose stop: "docker-compose stop\n"
 docker compose build: "docker-compose build\n"
 docker compose kill: "docker-compose kill\n"
@@ -94,5 +94,3 @@ docker compose kill: "docker-compose kill\n"
 docker image tree: "sudo dockviz images -t\n" 
 docker image incremental tree: "sudo dockviz images -t -i\n" 
 docker image labeled tree: "sudo dockviz images -t -l\n" 
-# docker graphing  (requires dockviz, graphviz)
-docker image tree: "sudo dockviz images -t\n"
