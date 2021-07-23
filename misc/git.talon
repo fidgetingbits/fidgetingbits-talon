@@ -30,7 +30,7 @@ git clean everything: "git clean -dfx"
 # XXX - should use text or
 git commit message <user.text>: "git commit -m '{text}'"
 git commit message: "git commit -m '{text}'"
-git commit now: "git commit\n"
+git commit: "git commit\n"
 git commit amend: "git commit --amend "
 git diff (colour|color) words: "git diff --color-words "
 git diff: "git diff "
