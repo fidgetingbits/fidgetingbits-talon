@@ -11,7 +11,11 @@ tag: user.vim_terminal
 class EditActions:
     def page_up():
         actions.key("ctrl-\\ ctrl-n ctrl-b")
-
+    # XXX - this might be a bit much if eventually we want this to mean to let
+    # everything on the command-line itself, although then we might be able to
+    # just use things like select line/graph, etc
+    def select_all():
+        actions.user.vim_normal_mode_exterm("ggVG")
 
 def parse_vim_term_title(window):
     """a variety of parsing to gracefully handle various shell commands
@@ -75,6 +79,7 @@ def populate_shell_tags(shell_command):
         "bash": "terminal",
         "sh": "terminal",
         "ssh": "terminal",
+        "sudo": "terminal",
         "gdb": "user.gdb",
         "htop": "user.htop",
         "taskwarrior-tui": "user.taskwarrior_tui",
@@ -96,6 +101,7 @@ def populate_shell_tags(shell_command):
         found_fuzzy = False
         for tag in fuzzy_shell_tags:
             if shell_command.startswith(tag):
+                
                 ctx.tags = [fuzzy_shell_tags[tag]]
                 found_fuzzy = True
                 break
