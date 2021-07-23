@@ -2,7 +2,8 @@ mode: command
 -
 
 dot build: ".build"
-dot back up: ".bkp"
+dot back: ".bak"
+dot backup: ".bkp"
 dot (batch|bat): ".bat"
 dot (bin | bend): ".bin"
 dot conf: ".conf"
@@ -16,6 +17,7 @@ dot dock: ".doc"
 dot exe: ".exe"
 dot ge bag: ".gdb"
 dot git: ".git"
+dot H: ".h"
 dot hex: ".hex"
 dot jar: ".jar"
 dot java: ".java"
