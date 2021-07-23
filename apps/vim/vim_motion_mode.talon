@@ -79,7 +79,7 @@ pivot select:
     # Note below includes pivot back
 pivot <user.folder_paths>:
     user.vim_command_mode(":lcd {folder_paths}\n")
-file yank path:
+file yank [path]:
     user.vim_command_mode(":let @+ = expand('%:p')\n")
 file recover:
     user.vim_command_mode(":recover")
