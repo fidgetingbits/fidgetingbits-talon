@@ -208,7 +208,7 @@ punctuation_words = {
 }
 symbol_key_words = {
     "grave": "`",
-    "comma": ",",
+    "calm": ",",  # i found comma and commit would conflict too much
     "dot": ".",
     "blank": " ",
     "semi": ";",
@@ -223,7 +223,8 @@ symbol_key_words = {
     "equals": "=",
     "plus": "+",
     "question": "?",
-    "squiggle": "~",
+    # "squiggle": "~",
+    "squig": "~",
     "bang": "!",
     "dollar": "$",
     "score": "_",
@@ -240,7 +241,6 @@ symbol_key_words = {
     "percent": "%",
     "cent": "%",
     "caret": "^",
-    "at sign": "@",
     "swirl": "@",
     "amper": "&",
     "pipe": "|",
