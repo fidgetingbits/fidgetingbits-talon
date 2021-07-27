@@ -189,7 +189,8 @@ punctuation_words = {
     ",": ",",  # <== these things
     "back tick": "`",
     "grave": "`",
-    "comma": ",",
+    #"comma": ",",
+    "calm": ",",  # i found comma and commit would conflict too much
     "period": ".",
     "full stop": ".",
     "semicolon": ";",
@@ -200,10 +201,8 @@ punctuation_words = {
     "dollar sign": "$",
     "asterisk": "*",
     "hash sign": "#",
-    "number sign": "#",
     "percent sign": "%",
     "at sign": "@",
-    "and sign": "&",
     "amper": "&",
 }
 symbol_key_words = {
