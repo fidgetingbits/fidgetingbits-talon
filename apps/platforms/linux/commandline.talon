@@ -136,24 +136,27 @@ pipe tea: "| tee "
 
 # grepping
 
-rip: "rg -i "
-rip around: "rg -B2 -A2 -i "
-rip (exact|precise): "rg "
+file rip: "rg -i "
+file rip around: "rg -B2 -A2 -i "
+file rip (exact|precise): "rg "
 now rip:
     edit.up()
     insert("| rg -i ")
 
 # even though rip is arguably better, we still want grep for remote terminals,
 # etc
-grep: "grep -i "
-grep around: "grep -B2 -A2 -i "
+file grep: "grep -i "
+file grep around: "grep -B2 -A2 -i "
 now grep:
     edit.up()
     insert("| grep -i ")
 
 # networking
-net [work] I P: "ip addr\n"
-net [work] (route|routes): "ip route\n"
+net (interfaces|I P): "ip addr\n"
+net (route|routes): "ip route\n"
+net route add: user.insert_cursor("ip route add [|] dev ")
+net route add tunnel: user.insert_cursor("ip route add [|] dev tun0")
+net route (remove|delete|drop): "ip route del"
 net stat all: "netstat --sctp -anutp\n"
 net [stat] (listen|listening) unix: "netstat --sctp -anutp\n"
 net [stat] (listen|listening) T C P: "netstat --tcp -nlp\n"
@@ -162,16 +165,27 @@ net [stat] (listen|listening) S C T P: "netstat --sctp -nlp\n"
 net [stat] (listen|listening): "netstat -lnpt\n"
 net [stat] (listen|listening) all: "netstat --sctp -lnput\n"
 net trace: "traceroute "
+net trace clip: 
+    insert("traceroute")
+    edit.paste()
+    key(enter)
 net ping: "ping "
+net ping clip: 
+    insert("ping")
+    edit.paste()
+    key(enter)
 net cat: "nc -vv "
 net connect <user.domains>: "nc -vv {domains} "
 net cat listener: "nc -v -l -p "
 net my I P: "dig +short myip.opendns.com @resolver1.opendns.com\n"
 net port <user.ports>: "{ports}"
 net dump: "tcpdump "
+
+
 show hosts file: "cat /etc/hosts\n"
 edit hosts file: "sudoedit /etc/hosts\n"
-remote desktop: "xfreerdp /timeout:90000 /size:1280x800 /v: /u: /p:"
+net (remote desktop|R D P): 
+    user.insert_cursor("xfreerdp /timeout:90000 /size:1280x800 /v:[|] /u: /p:")
 
 generate see tags: "ctags --recurse --exclude=.git --exclude=.pc *"
 generate see scope database:
@@ -194,6 +208,8 @@ file head: "head "
 file head <number_small>: "head -n {number_small} "
 folder show: "pwd\n"
 
+file trace: "strace -f "
+file trace log: "strace -o trace.log -f "
 
 lazy edit:
     insert("edit ")
@@ -255,7 +271,7 @@ module remove: "rmmod "
 run <word>: "{word} "
 run curl: "curl "
 run double you get: "wget "
-web get: "wget "
+download: "wget "
 download clip:
     insert("wget ")
     edit.paste()
@@ -321,10 +337,10 @@ system [list] pee bus: "lspci\n"
 system [list] yew bus: "lsusb\n"
 
 # debugging
-debug server: "gdbserver"
+debug server: "gdbserver "
 debug remote server: "gdbserver --multi :9999\n"
 
-errors to [standard] out: "2>&1 "
+errors redirect: "2>&1 "
 errors ignore: "2>/dev/null"
 
 ###

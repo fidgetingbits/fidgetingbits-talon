@@ -55,7 +55,7 @@ edit find results:
     edit.left()
     edit.left()
 
-# run commands
+# run command
 run talon update: "~/.talon/bin/update\n"
 run debug: "./debug.sh\n"
 run update: "update.sh\n"
@@ -68,4 +68,5 @@ run filter log: insert('echo "events.tail(search="", noisy=True)"|~/.talon/bin/r
 # markdown to docx
 generate dock: user.insert_cursor("pandoc [|].md --self-contained --highlight-style=tango -o .docx")
 
-
+net (remote desktop|R D P) share:
+    user.insert_cursor("xfreerdp /timeout:90000 /size:1280x800 /v:[|] /u: /p: --data data:share:~/rdp/share")
