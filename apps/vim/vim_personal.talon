@@ -2,27 +2,6 @@ app: vim
 -
 
 ###
-# Convenience for opening my different files
-###
-edit my vim scripts:
-    user.vim_command_mode_exterm(":source ~/.vim/sessions/talon_vim.session\n")
-
-open markdown snippets:
-    user.vim_command_mode_exterm(":e ~/.vim/plugged/vim-snippets/UltiSnips/markdown.snippets\n")
-open python snippets:
-    user.vim_command_mode_exterm(":e ~/.vim/plugged/vim-snippets/UltiSnips/python.snippets\n")
-open bash snippets:
-    user.vim_command_mode_exterm(":e ~/.vim/plugged/vim-snippets/UltiSnips/sh.snippets\n")
-open see snippets:
-    user.vim_command_mode_exterm(":e ~/.vim/plugged/vim-snippets/UltiSnips/c.snippets\n")
-open talon plugins:
-    user.vim_command_mode_exterm(":e ~/source/talon/releases/latest/resources/talon_plugins\n")
-open talon python:
-    user.vim_command_mode_exterm(":e ~/source/talon/releases/latest/resources/python/lib/python3.7/site-packages/talon\n")
-open <user.paths>:
-    user.vim_command_mode_exterm(":e {paths}\n")
-
-###
 # Admin
 ###
 # XXX - make this a look up the actual sessions that exist in that folder

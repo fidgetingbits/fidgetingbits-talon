@@ -76,38 +76,42 @@ pivot file:
     #    user.vim_command_mode(":lcd ..\n")
 pivot select:
     user.vim_command_mode(":lcd ")
-    # Note below includes pivot back
+# Note below includes pivot back
 pivot <user.folder_paths>:
     user.vim_command_mode(":lcd {folder_paths}\n")
-file yank [path]:
+file yank path:
     user.vim_command_mode(":let @+ = expand('%:p')\n")
 file recover:
     user.vim_command_mode(":recover")
 
 
-    # For when the VIM cursor is hovering on a path
-    # NOTE: gx only works if you use netrw were custom mapped
-    #open [this] link: user.vim_normal_mode("gx")
+# For when the VIM cursor is hovering on a path
+# NOTE: gx only works if you use netrw were custom mapped
+#open [this] link: user.vim_normal_mode("gx")
 open [this] link:
     user.vim_command_mode(":!xdg-open ")
     key(ctrl-r ctrl-a enter)
-open this file: user.vim_normal_mode("gf")
-open this file offset: user.vim_normal_mode("gF")
-(river this [file]|open this file in [split|window]):
+(open this file|file jump): user.vim_normal_mode("gf")
+(open this file offset|file jump offset): user.vim_normal_mode("gF")
+# XXX - should automate this with the previous open for cases when a file
+# doesn't exist...
+file create this: 
+    user.vim_command_mode(':call writefile([], expand("<cfile>"), "b")\n')
+(river this [file]|file river jump):
     user.vim_set_normal_mode()
     key(ctrl-w)
     key(f)
 open this file in vertical [split|window]:
     user.vim_command_mode(":vertical wincmd f\n")
-pillar this [file]:
+(pillar this [file]|file pillar jump):
     user.vim_command_mode(":vertical wincmd f\n")
 
 
-    ###
-    # Navigation, movement and jumping
-    ###
+###
+# Navigation, movement and jumping
+###
 
-    # XXX - add support for [{, [(, etc
+# XXX - add support for [{, [(, etc
 matching: user.vim_any_motion_mode_key("%")
 matching <user.symbol_key>: user.vim_any_motion_mode("f{symbol_key}%")
 
@@ -138,7 +142,7 @@ swap (bytes|characters):
     user.vim_normal_mode("x")
     user.vim_normal_mode("p")
 
-    # NOTE: this handles spaces
+# NOTE: this handles spaces
 swap words:
     user.vim_normal_mode("de")
     user.vim_normal_mode('"_xw')
@@ -159,20 +163,26 @@ patch (ship|upper|upper case) <user.letters>:
 # deleting
 (delete|trim) remaining [line]:
     user.vim_normal_mode_key("D")
-    # XXX - are temporarily disabled for speed testing
-    #delete line [at|number] <number>$:
-    #    user.vim_command_mode(":{number}d\n")
-    #delete (line|lines) [at|number] <number> through <number>$:
-    #    user.vim_command_mode(":{number_1},{number_2}d\n")
-    #delete (until|till) line <number>:
-    #    user.vim_normal_mode_np("m'")
-    #    insert(":{number}\n")
-    #    user.vim_set_visual_line_mode()
-    #    insert("''d")
+# XXX - are temporarily disabled for speed testing
+#delete line [at|number] <number>$:
+#    user.vim_command_mode(":{number}d\n")
+#delete (line|lines) [at|number] <number> through <number>$:
+#    user.vim_command_mode(":{number_1},{number_2}d\n")
+#delete (until|till) line <number>:
+#    user.vim_normal_mode_np("m'")
+#    insert(":{number}\n")
+#    user.vim_set_visual_line_mode()
+#    insert("''d")
 
-# XXX - i don't use this
+# XXX - For stuff like this where we have multiple inputs in a motion mode but
+# at the very end we want the preservation of the original mode, technically we
+# could use a more complicated function that takes a variable list of
+# arguments, and detects that this is happening doesn't bother keep switching
+# the mode until the very last one
 wipe line:
-    user.vim_normal_mode("0d$")
+    # Purposely two calls for insert preservation
+    user.vim_normal_mode("0")
+    user.vim_normal_mode("d$")
 
 # delete a line without clobbering the paste register
 # XXX - this should become a general yank, delete, etc command prefix imo
@@ -294,9 +304,8 @@ global inverted clear:
     user.vim_command_mode(":v //d")
     key(left:3)
 
-
 ###
-# Macros and registers ''
+# Macros and registers
 ###
 macro play <user.letter>: user.vim_any_motion_mode("@{letter}")
 macro (again|repeat|replay): user.vim_any_motion_mode("@@")
@@ -489,7 +498,6 @@ block (light|highlight): user.vim_any_motion_mode_exterm_key("ctrl-v")
 block (light|highlight) <user.vim_motions>:
     user.vim_visual_block_mode("{vim_motions}")
 
-
 (light|highlight) lines <number> through <number>:
     user.vim_normal_mode_np("{number_1}G")
     user.vim_set_visual_mode()
@@ -540,9 +548,9 @@ block (light|highlight) (until|till) line <number>:
     user.vim_set_visual_block_mode()
     insert("''")
 
-    # Greedily highlight whatever is under the cursor. Doesn't work if on the first
-    # character of the entry, in which case you should say a normal motion like
-    # "light big end", etc
+# Greedily highlight whatever is under the cursor. Doesn't work if on the first
+# character of the entry, in which case you should say a normal motion like
+# "light big end", etc
 light this:
     user.vim_normal_mode_np("B")
     user.vim_visual_mode("E")
@@ -600,7 +608,6 @@ run as sandbox:
 ###
 # Convenience
 ###
-
 trim white space: user.vim_normal_mode(":%s/\\s\\+$//e\n")
 (remove all|normalize) tabs: user.vim_normal_mode(":%s/\\t/    /eg\n")
 normalize spaces: user.vim_normal_mode(":%s/\\S\\zs\\s\\+/ /g\n")
@@ -634,8 +641,8 @@ swap again:
 first <user.unmodified_key>:
     user.vim_normal_mode_np("^f{unmodified_key}")
 
-# XXX - should be switched to support any motion mode, but needs np
-# which isn't supported yet
+    # XXX - should be switched to support any motion mode, but needs np
+    # which isn't supported yet
 last <user.unmodified_key>:
     user.vim_normal_mode_np("$F{unmodified_key}")
 
