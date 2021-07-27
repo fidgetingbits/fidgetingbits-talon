@@ -5,8 +5,12 @@
 # XXX - need to make sure not to conflict with vim bindings
 # XXX - missing a significant amount of commands
 app: vim
+# XXX - at some point titles started showing the git repo, so for now i match
+# on something else
+#tag: user.vim_fugitive_summary
+#and win.title: /\[Git/
 tag: user.vim_fugitive_summary
-and win.title: /\[Git/
+and win.title: /.git\/index/
 -
 
 # Staging/unstaging maps

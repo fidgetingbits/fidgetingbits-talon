@@ -14,6 +14,7 @@ ultisnips_snippets = {}
 
 private_snippets = {
     "new big break": "bigbr",
+    "commands": "brcommands",
 }
 
 ctx.lists["user.snippets"] = {**ultisnips_snippets, **private_snippets}
