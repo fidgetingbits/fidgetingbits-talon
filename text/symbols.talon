@@ -2,11 +2,13 @@ question [mark]: "?"
 score: "_"
 double dash: "--"
 triple quote: '"""'
-triple tick: "'''"
+ticky: "'''"
 gravy: "```"
 riddle: "???"
+sexy: "XXX"
+bangy: "!!!"
 (dot dot | dotdot): ".."
-ellipses: "..."
+(ellipses|dotty): "..."
 (comma and | spamma): ", "
 plus: "+"
 arrow: "->"
@@ -15,7 +17,6 @@ new line: "\\n"
 carriage return: "\\r"
 line feed: "\\r\\n"
 end of file: "EOF"
-dotty: "../"
 
 empty (string|quotes):
     insert('""')

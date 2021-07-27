@@ -58,6 +58,10 @@ linux_file_paths = {
     "poly bar": "~/.config/polybar/config", 
     "eye three": "~/.i3/config", 
     "config": "~/.vimrc", 
+    "c snippets": "~/.vim/plugged/vim-snippets/UltiSnips/c.snippets",
+    "mark down snippets": "~/.vim/plugged/vim-snippets/UltiSnips/markdown.snippets",
+    "python snippets": "~/.vim/plugged/vim-snippets/UltiSnips/python.snippets",
+    "bash snippets": "~/.vim/plugged/vim-snippets/UltiSnips/bash.snippets",
 }
 
 # this is used for specific commands like pivot
