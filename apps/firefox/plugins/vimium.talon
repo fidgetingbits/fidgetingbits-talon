@@ -24,9 +24,9 @@ half down:
 [(page|tab)] (refresh|reload):
     key("r")
 (address|Earl|link) copy:
-    key("yy")
+    insert("yy")
 copy (address|Earl|link):
-    key("yy")
+    insert("yy")
 open clipboard link:
     key("p")
 open new clipboard link:
@@ -86,9 +86,9 @@ go to mark <user.letter>':
 (page|tab) find:
     key("T")
 edit address bar:
-    key("ge")
+    insert("ge")
 edit address bar new tab:
-    key("gE")
+    insert("gE")
 
 # Using find
 #  Searching
