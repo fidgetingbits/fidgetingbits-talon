@@ -156,11 +156,6 @@ def hex_letters(m) -> str:
     "Multiple letter keys"
     return "".join(m.hex_letter_list)
 
-#@mod.capture(rule="(<self.hex_letter>|number+")
-#def hex(m) -> str:
-#    "Multiple hex keys"
-#    return "".join(m.letter_list)
-
 ctx = Context()
 modifier_keys = {
     # If you find 'alt' is often misrecognized, try using 'alter'.
@@ -223,7 +218,7 @@ symbol_key_words = {
     "plus": "+",
     "question": "?",
     # "squiggle": "~",
-    "squig": "~",
+    "wave": "~",
     "bang": "!",
     "dollar": "$",
     "score": "_",

@@ -76,6 +76,11 @@ escaped (round):
 [pair] quotes: 
     insert('""')
     edit.left()
+[pair] slashes: 
+    insert('//')
+    edit.left()
+# NOTE: purposely no edit.left()
+[pair] ampers: "&&"
 
 angle that:
     text = edit.selected_text()

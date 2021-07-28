@@ -1,1 +1,1 @@
-(dome|domain) <user.domains>: "{domains}"
+domain <user.domains>: "{domains}"
