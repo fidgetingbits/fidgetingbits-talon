@@ -24,4 +24,4 @@ find <user.text>:
 # Add Entry
 generate: key(ctrl-g)
 regenerate: key(ctrl-r)
-reveal: key(ctrl-h)
+(toggle pass [word]|reveal): key(ctrl-h)
