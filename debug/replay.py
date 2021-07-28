@@ -38,6 +38,15 @@ mod.setting(
     default=30,
     desc="The number of recordings to show in the replay recordings gui",
 )
+# NOTE: this is mostly useful if you're trying to update a text file with a
+# list of recordings that you're going to provide an analysis for, otherwise it
+# will be annoying
+mod.setting(
+    "replay_paste_name_on_save",
+    type=bool,
+    default=1,
+    desc="If set paste the name of the file saved into the open window",
+)
 
 ctx.matches = r"""
 tag: user.record_replay
@@ -71,6 +80,7 @@ class _RecordingReplayer(object):
         self.count = 0
         self.recordings = pathlib.Path(TALON_HOME, "recordings/")
         self.last_saved_recording = None
+        self.last_played_recording = None
         self.saved_recording_directory = None
 
     def last_recordings(self) -> List:
@@ -102,6 +112,8 @@ class _RecordingReplayer(object):
         """Play the last saved recording"""
         if self.last_saved_recording is not None:
             self.play_file(self.last_saved_recording)
+        else:
+            app.notify("No recording saved? Nothing to play")
 
     @check_settings
     def remove_last_saved(self):
@@ -110,6 +122,8 @@ class _RecordingReplayer(object):
             self.last_saved_recording.unlink(missing_ok=True)
             self.last_saved_recording = None
             app.notify(f"{self.last_saved_recording} removed")
+        else:
+            app.notify("No recording saved? Nothing removed")
 
     @check_settings
     def play_file(self, recording: pathlib.Path):
@@ -117,14 +131,28 @@ class _RecordingReplayer(object):
         actions.speech.disable()
         # TODO -  start using cubeb
         subprocess.run(["mplayer", recording])
+        self.last_played_recording = recording
         actions.speech.enable()
 
     @check_settings
-    def save_recording(self, index):
+    def save_last_played(self):
+        """Save the last recording played"""
+        if self.last_played_recording:
+            self.save_file(self.last_played_recording)
+            app.notify(f"{self.last_played_recording} saved")
+        else:
+            app.notify("No played recordings? Nothing saved")
+
+    @check_settings
+    def save_recording_by_index(self, index):
         """Save the recording into the defined folder"""
         if index == 0:
             self.recordings_list = self.last_recordings()
         file_name = pathlib.Path(self.recordings_list[index - 1])
+        return self.save_file(file_name)
+
+    def save_file(self, file_name: pathlib.Path):
+        """Save a file to the recording directory"""
         if self.saved_recording_directory is None:
             return None
         shutil.copy(file_name, self.saved_recording_directory)
@@ -193,17 +221,28 @@ class Actions:
     def replay_save(choice: int):
         """Save the selected recording to a preconfigured directory"""
         global rr
-        file_name = rr.save_recording(choice)
+        file_name = rr.save_recording_by_index(choice)
         if not file_name:
             return
-        # XXX - whether or not to pace should be part of a setting
-        clip.set_text(file_name)
-        actions.user.insert_cursor_paste('"[|]":', "")
+        if settings.get("user.replay_paste_name_on_save") != 0:
+            clip.set_text(file_name)
+            actions.user.insert_cursor_paste('"[|]":', "")
+
+    def replay_save_last_played():
+        """Insert some info from the last self.count recordings"""
+        global rr
+        file_name = rr.save_last_played()
+        if not file_name:
+            return
+        if settings.get("user.replay_paste_name_on_save") != 0:
+            clip.set_text(file_name)
+            actions.user.insert_cursor_paste('"[|]":', "")
+
 
     def replay_save_last():
         """Save the last recording to a preconfigured directory"""
         global rr
-        file_name = rr.save_recording(0)
+        file_name = rr.save_recording_by_index(0)
         if not file_name:
             return
         # XXX - make this optional
