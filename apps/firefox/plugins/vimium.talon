@@ -27,6 +27,8 @@ half down:
     insert("yy")
 copy (address|Earl|link):
     insert("yy")
+yankee:
+    insert("yy")
 open clipboard link:
     key("p")
 open new clipboard link:
@@ -42,9 +44,9 @@ enable vimium:
 focus input:
     key("g")
     key("i")
-[open] link [hints]:
+[open] links [hints]:
     key("f")
-[open] link [hints] new:
+[open] links [hints] new:
     key("F")
 # TODO: open multiple links
 copy link:
