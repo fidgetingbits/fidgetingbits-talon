@@ -281,4 +281,4 @@ def event_loop():
     finally:
         x.close()
 
-singleton = event_loop.singleton
+#singleton = event_loop.singleton
