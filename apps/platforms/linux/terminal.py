@@ -1,3 +1,6 @@
+# NOTE: If you use bindkeys -e setting in your shell (the default) also see
+# text/readline.py
+
 from talon import Context, actions
 
 ctx = Context()
@@ -5,7 +8,6 @@ ctx.matches = r"""
 os: linux
 tag: terminal
 """
-
 
 @ctx.action_class("edit")
 class EditActions:
@@ -25,13 +27,6 @@ class EditActions:
 
     def find(text: str = None):
         actions.key("ctrl-shift-f")
-
-    def word_left():
-        actions.key("ctrl-w left")
-
-    def word_right():
-        actions.key("ctrl-w right")
-
 
 @ctx.action_class("app")
 class AppActions:
