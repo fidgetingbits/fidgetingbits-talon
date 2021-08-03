@@ -11,7 +11,7 @@ sleep all:
     user.engine_sleep()
     app.notify("Talon Sleep All Mode")
 
-go to sleep:
+(go to sleep|drowse):
     # XXX - should go through and disable all of the currently activated modes,
     # in wake up should reactivate all of them
     mode.disable("command")
