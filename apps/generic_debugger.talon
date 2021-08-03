@@ -52,9 +52,9 @@ break [point] enable <number_small>: user.debugger_enable_breakpoint_id(number_s
 
 # Memory Inspection
 (stack|back) trace: user.debugger_backtrace()
-disassemble: user.debugger_disassemble()
-disassemble here: user.debugger_disassemble_here()
-disassemble clipboard: user.debugger_disassemble_clipboard()
+(disassemble|dizzy): user.debugger_disassemble()
+(disassemble|dizzy) here: user.debugger_disassemble_here()
+(disassemble|dizzy) clip: user.debugger_disassemble_clipboard()
 jump to address: user.debugger_goto_address()
 jump to clipboard: user.debugger_goto_clipboard()
 jump to highlighted: user.debugger_goto_highlighted()
@@ -67,6 +67,7 @@ list modules: user.debugger_list_modules()
 
 # Type inspection
 inspect type: user.debugger_inspect_type()
+inspect type clip: user.debugger_inspect_type_clip()
 
 # Hex Dumping Memory
 #hex dump register:

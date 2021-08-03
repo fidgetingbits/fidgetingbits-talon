@@ -16,9 +16,13 @@ chunk config: "ptconfig "
 chunk set config: "ptconfig -v "
 heap info: "ptparam\n"
 
+P T chunk help: "ptchunk -h\n"
+P T list help: "ptlist -h\n"
+P T list: "ptlist "
+P T list tag trace: "ptlist -M 'tags, backtrace:3' "
+P T list save: "ptlist -M 'tags, backtrace:3' --json "
+P T debug: "--loglevel debug"
 
-p t chunk help: "ptchunk -h\n"
-p t list help: "ptlist -h\n"
-p t list: "ptlist "
-p t list tag trace: "ptlist -M 'tags, backtrace:3' "
-p t list save: "ptlist -M 'tags, backtrace:3' --json "
+P T arena list only: "ptarena -l\n"
+
+print main arena: "p &main_arena\n"

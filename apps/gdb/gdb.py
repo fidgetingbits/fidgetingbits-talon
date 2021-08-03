@@ -121,5 +121,17 @@ class UserActions:
         actions.insert("x/10i $pc\n")
         # Type inspection
 
+    def debugger_disassemble():
+        actions.insert("x/10i ")
+        # Type inspection
+
     def debugger_dump_ascii_string():
         actions.insert("x/s ")
+
+    def debugger_inspect_type():
+        actions.insert("ptype ")
+
+    def debugger_inspect_type_clip():
+        actions.insert("ptype ")
+        actions.edit.paste()
+        actions.key("enter")

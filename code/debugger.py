@@ -185,6 +185,9 @@ class Actions:
     def debugger_inspect_type():
         """Inspect a specific data type in the debugger"""
 
+    def debugger_inspect_type_clip():
+        """Inspect a specific data type stored in the clipboard"""
+
     def debugger_clear_line():
         """Clear unwanted data from the command line"""
 

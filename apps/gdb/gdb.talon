@@ -22,11 +22,9 @@ force clear all break points:
     insert("d br\n")
     insert("y\n")
 
-
-
-break [on] clipboard:
+break [on] clip:
     insert("break ")
-    key(ctrl-shift-v)
+    edit.paste()
     key(enter)
 
 clear screen: "shell clear\n"
@@ -68,7 +66,7 @@ source: "source \t\t"
 # displays
 # XXX - move thee invoke command into a python script
 (list|show|info) display: "info display\n"
-display assembly line$: "display /i $pc\n"
+display (assembly line|program counter)$: "display /i $pc\n"
 display source: "display "
 enable display <number_small>: "enable display {number_small}\n"
 disable display <number_small>: "disable display {number_small}\n"
@@ -109,6 +107,15 @@ show detach on fork: "show detach-on-fork\n"
 set detach on fork: "set detach-on-fork on\n"
 unset detach on fork: "set detach-on-fork off\n"
 
+set logging on: "set logging on"
+set logging off: "set logging off"
+set logging file: "set logging file "
+show logging: "show logging\n"
+
+set history size: "set history size "
+set history size unlimited: "set history size unlimited\n"
+show history size: "show history size\n"
+
 info library: "info sharedlibrary\n"
 info file: "info file\n"
 
@@ -124,3 +131,10 @@ show list size: "show listsize\n"
 set list size <number_small>: "set listsize {number_small}\n"
 
 set remote target: "target extended-remote :9999\n"
+
+print structure size clip: 
+    insert("p/x sizeof(")
+    edit.paste()
+    key(")")
+    key(enter)
+    

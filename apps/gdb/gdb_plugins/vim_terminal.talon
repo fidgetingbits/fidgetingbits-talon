@@ -109,7 +109,7 @@ glitter <number> <user.ordinals>$:
     key(enter)
 
 # relative
-(hexdump|matrix) [relative] up [line] <number>$:
+(hexdump|matrix) [relative] <number>$:
     user.vim_normal_mode_exterm("{number+1}k")
     insert("^")
     user.vim_command_mode(":call search(\"0x\", 'c', line('.'))\n")
