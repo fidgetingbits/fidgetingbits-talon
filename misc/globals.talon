@@ -15,9 +15,9 @@ show keyboard:
 hide keyboard:
     user.system_command_nb("/home/aa/scripts/florence_hide.sh")
 talon restart:
-    user.system_command_nb("/home/aa//talon/scripts/restart_talon.sh")
+    user.system_command_nb("/home/aa/scripts/talon/restart_talon.sh")
 talon kill:
-    user.system_command_nb("/home/aa/talon/scripts/terminate_talon.sh")
+    user.system_command_nb("/home/aa/scripts/talon/terminate_talon.sh")
 pauly restart:
     user.system_command_nb("/home/aa/.config/polybar/launch.sh")
 
