@@ -37,7 +37,7 @@ settings():
     # where to save replayed recordings for talon debugging
     user.saved_replay_recordings_directory = "~/talon/documents/conformer_problem_recordings/"
     # the default is now 300ms
-    speech.timeout = 0.175
+    speech.timeout = 0.150
     speech.record_all = 1
     #speech.gain = 100
     speech.normalize = 1
