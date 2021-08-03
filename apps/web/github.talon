@@ -23,7 +23,7 @@ go to wiki: insert("gw")
 # network graph
 
 # source code browsing
-find file: key(t)
+file find: key(t)
 jump to line: key(l)
 switch (branch|tag): key(w)
 expand url: key(y)
