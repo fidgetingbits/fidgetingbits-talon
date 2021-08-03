@@ -120,3 +120,6 @@ funk path: "pathlib.Path()"
 funk bug: 
     insert('print(f"!!! ")')
     key(left:2)
+funk pretty print: 
+    insert("pp.pprint()")
+    key(left)
