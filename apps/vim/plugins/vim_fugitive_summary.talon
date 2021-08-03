@@ -7,10 +7,10 @@
 app: vim
 # XXX - at some point titles started showing the git repo, so for now i match
 # on something else
-#tag: user.vim_fugitive_summary
-#and win.title: /\[Git/
 tag: user.vim_fugitive_summary
-and win.title: /.git\/index/
+and win.title: /\[Git.*git.*index/
+#tag: user.vim_fugitive_summary
+#and win.title: /.git\/index/
 -
 
 # Staging/unstaging maps
