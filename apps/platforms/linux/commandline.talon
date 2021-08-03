@@ -122,6 +122,7 @@ folder yank path: "pwd | tr -d \\\\n\\\\r | xclip -sel clipboard\n"
 file [change] mode: "chmod "
 file make executable: "chmod +x "
 file [change] ownership: "chown "
+file [change] deep ownership: "chown -R $UID:$GID "
 
 # file viewing
 file less: "less "
@@ -247,6 +248,7 @@ d message: "dmesg"
 (disk|drive) unmount: "umount "
 (disk|drive) key dump: "sudo cryptsetup luksDump /dev/"
 (disk|drive) key add: "sudo cryptsetup luksAddKey --key-slot "
+(disk|drive) F stab: "cat /etc/fstab\n"
 
 # system configuration
 sis cuddle: "sysctl "
@@ -335,6 +337,7 @@ system [list] memory: "lshw -short -C memory"
 system [list] processor: "lscpu\n"
 system [list] pee bus: "lspci\n"
 system [list] yew bus: "lsusb\n"
+system release: "cat /etc/lsb_release\n"
 
 # debugging
 debug server: "gdbserver "
