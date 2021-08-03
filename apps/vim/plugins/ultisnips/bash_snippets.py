@@ -6,8 +6,12 @@ ctx = Context()
 ctx.matches = r"""
 tag: user.vim_ultisnips
 mode: user.bash
+
 mode: command
 and code.language: bash
+
+mode: command
+and code.language: zsh
 """
 # spoken name -> snippet name
 ultisnips_snippets = {
