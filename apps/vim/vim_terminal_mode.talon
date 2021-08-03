@@ -87,7 +87,34 @@ echo <number_small> <user.ordinals>:
     edit.paste()
     key(space)
 
-    # yankee are commands are for copying the remaining line from a given point
+# copy from the specified key to the end of the line
+echo <number_small> <user.unmodified_key>:
+    user.vim_normal_mode_exterm("{number_small}k")
+    key('0')
+    insert("f{unmodified_key}")
+    insert("yE")
+
+    user.vim_set_insert_mode()
+    edit.paste()
+    # disable weird highlight
+    key(down:5)
+
+# XXX - it would be nice to have this you something like treesitter on a single
+# line (even though it would be broken syntax) and be able to specify which
+# element we want...
+# copy a function name on the specified line
+echo <number_small> funk:
+    user.vim_normal_mode_exterm("{number_small}k")
+    key('0')
+    insert("f(")
+    insert("yB")
+
+    user.vim_set_insert_mode()
+    edit.paste()
+    # disable weird highlight
+    key(down:5)
+
+# yankee are commands are for copying the remaining line from a given point
 yankee <number_small>:
     user.vim_normal_mode_exterm("{number_small}k")
     key('0')

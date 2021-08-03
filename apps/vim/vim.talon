@@ -206,7 +206,7 @@ force botch: user.vim_command_mode_exterm(":bd!\n")
 [go] (buf|buffer) flip: user.vim_command_mode_exterm(":b#\n")
 [go] (buf|buffer) last: user.vim_command_mode_exterm(":bl\n")
 close (bufs|buffers): user.vim_command_mode_exterm(":bd ")
-[go] (buf|buffer) <number_small>: user.vim_command_mode_exterm(":b {number_small}\n")
+(buf|buffer) open <number>: user.vim_command_mode_exterm(":b {number}\n")
 # creates a split and then moves the split to a tab. required for when the
 # current tab has only one split
 (buf|buffer) (move to|make) tab:
@@ -217,6 +217,8 @@ close (bufs|buffers): user.vim_command_mode_exterm(":bd ")
 (buf|buffer) rename <user.text>: user.vim_command_mode_exterm(":file {text}")
 new (empty|unnamed) buffer: user.vim_command_mode_exterm(":enew\n")
 (buf|buffer) do: user.vim_command_mode_exterm(":bufdo ")
+(buf|buffer) show: user.vim_command_mode_exterm(":let g:buf_num = bufnr('%') | echo g:buf_num\n")
+(buf|buffer) open (cached|last): user.vim_command_mode_exterm(':execute "buffer" g:buf_num\n')
 
 ###
 # Splits
@@ -362,6 +364,10 @@ split (only|exclusive):
     user.vim_set_normal_mode_exterm()
     key(ctrl-w)
     key(o)
+split swap:
+    user.vim_set_normal_mode_exterm()
+    key(ctrl-w)
+    key(x)
 split rotate [right]:
     user.vim_set_normal_mode_exterm()
     key(ctrl-w)

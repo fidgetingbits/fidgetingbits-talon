@@ -138,7 +138,7 @@ change line: user.vim_normal_mode("cc")
 # XXX - technically these might be doable in command line mode, but life should
 # become default talon and actions
 # XXX - this might be suited for some automatic motion thing in vim.py
-swap (bytes|characters):
+swap (bytes|char|characters):
     user.vim_normal_mode("x")
     user.vim_normal_mode("p")
 
@@ -309,8 +309,8 @@ global inverted clear:
 ###
 macro play <user.letter>: user.vim_any_motion_mode("@{letter}")
 macro (again|repeat|replay): user.vim_any_motion_mode("@@")
-macro record <user.letter>: user.vim_any_motion_mode("q{letter}")
-macro stop: user.vim_any_motion_mode("q")
+macro (start|record) <user.letter>: user.vim_any_motion_mode("q{letter}")
+macro (done|finish|stop): user.vim_any_motion_mode("q")
 
 [copy] register <user.unmodified_key> [in] to [register] <user.unmodified_key>:
     user.vim_command_mode(":let@{unmodified_key_2}=@{unmodified_key_1}\n")
