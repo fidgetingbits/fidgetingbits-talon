@@ -1,3 +1,4 @@
+# XXX - This file is deprecated. See text/readline.py
 from talon import Context, actions
 
 ctx = Context()
@@ -15,7 +16,6 @@ os: linux
 tag: user.shell_edit_emacs
 """
 # XXX - change this tag name
-
 
 @ctx.action_class("edit")
 class EditActions:
