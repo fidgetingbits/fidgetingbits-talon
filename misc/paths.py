@@ -24,11 +24,13 @@ linux_folder_paths = {
     "user": "/usr/",
     "user bin": "/usr/bin/",
     "user lib": "/usr/lib/",
+    "user lib debug": "/usr/lib/debug",
     "user src": "/usr/src/",
     "user local": "/usr/local/",
     "user local bin": "/usr/local/bin/",
     "user local lib": "/usr/local/lib/",
     "user local config": "/usr/local/etc/",
+    "lib": "/lib",
     "log": "/var/log/",
     "shell config": "~/.ohmyzsh/",
     "shell functions": "~/.ohmyzsh/custom/functions/",
@@ -37,6 +39,12 @@ linux_folder_paths = {
     "vim snippets": "~/.vim/plugged/vim-snippets/UltiSnips/",
     "talon": f"~/.talon/user/{TALON_REPO}/",
     "back": "../",
+
+    # ubuntu-esque stuff
+    "lib linux": "/lib/x86_64-linux-gnu/",
+    "lib sixty four": "/lib64/",
+    "lib thirty two": "/lib32/",
+    "lib three two": "/lib32/",
 }
 
 linux_file_paths = {
