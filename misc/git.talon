@@ -4,7 +4,7 @@ and tag: user.git
 # Standard commands
 git add patch: "git add . -p\n"
 git add: "git add "
-git add everything: "git add -u\n"
+git add (changed|everything): "git add -u\n"
 git bisect: "git bisect "
 git blame: "git blame "
 git branch: "git branch "
@@ -51,6 +51,9 @@ git ignore changes: "git update-index --assume-unchanged "
 git in it: "git init\n"
 git list files: "git ls-files\n"
 git list modified: "git ls-files -m\n"
+git list tracked: "git ls-files -r master --name-only\n"
+git list ignored: "git ls-files . --ignored --exclude-standard --others\n"
+git list untracked: "git ls-files . --ignored --exclude-standard --others\n"
 git log all: "git log\n"
 git log all changes: "git log -c\n"
 git log: "git log "
@@ -89,6 +92,13 @@ get remote set origin: "git remote set-url origin "
 git remote show origin: "git remote show origin\n"
 git remote add upstream: "git remote add upstream "
 git show: "git show "
+git show clip: 
+    insert("git show ")
+    edit.paste()
+git show change: "git show -c"
+git show change clip:
+    insert("git show -c")
+    edit.paste()
 git stash pop: "git stash pop\n"
 git stash: "git stash\n"
 git stash apply: "git stash apply\n"
