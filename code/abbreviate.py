@@ -38,6 +38,7 @@ ctx.lists["user.abbreviation"] = {
     "british columbia": "bc",
     "buffer": "buf",
     "button": "btn",
+    "by the way": "btw",
     "canada": "ca",
     "centimeter": "cm",
     "char": "chr",
