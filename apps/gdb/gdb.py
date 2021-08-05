@@ -135,3 +135,10 @@ class UserActions:
         actions.insert("ptype ")
         actions.edit.paste()
         actions.key("enter")
+
+    def debugger_show_binary_sections():
+        actions.insert("maintenance info sections\n")
+
+    def debugger_show_memory_sections():
+        actions.insert("info proc mappings\n")
+

@@ -64,6 +64,9 @@ dump unicode [string]: user.debugger_dump_unicode_string()
 dump pointers: user.debugger_dump_pointers()
 
 list modules: user.debugger_list_modules()
+list sections: user.debugger_show_binary_sections()
+list memory [mapping]: user.debugger_show_memory_sections()
+
 
 # Type inspection
 inspect type: user.debugger_inspect_type()

@@ -30,6 +30,7 @@ break [on] clip:
 clear screen: "shell clear\n"
 # information
 list [source]: "list\n"
+list (base|P C): "list $pc\n"
 
 print: "p "
 print [variable] <user.text>: "p {text}"
@@ -40,19 +41,19 @@ print (bits|binary): "p/t "
 
 # hexdumping
 # XXX - switch the sizes to a list in python?
-# XXX - should cache the last used size
+# XXX - should cache the last used size, and make it the default
 hex dump <number> bytes: "x/{number}bx "
 hex dump <number> (half|short) words: "x/{number}hx "
 hex dump <number> (d|long) words: "x/{number}dx "
 hex dump <number> quad words: "x/{number}gx "
 # this is some arbitrary default for convenience
-hex dump: "x/100gx "
+hex dump: "x/50gx "
 hex dump highlighted:
     insert("x/100gx ")
     edit.copy()
     edit.paste()
     key(enter)
-hex dump clipboard:
+hex dump clip:
     insert("x/100gx ")
     edit.paste()
     key(enter)
@@ -79,6 +80,7 @@ undisplay: "undisplay\n"
 (list|show|info) variable typed: "info variable -t "
 (list|show|info) locals: "info local\n"
 (list|show|info) variables: "info variables\n"
+(list|show|info) (args|arguments): "info args\n"
 
 # threads
 info threads: "info threads\n"
@@ -131,6 +133,10 @@ show list size: "show listsize\n"
 set list size <number_small>: "set listsize {number_small}\n"
 
 set remote target: "target extended-remote :9999\n"
+
+print structure size: 
+    insert("p/x sizeof()")
+    edit.left()
 
 print structure size clip: 
     insert("p/x sizeof(")

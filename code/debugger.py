@@ -194,6 +194,12 @@ class Actions:
     def debugger_list_modules():
         """List the loaded modules in the debuggee memory space"""
 
+    def debugger_show_binary_sections():
+        """List the loaded modules and binary sections"""
+
+    def debugger_show_memory_sections():
+        """List the memory mapping of the target memory space"""
+
     def debugger_cycle_architecture():
         """Switch to the next architecture mode"""
         global debugger
@@ -203,3 +209,5 @@ class Actions:
         """displayed the current architecture mode"""
         global debugger
         debugger.current_architecture()
+
+
