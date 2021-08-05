@@ -99,6 +99,7 @@ git show change: "git show -c"
 git show change clip:
     insert("git show -c")
     edit.paste()
+git show head: "git show -c HEAD\n"
 git stash pop: "git stash pop\n"
 git stash: "git stash\n"
 git stash apply: "git stash apply\n"
