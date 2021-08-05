@@ -116,8 +116,8 @@ matching: user.vim_any_motion_mode_key("%")
 matching <user.symbol_key>: user.vim_any_motion_mode("f{symbol_key}%")
 
 # ctags/symbol
-tag jump: user.vim_normal_mode_key("ctrl-]")
-tag back: user.vim_normal_mode_key("ctrl-t")
+taggy jump: user.vim_normal_mode_key("ctrl-]")
+taggy back: user.vim_normal_mode_key("ctrl-t")
 
 ###
 # Text editing, copying, and manipulation
@@ -159,6 +159,10 @@ patch <user.unmodified_key>:
 patch (ship|upper|upper case) <user.letters>:
     user.vim_any_motion_mode_key("r")
     user.insert_formatted(letters, "ALL_CAPS")
+# Delete the next in since of this specified character
+shoot <user.unmodified_key>:
+    user.vim_any_motion_mode("f{unmodified_key}")
+    user.vim_any_motion_mode("x")
 
 # deleting
 (delete|trim) remaining [line]:
@@ -490,59 +494,59 @@ find (reversed|previous) <user.ordinals> <user.unmodified_key>:
 # Visual Text Selection
 ###
 make ascending: user.vim_normal_mode_key("g ctrl-a")
-(light|highlight) line: user.vim_visual_mode("V")
+(take|light|highlight) line: user.vim_visual_mode("V")
 block (light|highlight): user.vim_any_motion_mode_exterm_key("ctrl-v")
 
-(light|highlight) <user.vim_motions>:
+(take|light|highlight) <user.vim_motions>:
     user.vim_visual_mode("{vim_motions}")
-block (light|highlight) <user.vim_motions>:
+block (take|light|highlight) <user.vim_motions>:
     user.vim_visual_block_mode("{vim_motions}")
 
-(light|highlight) lines <number> through <number>:
+(take|light|highlight) lines <number> through <number>:
     user.vim_normal_mode_np("{number_1}G")
     user.vim_set_visual_mode()
     insert("{number_2}G")
 
-block (light|highlight) lines <number> through <number>:
+block (take|light|highlight) lines <number> through <number>:
     user.vim_normal_mode_np("{number_1}G")
     user.vim_set_visual_block_mode()
     insert("{number_2}G")
 
-(light|highlight) <number_small> lines:
+(take|light|highlight) <number_small> lines:
     user.vim_set_visual_line_mode()
     insert("{number_small-1}j")
 
-block (light|highlight) <number_small> lines:
+block (take|light|highlight) <number_small> lines:
     user.vim_set_visual_block_mode()
     insert("{number_small-1}j")
 
-(light|highlight) <number_small> lines at line <number>:
+(take|light|highlight) <number_small> lines at line <number>:
     user.vim_normal_mode_np("{number}G")
     user.vim_set_visual_line_mode()
     insert("{number_small-1}j")
 
-block (light|highlight) <number_small> lines at line <number>:
+block (take|light|highlight) <number_small> lines at line <number>:
     user.vim_normal_mode_np("{number}G")
     user.vim_set_visual_block_mode()
     insert("{number_small-1}j")
 
-(light|highlight) <number_small> above:
+(take|light|highlight) <number_small> above:
     user.vim_normal_mode_np("{number_small}k")
     user.vim_set_visual_line_mode()
     insert("{number_small-1}j")
 
-block (light|highlight) <number_small> above:
+block (take|light|highlight) <number_small> above:
     user.vim_normal_mode_np("{number_small}k")
     user.vim_set_visual_block_mode()
     insert("{number_small-1}j")
 
-(light|highlight) (until|till) line <number>:
+(take|light|highlight) (until|till) line <number>:
     user.vim_normal_mode_np("m'")
     insert(":{number}\n")
     user.vim_set_visual_line_mode()
     insert("''")
 
-block (light|highlight) (until|till) line <number>:
+block (take|light|highlight) (until|till) line <number>:
     user.vim_normal_mode_np("m'")
     insert(":{number}\n")
     user.vim_set_visual_block_mode()
@@ -551,7 +555,7 @@ block (light|highlight) (until|till) line <number>:
 # Greedily highlight whatever is under the cursor. Doesn't work if on the first
 # character of the entry, in which case you should say a normal motion like
 # "light big end", etc
-light this:
+(take|light) this:
     user.vim_normal_mode_np("B")
     user.vim_visual_mode("E")
 
@@ -622,6 +626,7 @@ pinch: user.vim_normal_mode("0x")
 prefix <user.unmodified_key>: user.vim_normal_mode("I{unmodified_key}")
 squish: user.vim_command_mode(":s/  / /g\n")
 # XXX - this could be a generic talon thing
+# XXX - this seems broken if we do it from insert mode
 magnet:
     user.vim_normal_mode("f ")
     user.vim_normal_mode("x")
@@ -648,3 +653,6 @@ last <user.unmodified_key>:
 
 flop:
     user.vim_command_mode(":call popup_clear(1)")
+
+yank funk: 
+    user.vim_normal_mode("f(Byt(")

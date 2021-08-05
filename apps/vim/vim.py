@@ -121,7 +121,7 @@ standard_counted_actions = {
     "append": "a",
     # "after line": "A",
     "append line": "A",
-    "insert": "i",
+    "insert mode": "i",
     "insert column zero": "gI",
     # "open below": "o",
     # "open above": "O",
@@ -180,7 +180,7 @@ standard_counted_actions_control_keys = {
 # there to prevent merge conflicts.
 custom_counted_action = {
     "drop": "x",
-    "ochre": "o",
+    "open below": "o",  # ochre stopped working because of over
     "orca": "O",
     #    "slide left": "<<",
     "dedent": "<<",
@@ -313,6 +313,7 @@ motions = {
     "tense": ")",
     "last tense": "(",
     "graph": "}",
+    "laugh": "{",
     "last graph": "{",
     "section": "]]",
     "last section": "[[",
@@ -323,6 +324,7 @@ motions = {
     "block start": "[{",
     "last block": "[}",
     "matching": "%",
+    "match": "%",
     "down line": "+",
     "up line": "-",
     "first character": "_",
@@ -1198,6 +1200,7 @@ class VimMode:
     def set_any_motion_mode(self):
         self.adjust_mode([self.NORMAL, self.VISUAL])
 
+    # XXX - this should except additional modes, like visual block
     def set_any_motion_mode_exterm(self):
         self.adjust_mode([self.NORMAL, self.VISUAL], escape_terminal=True)
 
@@ -1286,7 +1289,8 @@ class VimMode:
             return
 
         self.dprint("Setting mode to {}".format(wanted_mode))
-        # enter normal mode where necessary
+        print(f"{current_mode}")
+        # enter normal mode where "_cwnecessary
         # XXX - need to handle normal mode in Command Line window, we need to
         # be able to escape from it
         # XXX - also have a lot of special case modes (see :help mode) that we
@@ -1315,13 +1319,14 @@ class VimMode:
                 # NOTE: do not wait on mode change here, as we
                 # cannot detect it
         elif self.is_insert_mode():
-            # XXX - this might need to be a or for no_preserve and
+            # XXX - this might need to be a or for no_preserve "_cwand
             # settings.get?
             if (
                 wanted_mode == self.NORMAL
                 and no_preserve is False
                 and settings.get("user.vim_preserve_insert_mode") >= 1
             ):
+                print("queueing ")
                 if settings.get("user.vim_mode_switch_moves_cursor") == 0:
                     actions.key("ctrl-\\")
                 actions.key("ctrl-o")

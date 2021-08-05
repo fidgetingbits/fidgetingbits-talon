@@ -153,7 +153,8 @@ file (edit|open) <user.paths>:
 ###
 # XXX - line conflicts too much with nine,
 #[(go|jump)] [to] line <number>:
-[go] row <number>:
+# XXX - lately row is conflicting with numb
+go row <number>:
     user.vim_command_mode_exterm(":{number}\n")
 
     # These are especially useful when in terminal mode and you want to jump to
@@ -182,7 +183,7 @@ scroll [on] line <number>:
 center [on] line <number>:
     user.vim_command_mode_exterm(":{number}\nz.")
 scroll top: user.vim_normal_mode_exterm("zt")
-scroll (center|middle): user.vim_normal_mode_exterm("zz")
+[scroll] middle: user.vim_normal_mode_exterm("zz")
 scroll bottom: user.vim_normal_mode_exterm("zb")
 # XXX - change these exist scroll top curse ?
 scroll top reset cursor: user.vim_normal_mode_exterm("z\n")
@@ -558,7 +559,7 @@ mark global [(new|create)] <user.upper_letter>:
     key(`)
     key(letter)
 
-(global mark|gallop) (go|jump) [to] <user.upper_letter>:
+(mark global|gallop) (go|jump) [to] <user.upper_letter>:
     user.vim_set_normal_mode_exterm()
     key(`)
     key(upper_letter)
@@ -617,15 +618,17 @@ visual mode: user.vim_set_visual_mode()
 # sort of quasi-modes - see vim_command_line.talon
 show history: user.vim_command_mode(":hist\n")
 command line (search|history) [mode]: user.vim_any_motion_mode_exterm_key("q:")
-search search [mode]: user.vim_any_motion_mode_exterm_key("q/")
+search command [mode]: user.vim_any_motion_mode_exterm_key("q/")
 
 ###
 # Searching
 ###
+# case insensitive search
 search:
     user.vim_any_motion_mode_exterm("/\\c")
 
-search strict:
+# case sensitive search
+seek:
     key(escape)
     user.vim_any_motion_mode_exterm("/\\C")
 
@@ -635,17 +638,17 @@ search strict:
 #search <user.text> sensitive$:
 #    user.vim_any_motion_mode_exterm("/\\C{text}\n")
 
-search <user.ordinals> <user.text>$:
-    user.vim_any_motion_mode_exterm("{ordinals}/\\c{text}\n")
+#search <user.ordinals> <user.text>$:
+#    user.vim_any_motion_mode_exterm("{ordinals}/\\c{text}\n")
 
-    # XXX - probably rename these
-search (reversed|reverse) <user.text>$:
-    user.vim_any_motion_mode_exterm("?\\c{text}\n")
+# XXX - probably rename these
+#search (reversed|reverse) <user.text>$:
+#    user.vim_any_motion_mode_exterm("?\\c{text}\n")
 
 search (reversed|reverse):
     user.vim_any_motion_mode_exterm("?\\c")
 
-search (reversed|reverse) sensitive:
+seek (reversed|reverse):
     user.vim_any_motion_mode_exterm("?\\C")
 
 
