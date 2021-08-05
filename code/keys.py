@@ -5,11 +5,12 @@ from talon import Context, Module, actions, app
 
 # My experience:
 #   fine - conflicts with find
-#   jury  - suddenly always matching with three or tree
+#   jury  - two syllables, and matching with three or tree
+#   jail  - suddenly always with til
 #   pit  - conflicts with page
 #   yank - conflicts with vim command
 #   sit - conflicting with split on conformer
-default_alphabet = "air bat cap drum each fin gust harp sit jail crunch look made near odd peck quench red sun trap urge vest whale plex yell zip".split(
+default_alphabet = "air bat cap drum each fin gust harp sit jake crunch look made near odd peck quench red sun trap urge vest whale plex yell zip".split(
     " "
 )
 letters_string = "abcdefghijklmnopqrstuvwxyz"
