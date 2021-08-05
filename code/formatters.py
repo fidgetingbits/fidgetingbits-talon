@@ -260,8 +260,7 @@ class Actions:
     def insert_formatted(phrase: Union[str, Phrase], formatters: str):
         """Inserts a phrase formatted according to formatters. Formatters is a comma separated list of formatters (e.g. 'CAPITALIZE_ALL_WORDS,DOUBLE_QUOTED_STRING')"""
         #actions.insert(format_phrase(phrase, formatters))
-        clip.set_text(format_phrase(phrase, formatters))
-        edit.paste()
+        actions.user.paste(format_phrase(phrase, formatters))
 
     def formatters_help_toggle():
         """Lists all formatters"""
@@ -300,16 +299,14 @@ class Actions:
         edit.delete()
         text = actions.self.formatted_text(unformatted, formatters)
         #actions.insert(text)
-        clip.set_text(text)
-        edit.paste()
+        actions.user.paste(text)
         return text
 
     def insert_many(strings: List[str]) -> None:
         """Insert a list of strings, sequentially."""
         for string in strings:
             #actions.insert(string)
-            clip.set_text(string)
-            edit.paste()
+            actions.user.paste(string)
 
 ctx.lists["self.formatters"] = formatters_words.keys()
 ctx.lists["self.prose_formatter"] = {
