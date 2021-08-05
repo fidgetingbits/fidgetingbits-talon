@@ -3,7 +3,7 @@ import os
 import re
 from typing import List, Union
 
-from talon import Context, Module, actions, app, imgui, ui
+from talon import Context, Module, actions, app, clip, imgui, ui
 from talon.grammar import Phrase
 
 ctx = Context()
@@ -259,7 +259,9 @@ class Actions:
 
     def insert_formatted(phrase: Union[str, Phrase], formatters: str):
         """Inserts a phrase formatted according to formatters. Formatters is a comma separated list of formatters (e.g. 'CAPITALIZE_ALL_WORDS,DOUBLE_QUOTED_STRING')"""
-        actions.insert(format_phrase(phrase, formatters))
+        #actions.insert(format_phrase(phrase, formatters))
+        clip.set_text(format_phrase(phrase, formatters))
+        edit.paste()
 
     def formatters_help_toggle():
         """Lists all formatters"""
@@ -297,14 +299,17 @@ class Actions:
         # selected text (e.g. Emacs, Vim)
         edit.delete()
         text = actions.self.formatted_text(unformatted, formatters)
-        actions.insert(text)
+        #actions.insert(text)
+        clip.set_text(text)
+        edit.paste()
         return text
 
     def insert_many(strings: List[str]) -> None:
         """Insert a list of strings, sequentially."""
         for string in strings:
-            actions.insert(string)
-
+            #actions.insert(string)
+            clip.set_text(string)
+            edit.paste()
 
 ctx.lists["self.formatters"] = formatters_words.keys()
 ctx.lists["self.prose_formatter"] = {
