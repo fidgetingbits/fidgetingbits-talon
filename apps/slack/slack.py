@@ -4,6 +4,8 @@ mod = Module()
 apps = mod.apps
 apps.slack = "app.name: Slack"
 mod.apps.slack = """
+os: linux
+and app.name: Slack
 os: windows
 and app.name: Slack
 os: windows
