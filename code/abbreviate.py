@@ -160,6 +160,7 @@ ctx.lists["user.abbreviation"] = {
     "just in time": "jit",
     "jump": "jmp",
     "kay": "kk",
+    "kernel": "krnl",
     "keyboard": "kbd",
     "keyword arguments": "kwargs",
     "keyword": "kw",
@@ -312,7 +313,9 @@ ctx.lists["user.abbreviation"] = {
     "wave": "wav",
     "web": "www",
     "what the fuck": "wtf",
+    "wind": "wnd",
     "window": "win",
+    "windows kernel": "ntoskrnl",
 }
 
 
