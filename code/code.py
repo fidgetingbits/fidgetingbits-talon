@@ -89,6 +89,8 @@ special_file_map = {
     "CMakeLists.txt": "cmake",
     "Dockerfile": "docker",
     "meson.build": "meson",
+    ".bashrc": "bash",
+    ".zshrc": "zsh",
 }
 
 
