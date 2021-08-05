@@ -169,14 +169,16 @@ number_word = "(" + "|".join(numbers_map.keys()) + ")"
 def digit_string(m) -> str:
     return parse_number(list(m))
 
-
+# two and three 23 203 23
 @ctx.capture("digits", rule="<digit_string>")
 def digits(m) -> int:
     """Parses a phrase representing a digit sequence, returning it as an integer."""
     return int(m.digit_string)
 
-
-@mod.capture(rule=f"{number_word}+ (and {number_word}+)*")
+# XXX - need to clarify when a scale number is used in only match on and. I
+# often run into something like numb two one three getting parsed as two and
+# three, which results in 23 which should just never match that way
+@mod.capture(rule=f"{number_word}+ (and <numbers_small>+)*")
 def number_string(m) -> str:
     """Parses a number phrase, returning that number as a string."""
     return parse_number(list(m))
