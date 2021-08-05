@@ -83,7 +83,7 @@ pivot clip:
     edit.paste()
     key(enter)
 pivot <user.paths>:
-    insert("cd {paths}\n")
+    edit.paste("cd {paths}\n")
     insert("ls\n")
 # pivot up doesn't work with talon
 pivot back: "cd ../\n"
