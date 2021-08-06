@@ -40,6 +40,7 @@ ctx.lists["user.code_libraries"] = {
     "reg ex": "re",
     "shell utils": "shutil",
     "string": "string",
+    "struct": "struct",
     "system": "sys",
     "tar file": "tarfile",
     "time": "time",
