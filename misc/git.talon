@@ -115,7 +115,14 @@ git [sub] module status recurse: "git submodule status --recursive\n"
 git [sub] module sink: "git submodule sync\n"
 git [sub] module update: "git submodule update --init --recursive --remote"
 git module references: "git ls-files --stage | grep 160000\n"
-git tag: "git tag "
+git tag list: "git tag\n"
+git tag list specific: 
+    insert('git tag -l ""')
+    edit.left()
+git tag add: 
+    user.insert_cursor('git tag -a v[|] -m ""')
+git tag remove: "git tag -d "
+git tag remove remote: "git push origin --delete "
 
 # Convenience
 git edit config: "git config --local -e\n"
@@ -146,4 +153,4 @@ git commit highlighted:
     edit.copy()
     insert("git add ")
     edit.paste()
-    insert("\ngit commit\n")
+    insert("\ngit commitit tag\n")
