@@ -106,7 +106,8 @@ set args: "set args "
 
 info source: "info source\n"
 info signal: "info signal\n"
-handle signal: "handle \n"
+handle signal <user.signal>: "handle {signal} "
+signal <user.signal>: "signal {signal} "
 
 show follow (fork|forks) [mode]: "show follow-fork-mode\n"
 [set] follow (fork|forks) [mode] child: "set follow-fork-mode child\n"
