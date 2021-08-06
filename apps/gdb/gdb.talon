@@ -1,5 +1,10 @@
 os: linux
 tag: user.gdb
+
+# XXX - a lot of the stuff in here is probably not suited for inclusion when
+# writing the scripts?
+tag:user.auto_lang
+and code.language: gdb
 -
 tag(): user.debugger
 tag(): user.terminal_program
@@ -100,6 +105,8 @@ resume [from] (inf|inferior) <number_small>$:
 set args: "set args "
 
 info source: "info source\n"
+info signal: "info signal\n"
+handle signal: "handle \n"
 
 show follow (fork|forks) [mode]: "show follow-fork-mode\n"
 [set] follow (fork|forks) [mode] child: "set follow-fork-mode child\n"
