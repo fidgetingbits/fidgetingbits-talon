@@ -38,7 +38,7 @@ class UserActions:
         actions.auto_insert(" = ")
 
     def code_comment():
-        actions.auto_insert("#")
+        actions.auto_insert("# ")
 
     def code_insert_function(text: str, selection: str):
         if selection:

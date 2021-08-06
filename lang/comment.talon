@@ -38,7 +38,7 @@ comment <user.text>$:
     insert(user.text)
 comment to do:
     user.code_comment()
-    insert(" XXX - ")
+    insert("XXX - ")
 comment note:
     user.code_comment()
-    insert(" NOTE - ")
+    insert("NOTE - ")
