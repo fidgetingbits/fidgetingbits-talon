@@ -697,7 +697,8 @@ recall last function:
 ###
 last command:
     user.vim_command_mode_exterm(":!!\n")
-
+messages last:
+    user.vim_normal_mode_exterm("g<")
 messages show:
     user.vim_command_mode_exterm(":messages\n")
 
