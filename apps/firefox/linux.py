@@ -81,10 +81,10 @@ class BrowserActions:
 class UserActions:
     def tab_jump(number: int):
         if number < 9:
-            actions.key("ctrl-{}".format(number))
+            actions.key("alt-{}".format(number))
 
     def tab_final():
-        actions.key("ctrl-9")
+        actions.key("alt-9")
 
     def tab_search():
         actions.browser.focus_address()

@@ -33,3 +33,13 @@ class Actions:
         actions.edit.paste()
         actions.sleep("200ms")
         clip.set_text(old.decode("utf-8"))
+
+    def words_left(n: int):
+        """Moves left by n words."""
+        for _ in range(n):
+            actions.edit.word_left()
+
+    def words_right(n: int):
+        """Moves right by n words."""
+        for _ in range(n):
+            actions.edit.word_right()
