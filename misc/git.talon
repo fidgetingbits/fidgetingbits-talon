@@ -8,7 +8,9 @@ git add (changed|everything): "git add -u\n"
 git bisect: "git bisect "
 git blame: "git blame "
 git branch: "git branch "
-git remote branches: "git branch --remote\n"
+git branch (remove|delete): "git branch -d "
+git branch force (remove|delete): "git branch -D "
+git branch remote: "git branch --remote\n"
 git branch <user.text>: "git branch {text}"
 git checkout: "git checkout "
 git checkout master: "git checkout master\n"
@@ -72,7 +74,7 @@ git push origin: "git push origin "
 git push up stream origin: "git push -u origin"
 git push <user.text>: "git push {text} "
 git push tags: "git push --tags\n"
-git rebase: "git rebase\n"
+git rebase: "git rebase "
 # NOTE - we don't use abort in the command because it conflicts with
 # abort.talon
 git rebase cancel: "git rebase --abort\n"
@@ -80,7 +82,6 @@ git rebase continue: "git rebase --continue\n"
 git rebase skip: "git rebase --skip"
 git remove: "git rm "
 git remove cached: "git rm --cached"
-git (remove|delete) branch: "git branch -d "
 git (remove|delete) remote branch: "git push --delete origin "
 git remove remote origin: "git remote rm origin"
 git reset: "git reset "
@@ -95,10 +96,12 @@ git show: "git show "
 git show clip: 
     insert("git show ")
     edit.paste()
+    key(enter)
 git show change: "git show -c"
 git show change clip:
     insert("git show -c")
     edit.paste()
+    key(enter)
 git show head: "git show -c HEAD\n"
 git stash pop: "git stash pop\n"
 git stash: "git stash\n"
