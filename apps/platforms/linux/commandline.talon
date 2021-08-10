@@ -200,11 +200,6 @@ generate see scope database:
     insert('> cscope.files\n')
     insert("cscope -q -R -b -i cscope.files\n")
 
-pee grep: "pgrep "
-pee kill: "pkill "
-process list: "ps -ef\n"
-process filter list: "ps -ef | rg -i "
-process top: "htop\n"
 file head: "head "
 file head <number_small>: "head -n {number_small} "
 folder show: "pwd\n"
@@ -326,10 +321,16 @@ terminate session:
     key(enter ~ .)
 
 # process management
+(process grep|pee grep): "pgrep "
+process list: "ps -ef\n"
+process filter list: "ps -ef | rg -i "
+process top: "htop\n"
+process fuzzy kill: "pkill {text}"
 process fuzzy kill <user.text>: "pkill {text}"
 process kill <number>: "kill -9 {number}"
 process kill job <number>: "kill -9 %{number}"
 process kill: "kill -9 "
+
 system reboot: "sudo reboot -h now"
 
 # hardware
