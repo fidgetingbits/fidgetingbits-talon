@@ -4,8 +4,8 @@ double dash: "--"
 triple quote: '"""'
 ticky: "'''"
 gravy: "```"
-# NOTE: riddle conflict with a rizzle
-riddler: "???"
+# NOTE: riddle conflict with a rizzle, middle, etc
+riddle me: "???"
 sexy: "XXX"
 bangy: "!!!"
 (dot dot | dotdot): ".."
