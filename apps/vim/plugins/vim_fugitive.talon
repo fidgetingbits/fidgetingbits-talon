@@ -4,6 +4,7 @@ tag: user.vim_fugitive
 # these ones
 -
 
+# File management
 (fugitive|git) add (current|this) file: user.vim_command_mode(":G add %\n")
 (fugitive|git) add everything: user.vim_command_mode(":G add -u\n")
 (fugitive|git) blame: user.vim_command_mode(":Git blame\n")
@@ -12,10 +13,18 @@ tag: user.vim_fugitive
     user.vim_command_mode(":G commit\n")
     user.vim_set_insert_mode()
 (fugitive|git) (delete|remove): user.vim_command_mode(":GDelete")
+
+# Diffing
 (fugitive|git) diff staged: user.vim_command_mode(":G! diff --staged\n")
 (fugitive|git) diff: user.vim_command_mode(":Gdiffsplit\n")
-(fugitive|git) vertical diff: user.vim_command_mode(":Gvdiffsplit!\n")
+(fugitive|git) [(vertical|pillar)] split diff:
+    user.vim_command_mode(":Gvdiffsplit!\n")
+(fugitive|git) [(vertical|pillar)] diff split: 
+    user.vim_command_mode(":Gvdiffsplit!\n")
+(fugitive|git) (horizontal|river) diff: user.vim_command_mode(":Gdiffsplit!\n")
 (fugitive|git) diff last: user.vim_command_mode(":Gdiff !~1\n")
+
+# Unsorted
 (fugitive|git) fetch: user.vim_command_mode(":G fetch ")
 (fugitive|git) force write: user.vim_command_mode(":Gwrite!")
 (fugitive|git) grep: user.vim_command_mode(":G grep ")
@@ -28,7 +37,6 @@ tag: user.vim_fugitive
 (fugitive|git) remove: user.vim_command_mode(":G Remove ")
 (fugitive|git) rename: user.vim_command_mode(":G Rename ")
 (fugitive|git) reset (current|reset) file: user.vim_command_mode(":G reset HEAD %\n")
-(fugitive|git) split diff: user.vim_command_mode(":Gdiffsplit!")
 (fugitive|git) status: user.vim_command_mode(":G\n")
 (fugitive|git) write: user.vim_command_mode(":G write")
 (fugitive|git) read: user.vim_command_mode(":Gread")
@@ -38,5 +46,34 @@ tag: user.vim_fugitive
 # merge conflict resolution
 keep (target|left): user.vim_command_mode(":diffget //2\n")
 keep (merge|right): user.vim_command_mode(":diffget //3\n")
-next hunk: user.vim_normal_mode_keys("] c")
-last hunk: user.vim_normal_mode_keys("[ c")
+diff update: user.vim_command_mode(":diffupdate\n")
+hunk next: user.vim_normal_mode_keys("] c")
+hunk (back|last): user.vim_normal_mode_keys("[ c")
+
+
+# This is a fairly specific set of commands. It assumes that you have ran `:G
+# mergetool` and you have one split open up top with the file you're editing, in
+# and only the quick list on the bottom.
+conflict start:
+    user.vim_command_mode(":G mergetool\n")
+    user.vim_command_mode(":Gvdiffsplit!\n")
+    # XXX - maybe add a search for the next merge conflict?
+
+# assumes you're already in a gvdiffsplit layout
+# XXX - we shouldn't technically need any of these sleeps, so we need to figure
+# out why... there must be a bug in my API or something
+conflict next:
+    # close all tabs
+    user.vim_command_mode(":only\n")
+    sleep(2s)
+    # re-open quick list
+    user.vim_command_mode(":cw\n")
+    sleep(2s)
+    # go to next quick list entry
+    user.vim_command_mode(":cn\n")
+    sleep(2s)
+    # open the next diff
+    user.vim_command_mode(":Gvdiffsplit!\n")
+    sleep(1s)
+    # XXX - maybe add a search for the next merge conflict?
+
