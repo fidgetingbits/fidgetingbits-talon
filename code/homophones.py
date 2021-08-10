@@ -135,7 +135,6 @@ def homophones_canonical(m) -> str:
     "Returns a single string"
     return m.homophones_canonicals
 
-
 @mod.action_class
 class Actions:
     def homophones_hide():
@@ -149,6 +148,7 @@ class Actions:
 
     def homophones_show_selection():
         """Show the homophones display for the selected text"""
+        print(actions.edit.selected_text())
         raise_homophones(actions.edit.selected_text(), False, True)
 
     def homophones_force_show(m: str):
@@ -168,5 +168,5 @@ class Actions:
         error = "homophones.py index {} is out of range (1-{})".format(
             number, len(active_word_list)
         )
-        app.notify(error)
+        app.notify(subtitle=error)
         raise error

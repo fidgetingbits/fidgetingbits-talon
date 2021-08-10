@@ -169,7 +169,6 @@ number_word = "(" + "|".join(numbers_map.keys()) + ")"
 def digit_string(m) -> str:
     return parse_number(list(m))
 
-# two and three 23 203 23
 @ctx.capture("digits", rule="<digit_string>")
 def digits(m) -> int:
     """Parses a phrase representing a digit sequence, returning it as an integer."""

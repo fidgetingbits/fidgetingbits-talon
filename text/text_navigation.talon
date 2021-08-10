@@ -1,9 +1,13 @@
 # XXX - come up with a better way to disable this situationally in certain
 # apps
 not app: vim
-# XXX - this is not ideal because we want it to work while we're in the
-# terminal
-not win.title:/VIM/
+and not win.title:/VIM/
+
+# Technically we want the generic functionality to work when were in the
+# terminal, with whatever the underlying bindkey setting is, so we allow it in
+# this case.
+app:vim
+and win.title:/VIM MODE:t/
 -
 
 ## (2021-03-09) This syntax is experimental and may change. See below for an
@@ -96,3 +100,6 @@ tier <user.navigation_target>: user.navigation("GO", "LEFT", "DEFAULT", "AFTER",
 
 clear till <user.navigation_target>: user.navigation("CLEAR", "RIGHT", "DEFAULT", "BEFORE", navigation_target, number_small or 1)
 
+# XXX - I don't know where to put this for now, but we don't want it to mess with
+# the one that vim already uses
+push: key(end)
