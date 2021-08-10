@@ -581,17 +581,6 @@ session force save: user.vim_command_mode_exterm(":mksession! ")
 # XXX - this path could be made into a setting
 session load: user.vim_command_mode_exterm(":source ~/.vim/sessions/")
 
-###
-# Macros and registers ''
-###
-(register|registers|macros) list: user.vim_command_mode_exterm(":reg\n")
-(register|macro) show <user.letter>: user.vim_command_mode(":reg {letter}\n")
-(register|macro) (edit|modify) <user.letter>:
-    user.vim_command_mode(":let @{letter}='")
-    key(ctrl-r)
-    key(ctrl-r)
-    insert("{letter}")
-    key(')
 
 (paste from|pastor) [register] <user.unmodified_key>: user.vim_any_motion_mode_exterm('"{unmodified_key}p')
 

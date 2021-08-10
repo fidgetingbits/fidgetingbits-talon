@@ -332,6 +332,14 @@ yank <user.vim_text_objects> (into|to) [register] <user.unmodified_key>:
 clear <user.vim_text_objects> (into|to) [register] <user.unmodified_key>:
     user.vim_any_motion_mode('"{unmodified_key}d{vim_text_objects}')
 
+(register|registers|macros) list: user.vim_command_mode(":reg\n")
+(register|macro) show <user.letter>: user.vim_command_mode(":reg {letter}\n")
+(register|macro) (edit|modify) <user.letter>:
+    user.vim_command_mode(":let @{letter}='")
+    key(ctrl-r)
+    key(ctrl-r)
+    insert("{letter}")
+    key(')
 
 ###
 # Folding
