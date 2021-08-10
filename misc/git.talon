@@ -44,7 +44,7 @@ git diff cached: "git diff --cached\n"
 git fetch: "git fetch\n"
 git fetch prune: "git fetch --prune\n"
 git fetch all: "git fetch --all\n"
-# These are a little misleading for the simplicity of seeing. Maybe "fetch
+# XXX - These are a little misleading for the simplicity of seeing. Maybe "fetch
 # pull.. ?"
 git fetch <number>: "git fetch origin pull/{number}/head:"
 git fetch upstream <number>: "git fetch upstream pull/{number}/head:"

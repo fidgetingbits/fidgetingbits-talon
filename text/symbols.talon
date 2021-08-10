@@ -86,6 +86,9 @@ escaped (round):
 angle that:
     text = edit.selected_text()
     user.paste("<{text}>")
+(square | square bracket) that:
+    text = edit.selected_text()
+    user.paste("[{text}]")
 (bracket | brace) that:
     text = edit.selected_text()
     user.paste("{{{text}}}")
