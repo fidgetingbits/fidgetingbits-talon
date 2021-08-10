@@ -26,7 +26,7 @@ debug detach: user.debugger_detach()
 debug restart: user.debugger_restart()
 
 # Register
-show registers: user.debugger_show_registers()
+(show|info) registers: user.debugger_show_registers()
 # XXX -
 get register: user.debugger_get_register()
 set register: user.debugger_set_register()
@@ -77,3 +77,4 @@ inspect type clip: user.debugger_inspect_type_clip()
 
 # Convenience
 clear command: user.debugger_clear_line()
+register <user.register>: user.debugger_access_register(register)
