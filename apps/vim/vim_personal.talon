@@ -2,6 +2,17 @@ app: vim
 -
 
 ###
+# Convenience for opening my different files
+###
+edit my vim scripts:
+    user.vim_command_mode_exterm(":source ~/.vim/sessions/talon_vim.session\n")
+
+open talon plugins:
+    user.vim_command_mode_exterm(":e ~/source/talon/releases/latest/resources/talon_plugins\n")
+open talon python:
+    user.vim_command_mode_exterm(":e ~/source/talon/releases/latest/resources/python/lib/python3.7/site-packages/talon\n")
+
+###
 # Admin
 ###
 # XXX - make this a look up the actual sessions that exist in that folder
@@ -73,5 +84,5 @@ convert string to stack:
     edit.left()
 
 
-toggle debug log:
+toggle (debug|verbose) log:
     user.vim_command_mode(":call ToggleVerbose()\n")
