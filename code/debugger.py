@@ -18,8 +18,9 @@ tag: user.debugger
 ctx.lists["user.registers"] = {}
 
 
+# This is more generic than debugger, I should move somewhere else. assembly.py maybe
 @mod.capture(rule="{self.registers}")
-def registers(m) -> str:
+def register(m) -> str:
     "Returns a register"
     return m.registers
 
@@ -210,4 +211,6 @@ class Actions:
         global debugger
         debugger.current_architecture()
 
+    def debugger_access_register(register:str):
+        """display the register using the debugger specific variable syntax"""
 
