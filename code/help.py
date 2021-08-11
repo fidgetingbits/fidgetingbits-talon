@@ -390,42 +390,6 @@ def refresh_context_command_map(enabled_only=False):
     context_command_map = {}
     for context_name, context in registry.contexts.items():
         splits = context_name.split(".")
-<<<<<<< HEAD
-        index = -1
-        if "talon" in splits[index]:
-            index = -2
-            short_name = splits[index].replace("_", " ")
-        else:
-            short_name = splits[index].replace("_", " ")
-
-        if "mac" == short_name or "win" == short_name or "linux" == short_name:
-            index = index - 1
-            short_name = splits[index].replace("_", " ")
-
-        # print("short name: " + short_name)
-        if short_name in overrides:
-            short_name = overrides[short_name]
-
-        if context in active_contexts or not enabled_only:
-            context_command_map[context_name] = {}
-            for command_alias, val in context.commands.items():
-                # print(str(val))
-                if command_alias in registry.commands:
-                    # print(str(val.rule.rule) + ": " + val.target.code)
-                    context_command_map[context_name][
-                        str(val.rule.rule)
-                    ] = val.target.code
-            # print(short_name)
-            # print("length: " + str(len(context_command_map[context_name])))
-
-            #if len(context_command_map[context_name]) == 0:
-            #    context_command_map.pop(context_name)
-            #else:
-            #    cached_short_context_names[short_name] = context_name
-            #    context_map[context_name] = context
-            cached_short_context_names[short_name] = context_name
-            context_map[context_name] = context
-=======
 
         if "talon" == splits[-1]:
             display_name = splits[-2].replace("_", " ")
@@ -459,7 +423,6 @@ def refresh_context_command_map(enabled_only=False):
                     # the last entry will contain no symbols
                     display_name_to_context_name_map[display_name] = context_name
                     context_map[context_name] = context
->>>>>>> upstream/master
 
     refresh_rule_word_map(context_command_map)
 

@@ -32,8 +32,6 @@ settings():
     user.mouse_wheel_down_amount = 120
     # where to save screen shots
     user.screenshot_folder = "/home/aa/images/screenshots/"
-    # what command to use for selection based screenshots
-    user.screenshot_selection_command = "scrot =s"
     # where to save replayed recordings for talon debugging
     user.saved_replay_recordings_directory = "~/talon/documents/conformer_problem_recordings/"
     # the default is now 300ms

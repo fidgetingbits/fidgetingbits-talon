@@ -2,22 +2,7 @@ from talon import Module, screen, ui, cron, app, actions, clip
 from talon.canvas import Canvas
 from typing import Optional
 from datetime import datetime
-
-from talon import Module, actions, app, clip, screen, settings, ui
-
-active_platform = app.platform
-default_command = None
-if active_platform == "windows":
-
-    default_folder = os.path.expanduser(os.path.join("~", r"OneDrive\Desktop"))
-    # this is probably not the correct way to check for onedrive, quick and dirty
-    if not os.path.isdir(default_folder):
-        default_folder = os.path.join("~", "Desktop")
-elif active_platform == "mac":
-    default_folder = os.path.join("~", "Desktop")
-elif active_platform == "linux":
-    default_folder = "~"
-    default_command = "scrot -s"
+import os
 
 mod = Module()
 
