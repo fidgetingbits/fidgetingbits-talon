@@ -70,6 +70,7 @@ linux_file_paths = {
     "mark down snippets": "~/.vim/plugged/vim-snippets/UltiSnips/markdown.snippets",
     "python snippets": "~/.vim/plugged/vim-snippets/UltiSnips/python.snippets",
     "bash snippets": "~/.vim/plugged/vim-snippets/UltiSnips/bash.snippets",
+    "bash snippets": "~/.config/kitty/kitty.conf",
 }
 
 # this is used for specific commands like pivot
