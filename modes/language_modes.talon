@@ -11,6 +11,5 @@
 ^clear language modes$: user.code_clear_language_mode()
 [enable] debug mode:
     mode.enable("user.gdb")
-disable debug mode:
+debug mode disable:
     mode.disable("user.gdb")
-    
