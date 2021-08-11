@@ -8,7 +8,7 @@ mod = Module()
 mod.list("abbreviation", desc="Common abbreviation")
 
 ctx = Context()
-ctx.lists["user.abbreviation"] = {
+abbreviations = {
     "address": "addr",
     "administrator": "admin",
     "administrators": "admins",
@@ -318,6 +318,7 @@ ctx.lists["user.abbreviation"] = {
     "windows kernel": "ntoskrnl",
 }
 
+ctx.lists["user.abbreviation"] = abbreviations
 
 @mod.capture(rule="{user.abbreviation}")
 def abbreviation(m) -> str:
