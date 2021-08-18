@@ -55,7 +55,53 @@ shadow <number_small> <user.ordinals>:
     edit.paste()
     key(space)
 
-# echo commands are for copying words from a given point
+# siphon commands are for copying words from a given point, by to not pasting
+# them
+siphon <number_small>:
+    user.vim_normal_mode_exterm("{number_small}k")
+    key('0')
+    insert("yE")
+    # See `:help pattern`
+    # \_s   - match single white space
+    # \{2,} - at least two in a row
+    user.vim_command_mode(":set nohls | let @+=substitute(strtrans(@+), '\\_s\\{{2,}}', '', 'g')\n")
+    user.vim_set_insert_mode()
+
+siphon (last <number_small>|<number_small> last):
+    user.vim_normal_mode_exterm("{number_small}k")
+    insert('$T ')
+    insert("yE")
+    user.vim_set_insert_mode()
+    edit.paste()
+    key(space)
+
+siphon <number_small> <user.ordinals>:
+    user.vim_normal_mode_exterm("{number_small}k")
+    key('0')
+    insert("{ordinals-1}W")
+    insert("yE")
+    user.vim_set_insert_mode()
+
+# copy from the specified key to the end of the line
+siphon <number_small> <user.unmodified_key>:
+    user.vim_normal_mode_exterm("{number_small}k")
+    key('0')
+    insert("f{unmodified_key}")
+    insert("yE")
+    user.vim_set_insert_mode()
+
+# XXX - it would be nice to have this you something like treesitter on a single
+# line (even though it would be broken syntax) and be able to specify which
+# element we want...
+# copy a function name on the specified line
+siphon <number_small> funk:
+    user.vim_normal_mode_exterm("{number_small}k")
+    key('0')
+    insert("f(")
+    insert("yB")
+    user.vim_set_insert_mode()
+
+# echo commands are for copying words from a given point, and then pasting them
 echo <number_small>:
     user.vim_normal_mode_exterm("{number_small}k")
     key('0')
@@ -65,7 +111,6 @@ echo <number_small>:
     # \{2,} - at least two in a row
     user.vim_command_mode(":set nohls | let @+=substitute(strtrans(@+), '\\_s\\{{2,}}', '', 'g')\n")
     user.vim_set_insert_mode()
-    #insert("i")
     edit.paste()
     key(space)
 
