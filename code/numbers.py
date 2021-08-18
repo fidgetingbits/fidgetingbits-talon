@@ -177,7 +177,7 @@ def digits(m) -> int:
 # XXX - need to clarify when a scale number is used in only match on and. I
 # often run into something like numb two one three getting parsed as two and
 # three, which results in 23 which should just never match that way
-@mod.capture(rule=f"{number_word}+ (and <numbers_small>+)*")
+@mod.capture(rule=f"{number_word}+ (and <number_small>+)*")
 def number_string(m) -> str:
     """Parses a number phrase, returning that number as a string."""
     return parse_number(list(m))
@@ -201,14 +201,17 @@ def number_signed(m):
 def number_small(m):
     return int(parse_number(list(m)))
 
-
 @mod.action_class
 class Actions:
     def count_numbers(num1: int, num2: int):
         """return a counted series of numbers"""
         s = ""
-        for n in range(num1, num2 + 1):
-            s += f"{n} "
+        if num1 > num2:
+            for n in range(num1, num2 - 1, -1):
+                s += f"{n} "
+        else:
+            for n in range(num1, num2 + 1):
+                s += f"{n} "
         actions.insert(s)
 
     def escape_hex_string(hex_letters: str):
