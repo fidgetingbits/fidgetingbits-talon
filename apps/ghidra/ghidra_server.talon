@@ -1,5 +1,6 @@
 os: linux
 tag: terminal
+and tag: user.ghidra_server
 -
 
 # ghidraSvr

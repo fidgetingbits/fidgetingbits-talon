@@ -4,7 +4,7 @@ ctx = Context()
 ctx.matches = r"""
 os: linux
 tag: terminal
-tag: user.packager_yay
+and tag: user.packager_yay
 """
 
 

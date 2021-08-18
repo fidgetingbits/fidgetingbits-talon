@@ -6,7 +6,8 @@ kubectl = "kubectl"
 
 ctx = Context()
 ctx.matches = r"""
-tag: user.kubectl
+tag: terminal
+and tag: user.kubectl
 """
 
 mod.list("kubectl_action", desc="actions performed by kubectl")

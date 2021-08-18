@@ -1,5 +1,6 @@
 os: linux
 tag: terminal
+and tag: user.buku
 -
 
 # general options

@@ -2,9 +2,9 @@ from talon import Context, actions
 
 ctx = Context()
 ctx.matches = r"""
-tag: user.systemd
-tag: user.systemctl
 tag: terminal
+and tag: user.systemd
+and tag: user.systemctl
 """
 
 
