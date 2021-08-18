@@ -5,7 +5,7 @@ ctx = Context()
 ctx.matches = r"""
 os: linux
 tag: terminal
-tag: user.service_manager
+and tag: user.service_manager
 """
 
 mod.tag("service_manager", desc="generic service manager support")

@@ -5,6 +5,7 @@ ctx = Context()
 ctx.matches = r"""
 os: linux
 tag: terminal
+and tag: user.package_manager
 """
 
 mod.mode("packager_picker_open")

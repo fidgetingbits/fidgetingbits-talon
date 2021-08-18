@@ -1,5 +1,5 @@
 tag: terminal
-tag: user.service_manager
+and tag: user.service_manager
 -
 
 service: user.service()
