@@ -65,7 +65,7 @@ dump pointers: user.debugger_dump_pointers()
 
 list modules: user.debugger_list_modules()
 list sections: user.debugger_show_binary_sections()
-list memory [mapping]: user.debugger_show_memory_sections()
+(memory list|list memory [mapping]): user.debugger_show_memory_sections()
 
 
 # Type inspection

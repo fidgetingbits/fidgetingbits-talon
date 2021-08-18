@@ -137,10 +137,12 @@ class UserActions:
         actions.key("enter")
 
     def debugger_show_binary_sections():
-        actions.user.paste("maintenance info sections\n")
+        actions.user.paste("maintenance info sections")
+        actions.key("enter")
 
     def debugger_show_memory_sections():
-        actions.user.paste("info proc mappings\n")
+        actions.user.paste("info proc mappings")
+        actions.key("enter")
 
     def debugger_access_register(register:str):
         actions.user.paste(f"${register}")

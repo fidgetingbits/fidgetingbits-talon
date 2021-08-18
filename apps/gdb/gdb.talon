@@ -87,8 +87,21 @@ undisplay: "undisplay\n"
 (list|show|info) variables: "info variables\n"
 (list|show|info) (args|arguments): "info args\n"
 
+
+
 # threads
-info threads: "info threads\n"
+(thread list|info threads): "info threads\n"
+thread switch <numbers_small>: "thread {number_small}\n"
+thread (find|search): "thread find "
+thread show: "thread\n"
+thread help: "help thread\n"
+# run command across all threads
+thread do: "thread apply all "
+thread local storage: "p/x *(tcbhead_t*) $fs_base\n"
+thread stack guard: "p/x (*(tcbhead_t*) $fs_base)->stack_guard"
+thread pointer guard: "p/x (*(tcbhead_t*) $fs_base)->pointer_guard"
+
+frame info <numbers_small>: "frame info {number_small}\n"
 
 # inferiors
 info inferiors: "info inferiors\n"
