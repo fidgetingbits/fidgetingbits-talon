@@ -84,7 +84,6 @@ raw string:
 #^pro static funky <user.text>$: user.code_protected_static_function(text)
 #^pub static funky <user.text>$: user.code_public_static_function(text)
 raise {user.python_exception}: user.insert_cursor("raise {python_exception}([|])")
-<<<<<<< HEAD
 except {user.python_exception}: "except {python_exception}:"
 except {user.python_exception} as: user.insert_cursor("except {python_exception} as [|]:")
 

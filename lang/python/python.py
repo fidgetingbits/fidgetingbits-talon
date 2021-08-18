@@ -52,6 +52,7 @@ ctx.lists["user.code_libraries"] = {
     "subprocess": "subprocess",
     "multiprocessing": "multiprocessing",
     "logging": "logging",
+    "heck stump": "hexdump",
 }
 
 
