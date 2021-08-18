@@ -6,6 +6,8 @@ from talon import speech_system, actions
 cancel_phrase = "cancel cancel".split()
 
 def pre_phrase(d):
+    if "text" not in d:
+        return
     n = len(cancel_phrase)
     before, after = d["text"][:-n], d['text'][-n:]
     if after != cancel_phrase: return
