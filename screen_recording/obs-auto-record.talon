@@ -1,7 +1,7 @@
 # This is a custom set of rules to control a obs-studio script I wrote in order
 # to automatically record all sessions, and splice interesting parts.
 
-#tag: user.obs_studio_global
+tag: user.obs_studio_global
 -
 settings():
     user.obs_recording_folder = "/home/aa/mount/oath/workflow/video_recording/automatic/"
