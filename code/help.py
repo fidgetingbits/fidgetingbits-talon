@@ -201,6 +201,10 @@ def gui_context_help(gui: imgui.GUI):
         current_selection_index = 1
         for display_name in sorted_display_list:
             target_page = get_context_page(current_item_index)
+            # XXX - I hit cases where it says "abbreviate" is not in this list,
+            # so skipping for now.
+            if display_name not in display_name_to_context_name_map:
+                continue
             context_name = display_name_to_context_name_map[display_name]
             if current_context_page == target_page:
                 button_name = format_context_button(
