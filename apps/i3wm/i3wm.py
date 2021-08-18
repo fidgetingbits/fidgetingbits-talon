@@ -16,7 +16,7 @@ mod.setting(
     desc="The default key to use for i3wm commands",
 )
 
-
+# XXX - this should use i3-msg commands instead
 def i3wm_window_resize(size, grow=True):
     """resizes the selected window by the specified number of key movements"""
     actions.user.system_command('i3-msg mode "resize"')
@@ -61,3 +61,19 @@ class Actions:
     def i3wm_window_shrink(times: int =1):
         """Resize the focused window smaller"""
         i3wm_window_resize(10*times, grow=False)
+
+    def i3wm_window_adjust_height_up(size: int):
+        """resizes the selected window by the specified number of key movements"""
+        actions.user.system_command(f"i3-msg 'resize grow height {size}px'")
+
+    def i3wm_window_adjust_height_down(size: int):
+        """resizes the selected window by the specified number of key movements"""
+        actions.user.system_command(f"i3-msg 'resize shrink height {size}px'")
+
+    def i3wm_window_adjust_width_out(size: int):
+        """resizes the selected window by the specified number of key movements"""
+        actions.user.system_command(f"i3-msg 'resize grow width {size}px'")
+
+    def i3wm_window_adjust_width_in(size: int):
+        """resizes the selected window by the specified number of key movements"""
+        actions.user.system_command(f"i3-msg 'resize shrink width {size}px'")

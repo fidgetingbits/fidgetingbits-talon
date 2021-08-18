@@ -12,7 +12,7 @@ wiggle:
     key(super-f)
 
 
-orwell:
+orwell me:
     key(super-0)
     sleep(1000ms)
     edit.copy()

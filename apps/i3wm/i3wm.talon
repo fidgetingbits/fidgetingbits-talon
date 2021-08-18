@@ -45,7 +45,11 @@ window resize: user.system_command('i3-msg mode "resize"')
 (win|window) vertical: user.system_command("i3-msg split v")
 
 window grow: user.i3wm_window_grow(1)
-window shrink: user.i3wm_window_shrink(1)
+window [<number>] shrink: user.i3wm_window_shrink(number or 50)
+window [<number>] taller: user.i3wm_window_adjust_height_up(number or 50)
+window [<number>] shorter: user.i3wm_window_adjust_height_down(number or 50)
+window [<number>] fatter: user.i3wm_window_adjust_width_out(number or 50)
+window [<number>] skinnier: user.i3wm_window_adjust_width_in(number or 50)
 
 horizontal (shell|terminal):
     user.system_command("i3-msg split h")
