@@ -65,15 +65,11 @@ conflict start:
 conflict next:
     # close all tabs
     user.vim_command_mode(":only\n")
-    sleep(2s)
     # re-open quick list
     user.vim_command_mode(":cw\n")
-    sleep(2s)
     # go to next quick list entry
     user.vim_command_mode(":cn\n")
-    sleep(2s)
     # open the next diff
     user.vim_command_mode(":Gvdiffsplit!\n")
-    sleep(1s)
     # XXX - maybe add a search for the next merge conflict?
 

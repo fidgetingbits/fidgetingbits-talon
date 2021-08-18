@@ -2,13 +2,13 @@ tag: user.vim_fzf
 -
 
 # ripgrep through files under current directory
-rizzle: user.vim_command_mode_exterm(":Rg\n")
-rizzle clip: 
+ripple: user.vim_command_mode_exterm(":Rg\n")
+ripple clip: 
     user.vim_command_mode_exterm(":Rg\n")
     edit.paste()
 # XXX - this should behave differently depending on if it's a selection in
 # visual mode, etc
-rizzle this: 
+ripple this: 
     user.vim_command_mode_exterm("yiw") 
     user.vim_command_mode_exterm(":Rg\n")
     edit.paste()

@@ -15,16 +15,17 @@ and win.title: /\[Git.*git.*index/
 
 # Staging/unstaging maps
 
-stage [file]: key(s)
-unstage [file]: key(u)
+[file] stage: key(s)
+[file] unstage: key(u)
 unstage (all|everything): key(U)
 discard change: key(key)
-[(in line|toggle)] diff: key(=)
-exclude [this file]: "gI"
+file diff: key(=)
+file exclude: "gI"
 
 # Diff maps
 
 # Navigation maps
+# XXX - these should may be override common file actions
 open file: key(o)
 open vertical file: insert(gO)
 open tab file: key(O)
@@ -45,7 +46,7 @@ amend [last commit]: "ca"
 
 # Miscellaneous maps
 
-close status: "gq"
+[git] status close: "gq"
 help: "g?"
 
 # Global maps

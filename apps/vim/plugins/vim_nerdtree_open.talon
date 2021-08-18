@@ -1,55 +1,55 @@
 tag: user.vim_nerdtree
 win.title: /NERD_tree/
 -
+# XXX - lot of these should just to override the same functions I used for vim
 
 change root: key(C)
 close parent: key(x)
 close all children: key(X)
 folder refresh: key(r)
 folder root refresh: key(R)
-root up: key(u)
-root up day: key(U)
+[folder] root up: key(u)
+[folder] root up day: key(U)
 
 # file node mappings
-open (row|file|node) <number_small>$:
+node open <number_small>$:
     insert(":{number_small}\n")
     key(o)
-recursive open [file]: key(O)
-open file: key(o)
-open [file] [in] split: key(i)
-open [file] [in] vertical [split]: key(s)
+node recursive open: key(O)
+node open: key(o)
+node [open] [in] split: key(i)
+node [open] [in] vertical [split]: key(s)
 
 # directory node mappings
-close (row|file|node) <number_small>$:
+node close <number_small>$:
     insert(":{number_small}\n")
     key(o)
-close parent node: key(x)
-close all nodes: key(X)
-edit directory: key(e)
+node close parent: key(x)
+node close all: key(X)
+folder edit: key(e)
 
 # filesystem mappings
-menu: key(m)
+nerd menu: key(m)
 
 # menu-based actions
-(add|new) (node|file): "ma"
-(add|new) (folder):
+(file|node) (add|new): "ma"
+folder (add|new):
     insert("ma/")
     edit.left()
-(remove|delete) (node|file): "md"
-(move|rename) (node|file): "mm"
-list (node|file): "ml"
-copy (node|file): "mc"
+(node|file) (remove|delete): "md"
+(node|file) (move|rename): "mm"
+(node|file) list: "ml"
+(node|file) copy: "mc"
 
 # tree navigation mappings
-go root [(dur|dir|directory)]: key(P)
-go parent [(dur|dir|directory)]: key(p)
-go first [child] [directory]: key(K)
-go last [child] [directory]: key(J)
+[folder] go root: key(P)
+[folder] go parent: key(p)
+[folder] go first: key(K)
+[folder] go last: key(J)
 
 # tree filtering mappings
-show hidden [files]: key(I)
+[file] show hidden [files]: key(I)
 
 # other mappings
-quick help: key(?)
-close nerd [tree]: key(q)
+[nerd] quick help: key(?)
 nerd close: key(q)
