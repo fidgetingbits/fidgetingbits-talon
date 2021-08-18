@@ -41,7 +41,8 @@ insert code:
 bold: key(ctrl-b)
 (italic | italicize): key(ctrl-i)
 (strike | strikethrough): key(ctrl-shift-x)
-(clear | scrap | scratch): key(ctrl-a backspace)
+# XXX - This should use some sort of default editor, like clear line?
+#(clear | scrap | scratch): key(ctrl-a backspace)
 (slack | lack) snippet: key(ctrl-shift-enter)
 # Calls
 ([toggle] mute | unmute): key(m)
