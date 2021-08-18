@@ -83,6 +83,5 @@ convert string to stack:
     user.vim_command_mode(":call String_to_stack_buffer()")
     edit.left()
 
-
 toggle (debug|verbose) log:
     user.vim_command_mode(":call ToggleVerbose()\n")

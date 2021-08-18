@@ -723,7 +723,7 @@ messages extract:
 ###
 # Convenience
 ###
-force last:
+command force:
     user.vim_command_mode_exterm(":")
     key(up !)
 

@@ -69,6 +69,8 @@ file (close|quite):
     user.vim_command_mode(":q\n")
 file (refresh|reload):
     user.vim_command_mode(":e!\n")
+file show:
+    user.vim_normal_mode_keys("ctrl-G")
 (print working directory|folder show): user.vim_command_mode(":pwd\n")
 pivot file:
     user.vim_command_mode(":lcd %:p:h\n")

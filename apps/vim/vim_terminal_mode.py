@@ -34,8 +34,6 @@ def parse_vim_term_title(window):
         or not window.title.startswith("VIM MODE:t")
         or "TERM:" not in window.title
     ):
-
-        # ctx.tags = []
         return
 
     # pull a TERM: line out of something potentially like
