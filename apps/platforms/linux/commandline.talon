@@ -5,6 +5,61 @@ mode: user.terminal
 mode: command
 and tag: terminal
 -
+
+###
+# Shell-specific
+#
+# XXX - this should move to zsh
+###
+# unset this if you use `bindkey -v`
+tag(): user.readline
+
+###
+# Packages
+#
+# These tags correspond to talon grammars you want to enable while you're
+# running some terminal emulator on your system. See the associated talon
+# files for information and links to what tools they are associated with.
+###
+
+#tag(): user.buku
+tag(): user.yay
+#tag(): user.apt
+#tag(): user.ghidra_server
+#tag(): user.nmcli
+#tag(): user.taskwarrior
+#tag(): user.timewarrior
+tag(): user.make
+#tag(): user.tmux
+tag(): user.git
+tag(): user.docker
+tag(): user.service_manager
+tag(): user.timer_manager
+tag(): user.systemd
+tag(): user.pulse_audio
+#tag(): user.npm
+#tag(): user.meson
+
+#tag(): user.kubectl
+
+
+# Shell commands
+
+run last [command]:
+    key(up)
+    key(enter)
+run last script:
+    insert("./")
+    key(up)
+    key(enter)
+rerun <user.text>:
+    key(ctrl-r)
+    insert(text)
+rerun list:
+    key(ctrl-r)
+kill all:
+    key(ctrl-c)
+
 file list: "ls "
 file (list here|lisa): "ls -l\n"
 file list long: "ls -al "
