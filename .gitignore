@@ -1,14 +1,18 @@
-tags
-.mypy_cache
 *.disabled
-code/common_names/private_*.csv
-misc/personal_info/personal_info.json
 .*
-*_private.py
-*_private.talon
-private/
+
 # Dev stuff
 __pycache__
 *.sw?
-# Locally generated
+tags
+.mypy_cache
+
+# Locally generated settings
 /settings
+
+# Private stuff
+code/common_names/private_*.csv
+misc/personal_info/personal_info.json
+*_private.py
+*_private.talon
+private/
