@@ -2,7 +2,7 @@
 # explicitly in zsh functionality you may want to see if they also exist there
 
 mode: user.zsh
-mode: command
+mode: user.auto_lang
 and code.language: zsh
 -
 tag(): user.code_operators
