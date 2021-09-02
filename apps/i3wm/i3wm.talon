@@ -113,3 +113,5 @@ i three restart: user.system_command("i3-msg restart")
     user.system_command("i3-msg unmark")
 (win|window) focus [mark] <user.word>: 
     user.system_command("i3-msg [con_mark=\"{word}\"] focus")
+(win|window) focus alert:
+    user.system_command("i3-msg [urgent=latest] focus")
