@@ -11,11 +11,7 @@ mod.setting(
 ctx = Context()
 
 ctx.matches = r"""
-# A lot of this was taken from the fireeye voiceattackprofile, under the
-# assumption either people might already be familiar with the commands
-# https://fireeye.github.io/IDA_Pro_VoiceAttack_profile/Reference_sheet.html
-# XXX - remove the mode
-mode: user.ida
+app: ida
 """
 
 
