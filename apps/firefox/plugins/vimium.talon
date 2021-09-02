@@ -49,7 +49,7 @@ focus input:
 [open] links [hints] new:
     key("F")
 # TODO: open multiple links
-copy link:
+copy page links:
     insert("yf")
 follow previous [link]:
     insert("[[")
@@ -100,9 +100,9 @@ find <user.text>:
     key("enter")
 find:
     key("/")
-next [result]:
+result next:
     key("n")
-(prev|previous) [result]:
+result last:
     key("N")
 
 # Navigating history
