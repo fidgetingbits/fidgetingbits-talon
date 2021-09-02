@@ -9,7 +9,7 @@ ripple clip:
 # XXX - this should behave differently depending on if it's a selection in
 # visual mode, etc
 ripple this: 
-    user.vim_command_mode_exterm("yiw") 
+    user.vim_normal_mode("yiw") 
     user.vim_command_mode_exterm(":Rg\n")
     edit.paste()
 

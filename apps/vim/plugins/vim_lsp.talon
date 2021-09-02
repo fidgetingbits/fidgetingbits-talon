@@ -1,6 +1,6 @@
 # XXX - this should eventually be generic for handling multiple different lsp
 # implementations
-app: vim
+tag: user.vim_lsp
 -
 
 (code server|lisp) info: user.vim_command_mode(":LspInfo\n")
