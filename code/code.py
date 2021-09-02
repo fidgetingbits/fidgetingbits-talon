@@ -51,6 +51,7 @@ extension_lang_map = {
     ".json": "json",
     ".json5": "json",
     ".lua": "lua",
+    ".php": "php",
     ".md": "markdown",
     ".pl": "perl",
     ".ps1": "powershell",
@@ -118,7 +119,9 @@ class code_actions:
         if forced_context_language is not None:
             return forced_context_language
         file_extension = actions.win.file_ext()
+        #print(f"!! file extension: {file_extension}")
         file_name = actions.win.filename()
+        #print(f"!! file name: {file_name}")
 
         # Favor full matches
         if file_name in special_file_map:
