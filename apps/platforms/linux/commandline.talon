@@ -34,6 +34,7 @@ tag(): user.make
 tag(): user.git
 tag(): user.docker
 tag(): user.service_manager
+tag(): user.package_manager
 tag(): user.timer_manager
 tag(): user.systemd
 tag(): user.pulse_audio
@@ -62,10 +63,12 @@ kill all:
 
 file list: "ls "
 file (list here|lisa): "ls -l\n"
+file size: "ls -lh "
 file list long: "ls -al "
 file (list long here|lily): "ls -al\n"
 file list latest: "ls -Art | tail -n1\n"
 file list folders: "ls -d */\n"
+file strings: "strings "
 
 # find command
 file find all links: "find . -maxdepth 1 -type l  -ls\n"
@@ -102,8 +105,9 @@ file disk image copy: user.insert_cursor("dd bs=4M if=[|] of=/dev/sdX conv=fsync
 file diff: "diff "
 # find
 file find: "find . -name "
+# case insensitive fuzzy find
 file fuzzy [find]:
-    insert("find . -name \"**\"")
+    insert("find . -iname \"**\"")
     key("left")
     key("left")
 file fuzzy [find] today:
@@ -112,7 +116,10 @@ file fuzzy [find] today:
     key("left")
 
 file hash: "sha256sum "
+file check sec: "checksec --file="
 file locate: "locate "
+file [full] path: "readlink -f "
+
 
 file edit read me: insert("edit README.md\n")
 file edit make file: insert("edit Makefile\n")
@@ -350,6 +357,7 @@ parameter:
 
 # bash convenience stuff
 history show: "history\n"
+extra that: "| xargs "
 
 net man log: "journalctl -u NetworkManager --no-pager --lines 100\n"
 
@@ -442,3 +450,4 @@ screen resolution: "xdpyinfo | awk '/dimensions/{{print $2}}'\n"
 ###
 arch source check out: "asp checkout "
 arch source export: "asp export "
+
