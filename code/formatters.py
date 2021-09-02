@@ -172,7 +172,7 @@ formatters_words = {
     "dashing": formatters_dict["DASH_SEPARATED"],
     "equaling": formatters_dict["EQUAL_SEPARATED"],
     "long arg": formatters_dict["LONG_ARG"],
-    "packed": formatters_dict["DOUBLE_COLON_SEPARATED"],
+    "packing": formatters_dict["DOUBLE_COLON_SEPARATED"],
     "padded": formatters_dict["SPACE_SURROUNDED_STRING"],
     # "say": formatters_dict["NOOP"],
     # "sentence": formatters_dict["CAPITALIZE_FIRST_WORD"],
@@ -259,8 +259,8 @@ class Actions:
 
     def insert_formatted(phrase: Union[str, Phrase], formatters: str):
         """Inserts a phrase formatted according to formatters. Formatters is a comma separated list of formatters (e.g. 'CAPITALIZE_ALL_WORDS,DOUBLE_QUOTED_STRING')"""
-        #actions.insert(format_phrase(phrase, formatters))
-        actions.user.paste(format_phrase(phrase, formatters))
+        actions.insert(format_phrase(phrase, formatters))
+        #actions.user.paste(format_phrase(phrase, formatters))
 
     def formatters_help_toggle():
         """Lists all formatters"""
@@ -293,8 +293,8 @@ class Actions:
         # selected text (e.g. Emacs, Vim)
         edit.delete()
         text = actions.self.formatted_text(unformatted, formatters)
-        #actions.insert(text)
-        actions.user.paste(text)
+        actions.insert(text)
+        #actions.user.paste(text)
         return text
 
     def reformat_text(text: str, formatters: str) -> str:
@@ -305,8 +305,8 @@ class Actions:
     def insert_many(strings: List[str]) -> None:
         """Insert a list of strings, sequentially."""
         for string in strings:
-            #actions.insert(string)
-            actions.user.paste(string)
+            actions.insert(string)
+            #actions.user.paste(string)
 
 def unformat_text(text: str) -> str:
     """Remove format from text"""

@@ -225,3 +225,15 @@ class Actions:
                 s += f"\\x{hex_letters[idx:idx+2]}"
             idx += 2
         actions.insert(s)
+
+    def convert_number_to_hex(number: str):
+        """convert a number string to hex value"""
+        val = int(number)
+        actions.insert(f"{val:#x}")
+
+    def convert_number_to_escaped_hex(number: str):
+        """convert a number string to hex value"""
+        val = int(number)
+        # XXX - This is wrong because it doesn't correctly handle endian
+        # conversion atm. So 300 becomes \x12\x0c instead of \x2c\x01
+        actions.user.escape_hex_string(f"{val:#x}"[2:])

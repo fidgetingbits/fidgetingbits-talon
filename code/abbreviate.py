@@ -202,6 +202,7 @@ abbreviations = {
     "operating system": "os",
     "original": "orig",
     "package": "pkg",
+    "packet": "pkt",
     "parameter": "param",
     "parameters": "params",
     "password": "passwd",

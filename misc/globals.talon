@@ -10,9 +10,9 @@ open alternate work space:
 (disconnect|stop) work (tunnel|vpn):
     user.system_command_nb("/home/aa/scripts/disconnect_work_vpn.sh")
 
-show keyboard:
+screen keyboard show:
     user.system_command_nb("/home/aa/scripts/florence_show.sh")
-hide keyboard:
+screen keyboard hide:
     user.system_command_nb("/home/aa/scripts/florence_hide.sh")
 talon restart:
     user.system_command_nb("/home/aa/scripts/talon/restart_talon.sh")
@@ -40,7 +40,7 @@ blue tooth connect:
 blue tooth fix audio:
     user.system_command_nb("/usr/local/bin/a2dp-fix")
 
-flash my keyboard:
+keyboard flash now:
     user.system_command_nb("/home/aa/scripts/flash_keyboard.sh")
 
 over: skip()
