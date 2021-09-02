@@ -59,7 +59,8 @@ tag(): user.vim_treesitter_textobjects
 ###
 # These are prefix with `file` to match the `file save` action defined by talon
 sage:
-    user.vim_command_mode(":w\n")
+    #user.vim_command_mode(":w\n")
+    user.vim_save_file()
 file save as:
     key(escape)
     user.vim_command_mode(":w ")
@@ -90,6 +91,8 @@ file recover:
 # For when the VIM cursor is hovering on a path
 # NOTE: gx only works if you use netrw were custom mapped
 #open [this] link: user.vim_normal_mode("gx")
+# XXX - this is broken if the link has some special characters like #, it will
+# replace with the act of buffer name
 open [this] link:
     user.vim_command_mode(":!xdg-open ")
     key(ctrl-r ctrl-a enter)
@@ -257,25 +260,25 @@ push it:
     key(escape p)
 
 # insert at the end of the current word
-jam:
+jammie:
     user.vim_normal_mode_np("ea")
-jam <user.unmodified_key>:
+jammie <user.unmodified_key>:
     user.vim_normal_mode_np("ea")
     key("{unmodified_key}")
 
-chomp:
+chompie:
     user.vim_normal_mode_np("ex")
 
 insert <user.text>:
     user.vim_insert_mode("{text}")
 
 # helpful for fixing typos or bad lexicons that miss a character
-(inject|cram) <user.unmodified_key> [before]:
+(inject|crammie) <user.unmodified_key> [before]:
     user.vim_insert_mode_key("{unmodified_key}")
     # since there is no ctrl-o equiv coming from normal
     key(escape)
 
-(inject|cram) <user.unmodified_key> after:
+(inject|crammie) <user.unmodified_key> after:
     user.vim_normal_mode_key("a {unmodified_key}")
     # since we can't perserve mode with ctrl-o
     key(escape)
@@ -641,8 +644,9 @@ magnet:
     user.vim_normal_mode("f ")
     user.vim_normal_mode("x")
 magnet back:
-    user.vim_normal_mode("F ")
-    user.vim_normal_mode("x")
+    user.vim_merge_word_back()
+    #user.vim_normal_mode("F ")
+    #user.vim_normal_mode("x")
 
 
 show unsaved changes:

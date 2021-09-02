@@ -1,18 +1,11 @@
 # see doc/vim.md
-# TODO:
-# - define all the lists separately and then, update ctx.lists only once
-# - document that visual selection mode implies terminal escape
-# - add setting for disabling local terminal escape when running inside
-#   remote vim sessions via ssh, etc
-# - import and test scenario where the mode isn't listed at all
-# - add test cases
-# - add VISUAL_BLOCK versions of all of the selection commands
 
 import time
 import enum
+import sys
+import logging
 
 from talon import Context, Module, actions, app, settings, ui, scripting
-import logging
 
 try:
     import pynvim
@@ -22,9 +15,6 @@ except Exception:
     has_pynvim = False
 
 logger = logging.getLogger("talon.vim")
-FORMAT = "!!![%(filename)s:%(lineno)s - %(funcName)20s() ] %(message)s"
-logging.basicConfig(format=FORMAT)
-logger.setLevel(logging.DEBUG)
 
 mod = Module()
 ctx = Context()
@@ -96,10 +86,10 @@ class win_actions:
     def filename():
         title = actions.win.title()
         result = title.split(")")
-        # print(f"vim.filename(): {result}")
         if len(result) > 1:
             # Assumes the last word after the last ) entry has the filename
             result = result[-1]
+            #print(f"vim.filename(): {result.strip()}")
             return result.strip()
         else:
             return ""
@@ -116,14 +106,11 @@ ctx.lists["self.vim_arrow"] = {
 # XXX - Technically some of these are not counted atm... so could be split
 # Standard self.vim_counted_actions insertable entries
 standard_counted_actions = {
-    # XXX - switch this to something like: "after air": faa
-    # "after": "a",
-    "append": "a",
-    # "after line": "A",
-    "append line": "A",
+    "suffix": "a",
+    "suffix line": "A",
     "insert mode": "i",
     "insert column zero": "gI",
-    # "open below": "o",
+    "open below": "o",
     # "open above": "O",
     # opposite is useful for visual mode cursor swapping
     "opposite": "o",
@@ -137,11 +124,6 @@ standard_counted_actions = {
     "paste": "p",
     "paste above": "P",
     "repeat": ".",
-    "peat": ".",
-    "indent line": ">>",
-    # Warning saying unindent line is painful
-    "unindent line": "<<",
-    "delete line": "dd",  # TODO - can we avoid because of clear line?
     "forget line": '"_dd',  # TODO - can we avoid because of clear line?
     "yank line": "Y",
     # "copy line": "Y",
@@ -158,9 +140,10 @@ standard_counted_actions = {
     "play again": "@@",
     "toggle case": "~",
     "repeat last swap": "&",
-    # XXX - not sure how to name these
-    "clear rest": "D",
-    "change rest": '"_C',  # NOTE: we purposely use the black hole register
+    "dedent": "<<",
+    "indent": ">>",
+    "drop": "x",
+    "orca": "O",
 }
 
 # Standard self.vim_counted_actions key() entries
@@ -179,12 +162,6 @@ standard_counted_actions_control_keys = {
 # alias commands from standard_counted_actions above, without replacing them
 # there to prevent merge conflicts.
 custom_counted_action = {
-    "drop": "x",
-    "open below": "o",  # ochre stopped working because of over
-    "orca": "O",
-    #    "slide left": "<<",
-    "dedent": "<<",
-    "indent": ">>",
 }
 
 # Custom self.vim_counted_actions insertable entries
@@ -282,8 +259,8 @@ motions = {
     "back": "b",
     "big back": "B",
     "backie": "B",
-    "tip": "e",
-    "big tip": "E",
+    "tippy": "e",  # tip conflicts with other stuff
+    "big tippy": "E",
     "word": "w",
     "big word": "W",
     "biggie": "W",
@@ -293,9 +270,6 @@ motions = {
     "left": "h",
     # "down": "j",
     "south": "j",
-    # XXX - up is starting to conflict too much with me moving back to
-    # using op instead of cop in operators.talon, switching to north and
-    # south ala @rntz
     # "up": "k",
     "north": "k",
     "next": "n",
@@ -313,12 +287,11 @@ motions = {
     "tense": ")",
     "last tense": "(",
     "graph": "}",
-    "laugh": "{",
     "last graph": "{",
     "section": "]]",
     "last section": "[[",
     "end section": "][",
-    "end last section": "[]",
+    "last end section": "[]",
     # XXX - not sure about naming - don't seem to work yet
     "block end": "]}",
     "block start": "[{",
@@ -333,7 +306,7 @@ motions = {
     "curse last": "L",
     "loft": "gg",
     # "file top": "gg",
-    "gut": "G",
+    "gutter": "G",
     # "file ent": "G",
 }
 
@@ -353,7 +326,7 @@ ctx.lists["self.vim_motions"] = {
 # TODO - Not sure if curse always applies
 ctx.lists["self.vim_motions_keys"] = {
     "last curse": "ctrl-o",
-    "forward curse": "ctrl-i",
+    "next curse": "ctrl-i",
     # "retrace movements": "ctrl-o",
     # "retrace movements forward": "ctrl-i",
 }
@@ -364,6 +337,7 @@ vim_character_motions = {
     "find": "f",
     "fever": "F",
     "till": "t",
+    # XXX - this can conflict with to sometimes
     "tier": "T",
 }
 
@@ -989,6 +963,22 @@ class Actions:
         v.set_any_motion_mode_exterm()
         actions.key(cmd)
 
+    # Newer API that harcode the common functionality, to allow easier
+    # redirection through RPC or not.
+    def vim_save_file():
+        """Save current buffer"""
+        v = VimAPI()
+        v.api.save_file()
+
+    def vim_merge_word_back():
+        """Save current buffer"""
+        v = VimAPI()
+        v.api.merge_word_back()
+
+    def vim_terminal_echo_line_number(num: str):
+        """Save current buffer"""
+        v = VimAPI()
+        v.api.terminal_echo_line_number(num)
 
 class NeoVimRPC:
     """For setting/pulling the modes using RPC"""
@@ -1022,14 +1012,79 @@ class NeoVimRPC:
         return mode
 
 
-class VimNonRpc:
-    """For pulling the modes out of the title string, if RPC isn't
-    available. Is generally slower.."""
+class VimNonRPC:
+    """Implementation of functionality when RPC is available. 
 
-    pass
+    This relies on a more finnicky method of detecting no changes, stringing
+    commands together, which can be a bit buggy. It's supported for people that
+    can't use neovim RPC for some reason."""
 
+
+    def save_file(self):
+        # XXX - This should all be abstracted
+        v = VimMode()
+        v.set_command_mode()
+        v.insert_command_mode_command(":w\n")
+
+    def merge_word_back(self):
+        # XXX - This should all be abstracted
+        v = VimMode()
+        v.set_normal_mode()
+        actions.insert("F ")
+        v.set_normal_mode()
+        actions.insert("x")
+
+    def terminal_echo_line_number(self, line_num: str):
+        """Echo a line number"""
+        actions.user.vim_normal_mode_exterm(f"{line_num}k")
+        actions.key('0')
+        actions.insert("yE")
+        # See `:help pattern`
+        # \_s   - match single white space
+        # \{2,} - at least two in a row
+        actions.user.vim_command_mode(":set nohls | let @+=substitute(strtrans(@+), '\\_s\\{{2,}}', '', 'g')\n")
+        actions.user.vim_set_insert_mode()
+        actions.edit.paste()
+        actions.key("space")
+
+class VimRPC:
+    """Implementation of functionality when RPC is available."""
+    def __init__(self, nvrpc):
+        self.nvrpc = nvrpc
+
+    def save_file(self):
+        self.nvrpc.nvim.command('w')
+
+    def merge_word_back(self):
+        self.nvrpc.nvim.command('normal F x')
+
+    # Terminal mode
+    # XXX - to move to vim_terminal_mode.py when I figure out how to import
+    # local files
+    def terminal_echo_line_number(self, line_num: str):
+        self.nvrpc.nvim.command(f'execute feedkeys("\\<C-\\>\\<C-n>", "t") | redraw')
+        self.nvrpc.nvim.command(f'normal {line_num}k0yE')
+        self.nvrpc.nvim.command("normal :set nohls | :let @+=substitute(strtrans(@+), '\\_s\\{{2,}}', '', 'g')")
+        self.nvrpc.nvim.command('normal i')
+        actions.edit.paste()
+        actions.key("space")
+
+class VimAPI:
+    """Abstraction of calls that go through RPC or not."""
+
+    def __init__(self):
+        self.api = self._get_api()
+
+    def _get_api(self):
+        """return a RPC or non-RPC API object """
+        self.nvrpc = NeoVimRPC()
+        if self.nvrpc.init_ok is True:
+            return VimRPC(self.nvrpc)
+        else:
+            return VimNonRPC()
 
 class VimMode:
+    """Manage mode transitions with or without RPC"""
     # TODO: make this an Enum
     # mode ids represent generic statusline mode() values. see :help mode()
     NORMAL = 1
@@ -1077,10 +1132,12 @@ class VimMode:
         self.current_mode = self.get_active_mode()
         self.canceled_timeout = settings.get("user.vim_cancel_queued_commands_timeout")
         self.wait_mode_timeout = settings.get("user.vim_mode_change_timeout")
+        self.debug_print("VimMode Initializing")
 
-    def dprint(self, s):
+    def debug_print(self, s):
+        # XXX - need to override the logger
         if settings.get("user.vim_debug"):
-            print(f"VIM DEBUG: {s}")
+            logger.debug(s)
 
     def is_normal_mode(self):
         return self.current_mode in [
@@ -1112,14 +1169,14 @@ class VimMode:
     def get_active_mode(self):
         if self.nvrpc.init_ok is True:
             mode = self.nvrpc.get_active_mode()["mode"]
-            self.dprint(f"RPC reported mode: {mode}")
+            self.debug_print(f"RPC reported mode: {mode}")
             self.current_mode = mode
         else:
             title = ui.active_window().title
             mode = None
             if "MODE:" in title:
                 mode = title.split("MODE:")[1].split(" ")[0]
-                self.dprint(f"Window title reported mode: {mode}")
+                self.debug_print(f"Window title reported mode: {mode}")
                 if mode not in self.vim_modes.keys():
                     return None
                 self.current_mode = mode
@@ -1217,7 +1274,7 @@ class VimMode:
         cur = self.current_mode_id()
         if type(valid_mode_ids) != list:
             valid_mode_ids = [valid_mode_ids]
-        self.dprint(f"Want to adjust from from {cur} to one of {valid_mode_ids}")
+        self.debug_print(f"Want to adjust from from {cur} to one of {valid_mode_ids}")
         if cur not in valid_mode_ids:
             # Just favor the first mode match
             self.set_mode(
@@ -1288,9 +1345,9 @@ class VimMode:
         ):
             return
 
-        self.dprint("Setting mode to {}".format(wanted_mode))
-        print(f"{current_mode}")
-        # enter normal mode where "_cwnecessary
+        self.debug_print("Setting mode to {}".format(wanted_mode))
+        self.debug_print(f"Current load: {current_mode}")
+        # enter normal mode where necessary
         # XXX - need to handle normal mode in Command Line window, we need to
         # be able to escape from it
         # XXX - also have a lot of special case modes (see :help mode) that we
@@ -1319,7 +1376,7 @@ class VimMode:
                 # NOTE: do not wait on mode change here, as we
                 # cannot detect it
         elif self.is_insert_mode():
-            # XXX - this might need to be a or for no_preserve "_cwand
+            # XXX - this might need to be a or for no_preserve and
             # settings.get?
             if (
                 wanted_mode == self.NORMAL
@@ -1371,6 +1428,7 @@ class VimMode:
         elif wanted_mode == self.COMMAND:
             actions.key(":")
             self.wait_mode_change("c")
+            self.debug_print("Detected COMMAND mode change")
         elif wanted_mode == self.REPLACE:
             actions.key("R")
         elif wanted_mode == self.VREPLACE:

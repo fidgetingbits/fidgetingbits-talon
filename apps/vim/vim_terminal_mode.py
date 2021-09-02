@@ -1,6 +1,7 @@
 import re
 from talon import Context, Module, actions, settings, ui
 
+mod = Module()
 ctx = Context()
 ctx.matches = r"""
 tag: user.vim_terminal
@@ -21,6 +22,14 @@ class EditActions:
 
     def paste():
         actions.key("ctrl-shift-v")
+
+
+@mod.action_class
+class Actions:
+    def vim_set_normal_mode():
+        """set normal mode"""
+        v = VimMode()
+        v.set_normal_mode(auto=False)
 
 def parse_vim_term_title(window):
     """a variety of parsing to gracefully handle various shell commands
