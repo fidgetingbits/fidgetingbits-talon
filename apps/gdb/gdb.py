@@ -125,6 +125,14 @@ class UserActions:
         actions.insert("x/10i ")
         # Type inspection
 
+    # XXX - Technically this should just be part of generic_debugger.talon
+    # since it will follow the same pattern for all debuggers?
+    def debugger_disassemble_clipboard():
+        actions.insert("x/10i ")
+        actions.edit.paste()
+        actions.key("enter")
+
+        # Type inspection
     def debugger_dump_ascii_string():
         actions.insert("x/s ")
 
