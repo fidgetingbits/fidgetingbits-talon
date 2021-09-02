@@ -9,7 +9,7 @@ tag(): user.vim_command_mode
 paste register <user.key>: key(ctrl-r {key})
 
 # Command-line completion: help:cmdline-completion
-match names: key(ctrl-a)
+(match names|expand that): key(ctrl-a)
 
 literal: key(ctrl-v)
 

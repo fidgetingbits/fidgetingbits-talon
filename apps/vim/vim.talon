@@ -195,6 +195,7 @@ scroll bottom reset cursor: user.vim_normal_mode_exterm("z ")
 ###
 (buf|buffer) list: user.vim_command_mode_exterm(":ls\n")
 (buf|buffer) (close|delete) <number_small>: user.vim_command_mode_exterm(":bd {number_small} ")
+(buf|buffer) delete: user.vim_command_mode_exterm(":bd ")
 (buf|buffer) close current: user.vim_command_mode_exterm(":bd\n")
 (buf|buffer) close last: user.vim_command_mode_exterm(":bd #\n")
 (buf|buffer) force close: user.vim_command_mode_exterm(":bd!\n")

@@ -35,7 +35,7 @@ class EditActions:
         actions.user.vim_normal_mode_key("$")
 
     def file_end():
-        actions.user.vim_normal_mode_key(G)
+        actions.user.vim_normal_mode_key("G")
 
     def file_start():
         actions.user.vim_normal_mode("gg")
