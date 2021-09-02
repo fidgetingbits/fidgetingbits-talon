@@ -127,3 +127,9 @@ funk bug:
 funk pretty print: 
     insert("pp.pprint()")
     key(left)
+
+assign to <user.text>:
+    user.assign_variable(text)
+
+append to <user.text>:
+    user.append_variable(text)

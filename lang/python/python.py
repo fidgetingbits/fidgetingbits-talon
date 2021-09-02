@@ -310,6 +310,7 @@ class UserActions:
         actions.user.paste(f"import {text}")
 
 
+
 @mod.action_class
 class module_actions:
     # TODO this could go somewhere else
@@ -333,3 +334,26 @@ class module_actions:
         s = text1 + clip.get() + text2
         actions.insert(s)
         actions.key(f"left:{len(s) - end_pos}")
+
+    # Non overrides
+    def assign_variable(text: str):
+        """Assign to a variable"""
+        # XXX - This should use a variable naming formatter
+        result = actions.user.formatted_text(
+            text, settings.get("user.code_private_function_formatter")
+        )
+
+        actions.user.paste(result)
+        actions.user.code_operator_assignment()
+
+
+    # Non overrides
+    def append_variable(text: str):
+        """Append to a variable"""
+        # XXX - This should use a variable naming formatter
+        result = actions.user.formatted_text(
+            text, settings.get("user.code_private_function_formatter")
+        )
+
+        actions.user.paste(result)
+        actions.user.code_operator_addition_assignment()
