@@ -1384,7 +1384,6 @@ class VimMode:
                 and no_preserve is False
                 and settings.get("user.vim_preserve_insert_mode") >= 1
             ):
-                print("queueing ")
                 if settings.get("user.vim_mode_switch_moves_cursor") == 0:
                     actions.key("ctrl-\\")
                 actions.key("ctrl-o")
