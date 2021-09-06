@@ -281,7 +281,6 @@ simple_keys = [
 alternate_keys = {
     "junk": "backspace",
     "delhi": "delete",
-    "cape": "escape",
     "page up": "pageup",
     "page down": "pagedown",
 }
