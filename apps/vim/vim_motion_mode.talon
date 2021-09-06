@@ -59,8 +59,7 @@ tag(): user.vim_treesitter_textobjects
 ###
 # These are prefix with `file` to match the `file save` action defined by talon
 sage:
-    #user.vim_command_mode(":w\n")
-    user.vim_save_file()
+    user.vim_command_mode(":w\n")
 file save as:
     key(escape)
     user.vim_command_mode(":w ")
@@ -75,8 +74,8 @@ file show:
 (print working directory|folder show): user.vim_command_mode(":pwd\n")
 pivot file:
     user.vim_command_mode(":lcd %:p:h\n")
-    #pivot (parent|back):
-    #    user.vim_command_mode(":lcd ..\n")
+#pivot (parent|back):
+#    user.vim_command_mode(":lcd ..\n")
 pivot select:
     user.vim_command_mode(":lcd ")
 # Note below includes pivot back
@@ -507,59 +506,59 @@ find (reversed|previous) <user.ordinals> <user.unmodified_key>:
 # Visual Text Selection
 ###
 make ascending: user.vim_normal_mode_key("g ctrl-a")
-(take|light|highlight) line: user.vim_visual_mode("V")
-block (light|highlight): user.vim_any_motion_mode_exterm_key("ctrl-v")
+(paint|light|highlight) line: user.vim_visual_mode("V")
+block (paint|light|highlight): user.vim_any_motion_mode_exterm_key("ctrl-v")
 
-(take|light|highlight) <user.vim_motions>:
+(paint|light|highlight) <user.vim_motions>:
     user.vim_visual_mode("{vim_motions}")
-block (take|light|highlight) <user.vim_motions>:
+block (paint|light|highlight) <user.vim_motions>:
     user.vim_visual_block_mode("{vim_motions}")
 
-(take|light|highlight) lines <number> through <number>:
+(paint|light|highlight) lines <number> through <number>:
     user.vim_normal_mode_np("{number_1}G")
     user.vim_set_visual_mode()
     insert("{number_2}G")
 
-block (take|light|highlight) lines <number> through <number>:
+block (paint|light|highlight) lines <number> through <number>:
     user.vim_normal_mode_np("{number_1}G")
     user.vim_set_visual_block_mode()
     insert("{number_2}G")
 
-(take|light|highlight) <number_small> lines:
+(paint|light|highlight) <number_small> lines:
     user.vim_set_visual_line_mode()
     insert("{number_small-1}j")
 
-block (take|light|highlight) <number_small> lines:
+block (paint|light|highlight) <number_small> lines:
     user.vim_set_visual_block_mode()
     insert("{number_small-1}j")
 
-(take|light|highlight) <number_small> lines at line <number>:
+(paint|light|highlight) <number_small> lines at line <number>:
     user.vim_normal_mode_np("{number}G")
     user.vim_set_visual_line_mode()
     insert("{number_small-1}j")
 
-block (take|light|highlight) <number_small> lines at line <number>:
+block (paint|light|highlight) <number_small> lines at line <number>:
     user.vim_normal_mode_np("{number}G")
     user.vim_set_visual_block_mode()
     insert("{number_small-1}j")
 
-(take|light|highlight) <number_small> above:
+(paint|light|highlight) <number_small> above:
     user.vim_normal_mode_np("{number_small}k")
     user.vim_set_visual_line_mode()
     insert("{number_small-1}j")
 
-block (take|light|highlight) <number_small> above:
+block (paint|light|highlight) <number_small> above:
     user.vim_normal_mode_np("{number_small}k")
     user.vim_set_visual_block_mode()
     insert("{number_small-1}j")
 
-(take|light|highlight) (until|till) line <number>:
+(paint|light|highlight) (until|till) line <number>:
     user.vim_normal_mode_np("m'")
     insert(":{number}\n")
     user.vim_set_visual_line_mode()
     insert("''")
 
-block (take|light|highlight) (until|till) line <number>:
+block (paint|light|highlight) (until|till) line <number>:
     user.vim_normal_mode_np("m'")
     insert(":{number}\n")
     user.vim_set_visual_block_mode()
@@ -568,7 +567,7 @@ block (take|light|highlight) (until|till) line <number>:
 # Greedily highlight whatever is under the cursor. Doesn't work if on the first
 # character of the entry, in which case you should say a normal motion like
 # "light big end", etc
-(take|light) this:
+(paint|light) this:
     user.vim_normal_mode_np("B")
     user.vim_visual_mode("E")
 
@@ -627,7 +626,7 @@ run as sandbox:
 ###
 trim white space: user.vim_normal_mode(":%s/\\s\\+$//e\n")
 (remove all|normalize) tabs: user.vim_normal_mode(":%s/\\t/    /eg\n")
-normalize spaces: user.vim_normal_mode(":%s/\\S\\zs\\s\\+/ /g\n")
+normalize spaces: user.vim_command_mode(":%s/\\S\\zs\\s\\+/ /g\n")
 (delete|trim) empty lines:
     insert(":")
     sleep(100ms)
@@ -644,9 +643,8 @@ magnet:
     user.vim_normal_mode("f ")
     user.vim_normal_mode("x")
 magnet back:
-    user.vim_merge_word_back()
-    #user.vim_normal_mode("F ")
-    #user.vim_normal_mode("x")
+    user.vim_normal_mode("F ")
+    user.vim_normal_mode("x")
 
 
 show unsaved changes:
