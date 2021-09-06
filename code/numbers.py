@@ -12,6 +12,8 @@ scales = "hundred thousand million billion trillion quadrillion quintillion sext
 
 digits_map = {n: i for i, n in enumerate(digits)}
 digits_map["oh"] = 0
+# For stuff where we definitely don't want to match on "oh"
+digits_strict_map = {n: i for i, n in enumerate(digits)}
 teens_map = {n: i + 10 for i, n in enumerate(teens)}
 tens_map = {n: 10 * (i + 2) for i, n in enumerate(tens)}
 scales_map = {n: 10 ** (3 * (i+1)) for i, n in enumerate(scales[1:])}
@@ -159,6 +161,7 @@ def split_list(value, l: list) -> Iterator:
 
 # ---------- CAPTURES ----------
 alt_digits = "(" + ("|".join(digits_map.keys())) + ")"
+alt_digits_strict = "(" + ("|".join(digits_strict_map.keys())) + ")"
 alt_teens = "(" + ("|".join(teens_map.keys())) + ")"
 alt_tens = "(" + ("|".join(tens_map.keys())) + ")"
 alt_scales = "(" + ("|".join(scales_map.keys())) + ")"
@@ -169,10 +172,20 @@ number_word = "(" + "|".join(numbers_map.keys()) + ")"
 def digit_string(m) -> str:
     return parse_number(list(m))
 
+#@ctx.capture("digit_strict_string", rule=f"({alt_digits_strict} | {alt_teens} | {alt_tens})+")
+#def digit_strict_string(m) -> str:
+#    return parse_number(list(m))
+
+
 @ctx.capture("digits", rule="<digit_string>")
 def digits(m) -> int:
     """Parses a phrase representing a digit sequence, returning it as an integer."""
     return int(m.digit_string)
+
+#@ctx.capture("digits_strict", rule="<digit_strict_string>")
+#def digits_strict(m) -> int:
+#    """Parses a phrase representing a digit sequence, returning it as an integer."""
+#    return int(m.digit_strict_string)
 
 # XXX - need to clarify when a scale number is used in only match on and. I
 # often run into something like numb two one three getting parsed as two and
