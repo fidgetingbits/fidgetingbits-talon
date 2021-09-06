@@ -1042,6 +1042,16 @@ class VimRPC:
         the intention is actually to let the user continue to interact after
         the input goes in, in which case we actually redirect back to the
         direct input from here.
+
+        NOTE: This has some pretty significant quirks compared to is running
+        commands with direct input. For instance if you have a command declared
+        that maps to a function, like "command! :Files fzf#blah" you need a
+        very specific invocation for this to work, which is `:exe ":Files"\n` .
+        Since we want these comments to work generically across systems that
+        have both RPC and not, unfortunately it means we need to rely on the
+        more complicated invocation even for when were not using RPC, to avoid
+        the duplication... there might be some better way to do this but I
+        haven't figured it out yet.
         """
         if cmd[-1] != '\n':
             v = VimDirectInput()
@@ -1049,7 +1059,6 @@ class VimRPC:
         else:
             # XXX - This doesn't seem to work for certain plugin commands, and
             # commands like squeak, if we're already in INSERT mode
-
             self.nvrpc.nvim.command(cmd)
 
     def run_command_mode_command_exterm(self, cmd):
