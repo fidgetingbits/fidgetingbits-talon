@@ -47,6 +47,7 @@ add to do: "# XXX - "
 # Networking
 ###
 net local host: "127.0.0.1"
+net star: "0.0.0.0"
 net mask [type] C: "255.255.255.0"
 net mask [type] B: "255.255.0.0"
 net mask [type] A: "255.0.0.0"
