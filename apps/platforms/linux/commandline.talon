@@ -66,7 +66,7 @@ file (list here|lisa): "ls -l\n"
 file size: "ls -lh "
 file list long: "ls -al "
 file (list long here|lily): "ls -al\n"
-file list latest: "ls -Art | tail -n1\n"
+file list latest: "exa --sort latest --no-icons | tail -n1\n"
 file list folders: "ls -d */\n"
 file strings: "strings "
 
@@ -76,11 +76,11 @@ file find all folders: "find . -maxdepth 1 -type d  -ls\n"
 file fine all files: "find . -maxdepth 1 -type f  -ls\n"
 
 # TODO - revisit the grammar for $() commands
-call file latest: "$(ls -Art | tail -n1)"
+call file latest: "$(exa --sort latest --no-icons | tail -n1)\n"
 
 # TODO - somehow make this scriptable to print anything
-file edit latest: "edit $(ls -Art | tail -n1)\n"
-file latest: "$(ls -Art | tail -n1)"
+file edit latest: "edit $(exa --sort latest --no-icons | tail -n1)\n"
+file latest: "$(exa --sort latest --no-icons | tail -n1)"
 file link: "ln -s "
 file link force: "ln -sf "
 file hard link: "ln "
@@ -129,7 +129,7 @@ file [disk] usage all: "du -sh *\n"
 trash list: "trash-list\n"
 trash restore: "trash-restore "
 trash empty: "trash-empty "
-file watch latest: "vlc $(ls -Art | tail -n1)"
+file watch latest: "vlc $(exa --sort latest --no-icons | tail -n1)"
 
 echo param <user.text>: 
     insert("echo ${")
@@ -162,7 +162,7 @@ pivot next:
     insert("ls\n")
 
 pivot (last|flip): "cd -\n"
-pivot latest: "cd $(ls -Art | tail -n1)\n"
+pivot latest: "cd $(exa --sort latest --no-icons | tail -n1)\n"
 
 
 folder remove: "rmdir "
@@ -312,9 +312,8 @@ sis cuddle: "sysctl "
 sis cuddle set: "sysctl -w "
 
 # extraction
-tar ball create: "tar -cvJf"
-tar ball [extract]: "tar -xvaf "
-file extract: "tar -xvaf "
+file tar [ball] create: "tar -cvJf"
+file [tar] extract: "tar -xvaf "
 file unzip: "unzip "
 file seven extract: "7z x "
 file seven list: "7z l "
@@ -414,7 +413,7 @@ errors ignore: "2>/dev/null"
 # Wallpaper
 ###
 wallpaper set: "feh --bg-scale "
-wallpaper set latest: "feh --bg-scale $(find ~/images/wallpaper/ -name $(ls -Art ~/images/wallpaper/ | tail -n1))\n"
+wallpaper set latest: "feh --bg-scale $(find ~/images/wallpaper/ -name $(exa --sort latest --no-icons ~/images/wallpaper/ | tail -n1))\n"
 
 
 ###
