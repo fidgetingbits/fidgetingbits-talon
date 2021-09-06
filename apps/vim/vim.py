@@ -1047,8 +1047,9 @@ class VimRPC:
             v = VimDirectInput()
             v.run_command_mode_command(cmd)
         else:
-            # This technically auto preserves insert mode, since we're not
-            # directly interacting with the keyboard anyway
+            # XXX - This doesn't seem to work for certain plugin commands, and
+            # commands like squeak, if we're already in INSERT mode
+
             self.nvrpc.nvim.command(cmd)
 
     def run_command_mode_command_exterm(self, cmd):
@@ -1080,22 +1081,19 @@ class VimAPI:
 # should be broken up were appropriate.
 class VimMode:
     """Manage mode transitions with or without RPC"""
-    # TODO: make this an Enum
     # mode ids represent generic statusline mode() values. see :help mode()
-    NORMAL = 1
-    VISUAL = 2
-    VISUAL_LINE = 3
-    VISUAL_BLOCK = 4
-    INSERT = 5
-    TERMINAL = 6
-    COMMAND = 7  # XXX - technically this should be called COMMAND_LINE
-    REPLACE = 8
-    VREPLACE = 9  # XXX - call this VISUAL_REPLACE to be consistent
+    NORMAL = "normal"
+    VISUAL = "visual"
+    VISUAL_LINE = "visual_line"
+    VISUAL_BLOCK = "visual_block"
+    INSERT = "insert"
+    TERMINAL = "terminal"
+    COMMAND_LINE = "command_line"
+    REPLACE = "replace"
+    VISUAL_REPLACE = "visual_replace"
 
     # This is replicated from :help mode()
     vim_modes_new = {"NORMAL": {"mode": "n", "desc": "Normal"}}
-
-    # modes = enum.Enum("NORMAL VISUAL")
 
     # XXX - incomplete see :help mode
     vim_modes = {
@@ -1124,7 +1122,6 @@ class VimMode:
         self.vim_instances = []
         self.current_rpc = None
         self.nvrpc = NeoVimRPC()
-        self.current_mode = self.get_active_mode()
         self.canceled_timeout = settings.get("user.vim_cancel_queued_commands_timeout")
         self.wait_mode_timeout = settings.get("user.vim_mode_change_timeout")
         self.debug_print("VimMode Initializing")
@@ -1133,10 +1130,6 @@ class VimMode:
         # XXX - need to override the logger
         if settings.get("user.vim_debug"):
             logger.debug(s)
-
-    def mode(self):
-        """Returns the active mode"""
-        return self.get_active_mode()
 
     def is_normal_mode(self):
         return self.mode() in [
@@ -1167,11 +1160,10 @@ class VimMode:
 
     # XXX - this can maybe get called by the parent class, since will only have 
     # when the parent class is VimRPC
-    def get_active_mode(self):
+    def mode(self):
         if self.nvrpc.init_ok is True:
             mode = self.nvrpc.get_active_mode()["mode"]
-            self.debug_print(f"RPC reported mode: {mode}")
-            self.current_mode = mode
+            #self.debug_print(f"RPC reported mode: {self.current_mode_id()}")
         else:
             title = ui.active_window().title
             mode = None
@@ -1180,7 +1172,6 @@ class VimMode:
                 self.debug_print(f"Window title reported mode: {mode}")
                 if mode not in self.vim_modes.keys():
                     return None
-                self.current_mode = mode
 
         return mode
 
@@ -1194,7 +1185,7 @@ class VimMode:
         elif self.is_terminal_mode():
             return self.TERMINAL
         elif self.is_command_mode():
-            return self.COMMAND
+            return self.COMMAND_LINE
 
     def insert_text(self, text):
         if app.platform == "linux":
@@ -1244,16 +1235,16 @@ class VimMode:
         self.adjust_mode(self.TERMINAL)
 
     def set_command_mode(self):
-        self.adjust_mode(self.COMMAND)
+        self.adjust_mode(self.COMMAND_LINE)
 
     def set_command_mode_exterm(self):
-        self.adjust_mode(self.COMMAND, escape_terminal=True)
+        self.adjust_mode(self.COMMAND_LINE, escape_terminal=True)
 
     def set_replace_mode(self):
         self.adjust_mode(self.REPLACE)
 
     def set_visual_replace_mode(self):
-        self.adjust_mode(self.VREPLACE)
+        self.adjust_mode(self.VISUAL_REPLACE)
 
     def set_any_motion_mode(self):
         self.adjust_mode([self.NORMAL, self.VISUAL])
@@ -1271,12 +1262,11 @@ class VimMode:
         if auto is True and settings.get("user.vim_adjust_modes") == 0:
             return
 
-        # self.get_active_mode()
         cur = self.current_mode_id()
         if type(valid_mode_ids) != list:
             valid_mode_ids = [valid_mode_ids]
-        self.debug_print(f"Want to adjust from from {cur} to one of {valid_mode_ids}")
         if cur not in valid_mode_ids:
+            self.debug_print(f"Want to adjust from from '{cur}' to one of '{valid_mode_ids}'")
             # Just favor the first mode match
             self.set_mode(
                 valid_mode_ids[0],
@@ -1305,10 +1295,10 @@ class VimMode:
         if self.nvrpc.init_ok:
             while wanted != self.nvrpc.get_active_mode()["mode"]:
                 logger.debug(
-                    "%s vs %s" % (wanted, self.nvrpc.get_active_mode()["mode"])
+                    "Wanted mode: %s vs Current mode: %s" % (wanted, self.nvrpc.get_active_mode()["mode"])
                 )
                 # XXX - for wait value should be configurable
-                time.sleep(0.005)
+                time.sleep(0.020)
                 # try to force redraw to prevent weird infinite loops
                 self.nvrpc.nvim.command("redraw")
                 check_count += 1
@@ -1347,7 +1337,6 @@ class VimMode:
             return
 
         self.debug_print("Setting mode to {}".format(wanted_mode))
-        self.debug_print(f"Current load: {current_mode}")
         # enter normal mode where necessary
         # XXX - need to handle normal mode in Command Line window, we need to
         # be able to escape from it
@@ -1398,7 +1387,7 @@ class VimMode:
         elif self.is_visual_mode() or self.is_command_mode() or self.is_replace_mode():
             actions.key("escape")
             self.wait_mode_change("n")
-        elif self.is_normal_mode() and wanted_mode == self.COMMAND:
+        elif self.is_normal_mode() and wanted_mode == self.COMMAND_LINE:
             # We explicitly escape even if normal mode, to cancel any queued
             # commands that might affect our command. For instance, accidental
             # number queueing followed by :w, etc
@@ -1425,13 +1414,13 @@ class VimMode:
             # ex: normal mode press 5, then press v to switch to visual
             actions.key("escape")
             actions.key("ctrl-v")
-        elif wanted_mode == self.COMMAND:
+        elif wanted_mode == self.COMMAND_LINE:
             actions.key(":")
             self.wait_mode_change("c")
             self.debug_print("Detected COMMAND mode change")
         elif wanted_mode == self.REPLACE:
             actions.key("R")
-        elif wanted_mode == self.VREPLACE:
+        elif wanted_mode == self.VISUAL_REPLACE:
             actions.key("g R")
 
         # Here we assume we are now in some normalized state:
