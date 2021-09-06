@@ -923,17 +923,15 @@ class Actions:
     # ensure that any queued commands are removed
     def vim_command_mode(cmd: str):
         """run a given list of commands in command mode, preserve INSERT"""
-        v = VimMode()
-        v.set_command_mode()
-        v.insert_command_mode_command(cmd)
+        vapi = VimAPI()
+        vapi.api.run_command_mode_command(cmd)
 
     # technically right now they run in in normal mode, but these calls will
     # ensure that any queued commands are removed
     def vim_command_mode_exterm(cmd: str):
         """run a given list of commands in command mode, preserve INSERT"""
-        v = VimMode()
-        v.set_command_mode_exterm()
-        v.insert_command_mode_command(cmd)
+        vapi = VimAPI()
+        vapi.api.run_command_mode_command_exterm(cmd)
 
     # Sometimes the .talon file won't know what mode to run something in, just
     # that it needs to be a mode that supports motions like normal and visual.
@@ -962,23 +960,6 @@ class Actions:
         v = VimMode()
         v.set_any_motion_mode_exterm()
         actions.key(cmd)
-
-    # Newer API that harcode the common functionality, to allow easier
-    # redirection through RPC or not.
-    def vim_save_file():
-        """Save current buffer"""
-        v = VimAPI()
-        v.api.save_file()
-
-    def vim_merge_word_back():
-        """Save current buffer"""
-        v = VimAPI()
-        v.api.merge_word_back()
-
-    def vim_terminal_echo_line_number(num: str):
-        """Save current buffer"""
-        v = VimAPI()
-        v.api.terminal_echo_line_number(num)
 
 class NeoVimRPC:
     """For setting/pulling the modes using RPC"""
@@ -1012,63 +993,71 @@ class NeoVimRPC:
         return mode
 
 
-class VimNonRPC:
-    """Implementation of functionality when RPC is available. 
+class VimDirectInput:
+    """Implementation of functionality when RPC is not available. 
 
     This relies on a more finnicky method of detecting no changes, stringing
     commands together, which can be a bit buggy. It's supported for people that
-    can't use neovim RPC for some reason."""
+    can't use neovim RPC for some reason, like if you are using something with 
+    a VIM-like mode, like a consol with bindkeys -v set"""
 
-
-    def save_file(self):
-        # XXX - This should all be abstracted
+    def run_command_mode_command(self, cmd):
+        """Run a command in commandline mode using direct keyboard input."""
         v = VimMode()
         v.set_command_mode()
-        v.insert_command_mode_command(":w\n")
+        v.insert_command_mode_command(cmd)
 
-    def merge_word_back(self):
-        # XXX - This should all be abstracted
+    def run_command_mode_command_exterm(self, cmd):
+        """Run a command in commandline mode using direct keyboard input."""
         v = VimMode()
-        v.set_normal_mode()
-        actions.insert("F ")
-        v.set_normal_mode()
-        actions.insert("x")
+        v.set_command_mode()
+        v.insert_command_mode_command(cmd)
 
-    def terminal_echo_line_number(self, line_num: str):
-        """Echo a line number"""
-        actions.user.vim_normal_mode_exterm(f"{line_num}k")
-        actions.key('0')
-        actions.insert("yE")
-        # See `:help pattern`
-        # \_s   - match single white space
-        # \{2,} - at least two in a row
-        actions.user.vim_command_mode(":set nohls | let @+=substitute(strtrans(@+), '\\_s\\{{2,}}', '', 'g')\n")
-        actions.user.vim_set_insert_mode()
-        actions.edit.paste()
-        actions.key("space")
 
 class VimRPC:
     """Implementation of functionality when RPC is available."""
+
     def __init__(self, nvrpc):
         self.nvrpc = nvrpc
 
-    def save_file(self):
-        self.nvrpc.nvim.command('w')
+    def exit_terminal_mode(self):
+        """Leave terminal mode if inside."""
+        v = VimMode()
+        v.set_normal_mode_exterm()
 
-    def merge_word_back(self):
-        self.nvrpc.nvim.command('normal F x')
+    def is_insert_mode(self):
+        v = VimMode()
+        return v.is_insert_mode()
 
-    # Terminal mode
-    # XXX - to move to vim_terminal_mode.py when I figure out how to import
-    # local files
-    def terminal_echo_line_number(self, line_num: str):
-        self.nvrpc.nvim.command(f'execute feedkeys("\\<C-\\>\\<C-n>", "t") | redraw')
-        self.nvrpc.nvim.command(f'normal {line_num}k0yE')
-        self.nvrpc.nvim.command("normal :set nohls | :let @+=substitute(strtrans(@+), '\\_s\\{{2,}}', '', 'g')")
-        self.nvrpc.nvim.command('normal i')
-        actions.edit.paste()
-        actions.key("space")
+    def is_terminal_mode(self):
+        v = VimMode()
+        return v.is_terminal_mode()
 
+    def run_command_mode_command(self, cmd):
+        """Run a command in commandline mode using RPC.
+
+        This requires some special casing because of support for direct key
+        input. This means that certain commands will come in a newline
+        character if the command is meant to be executed immediately, otherwise
+        the intention is actually to let the user continue to interact after
+        the input goes in, in which case we actually redirect back to the
+        direct input from here.
+        """
+        if cmd[-1] != '\n':
+            v = VimDirectInput()
+            v.run_command_mode_command(cmd)
+        else:
+            # This technically auto preserves insert mode, since we're not
+            # directly interacting with the keyboard anyway
+            self.nvrpc.nvim.command(cmd)
+
+    def run_command_mode_command_exterm(self, cmd):
+        """Exit terminal mode and run a command in commandline mode using RPC. """
+        if self.is_terminal_mode():
+            self.exit_terminal_mode()
+        self.run_command_mode_command(cmd)
+
+# XXX - this should be moved somewhere else
 class VimAPI:
     """Abstraction of calls that go through RPC or not."""
 
@@ -1081,8 +1070,14 @@ class VimAPI:
         if self.nvrpc.init_ok is True:
             return VimRPC(self.nvrpc)
         else:
-            return VimNonRPC()
+            return VimDirectInput()
 
+
+# XXX - this should be updated to use feedkeys when RPC is available
+# XXX - this should be made a singleton they gets registered when the window
+# is focused
+# XXX - this as a lot of code specific too VimDirectInput rather than VimRPC
+# should be broken up were appropriate.
 class VimMode:
     """Manage mode transitions with or without RPC"""
     # TODO: make this an Enum
@@ -1139,8 +1134,12 @@ class VimMode:
         if settings.get("user.vim_debug"):
             logger.debug(s)
 
+    def mode(self):
+        """Returns the active mode"""
+        return self.get_active_mode()
+
     def is_normal_mode(self):
-        return self.current_mode in [
+        return self.mode() in [
             "n",
             "no",
             "nov",
@@ -1152,20 +1151,22 @@ class VimMode:
         ]
 
     def is_visual_mode(self):
-        return self.current_mode in ["v", "V", "^V"]
+        return self.mode() in ["v", "V", "^V"]
 
     def is_insert_mode(self):
-        return self.current_mode in ["i", "ic", "ix"]
+        return self.mode() in ["i", "ic", "ix"]
 
     def is_terminal_mode(self):
-        return self.current_mode == "t"
+        return self.mode() == "t"
 
     def is_command_mode(self):
-        return self.current_mode == "c"
+        return self.mode() == "c"
 
     def is_replace_mode(self):
-        return self.current_mode in ["R", "Rv", "Rx", "Rc"]
+        return self.mode() in ["R", "Rv", "Rx", "Rc"]
 
+    # XXX - this can maybe get called by the parent class, since will only have 
+    # when the parent class is VimRPC
     def get_active_mode(self):
         if self.nvrpc.init_ok is True:
             mode = self.nvrpc.get_active_mode()["mode"]
@@ -1257,7 +1258,7 @@ class VimMode:
     def set_any_motion_mode(self):
         self.adjust_mode([self.NORMAL, self.VISUAL])
 
-    # XXX - this should except additional modes, like visual block
+    # XXX - this should accept additional modes, like visual block
     def set_any_motion_mode_exterm(self):
         self.adjust_mode([self.NORMAL, self.VISUAL], escape_terminal=True)
 
@@ -1338,7 +1339,7 @@ class VimMode:
     # break things like macro recording/replaying. So we use keyboard
     # combinations
     def set_mode(self, wanted_mode, no_preserve=False, escape_terminal=False):
-        current_mode = self.get_active_mode()
+        current_mode = self.mode()
 
         if current_mode == wanted_mode or (
             self.is_terminal_mode() and wanted_mode == self.INSERT
