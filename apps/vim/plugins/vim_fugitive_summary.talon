@@ -1,12 +1,9 @@
-# This file is specifically for when navigating the git status pane
 # https://github.com/tpope/vim-fugitive
+# This file is specifically for when navigating the git-summary feature of the
+# vim-fugitive plugin
+
 # It currently relies on you using ${FugitiveStatusLine()} in your titlestring
 # ex: let &titlestring ='VIM MODE:%{mode()} RPC:%{v:servername} %{FugitiveStatusline()} (%f) %t'
-# XXX - need to make sure not to conflict with vim bindings
-# XXX - missing a significant amount of commands
-app: vim
-# XXX - at some point titles started showing the git repo, so for now i match
-# on something else
 tag: user.vim_fugitive_summary
 and win.title: /\[Git.*git.*index/
 #tag: user.vim_fugitive_summary
@@ -15,28 +12,28 @@ and win.title: /\[Git.*git.*index/
 
 # Staging/unstaging maps
 
-[file] stage: key(s)
-[file] unstage: key(u)
-unstage (all|everything): key(U)
-discard change: key(key)
-file diff: key(=)
-file exclude: "gI"
+[file] stage: user.vim_normal_mode_key("s")
+[file] unstage: user.vim_normal_mode_key("u")
+unstage (all|everything): user.vim_normal_mode_key("U")
+discard change: user.vim_normal_mode_key("X")
+file diff: user.vim_normal_mode_key("=")
+file exclude: user.vim_normal_mode_keys("g I")
 
 # Diff maps
 
 # Navigation maps
 # XXX - these should may be override common file actions
-open file: key(o)
-open vertical file: insert(gO)
-open tab file: key(O)
-preview file: key(p)
+open file: user.vim_normal_mode_key("o")
+open vertical file: user.vim_normal_mode_keys("g O")
+open tab file: user.vim_normal_mode_key("O")
+preview file: user.vim_normal_mode_key("p")
 
 # Commit maps
 
 commit [changes]: 
-    insert("cc")
+    user.vim_normal_mode_keys("c c")
     user.vim_set_insert_mode()
-amend [last commit]: "ca"
+amend [last commit]: user.vim_normal_mode_keys("c a")
 
 # Checkout/branch maps
 
@@ -46,7 +43,7 @@ amend [last commit]: "ca"
 
 # Miscellaneous maps
 
-[git] status close: "gq"
-help: "g?"
+[git] status close: user.vim_normal_mode_keys("g q")
+help: user.vim_normal_mode_keys("g ?")
 
 # Global maps
