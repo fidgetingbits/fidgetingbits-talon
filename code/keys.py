@@ -215,7 +215,6 @@ symbol_key_words = {
     "semi": ";",
     "tick": "'",
     "locker": "[",
-    "square": "[",  # this is useful for surround commands
     "rocker": "]",
     "slash": "/",
     "bish": "\\",
@@ -226,12 +225,12 @@ symbol_key_words = {
     "question": "?",
     "wave": "~",
     "bang": "!",
-    "bling": "$",
+    "dollar": "$",
     "score": "_",
     "coal": ":",
     "lub": "(",
     "rub": ")",
-    "curl": "{",
+    "lace": "{",
     "racer": "}",
     "langle": "<",
     "rangle": ">",
@@ -242,7 +241,7 @@ symbol_key_words = {
     "caret": "^",
     "swirl": "@",
     "amper": "&",
-    "pipe": "|",
+    "piper": "|",
     "quote": '"',
 }
 
