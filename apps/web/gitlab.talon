@@ -2,8 +2,7 @@
 #
 
 tag: browser
-#win.title: /gitlab.com/
-win.title: /GitLab/
+browser.host: /gitlab\.com/
 -
 tag(): user.markdown
 

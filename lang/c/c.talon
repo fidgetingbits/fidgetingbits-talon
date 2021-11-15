@@ -1,7 +1,7 @@
+mode: user.c
 mode: user.auto_lang
 and code.language: c
 
-mode: user.c
 -
 tag(): user.code_operators
 tag(): user.code_comment

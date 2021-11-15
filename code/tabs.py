@@ -1,4 +1,4 @@
-from talon import Module
+from talon import Module, actions
 
 mod = Module()
 
@@ -15,3 +15,7 @@ class tab_actions:
 
     def tab_search():
         """Search through tabs"""
+
+    def tab_close_wrapper():
+        """Closes the current tab"""
+        actions.app.tab_close()

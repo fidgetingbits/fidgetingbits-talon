@@ -81,7 +81,7 @@ docstring_fields = {
 mod.list("python_docstring_fields", desc="python docstring fields")
 ctx.lists["user.python_docstring_fields"] = docstring_fields
 
-type_list = {
+ctx.lists["user.code_type"] = {
     "boolean": "bool",
     "integer": "int",
     "string": "str",
@@ -99,9 +99,6 @@ type_list = {
     "list": "List",
     "no return": "NoReturn",
 }
-
-mod.list("python_type_list", desc="python types")
-ctx.lists["user.python_type_list"] = type_list
 
 exception_list = [
     "BaseException",
@@ -248,11 +245,11 @@ class UserActions:
         actions.insert('else:')
         actions.key('enter')
     def code_state_switch():
-        actions.insert('switch ()')
+        actions.insert('match :')
         actions.edit.left()
     def code_state_case():
-        actions.insert('case \nbreak;')
-        actions.edit.up()
+        actions.insert('case :')
+        actions.edit.left()
     def code_state_for(): actions.auto_insert('for ')
     def code_state_for_each():
         actions.insert('for in ')
@@ -313,6 +310,11 @@ class UserActions:
     def code_insert_library(text: str, selection: str):
         actions.user.paste(f"import {text}")
 
+    def code_insert_type_annotation(type: str):
+        actions.insert(f": {type}")
+
+    def code_insert_return_type(type: str):
+        actions.insert(f" -> {type}")
 
 
 @mod.action_class

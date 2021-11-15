@@ -7,7 +7,7 @@ mod = Module()
 
 
 @ctx.action_class("edit")
-class edit_actions:
+class EditActions:
     def selected_text() -> str:
         with clip.capture() as s:
             actions.edit.copy()
@@ -15,6 +15,9 @@ class edit_actions:
             return s.get()
         except clip.NoChange:
             return ""
+    def line_insert_down():
+        actions.edit.line_end()
+        actions.key("enter")
 
 
 @mod.action_class

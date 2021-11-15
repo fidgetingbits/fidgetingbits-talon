@@ -101,6 +101,9 @@ percent that:
     user.paste("%{text}%")
 quote that:
     text = edit.selected_text()
+    user.paste("'{text}'")
+(double quote | dubquote) that:
+    text = edit.selected_text()
     user.paste('"{text}"')
 (globby|glob line):
     insert("s///g")

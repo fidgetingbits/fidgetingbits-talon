@@ -178,10 +178,9 @@ ctx.lists["self.modifier_key"] = modifier_keys
 alphabet = dict(zip(default_alphabet, letters_string))
 ctx.lists["self.letter"] = alphabet
 
-
 # `punctuation_words` is for words you want available BOTH in dictation and as
-# key names in command mode. `symbol_key_words` is for key names that should be
-# available in command mode, but NOT during dictation.
+# key names in command mode. 
+# `symbol_key_words` is for key names that should be available in command mode, but NOT during dictation.
 # XXX - There should be a way to make some things only available in dictation
 # mode...
 punctuation_words = {
@@ -206,6 +205,8 @@ punctuation_words = {
     "percent sign": "%",
     #"at sign": "@",
     "amper": "&",
+    "at sign": "@",
+    "pound sign": "£",
 }
 symbol_key_words = {
     "grave": "`",
@@ -243,6 +244,7 @@ symbol_key_words = {
     "amper": "&",
     "piper": "|",
     "quote": '"',
+    "pound": "£",
 }
 
 # make punctuation words also included in {user.symbol_keys}

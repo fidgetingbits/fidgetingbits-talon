@@ -262,12 +262,7 @@ class Actions:
         actions.insert(format_phrase(phrase, formatters))
         #actions.user.paste(format_phrase(phrase, formatters))
 
-    def formatters_help_toggle():
-        """Lists all formatters"""
-        if gui.showing:
-            gui.hide()
-        else:
-            gui.show()
+
 
     def formatters_reformat_last(formatters: str) -> str:
         """Clears and reformats last formatted phrase"""
@@ -297,6 +292,13 @@ class Actions:
         #actions.user.paste(text)
         return text
 
+    def get_formatters_words():
+        """returns a list of words currently used as formatters, and a demonstration string using those formatters"""
+        formatters_help_demo = {}
+        for name in sorted(set(formatters_words.keys())):
+            formatters_help_demo[name] = format_phrase_no_history(['one', 'two', 'three'], name)
+        return  formatters_help_demo
+
     def reformat_text(text: str, formatters: str) -> str:
         """Reformat the text."""
         unformatted = unformat_text(text)
@@ -323,10 +325,3 @@ ctx.lists["self.prose_formatter"] = {
     "sentence": "CAPITALIZE_FIRST_WORD",
 }
 
-
-@imgui.open()
-def gui(gui: imgui.GUI):
-    gui.text("List formatters")
-    gui.line()
-    for name in sorted(set(formatters_words.keys())):
-        gui.text(f"{name} | {format_phrase_no_history(['one', 'two', 'three'], name)}")
