@@ -4,7 +4,7 @@ from talon import Context, Module, app
 
 ctx = Context()
 mod = Module()
-ABORT_WORDS = ["abort", "fuck"]
+ABORT_WORDS = ["abort"]
 
 mod.list("abort_word", desc="Aborts the current command if heard")
 ctx.lists["self.abort_word"] = ABORT_WORDS
