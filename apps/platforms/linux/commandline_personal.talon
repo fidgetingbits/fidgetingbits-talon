@@ -70,3 +70,6 @@ generate dock: user.insert_cursor("pandoc [|].md --self-contained --highlight-st
 
 net (remote desktop|R D P) share:
     user.insert_cursor("xfreerdp /timeout:90000 /size:1280x800 /v:[|] /u: /p: /drive:share,rdp/share")
+
+# XXX - move this to another path
+same buf: insert("/home/aa/.ohmyzsh/custom/functions/neovim-openfile-buf.py ")

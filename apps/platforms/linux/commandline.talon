@@ -62,7 +62,9 @@ kill all:
     key(ctrl-c)
 
 file list: "ls "
+file bare list: "ls --no-icons "
 file (list here|lisa): "ls -l\n"
+file bare (list here|lisa): "ls -l --no-icons\n"
 file size: "ls -lh "
 file list long: "ls -al "
 file (list long here|lily): "ls -al\n"
@@ -104,21 +106,20 @@ file disk image copy: user.insert_cursor("dd bs=4M if=[|] of=/dev/sdX conv=fsync
 (file|folder) real deep remove: "/bin/rm -rIf "
 file diff: "diff "
 # find
-file find: "find . -name "
+file find: 
+    user.insert_cursor("find . -name \"[|]\" 2>/dev/null")
 # case insensitive fuzzy find
 file fuzzy [find]:
-    insert("find . -iname \"**\"")
-    key("left")
-    key("left")
+    user.insert_cursor("find . -iname \"*[|]*\" 2>/dev/null")
 file fuzzy [find] today:
-    insert("find . -mtime -1 -name \"**\"")
-    key("left")
-    key("left")
+    user.insert_cursor("find . -mtime -1 -name \"*[|]*\" 2>/dev/null")
 
 file hash: "sha256sum "
 file check sec: "checksec --file="
 file locate: "locate "
 file [full] path: "readlink -f "
+
+file tree permission: "tree -pufid "
 
 
 file edit read me: insert("edit README.md\n")
@@ -215,11 +216,12 @@ now grep:
     insert("| grep -i ")
 
 # networking
-net (interfaces|I P): "ip addr\n"
+net (interfaces|I P|address): "ip addr\n"
 net (route|routes): "ip route\n"
 net route add: user.insert_cursor("ip route add [|] dev ")
 net route add tunnel: user.insert_cursor("ip route add [|] dev tun0")
 net route (remove|delete|drop): "ip route del"
+# XXX - We should switch these to use ss
 net stat all: "netstat --sctp -anutp\n"
 net [stat] (listen|listening) unix: "netstat --sctp -anutp\n"
 net [stat] (listen|listening) T C P: "netstat --tcp -nlp\n"
@@ -243,6 +245,7 @@ net cat listener: "nc -v -l -p "
 net my I P: "dig +short myip.opendns.com @resolver1.opendns.com\n"
 net port <user.ports>: "{ports}"
 net dump: "tcpdump "
+net lan: "192.168.1."
 
 
 show hosts file: "cat /etc/hosts\n"
@@ -250,7 +253,7 @@ edit hosts file: "sudoedit /etc/hosts\n"
 net (remote desktop|R D P): 
     user.insert_cursor("xfreerdp /timeout:90000 /size:1280x800 /v:[|] /u: /p:")
 
-generate see tags: "ctags --recurse --exclude=.git --exclude=.pc *"
+(generate see tags|tags generate): "ctags --recurse --exclude=.git --exclude=.pc *"
 generate see scope database:
     insert('find . -name "*.c"')
     insert(' -o -name "*.cpp"')
@@ -315,6 +318,7 @@ sis cuddle set: "sysctl -w "
 file tar [ball] create: "tar -cvJf"
 file [tar] extract: "tar -xvaf "
 file unzip: "unzip "
+file B unzip: "bunzip2 "
 file seven extract: "7z x "
 file seven list: "7z l "
 tar ball list: "tar -tf "
@@ -326,7 +330,6 @@ module search: "lsmod |rg -i"
 module probe: "modprobe "
 module remove: "rmmod "
 
-run <word>: "{word} "
 run curl: "curl "
 run double you get: "wget "
 download: "wget "
