@@ -73,3 +73,18 @@ toggle opcodes:
     user.ida_open_general_options()
     key(alt-d)
     user.accept_change()
+
+##
+# Decompiler
+##
+
+collapse: key(keypad_minus)
+expand: key(keypad_plus)
+
+
+##
+# Misc
+##
+
+[book] marks show: key(ctrl-m)
+[book] mark new : key(alt-m)
