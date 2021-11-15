@@ -119,6 +119,7 @@ set args: "set args "
 
 info source: "info source\n"
 info signal: "info signal\n"
+info process: "info proc\n"
 handle signal <user.signal>: "handle {signal} "
 signal <user.signal>: "signal {signal} "
 
