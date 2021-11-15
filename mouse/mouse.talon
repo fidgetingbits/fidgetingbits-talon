@@ -38,13 +38,13 @@ camera overlay: eye_mouse.camera_overlay.toggle()
 # single click
 (touch|chiff): user.mouse_click(0, 1)
 # right click
-#(righty|rick): user.mouse_click(1, 1)
+(righty|ricky): user.mouse_click(1, 1)
 ## middle click
 #midclick: user.mouse_click(2, 1)
 ## double click
-#dyke: user.mouse_click(0, 2)
+dicky: user.mouse_click(0, 2)
 ## triple click
-#trike: user.mouse_click(0, 3)
+tricky: user.mouse_click(0, 3)
 
 
 #see keys.py for modifiers.
