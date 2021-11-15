@@ -3,6 +3,7 @@ not tag: user.mouse_grid_showing
 # Decimal
 count from <number_small> (to|till|through) <number_small>: user.count_numbers(number_small_1, number_small_2)
 numb <user.number_string>: "{number_string}"
+no mate: "8"
 # XXX - it would be nice to make dot <user.number_string> repeatable together
 # or just used dotted formatter adapted for numbers
 #numb <user.number_string> dot <user.number_string>: "{number_string_1}.{number_string_2}"
