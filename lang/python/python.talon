@@ -133,3 +133,13 @@ assign to <user.text>:
 
 append to <user.text>:
     user.append_variable(text)
+
+pack little byte: user.insert_cursor('struct.pack("<B", [|])')
+pack big byte: user.insert_cursor('struct.pack(">B", [|])')
+pack little word: user.insert_cursor('struct.pack("<H", [|])')
+pack big word: user.insert_cursor('struct.pack(">H", [|])')
+pack little int: user.insert_cursor('struct.pack("<I", [|])')
+pack big int: user.insert_cursor('struct.pack(">I", [|])')
+pack little long: user.insert_cursor('struct.pack("<Q"", [|])')
+pack big long: user.insert_cursor('struct.pack(">Q"", [|])')
+

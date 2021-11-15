@@ -26,12 +26,19 @@ ctx.lists["user.code_functions"] = {
 }
 
 ctx.lists["user.code_libraries"] = {
+    "a sink": "asyncio",
+    "arg parse": "argparse",
+    "bin ask E": "bitascii",
     "click": "click",
     "docker": "docker",
     "funk tools": "functools",
     "get pass": "getpass",
+    "hash lib": "hashlib",
+    "heck stump": "hexdump",
     "import lib": "importlib",
     "jason": "json",
+    "logging": "logging",
+    "multiprocessing": "multiprocessing",
     "os": "os",
     "path lib": "pathlib",
     "pea expect": "pexpect",
@@ -39,20 +46,17 @@ ctx.lists["user.code_libraries"] = {
     "random": "random",
     "reg ex": "re",
     "shell utils": "shutil",
+    "socket": "socket",
     "string": "string",
     "struct": "struct",
+    "subprocess": "subprocess",
     "system": "sys",
     "tar file": "tarfile",
+    "threading": "threading",
     "time": "time",
     "trace back": "traceback",
     "unit test": "unittest",
     "warnings": "warnings",
-    "a sink": "asyncio",
-    "threading": "threading",
-    "subprocess": "subprocess",
-    "multiprocessing": "multiprocessing",
-    "logging": "logging",
-    "heck stump": "hexdump",
 }
 
 
