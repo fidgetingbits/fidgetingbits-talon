@@ -297,7 +297,6 @@ motions = {
     "block start": "[{",
     "last block": "[}",
     "matching": "%",
-    "match": "%",
     "down line": "+",
     "up line": "-",
     "first character": "_",
@@ -919,17 +918,20 @@ class Actions:
         v.set_visual_mode()
         actions.insert(cmd)
 
-    # technically right now they run in in normal mode, but these calls will
-    # ensure that any queued commands are removed
     def vim_command_mode(cmd: str):
-        """run a given list of commands in command mode, preserve INSERT"""
+        """run string of commands in command line mode.
+
+        Preserves INSERT
+        """
         vapi = VimAPI()
         vapi.api.run_command_mode_command(cmd)
 
-    # technically right now they run in in normal mode, but these calls will
-    # ensure that any queued commands are removed
     def vim_command_mode_exterm(cmd: str):
-        """run a given list of commands in command mode, preserve INSERT"""
+        """run string of commands in command line mode.
+
+        - Preserves INSERT
+        - Exits terminal mode
+        """
         vapi = VimAPI()
         vapi.api.run_command_mode_command_exterm(cmd)
 

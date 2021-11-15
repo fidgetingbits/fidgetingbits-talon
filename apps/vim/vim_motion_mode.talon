@@ -63,8 +63,11 @@ sage:
 file save as:
     key(escape)
     user.vim_command_mode(":w ")
+# XXX - This should be vim_command_mode, but there's a bug in at lest
+# vim-fugitive commit where you lose the commit text if called from INSERT
+# mode, due to an unmodifiable buffer error
 (file save and (quit|close)|squeak):
-    user.vim_command_mode(":wq\n")
+    user.vim_normal_mode(":wq\n")
 file (close|quite):
     user.vim_command_mode(":q\n")
 file (refresh|reload):
@@ -74,6 +77,10 @@ file show:
 (print working directory|folder show): user.vim_command_mode(":pwd\n")
 pivot file:
     user.vim_command_mode(":lcd %:p:h\n")
+pivot clip:
+    user.vim_command_mode(":lcd ")
+    edit.paste()
+    key(enter)
 #pivot (parent|back):
 #    user.vim_command_mode(":lcd ..\n")
 pivot select:
@@ -627,6 +634,7 @@ run as sandbox:
 trim white space: user.vim_normal_mode(":%s/\\s\\+$//e\n")
 (remove all|normalize) tabs: user.vim_normal_mode(":%s/\\t/    /eg\n")
 normalize spaces: user.vim_command_mode(":%s/\\S\\zs\\s\\+/ /g\n")
+normalize new lines: user.vim_command_mode(":%s/\r//g\n")
 (delete|trim) empty lines:
     insert(":")
     sleep(100ms)

@@ -341,26 +341,6 @@ spliff:
     key(ctrl-w)
     key(h)
 
-# split top left
-splot:
-    user.vim_set_normal_mode_exterm()
-    key(ctrl-w)
-    key(t)
-
-# split bottom left
-splunk:
-    user.vim_set_normal_mode_exterm()
-    key(ctrl-w)
-    key(t)
-    key(ctrl-w)
-    key(j)
-
-sprot:
-    user.vim_set_normal_mode_exterm()
-    key(ctrl-w)
-    key(b)
-
-
 # moving windows
 split (only|exclusive):
     user.vim_set_normal_mode_exterm()
@@ -583,6 +563,8 @@ session force save: user.vim_command_mode_exterm(":mksession! ")
 session load: user.vim_command_mode_exterm(":source ~/.vim/sessions/")
 
 
+# XXX - this is quite slow pasting into a terminal, so might want to move
+# this register into the paste register and then use the native?
 (paste from|pastor) [register] <user.unmodified_key>: user.vim_any_motion_mode_exterm('"{unmodified_key}p')
 
 

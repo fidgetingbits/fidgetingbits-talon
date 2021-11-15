@@ -24,8 +24,9 @@ stellaris session:
 ###
 #
 ###
-fine merge conflict:
-    user.vim_command_mode_exterm(":/\\c<<<\n")
+find merge conflict:
+    # XXX - This was originally command mode, but fails for some reason
+    user.vim_normal_mode_exterm(":/<<<\n")
 
 dick to class member:
     user.vim_normal_mode("ds[ds\"i.")
