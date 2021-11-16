@@ -4,16 +4,30 @@
 settings():
     #stop continuous scroll/gaze scroll with a pop
     user.mouse_enable_pop_stops_scroll = 0
+
     #enable pop click with 'control mouse' mode
-    user.mouse_enable_pop_click = 1
+    user.mouse_enable_pop_click = 0
+
     #hide cursor when mouse_wake is called to enable zoom mouse
     user.mouse_wake_hides_cursor = 1
+
     user.mouse_enable_zoom_auto_click = 0
+
     user.mouse_zoom_auto_click_timeout = 1.2
+
     # eye detection suspend settings
     #user.mouse_sleep_tracker_timeout_frames = 200
     #user.mouse_sleep_tracker_suspend_screen = 1
     #user.mouse_sleep_tracker_enter_sleep_mode = 1
+
+    # When enabled, the 'Scroll Mouse' GUI will not be shown.
+    user.mouse_hide_mouse_gui = 0
+
+    # The default amount used when scrolling continuously
+    user.mouse_continuous_scroll_amount = 80
+
+    # The amount to scroll up/down (equivalent to mouse wheel on Windows by default)
+    user.mouse_wheel_down_amount = 120
 
 ###
 # Configuration
