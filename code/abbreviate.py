@@ -227,6 +227,7 @@ abbreviations = {
     "processor": "cpu",
     "program": "prog",
     "property": "prop",
+    "protocol": "proto",
     "public": "pub",
     "python": "py",
     "quebec": "qc",
