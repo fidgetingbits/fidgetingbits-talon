@@ -11,9 +11,9 @@ settings():
     user.mouse_enable_zoom_auto_click = 0
     user.mouse_zoom_auto_click_timeout = 1.2
     # eye detection suspend settings
-    user.mouse_sleep_tracker_timeout_frames = 200
-    user.mouse_sleep_tracker_suspend_screen = 1
-    user.mouse_sleep_tracker_enter_sleep_mode = 1
+    #user.mouse_sleep_tracker_timeout_frames = 200
+    #user.mouse_sleep_tracker_suspend_screen = 1
+    #user.mouse_sleep_tracker_enter_sleep_mode = 1
 
 ###
 # Configuration
