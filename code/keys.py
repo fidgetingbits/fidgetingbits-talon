@@ -203,9 +203,8 @@ punctuation_words = {
     "asterisk": "*",
     "hash sign": "#",
     "percent sign": "%",
-    #"at sign": "@",
     "amper": "&",
-    "at sign": "@",
+    "swirl": "@",
     "pound sign": "£",
 }
 symbol_key_words = {
