@@ -37,7 +37,7 @@ def install_monkey_focus():
         out = subprocess.check_output("which i3-msg", shell=True)
     except subprocess.CalledProcessError:
         print("WARNING: i3-msg not found. Skipping monkey patch")
-    if not out:
+    if out:
         print("Installing fidget i3-msg focus monkey patch")
         ui.App.focus = monkey_focus
 
@@ -54,7 +54,7 @@ def install_monkey_notify():
         out = subprocess.check_output("which notify-send.sh", shell=True)
     except subprocess.CalledProcessError:
         print("WARNING: notify-send.sh not found. Skipping monkey patch")
-    if not out:
+    if out:
         print("Installing fidget notify-send.sh notify monkey patch")
         app.notify = monkey_notify
 
