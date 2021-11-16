@@ -10,10 +10,9 @@ mod = Module()
 @mod.action_class
 class Actions:
 
-    def pop(): 
+    def pop():
         """pop action overrideable by contexts"""
-        # XXX - this doesn't necessarily actually zoom, should be renamed
-        actions.user.mouse_zoom()
+        actions.user.mouse()
 
     def pop_quick_action_clear():
         """Clears the quick macro"""
@@ -85,10 +84,13 @@ pop_quick_action_last = None
 pop_quick_action_history = []
 def on_pop(active):
     global pop_quick_action
-    if pop_quick_action is None:
-        actions.user.pop()
-    else:
-        actions.user.pop_quick_action_run()
+    # XXX - It would be nice to have this enabled sometimes without other
+    # commands enabled...
+    if actions.speech.enabled():
+        if pop_quick_action is None:
+            actions.user.pop()
+        else:
+            actions.user.pop_quick_action_run()
 
 hiss_quick_action = None
 hiss_quick_action_last = None
