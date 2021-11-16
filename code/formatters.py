@@ -1,6 +1,7 @@
 import logging
 import os
 import re
+from random import randint
 from typing import List, Union
 
 from talon import Context, Module, actions, app, clip, imgui, ui
@@ -112,6 +113,20 @@ def every_word(word_func):
 
     return formatter_function
 
+def spongebob(i, word, _):
+    capitalize = bool(randint(0, 1))
+    formatted_string = ''
+
+    for char in word:
+        if not char.isalpha():
+            formatted_string += char
+        elif capitalize:
+            formatted_string += char.upper()
+        else:
+            formatted_string += char.lower()
+        capitalize = not capitalize
+
+    return formatted_string
 
 formatters_dict = {
     "ALL_CAPS": (SEP, every_word(lambda w: w.upper())),
@@ -156,8 +171,9 @@ formatters_dict = {
         first_vs_rest(lambda w: w.lower(), lambda w: "_" + w.lower()),
     ),
     "SPACE_SURROUNDED_STRING": (SEP, surround(" ")),
+    "SPONGEBOB": (SEP, spongebob),
 }
-# This is the mapping from spoken phrases to formatters
+# This is the mapping from spoken phrases to formatters. 
 formatters_words = {
     "allcaps": formatters_dict["ALL_CAPS"],
     "alldown": formatters_dict["ALL_LOWERCASE"],
@@ -179,6 +195,7 @@ formatters_words = {
     "slasher": formatters_dict["SLASH_SEPARATED"],
     "smash": formatters_dict["NO_SPACES"],
     "snake": formatters_dict["SNAKE_CASE"],
+    "spongbob": formatters_dict["SPONGEBOB"],
     #"speak": formatters_dict["NOOP"],
     "quoted": formatters_dict["DOUBLE_QUOTED_STRING"],
     "ticks": formatters_dict["SINGLE_QUOTED_STRING"],
