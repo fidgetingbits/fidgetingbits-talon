@@ -43,6 +43,8 @@ linux_folder_paths = {
     "vim snippets": "~/.vim/plugged/vim-snippets/UltiSnips/",
     "talon": f"~/.talon/user/{TALON_REPO}/",
     "back": "../",
+    "tunnel": "~/.ssh/",
+    "S S H": "~/.ssh/",
 
     # ubuntu-esque stuff
     "lib linux": "/lib/x86_64-linux-gnu/",
