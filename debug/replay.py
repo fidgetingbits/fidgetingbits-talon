@@ -199,7 +199,7 @@ def gui(gui: imgui.GUI):
 
 def raise_replay_picker():
     actions.mode.enable("user.replay_picker_open")
-    gui.freeze()
+    gui.show()
 
 
 @mod.action_class

@@ -73,7 +73,7 @@ pi = PersonalInfo()
 
 def raise_personal_info():
     actions.mode.enable("user.personal_info")
-    gui.freeze()
+    gui.show()
 
 
 @mod.action_class

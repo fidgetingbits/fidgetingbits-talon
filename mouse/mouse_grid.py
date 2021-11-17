@@ -58,7 +58,7 @@ class MouseSnapNine:
         self.mcanvas = canvas.Canvas.from_screen(screen)
         if self.active:
             self.mcanvas.register("draw", self.draw)
-            self.mcanvas.freeze()
+            self.mcanvas.show()
 
     def show(self):
         if self.active:
@@ -71,7 +71,7 @@ class MouseSnapNine:
             self.was_control_mouse_active = True
             eye_mouse.control_mouse.toggle()
         self.mcanvas.register("draw", self.draw)
-        self.mcanvas.freeze()
+        self.mcanvas.show()
         self.active = True
         return
 
@@ -218,12 +218,12 @@ class MouseSnapNine:
         if self.count >= 2:
             self.update_screenshot()
         else:
-            self.mcanvas.freeze()
+            self.mcanvas.show()
 
     def update_screenshot(self):
         def finish_capture():
             self.img = screen.capture_rect(self.rect)
-            self.mcanvas.freeze()
+            self.mcanvas.show()
 
         self.mcanvas.hide()
         cron.after("16ms", finish_capture)
@@ -247,7 +247,7 @@ class MouseSnapNine:
     def go_back(self):
         # FIXME: need window and screen tracking
         self.count, self.rect = self.history.pop()
-        self.mcanvas.freeze()
+        self.mcanvas.show()
 
 
 mg = MouseSnapNine()

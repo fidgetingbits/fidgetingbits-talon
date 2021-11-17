@@ -71,4 +71,4 @@ def show_screen_number(screen: ui.Screen, number: int):
 
     canvas = Canvas.from_rect(screen.rect)
     canvas.register("draw", on_draw)
-    canvas.freeze()
+    canvas.show()

@@ -86,7 +86,7 @@ def flash_rect(rect: ui.Rect):
 
     canvas = Canvas.from_rect(rect)
     canvas.register("draw", on_draw)
-    canvas.freeze()
+    canvas.show()
 
 
 def get_screen(screen_number: Optional[int] = None) -> ui.Screen:
