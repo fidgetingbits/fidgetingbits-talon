@@ -671,7 +671,7 @@ first <user.unmodified_key>:
 last <user.unmodified_key>:
     user.vim_normal_mode_np("$F{unmodified_key}")
 
-flop:
+popup clear:
     user.vim_command_mode(":call popup_clear(1)")
 
 yank funk: 
