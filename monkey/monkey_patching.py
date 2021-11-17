@@ -65,7 +65,7 @@ def install_monkey_patches():
     print("Installing fidget monkey patches")
     install_monkey_notify()
     install_monkey_focus()
-    install_monkey_show()
+    #install_monkey_show()
 
 
 install_monkey_patches()
