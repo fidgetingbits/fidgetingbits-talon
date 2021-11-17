@@ -86,8 +86,12 @@ file latest: "$(exa --sort latest --no-icons | tail -n1)"
 file link: "ln -s "
 file link force: "ln -sf "
 file hard link: "ln "
-file broken links:  
+file broken links:
     insert("find . -type l -exec sh -c 'file -b \"$1\" | grep -q ^broken' sh /{} \\; -print")
+file find excluding with depth:
+    user.insert_cursor("find . -mindepth 2 -maxdepth 2 -type d '!' -exec sh -c 'ls -1 \"{}\"|egrep -i -q \"^*.[|]$\"' ';' -print")
+file find excluding:
+    user.insert_cursor("find . -type d '!' -exec sh -c 'ls -1 \"{}\"|egrep -i -q \"^*.[|]$\"' ';' -print")
 file move: "mv "
 file open: "vim "
 file touch: "touch "
