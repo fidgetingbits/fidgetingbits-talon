@@ -88,16 +88,23 @@ hover: user.mouse_move_cursor()
 ###
 wheel down: user.mouse_scroll_down()
 wheel tiny [down]: mouse_scroll(20)
+# NOTE: can be repeated for faster scrolling
 wheel downer: user.mouse_scroll_down_continuous()
+
 wheel up: user.mouse_scroll_up()
 wheel tiny up: mouse_scroll(-20)
+# NOTE: can be repeated for faster scrolling
 wheel upper: user.mouse_scroll_up_continuous()
+
+# NOTE: can be repeated to stop gaze scroll
 wheel gaze: user.mouse_gaze_scroll()
+
 wheel stop: user.mouse_scroll_stop()
 wheel left: mouse_scroll(0, -40)
 wheel tiny left: mouse_scroll(0, -20)
 wheel right: mouse_scroll(0, 40)
 wheel tiny right: mouse_scroll(0, 20)
+
 curse (show|yes): user.mouse_show_cursor()
 curse (hide|no): user.mouse_hide_cursor()
 
