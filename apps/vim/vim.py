@@ -336,8 +336,8 @@ vim_character_motions = {
     "find": "f",
     "fever": "F",
     "till": "t",
-    # XXX - this can conflict with to sometimes
-    "tier": "T",
+    # XXX - tier caused way too many problem
+    "timber": "T",
 }
 
 custom_vim_motions_with_character_commands = {
