@@ -32,7 +32,8 @@ _file_extensions_defaults = {
     "dot git": ".git",
     "dot G Z": ".gz",
     "dot G zip": ".gz",
-    "dot H": ".h",
+    # NOTE - dot H conflicted with way too much
+    "dot head": ".h",
     "dot hex": ".hex",
     "dot ida": ".idb",
     "dot jar": ".jar",
