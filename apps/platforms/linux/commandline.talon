@@ -249,7 +249,6 @@ net cat listener: "nc -v -l -p "
 net my I P: "dig +short myip.opendns.com @resolver1.opendns.com\n"
 net port <user.ports>: "{ports}"
 net dump: "tcpdump "
-net lan: "192.168.1."
 
 
 show hosts file: "cat /etc/hosts\n"
