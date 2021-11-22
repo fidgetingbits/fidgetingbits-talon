@@ -155,6 +155,7 @@ class MouseTracker(object):
             self.cursor_log.pop(0)
         self.cursor_log.append(ctrl.mouse_pos())
 
+
 def mouse_wake():
     """Enable control mouse, zoom mouse, and disables cursor"""
     if setting_mouse_control_mouse_zoom.get() >= 1:
@@ -167,6 +168,18 @@ def mouse_wake():
 
 @mod.action_class
 class Actions:
+    def mouse_center():
+        """move the mouse cursor to the center of the currently active window"""
+        rect = ui.main_screen().rect
+        center = (rect.x + rect.width / 2, rect.y + rect.height / 2)
+        ctrl.mouse_move(center)
+
+    def mouse_move_center_active_window():
+        """move the mouse cursor to the center of the active window"""
+
+        rect = ui.active_window().rect
+        ctrl.mouse_move(rect.left + (rect.width / 2), rect.top + (rect.height / 2))
+
     def mouse_click(button: int, count: int):
         """Click the specified mouse button a certain number of times."""
         for i in range(count):
@@ -332,7 +345,7 @@ class Actions:
         ctrl.mouse_click(button=button, down=True)
 
     def mouse_drag_end():
-        """ Releases any held mouse buttons """
+        """Releases any held mouse buttons"""
         buttons_held_down = list(ctrl.mouse_buttons_down())
         for button in buttons_held_down:
             ctrl.mouse_click(button=button, up=True)
@@ -453,6 +466,7 @@ class Actions:
             # resources/talon_plugins/eye_zoom_mouse.py
             eye_zoom_mouse.zoom_mouse.on_pop(0)
 
+
 def show_cursor_helper(show):
     """Show/hide the cursor"""
     if app.platform == "windows":
@@ -491,6 +505,7 @@ def show_cursor_helper(show):
 if setting_mouse_enable_on_startup.get() >= 1:
     mouse_wake()
 
+
 def on_pop(active):
     if setting_mouse_enable_pop_stops_scroll.get() >= 1 and (gaze_job or scroll_job):
         stop_scroll()
@@ -501,8 +516,6 @@ def on_pop(active):
         print("Triggering non-zoom click")
         if setting_mouse_enable_pop_click.get() >= 1:
             ctrl.mouse_click(button=0, hold=16000)
-
-
 
 
 def mouse_scroll(amount):
