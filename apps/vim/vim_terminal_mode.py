@@ -51,7 +51,12 @@ def parse_vim_term_title(window):
     shell_command = window.title[index + len("TERM:") :]
     if ":" in shell_command:
         shell_command = shell_command.split(":")[0]
-    shell_command = shell_command.split(" ")[0]
+    if shell_command.startswith("sudo"):
+        # Handle something like:
+        # VIM MODE:t RPC:/tmp/nvimlVeccr/0  TERM:sudo gdb (term://~//161917:/usr/bin/zsh) zsh
+        shell_command = shell_command.split(" ")[1]
+    else:
+        shell_command = shell_command.split(" ")[0]
 
     populate_shell_tags(shell_command)
     populate_language_modes(shell_command)
