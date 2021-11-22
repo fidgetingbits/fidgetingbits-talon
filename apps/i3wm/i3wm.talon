@@ -66,6 +66,7 @@ vertical (shell|terminal):
 
 # XXX - like also need to match the generic talon commands (snap?)
 shuffle <number_small>:  user.system_command("i3-msg move container to workspace {number_small}")
+
 shuffle ten: user.system_command("i3-msg move container to workspace 10")
 shuffle (parent|all) <number_small>: 
     user.system_command("i3-msg focus parent")
@@ -75,6 +76,16 @@ shuffle left: user.system_command("i3-msg move left")
 shuffle right: user.system_command("i3-msg move right")
 shuffle up: user.system_command("i3-msg move up")
 shuffle down: user.system_command("i3-msg move down")
+
+
+# move a window to a workspace and follow it there
+follow <number_small>:
+    user.system_command("i3-msg move container to workspace {number_small}")
+    portal <number_small>: user.system_command("i3-msg workspace {number_small}")
+
+follow ten: 
+    user.system_command("i3-msg move container to workspace 10")
+    portal <number_small>: user.system_command("i3-msg workspace 10")
 
 # multi-monitor commands
 # NOTE: these are flipped on purpose, because I have to trick the talon monitor

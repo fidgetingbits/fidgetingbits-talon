@@ -71,6 +71,7 @@ file (list long here|lily): "ls -al\n"
 file list latest: "exa --sort latest --no-icons | tail -n1\n"
 file list folders: "ls -d */\n"
 file strings: "strings "
+file (tail|follow): "tail -f "
 
 # find command
 file find all links: "find . -maxdepth 1 -type l  -ls\n"
