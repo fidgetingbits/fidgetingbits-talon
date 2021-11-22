@@ -1061,7 +1061,15 @@ class VimRPC:
         else:
             # XXX - This doesn't seem to work for certain plugin commands, and
             # commands like squeak, if we're already in INSERT mode
-            self.nvrpc.nvim.command(cmd)
+            try:
+                self.nvrpc.nvim.command(cmd)
+            # I sometimes get this for things like needing a w! for write...
+            except pynvim.api.common.NvimError as e:
+                app.notify(subtitle=e)
+                pynvim.api.err_write(str(e) + "\n")
+            except Exception:
+                app.notify(subtitle="Unknown Neovim API error. See talon log")
+
 
     def run_command_mode_command_exterm(self, cmd):
         """Exit terminal mode and run a command in commandline mode using RPC. """
