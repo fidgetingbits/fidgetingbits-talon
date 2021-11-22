@@ -166,6 +166,10 @@ alt_teens = "(" + ("|".join(teens_map.keys())) + ")"
 alt_tens = "(" + ("|".join(tens_map.keys())) + ")"
 alt_scales = "(" + ("|".join(scales_map.keys())) + ")"
 number_word = "(" + "|".join(numbers_map.keys()) + ")"
+# don't allow numbers to start with scale words like "hundred", "thousand", etc
+leading_words = numbers_map.keys() - scales_map.keys()
+leading_words -= {'oh', 'o'} # comment out to enable bare/initial "oh"
+number_word_leading = f"({'|'.join(leading_words)})"
 
 # TODO: allow things like "double eight" for 88
 @ctx.capture("digit_string", rule=f"({alt_digits} | {alt_teens} | {alt_tens})+")
@@ -182,15 +186,7 @@ def digits(m) -> int:
     """Parses a phrase representing a digit sequence, returning it as an integer."""
     return int(m.digit_string)
 
-#@ctx.capture("digits_strict", rule="<digit_strict_string>")
-#def digits_strict(m) -> int:
-#    """Parses a phrase representing a digit sequence, returning it as an integer."""
-#    return int(m.digit_strict_string)
-
-# XXX - need to clarify when a scale number is used in only match on and. I
-# often run into something like numb two one three getting parsed as two and
-# three, which results in 23 which should just never match that way
-@mod.capture(rule=f"{number_word}+ (and <number_small>+)*")
+@mod.capture(rule=f"{number_word_leading} ([and] {number_word})*")
 def number_string(m) -> str:
     """Parses a number phrase, returning that number as a string."""
     return parse_number(list(m))
