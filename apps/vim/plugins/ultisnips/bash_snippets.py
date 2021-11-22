@@ -32,6 +32,10 @@ private_snippets = {
     "if not file exists": "ifnotfileexists",
     "if folder exists": "iffolderexists",
     "if not folder exists": "ifnotfolderexists",
+    "if variable set": "ifvarset",
+    "if variable not set": "ifnotvarset",
+    "if arg set": "ifargset",
+    "if arg not set": "ifnotargset",
 }
 
 ctx.lists["user.snippets"] = {**ultisnips_snippets, **private_snippets}
