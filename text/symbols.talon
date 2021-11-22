@@ -84,13 +84,13 @@ escaped (round):
 # NOTE: purposely no edit.left()
 [pair] ampers: "&&"
 
-angle that:
+angles that:
     text = edit.selected_text()
     user.paste("<{text}>")
-(square | square bracket) that:
+(squares) that:
     text = edit.selected_text()
     user.paste("[{text}]")
-(bracket | brace) that:
+(braces) that:
     text = edit.selected_text()
     user.paste("{{{text}}}")
 round that:
