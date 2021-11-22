@@ -82,6 +82,8 @@ abbreviations = {
     "definition": "def",
     "delete": "del",
     "description": "desc",
+    "dest": "dst",
+    "destination": "dest",
     "develop": "dev",
     "development": "dev",
     "device": "dev",
