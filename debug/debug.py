@@ -1,6 +1,5 @@
 from collections import OrderedDict
 from talon import Context, Module, registry, ui, speech_system, scope, actions
-import talon.scripting.core.debug as debug
 import talon.scripting.rctx as rctx
 import pprint
 
