@@ -4,7 +4,6 @@ ctx = Context()
 ctx.matches = r"""
 tag: terminal
 and tag: user.systemd
-and tag: user.systemctl
 """
 
 
