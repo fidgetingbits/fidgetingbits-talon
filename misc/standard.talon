@@ -22,18 +22,19 @@ file save: edit.save()
 #(undo that | skunks): edit.undo()
 #redo that: edit.redo()
 
-# XXX - should be part of some networking thing
-hyper:
-    edit.copy()
-    edit.paste()
-sucker:
-    edit.copy()
-    edit.paste()
-    key(enter)
-pucker:
-    edit.paste()
-    key(enter)
+# XXX - conflicts with piper
+#hyper:
+#    edit.copy()
+#    edit.paste()
+#sucker:
+#    edit.copy()
+#    edit.paste()
+#    key(enter)
+#pucker:
+#    edit.paste()
+#    key(enter)
 
+# XXX - should be part of some networking thing
 link web: "https://"
 link insecure web: "http://"
 link file: "file://"
