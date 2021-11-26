@@ -38,6 +38,8 @@ tag(): user.package_manager
 tag(): user.timer_manager
 tag(): user.systemd
 tag(): user.pulse_audio
+tag(): user.virsh
+tag(): user.iptables
 #tag(): user.npm
 #tag(): user.meson
 
@@ -251,6 +253,8 @@ net my I P: "dig +short myip.opendns.com @resolver1.opendns.com\n"
 net port <user.ports>: "{ports}"
 net dump: "tcpdump "
 
+net bridge (list|show): "brctl show\n"
+
 
 show hosts file: "cat /etc/hosts\n"
 edit hosts file: "sudoedit /etc/hosts\n"
@@ -457,3 +461,9 @@ screen resolution: "xdpyinfo | awk '/dimensions/{{print $2}}'\n"
 arch source check out: "asp checkout "
 arch source export: "asp export "
 
+
+###
+# Linux kernel
+###
+
+capability list: "capsh --print\n"

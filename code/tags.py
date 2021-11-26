@@ -33,6 +33,8 @@ tagList = [
     "vagrant",
     "git",
     "pulse_audio",
+    "virsh",
+    "iptables",
     "docker",
     # allows programs running inside of a terminal (ex: gdb) to share
     # common terminal commands like ctrl+c, but without actually
