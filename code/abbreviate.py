@@ -176,6 +176,7 @@ abbreviations = {
     "length": "len",
     "lib see": "libc",
     "library": "lib",
+    "lisp": "lsp",
     "lycanthrope": "lycan",
     "mail": "smtp",
     "make": "mk",
