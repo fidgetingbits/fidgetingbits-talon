@@ -42,6 +42,7 @@ plugin_tag_list = [
     "vim_fugitive_summary",
     "vim_fzf",
     "vim_grammarous",
+    "vim_lsp",
     "vim_markdown",
     "vim_markdown_toc",
     "vim_mkdx",
@@ -1066,7 +1067,7 @@ class VimRPC:
             # I sometimes get this for things like needing a w! for write...
             except pynvim.api.common.NvimError as e:
                 app.notify(subtitle=e)
-                pynvim.api.err_write(str(e) + "\n")
+                pynvim.api.err_write(str(e))
             except Exception:
                 app.notify(subtitle="Unknown Neovim API error. See talon log")
 

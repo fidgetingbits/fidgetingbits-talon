@@ -60,6 +60,7 @@ tag(): user.vim_unicode
 tag(): user.vim_wiki
 tag(): user.vim_you_are_here
 tag(): user.vim_zoom
+tag(): user.vim_lsp
 
 
 # To the settings below dictate how certain parts of Talon VIM will work. You
