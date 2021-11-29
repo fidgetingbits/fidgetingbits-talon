@@ -16,6 +16,7 @@ arch_linux_paths = { "packman hooks": "/etc/pacman.d/hooks/",}
 linux_folder_paths = {
     "user services": "~/.config/systemd/user/",
     "services": "/etc/systemd/system/",
+    "you dev rules": "/etc/udev/rules.d/",
     "vim sessions": "~/.vim/sessions/",
     "vim plugins": "~/.vim/plugged/",
     "temp": "/tmp/",
