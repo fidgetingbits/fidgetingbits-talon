@@ -14,9 +14,15 @@ tag(): user.readline
 # optional generic debugger plugins
 # specify which heap plugin you're using
 # similar to the architecture
-tag(): user.libptmalloc
+# userland heap
+#tag(): user.libptmalloc
 #tag(): user.libdlmalloc
 #tag(): user.libheap
+
+# linux kernel
+tag(): user.gdb_vmlinux
+
+# frameworks
 tag(): user.gef
 #tag(): user.pwndbg
 
