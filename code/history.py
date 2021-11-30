@@ -4,6 +4,7 @@ from talon import imgui, Module, speech_system, actions, app
 # command_history_display of them.
 mod = Module()
 setting_command_history_auto = mod.setting("command_history_auto", bool, default=0)
+setting_command_history_auto_more = mod.setting("command_history_auto_more", bool, default=0)
 setting_command_history_size = mod.setting("command_history_size", int, default=50)
 setting_command_history_display = mod.setting(
     "command_history_display", int, default=10
@@ -34,6 +35,7 @@ def on_phrase(j):
 @imgui.open(y=0)
 def gui(gui: imgui.GUI):
     global history
+    global hist_more
     gui.text("Command History")
     gui.line()
     text = (
@@ -44,6 +46,9 @@ def gui(gui: imgui.GUI):
 
 
 speech_system.register("phrase", on_phrase)
+
+if setting_command_history_auto_more.get():
+    hist_more = True
 
 if setting_command_history_auto.get():
     if not gui.showing:
