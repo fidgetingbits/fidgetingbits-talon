@@ -104,9 +104,11 @@ class UserActions:
     def debugger_enable_breakpoint_id(number_small: int):
         actions.insert(f"enable br {number_small}\n")
 
-    def pop():
-        """Optional way of pressing enter via pop sound"""
-        actions.key("enter")
+# XXX - Now that I'm using pop again with control mouse, this becomes pretty
+# annoying, so need to rely on quick actions instead...
+#    def pop():
+#        """Optional way of pressing enter via pop sound"""
+#        actions.key("enter")
 
     def debugger_backtrace():
         actions.auto_insert("bt\n")
