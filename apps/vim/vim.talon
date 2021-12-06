@@ -26,6 +26,11 @@
 #  - test on windows and mac
 #  - everything in this files should technically use _exterm() version of
 #    functions
+#
+# BUGS:
+#  - With sending the command-line mode commands in the background via RPC we
+#  miss out on the display of some features. Ex: ALEInfo becomes unreadable...
+#  need to figure out how to fix this.
 
 app: vim
 and not tag: user.vim_command_mode
@@ -735,3 +740,6 @@ paste as line:
     user.vim_command_mode_exterm(":let @+=substitute(strtrans(@+),'\\^@',' ','g')\n")
     sleep(200ms)
     edit.paste()
+
+file make:
+    user.vim_normal_mode(":!make\n")
