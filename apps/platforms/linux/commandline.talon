@@ -381,6 +381,11 @@ core dump debug: "coredumpctl debug\n"
 (secure shell|tunnel) [<user.text>]: 
     insert("ssh ")
     insert(text or "")
+tunnel last:
+    key(ctrl-r)
+    insert("ssh ")
+    key(enter)
+    key(enter)
 
 secure shall key gen: "ssh-keygen -t ed25519\n"
 secure copy [<user.text>]:
@@ -463,7 +468,10 @@ arch source export: "asp export "
 
 
 ###
-# Linux kernel
+# Namespaces
 ###
 
 capability list: "capsh --print\n"
+
+(unshare|namespace) root: "unshare -U -r\n"
+(unshare|namespace) net: "unshare -n\n"
