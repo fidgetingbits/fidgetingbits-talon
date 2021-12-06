@@ -9,6 +9,23 @@ code block:
     insert("```\n\n")
     insert("```\n")
     key(up:2)
+
+code block python:
+    insert("```python\n\n")
+    insert("```\n")
+    key(up:2)
+
+code block see:
+    insert("```cpp\n\n")
+    insert("```\n")
+    key(up:2)
+
+
+code block bash:
+    insert("```bash\n\n")
+    insert("```\n")
+    key(up:2)
+
 code block clip:
     insert("```\n\n")
     insert("```\n")
@@ -20,6 +37,24 @@ code block clip:
 state task: "- [ ] "
 paste as code: 
     insert("```\n\n")
+    insert("```\n")
+    key(up:2)
+    edit.paste()
+
+paste as bash code: 
+    insert("```bash\n\n")
+    insert("```\n")
+    key(up:2)
+    edit.paste()
+
+paste as see code: 
+    insert("```cpp\n\n")
+    insert("```\n")
+    key(up:2)
+    edit.paste()
+
+paste as python code: 
+    insert("```python\n\n")
     insert("```\n")
     key(up:2)
     edit.paste()
