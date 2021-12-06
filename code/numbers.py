@@ -250,11 +250,9 @@ class Actions:
 
     def paste_clipboard_as_hex():
         """convert and paste the number in the clipboard to hexadecimal"""
-        val = int(clip.text())
-        converted = f"{val:#x}"
-        actions.user.paste(converted)
+        actions.user.paste(f"{int(clip.text()):#x}")
 
 
     def paste_clipboard_as_dec():
-        """convert and paste the number in the clipboard to hexadecimal"""
+        """convert and paste the number in the clipboard to decimal"""
         actions.user.paste(ast.literal_eval(clip.text()))
