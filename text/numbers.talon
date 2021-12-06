@@ -17,4 +17,5 @@ negative hex <user.hex_letters>: "-0x{hex_letters}"
 hex code <user.hex_letters>$: user.escape_hex_string(hex_letters)
 hex convert <user.number_string>: user.convert_number_to_hex(number_string)
 hex escape <user.number_string>: user.convert_number_to_escaped_hex(number_string)
-
+clip as hex: user.paste_clipboard_as_hex()
+clip as deck: user.paste_clipboard_as_dec()

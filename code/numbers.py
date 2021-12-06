@@ -1,7 +1,8 @@
 from typing import Iterator, List, Optional, Union
 
-from talon import Context, Module, actions
+from talon import Context, Module, actions, clip
 
+import ast
 mod = Module()
 ctx = Context()
 
@@ -246,3 +247,14 @@ class Actions:
         # XXX - This is wrong because it doesn't correctly handle endian
         # conversion atm. So 300 becomes \x12\x0c instead of \x2c\x01
         actions.user.escape_hex_string(f"{val:#x}"[2:])
+
+    def paste_clipboard_as_hex():
+        """convert and paste the number in the clipboard to hexadecimal"""
+        val = int(clip.text())
+        converted = f"{val:#x}"
+        actions.user.paste(converted)
+
+
+    def paste_clipboard_as_dec():
+        """convert and paste the number in the clipboard to hexadecimal"""
+        actions.user.paste(ast.literal_eval(clip.text()))
