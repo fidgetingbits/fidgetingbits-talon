@@ -25,10 +25,11 @@ tag: user.gdb_vmlinux
 #lx-ps -- Dump Linux tasks.
 #lx-symbols -- (Re-)load symbols of Linux kernel and currently loaded modules.
 
+lux help: insert("apropos lx\n")
 lux config dump: insert("lx-configdump\n")
 lux see pee ewes: insert("lx-cpus\n")
 lux D message: insert("lx-dmesg\n")
 lux list check: insert("lx-list-check ")
-lux module list: insert("lx-lsmod\n")
+lux (modules|module list): insert("lx-lsmod\n")
 lux process list: insert("lx-ps\n")
 lux symbols: insert("lx-symbols\n")
