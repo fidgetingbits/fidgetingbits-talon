@@ -127,6 +127,7 @@ abbreviations = {
     "eye three": "i3",
     "eye dent": "id",
     "eye low": "ilo",
+    "eye octal": "ioctl",
     "file system": "fs",
     "fingerprint": "fp",
     "framework": "fw",
