@@ -97,7 +97,7 @@ undisplay: "undisplay\n"
 
 # threads
 (thread list|info threads): "info threads\n"
-thread switch <numbers_small>: "thread {number_small}\n"
+thread switch <number_small>: "thread {number_small}\n"
 thread (find|search): "thread find "
 thread show: "thread\n"
 thread help: "help thread\n"
@@ -107,7 +107,7 @@ thread local storage: "p/x *(tcbhead_t*) $fs_base\n"
 thread stack guard: "p/x (*(tcbhead_t*) $fs_base)->stack_guard"
 thread pointer guard: "p/x (*(tcbhead_t*) $fs_base)->pointer_guard"
 
-frame info <numbers_small>: "frame info {number_small}\n"
+frame info <number_small>: "frame info {number_small}\n"
 
 # inferiors
 info inferiors: "info inferiors\n"
