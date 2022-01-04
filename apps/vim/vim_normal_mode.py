@@ -13,16 +13,16 @@ class EditActions:
     # mode we select up we want to select the current line in the one above, as
     # otherwise there is no current selection
     def extend_line_up():
-        actions.user.insert("Vk")
+        actions.insert("Vk")
 
     def extend_line_down():
-        actions.user.insert("Vj")
+        actions.insert("Vj")
 
     def indent_more():
-        actions.user.insert(">>")
+        actions.insert(">>")
 
     def indent_less():
-        actions.user.insert("<<")
+        actions.insert("<<")
 
     def delete_line():
-        actions.user.insert("dd")
+        actions.insert("dd")

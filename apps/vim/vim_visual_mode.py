@@ -14,34 +14,34 @@ class EditActions:
     # need to a prefix an o beforehand so that it actually extends, rather than
     # changing directions.
     def extend_line_up():
-        actions.user.insert("ok^o")
+        actions.insert("ok^o")
 
     def extend_line_down():
-        actions.user.insert("j^")
+        actions.insert("j^")
 
     def extend_left():
-        actions.user.insert("oho")
+        actions.insert("oho")
 
     def extend_right():
-        actions.user.insert("l")
+        actions.insert("l")
 
     def extend_word_left():
-        actions.user.insert("obo")
+        actions.insert("obo")
 
     def extend_word_right():
-        actions.user.insert("e")
+        actions.insert("e")
 
     def select_word():
-        actions.user.insert("e")
+        actions.insert("e")
 
     def extend_line_start():
-        actions.user.insert("o^o")
+        actions.insert("o^o")
 
     def extend_line_end():
-        actions.user.insert("$")
+        actions.insert("$")
 
     def extend_file_start():
-        actions.user.insert("ogg0o")
+        actions.insert("ogg0o")
 
     def extend_file_end():
         actions.insert("G")
@@ -56,11 +56,11 @@ class EditActions:
         return clip.get()
 
     def indent_more():
-        actions.user.insert(">")
+        actions.insert(">")
 
     def indent_less():
-        actions.user.insert("<")
+        actions.insert("<")
 
     def delete_line():
-        actions.user.insert("D")
+        actions.insert("D")
 
