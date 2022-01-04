@@ -233,10 +233,12 @@ yank line <number>$:
 #(duplicate|paste) lines <number> through <number>$:
 #     user.vim_command_mode(":{number_1},{number_2}y\n")
 #     user.vim_command_mode("p")
-(duplicate|paste) line <number>$:
+bring line <number>$:
     user.vim_command_mode(":{number}y\n")
     user.vim_normal_mode("p")
-(dup|duplicate) line: user.vim_normal_mode_np("Yp")
+(dup|duplicate) line: 
+    user.vim_normal_mode("Yo")
+    user.vim_normal_mode("p")
 
 
 paste below:
