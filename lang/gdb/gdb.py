@@ -10,6 +10,6 @@ and code.language: gdb
 @ctx.action_class("user")
 class UserActions:
 
-    def code_comment():
+    def code_comment_line_prefix():
         actions.auto_insert("# ")
 

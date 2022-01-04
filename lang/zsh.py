@@ -104,7 +104,7 @@ class UserActions:
     def code_include_local():
         actions.insert("source ")
 
-    def code_comment():
+    def code_comment_line_prefix():
         actions.auto_insert("#")
 
     # XXX - redundant with snippets
