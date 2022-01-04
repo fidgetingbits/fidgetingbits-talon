@@ -3,10 +3,22 @@ mode: user.auto_lang
 and code.language: c
 
 -
-tag(): user.code_operators
-tag(): user.code_comment
-tag(): user.code_block_comment
-tag(): user.code_generic
+tag(): user.code_imperative
+
+tag(): user.code_comment_line
+tag(): user.code_comment_block_c_like
+tag(): user.code_data_bool
+tag(): user.code_data_null
+tag(): user.code_functions
+tag(): user.code_functions_gui
+tag(): user.code_libraries
+tag(): user.code_libraries_gui
+tag(): user.code_operators_array
+tag(): user.code_operators_assignment
+tag(): user.code_operators_bitwise
+tag(): user.code_operators_math
+tag(): user.code_operators_pointer
+
 settings():
     user.code_private_function_formatter = "SNAKE_CASE"
     user.code_protected_function_formatter = "SNAKE_CASE"
@@ -20,16 +32,23 @@ settings():
 ^funky <user.text>$: user.code_default_function(text)
 ^static funky <user.text>$: user.code_private_static_function(text)
 
+# NOTE: migrated from generic, as they were only used here, though once cpp support is added, perhaps these should be migrated to a tag together with the commands below
+state include:
+    insert('#include ')
+state include system:
+    insert('#include <>')
+    edit.left()
+state include local:
+    insert('#include ""')
+    edit.left()
+state type deaf:
+    insert('typedef ')
+state type deaf struct:
+    insert('typedef struct')
+    insert('{\n\n}')
+    edit.up()
+    key('tab')
 
-hash define: "#define "
-hash undefine: "#undef "
-hash if define: "#ifdef "
-hash if: "#if "
-hash error: "#error "
-hash else if: "#elif "
-hash end if: "#endif "
-hash pragma: "#pragma "
-state default: "default:\nbreak;"
 
 block:
     insert("{\n\n}")
@@ -57,7 +76,7 @@ push brackets:
 
 declare <user.c_variable> <user.letter>:
     insert("{c_variable} {letter} ")
-    
+
 # Ex. (int *)
 cast to <user.c_cast>: "{c_cast}"
 basic cast to <user.c_basic_cast>: "{c_basic_cast}"

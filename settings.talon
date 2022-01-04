@@ -62,3 +62,5 @@ settings():
 tag(): user.i3wm
 tag(): user.noise_quick_actions
 tag(): user.record_replay
+# Uncomment this to enable the curse yes/curse no commands (show hide mouse cursor). See issue #688.
+tag(): user.mouse_cursor_commands_enable

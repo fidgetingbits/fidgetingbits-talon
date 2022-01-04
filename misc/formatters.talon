@@ -11,6 +11,7 @@
 just <user.word>: user.insert_formatted(user.word, "NOOP")
 format help: user.formatters_help_toggle()
 recent list: user.toggle_phrase_history()
+recent close: user.phrase_history_hide()
 recent repeat <number_small>: insert(user.get_recent_phrase(number_small))
 recent copy <number_small>: clip.set_text(user.get_recent_phrase(number_small))
 select that: user.select_last_phrase()

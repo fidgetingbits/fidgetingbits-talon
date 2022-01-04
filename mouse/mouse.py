@@ -52,12 +52,14 @@ mod = Module()
 mod.list(
     "mouse_button", desc="List of mouse button words to mouse_click index parameter"
 )
+mod.tag(
+    "mouse_cursor_commands_enable", desc="Tag enables hide/show mouse cursor commands"
+)
 setting_mouse_enable_on_startup = mod.setting(
     "mouse_enable_on_startup",
     type=int,
     default=1,
     desc="Enable the mouse on startup without having to issue command.",
-)
 setting_mouse_enable_pop_click = mod.setting(
     "mouse_enable_pop_click",
     type=int,

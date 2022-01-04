@@ -5,6 +5,7 @@ window close: app.window_close()
 focus <user.running_applications>: user.switcher_focus(running_applications)
 focus flip: user.switch_last_focused()
 running list: user.switcher_toggle_running()
+running close: user.switcher_hide_running()
 launch <user.launch_applications>: user.switcher_launch(launch_applications)
 
 snap <user.window_snap_position>: user.snap_window(window_snap_position)

@@ -9,6 +9,7 @@ tags
 
 # Locally generated settings
 /settings
+.vscode/settings.json
 
 # Private stuff
 code/common_names/private_*.csv

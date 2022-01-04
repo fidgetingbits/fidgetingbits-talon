@@ -42,7 +42,7 @@ def format_phrase(m: Union[str, Phrase], fmtrs: str):
         if m.words[-1] == "over":
             m.words = m.words[:-1]
         words = actions.dictate.parse_words(m)
-        words = actions.dictate.replace_words(words)
+        words = actions.user.replace_phrases(words)
 
     result = last_phrase_formatted = format_phrase_no_history(words, fmtrs)
     actions.user.add_phrase_to_history(result)
@@ -190,21 +190,14 @@ formatters_words = {
     "long arg": formatters_dict["LONG_ARG"],
     "packing": formatters_dict["DOUBLE_COLON_SEPARATED"],
     "padded": formatters_dict["SPACE_SURROUNDED_STRING"],
-    # "say": formatters_dict["NOOP"],
-    # "sentence": formatters_dict["CAPITALIZE_FIRST_WORD"],
     "slasher": formatters_dict["SLASH_SEPARATED"],
     "smash": formatters_dict["NO_SPACES"],
     "snake": formatters_dict["SNAKE_CASE"],
     "spongbob": formatters_dict["SPONGEBOB"],
-    #"speak": formatters_dict["NOOP"],
     "quoted": formatters_dict["DOUBLE_QUOTED_STRING"],
     "ticks": formatters_dict["SINGLE_QUOTED_STRING"],
     "title": formatters_dict["CAPITALIZE_ALL_WORDS"],
     "upper": formatters_dict["ALL_CAPS"],
-    # disable a few formatters for now
-    # "tree": formatters_dict["FIRST_THREE"],
-    # "quad": formatters_dict["FIRST_FOUR"],
-    # "fiver": formatters_dict["FIRST_FIVE"],
 }
 
 all_formatters = {}
@@ -329,8 +322,9 @@ class Actions:
 
 def unformat_text(text: str) -> str:
     """Remove format from text"""
-    unformatted = re.sub(r"[^a-zA-Z0-9]+", " ", text)
-    # Split on camelCase, including numbes
+    unformatted = re.sub(r"[^\w]+", " ", text)
+    # Split on camelCase, including numbers
+    # FIXME: handle non-ASCII letters!
     unformatted = re.sub(r"(?<=[a-z])(?=[A-Z])|(?<=[A-Z])(?=[A-Z][a-z])|(?<=[a-zA-Z])(?=[0-9])|(?<=[0-9])(?=[a-zA-Z])", " ", unformatted)
     # TODO: Separate out studleycase vars
     return unformatted.lower()

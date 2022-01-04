@@ -6,9 +6,22 @@ mode: user.auto_lang
 and tag: user.python_repl
 
 -
-tag(): user.code_operators
-tag(): user.code_comment
-tag(): user.code_generic
+tag(): user.code_imperative
+tag(): user.code_object_oriented
+
+tag(): user.code_comment_line
+tag(): user.code_comment_documentation
+tag(): user.code_data_bool
+tag(): user.code_data_null
+tag(): user.code_functions
+tag(): user.code_functions_gui
+tag(): user.code_libraries
+tag(): user.code_libraries_gui
+tag(): user.code_operators_array
+tag(): user.code_operators_assignment
+tag(): user.code_operators_bitwise
+tag(): user.code_operators_math
+
 settings():
     user.code_private_function_formatter = "SNAKE_CASE"
     user.code_protected_function_formatter = "SNAKE_CASE"
@@ -77,12 +90,6 @@ raw string:
     var = user.formatted_text(text, "snake")
     insert("self.{var} = {var}")
 
-^funky <user.text>$: user.code_default_function(text)
-#^pro funky <user.text>$: user.code_protected_function(text)
-^pub funky <user.text>$: user.code_public_function(text)
-#^static funky <user.text>$: user.code_private_static_function(text)
-#^pro static funky <user.text>$: user.code_protected_static_function(text)
-#^pub static funky <user.text>$: user.code_public_static_function(text)
 raise {user.python_exception}: user.insert_cursor("raise {python_exception}([|])")
 except {user.python_exception}: "except {python_exception}:"
 except {user.python_exception} as: user.insert_cursor("except {python_exception} as [|]:")
@@ -106,6 +113,8 @@ type <user.python_type_list>:
 deck static [method]: insert("@staticmethod")
 deck class [method]: insert("@classmethod")
 
+dock string:
+    user.code_comment_documentation()
 dock {user.python_docstring_fields}:
     insert("{python_docstring_fields}")
     edit.left()
@@ -114,10 +123,16 @@ dock type {user.code_type}:
     user.insert_cursor(":type [|]: {code_type}")
 dock returns type {user.code_type}:
     user.insert_cursor(":rtype [|]: {code_type}")
+
 toggle imports: user.code_toggle_libraries()
 import <user.code_libraries>:
     user.code_insert_library(code_libraries, "")
     key(end enter)
+
+from <user.code_libraries> import:
+    insert('from ')
+    user.code_insert_library(code_libraries, "")
+    insert(' import ')
 
 # XXX - it would be good to have a set of common overrides?
 funk path: "pathlib.Path()"
