@@ -386,6 +386,7 @@ text_object_select = {
     "quote": '"',
     "tick": "'",
     "parens": "(",
+    "round": "(",
     "angles": "<",
     "code block": "{",
     "braces": "{",
@@ -407,6 +408,8 @@ ctx.lists["self.vim_text_object_select"] = {
 # XXX - should be able to partially mix with earlier list
 # XXX - should actually move to surround plugin
 # XXX - revisit loose naming
+# XXX - things like word, etc should probably be switched? I'm not sure what
+# they do...
 ctx.lists["self.vim_surround_targets"] = {
     "stars": "*",
     "word": "w",
@@ -416,9 +419,11 @@ ctx.lists["self.vim_surround_targets"] = {
     "quotes": '"',
     "ticks": "'",
     "loose parens": "(",
+    "loose round": "(",
     "loose angles": "<",
     "loose braces": "{",
     "loose squares": "[",
+    "round": ")",
     "parens": ")",
     "angles": ">",
     "braces": "}",

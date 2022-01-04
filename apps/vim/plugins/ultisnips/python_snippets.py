@@ -36,6 +36,7 @@ private_snippets = {
     "new arg parser": "argparse",
     "add argument": "narg",
     "dock param": "dockparam",
+    "import cap stone": "capstone_import",
 }
 
 ctx.lists["user.snippets"] = {**ultisnips_snippets, **private_snippets}

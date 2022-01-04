@@ -95,7 +95,7 @@ except {user.python_exception}: "except {python_exception}:"
 except {user.python_exception} as: user.insert_cursor("except {python_exception} as [|]:")
 
 # function calling
-funk <user.text>:
+call <user.text>:
     insert(user.formatted_text(text, "snake"))
     insert("()")
     edit.left()

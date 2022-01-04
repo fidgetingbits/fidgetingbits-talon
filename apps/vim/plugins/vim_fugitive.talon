@@ -50,6 +50,7 @@ diff update: user.vim_command_mode(':exe ":diffupdate"\n')
 hunk next: user.vim_normal_mode_keys("] c")
 hunk (back|last): user.vim_normal_mode_keys("[ c")
 
+# Merging
 
 # This is a fairly specific set of commands. It assumes that you have ran `:G
 # mergetool` and you have one split open up top with the file you're editing, in
