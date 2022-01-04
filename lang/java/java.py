@@ -7,7 +7,6 @@ mode: user.java
 mode: user.auto_lang
 and code.language: java
 """
-ctx.tags = ["user.code_operators", "user.code_generic", "user.code_functions_gui"]
 
 # Primitive Types
 java_primitive_types = {

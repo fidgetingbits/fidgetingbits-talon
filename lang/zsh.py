@@ -101,8 +101,8 @@ class UserActions:
     def code_operator_bitwise_right_shift_assignment():
         actions.auto_insert(" >>= ")
 
-    def code_include_local():
-        actions.insert("source ")
+    def code_import_local():
+        actions.user.paste('source ')
 
     def code_comment_line_prefix():
         actions.auto_insert("#")

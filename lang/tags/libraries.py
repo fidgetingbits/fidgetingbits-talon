@@ -12,3 +12,6 @@ mod.tag(
 class Actions:
     def code_import():
         """import/using equivalent"""
+
+    def code_import_local():
+        """import/using equivalent for local libraries"""

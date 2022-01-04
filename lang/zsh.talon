@@ -5,9 +5,15 @@ mode: user.zsh
 mode: user.auto_lang
 and code.language: zsh
 -
-tag(): user.code_operators
-tag(): user.code_comment
-tag(): user.code_generic
+tag(): user.code_imperative
+
+# XXX - this might be missing some since the split of operators
+tag(): user.code_comment_line
+tag(): user.code_functions
+tag(): user.code_libraries
+tag(): user.code_operators_array
+tag(): user.code_operators_assignment
+tag(): user.code_operators_math
 settings():
     user.code_private_function_formatter = "SNAKE_CASE"
     user.code_protected_function_formatter = "SNAKE_CASE"

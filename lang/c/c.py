@@ -369,6 +369,16 @@ class UserActions:
     def code_insert_library(text: str, selection: str):
         actions.user.paste("#include <{}>".format(selection))
 
+    def code_import():
+        """Inserts an empty include line for the selected library header"""
+        actions.user.paste("include <>")
+        actions.edit.left()
+
+    def code_import_local():
+        """Inserts an empty include line for the selected local header"""
+        actions.user.paste('include ""')
+        actions.edit.left()
+
 
 @mod.action_class
 class Actions:
@@ -381,3 +391,4 @@ class Actions:
         """display next datatype mode"""
         global c_lang_state
         c_lang_state.current_datatype()
+
