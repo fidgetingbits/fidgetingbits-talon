@@ -40,7 +40,6 @@ mode require [{user.talon_modes}]:
 tag require [{user.talon_tags}]:
     tag = talon_tags or ""
     user.paste("tag: {tag}")
-<<<<<<< HEAD
 #commands for dictating key combos
 funk key [<user.modifiers>+] <user.keys>:
     insert("key(")
@@ -51,9 +50,6 @@ press [<user.modifiers>+] <user.keys>:
     insert(modifiers or "")
     insert("{keys}")
 tag set [{user.talon_tags}]: 
-=======
-tag set [{user.talon_tags}]:
->>>>>>> 4a376d1ece8b60728f71120ef3e7dd10c3ba34e6
     tag = talon_tags or ""
     user.paste("tag(): {tag}")
 # requires user.talon_populate_lists tag. do not use with dragon
