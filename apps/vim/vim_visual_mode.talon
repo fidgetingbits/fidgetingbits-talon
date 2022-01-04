@@ -1,7 +1,6 @@
-win.title: /VIM MODE:v/
-win.title: /VIM MODE:V/
+tag: user.vim_visual_mode
 -
-tag: user.vim_visual_mode()
+
 swap (selected|highlighted):
     insert(":")
     # leave time for vim to populate '<,'>
@@ -56,3 +55,7 @@ search that:
     key(ctrl-r)
     insert("=escape(@\",'/\\')")
     key("enter:2")
+
+
+(shift|indent) right: insert(">")
+(shift|indent) left: insert("<")

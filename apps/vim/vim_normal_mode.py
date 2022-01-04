@@ -17,3 +17,12 @@ class EditActions:
 
     def extend_line_down():
         actions.user.insert("Vj")
+
+    def indent_more():
+        actions.user.insert(">>")
+
+    def indent_less():
+        actions.user.insert("<<")
+
+    def delete_line():
+        actions.user.insert("dd")

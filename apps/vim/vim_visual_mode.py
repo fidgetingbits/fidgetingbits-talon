@@ -54,3 +54,13 @@ class EditActions:
         # gv to reselect
         actions.insert("ygv")
         return clip.get()
+
+    def indent_more():
+        actions.user.insert(">")
+
+    def indent_less():
+        actions.user.insert("<")
+
+    def delete_line():
+        actions.user.insert("D")
+

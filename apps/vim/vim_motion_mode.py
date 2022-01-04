@@ -20,25 +20,25 @@ class EditActions:
         actions.user.vim_command_mode(":w\n")
 
     def find_next():
-        actions.user.vim_normal_mode_key("n")
+        actions.user.vim_any_motion_mode_key("n")
 
     def word_left():
-        actions.user.vim_normal_mode_key("b")
+        actions.user.vim_any_motion_mode_key("b")
 
     def word_right():
-        actions.user.vim_normal_mode_key("w")
+        actions.user.vim_any_motion_mode_key("w")
 
     def line_start():
-        actions.user.vim_normal_mode_key("^")
+        actions.user.vim_any_motion_mode_key("^")
 
     def line_end():
-        actions.user.vim_normal_mode_key("$")
+        actions.user.vim_any_motion_mode_key("$")
 
     def file_end():
-        actions.user.vim_normal_mode_key("G")
+        actions.user.vim_any_motion_mode_key("G")
 
     def file_start():
-        actions.user.vim_normal_mode("gg")
+        actions.user.vim_any_motion_mode("gg")
 
     def extend_line_up():
         actions.user.vim_visual_mode("k^")
@@ -83,18 +83,8 @@ class EditActions:
     def delete_word():
         actions.user.vim_normal_mode("dw")
 
-    def indent_more():
-        actions.user.vim_normal_mode(">>")
-
-    def indent_less():
-        actions.user.vim_normal_mode("<<")
-
-    def delete_line():
-        actions.user.vim_normal_mode("dd")
-
     def delete():
         actions.user.vim_insert_mode_key("backspace")
-
 
     def redo():
         actions.user.vim_normal_mode_key("ctrl-r")

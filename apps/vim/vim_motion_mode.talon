@@ -135,14 +135,10 @@ taggy back: user.vim_normal_mode_key("ctrl-t")
 ###
 
 # indenting
-# XXX - are temporarily disabled for speed testing
-# indent [line] <number> through <number>$:
-#     user.vim_command_mode(":{number_1},{number_2}>\n")
-# unindent [line] <number> through <number>$:
-#     user.vim_command_mode(":{number_1},{number_2}>\n")
-# XXX - double check against slide right/left
-(shift|indent) right: user.vim_normal_mode(">>")
-(shift|indent) left: user.vim_normal_mode("<<")
+indent [line] <number> through <number>$:
+    user.vim_command_mode(":{number_1},{number_2}>\n")
+unindent [line] <number> through <number>$:
+    user.vim_command_mode(":{number_1},{number_2}>\n")
 
 change remaining line: user.vim_normal_mode_key("C")
 change line: user.vim_normal_mode("cc")
