@@ -1420,6 +1420,8 @@ class VimMode:
                 if settings.get("user.vim_mode_switch_moves_cursor") == 0:
                     actions.key("ctrl-\\")
                 actions.key("ctrl-o")
+                # XXX - Same oddity as terminal escape above
+                time.sleep(0.05)
                 self.wait_mode_change("niI")
             else:
                 # Presses right because entering normal mode via escape puts
