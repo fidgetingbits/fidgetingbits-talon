@@ -395,7 +395,7 @@ show authorized keys: "vi ~/.ssh/authorized_keys\n"
 show pub keys: "cat ~/.ssh/*.pub\n"
 edit authorized keys: "vi ~/.ssh/authorized_keys\n"
 go secure shell config: "cd ~/.ssh\n"
-terminate session:
+tunnel terminate:
     key(enter ~ .)
 
 # process management
