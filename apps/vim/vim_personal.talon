@@ -87,5 +87,8 @@ convert string to stack:
 toggle (debug|verbose) log:
     user.vim_command_mode(":call ToggleVerbose()\n")
 
-toggle warnings:
-    user.vim_command_mode(":call v:lua.toggle_diagnostics()\n")
+toggle (warnings|errors) on:
+    user.vim_command_mode(":lua vim.diagnostic.show()\n")
+
+toggle (warnings|errors) off:
+    user.vim_command_mode(":lua vim.diagnostic.hide()\n")
