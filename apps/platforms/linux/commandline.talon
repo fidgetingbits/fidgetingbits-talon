@@ -398,6 +398,9 @@ go secure shell config: "cd ~/.ssh\n"
 tunnel terminate:
     key(enter ~ .)
 
+# virtsh virtual console escape
+(virtual pop|consol escape): key(ctrl+])
+
 # process management
 (process grep|pee grep): "pgrep "
 process list: "ps -ef\n"
