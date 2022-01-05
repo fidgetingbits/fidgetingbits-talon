@@ -39,7 +39,8 @@ settings():
     # Automatically show the history size on talon startup
     user.command_history_auto = 1
     # Automatically show more history size
-    user.command_history_auto = 1
+    user.command_history_auto_more = 1
+    user.command_history_sticky = 1
 
 
     # Uncomment the below to enable context=sensitive dictation. This determines
@@ -53,7 +54,6 @@ settings():
     key_wait = 1
     # how long to wait between key presses
     insert_wait = 5
-
 
 
 # uncomment tag to enable mouse grid

@@ -9,6 +9,8 @@ setting_command_history_size = mod.setting("command_history_size", int, default=
 setting_command_history_display = mod.setting(
     "command_history_display", int, default=10
 )
+setting_command_history_sticky = mod.setting("command_history_sticky", int,
+        default=0)
 
 hist_more = False
 history = []
@@ -48,15 +50,22 @@ def gui(gui: imgui.GUI):
     if gui.button("Command history close"):
         actions.user.history_disable()
 
+def on_ready():
+    global hist_more
+    global gui
+    if setting_command_history_auto_more.get():
+        hist_more = True
+
+    if setting_command_history_auto.get():
+        if not gui.showing:
+            gui.show()
+
+app.register("ready", on_ready)
+
 
 speech_system.register("phrase", on_phrase)
 
-if setting_command_history_auto_more.get():
-    hist_more = True
 
-if setting_command_history_auto.get():
-    if not gui.showing:
-        gui.show()
 
 @mod.action_class
 class Actions:
