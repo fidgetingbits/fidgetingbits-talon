@@ -1,4 +1,4 @@
-from talon import imgui, Module, speech_system, actions, app
+from talon import ui, imgui, Module, speech_system, actions, app
 
 # We keep command_history_size lines of history, but by default display only
 # command_history_display of them.
@@ -14,7 +14,7 @@ setting_command_history_sticky = mod.setting("command_history_sticky", int,
 
 hist_more = False
 history = []
-
+gui = None
 
 def parse_phrase(word_list):
     return " ".join(word.split("\\")[0] for word in word_list)
@@ -34,8 +34,7 @@ def on_phrase(j):
 
 
 # todo: dynamic rect?
-@imgui.open(y=0)
-def gui(gui: imgui.GUI):
+def update_gui(gui: imgui.GUI):
     global history
     global hist_more
     gui.text("Command History")
@@ -55,6 +54,16 @@ def on_ready():
     global gui
     if setting_command_history_auto_more.get():
         hist_more = True
+
+    y = 0
+    # XXX - This should be used once we have sticky support
+    main_screen = ui.main_screen()
+    x = main_screen.x + main_screen.width / 2.6
+
+    img = imgui.open(y=y)
+    gui = img(update_gui)
+    if setting_command_history_sticky.get():
+        gui.fixed(0, 100)
 
     if setting_command_history_auto.get():
         if not gui.showing:
