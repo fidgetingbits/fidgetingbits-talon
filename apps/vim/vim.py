@@ -90,7 +90,7 @@ class win_actions:
         if len(result) > 1:
             # Assumes the last word after the last ) entry has the filename
             result = result[-1]
-            #print(f"vim.filename(): {result.strip()}")
+            # print(f"vim.filename(): {result.strip()}")
             return result.strip()
         else:
             return ""
@@ -162,8 +162,7 @@ standard_counted_actions_control_keys = {
 # You can put custom aliases here to make it easier to manage. The idea is to
 # alias commands from standard_counted_actions above, without replacing them
 # there to prevent merge conflicts.
-custom_counted_action = {
-}
+custom_counted_action = {}
 
 # Custom self.vim_counted_actions insertable entries
 # You can put custom shortcuts requiring key() here to make it easier to manage
@@ -969,6 +968,7 @@ class Actions:
         v.set_any_motion_mode_exterm()
         actions.key(cmd)
 
+
 class NeoVimRPC:
     """For setting/pulling the modes using RPC"""
 
@@ -1002,11 +1002,11 @@ class NeoVimRPC:
 
 
 class VimDirectInput:
-    """Implementation of functionality when RPC is not available. 
+    """Implementation of functionality when RPC is not available.
 
     This relies on a more finnicky method of detecting no changes, stringing
     commands together, which can be a bit buggy. It's supported for people that
-    can't use neovim RPC for some reason, like if you are using something with 
+    can't use neovim RPC for some reason, like if you are using something with
     a VIM-like mode, like a consol with bindkeys -v set"""
 
     def run_command_mode_command(self, cmd):
@@ -1061,7 +1061,7 @@ class VimRPC:
         the duplication... there might be some better way to do this but I
         haven't figured it out yet.
         """
-        if cmd[-1] != '\n':
+        if cmd[-1] != "\n":
             v = VimDirectInput()
             v.run_command_mode_command(cmd)
         else:
@@ -1076,12 +1076,12 @@ class VimRPC:
             except Exception:
                 app.notify(subtitle="Unknown Neovim API error. See talon log")
 
-
     def run_command_mode_command_exterm(self, cmd):
-        """Exit terminal mode and run a command in commandline mode using RPC. """
+        """Exit terminal mode and run a command in commandline mode using RPC."""
         if self.is_terminal_mode():
             self.exit_terminal_mode()
         self.run_command_mode_command(cmd)
+
 
 # XXX - this should be moved somewhere else
 class VimAPI:
@@ -1091,7 +1091,7 @@ class VimAPI:
         self.api = self._get_api()
 
     def _get_api(self):
-        """return a RPC or non-RPC API object """
+        """return a RPC or non-RPC API object"""
         self.nvrpc = NeoVimRPC()
         if self.nvrpc.init_ok is True:
             return VimRPC(self.nvrpc)
@@ -1106,6 +1106,7 @@ class VimAPI:
 # should be broken up were appropriate.
 class VimMode:
     """Manage mode transitions with or without RPC"""
+
     # mode ids represent generic statusline mode() values. see :help mode()
     NORMAL = "normal"
     VISUAL = "visual"
@@ -1142,6 +1143,18 @@ class VimMode:
         "t": "Terminal",
     }
 
+    vim_normal_mode_indicators = [
+        "n",
+        "no",
+        "nov",
+        "noV",
+        "no^V",
+        "niI",
+        "niR",
+        "niV",
+        "nt",
+    ]
+
     def __init__(self):
         # list of all vim instances talon is aware of
         self.vim_instances = []
@@ -1157,17 +1170,9 @@ class VimMode:
             logger.debug(s)
 
     def is_normal_mode(self):
-        return self.mode() in [
-            "n",
-            "no",
-            "nov",
-            "noV",
-            "no^V",
-            "niI",
-            "niR",
-            "niV",
-        ]
+        return self.mode() in self.vim_normal_mode_indicators
 
+    # XXX - move these too arrays like vim_normal_mode_indicators
     def is_visual_mode(self):
         return self.mode() in ["v", "V", "^V"]
 
@@ -1183,12 +1188,12 @@ class VimMode:
     def is_replace_mode(self):
         return self.mode() in ["R", "Rv", "Rx", "Rc"]
 
-    # XXX - this can maybe get called by the parent class, since will only have 
+    # XXX - this can maybe get called by the parent class, since will only have
     # when the parent class is VimRPC
     def mode(self):
         if self.nvrpc.init_ok is True:
             mode = self.nvrpc.get_active_mode()["mode"]
-            #self.debug_print(f"RPC reported mode: {self.current_mode_id()}")
+            # self.debug_print(f"RPC reported mode: {self.current_mode_id()}")
         else:
             title = ui.active_window().title
             mode = None
@@ -1291,7 +1296,9 @@ class VimMode:
         if type(valid_mode_ids) != list:
             valid_mode_ids = [valid_mode_ids]
         if cur not in valid_mode_ids:
-            self.debug_print(f"Want to adjust from from '{cur}' to one of '{valid_mode_ids}'")
+            self.debug_print(
+                f"Want to adjust from from '{cur}' to one of '{valid_mode_ids}'"
+            )
             # Just favor the first mode match
             self.set_mode(
                 valid_mode_ids[0],
@@ -1318,9 +1325,16 @@ class VimMode:
         check_count = 0
         max_check_count = 20
         if self.nvrpc.init_ok:
-            while wanted != self.nvrpc.get_active_mode()["mode"]:
+            active_mode = self.nvrpc.get_active_mode()["mode"]
+            while wanted != active_mode:
+                # XXX - There's probably a cleaner way to do this, but there's
+                # a lot of normal modes which we don't seem to match on, but
+                # technically should
+                if wanted == "n" and active_mode in self.vim_normal_mode_indicators:
+                    return True
+
                 logger.debug(
-                    "Wanted mode: %s vs Current mode: %s" % (wanted, self.nvrpc.get_active_mode()["mode"])
+                    "Wanted mode: %s vs Current mode: %s" % (wanted, active_mode)
                 )
                 # XXX - for wait value should be configurable
                 time.sleep(0.020)
@@ -1376,6 +1390,11 @@ class VimMode:
                 # break out of terminal mode
                 actions.key("ctrl-\\")
                 actions.key("ctrl-n")
+
+                # XXX - Not sure why I have to sleep after this, but otherwise
+                # sit sometimes blocks for way longer then it should
+                time.sleep(0.05)
+
                 self.wait_mode_change("n")
             else:
                 # Imagine you have a vim terminal and inside you're running a
