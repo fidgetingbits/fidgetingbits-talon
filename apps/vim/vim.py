@@ -1429,15 +1429,18 @@ class VimMode:
                 # Exception is `2 delete big-back` from INSERT mode.
                 actions.key("right")
                 actions.key("escape")
+                time.sleep(0.05)
                 self.wait_mode_change("n")
         elif self.is_visual_mode() or self.is_command_mode() or self.is_replace_mode():
             actions.key("escape")
+            time.sleep(0.05)
             self.wait_mode_change("n")
         elif self.is_normal_mode() and wanted_mode == self.COMMAND_LINE:
             # We explicitly escape even if normal mode, to cancel any queued
             # commands that might affect our command. For instance, accidental
             # number queueing followed by :w, etc
             actions.key("escape")
+            time.sleep(0.05)
             time.sleep(self.canceled_timeout)
             self.wait_mode_change("n")
 

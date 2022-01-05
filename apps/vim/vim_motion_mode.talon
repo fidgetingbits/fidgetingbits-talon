@@ -236,9 +236,9 @@ yank line <number>$:
 bring line <number>$:
     user.vim_command_mode(":{number}y\n")
     user.vim_normal_mode("p")
-(dup|duplicate) line: 
-    user.vim_normal_mode("Yo")
-    user.vim_normal_mode("p")
+#(dup|duplicate) line: 
+#    user.vim_normal_mode_np("yy")
+#    user.vim_normal_mode_np("p")
 
 
 paste below:

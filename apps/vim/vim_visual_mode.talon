@@ -59,3 +59,8 @@ search that:
 
 (shift|indent) right: insert(">")
 (shift|indent) left: insert("<")
+
+
+(dup|duplicate) line: 
+    insert("Y")
+    insert("p")
