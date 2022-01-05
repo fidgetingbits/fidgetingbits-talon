@@ -322,6 +322,7 @@ abbreviations = {
     "verify": "vrfy",
     "version": "ver",
     "versus": "vs",
+    "virtual": "virt",
     "virtual machine": "vm",
     "visual": "vis",
     "visual studio": "msvc",
