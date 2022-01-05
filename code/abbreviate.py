@@ -266,6 +266,8 @@ abbreviations = {
     "sequence": "seq",
     "segment": "seg",
     "semaphore": "sem",
+    "schedule": "sched",
+    "scheduler": "sched",
     "screen": "scr",
     "scuzzy": "scsi",
     "samba": "smb",

@@ -112,6 +112,7 @@ ctx.lists["user.code_libraries"] = {
     "string": "string.h",
     "time": "time.h",
     "standard int": "stdint.h",
+    "scheduler": "sched.h",
     "unix standard": "unistd.h",
 }
 
