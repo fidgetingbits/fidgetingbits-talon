@@ -32,7 +32,3 @@ virtual snapshot create otto: insert("$ virsh snapshot-create ")
 virtual snapshot list: insert("$ virsh snapshot-list ")
 virtual snapshot create: user.insert_cursor("virsh snapshot-create-as [|] --name <name_here>")
 
-# XXX - This doesn't actually work because we need to detect that we're running
-# insideof a virsh console, so need to add support
-# pop out of the virtual console
-virtual pop: key(ctrl+])
