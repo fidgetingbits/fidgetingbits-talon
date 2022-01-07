@@ -424,6 +424,8 @@ jump last line: user.vim_normal_mode("''")
 ###
 # QuickFix list
 ###
+# XXX - Would be nice to be able to determine if the quickness is actually
+# open, and only enable the navigation commands if so...
 vim grep:
     user.vim_command_mode(":vimgrep // **")
     key(left:4)
@@ -431,13 +433,14 @@ vim real grep:
     user.vim_command_mode(":grep -r  *")
     key(left:2)
 quick [fix] next: user.vim_command_mode(":cn\n")
-quick [fix] (back|last|prev|previous): user.vim_command_mode(":cp\n")
+quick [fix] (back|prev|previous): user.vim_command_mode(":cp\n")
 quick [fix] (show|hide): user.vim_command_mode(":cw\n")
 quick [fix] close: user.vim_command_mode(":ccl\n")
 quick [fix] files:
     user.vim_command_mode(':cexpr system("fd -g \'*.py\' .")')
     key(left:3)
-    # XXX - top?
+
+quick [fix] top: user.vim_command_mode(":cc 1\n")
 quick [fix] bottom: user.vim_command_mode(":cbo\n")
 quick [fix] do:
     user.vim_command_mode(":cdo | update")
