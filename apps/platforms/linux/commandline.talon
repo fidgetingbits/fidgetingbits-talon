@@ -399,7 +399,7 @@ tunnel terminate:
     key(enter ~ .)
 
 # virtsh virtual console escape
-(virtual pop|consol escape): key(ctrl+])
+(virtual pop|consol escape): key("ctrl-]")
 
 # process management
 (process grep|pee grep): "pgrep "
