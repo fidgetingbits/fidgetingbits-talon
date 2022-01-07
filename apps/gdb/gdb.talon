@@ -172,3 +172,8 @@ print structure size clip:
     key(")")
     key(enter)
     
+unset print elements:
+    insert("set print elements 0\n")
+
+unset print repeats:
+    insert("set print repeats 0\n")
