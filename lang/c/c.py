@@ -102,6 +102,7 @@ ctx.lists["user.code_libraries"] = {
     "limits": "limits.h",
     "locale": "locale.h",
     "math": "math.h",
+    "poll": "poll.h",
     "set jump": "setjmp.h",
     "signal": "signal.h",
     "arguments": "stdarg.h",
@@ -116,6 +117,10 @@ ctx.lists["user.code_libraries"] = {
     "standard int": "stdint.h",
     "scheduler": "sched.h",
     "unix standard": "unistd.h",
+    "threading": "pthread.h",
+    "system message": "sys/msg.h",
+    "system I P C": "sys/ipc.h",
+    "system shared memory": "sys/shm.h",
 }
 
 ctx.lists["user.code_functions"] = {
