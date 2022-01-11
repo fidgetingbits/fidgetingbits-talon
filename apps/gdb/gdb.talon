@@ -21,6 +21,7 @@ tag(): user.readline
 
 # linux kernel
 tag(): user.gdb_vmlinux
+tag(): user.slabdbg
 
 # frameworks
 tag(): user.gef
