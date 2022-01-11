@@ -223,3 +223,4 @@ cut line:
     edit.select_line()
     edit.cut()
 
+assign: " = "
