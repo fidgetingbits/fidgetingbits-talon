@@ -217,7 +217,7 @@ symbol_key_words = {
     "locker": "[",
     "rocker": "]",
     "slash": "/",
-    "bish": "\\",
+    "bash": "\\",
     "minus": "-",
     "dash": "-",
     "equals": "=",
