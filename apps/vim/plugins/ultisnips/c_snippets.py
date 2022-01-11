@@ -25,8 +25,8 @@ ultisnips_snippets = {
 
 # these snippets are from your personal snippet file
 private_snippets = {
-    "success": "printfs",
-    "failure": "printff",
+    "print status": "printfs",
+    "print fail": "printff",
     "exit success": "exits",
     "exit failure": "exitf",
     "dock fun": "doxyb",

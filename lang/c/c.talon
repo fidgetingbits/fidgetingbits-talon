@@ -94,6 +94,10 @@ include <user.code_libraries>:
 cycle data type: user.cycle_c_datatype()
 show data type: user.current_c_datatype()
 
+state return <number>: "return {number};"
+state continue: "continue;"
+state break: "break;"
+
 ###
 # Documentation
 ###

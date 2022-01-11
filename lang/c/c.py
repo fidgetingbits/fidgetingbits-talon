@@ -109,6 +109,7 @@ ctx.lists["user.code_libraries"] = {
     "definition": "stddef.h",
     "input": "stdio.h",
     "standard input": "stdio.h",
+    "standard deaf": "stddef.h",
     "output": "stdio.h",
     "library": "stdlib.h",
     "standard library": "stdlib.h",
@@ -121,6 +122,12 @@ ctx.lists["user.code_libraries"] = {
     "system message": "sys/msg.h",
     "system I P C": "sys/ipc.h",
     "system shared memory": "sys/shm.h",
+    "memory management": "sys/mman.h",
+    "system parameters": "sys/param.h",
+    "U name": "sys/utsname.h",
+    "fuse": "fuse.h",
+    "file control": "fcntl.h",
+    "F control": "fcntl.h",
 }
 
 ctx.lists["user.code_functions"] = {
