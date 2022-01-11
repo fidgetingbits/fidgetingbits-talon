@@ -49,7 +49,6 @@ break [point] enable <number_small>: user.debugger_enable_breakpoint_id(number_s
 
 # Navigation
 
-
 # Memory Inspection
 (stack|back) trace: user.debugger_backtrace()
 (disassemble|dizzy): user.debugger_disassemble()

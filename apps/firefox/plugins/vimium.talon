@@ -85,7 +85,7 @@ go to mark <user.letter>':
 (page|tab) open bookmark new <user.text>:
     insert("B")
     insert("{text}")
-(page|tab) find:
+tab find:
     key("T")
 edit address bar:
     insert("ge")
@@ -94,11 +94,11 @@ edit address bar new tab:
 
 # Using find
 #  Searching
-find <user.text>:
+[page] find <user.text>:
     key("/")
     insert("{text}")
     key("enter")
-find:
+[page] find:
     key("/")
 result next:
     key("n")
