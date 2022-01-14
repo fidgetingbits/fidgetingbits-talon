@@ -58,7 +58,7 @@ def parse_vim_term_title(window):
     else:
         shell_command = shell_command.split(" ")[0]
 
-    populate_shell_tags(shell_command)
+    populate_shell_tags(shell_command, window.title)
     populate_language_modes(shell_command)
 
 
@@ -84,7 +84,7 @@ def populate_language_modes(shell_command):
     return
 
 
-def populate_shell_tags(shell_command):
+def populate_shell_tags(shell_command, window_title):
     """TODO: Docstring for populate_shell_tags.
     :returns: TODO
 
@@ -111,6 +111,7 @@ def populate_shell_tags(shell_command):
     regex_shell_tags = {
         r"^\w*@\w*": "terminal",
         r"^\w*@\w*:.*[$#]": "terminal",  # this is redundant with above, but ideally I would rather have something like this
+        ".*virsh start --console.*": "terminal",  # hacky match for libvirt containers 
     }
     if shell_command in shell_tags:
         ctx.tags = [shell_tags[shell_command]]
@@ -122,8 +123,13 @@ def populate_shell_tags(shell_command):
                 ctx.tags = [fuzzy_shell_tags[tag]]
                 found_fuzzy = True
                 break
+        # XXX - sometimes I need to match on a much larger command than just
+        # the first shell command, for now I do it on the entire window
+        # title... best would probably to be have something like CMD:
+        # eventually followed by something else so we can difference, since we
+        # don't really need to parse the (term:) part and beyond...
         for expression in regex_shell_tags:
-            m = re.match(expression, shell_command)
+            m = re.match(expression, window_title)
             if m is not None:
                 ctx.tags = [regex_shell_tags[expression]]
 
