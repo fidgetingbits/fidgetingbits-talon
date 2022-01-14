@@ -65,6 +65,7 @@ plugin_tag_list = [
     "vim_wiki",
     "vim_you_are_here",
     "vim_youcompleteme",
+    "vim_zenmode",
     "vim_zoom",
 ]
 for entry in plugin_tag_list:

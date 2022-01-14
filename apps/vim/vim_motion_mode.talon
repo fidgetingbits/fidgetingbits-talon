@@ -83,7 +83,7 @@ pivot clip:
     key(enter)
 #pivot (parent|back):
 #    user.vim_command_mode(":lcd ..\n")
-pivot select:
+pivot [select]:
     user.vim_command_mode(":lcd ")
 # Note below includes pivot back
 pivot <user.folder_paths>:

@@ -65,6 +65,7 @@ tag(): user.vim_unicode
 tag(): user.vim_wiki
 tag(): user.vim_you_are_here
 tag(): user.vim_zoom
+tag(): user.vim_zenmode
 tag(): user.vim_lsp
 
 
@@ -535,7 +536,7 @@ set file format unix:
 # Marks
 ###
 # TODO - need to fix this "True" for terminal return stuff
-mark (new|create) <user.letter>:
+mark (add|new|create) <user.letter>:
     user.vim_normal_mode_exterm_keys("m {letter}", "True")
 
 mark global [(new|create)] <user.upper_letter>:
