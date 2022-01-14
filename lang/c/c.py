@@ -72,6 +72,7 @@ stdint_types = {
 }
 stdint_signed = {
     "un signed": "u",
+    "unsigned": "u",
 }
 
 stdint_ctx.lists["user.c_types"] = stdint_types
@@ -126,8 +127,12 @@ ctx.lists["user.code_libraries"] = {
     "system parameters": "sys/param.h",
     "U name": "sys/utsname.h",
     "fuse": "fuse.h",
+    "fuse low level": "fuse_lowlevel.h",
     "file control": "fcntl.h",
     "F control": "fcntl.h",
+    "password": "pwd.h",
+    "event F D": "sys/eventfd.h",
+    "wait": "sys/wait.h",
 }
 
 ctx.lists["user.code_functions"] = {
