@@ -3,7 +3,6 @@ tag: terminal
 -
 tag(): user.zsh
 
-(rerun|run) last [command]: "!!\n\n"
 cancel [that]: key(ctrl-c)
 # fzf keybindings
 history search: key(ctrl-r)

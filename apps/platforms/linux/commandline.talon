@@ -60,6 +60,12 @@ rerun <user.text>:
     insert(text)
 rerun list:
     key(ctrl-r)
+rerun last command:
+    key(! ! enter enter)
+rerun last <user.word>:
+    key(!)
+    insert(word)
+    key(enter)
 kill all:
     key(ctrl-c)
 
@@ -378,9 +384,9 @@ core dump debug: "coredumpctl debug\n"
 
 # ssh
 # XXX - make texts actually query a series of names from the %h config
-(secure shell|tunnel) [<user.text>]: 
-    insert("ssh ")
-    insert(text or "")
+#(secure shell|tunnel) [<user.text>]: 
+#    insert("ssh ")
+#    insert(text or "")
 tunnel last:
     key(ctrl-r)
     insert("ssh ")
@@ -395,11 +401,13 @@ show authorized keys: "vi ~/.ssh/authorized_keys\n"
 show pub keys: "cat ~/.ssh/*.pub\n"
 edit authorized keys: "vi ~/.ssh/authorized_keys\n"
 go secure shell config: "cd ~/.ssh\n"
+# talon suddenly loves the word termini
+#tunnel (terminate|termini):
 tunnel terminate:
     key(enter ~ .)
 
 # virtsh virtual console escape
-(virtual pop|consol escape): key("ctrl-]")
+(virtual pop|console escape): key("ctrl-]")
 
 # process management
 (process grep|pee grep): "pgrep "
