@@ -70,6 +70,7 @@ linux_file_paths = {
     "journal config": "/etc/systemd/journald.conf", 
     "tunnel config": "~/.ssh/config", 
     "shell config": "~/.zshrc", 
+    "git config": ".git/config", 
     "poly bar": "~/.config/polybar/config", 
     "eye three": "~/.i3/config", 
     "config": "~/.vimrc", 
