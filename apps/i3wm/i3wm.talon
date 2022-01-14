@@ -123,6 +123,10 @@ new scratch (shell|window):
 i three reload: user.system_command("i3-msg reload")
 i three restart: user.system_command("i3-msg restart")
 
+
+##
+# Marks
+##
 (win|window) mark <user.word>: 
     user.system_command("i3-msg mark {word}")
 (win|window) clear marks: 
@@ -131,3 +135,4 @@ i three restart: user.system_command("i3-msg restart")
     user.system_command("i3-msg [con_mark=\"{word}\"] focus")
 (win|window) focus alert:
     user.system_command("i3-msg [urgent=latest] focus")
+(win|window) show marks: user.system_command_nb('bash -c "notify-send.sh -- \'$(python /home/aa/scripts/i3/i3-print-window-marks.py)\'"')
