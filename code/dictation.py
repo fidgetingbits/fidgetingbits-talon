@@ -53,9 +53,13 @@ def word(m) -> str:
     except AttributeError:
         return " ".join(actions.user.replace_phrases(actions.dictate.parse_words(m.word)))
 
-@mod.capture(rule="({user.vocabulary} | <phrase>)+")
+# https://github.com/AndreasArvidsson/andreas-talon/blob/905deb019eb42962cf9ca4fe503dddb19e877b46/text/dictation.py#L27
+#text_rule = "({self.vocabulary} | <user.abbreviation> | <user.spell> | <user.number_prefix> | {self.key_punctuation} | <phrase>)+"
+text_rule = "({self.vocabulary} | <user.abbreviation> | <phrase>)+"
+
+@mod.capture(rule=text_rule)
 def text(m) -> str:
-    """A sequence of words, including user-defined vocabulary."""
+    """Mixed words, numbers and punctuation, including user-defined vocabulary, abbreviations and spelling."""
     return format_phrase(m)
 
 @mod.capture(rule="({user.vocabulary} | {user.punctuation} | {user.prose_snippets} | <phrase> | <user.prose_modifier>)+")
