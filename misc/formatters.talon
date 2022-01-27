@@ -8,7 +8,6 @@
 <user.format_text>+ [over]: user.insert_many(format_text_list)
 <user.formatters> that: user.formatters_reformat_selection(user.formatters)
 (only|lonely) <user.word>: user.insert_formatted(user.word, "NOOP")
-just <user.word>: user.insert_formatted(user.word, "NOOP")
 format help: user.formatters_help_toggle()
 recent list: user.toggle_phrase_history()
 recent close: user.phrase_history_hide()
