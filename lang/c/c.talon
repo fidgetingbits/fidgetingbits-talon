@@ -49,22 +49,11 @@ state type deaf struct:
     edit.up()
     key('tab')
 
+state <user.c_signals>: "{c_signals}"
 
 block:
     insert("{\n\n}")
     key(up)
-
-#control flow
-#best used with a push like command
-#the below example may not work in editors that automatically add the closing bracket
-#if so uncomment the two lines and comment out the rest accordingly
-push brackets:
-    edit.line_end()
-    insert("{}")
-    edit.left()
-    key(enter)
-    key(enter)
-    edit.up()
 
 #declare <user.c_variable>:
 
@@ -95,8 +84,22 @@ cycle data type: user.cycle_c_datatype()
 show data type: user.current_c_datatype()
 
 state return <number>: "return {number};"
+state return negative <number>: "return -{number};"
+state return null: "return NULL;"
 state continue: "continue;"
 state break: "break;"
+
+state define: "#define "
+state undefine: "#undef "
+state if define: "#ifdef "
+state pre if: "#if "
+state error: "#error "
+state pre else if: "#elif "
+state pre end: "#endif "
+state pragma: "#pragma "
+state default: "default:\nbreak;"
+
+state define new source: "#define _GNU_SOURCE"
 
 ###
 # Documentation
