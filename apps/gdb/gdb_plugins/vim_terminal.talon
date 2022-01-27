@@ -58,7 +58,7 @@ copy line <number> (hex value|address):
 
 # relative
 # no arg, is just line above
-glitter:
+bring hex:
     user.vim_normal_mode_exterm("k0")
     user.vim_command_mode(":call search(\"0x\", 'c', line('.'))\n")
     user.vim_normal_mode("yw")
@@ -68,7 +68,7 @@ glitter:
 
 # copy and paste the first hex value from the specified relative line
 # relative
-glitter <number>:
+bring hex <number>:
     user.vim_normal_mode_exterm("{number}k0")
     user.vim_command_mode(":call search(\"0x\", 'c', line('.'))\n")
     user.vim_normal_mode("yw")
@@ -80,7 +80,7 @@ glitter <number>:
 # copy and paste the Nth hex value from the specified relative line
 # note for numbers like 70 actual individual digits really fast is more
 # accurate
-glitter <number> <user.ordinals>$:
+bring hex <number> <user.ordinals>$:
     user.vim_normal_mode_exterm("{number}k0")
     # set the search pattern for 'n' usage
     insert("/\\c0x\n")

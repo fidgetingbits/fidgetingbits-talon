@@ -79,7 +79,7 @@ source: "source \t\t"
 # displays
 # XXX - move thee invoke command into a python script
 (list|show|info) display: "info display\n"
-display (assembly line|program counter)$: "display /i $pc\n"
+display (assembly line|program counter|P C)$: "display /i $pc\n"
 display source: "display "
 enable display <number_small>: "enable display {number_small}\n"
 disable display <number_small>: "disable display {number_small}\n"
@@ -178,3 +178,6 @@ unset print elements:
 
 unset print repeats:
     insert("set print repeats 0\n")
+
+watch list: "info watch\n"
+watch read: "rwatch *"

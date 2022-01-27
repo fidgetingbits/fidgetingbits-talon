@@ -14,14 +14,14 @@ step over: user.debugger_step_over()
 ## line level
 step line: user.debugger_step_line()
 (step over|next) line: user.debugger_step_over_line()
-step out: user.debugger_step_out()
+(step out|finish): user.debugger_step_out()
 continue: user.debugger_continue()
 
 ## these are multi word to avoid accidental utterance
 debug start: user.debugger_start()
 debug stop: user.debugger_stop()
-debug (exit|quit): user.debugger_exit()
-debug force (exit|quit): user.debugger_exit_force()
+debug exit: user.debugger_exit()
+debug force exit: user.debugger_exit_force()
 debug detach: user.debugger_detach()
 debug restart: user.debugger_restart()
 
@@ -37,15 +37,30 @@ break here: user.debugger_break_here()
 break [point] (list|show): user.debugger_show_breakpoints()
 break [point] (set|add): user.debugger_add_sw_breakpoint()
 break [point] (set|add) hardware: user.debugger_add_hw_breakpoint()
-break [point] clear all :user.debugger_clear_all_breakpoints()
-break [point] clear :user.debugger_clear_breakpoint()
-break [point] clear <number_small>: user.debugger_clear_breakpoint_id(number_small)
+break [point] (clear|remove) all :user.debugger_clear_all_breakpoints()
+break [point] (clear|remove) :user.debugger_clear_breakpoint()
+break [point] (clear|remove) <number_small>: user.debugger_clear_breakpoint_id(number_small)
 break [point] disable all :user.debugger_disable_all_breakpoints()
 break [point] disable :user.debugger_disable_breakpoint()
 break [point] disable <number_small>: user.debugger_disable_breakpoint_id(number_small)
 break [point] enable all :user.debugger_enable_all_breakpoints()
 break [point] enable :user.debugger_enable_breakpoint()
 break [point] enable <number_small>: user.debugger_enable_breakpoint_id(number_small)
+
+break [(set|add)] (indirect|star): 
+    user.debugger_add_sw_breakpoint()
+    key(*)
+
+break star clip: 
+    user.debugger_add_sw_breakpoint()
+    key(*)
+    edit.paste()
+    key(enter)
+
+break add clip: 
+    user.debugger_add_sw_breakpoint()
+    edit.paste()
+    key(enter)
 
 # Navigation
 
