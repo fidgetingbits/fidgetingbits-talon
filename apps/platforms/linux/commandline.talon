@@ -42,7 +42,6 @@ tag(): user.virsh
 tag(): user.iptables
 #tag(): user.npm
 #tag(): user.meson
-
 #tag(): user.kubectl
 
 
@@ -62,10 +61,17 @@ rerun list:
     key(ctrl-r)
 rerun last command:
     key(! ! enter enter)
+# XXX - it would be good to have overrides for words that are harder to say,
+# like ssh, ex: see following tunnel word
 rerun last <user.word>:
     key(!)
     insert(word)
     key(enter)
+rerun last tunnel:
+    key(!)
+    insert("ssh\n")
+    key(enter)
+
 kill all:
     key(ctrl-c)
 
@@ -416,6 +422,8 @@ process filter list: "ps -ef | rg -i "
 process top: "htop\n"
 process fuzzy kill: "pkill {text}"
 process fuzzy kill <user.text>: "pkill {text}"
+process loop kill: 
+    user.insert_cursor("for PID in $(ps -ef | grep [|] | grep -v grep | awk '{{print $2}}'); do kill -9 $PID 2>/dev/null; done")
 process kill <number>: "kill -9 {number}"
 process kill job <number>: "kill -9 %{number}"
 process kill: "kill -9 "
