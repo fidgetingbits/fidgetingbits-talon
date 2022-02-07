@@ -339,7 +339,7 @@ file tar [ball] create: "tar -cvJf"
 file [tar] extract: "tar -xvaf "
 # https://github.com/facebook/zstd
 file extract Z S T: "tar --use-compress-program=unzstd -xvf "
-"file unzip: "unzip "
+file unzip: "unzip "
 file B unzip: "bunzip2 "
 file seven extract: "7z x "
 file seven list: "7z l "
@@ -499,3 +499,6 @@ capability list: "capsh --print\n"
 
 # XXX - add support for saying words and making them too upper
 environment show: "echo $"
+
+# Custom utility stuff
+bat cache build: "bat cache --build\n"
