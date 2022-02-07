@@ -37,8 +37,8 @@ comment <user.text>$:
    	user.code_comment_line_prefix()
     insert(user.text)
 comment to do:
-    user.code_comment()
+    user.code_comment_line_prefix()
     insert("XXX - ")
 comment note:
-    user.code_comment()
+    user.code_comment_line_prefix()
     insert("NOTE - ")
