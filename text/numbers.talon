@@ -6,7 +6,7 @@ numb <user.number_string>: "{number_string}"
 no mate: "8"
 # XXX - it would be nice to make dot <user.number_string> repeatable together
 # or just used dotted formatter adapted for numbers
-#numb <user.number_string> dot <user.number_string>: "{number_string_1}.{number_string_2}"
+numb <user.number_string> dot <user.number_string>: "{number_string_1}.{number_string_2}"
 negative <user.number_string>: "-{number_string}"
 
 # Hexadecimal
