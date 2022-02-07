@@ -7,22 +7,19 @@ tag(): user.vim_terminal
 pop (terminal|term):
     key(ctrl-\ ctrl-n)
 
-    # pop terminal mode and scroll up once, from this point onward you can scroll
-    # like normal
-    # XXX - scroll up just become contextual on mode
-    # rabbit up:
+# pop terminal mode and scroll up once, from this point onward you can scroll
+# like normal
 scroll up:
     key(ctrl-\ ctrl-n ctrl-b)
 
-    # this causes exclusive terminal windows to exit without requiring key press or
-    # dropping to a new empty buffer
+# this causes exclusive terminal windows to exit without requiring key press or
+# dropping to a new empty buffer
 exit terminal:
     key(ctrl-\)
     key(ctrl-n)
     insert("ZQ")
 
-    # shadow are commands are for copying and pasting the entire line from a given point
-shadow <number_small>:
+bring line <number_small>:
     user.vim_normal_mode_exterm("{number_small}k")
     key('0')
     insert("y$")
@@ -30,14 +27,14 @@ shadow <number_small>:
     edit.paste()
     key(space)
 
-shadow fuzzy <user.text>:
+bring line fuzzy <user.text>:
     user.vim_normal_mode_exterm(":call search(\"{text}\", 'bcW')\n")
     insert("y$")
     insert(":set nohls\n")
     user.vim_set_insert_mode()
     edit.paste()
 
-shadow <number_small> <user.text>:
+bring line <number_small> <user.text>:
     user.vim_normal_mode_exterm("{number_small}k")
     key('0')
     insert(":call search(\"{text}\", 'c', line('.'))\n")
@@ -46,7 +43,7 @@ shadow <number_small> <user.text>:
     user.vim_set_insert_mode()
     edit.paste()
 
-shadow <number_small> <user.ordinals>:
+bring line <number_small> <user.ordinals>:
     user.vim_normal_mode_exterm("{number_small}k")
     key('0')
     insert("{ordinals-1}W")
@@ -55,9 +52,7 @@ shadow <number_small> <user.ordinals>:
     edit.paste()
     key(space)
 
-# siphon commands are for copying words from a given point, by to not pasting
-# them
-siphon <number_small>:
+yank words <number_small>:
     user.vim_normal_mode_exterm("{number_small}k")
     key('0')
     insert("yE")
@@ -65,9 +60,10 @@ siphon <number_small>:
     # \_s   - match single white space
     # \{2,} - at least two in a row
     user.vim_command_mode(":set nohls | let @+=substitute(strtrans(@+), '\\_s\\{{2,}}', '', 'g')\n")
+    # XXX - should this be terminal mode?
     user.vim_set_insert_mode()
 
-siphon (last <number_small>|<number_small> last):
+yank words (last <number_small>|<number_small> last):
     user.vim_normal_mode_exterm("{number_small}k")
     insert('$T ')
     insert("yE")
@@ -75,7 +71,7 @@ siphon (last <number_small>|<number_small> last):
     edit.paste()
     key(space)
 
-siphon <number_small> <user.ordinals>:
+yank words <number_small> <user.ordinals>:
     user.vim_normal_mode_exterm("{number_small}k")
     key('0')
     insert("{ordinals-1}W")
@@ -83,7 +79,7 @@ siphon <number_small> <user.ordinals>:
     user.vim_set_insert_mode()
 
 # copy from the specified key to the end of the line
-siphon <number_small> <user.unmodified_key>:
+yank words <number_small> <user.unmodified_key>:
     user.vim_normal_mode_exterm("{number_small}k")
     key('0')
     insert("f{unmodified_key}")
@@ -94,7 +90,7 @@ siphon <number_small> <user.unmodified_key>:
 # line (even though it would be broken syntax) and be able to specify which
 # element we want...
 # copy a function name on the specified line
-siphon <number_small> funk:
+yank words <number_small> funk:
     user.vim_normal_mode_exterm("{number_small}k")
     key('0')
     insert("f(")
@@ -161,27 +157,27 @@ bring <number_small> funk:
     key(down:5)
 
 # yankee are commands are for copying the remaining line from a given point
-bring line <number_small>:
+yank line <number_small>:
     user.vim_normal_mode_exterm("{number_small}k")
     key('0')
     insert("y$")
     user.vim_command_mode(":let @+=substitute(strtrans(@+), '\\_s\\{{2,}}', '', 'g')\n")
     user.vim_set_insert_mode()
 
-bring line <number_small> <user.ordinals>:
+yank line <number_small> <user.ordinals>:
     user.vim_normal_mode_exterm("{number_small}k")
     key('0')
     insert("{ordinals-1}W")
     insert("y$")
     user.vim_set_insert_mode()
 
-bring line (last <number_small>|<number_small> last):
+yank line (last <number_small>|<number_small> last):
     user.vim_normal_mode_exterm("{number_small}k")
     insert('$T ')
     insert("yE")
     user.vim_set_insert_mode()
 
-bring line command:
+yank line command:
     user.vim_normal_mode_exterm("0f y$")
     user.vim_command_mode(":let @+=substitute(strtrans(@+), '\\_s\\{{2,}}', '', 'g')\n")
     user.vim_set_insert_mode()

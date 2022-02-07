@@ -593,7 +593,7 @@ mode normal: user.vim_set_normal_mode_np()
 mode insert: user.vim_set_insert_mode()
 mode terminal: user.vim_set_terminal_mode()
 # command mode: user.vim_set_command_mode()
-mode: command [line]: user.vim_any_motion_mode_exterm_key(":")
+mode command [line]: user.vim_any_motion_mode_exterm_key(":")
 (mode replace|overwrite): user.vim_set_replace_mode()
 mode visual replace: user.vim_set_visual_replace_mode()
 # This always conflicts with virtual pop somehow...
@@ -752,11 +752,3 @@ paste as line:
 file make:
     user.vim_normal_mode(":!make\n")
 
-# Convert a number to hex
-convert to hex:
-    user.vim_command_mode(":%s/\d\+/\=printf("0x%04x", submatch(0))")
-
-# Subtract hex
-# https://jdhao.github.io/2020/01/10/nvim_number_arithmetic_in_substitute/
-subtract hex:
-    user.vim_command_mode(":s/\\d\\+$/\\=submatch(0)-")
