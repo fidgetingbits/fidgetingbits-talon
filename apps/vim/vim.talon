@@ -404,22 +404,28 @@ split zen mode:
     key(=)
     key(ctrl-w h)
 
+# XXX - it would be nice to have percents for these resizes..
 # atm comboing these with ordinals is best, but may add number support
 split taller:
     user.vim_set_normal_mode_exterm()
     key(ctrl-w)
     key(+)
-    user.vim_set_normal_mode_exterm()
+    # XXX - This should restore the original mode, is sometimes I use this from
+    # terminal mode
 split shorter:
     user.vim_set_normal_mode_exterm()
     key(ctrl-w)
     key(-)
-    user.vim_set_normal_mode_exterm()
+    # XXX - This should restore the original mode, is sometimes I use this from
+    # terminal mode
 split fatter:
+    user.vim_set_normal_mode_exterm()
     key(ctrl-w)
     key(>)
-    user.vim_set_normal_mode_exterm()
+    # XXX - This should restore the original mode, is sometimes I use this from
+    # terminal mode
 split skinnier:
+    user.vim_set_normal_mode_exterm()
     key(ctrl-w)
     key(<)
 set split width:
@@ -583,16 +589,17 @@ open man page: user.vim_command_mode_exterm(":Man ")
 ###
 # Mode Switching
 ###
-normal mode: user.vim_set_normal_mode_np()
-insert mode: user.vim_set_insert_mode()
-terminal mode: user.vim_set_terminal_mode()
+mode normal: user.vim_set_normal_mode_np()
+mode insert: user.vim_set_insert_mode()
+mode terminal: user.vim_set_terminal_mode()
 # command mode: user.vim_set_command_mode()
-command [line] mode: user.vim_any_motion_mode_exterm_key(":")
-(replace mode|overwrite): user.vim_set_replace_mode()
-visual replace mode: user.vim_set_visual_replace_mode()
-visual mode: user.vim_set_visual_mode()
-[visual] line mode: user.vim_set_visual_line_mode()
-[visual] block mode: user.vim_set_visual_block_mode()
+mode: command [line]: user.vim_any_motion_mode_exterm_key(":")
+(mode replace|overwrite): user.vim_set_replace_mode()
+mode visual replace: user.vim_set_visual_replace_mode()
+# This always conflicts with virtual pop somehow...
+mode visual: user.vim_set_visual_mode()
+mode line: user.vim_set_visual_line_mode()
+mode block: user.vim_set_visual_block_mode()
 
 # sort of quasi-modes - see vim_command_line.talon
 show history: user.vim_command_mode(":hist\n")
@@ -744,3 +751,12 @@ paste as line:
 
 file make:
     user.vim_normal_mode(":!make\n")
+
+# Convert a number to hex
+convert to hex:
+    user.vim_command_mode(":%s/\d\+/\=printf("0x%04x", submatch(0))")
+
+# Subtract hex
+# https://jdhao.github.io/2020/01/10/nvim_number_arithmetic_in_substitute/
+subtract hex:
+    user.vim_command_mode(":s/\\d\\+$/\\=submatch(0)-")

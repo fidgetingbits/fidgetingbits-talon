@@ -102,7 +102,7 @@ siphon <number_small> funk:
     user.vim_set_insert_mode()
 
 # echo commands are for copying words from a given point, and then pasting them
-echo <number_small>:
+bring <number_small>:
 #    user.vim_terminal_echo_line_number("{number_small}")
    user.vim_normal_mode_exterm("{number_small}k")
    key('0')
@@ -115,7 +115,7 @@ echo <number_small>:
    edit.paste()
    key(space)
 
-echo (last <number_small>|<number_small> last):
+bring (last <number_small>|<number_small> last):
     user.vim_normal_mode_exterm("{number_small}k")
     insert('$T ')
     insert("yE")
@@ -123,7 +123,7 @@ echo (last <number_small>|<number_small> last):
     edit.paste()
     key(space)
 
-echo <number_small> <user.ordinals>:
+bring <number_small> <user.ordinals>:
     user.vim_normal_mode_exterm("{number_small}k")
     key('0')
     insert("{ordinals-1}W")
@@ -134,7 +134,7 @@ echo <number_small> <user.ordinals>:
     key(space)
 
 # copy from the specified key to the end of the line
-echo <number_small> <user.unmodified_key>:
+bring <number_small> <user.unmodified_key>:
     user.vim_normal_mode_exterm("{number_small}k")
     key('0')
     insert("f{unmodified_key}")
@@ -149,7 +149,7 @@ echo <number_small> <user.unmodified_key>:
 # line (even though it would be broken syntax) and be able to specify which
 # element we want...
 # copy a function name on the specified line
-echo <number_small> funk:
+bring <number_small> funk:
     user.vim_normal_mode_exterm("{number_small}k")
     key('0')
     insert("f(")
@@ -161,27 +161,27 @@ echo <number_small> funk:
     key(down:5)
 
 # yankee are commands are for copying the remaining line from a given point
-yankee <number_small>:
+bring line <number_small>:
     user.vim_normal_mode_exterm("{number_small}k")
     key('0')
     insert("y$")
     user.vim_command_mode(":let @+=substitute(strtrans(@+), '\\_s\\{{2,}}', '', 'g')\n")
     user.vim_set_insert_mode()
 
-yankee <number_small> <user.ordinals>:
+bring line <number_small> <user.ordinals>:
     user.vim_normal_mode_exterm("{number_small}k")
     key('0')
     insert("{ordinals-1}W")
     insert("y$")
     user.vim_set_insert_mode()
 
-yankee (last <number_small>|<number_small> last):
+bring line (last <number_small>|<number_small> last):
     user.vim_normal_mode_exterm("{number_small}k")
     insert('$T ')
     insert("yE")
     user.vim_set_insert_mode()
 
-yankee command:
+bring line command:
     user.vim_normal_mode_exterm("0f y$")
     user.vim_command_mode(":let @+=substitute(strtrans(@+), '\\_s\\{{2,}}', '', 'g')\n")
     user.vim_set_insert_mode()

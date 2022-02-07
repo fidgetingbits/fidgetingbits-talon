@@ -7,3 +7,7 @@ tag: user.vim_normal_mode
 (dup|duplicate) line: 
     insert("yy")
     insert("p")
+
+yank line:
+    insert("yy")
+

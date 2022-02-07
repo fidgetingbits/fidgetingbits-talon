@@ -127,7 +127,7 @@ standard_counted_actions = {
     "paste above": "P",
     "repeat": ".",
     "forget line": '"_dd',  # TODO - can we avoid because of clear line?
-    "yank line": "Y",
+    #"yank line": "Y", # XXX - this has mode specific implementations now
     # "copy line": "Y",
     "scroll left": "zh",
     "scroll right": "zl",
@@ -153,8 +153,8 @@ standard_counted_actions_control_keys = {
     "redo": "ctrl-r",
     "scroll": "ctrl-f",
     "punk": "ctrl-b",
-    "skip": "ctrl-d",
-    "skate": "ctrl-u",
+    #    "skip": "ctrl-d",
+    #"skate": "ctrl-u",
     "increment": "ctrl-a",
     "decrement": "ctrl-x",
 }

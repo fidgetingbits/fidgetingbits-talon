@@ -64,3 +64,25 @@ search that:
 (dup|duplicate) line: 
     insert("Y")
     insert("p")
+
+yank line:
+    insert("Y")
+
+
+# Convert a number to hex
+convert to hex:
+    user.vim_command_mode(":%s/\d\+/\=printf("0x%04x", submatch(0))")
+
+# Subtract hex
+# https://www.reddit.com/r/vim/comments/emtwgz/add_subtract_multiply_or_divide_a_value_to_each/
+# Only works on the last number in a line
+subtract that:
+    insert(":s/\\d\\+$/\\=submatch(0)-")
+
+subtract that clip:
+    insert(":s/\\d\\+$/\\=submatch(0)-")
+    edit.paste()
+
+# this should only be enabled within python
+sort by dick value:
+    insert(":!sort -t ':' -k 2\n")
