@@ -15,7 +15,7 @@ and win.title: /\[Git.*git.*index/
 [file] stage: user.vim_normal_mode_key("s")
 [file] unstage: user.vim_normal_mode_key("u")
 unstage (all|everything): user.vim_normal_mode_key("U")
-discard change: user.vim_normal_mode_key("X")
+[file] discard change: user.vim_normal_mode_key("X")
 file diff: user.vim_normal_mode_key("=")
 file exclude: user.vim_normal_mode_keys("g I")
 
@@ -30,7 +30,7 @@ preview file: user.vim_normal_mode_key("p")
 
 # Commit maps
 
-commit [changes]: 
+[file] commit [changes]: 
     user.vim_normal_mode_keys("c c")
     user.vim_set_insert_mode()
 amend [last commit]: user.vim_normal_mode_keys("c a")
