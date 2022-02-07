@@ -33,6 +33,7 @@ ctx.lists["user.code_libraries"] = {
     "docker": "docker",
     "funk tools": "functools",
     "get pass": "getpass",
+    "glob": "glob",
     "hash lib": "hashlib",
     "heck stump": "hexdump",
     "import lib": "importlib",
