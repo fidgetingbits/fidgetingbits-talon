@@ -337,7 +337,9 @@ sis cuddle set: "sysctl -w "
 # extraction
 file tar [ball] create: "tar -cvJf"
 file [tar] extract: "tar -xvaf "
-file unzip: "unzip "
+# https://github.com/facebook/zstd
+file extract Z S T: "tar --use-compress-program=unzstd -xvf "
+"file unzip: "unzip "
 file B unzip: "bunzip2 "
 file seven extract: "7z x "
 file seven list: "7z l "
@@ -494,3 +496,6 @@ capability list: "capsh --print\n"
 
 (unshare|namespace) root: "unshare -U -r\n"
 (unshare|namespace) net: "unshare -n\n"
+
+# XXX - add support for saying words and making them too upper
+environment show: "echo $"
