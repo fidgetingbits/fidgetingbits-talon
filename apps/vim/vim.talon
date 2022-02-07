@@ -152,6 +152,9 @@ file (edit|open) <user.paths>:
     user.vim_command_mode_exterm(":e {paths}\n")
 (reload [vim] config|config reload):
     user.vim_command_mode_exterm(":so $MYVIMRC\n")
+file show:
+    user.vim_normal_mode("1")
+    key("ctrl+g")
 
 ###
 # Navigation, movement and jumping
