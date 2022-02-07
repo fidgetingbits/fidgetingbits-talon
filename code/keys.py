@@ -217,7 +217,7 @@ symbol_key_words = {
     "locker": "[",
     "rocker": "]",
     "slash": "/",
-    "bash": "\\",
+    "stroke": "\\",
     "minus": "-",
     "dash": "-",
     "equals": "=",
@@ -242,7 +242,8 @@ symbol_key_words = {
     "caret": "^",
     "swirl": "@",
     "amper": "&",
-    "piper": "|",
+    #"piper": "|",
+    "column": "|",
     "quote": '"',
     "pound": "£",
 }
