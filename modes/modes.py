@@ -1,4 +1,6 @@
 from talon import Context, Module, actions, app, speech_system
+from talon.grammar import Phrase
+from typing import Union
 
 mod = Module()
 
@@ -29,31 +31,27 @@ class Actions:
             "/home/aa/source/obs-cli/obs-cli.py --start-recording"
         )
 
-    def talon_mode():
-        """For windows and Mac with Dragon, enables Talon commands and Dragon's command mode."""
-        actions.speech.enable()
+    # From https://github.com/AndreasArvidsson/andreas-talon/blob/master/misc/modes/modes.py
 
-        engine = speech_system.engine.name
-        # app.notify(engine)
-        if "dragon" in engine:
-            if app.platform == "mac":
-                actions.user.engine_sleep()
-            elif app.platform == "windows":
-                actions.user.engine_wake()
-                # note: this may not do anything for all versions of Dragon. Requires Pro.
-                actions.user.engine_mimic("switch to command mode")
+    def command_mode(phrase: Union[Phrase, str] = None):
+        """Enter command mode and re-evaluate phrase"""
+        ctx.tags = []
+        actions.mode.disable("dictation")
+        actions.mode.enable("command")
+        if phrase:
+            actions.user.rephrase(phrase, run_async=True)
 
-    def dragon_mode():
-        """For windows and Mac with Dragon, disables Talon commands and exits Dragon's command mode"""
-        engine = speech_system.engine.name
-        # app.notify(engine)
+    def dictation_mode(phrase: Union[Phrase, str] = None):
+        """Enter dictation mode and re-evaluate phrase"""
+        actions.user.dictation_format_reset()
+        actions.mode.disable("command")
+        actions.mode.enable("dictation")
+        if phrase:
+            actions.user.rephrase(phrase, run_async=True)
 
-        if "dragon" in engine:
-            # app.notify("dragon mode")
-            actions.speech.disable()
-            if app.platform == "mac":
-                actions.user.engine_wake()
-            elif app.platform == "windows":
-                actions.user.engine_wake()
-                # note: this may not do anything for all versions of Dragon. Requires Pro.
-                actions.user.engine_mimic("start normal mode")
+    def mixed_mode(phrase: Union[Phrase, str] = None):
+        """Enter mixed mode and re-evaluate phrase"""
+        actions.user.dictation_format_reset()
+        actions.mode.enable("dictation")
+        if phrase:
+            actions.user.rephrase(phrase, run_async=True)

@@ -16,7 +16,10 @@ cap: user.dictation_format_cap()
 ^cap that$: user.dictation_reformat_cap()
 ^(no cap | no-caps) that$: user.dictation_reformat_no_cap()
 ^(no space | no-space) that$: user.dictation_reformat_no_space()
-    
+
+# XXX - This should all get replaced with using draft editor rather than saying
+# in dictation node.
+
 # Navigation
 go up <number_small> (line|lines):
     edit.up()
@@ -81,3 +84,22 @@ spell that <user.formatters> <user.letters>:
 # Escape, type things that would otherwise be commands
 ^escape <user.text>$:
     auto_insert(user.text)
+
+
+## Freely dictate text
+# https://github.dev/AndreasArvidsson/andreas-talon/tree/master/misc/dictation_mode.talon
+#<user.prose>:   auto_insert(prose)
+#
+#new line:
+#    edit.line_insert_down()
+#    user.dictation_format_reset()
+#
+## Switch to command mode and insert a phrase
+#(command mode | over) [<phrase>]$:
+#    user.command_mode(phrase or "")
+#
+## Insert the actual words
+#escape words <user.words>$:
+#    auto_insert(words)
+#escape words <user.words> over:
+#    auto_insert(words)
