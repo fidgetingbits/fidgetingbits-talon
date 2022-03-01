@@ -12,10 +12,17 @@ negative <user.number_string>: "-{number_string}"
 # Hexadecimal
 # XXX - should handle actual number string, atm cant hex eighty, only hex
 # eighth zero
-hex <user.hex_letters>$: "0x{hex_letters}"
+hex numb <user.hex_letters>$: "0x{hex_letters}"
 negative hex <user.hex_letters>: "-0x{hex_letters}"
+# "hex short four one" produces 0x4141
+hex short <user.hex_letters>: user.expand_to_int16_hex(hex_letters)
+# "hex int four one" produces 0x41414141
+hex int <user.hex_letters>: user.expand_to_int32_hex(hex_letters)
+# "hex long four one" produces 0x4141414141414141
+hex long <user.hex_letters>: user.expand_to_int64_hex(hex_letters)
 hex code <user.hex_letters>$: user.escape_hex_string(hex_letters)
 hex convert <user.number_string>: user.convert_number_to_hex(number_string)
+hex dump pointer: user.convert_hex_dump_pointer()
 hex escape <user.number_string>: user.convert_number_to_escaped_hex(number_string)
 clip as hex: user.paste_clipboard_as_hex()
 clip as deck: user.paste_clipboard_as_dec()

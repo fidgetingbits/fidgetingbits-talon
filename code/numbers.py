@@ -236,10 +236,27 @@ class Actions:
             idx += 2
         actions.insert(s)
 
+    def convert_hex_dump_pointer():
+        """convert a number string to hex value"""
+        b = clip.get().strip().split(" ")
+        actions.insert("0x" + "".join(b[::-1]))
+
     def convert_number_to_hex(number: str):
         """convert a number string to hex value"""
         val = int(number)
         actions.insert(f"{val:#x}")
+
+    def expand_to_int16_hex(number: str):
+        """convert a number string to hex value"""
+        actions.insert(f"0x{number*2}")
+
+    def expand_to_int32_hex(number: str):
+        """convert a number string to hex value"""
+        actions.insert(f"0x{number*4}")
+
+    def expand_to_int64_hex(number: str):
+        """convert a number string to hex value"""
+        actions.insert(f"0x{number*8}")
 
     def convert_number_to_escaped_hex(number: str):
         """convert a number string to hex value"""
