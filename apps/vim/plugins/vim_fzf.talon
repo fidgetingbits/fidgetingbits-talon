@@ -2,13 +2,13 @@ tag: user.vim_fzf
 -
 
 # ripgrep through files under current directory
-ripple: user.vim_command_mode_exterm(':exe ":Rg"\n')
-ripple clip: 
+hunt code: user.vim_command_mode_exterm(':exe ":Rg"\n')
+hunt code clip: 
     user.vim_command_mode_exterm(':exe ":Rg"\n')
     edit.paste()
 # XXX - this should behave differently depending on if it's a selection in
 # visual mode, etc
-ripple this: 
+hunt code this: 
     user.vim_normal_mode("yiw") 
     user.vim_command_mode_exterm(':exe ":Rg"\n')
     edit.paste()
@@ -17,25 +17,24 @@ ripple this:
 fuzz buffer commits: user.vim_command_mode_exterm(':exe ":BCommit"\n')
 
 # Lines across current buffer
-fuzz (buffer lines|here): user.vim_command_mode_exterm(':exe ":BLines"\n')
-lizzie: user.vim_command_mode_exterm(':exe ":BLines"\n')
+hunt lines: user.vim_command_mode_exterm(':exe ":BLines"\n')
 
-fuzz buffer tags: user.vim_command_mode_exterm(':exe ":BTags"\n')
+hunt tags: user.vim_command_mode_exterm(':exe ":BTags"\n')
 
 # Open buffers
-buzzle: user.vim_command_mode_exterm(':exe ":Buffers"\n')
+hunt buffers: user.vim_command_mode_exterm(':exe ":Buffers"\n')
 
 
 fuzz code search: user.vim_command_mode_exterm(':exe ":Ag"\n')
 fuzz colors: user.vim_command_mode_exterm(':exe ":Colors"\n')
-fuzz command history: user.vim_command_mode_exterm(':exe ":History:"\n')
-fuzz commands: user.vim_command_mode_exterm(':exe ":Commands"\n')
-fuzz commits: user.vim_command_mode_exterm(':exe ":Commit"\n')
+hunt command history: user.vim_command_mode_exterm(':exe ":History:"\n')
+hunt commands: user.vim_command_mode_exterm(':exe ":Commands"\n')
+hunt commits: user.vim_command_mode_exterm(':exe ":Commit"\n')
 fuzz file types: user.vim_command_mode_exterm(':exe ":Filetypes"\n')
 
 # Files under current directory
 
-fizzle: user.vim_command_mode_exterm(':exe ":Files"\n')
+hunt (file|files): user.vim_command_mode_exterm(':exe ":Files"\n')
 
 fuzz git files: user.vim_command_mode_exterm(':exe ":GFiles"\n')
 fuzz git status: user.vim_command_mode_exterm(':exe ":GFiles?"\n')
@@ -43,11 +42,11 @@ fuzz help tags: user.vim_command_mode_exterm(':exe ":Helptags"\n')
 fuzz history: user.vim_command_mode_exterm(':exe ":History"\n')
 
 # Lines across all open buffers
-fuzz lines: user.vim_command_mode_exterm(':exe ":Lines"\n')
+hunt all lines: user.vim_command_mode_exterm(':exe ":Lines"\n')
 fuzz locate: user.vim_command_mode_exterm(":Locate ")
 fuzz maps: user.vim_command_mode_exterm(':exe ":Maps"\n')
-fuzz marks: user.vim_command_mode_exterm(':exe ":Marks"\n')
+hunt marks: user.vim_command_mode_exterm(':exe ":Marks"\n')
 fuzz search history: user.vim_command_mode_exterm(':exe ":History/"\n')
-fuzz snippets: user.vim_command_mode_exterm(':exe ":Snippets"\n')
+hunt snippets: user.vim_command_mode_exterm(':exe ":Snippets"\n')
 fuzz tags: user.vim_command_mode_exterm(':exe ":Tags"\n')
-(fuzz windows|wizard): user.vim_command_mode_exterm(':exe ":Windows"\n')
+hunt windows: user.vim_command_mode_exterm(':exe ":Windows"\n')

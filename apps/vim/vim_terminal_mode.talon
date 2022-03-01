@@ -210,7 +210,6 @@ pivot river <number_small>:
     key(ctrl-w)
     key(f)
 
-
 pivot pillar <number_small>:
     insert("cd ")
     user.vim_normal_mode_exterm("{number_small}k")
@@ -241,3 +240,10 @@ folder yank merge <number_small>:
     user.vim_command_mode(":let @+ .= substitute(strtrans(getline('.')), '\\_s\\{{2,}}', '', 'g')\n")
     user.vim_set_insert_mode()
 
+process kill line <number_small>:
+    user.vim_normal_mode_exterm("{number_small}k")
+    key('0 w y e')
+    user.vim_set_insert_mode()
+    insert("kill -9 ")
+    edit.paste()
+    key(right)

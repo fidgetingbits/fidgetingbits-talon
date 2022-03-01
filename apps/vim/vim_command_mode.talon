@@ -22,3 +22,12 @@ literal: key(ctrl-v)
 state non greedy: "\\{{-}}"
 state greedy: ".*"
 state escaped or: user.insert_cursor("\\([|]\\|\\)")
+
+
+push <user.unmodified_key>:
+    key('end')
+    key('{unmodified_key}')
+
+push it:
+    key('end')
+    edit.paste()

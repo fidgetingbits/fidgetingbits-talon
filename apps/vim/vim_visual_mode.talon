@@ -68,6 +68,20 @@ search that:
 yank line:
     insert("Y")
 
+push:
+    user.vim_normal_mode_np("$a")
+
+# NOTE - We need a separate key() call because some unmodified keys have
+# special names, like backspace.
+push <user.unmodified_key>:
+    user.vim_normal_mode_np("$a")
+    key('{unmodified_key}')
+
+# paste to the end of a line
+# XXX
+push it:
+    user.vim_normal_mode_np("A ")
+    key(escape p)
 
 # Convert a number to hex
 convert to hex:
@@ -86,3 +100,4 @@ subtract that clip:
 # this should only be enabled within python
 sort by dick value:
     insert(":!sort -t ':' -k 2\n")
+

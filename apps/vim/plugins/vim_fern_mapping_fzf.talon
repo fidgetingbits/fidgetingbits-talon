@@ -3,7 +3,7 @@
 # NOTE: Only relevant if fern is actually open
 
 tag: user.vim_vern_open
-tag: user.vim_fern_mapping_fzf
+and tag: user.vim_fern_mapping_fzf
 -
 
 fuzz files: user.vim_normal_mode_exterm("ff")

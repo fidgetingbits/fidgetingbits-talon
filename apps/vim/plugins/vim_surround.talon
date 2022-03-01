@@ -13,7 +13,7 @@ wrap selected with <user.vim_surround_targets>:
 # normal mode
 
 # selects the word under cursor
-wrap this [with] <user.vim_surround_targets>:
+wrap this with <user.vim_surround_targets>:
     user.vim_normal_mode("ysiw{vim_surround_targets}")
 
 # cursor to the end of the word

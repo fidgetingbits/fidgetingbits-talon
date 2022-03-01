@@ -73,7 +73,7 @@ file (close|quite):
 file (refresh|reload):
     user.vim_command_mode(":e!\n")
 file show:
-    user.vim_normal_mode_keys("ctrl-G")
+    user.vim_normal_mode_keys("1 ctrl-g")
 (print working directory|folder show): user.vim_command_mode(":pwd\n")
 pivot file:
     user.vim_command_mode(":lcd %:p:h\n")
@@ -249,19 +249,6 @@ paste below:
 file append:
     user.vim_normal_mode_np("Go")
 
-push:
-    user.vim_normal_mode_np("$a")
-# NOTE - We need a separate key() call because some unmodified keys have
-# special names, like backspace.
-push <user.unmodified_key>:
-    user.vim_normal_mode_np("$a")
-    key('{unmodified_key}')
-
-# paste to the end of a line
-# XXX
-push it:
-    user.vim_normal_mode_np("A ")
-    key(escape p)
 
 # insert at the end of the current word
 jammie:
@@ -396,6 +383,8 @@ fold undo: user.vim_normal_mode("zX")
 # Recommend you `set spellfile` somewhere
 ###
 
+toggle spell on: user.vim_command_mode(':setlocal spell\n')
+toggle spell off: user.vim_command_mode(':setlocal nospell\n')
 spell add: user.vim_normal_mode('zg')
 spell wrong: user.vim_normal_mode('zw')
 spell undo add: user.vim_normal_mode('zug')
@@ -514,59 +503,59 @@ find (reversed|previous) <user.ordinals> <user.unmodified_key>:
 # Visual Text Selection
 ###
 make ascending: user.vim_normal_mode_key("g ctrl-a")
-(paint|light|highlight) line: user.vim_visual_mode("V")
-block (paint|light|highlight): user.vim_any_motion_mode_exterm_key("ctrl-v")
+take line: user.vim_visual_mode("V")
+block take: user.vim_any_motion_mode_exterm_key("ctrl-v")
 
-(paint|light|highlight) <user.vim_motions>:
+take <user.vim_motions>:
     user.vim_visual_mode("{vim_motions}")
-block (paint|light|highlight) <user.vim_motions>:
+block take <user.vim_motions>:
     user.vim_visual_block_mode("{vim_motions}")
 
-(paint|light|highlight) lines <number> through <number>:
+take lines <number> through <number>:
     user.vim_normal_mode_np("{number_1}G")
     user.vim_set_visual_mode()
     insert("{number_2}G")
 
-block (paint|light|highlight) lines <number> through <number>:
+block take lines <number> through <number>:
     user.vim_normal_mode_np("{number_1}G")
     user.vim_set_visual_block_mode()
     insert("{number_2}G")
 
-(paint|light|highlight) <number_small> lines:
+take <number_small> lines:
     user.vim_set_visual_line_mode()
     insert("{number_small-1}j")
 
-block (paint|light|highlight) <number_small> lines:
+block take <number_small> lines:
     user.vim_set_visual_block_mode()
     insert("{number_small-1}j")
 
-(paint|light|highlight) <number_small> lines at line <number>:
+take <number_small> lines at line <number>:
     user.vim_normal_mode_np("{number}G")
     user.vim_set_visual_line_mode()
     insert("{number_small-1}j")
 
-block (paint|light|highlight) <number_small> lines at line <number>:
+block take <number_small> lines at line <number>:
     user.vim_normal_mode_np("{number}G")
     user.vim_set_visual_block_mode()
     insert("{number_small-1}j")
 
-(paint|light|highlight) <number_small> above:
+take <number_small> above:
     user.vim_normal_mode_np("{number_small}k")
     user.vim_set_visual_line_mode()
     insert("{number_small-1}j")
 
-block (paint|light|highlight) <number_small> above:
+block take <number_small> above:
     user.vim_normal_mode_np("{number_small}k")
     user.vim_set_visual_block_mode()
     insert("{number_small-1}j")
 
-(paint|light|highlight) (until|till) line <number>:
+take (until|till) line <number>:
     user.vim_normal_mode_np("m'")
     insert(":{number}\n")
     user.vim_set_visual_line_mode()
     insert("''")
 
-block (paint|light|highlight) (until|till) line <number>:
+block take (until|till) line <number>:
     user.vim_normal_mode_np("m'")
     insert(":{number}\n")
     user.vim_set_visual_block_mode()
@@ -575,7 +564,7 @@ block (paint|light|highlight) (until|till) line <number>:
 # Greedily highlight whatever is under the cursor. Doesn't work if on the first
 # character of the entry, in which case you should say a normal motion like
 # "light big end", etc
-(paint|light) this:
+take this:
     user.vim_normal_mode_np("B")
     user.vim_visual_mode("E")
 
@@ -664,12 +653,12 @@ swap again:
 
 # XXX - should be switched to support any motion mode, but needs np
 # which isn't supported yet
-first <user.unmodified_key>:
+go first <user.unmodified_key>:
     user.vim_normal_mode_np("^f{unmodified_key}")
 
     # XXX - should be switched to support any motion mode, but needs np
     # which isn't supported yet
-last <user.unmodified_key>:
+go last <user.unmodified_key>:
     user.vim_normal_mode_np("$F{unmodified_key}")
 
 popup clear:
