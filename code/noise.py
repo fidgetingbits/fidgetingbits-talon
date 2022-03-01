@@ -3,6 +3,7 @@
 
 import talon
 from talon import Module, noise, actions, scripting, ui, app
+from talon_plugins import eye_zoom_mouse
 from typing import Callable, Union, Any
 import logging
 
@@ -12,6 +13,7 @@ class Actions:
 
     def pop():
         """pop action overrideable by contexts"""
+        #print("noise.py pop()")
         actions.user.mouse()
 
     def pop_quick_action_clear():
@@ -88,6 +90,7 @@ def on_pop(active):
     # commands enabled...
     if actions.speech.enabled():
         if pop_quick_action is None:
+            #print("noise.py on_pop()")
             actions.user.pop()
         else:
             actions.user.pop_quick_action_run()
@@ -103,6 +106,9 @@ def on_hiss(active):
         actions.user.hiss_quick_action_run()
 
 try:
+    # we have to disable the existing pop mouse, so we can override it with
+    # a custom version that allows us to do quick actions, etc
+    noise.unregister("pop", eye_zoom_mouse.zoom_mouse.on_pop)
     noise.register("pop", on_pop)
     # noise.register("hiss", on_hiss)
 except talon.lib.cubeb.CubebError as e:
