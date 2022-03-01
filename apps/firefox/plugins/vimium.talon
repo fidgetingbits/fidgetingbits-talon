@@ -94,11 +94,11 @@ edit address bar new tab:
 
 # Using find
 #  Searching
-[page] find <user.text>:
+page (search|find) <user.text>:
     key("/")
     insert("{text}")
     key("enter")
-[page] find:
+page (search|find):
     key("/")
 result next:
     key("n")
@@ -149,9 +149,9 @@ vimium help:
     key("?")
 
 # Unsorted
-search :
+web search :
     key("ctrl-k")
-search for <user.text>:
+web search for <user.text>:
     key("ctrl-k")
     sleep(100ms)
     insert("{text}")
@@ -181,3 +181,6 @@ duck duck <user.text>:
     key("escape")
     key("escape")
     # now have general focus
+page close:
+    app.tab_close()
+
