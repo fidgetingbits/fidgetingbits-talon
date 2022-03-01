@@ -1,5 +1,5 @@
-mode: user.talon
-mode: user.auto_lang
+mode: command
+and mode: user.auto_lang
 and code.language: talon
 -
 tag(): user.code_operators_math
@@ -7,7 +7,6 @@ tag(): user.code_operators_assignment
 tag(): user.code_comment_line
 tag(): user.code_functions_gui
 # uncomment user.talon_populate_lists tag to activate talon-specific lists of actions, scopes, modes etcetera.
-# Do not enable this tag with dragon, as it will be unusable.
 # with conformer, the latency increase may also be unacceptable depending on your cpu
 # see https://github.com/knausj85/knausj_talon/issues/600
 # tag(): user.talon_populate_lists
@@ -64,6 +63,7 @@ key <user.modifiers> over: "{modifiers}"
 # basic list of actions (e.g., insert, key)
 funk <user.code_functions>:
     user.code_insert_function(code_functions, "")
+
 
 # all actions (requires uncommenting user.talon_populate_lists tag above)
 funk {user.talon_actions}: user.code_insert_function(talon_actions, edit.selected_text())
