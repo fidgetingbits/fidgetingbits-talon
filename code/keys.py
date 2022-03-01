@@ -242,8 +242,8 @@ symbol_key_words = {
     "caret": "^",
     "swirl": "@",
     "amper": "&",
-    #"piper": "|",
-    "column": "|",
+    "piper": "|",
+    #"column": "|",
     "quote": '"',
     "pound": "£",
 }
