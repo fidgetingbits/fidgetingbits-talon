@@ -85,5 +85,8 @@ class Actions:
     def package_list():
         """List installed packages"""
 
+    def package_list_contents():
+        """List a packages local contents"""
+
     def package_help():
         """List the packages help menu"""
