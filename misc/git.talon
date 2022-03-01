@@ -33,7 +33,9 @@ git clone clip:
     edit.paste()
     key(enter)
 # Leave \n out for confirmation since the operation is destructive
+git clean: "git clean"
 git clean everything: "git clean -dfx"
+git clean FD : "git clean -fd"
 # XXX - should use text or
 git commit message <user.text>: "git commit -m '{text}'"
 git commit message: 
@@ -54,6 +56,7 @@ git garbage collect aggressive: "git gc --aggressive"
 git fetch <number>: "git fetch origin pull/{number}/head:"
 git fetch upstream <number>: "git fetch upstream pull/{number}/head:"
 #git fetch <user.text>: "git fetch {text}"
+git filter branch: "git filter-branch --subdirectory-filter"
 git ignore changes: "git update-index --assume-unchanged "
 git in it: "git init\n"
 git list files: "git ls-files\n"
@@ -61,6 +64,7 @@ git list modified: "git ls-files -m\n"
 git list tracked: "git ls-files -r master --name-only\n"
 git list ignored: "git ls-files . --ignored --exclude-standard --others\n"
 git list untracked: "git ls-files . --ignored --exclude-standard --others\n"
+git show hook folder: "git rev-parse --git-path hooks\n"
 git log all: "git log\n"
 git log all changes: "git log -c\n"
 git log: "git log -5\n"
@@ -69,6 +73,9 @@ git log files <number>: "git log --name-status -{number}\n"
 git log changes: "git log -c "
 git merge: "git merge "
 git merge <user.text>:"git merge {text}"
+git merge clip:
+    insert("git merge ")
+    edit.paste()
 git move: "git mv "
 git new branch: "git checkout -b "
 git prune: "git prune"
@@ -79,7 +86,7 @@ git pull fast forward: "git pull --ff-only\n"
 git pull <user.text>: "git pull {text} "
 git push: "git push\n"
 git push origin: "git push origin "
-git push up stream origin: "git push -u origin"
+git push up stream origin: "git push -u origin "
 git push <user.text>: "git push {text} "
 git push tags: "git push --tags\n"
 git rebase: "git rebase "
@@ -129,6 +136,7 @@ git switch branch: "git switch -c"
 git switch [<user.text>]: "git switch {user.formatted_text(text or '', 'DASH_SEPARATED')}"
 git switch master: "git switch master "
 git switch main: "git switch main "
+git switch develop: "git switch develop "
 git switch detached: "git switch --detach "
 git (switch create | new branch) [<user.text>]:
   "git switch -c {user.formatted_text(text or '', 'DASH_SEPARATED')}"
