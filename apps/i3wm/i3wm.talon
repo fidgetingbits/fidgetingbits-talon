@@ -12,7 +12,7 @@ portal ten: user.system_command("i3-msg workspace 10")
 # XXX - This is because of buggy recognition of port flip all the time, the
 # alternative would be to rework the portal argument to not accept anything
 # outside of zero through ten or something
-portal oh: skip()
+#portal oh: skip()
 portal right: user.system_command("i3-msg workspace next")
 portal left: user.system_command("i3-msg workspace prev")
 

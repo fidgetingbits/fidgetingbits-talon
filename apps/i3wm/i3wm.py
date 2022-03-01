@@ -1,4 +1,4 @@
-from talon import Context, Module, actions, settings, ui
+from talon import Context, Module, actions, settings, ui, app
 
 mod = Module()
 
@@ -77,3 +77,10 @@ class Actions:
     def i3wm_window_adjust_width_in(size: int):
         """resizes the selected window by the specified number of key movements"""
         actions.user.system_command(f"i3-msg 'resize shrink width {size}px'")
+
+    # Other people often use actions.user.notify() so we need to supply
+    # something... here I just rely on my monkey patch, to redirected
+    # through to dunst
+    def notify(text: str):
+        """Show notification"""
+        app.notify(subtitle=text)
