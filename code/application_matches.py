@@ -96,6 +96,11 @@ os: windows
 and app.exe: WindowsTerminal.exe 
 """
 
+
+apps.vim = """
+app.name:neovide
+"""
+
 apps.vim = """
 win.title:/VIM/
 """
