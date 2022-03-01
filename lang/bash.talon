@@ -1,5 +1,7 @@
-mode: user.bash
 mode: command
+and mode: user.bash
+mode: command
+and mode: user.auto_lang
 and code.language: bash
 -
 tag(): user.code_imperative
@@ -53,3 +55,4 @@ recursive copy file:
 
 state redirect out: "1>&2"
 state redirect error: "2>&1"
+state error to null: "2>/dev/null"

@@ -53,6 +53,7 @@ ctx.lists["user.code_libraries"] = {
     "subprocess": "subprocess",
     "system": "sys",
     "tar file": "tarfile",
+    "temp file": "tempfile",
     "threading": "threading",
     "time": "time",
     "trace back": "traceback",

@@ -1,5 +1,7 @@
-mode: user.c
-mode: user.auto_lang
+mode: command
+and mode: user.c
+mode: command
+and mode: user.auto_lang
 and code.language: c
 
 -
@@ -49,7 +51,8 @@ state type deaf struct:
     edit.up()
     key('tab')
 
-state <user.c_signals>: "{c_signals}"
+signal <user.c_signals>: "{c_signals}"
+error <user.c_errors>: "{c_errors}"
 
 block:
     insert("{\n\n}")
@@ -93,11 +96,15 @@ state define: "#define "
 state undefine: "#undef "
 state if define: "#ifdef "
 state pre if: "#if "
+state pre if zero: "#if 0"
 state error: "#error "
 state pre else if: "#elif "
-state pre end: "#endif "
+state pre end: "#endif"
 state pragma: "#pragma "
 state default: "default:\nbreak;"
+state pre if block: 
+    insert("#if 0\n#endif")
+    key(up)
 
 state define new source: "#define _GNU_SOURCE"
 

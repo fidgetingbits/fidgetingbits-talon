@@ -20,6 +20,8 @@ code block see:
     insert("```\n")
     key(up:2)
 
+gravy see:
+    insert("```cpp")
 
 code block bash:
     insert("```bash\n\n")
