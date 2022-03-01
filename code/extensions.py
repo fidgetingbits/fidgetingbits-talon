@@ -86,6 +86,7 @@ _file_extensions_defaults = {
     "dot task": ".task",
     "dot text": ".txt",
     "dot timer": ".timer",
+    "dot N vim": ".nvim",
     "dot vim": ".vim",
     "dot X Z": ".xz",
     "dot yaml": ".yml",
