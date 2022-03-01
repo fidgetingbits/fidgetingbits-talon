@@ -15,6 +15,7 @@ arch_linux_paths = { "packman hooks": "/etc/pacman.d/hooks/",}
 # paths that will work with pivot command
 linux_folder_paths = {
     "user services": "~/.config/systemd/user/",
+    "user timers": "~/.config/systemd/user/",
     "services": "/etc/systemd/system/",
     "you dev rules": "/etc/udev/rules.d/",
     "vim sessions": "~/.vim/sessions/",
@@ -37,6 +38,8 @@ linux_folder_paths = {
     "user local config": "/usr/local/etc/",
     "lib": "/lib",
     "log": "/var/log/",
+    "kernel trace": "/sys/kernel/tracing",
+    "K mem events": "/sys/kernel/tracing/events/kmem",
     "shell config": "~/.ohmyzsh/",
     "shell functions": "~/.ohmyzsh/custom/functions/",
     "dot files": "~/dotfiles/",
@@ -73,12 +76,13 @@ linux_file_paths = {
     "git config": ".git/config", 
     "poly bar": "~/.config/polybar/config", 
     "eye three": "~/.i3/config", 
-    "config": "~/.vimrc", 
+    "vim config": "~/.vimrc", 
     "c snippets": "~/.vim/plugged/vim-snippets/UltiSnips/c.snippets",
     "mark down snippets": "~/.vim/plugged/vim-snippets/UltiSnips/markdown.snippets",
     "python snippets": "~/.vim/plugged/vim-snippets/UltiSnips/python.snippets",
     "bash snippets": "~/.vim/plugged/vim-snippets/UltiSnips/bash.snippets",
     "bash snippets": "~/.config/kitty/kitty.conf",
+    "grub defaults": "/etc/default/grub",
 }
 
 # this is used for specific commands like pivot
