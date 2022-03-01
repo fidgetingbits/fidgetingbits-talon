@@ -6,18 +6,19 @@ ctx.matches = r"""
 tag: user.generic_unix_shell
 """
 
+
 @ctx.action_class("user")
 class Actions:
     # implements the function from generic_terminal.talon for unix shells
 
     def terminal_list_directories():
         """Lists directories"""
-        actions.insert("ls")
+        actions.insert("ls -l")
         actions.key("enter")
-        
+
     def terminal_list_all_directories():
         """Lists all directories including hidden"""
-        actions.insert("ls -a")
+        actions.insert("ls -la")
         actions.key("enter")
 
     def terminal_change_directory(path: str):
