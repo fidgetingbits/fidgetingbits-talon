@@ -241,6 +241,7 @@ abbreviations = {
     "protocol": "proto",
     "public": "pub",
     "pone to own": "pwn2own",
+    "pone": "pwn",
     "python": "py",
     "quebec": "qc",
     "query string": "qs",
