@@ -33,3 +33,7 @@ lux list check: insert("lx-list-check ")
 lux (modules|module list): insert("lx-lsmod\n")
 lux process list: insert("lx-ps\n")
 lux symbols: insert("lx-symbols\n")
+
+lux current: "call $lx_current()\n"
+lux task:
+    insert('printf "name: %s\\npid: %d\\n", $lx_current()->comm, $lx_current()->pid\n')

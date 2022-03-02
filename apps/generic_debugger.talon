@@ -2,8 +2,8 @@ tag: user.debugger
 -
 
 # Assembly language selection
-current architecture: user.debugger_current_architecture()
-cycle architecture: user.debugger_cycle_architecture()
+architecture show: user.debugger_current_architecture()
+architecture cycle: user.debugger_cycle_architecture()
 
 # Code execution
 
@@ -37,14 +37,14 @@ break here: user.debugger_break_here()
 break [point] (list|show): user.debugger_show_breakpoints()
 break [point] (set|add): user.debugger_add_sw_breakpoint()
 break [point] (set|add) hardware: user.debugger_add_hw_breakpoint()
-break [point] (clear|remove) all :user.debugger_clear_all_breakpoints()
-break [point] (clear|remove) :user.debugger_clear_breakpoint()
+break [point] (clear|remove) all: user.debugger_clear_all_breakpoints()
+break [point] (clear|remove): user.debugger_clear_breakpoint()
 break [point] (clear|remove) <number_small>: user.debugger_clear_breakpoint_id(number_small)
-break [point] disable all :user.debugger_disable_all_breakpoints()
-break [point] disable :user.debugger_disable_breakpoint()
+break [point] disable all: user.debugger_disable_all_breakpoints()
+break [point] disable: user.debugger_disable_breakpoint()
 break [point] disable <number_small>: user.debugger_disable_breakpoint_id(number_small)
-break [point] enable all :user.debugger_enable_all_breakpoints()
-break [point] enable :user.debugger_enable_breakpoint()
+break [point] enable all: user.debugger_enable_all_breakpoints()
+break [point] enable: user.debugger_enable_breakpoint()
 break [point] enable <number_small>: user.debugger_enable_breakpoint_id(number_small)
 
 break [(set|add)] (indirect|star): 
@@ -87,8 +87,18 @@ inspect type: user.debugger_inspect_type()
 inspect type clip: user.debugger_inspect_type_clip()
 
 # Hex Dumping Memory
-#hex dump register:
+hex dump help: user.debugger_hexdump_help()
+hex dump: user.debugger_hexdump()
+hex dump [<number>] [bytes] [from <user.register>]: 
+    user.debugger_hexdump_bytes(number or 0, register or '')
+hex dump [<number>] words [from <user.register>]:
+    user.debugger_hexdump_word(number or 0, register or '')
+hex dump [<number>] (D|long) words [from <user.register>]:
+    user.debugger_hexdump_dword(number or 0, register or '')
+hex dump [<number>] (Q|quad) words [from <user.register>]:
+    user.debugger_hexdump_qword(number or 0, register or '')
 
 # Convenience
 clear command: user.debugger_clear_line()
 register <user.register>: user.debugger_access_register(register)
+

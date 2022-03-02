@@ -23,16 +23,17 @@ copy <user.ordinals> (hex value|address):
     insert("yw")
     user.vim_command_mode(":set nohls\n")
 
-(hexdump|matrix) <user.ordinals> (hex value|address):
-    user.vim_command_mode(":call search(\"0x\", 'c', line('.'))\n")
-    insert("{ordinals-1}n")
-    insert("yw")
-    user.vim_command_mode(":set nohls\n")
-    user.vim_set_insert_mode()
-    # XXX - need to make this tweakable
-    insert("x/10gx ")
-    edit.paste()
-    key(enter)
+# this has to be updated to use the new api
+#(hexdump|matrix) <user.ordinals> (hex value|address):
+#    user.vim_command_mode(":call search(\"0x\", 'c', line('.'))\n")
+#    insert("{ordinals-1}n")
+#    insert("yw")
+#    user.vim_command_mode(":set nohls\n")
+#    user.vim_set_insert_mode()
+#    # XXX - need to make this tweakable
+#    insert("x/10gx ")
+#    edit.paste()
+#    key(enter)
 
 go <user.ordinals> (hex value|address):
     user.vim_command_mode(":call search(\"0x\", 'c', line('.'))\n")

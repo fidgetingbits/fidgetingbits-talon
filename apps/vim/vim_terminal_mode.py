@@ -98,6 +98,8 @@ def populate_shell_tags(shell_command, window_title):
         "ssh": "terminal",
         "sudo": "terminal",
         "gdb": "user.gdb",
+        "pwndbg": ["user.gdb", "user.pwndbg"], 
+        "gef": ["user.gdb", "user.gef"], 
         "htop": "user.htop",
         "taskwarrior-tui": "user.taskwarrior_tui",
         "~/.talon/bin/repl": "user.talon_repl",
@@ -114,7 +116,11 @@ def populate_shell_tags(shell_command, window_title):
         ".*virsh start --console.*": "terminal",  # hacky match for libvirt containers 
     }
     if shell_command in shell_tags:
-        ctx.tags = [shell_tags[shell_command]]
+        if isinstance(shell_tags[shell_command], list):
+            ctx.tags = shell_tags[shell_command]
+            print(ctx.tags)
+        else:
+            ctx.tags = [shell_tags[shell_command]]
     else:
         found_fuzzy = False
         for tag in fuzzy_shell_tags:

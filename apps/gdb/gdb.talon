@@ -24,7 +24,7 @@ tag(): user.gdb_vmlinux
 tag(): user.slabdbg
 
 # frameworks
-tag(): user.gef
+#tag(): user.gef
 #tag(): user.pwndbg
 
 
@@ -54,12 +54,8 @@ print (bits|binary): "p/t "
 # hexdumping
 # XXX - switch the sizes to a list in python?
 # XXX - should cache the last used size, and make it the default
-hex dump <number> bytes: "x/{number}bx "
-hex dump <number> (half|short) words: "x/{number}hx "
-hex dump <number> (d|long) words: "x/{number}dx "
-hex dump <number> quad words: "x/{number}gx "
-# this is some arbitrary default for convenience
-hex dump: "x/50gx "
+
+
 hex dump highlighted:
     insert("x/100gx ")
     edit.copy()
@@ -181,3 +177,12 @@ unset print repeats:
 
 watch list: "info watch\n"
 watch read: "rwatch *"
+
+file show: "info line\n"
+
+# Convenience for repeated commands
+hex stump saved: "x/50gx $ADDRESS\n"
+save address clip: 
+    insert("set $ADDRESS=")
+    edit.paste()
+    key(enter)

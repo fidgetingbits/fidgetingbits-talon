@@ -1,4 +1,4 @@
-tag: gdb
+tag: user.pwndbg
 -
 
 pound bag: "pwndbg\n"

@@ -1,14 +1,23 @@
 # XXX - execute until line number/cursor
-# XXX - more memory printing
-# XXX - need a way to disable the architecture modes, maybe be on context
-# destruction
 
-from talon import Context, Module, actions, app
+from talon import Context, Module, actions, app, settings
 
 mod = Module()
 mod.tag("debugger", desc="Tag for enabling generic debugger commands")
 # this list is updated by architecture specific python files
 mod.list("registers", desc="A list of architecture registers")
+mod.setting(
+    "debug_default_architecture",
+    type=str,
+    default="x64",
+    desc="The default cpu architecture to use for debugging",
+)
+mod.setting(
+    "debug_default_hexdump_count",
+    type=int,
+    default=256,
+    desc="The default number of bytes to dump in hexdumps",
+)
 
 ctx = Context()
 ctx.matches = r"""
@@ -31,26 +40,17 @@ class Debugger:
         self.architectures = ["x86", "x64"]
         for arch in self.architectures:
             mod.tag(arch, desc="Tag for enabling {arch} architecture")
-        self.architecture = self.architectures[self.arch_index]
+        self.architecture = settings.get("user.debug_default_architecture")
+        ctx.tags = [f"user.{self.architecture}"]
 
     def cycle_architecture(self):
         """Switch between supported architectures"""
-        # actions.mode.disable(f"user.{self.architecture}")
         self.arch_index += 1
         if self.arch_index == len(self.architectures):
             self.arch_index = 0
         self.architecture = self.architectures[self.arch_index]
         # XXX - debugger ever has more tags, this will be a problem
         ctx.tags = [f"user.{self.architecture}"]
-        # XXX - modes don't work for dynamic context loading it seems,
-        # as a:
-        # ```
-        # ctx.matches = r"""
-        # mode: user.x64
-        # """
-        # ```
-        # won't activate...
-        # actions.mode.disable(f"user.{self.architecture}")
         app.notify(subtitle=f"Debug architecture: {self.architecture}")
 
     def current_architecture(self):
@@ -214,3 +214,35 @@ class Actions:
     def debugger_access_register(register:str):
         """display the register using the debugger specific variable syntax"""
 
+    ###
+    # HEXDUMP
+    ###
+    def debugger_hexdump_help():
+        """hexdump help"""
+
+    def debugger_hexdump(number:int, register:str):
+        """The default hexdump functionality"""
+
+    def debugger_hexdump_bytes(number:int, register:str):
+        """Dump memory as bytes"""
+
+    def debugger_hexdump_word(number:int, register:str):
+        """Dump memory as half ward"""
+
+    def debugger_hexdump_dword(number:int, register:str):
+        """Dump memory as dword"""
+
+    def debugger_hexdump_qword(number:int, register:str):
+        """Dump memory as qword"""
+
+    def debugger_hexdump_address(address:str):
+        """Hex dump count bytes from the specified register"""
+
+    def debugger_hexdump_address_count(address:str, count:int):
+        """Hex dump count bytes from the specified register"""
+
+    def debugger_hexdump_highlighted():
+        """Hex dump highlighted address"""
+
+    def debugger_hexdump_highlighted_count(count:int):
+        """Hex dump count bytes from the highlighted address"""
