@@ -73,6 +73,9 @@ false: "False"
 self dot: "self,"
 
 index <user.word>: '["{word}"]'
+index (var|variable) <user.text>: 
+    var = user.formatted_text(text, "snake")
+    insert('[{var}]')
 
 pie test: "pytest"
 # for things like None comparsion
