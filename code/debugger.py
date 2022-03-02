@@ -211,7 +211,7 @@ class Actions:
         global debugger
         debugger.current_architecture()
 
-    def debugger_access_register(register:str):
+    def debugger_access_register(register: str):
         """display the register using the debugger specific variable syntax"""
 
     ###
@@ -220,29 +220,35 @@ class Actions:
     def debugger_hexdump_help():
         """hexdump help"""
 
-    def debugger_hexdump(number:int, register:str):
+    def debugger_hexdump(number: int, register: str):
         """The default hexdump functionality"""
 
-    def debugger_hexdump_bytes(number:int, register:str):
+    def debugger_hexdump_bytes(number: int, register: str):
         """Dump memory as bytes"""
 
-    def debugger_hexdump_word(number:int, register:str):
+    def debugger_hexdump_word(number: int, register: str):
         """Dump memory as half ward"""
 
-    def debugger_hexdump_dword(number:int, register:str):
+    def debugger_hexdump_dword(number: int, register: str):
         """Dump memory as dword"""
 
-    def debugger_hexdump_qword(number:int, register:str):
+    def debugger_hexdump_qword(number: int, register: str):
         """Dump memory as qword"""
 
-    def debugger_hexdump_address(address:str):
-        """Hex dump count bytes from the specified register"""
+    def debugger_hexdump_clip(number: int):
+        """Hex dump count bytes from the clipboard"""
 
-    def debugger_hexdump_address_count(address:str, count:int):
-        """Hex dump count bytes from the specified register"""
+    def debugger_hexdump_bytes_clip(number: int):
+        """Dump memory as bytes"""
 
-    def debugger_hexdump_highlighted():
+    def debugger_hexdump_word_clip(number: int):
+        """Dump memory as half ward"""
+
+    def debugger_hexdump_dword_clip(number: int):
+        """Dump memory as dword"""
+
+    def debugger_hexdump_qword_clip(number: int):
+        """Dump memory as qword"""
+
+    def debugger_hexdump_highlighted(count: int):
         """Hex dump highlighted address"""
-
-    def debugger_hexdump_highlighted_count(count:int):
-        """Hex dump count bytes from the highlighted address"""

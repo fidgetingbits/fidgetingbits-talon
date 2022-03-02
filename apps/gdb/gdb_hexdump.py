@@ -8,6 +8,19 @@ not tag: user.gef
 and not tag: user.pwndbg
 """
 
+def handle_hexdump_count(fmt, number, register, clip=False):
+    count = settings.get("user.debug_default_hexdump_count")
+    if number:
+        count = number
+
+    actions.auto_insert(f"x/{count}{fmt}x ")
+    if len(register):
+        actions.auto_insert(f"${register}\n")
+    elif clip:
+        edit.paste()
+        actions.key('enter')
+
+
 def handle_hexdump_count(fmt, number, register):
     count = settings.get("user.debug_default_hexdump_count")
     if number:
@@ -37,3 +50,18 @@ class UserActions:
 
     def debugger_hexdump_qword(number:int, register:str):
         handle_hexdump_count("g", number, register)
+
+    def debugger_hexdump_clip(number:int):
+        handle_hexdump_count("g", number, '', clip=True)
+
+    def debugger_hexdump_bytes_clip(number:int):
+        handle_hexdump_count("b", number, register, clip=True)
+
+    def debugger_hexdump_word_clip(number:int):
+        handle_hexdump_count("h", number, register, clip=True)
+
+    def debugger_hexdump_dword_clip(number:int):
+        handle_hexdump_count("d", number, register, clip=True)
+
+    def debugger_hexdump_qword_clip(number:int):
+        handle_hexdump_count("g", number, register, clip=True)

@@ -88,8 +88,9 @@ inspect type clip: user.debugger_inspect_type_clip()
 
 # Hex Dumping Memory
 hex dump help: user.debugger_hexdump_help()
-hex dump: user.debugger_hexdump()
-hex dump [<number>] [bytes] [from <user.register>]: 
+hex dump [<number>] [from <user.register>]: 
+    user.debugger_hexdump(number or 0, register or '')
+hex dump [<number>] bytes [from <user.register>]: 
     user.debugger_hexdump_bytes(number or 0, register or '')
 hex dump [<number>] words [from <user.register>]:
     user.debugger_hexdump_word(number or 0, register or '')
@@ -98,7 +99,17 @@ hex dump [<number>] (D|long) words [from <user.register>]:
 hex dump [<number>] (Q|quad) words [from <user.register>]:
     user.debugger_hexdump_qword(number or 0, register or '')
 
+hex dump [<number>] from clip: 
+    user.debugger_hexdump_clip(number or 0)
+hex dump [<number>] bytes from clip: 
+    user.debugger_hexdump_bytes_clip(number or 0)
+hex dump [<number>] words from clip:
+    user.debugger_hexdump_word_clip(number or 0)
+hex dump [<number>] (D|long) words from clip:
+    user.debugger_hexdump_dword_clip(number or 0)
+hex dump [<number>] (Q|quad) words from clip:
+    user.debugger_hexdump_qword_clip(number or 0)
+
 # Convenience
 clear command: user.debugger_clear_line()
 register <user.register>: user.debugger_access_register(register)
-
