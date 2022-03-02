@@ -72,6 +72,7 @@ stdint_types = {
     "struck": "struct",
     "union": "union",
     "void": "void",
+    "size T": "size_t",
 }
 stdint_signed = {
     "un signed": "u",
