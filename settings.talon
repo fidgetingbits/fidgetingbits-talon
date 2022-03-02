@@ -116,6 +116,11 @@ settings():
     # The amount to scroll up/down (equivalent to mouse wheel on Windows by default)
     user.mouse_wheel_down_amount = 120
 
+    ###
+    # DEBUGGER
+    ###
+    user.debug_default_architecture = "x64"
+    user.debug_default_hexdump_count = 256
 
 # uncomment tag to enable mouse grid
 # tag(): user.mouse_grid_enabled
