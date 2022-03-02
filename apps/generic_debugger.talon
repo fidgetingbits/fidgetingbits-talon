@@ -10,6 +10,10 @@ architecture cycle: user.debugger_cycle_architecture()
 ## instruction level
 step into: user.debugger_step_into()
 step over: user.debugger_step_over()
+step next jump: user.debugger_step_jump()
+step next call: user.debugger_step_call()
+step next ret: user.debugger_step_ret()
+step next sys call: user.debugger_step_syscall()
 
 ## line level
 step line: user.debugger_step_line()

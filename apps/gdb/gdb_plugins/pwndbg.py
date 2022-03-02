@@ -41,8 +41,23 @@ class UserActions:
     ###
     # EXECUTION
     ###
+    def debugger_step_into():
+        actions.auto_insert("nextproginstr\n")
+
     def debugger_step_over():
         actions.auto_insert("stepover\n")
+
+    def debugger_step_jump():
+        actions.auto_insert("nextjump\n")
+
+    def debugger_step_call():
+        actions.auto_insert("nextcall\n")
+
+    def debugger_step_ret():
+        actions.auto_insert("nextret\n")
+
+    def debugger_step_syscall():
+        actions.auto_insert("nextsc\n")
 
     ###
     # MEMORY ANALYSIS

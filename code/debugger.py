@@ -81,6 +81,18 @@ class Actions:
     def debugger_step_out():
         """Step until function exit in the debugger"""
 
+    def debugger_step_jump():
+        """Step until the next jump in the debugger"""
+
+    def debugger_step_call():
+        """Step until the next call in the debugger"""
+
+    def debugger_step_ret():
+        """Step until the next ret in the debugger"""
+
+    def debugger_step_syscall():
+        """Step until the next syscall in the debugger"""
+
     def debugger_continue():
         """Continue execution in the debugger"""
 

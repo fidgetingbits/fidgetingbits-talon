@@ -59,6 +59,9 @@ class UserActions:
     ###
     # EXECUTION
     ###
+    def debugger_step_into():
+        actions.auto_insert("stepi\n")
+
     def debugger_step_over():
         actions.auto_insert("nexti\n")
 
