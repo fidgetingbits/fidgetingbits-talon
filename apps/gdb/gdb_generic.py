@@ -10,7 +10,14 @@ not tag: user.gef
 and not tag: user.pwndbg
 """
 
-def handle_hexdump_count(fmt, number, register, clip=False):
+def handle_hexdump_count(fmt, number, register, clip=False, copy=False):
+    """
+    :param fmt: The gdb analysis format string
+    :param number: The number of given data type too dump
+    :param register: The cpu register to dump from
+    :param clip: Whether or not to paste source address from the clipboard
+    :param copy: Whether or not to copy a highlighted string before pasting
+    """
     count = settings.get("user.debug_default_hexdump_count")
     if number:
         count = number
@@ -19,6 +26,8 @@ def handle_hexdump_count(fmt, number, register, clip=False):
     if len(register):
         actions.auto_insert(f"${register}\n")
     elif clip:
+        if copy:
+            actions.edit.copy()
         actions.edit.paste()
         actions.key('enter')
 

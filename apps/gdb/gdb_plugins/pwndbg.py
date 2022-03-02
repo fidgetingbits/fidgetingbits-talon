@@ -7,7 +7,7 @@ ctx.matches = r"""
 tag: user.pwndbg
 """
 
-def handle_hexdump_count(cmd, number, register, clip=False):
+def handle_hexdump_count(cmd, number, register, clip=False, copy=False):
     count = settings.get("user.debug_default_hexdump_count")
     if number:
         count = number
@@ -16,6 +16,8 @@ def handle_hexdump_count(cmd, number, register, clip=False):
     if len(register):
         actions.auto_insert(f"${register} {count}\n")
     elif clip:
+        if copy:
+            actions.edit.copy()
         actions.edit.paste()
         actions.auto_insert(f" {count}\n")
     else:
@@ -64,7 +66,9 @@ class UserActions:
         handle_hexdump_count("dq", number, register)
 
     def debugger_dump_pointers(register:str):
-        handle_hexdump_count("dps", number, register)
+        actions.auto_insert(f"dps ")
+        if len(register):
+            actions.auto_insert(f"${register}\n")
 
     def debugger_dump_ascii_string(number:int, register:str):
         handle_hexdump_count("da", number, register)
@@ -85,7 +89,9 @@ class UserActions:
         handle_hexdump_count("dq", number, '', clip=True)
 
     def debugger_dump_pointers_clip():
-        handle_hexdump_count("dps", number, '', clip=True)
+        actions.auto_insert(f"dps ")
+        actions.edit.paste()
+        actions.key('enter')
 
     def debugger_dump_ascii_string_clip(number:int):
         handle_hexdump_count("da", number, '', clip=True)
