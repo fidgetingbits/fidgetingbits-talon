@@ -21,9 +21,6 @@ class UserActions:
     def debugger_step_into():
         actions.auto_insert("stepi\n")
 
-    def debugger_step_over():
-        actions.auto_insert("nexti\n")
-
     def debugger_step_line():
         actions.auto_insert("step\n")
 
@@ -50,11 +47,6 @@ class UserActions:
         actions.auto_insert("")
 
     # Registers
-    def debugger_show_registers():
-        actions.auto_insert("info registers\n")
-
-    def debugger_get_register():
-        actions.auto_insert("r ")
 
     def debugger_set_register():
         actions.insert("set $=")
@@ -133,10 +125,6 @@ class UserActions:
         actions.insert("x/10i ")
         actions.edit.paste()
         actions.key("enter")
-
-        # Type inspection
-    def debugger_dump_ascii_string():
-        actions.insert("x/s ")
 
     def debugger_inspect_type():
         actions.insert("ptype ")

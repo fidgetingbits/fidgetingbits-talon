@@ -105,7 +105,7 @@ class Actions:
     def debugger_backtrace():
         """Print a back trace in the debugger"""
 
-    def debugger_get_register():
+    def debugger_get_register(register:str):
         """Print specific register in the debugger"""
 
     def debugger_set_register():
@@ -174,14 +174,6 @@ class Actions:
     def debugger_goto_highlighted():
         """Jump to a specific highlighted address in the debugger"""
 
-    def debugger_dump_ascii_string():
-        """Display as specific address as an ascii string in the debugger"""
-
-    def debugger_dump_unicode_string():
-        """Display as specific address as an unicode string in the debugger"""
-
-    def debugger_dump_pointers():
-        """Display as specific address as a list of pointers in the debugger"""
 
     def debugger_inspect_type():
         """Inspect a specific data type in the debugger"""
@@ -235,6 +227,15 @@ class Actions:
     def debugger_hexdump_qword(number: int, register: str):
         """Dump memory as qword"""
 
+    def debugger_dump_pointers(register:str):
+        """Dump memory as a series of pointers"""
+
+    def debugger_dump_ascii_string(number:int, register:str):
+        """Dump memory as a strings"""
+
+    def debugger_dump_unicode_string(number:int, register:str):
+        """Display as specific address as an unicode string in the debugger"""
+
     def debugger_hexdump_clip(number: int):
         """Hex dump count bytes from the clipboard"""
 
@@ -249,6 +250,15 @@ class Actions:
 
     def debugger_hexdump_qword_clip(number: int):
         """Dump memory as qword"""
+
+    def debugger_dump_pointers_clip():
+        """Dump memory as a series of pointers"""
+
+    def debugger_dump_ascii_string_clip(number:int):
+        """Dump the memory as a string"""
+
+    def debugger_dump_unicode_string_clip(number:int):
+        """Display as specific address as an unicode string in the debugger"""
 
     def debugger_hexdump_highlighted(count: int):
         """Hex dump highlighted address"""

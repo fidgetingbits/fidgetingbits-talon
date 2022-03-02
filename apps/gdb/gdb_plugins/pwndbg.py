@@ -23,7 +23,28 @@ def handle_hexdump_count(cmd, number, register, clip=False):
 
 @ctx.action_class("user")
 class UserActions:
-    # Code execution
+
+
+    ###
+    # REGISTERS
+    ###
+    def debugger_show_registers():
+        actions.auto_insert("regs\n")
+
+    def debugger_get_register(register:str):
+        actions.auto_insert("regs ")
+        if len(register):
+            actions.auto_insert(f"{register}\n")
+
+    ###
+    # EXECUTION
+    ###
+    def debugger_step_over():
+        actions.auto_insert("stepover\n")
+
+    ###
+    # HEXDUMP
+    ###
     def debugger_hexdump_help():
         actions.auto_insert("hexdump -h\n")
 
@@ -42,6 +63,12 @@ class UserActions:
     def debugger_hexdump_qword(number:int, register:str):
         handle_hexdump_count("dq", number, register)
 
+    def debugger_dump_pointers(register:str):
+        handle_hexdump_count("dps", number, register)
+
+    def debugger_dump_ascii_string(number:int, register:str):
+        handle_hexdump_count("da", number, register)
+
     def debugger_hexdump_clip(number:int):
         handle_hexdump_count("hexdump", number, '', clip=True)
 
@@ -56,3 +83,9 @@ class UserActions:
 
     def debugger_hexdump_qword_clip(number:int):
         handle_hexdump_count("dq", number, '', clip=True)
+
+    def debugger_dump_pointers_clip():
+        handle_hexdump_count("dps", number, '', clip=True)
+
+    def debugger_dump_ascii_string_clip(number:int):
+        handle_hexdump_count("da", number, '', clip=True)

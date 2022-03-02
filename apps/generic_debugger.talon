@@ -28,7 +28,7 @@ debug restart: user.debugger_restart()
 # Register
 (show|info) registers: user.debugger_show_registers()
 # XXX -
-get register: user.debugger_get_register()
+(show|get) register [<user.register>]: user.debugger_get_register(register or '')
 set register: user.debugger_set_register()
 
 # Breakpoints
@@ -73,10 +73,6 @@ jump to address: user.debugger_goto_address()
 jump to clipboard: user.debugger_goto_clipboard()
 jump to highlighted: user.debugger_goto_highlighted()
 
-dump string: user.debugger_dump_ascii_string()
-dump unicode [string]: user.debugger_dump_unicode_string()
-dump pointers: user.debugger_dump_pointers()
-
 list modules: user.debugger_list_modules()
 list sections: user.debugger_show_binary_sections()
 (memory list|memory map|list memory [mapping]): user.debugger_show_memory_sections()
@@ -86,7 +82,7 @@ list sections: user.debugger_show_binary_sections()
 inspect type: user.debugger_inspect_type()
 inspect type clip: user.debugger_inspect_type_clip()
 
-# Hex Dumping Memory
+# Memory Analysis
 hex dump help: user.debugger_hexdump_help()
 hex dump [<number>] [from <user.register>]: 
     user.debugger_hexdump(number or 0, register or '')
@@ -109,6 +105,14 @@ hex dump [<number>] (D|long) words from clip:
     user.debugger_hexdump_dword_clip(number or 0)
 hex dump [<number>] (Q|quad) words from clip:
     user.debugger_hexdump_qword_clip(number or 0)
+
+dump [<number> byte] string [from <user.register>]: user.debugger_dump_ascii_string(number or 0, register or '')
+dump [<number> byte] string from clip: user.debugger_dump_ascii_string_clip(number or 0)
+dump [<number> byte] unicode [string] [from <user.register>]: user.debugger_dump_unicode_string(number or 0, register or '')
+dump [<number> byte] unicode [string] from clip: user.debugger_dump_unicode_string_clip(number or 0)
+dump pointers [from <user.register>]: user.debugger_dump_pointers(register or '')
+dump pointers from clip: user.debugger_dump_pointers_clip()
+
 
 # Convenience
 clear command: user.debugger_clear_line()
