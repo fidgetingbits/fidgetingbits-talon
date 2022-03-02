@@ -45,7 +45,7 @@ class UserActions:
         actions.auto_insert("stepover\n")
 
     ###
-    # HEXDUMP
+    # MEMORY ANALYSIS
     ###
     def debugger_hexdump_help():
         actions.auto_insert("hexdump -h\n")

@@ -207,7 +207,7 @@ class Actions:
         """display the register using the debugger specific variable syntax"""
 
     ###
-    # HEXDUMP
+    # MEMORY ANALYSIS
     ###
     def debugger_hexdump_help():
         """hexdump help"""
