@@ -51,6 +51,9 @@ print hex [variable] <user.text>: "p/x {text}"
 print string: "p/s "
 print (bits|binary): "p/t "
 
+print casted struck: 
+    user.insert_cursor("p/x *(struct [|] *)")
+
 # hexdumping
 # XXX - switch the sizes to a list in python?
 # XXX - should cache the last used size, and make it the default
@@ -186,3 +189,13 @@ save address clip:
     insert("set $ADDRESS=")
     edit.paste()
     key(enter)
+
+# Useful to set tags if you didn't user script file
+set title: 
+    user.insert_cursor('shell echo -n -e "\\033]0;[|]\\007"')
+
+set title G D B: 
+    insert('shell echo -n -e "\\033]0;gdb\\007"\n')
+
+set title pone: 
+    insert('shell echo -n -e "\\033]0;pwndbg\\007"\n')
