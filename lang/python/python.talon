@@ -47,6 +47,7 @@ dunder in it: "__init__"
 state try: "try:\n"
 state except: "except "
 state raise: "raise "
+state continue: "continue"
 self taught: "self."
 for in:
     insert("for in ")
@@ -66,6 +67,9 @@ big dock string:
 # Keywords
 ####
 return: "return "
+return none: "return None"
+return true: "return True"
+return false: "return False"
 state none: "None"
 true: "True"
 false: "False"
@@ -109,7 +113,7 @@ call <user.text>:
 is type <user.python_type_list>:
     insert(": {python_type_list}")
 returns [type] <user.python_type_list>:
-    insert(" -> {python_type_list}")
+    insert(" -> {python_eype_list}")
 # for generic reference of types
 type <user.python_type_list>:
     insert("{python_type_list}")
