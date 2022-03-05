@@ -4,7 +4,6 @@
 # Dev stuff
 __pycache__
 *.sw?
-tags
 .mypy_cache
 
 # Locally generated settings
