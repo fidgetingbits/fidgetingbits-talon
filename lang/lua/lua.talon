@@ -21,19 +21,31 @@ tag(): user.code_operators_pointer
 
 settings():
     user.code_private_function_formatter = "SNAKE_CASE"
-    user.code_protected_function_formatter = "SNAKE_CASE"
     user.code_public_function_formatter = "SNAKE_CASE"
     user.code_private_variable_formatter = "SNAKE_CASE"
-    user.code_protected_variable_formatter = "SNAKE_CASE"
     user.code_public_variable_formatter = "SNAKE_CASE"
-    # whether or not to use uint_8 style datatypes
-    #    user.use_stdint_datatypes = 1
 
 state local: "local"
 state end: "end"
 state then: "then"
+state repeat: "repeat"
+state until: "until"
+state return (null|nil): "return nil"
+state return true: "return true"
+state return false: "return false"
 
+state label <user.text>: 
+    insert("::")
+    user.insert_formatted(text, "snake")
+    insert("::")
 
 require <user.code_libraries>:
     user.code_insert_library("", code_libraries)
     key(end enter)
+
+state (variable|var) [<user.text>] [over]:
+    user.code_public_variable_formatter(text)
+
+state local (variable|var) [<user.text>] [over]:
+    insert("local ")
+    user.code_private_variable_formatter(text)
