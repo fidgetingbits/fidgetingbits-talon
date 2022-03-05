@@ -26,6 +26,7 @@ extension_lang_map = {
     ".lua": "lua",
     ".php": "php",
     ".md": "markdown",
+    ".nse": "lua",
     ".pl": "perl",
     ".ps1": "powershell",
     ".py": "python",
@@ -47,7 +48,7 @@ extension_lang_map = {
     ".zsh": "zsh",
 }
 
-# This list can be indirectly updated by othher modules when they know at some
+# This list can be indirectly updated by other modules when they know at some
 # language should be implicitly enabled for a specific context, for instance
 # detecting the application repl is running in a terminal. Note that this is
 # different than the auto_lang mode, which sets a global mode across all
@@ -73,9 +74,9 @@ class code_actions:
         if forced_context_language is not None:
             return forced_context_language
         file_extension = actions.win.file_ext()
-        #print(f"!! file extension: {file_extension}")
+        # print(f"!! file extension: {file_extension}")
         file_name = actions.win.filename()
-        #print(f"!! file name: {file_name}")
+        # print(f"!! file name: {file_name}")
 
         # Favor full matches
         if file_name in special_file_map:

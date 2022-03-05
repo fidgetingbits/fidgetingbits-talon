@@ -6,7 +6,7 @@ and code.language: lua
 tag(): user.code_imperative
 
 tag(): user.code_comment_line
-tag(): user.code_comment_block_c_like
+tag(): user.code_comment_block
 tag(): user.code_data_bool
 tag(): user.code_data_null
 tag(): user.code_functions
@@ -28,3 +28,12 @@ settings():
     user.code_public_variable_formatter = "SNAKE_CASE"
     # whether or not to use uint_8 style datatypes
     #    user.use_stdint_datatypes = 1
+
+state local: "local"
+state end: "end"
+state then: "then"
+
+
+require <user.code_libraries>:
+    user.code_insert_library("", code_libraries)
+    key(end enter)

@@ -1,15 +1,13 @@
 from talon import Context, Module, actions
 
-c_like_ctx = Context()
+ctx = Context()
 mod = Module()
 
 mod.tag("code_comment_block", desc="Tag for enabling generic block comment commands")
-mod.tag("code_comment_block_c_like", desc="Denotes usage of C-style block comments")
 
-c_like_ctx.matches = """
-tag: user.code_comment_block_c_like
+ctx.matches = """
+tag: user.code_comment_block
 """
-c_like_ctx.tags = ["user.code_comment_block"]
 
 
 @mod.action_class
@@ -24,7 +22,7 @@ class Actions:
         """Block comment end syntax"""
 
 
-@c_like_ctx.action_class("user")
+@ctx.action_class("user")
 class CActions:
     def code_comment_block():
         actions.insert("/*\n\n*/")

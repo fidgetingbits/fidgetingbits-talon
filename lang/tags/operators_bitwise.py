@@ -23,3 +23,12 @@ class Actions:
 
     def code_operator_bitwise_right_shift():
         """code_operator_bitwise_right_shift"""
+
+    def code_operator_bitwise_left_rotate():
+        """code_operator_bitwise_left_rotate"""
+
+    def code_operator_bitwise_right_rotate():
+        """code_operator_bitwise_right_rotate"""
+
+    def code_operator_bitwise_swap():
+        """code_operator_bitwise_swap"""
