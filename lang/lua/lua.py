@@ -42,20 +42,6 @@ ctx.lists["user.code_libraries"] = {
     "short port": "shortport",
 }
 
-# XXX - because otherwise there is no definition...
-# this is a problem because everyone uses code_comment_block_c_like for now
-@mod.action_class
-class Actions:
-    def code_comment_block():
-        """Block comment"""
-
-    def code_comment_block_prefix():
-        """Block comment start syntax"""
-
-    def code_comment_block_suffix():
-        """Block comment end syntax"""
-
-
 
 @mod.capture(rule="{self.lua_functions}")
 def lua_functions(m) -> str:
