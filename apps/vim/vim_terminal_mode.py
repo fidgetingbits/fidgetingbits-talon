@@ -19,7 +19,6 @@ class EditActions:
     def select_all():
         actions.user.vim_normal_mode_exterm("ggVG")
 
-
     def paste():
         actions.key("ctrl-shift-v")
 
@@ -30,6 +29,7 @@ class Actions:
         """set normal mode"""
         v = VimMode()
         v.set_normal_mode(auto=False)
+
 
 def parse_vim_term_title(window):
     """a variety of parsing to gracefully handle various shell commands
@@ -98,8 +98,8 @@ def populate_shell_tags(shell_command, window_title):
         "ssh": "terminal",
         "sudo": "terminal",
         "gdb": "user.gdb",
-        "pwndbg": ["user.gdb", "user.pwndbg"], 
-        "gef": ["user.gdb", "user.gef"], 
+        "pwndbg": ["user.gdb", "user.pwndbg"],
+        "gef": ["user.gdb", "user.gef"],
         "htop": "user.htop",
         "taskwarrior-tui": "user.taskwarrior_tui",
         "~/.talon/bin/repl": "user.talon_repl",
@@ -113,14 +113,15 @@ def populate_shell_tags(shell_command, window_title):
     regex_shell_tags = {
         r"^\w*@\w*": "terminal",
         r"^\w*@\w*:.*[$#]": "terminal",  # this is redundant with above, but ideally I would rather have something like this
-        ".*virsh start --console.*": "terminal",  # hacky match for libvirt containers 
+        ".*virsh start --console.*": "terminal",  # hacky match for libvirt containers
     }
     if shell_command in shell_tags:
         if isinstance(shell_tags[shell_command], list):
             ctx.tags = shell_tags[shell_command]
-            print(ctx.tags)
+            # print(ctx.tags)
         else:
             ctx.tags = [shell_tags[shell_command]]
+            # print(ctx.tags)
     else:
         found_fuzzy = False
         for tag in fuzzy_shell_tags:
