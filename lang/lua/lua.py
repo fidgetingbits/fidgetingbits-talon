@@ -14,14 +14,63 @@ mod.setting(
     desc="The default lua version to use. Dictates certain operators",
 )
 
+# XXX - this should be updatable with other modules like nse, neovim, base
+# off some tags
 ctx.lists["user.code_functions"] = {
-    "string len": "strlen",
-    "get line": "getline",
-    "set line": "setline",
-    "length": "len",
+    "to number": "tonumber",
     "eye pairs": "ipairs",
+    "print": "print",
+    "print F": "printf",
+    "type": "type",
+    "assert": "assert",
+    "get meta table": "getmetatable",
+    "set meta table": "setmetatable",
+
+    # io
+    "eye oh write": "io.write",
+    "eye oh read": "io.read",
+    "eye oh open": "io.open",
+
+    # string
+    "format": "string.format",
+    "string G find": "string.gfind",
+    "string find": "string.strfind",
+    "string len": "string.strlen",
+    "string upper": "string.strupper",
+    "string lower": "string.strlower",
+    "string sub": "string.strsub",
+    "string G sub": "string.gsub",
+    "string match": "string.match",
+    "string G match": "string.gmatch",
+
+    # table
+    "table unpack": "table.unpack", 
+    "table insert": "table.insert",
+    "tabel get N": "table.getn",
+    "tabel sort": "table.sort",
+
+    # math
+    "math max": "math.max",
+
+    # json
+    "jason parse": "json.parse",
+
+    # http
+    "web get": "http.get",
+
+    # os
+    "O S date": "os.date",
+    "O S time": "os.time",
+    "O S clock": "os.clock",
+    "O S rename": "os.rename",
+    "O S remove": "os.remove",
+    "O S getenv": "os.getenv",
+    "O S execute": "os.execute",
 }
 
+# XXX - it would be nice to correlate what we import these library is as to the
+# function calls. Ex: if someone does `local j = require("json")` then when we
+# call in too json libraries, we would prefix it with `j.parse()`
 ctx.lists["user.code_libraries"] = {
     "bit": "bit",
     "I O": "io",
@@ -183,10 +232,6 @@ class UserActions:
     ##
     def code_import():
         actions.user.insert_cursor("local [|] = require('')")
-
-    def code_import_local():
-        # XXX - Not sure about this yet
-        pass
 
     ##
     # code_libraries_gui
