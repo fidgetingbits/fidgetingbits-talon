@@ -174,11 +174,13 @@ go row <number>:
     user.vim_normal_mode_exterm("{number_small}j")
 
 
-    # jump list
-    # XXX - I'm not sure these are well usable from the terminal?
+# jump list
+# XXX - I'm not sure these are well usable from the terminal?
 jump list show: user.vim_command_mode_exterm(":jumps\n")
 jump list clear: user.vim_command_mode_exterm(":clearjumps\n")
 jump last [entry]:
+    user.vim_normal_mode_exterm_key("ctrl-o")
+jump back:
     user.vim_normal_mode_exterm_key("ctrl-o")
 jump next [entry]: user.vim_normal_mode_exterm_key("ctrl-i")
 
