@@ -31,25 +31,40 @@ basic_ctx.matches = r"""
 tag: user.c_basic_datatypes
 """
 
-basic_types = {
-    "character": "char",
-    "char": "char",
-    "double": "double",
+common_types = {
     "enumerate": "enum",
     "float": "float",
+    "struck": "struct",
+    "union": "union",
+    "void": "void",
+    "size T": "size_t",
+    "S size T": "ssize_t",
+    "double": "double",
+    "pid": "pid_t",
+    "file": "FILE",
+    "G I D": "gid_t",
+    "U I D": "uid_t",
+    "offset": "off_t",
+    "offset sixty four": "off64_t",
+    "time": "time_t",
+    "mode": "mode_t",
+    "sig info": "siginfo_t",
+    "sig set": "sigset_t",
+    "V A list": "va_list",
+}
+
+basic_types_ints = {
+    "character": "char",
+    "char": "char",
     "integer": "int",
     "int": "int",
     "long": "long",
     "short": "short",
-    "struck": "struct",
-    "union": "union",
-    "void": "void",
-    "pid": "pid_t",
-    "size T": "size_t",
 }
 basic_signed = {
     "un signed": "unsigned",
 }
+basic_types = {**basic_types_ints, **common_types}
 basic_ctx.lists["user.c_types"] = basic_types
 basic_ctx.lists["user.c_signed"] = basic_signed
 ctx.lists["user.c_basic_signed"] = basic_signed
@@ -59,25 +74,20 @@ stdint_ctx = Context()
 stdint_ctx.matches = r"""
 tag: user.c_stdint_datatypes
 """
-stdint_types = {
-    "double": "double",
-    "enumerate": "enum",
-    "float": "float",
+stdint_types_ints = {
     "short": "int16_t",
     "integer": "int32_t",
     "int": "int32_t",
     "long": "int64_t",
     "character": "int8_t",
     "char": "int8_t",
-    "struck": "struct",
-    "union": "union",
-    "void": "void",
-    "size T": "size_t",
 }
 stdint_signed = {
     "un signed": "u",
     "unsigned": "u",
 }
+
+stdint_types = {**stdint_types_ints, **common_types}
 
 stdint_ctx.lists["user.c_types"] = stdint_types
 stdint_ctx.lists["user.c_signed"] = stdint_signed
@@ -169,6 +179,8 @@ ctx.lists["user.code_functions"] = {
     "get char": "getchar",
     "get op": "getopt",
     "get pid": "getpid",
+    "get U I D": "getuid",
+    "get G I D": "getgid",
     "is digit": "isdigit",
     "malloc": "malloc",
     "mem copy": "memcpy",
@@ -376,6 +388,12 @@ class UserActions:
     def code_operator_addition_assignment():
         actions.auto_insert(" += ")
 
+    def code_operator_increment():
+        actions.auto_insert("++")
+
+    def code_operator_decrement():
+        actions.auto_insert("--")
+
     def code_operator_multiplication():
         actions.auto_insert(" * ")
 
@@ -458,6 +476,7 @@ class UserActions:
     def code_insert_is_not_null():
         actions.auto_insert(" != NULL")
 
+    # code_imperative
     def code_state_if():
         actions.insert("if () {\n}\n")
         actions.key("up:2 left:3")
@@ -506,6 +525,7 @@ class UserActions:
     def code_comment_line_prefix():
         actions.auto_insert("//")
 
+    # code_functions
     def code_insert_function(text: str, selection: str):
         if selection:
             text = text + "({})".format(selection)

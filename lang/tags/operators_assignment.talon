@@ -13,6 +13,7 @@ op (times | multiply) equals: user.code_operator_multiplication_assignment()
 op divide equals: user.code_operator_division_assignment()
 op mod equals: user.code_operator_modulo_assignment()
 [op] increment: user.code_operator_increment()
+[op] decrement: user.code_operator_decrement()
 
 #bitwise operators
 (op | logical | bitwise) (ex | exclusive) or equals: user.code_operator_bitwise_exclusive_or_equals()
