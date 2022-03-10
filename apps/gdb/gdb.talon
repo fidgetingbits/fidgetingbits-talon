@@ -23,11 +23,6 @@ tag(): user.readline
 tag(): user.gdb_vmlinux
 tag(): user.slabdbg
 
-# frameworks
-#tag(): user.gef
-#tag(): user.pwndbg
-
-
 until <number>: "until {number}"
 
 force clear all break points:
@@ -53,21 +48,6 @@ print (bits|binary): "p/t "
 
 print casted struck: 
     user.insert_cursor("p/x *(struct [|] *)")
-
-# hexdumping
-# XXX - switch the sizes to a list in python?
-# XXX - should cache the last used size, and make it the default
-
-
-hex dump highlighted:
-    insert("x/100gx ")
-    edit.copy()
-    edit.paste()
-    key(enter)
-hex dump clip:
-    insert("x/100gx ")
-    edit.paste()
-    key(enter)
 
 # symbols
 symbol refresh: "sharedlibrary\n"
@@ -171,7 +151,9 @@ print structure size clip:
     edit.paste()
     key(")")
     key(enter)
-    
+
+print type:
+    insert("ptype")
 unset print elements:
     insert("set print elements 0\n")
 

@@ -99,15 +99,15 @@ hex dump [<number>] (D|long) words [from <user.register>]:
 hex dump [<number>] (Q|quad) words [from <user.register>]:
     user.debugger_hexdump_qword(number or 0, register or '')
 
-hex dump [<number>] from clip: 
+hex dump [<number>] [from] clip:
     user.debugger_hexdump_clip(number or 0)
-hex dump [<number>] bytes from clip: 
+hex dump [<number>] bytes [from] clip: 
     user.debugger_hexdump_bytes_clip(number or 0)
-hex dump [<number>] words from clip:
+hex dump [<number>] words [from] clip:
     user.debugger_hexdump_word_clip(number or 0)
-hex dump [<number>] (D|long) words from clip:
+hex dump [<number>] (D|long) words [from] clip:
     user.debugger_hexdump_dword_clip(number or 0)
-hex dump [<number>] (Q|quad) words from clip:
+hex dump [<number>] (Q|quad) words [from] clip:
     user.debugger_hexdump_qword_clip(number or 0)
 
 dump [<number> byte] string [from <user.register>]: user.debugger_dump_ascii_string(number or 0, register or '')
