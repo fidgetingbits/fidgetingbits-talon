@@ -60,6 +60,7 @@ linux_folder_paths = {
     "lib sixty four": "/lib64/",
     "lib thirty two": "/lib32/",
     "lib three two": "/lib32/",
+    "proc": "/proc/",
 }
 
 linux_file_paths = {
@@ -90,6 +91,9 @@ linux_file_paths = {
     "grub defaults": "/etc/default/grub",
     "raffi config": "~/.config/rofi/rofi.rasi",
     "raffi theme": "~/.config/rofi/colors.rasi",
+    "lisp log": "~/.cache/nvim/lsp.log",
+    "slab info": "/proc/slabinfo",
+
 }
 
 # this is used for specific commands like pivot
