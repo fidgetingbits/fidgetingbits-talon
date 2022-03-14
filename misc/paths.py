@@ -65,6 +65,7 @@ linux_folder_paths = {
 
 linux_file_paths = {
     "password": "/etc/passwd",
+    "groups": "/etc/group",
     "shadow": "/etc/shadow",
     "hosts": "/etc/hosts",
     "resolve": "/etc/resolv.conf",
@@ -93,7 +94,10 @@ linux_file_paths = {
     "raffi theme": "~/.config/rofi/colors.rasi",
     "lisp log": "~/.cache/nvim/lsp.log",
     "slab info": "/proc/slabinfo",
-
+    "kernel active trace": "/sys/kernel/tracing/trace",
+    "kernel current tracer": "/sys/kernel/tracing/current_tracer",
+    "kernel available tracersm": "/sys/kernel/tracing/available_tracers",
+    "Q emu config": "/etc/libvirt/qemu.conf"
 }
 
 # this is used for specific commands like pivot
