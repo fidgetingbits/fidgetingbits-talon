@@ -212,6 +212,7 @@ symbol_key_words = {
     "calm": ",",  # i found comma and commit would conflict too much
     "dot": ".",
     "blank": " ",
+    "void": " ",
     "semi": ";",
     "tick": "'",
     "locker": "[",
@@ -269,10 +270,10 @@ ctx.lists["self.arrow_key"] = {
 
 simple_keys = [
     #    "backspace",
-    "end",
-    "enter",
+    #"end", # use go tail
+    #"enter",
     "escape",
-    "home",
+    #"home", # us go head
     #    "insert",
     #    "pagedown",
     #    "pageup",
