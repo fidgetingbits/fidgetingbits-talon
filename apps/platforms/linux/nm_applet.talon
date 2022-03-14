@@ -11,3 +11,9 @@ net man two factor:
     key(backspace:6)
     user.system_command("i3-msg 'focus floating'")
     # can now speak the 2FA code
+
+reveal:
+    key(tab)
+    key(space)
+    key(tab:3)
+    key(right)
