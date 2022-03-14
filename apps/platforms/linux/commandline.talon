@@ -44,12 +44,12 @@ tag(): user.iptables
 #tag(): user.meson
 #tag(): user.kubectl
 
+# XXX - See generic_terminal.talon for some basics as well. 
+tag(): user.generic_unix_shell
+
 
 # Shell commands
 
-run last [command]:
-    key(up)
-    key(enter)
 run last script:
     insert("./")
     key(up)
@@ -77,15 +77,17 @@ kill all:
 
 file list: "ls "
 file bare list: "ls --no-icons "
-file (list here|lisa): "ls -l\n"
+#file (list here|lisa): "ls -l\n"
 file bare (list here|lisa): "ls -l --no-icons\n"
 file size: "ls -lh "
 file list long: "ls -al "
 file (list long here|lily): "ls -al\n"
-file list latest: "exa --sort latest --no-icons | tail -n1\n"
+file list latest: "exa --sort changed --no-icons | tail -n1\n"
+file list last <number>: "exa --sort changed --no-icons | tail -n{number}\n"
 file list folders: "ls -d */\n"
 file strings: "strings "
 file (tail|follow): "tail -f "
+file line count: "wc -l "
 
 # find command
 file find all links: "find . -maxdepth 1 -type l  -ls\n"
@@ -93,11 +95,11 @@ file find all folders: "find . -maxdepth 1 -type d  -ls\n"
 file fine all files: "find . -maxdepth 1 -type f  -ls\n"
 
 # TODO - revisit the grammar for $() commands
-call file latest: "$(exa --sort latest --no-icons | tail -n1)\n"
+call file latest: "$(exa --sort changed --no-icons | tail -n1)\n"
 
 # TODO - somehow make this scriptable to print anything
-file edit latest: "edit $(exa --sort latest --no-icons | tail -n1)\n"
-file latest: "$(exa --sort latest --no-icons | tail -n1)"
+file edit latest: "edit $(exa --sort changed --no-icons | tail -n1)\n"
+file latest: "$(exa --sort changed --no-icons | tail -n1)"
 file link: "ln -s "
 file link force: "ln -sf "
 file hard link: "ln "
@@ -109,6 +111,7 @@ file find excluding:
     user.insert_cursor("find . -type d '!' -exec sh -c 'ls -1 \"{}\"|egrep -i -q \"^*.[|]$\"' ';' -print")
 file move: "mv "
 file open: "vim "
+file P D F open: "evince "
 file touch: "touch "
 file copy: "cp "
 file deep copy: "cp -R "
@@ -117,7 +120,7 @@ file show <user.text>: "cat {text}"
 file show: "cat "
 file edit: insert("edit ")
 file edit here: insert("edit .\n")
-file remove: "rm -I "
+file (delete|remove): "rm -I "
 file safe remove all: "rm -i -- *"
 file real remove: "/bin/rm -I "
 file disk image copy: user.insert_cursor("dd bs=4M if=[|] of=/dev/sdX conv=fsync oflag=direct status=progress")
@@ -140,6 +143,7 @@ file [full] path: "readlink -f "
 
 file tree permission: "tree -pufid "
 
+folder tree permissions: user.insert_cursor('FILE=[|]; until [ "$FILE" = "/" ]; do ls -lda $FILE; FILE=`dirname $FILE` done')
 
 file edit read me: insert("edit README.md\n")
 file edit make file: insert("edit Makefile\n")
@@ -212,14 +216,14 @@ now less [that]:
     edit.up()
     insert("| less\n")
 
-clear [screen|page]: "clear\n"
-
 # piping
 pipe tea: "| tee "
 
 # grepping
 
+rip that: " | rg -i "
 file rip: "rg -i "
+file rip exclude: "rg -i -g \\!"
 file rip around: "rg -B2 -A2 -i "
 file rip (exact|precise): "rg "
 now rip:
@@ -311,6 +315,7 @@ find <user.text> inside (python|pie) files less:
 
 man page: "man "
 so do: "sudo "
+so do sue: "sudo su\n"
 so do that: 
     edit.line_start()
     insert("sudo ")
@@ -335,16 +340,18 @@ sis cuddle: "sysctl "
 sis cuddle set: "sysctl -w "
 
 # extraction
+file tar [ball] list: "tar -tf "
 file tar [ball] create: "tar -cvJf"
-file [tar] extract: "tar -xvaf "
+file [tar] [ball] extract: "tar -xvaf "
+file [tar] [ball] extract deb: "ar x "
 # https://github.com/facebook/zstd
 file extract Z S T: "tar --use-compress-program=unzstd -xvf "
-file unzip: "unzip "
+#favor 7z because it supports newer decryption mechanisms
+#file unzip: "unzip "
 file B unzip: "bunzip2 "
-file seven extract: "7z x "
-file seven list: "7z l "
-tar ball list: "tar -tf "
-(un zip|extract zip): "unzip "
+file (unzip|seven extract): "7z x "
+file (seven|zip) list: "7z l "
+file zip folder: "zip -re output.zip "
 
 # kernel modules
 module list: "lsmod\n"
@@ -367,6 +374,8 @@ run again:
     key(up enter)
 run vim: "vim "
 run make: "make\n"
+run clean and make: "make clean && make\n"
+run make clean: "make clean\n"
 run see make: "cmake "
 run configure make: "./configure && make\n"
 
@@ -420,7 +429,8 @@ tunnel terminate:
 # process management
 (process grep|pee grep): "pgrep "
 process list: "ps -ef\n"
-process filter list: "ps -ef | rg -i "
+process find: "ps -ef | rg -i "
+process tree: "pstree\n"
 process top: "htop\n"
 process fuzzy kill: "pkill {text}"
 process fuzzy kill <user.text>: "pkill {text}"
@@ -447,8 +457,9 @@ errors redirect: "2>&1 "
 errors ignore: "2>/dev/null"
 
 ###
-# Wallpaper
+# images
 ###
+image show: "feh "
 wallpaper set: "feh --bg-scale "
 wallpaper set latest: "feh --bg-scale $(find ~/images/wallpaper/ -name $(exa --sort latest --no-icons ~/images/wallpaper/ | tail -n1))\n"
 
@@ -467,6 +478,9 @@ elf symbols: "eu-readelf -s "
 python module: "python -m "
 python (activate|enter) [env|environment]: "source env/bin/activate\n"
 python (deactivate|leave) [env|environment]: "deactivate\n"
+
+python three eight env: "virtualenv -p python3.8 py38"
+python three nine env: "virtualenv -p python3.9 py39"
 
 
 ###
@@ -487,6 +501,23 @@ screen resolution: "xdpyinfo | awk '/dimensions/{{print $2}}'\n"
 arch source check out: "asp checkout "
 arch source export: "asp export "
 
+###
+# Kernel Tracing
+###
+kernel trace on: "echo 1 > /sys/kernel/tracing/tracing_on\n"
+kernel trace off: "echo 0 > /sys/kernel/tracing/tracing_on\n"
+kernel trace show: "cat /sys/kernel/tracing/trace\n"
+kernel trace functions: "echo function > /sys/kernel/tracing/current_tracer\n"
+# XXX -we may want this to shut off tracing first?
+
+
+###
+# Version stuff
+###
+(cis|system) I D: "id\n"
+(cis|system) user: "whoami\n"
+(cis|system) show kernel: "uname -a\n"
+(cis|system) show release: "cat /etc/lsb-release\n"
 
 ###
 # Namespaces
@@ -502,3 +533,16 @@ environment show: "echo $"
 
 # Custom utility stuff
 bat cache build: "bat cache --build\n"
+
+file P D F compress: "gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/ebook -dNOPAUSE -dQUIET -dBATCH -sOutputFile=output.pdf input.pdf"
+file P D F strip pages: "gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/ebook -dNOPAUSE -dQUIET -dBATCH -sOutputFile=output.pdf -dFirstPage=1 -dLastPage=1 input.pdf"
+
+###
+# Limits
+###
+
+limits show all: "ulimit -a\n"
+limits show files: "ulimit -f\n"
+limits show processes: "ulimit -u\n"
+limits show stack: "ulimit -s\n"
+limits show core: "ulimit -c\n"
