@@ -58,6 +58,8 @@ abbreviations = {
     "command": "cmd",
     "commands": "cmds",
     "comment": "cmt",
+    "communication": "comm",
+    "communications": "comms",
     "compare": "cmp",
     "condition": "cond",
     "conference": "conf",
