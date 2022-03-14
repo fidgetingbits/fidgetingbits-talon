@@ -406,12 +406,17 @@ core dump debug: "coredumpctl debug\n"
 #    insert(text or "")
 tunnel last:
     key(ctrl-r)
-    insert("ssh ")
+    insert("^ssh ")
+    key(enter)
+    key(enter)
+tunnel copy last:
+    key(ctrl-r)
+    insert("^scp ")
     key(enter)
     key(enter)
 
 secure shall key gen: "ssh-keygen -t ed25519\n"
-secure copy [<user.text>]:
+(tunnel|secure) copy [<user.text>]:
     insert("scp -r ")
     insert(text or "")
 show authorized keys: "vi ~/.ssh/authorized_keys\n"
