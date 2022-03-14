@@ -116,4 +116,4 @@ eagle: user.mouse_zoom_single_click()
 # auto relocate cursor to clicked location
 auto portal: user.mouse_zoom_auto_move_cursor()
 
-drift: user.mouse_zoom_drag()
+#drift: user.mouse_zoom_drag()
