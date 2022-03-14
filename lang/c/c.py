@@ -2,7 +2,7 @@ from talon import Context, Module, actions, app, settings
 
 mod = Module()
 mod.setting(
-    "use_stdint_datatypes ",
+    "use_stdint_datatypes",
     type=int,
     default=1,
     desc="Use the stdint datatype naming in commands by default",

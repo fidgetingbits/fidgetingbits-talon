@@ -73,7 +73,7 @@ declare <user.c_variable> <user.letter>:
 cast to <user.c_cast>: "{c_cast}"
 basic cast to <user.c_basic_cast>: "{c_basic_cast}"
 standard cast to <user.c_stdint_cast>: "{c_stdint_cast}"
-state <user.c_types>: "{c_types}"
+[state] type <user.c_types>: "{c_types}"
 <user.c_pointers>: "{c_pointers}"
 <user.c_signed>: "{c_signed}"
 basic <user.c_basic_types>: "{c_basic_types}"
@@ -107,6 +107,9 @@ state pre if block:
     key(up)
 
 state define new source: "#define _GNU_SOURCE"
+state go to label <user.text>:
+    user.code_private_variable_formatter(text)
+    key(":")
 
 ###
 # Documentation
