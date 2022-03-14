@@ -469,6 +469,8 @@ class Actions:
         ):
             if setting_mouse_enable_pop_click.get() >= 1:
                 ctrl.mouse_click(button=0, hold=16000)
+        else: 
+            eye_zoom_mouse.zoom_mouse.on_pop(True)
 
 
 def show_cursor_helper(show):
