@@ -38,7 +38,7 @@ setting_editor_names = mod.setting(
 def get_editor_names():
     names_csv = setting_editor_names.get()
     return names_csv.split(", ") if names_csv else default_names
-    
+
 
 
 @mod.scope
@@ -81,7 +81,7 @@ class Actions:
         actions.app.tab_open()
         if selected_text != "":
             actions.user.paste(selected_text)
-        add_tag("user.draft_editor_active")        
+        add_tag("user.draft_editor_active") 
 
     def draft_editor_submit():
         """Submit/save draft editor"""
@@ -98,6 +98,15 @@ def get_editor_app() -> ui.App:
     for app in ui.apps(background=False):
         if app.name in editor_names:
             return app
+
+    actions.user.system_command("code")
+    while True:
+        actions.sleep("500ms")
+
+        for app in ui.apps(background=False):
+            if app.name in editor_names:
+                return app
+
 
     raise RuntimeError("Draft editor is not running")
 

@@ -122,6 +122,17 @@ settings():
     user.debug_default_architecture = "x64"
     user.debug_default_hexdump_count = 256
 
+    ###
+    # C
+    ###
+    user.use_stdint_datatypes = 1
+
+    ###
+    # Draft Editor
+    ###
+    user.draft_editor = "Code"
+
+
 # uncomment tag to enable mouse grid
 # tag(): user.mouse_grid_enabled
 
