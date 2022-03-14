@@ -35,6 +35,9 @@ fuzz file types: user.vim_command_mode_exterm(':exe ":Filetypes"\n')
 # Files under current directory
 
 hunt (file|files): user.vim_command_mode_exterm(':exe ":Files"\n')
+hunt (file|files) <user.text>: 
+    user.vim_command_mode_exterm(':exe ":Files"\n')
+    insert(text)
 
 fuzz git files: user.vim_command_mode_exterm(':exe ":GFiles"\n')
 fuzz git status: user.vim_command_mode_exterm(':exe ":GFiles?"\n')
