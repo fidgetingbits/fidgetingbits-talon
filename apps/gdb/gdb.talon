@@ -40,9 +40,14 @@ list [source]: "list\n"
 list (base|P C): "list $pc\n"
 
 print: "p "
-print [variable] <user.text>: "p {text}"
+print (var|variable) <user.text>: 
+    insert("p ")
+    insert(user.formatted_text(text, "snake"))
+
 print hex: "p/x "
-print hex [variable] <user.text>: "p/x {text}"
+print hex (var|variable) <user.text>:
+    insert("p/x ")
+    insert(user.formatted_text(text, "snake"))
 print string: "p/s "
 print (bits|binary): "p/t "
 
@@ -142,11 +147,15 @@ set list size <number_small>: "set listsize {number_small}\n"
 
 set remote target: "target extended-remote :9999\n"
 
-print structure size: 
+print size of:
     insert("p/x sizeof()")
     edit.left()
 
-print structure size clip: 
+print (struct|structure) size: 
+    insert("p/x sizeof(struct )")
+    edit.left()
+
+print (struct|structure) size clip: 
     insert("p/x sizeof(")
     edit.paste()
     key(")")
