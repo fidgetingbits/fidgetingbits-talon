@@ -21,6 +21,7 @@ _file_extensions_defaults = {
     "dot config": ".config",
     "dot com": ".com",
     "dot comma": ".csv",
+    "dot C S V": ".csv",
     "dot database": ".db",
     "dot deb": ".deb",
     "dot debug": ".debug",
