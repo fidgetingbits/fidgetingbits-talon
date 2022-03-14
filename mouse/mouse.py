@@ -452,7 +452,6 @@ class Actions:
         rect = ui.active_window().rect
         ctrl.mouse_move(rect.left + (rect.width / 2), rect.top + (rect.height / 2))
 
-
     def mouse():
         """An abstracted generic mouse click for using with pop
 
@@ -461,7 +460,9 @@ class Actions:
          - If zoom is disabled, we allow pop to click even if there is no tracker.
          - If zoom is enabled and tracker is connected, zoom click
         """
-        if setting_mouse_enable_pop_stops_scroll.get() >= 1 and (gaze_job or scroll_job):
+        if setting_mouse_enable_pop_stops_scroll.get() >= 1 and (
+            gaze_job or scroll_job
+        ):
             stop_scroll()
         elif (
             not eye_zoom_mouse.zoom_mouse.enabled
@@ -469,7 +470,7 @@ class Actions:
         ):
             if setting_mouse_enable_pop_click.get() >= 1:
                 ctrl.mouse_click(button=0, hold=16000)
-        else: 
+        else:
             eye_zoom_mouse.zoom_mouse.on_pop(True)
 
 
