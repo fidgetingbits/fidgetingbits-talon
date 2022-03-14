@@ -141,6 +141,8 @@ file check sec: "checksec --file="
 file locate: "locate "
 file [full] path: "readlink -f "
 
+loop for file: insert("for FILE in $(exa --no-icons); do echo ${{FILE}}; done")
+
 file tree permission: "tree -pufid "
 
 folder tree permissions: user.insert_cursor('FILE=[|]; until [ "$FILE" = "/" ]; do ls -lda $FILE; FILE=`dirname $FILE` done')
@@ -406,11 +408,13 @@ core dump debug: "coredumpctl debug\n"
 #    insert(text or "")
 tunnel last:
     key(ctrl-r)
+    sleep(500ms)
     insert("^ssh ")
     key(enter)
     key(enter)
 tunnel copy last:
     key(ctrl-r)
+    sleep(500ms)
     insert("^scp ")
     key(enter)
     key(enter)
