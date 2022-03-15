@@ -102,7 +102,7 @@ next scratch:
 # these rely on the user settings for the mod key. see i3wm.py Actions class
 launch: user.i3wm_launch()
 launch desktop:
-    user.system_command("rofi -show drun")
+    user.system_command_nb("rofi -show drun")
 launch <user.text>:
         user.i3wm_launch()
         sleep(100ms)
