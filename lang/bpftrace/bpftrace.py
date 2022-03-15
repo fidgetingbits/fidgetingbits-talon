@@ -24,6 +24,7 @@ ctx.lists["self.bpftrace_pointers"] = {
     "pointer to pointer": "**",
 }
 ctx.lists["user.bpftrace_types"] = {
+    "struck": "struct",
     "short": "int16",
     "integer": "int32",
     "int": "int32",
