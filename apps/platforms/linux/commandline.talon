@@ -380,6 +380,7 @@ run clean and make: "make clean && make\n"
 run make clean: "make clean\n"
 run see make: "cmake "
 run configure make: "./configure && make\n"
+run B P F trace: "bpftrace "
 
 sub command:
     insert("$()")
@@ -441,7 +442,7 @@ process list: "ps -ef\n"
 process find: "ps -ef | rg -i "
 process tree: "pstree\n"
 process top: "htop\n"
-process fuzzy kill: "pkill {text}"
+process fuzzy kill: "pkill "
 process fuzzy kill <user.text>: "pkill {text}"
 process loop kill: 
     user.insert_cursor("for PID in $(ps -ef | grep [|] | grep -v grep | awk '{{print $2}}'); do kill -9 $PID 2>/dev/null; done")
@@ -555,3 +556,4 @@ limits show files: "ulimit -f\n"
 limits show processes: "ulimit -u\n"
 limits show stack: "ulimit -s\n"
 limits show core: "ulimit -c\n"
+
