@@ -12,6 +12,7 @@ mod = Module()
 
 mod.list("bpftrace_pointers", desc="Common bpftrace pointers")
 mod.list("bpftrace_types", desc="Common bpftrace types")
+mod.list("bpftrace_probes", desc="Common bpftrace probe types")
 mod.list("bpftrace_signed", desc="A list of default bpftrace signed to operators")
 
 ctx.lists["user.bpftrace_signed"] = {
@@ -63,13 +64,36 @@ ctx.lists["user.code_functions"] = {
     "mac adder": "macaddr",
 }
 
-@mod.capture(rule="[{user.bpftrace_signed}] {user.bpftrace_types} [{self.bpftrace_pointers}+]")
+ctx.lists["user.bpftrace_probes"] = {
+    "trace point": "tracepoint",
+    "user defined": "usdt",
+    "K probe": "kprobe",
+    "K ret probe": "kretprobe",
+    "K funk": "kfunc",
+    "K ret funk": "kretfunc",
+    "U probe": "uprobe",
+    "U ret probe": "uretprobe",
+    "software": "software",
+    "hardware": "hardware",
+    "watch point": "watchpoint",
+    "profile": "profile",
+    "interval": "interval",
+    "iterate": "iter",
+    "begin": "BEGIN",
+    "end": "END",
+}
+
+
+@mod.capture(
+    rule="[{user.bpftrace_signed}] {user.bpftrace_types} [{self.bpftrace_pointers}+]"
+)
 def bpftrace_types(m) -> str:
     "Returns a string"
     if hasattr(m, "bpftrace_signed") and len(m.bpftrace_signed) == 1:
         return m.bpftrace_signed + " ".join(list(m[1:]))
     else:
         return " ".join(list(m))
+
 
 @mod.capture(rule="[<user.c_signed>] <user.c_types> [<self.c_pointers>+]")
 def c_cast(m) -> str:
@@ -96,5 +120,3 @@ class UserActions:
 
     def code_operator_decrement():
         actions.auto_insert("--")
-
-
