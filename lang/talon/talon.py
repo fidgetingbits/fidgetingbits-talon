@@ -37,6 +37,9 @@ ctx.lists["user.code_functions"] = {
     "key": "key",
     "print": "print",
     "repeat": "repeat",
+    "system command": "user.system_command",
+    "system command no block": "user.system_command_nb",
+    "insert between": "user.insert_between",
 }
 
 
