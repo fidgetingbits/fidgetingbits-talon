@@ -14,6 +14,7 @@ mod.list("bpftrace_pointers", desc="Common bpftrace pointers")
 mod.list("bpftrace_types", desc="Common bpftrace types")
 mod.list("bpftrace_probes", desc="Common bpftrace probe types")
 mod.list("bpftrace_signed", desc="A list of default bpftrace signed to operators")
+mod.list("bpftrace_builtins", desc="A list of default bpftrace builtin variables")
 
 ctx.lists["user.bpftrace_signed"] = {
     "un signed": "u",
@@ -65,6 +66,29 @@ ctx.lists["user.code_functions"] = {
     "mac adder": "macaddr",
 }
 
+# https://github.com/iovisor/bpftrace/blob/master/docs/reference_guide.md#1-builtins
+ctx.lists["user.bpftrace_builtins"] = {
+    "process": "pid",
+    "thread": "pid",
+    "you I D": "uid",
+    "G I D": "gid",
+    "seconds": "nsecs",
+    "elapsed": "elapsed",
+    "C P U": "cpu",
+    "calm": "comm",
+    "K stack": "kstack",
+    "U stack": "ustack",
+    "arg": "arg",
+    "stack arg": "sarg",
+    "ret val": "retval",
+    "funk": "func",
+    "probe": "probe",
+    "current": "curtask",
+    "see group": "cgroup",
+    "see pit": "cpid",
+}
+
+# https://github.com/iovisor/bpftrace/blob/master/docs/reference_guide.md#probes
 ctx.lists["user.bpftrace_probes"] = {
     "trace point": "tracepoint",
     "user defined": "usdt",

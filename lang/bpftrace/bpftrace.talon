@@ -44,3 +44,5 @@ probe {user.bpftrace_probes}: "{user.bpftrace_probes}:"
 state filter: 
     insert("//")
     edit.left()
+
+global {user.bpftrace_builtins}: "{user.bpftrace_builtins}"
