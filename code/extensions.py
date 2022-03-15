@@ -5,7 +5,7 @@ mod = Module()
 mod.list("file_extension", desc="A file extension, such as .py")
 
 _file_extensions_defaults = {
-    "dot B T": ".bt",
+    "dot bee tea": ".bt",
     "dot build": ".build",
     "dot back": ".bak",
     "dot backup": ".bkp",
@@ -15,7 +15,7 @@ _file_extensions_defaults = {
     "dot bend": ".bin",
     "dot bit map": ".bmp",
     "dot bump": ".bmp",
-    "dot B Z": ".bz2",
+    "dot B Z two": ".bz2",
     "dot B zip": ".bz2",
     "dot C G I": ".cgi",
     "dot conf": ".conf",
@@ -81,6 +81,7 @@ _file_extensions_defaults = {
     "dot S O": ".so",
     "dot so": ".so",
     "dot socket": ".socket",
+    "dot S T P": ".stp",
     "dot talon": ".talon",
     "dot tar": ".tar",
     "dot tar G Z": ".tar.gz",
