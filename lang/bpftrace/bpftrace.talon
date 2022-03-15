@@ -40,3 +40,7 @@ cast to <user.bpftrace_cast>: "{bpftrace_cast}"
 <user.bpftrace_pointers>: "{bpftrace_pointers}"
 <user.bpftrace_signed>: "{bpftrace_signed}"
 probe {user.bpftrace_probes}: "{user.bpftrace_probes}:"
+
+state filter: 
+    insert("//")
+    edit.left()

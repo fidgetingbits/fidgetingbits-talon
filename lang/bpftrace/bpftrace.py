@@ -81,6 +81,7 @@ ctx.lists["user.bpftrace_probes"] = {
     "iterate": "iter",
     "begin": "BEGIN",
     "end": "END",
+    # XXX - this is still missing map modification methods
 }
 
 
@@ -103,15 +104,15 @@ def c_cast(m) -> str:
 
 @ctx.action_class("user")
 class UserActions:
-    ##
+    ###
     # code_operators_pointers
-    ##
+    ###
     def code_operator_indirection():
         actions.auto_insert("*")
 
-    ##
+    ###
     # code_operators_assignment
-    ##
+    ###
     def code_operator_assignment():
         actions.auto_insert(" = ")
 
@@ -120,3 +121,79 @@ class UserActions:
 
     def code_operator_decrement():
         actions.auto_insert("--")
+
+    ##
+    # code_operators_math
+    ##
+    def code_operator_subtraction():
+        actions.insert(" - ")
+
+    def code_operator_addition():
+        actions.insert(" + ")
+
+    def code_operator_multiplication():
+        actions.insert(" * ")
+
+    def code_operator_division():
+        actions.insert(" / ")
+
+    def code_operator_modulo():
+        actions.insert(" % ")
+
+    def code_operator_equal():
+        actions.insert(" == ")
+
+    def code_operator_not_equal():
+        actions.insert(" != ")
+
+    def code_operator_greater_than():
+        actions.insert(" > ")
+
+    def code_operator_greater_than_or_equal_to():
+        actions.insert(" >= ")
+
+    def code_operator_less_than():
+        actions.insert(" < ")
+
+    def code_operator_less_than_or_equal_to():
+        actions.insert(" <= ")
+
+    ###
+    # code_functions
+    ###
+    def code_insert_function(text: str, selection: str):
+        if selection:
+            text = text + "({})".format(selection)
+        else:
+            text = text + "()"
+
+        actions.user.paste(text)
+        actions.edit.left()
+
+    ###
+    # code_comment_line
+    ###
+    def code_comment_line_prefix():
+        actions.auto_insert("//")
+
+    ###
+    # code_imperative
+    ###
+    def code_state_if():
+        actions.insert("if () {\n}\n")
+        actions.key("up:2 left:3")
+
+    def code_state_else_if():
+        actions.insert("else if () {\n}\n")
+        actions.key("up:2 left:3")
+
+    def code_state_else():
+        actions.insert("else\n{\n}\n")
+        actions.key("up:2")
+
+    def code_state_for():
+        actions.auto_insert("for ")
+
+    def code_state_while():
+        actions.insert("while ()")
+        actions.edit.left()
