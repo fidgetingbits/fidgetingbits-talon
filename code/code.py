@@ -7,6 +7,7 @@ key = actions.key
 extension_lang_map = {
     ".asm": "assembly",
     ".bat": "batch",
+    ".bt": "bpftrace",
     ".c": "c",
     ".cmake": "cmake",
     ".codeql": "ql",
@@ -68,6 +69,7 @@ special_file_map = {
     ".zshrc": "zsh",
 }
 
+
 @ctx.action_class("code")
 class code_actions:
     def language():
@@ -85,17 +87,20 @@ class code_actions:
         if file_extension and file_extension in extension_lang_map:
             return extension_lang_map[file_extension]
 
+
 # create a mode for each defined language
 for d in (extension_lang_map, special_file_map):
     for __, lang in d.items():
         mod.mode(lang)
         mod.tag(lang)
 
-# Create a mode for the automated language detection. This is active when no lang is forced.
+# Create a mode for the automated language detection. This is active when no
+# lang is forced.
 mod.mode("auto_lang")
 
 # Auto lang is enabled by default
 app.register("ready", lambda: actions.user.code_clear_language_mode())
+
 
 @mod.action_class
 class Actions:
