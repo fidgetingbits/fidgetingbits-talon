@@ -108,50 +108,50 @@ class UserActions:
     # code_imperative
     ##
     def code_state_if():
-        actions.auto_insert("if  then\n\nend")
+        actions.insert("if  then\n\nend")
         actions.key("up:2")
 
     def code_state_else_if():
-        actions.auto_insert("elseif  then\n")
+        actions.insert("elseif  then\n")
         actions.key("up:1 right:3")
 
     def code_state_else():
-        actions.auto_insert("else\n")
+        actions.insert("else\n")
 
     def code_state_do():
-        actions.auto_insert("repeat\n\nuntil ")
+        actions.insert("repeat\n\nuntil ")
         actions.key("up:1")
 
     def code_state_for():
-        actions.auto_insert("for  do\n\nend")
+        actions.insert("for  do\n\nend")
         actions.key("up:2 right:1")
 
     def code_state_go_to():
-        actions.auto_insert("goto ")
+        actions.insert("goto ")
 
     def code_state_while():
-        actions.auto_insert("while  do\n\nend")
+        actions.insert("while  do\n\nend")
         actions.key("up:2 right:3")
 
     def code_state_return():
-        actions.auto_insert("return ")
+        actions.insert("return ")
 
     def code_state_break():
-        actions.auto_insert("break ")
+        actions.insert("break ")
 
     # Assumes a ::continue:: label
     def code_state_continue():
-        actions.auto_insert("goto continue")
+        actions.insert("goto continue")
 
     def code_try_catch():
-        actions.auto_insert("pcall()")
+        actions.insert("pcall()")
         actions.key("left")
 
     ##
     # code_comment_line
     ##
     def code_comment_line_prefix():
-        actions.auto_insert("--")
+        actions.insert("--")
 
     ##
     # code_comment_block
@@ -161,31 +161,31 @@ class UserActions:
         actions.edit.up()
 
     def code_comment_block_prefix():
-        actions.auto_insert("--[[")
+        actions.insert("--[[")
 
     def code_comment_block_suffix():
-        actions.auto_insert("--]]")
+        actions.insert("--]]")
 
     ##
     # code_data_bool
     ##
     def code_insert_true():
-        actions.auto_insert("true")
+        actions.insert("true")
 
     def code_insert_false():
-        actions.auto_insert("false")
+        actions.insert("false")
 
     ##
     # code_data_null
     ##
     def code_insert_null():
-        actions.auto_insert("nil")
+        actions.insert("nil")
 
     def code_insert_is_null():
-        actions.auto_insert("== nil")
+        actions.insert("== nil")
 
     def code_insert_is_not_null():
-        actions.auto_insert("~= nil")
+        actions.insert("~= nil")
 
     ##
     # code_functions
@@ -198,7 +198,7 @@ class UserActions:
             )
         )
 
-        actions.auto_insert("\n\nend")
+        actions.insert("\n\nend")
         actions.key("up:2")
         actions.user.code_insert_function(result, None)
 
@@ -210,7 +210,7 @@ class UserActions:
             )
         )
 
-        actions.auto_insert("\n\nend")
+        actions.insert("\n\nend")
         actions.key("up:2")
         actions.user.code_insert_function(result, None)
 
@@ -237,63 +237,63 @@ class UserActions:
     # code_libraries_gui
     ##
     def code_insert_library(text: str, selection: str):
-        actions.auto_insert(f"local {selection} = require('{selection}')")
+        actions.insert(f"local {selection} = require('{selection}')")
 
     ##
     # code_operators_array
     ##
     def code_operator_subscript():
-        actions.auto_insert('[]')
+        actions.insert('[]')
         actions.key('left')
 
     ##
     # code_operators_assignment
     ##
     def code_operator_assignment():
-        actions.auto_insert(" = ")
+        actions.insert(" = ")
 
     ##
     # code_operators_math
     ##
     def code_operator_subtraction():
-        actions.auto_insert(" - ")
+        actions.insert(" - ")
 
     def code_operator_addition():
-        actions.auto_insert(" + ")
+        actions.insert(" + ")
 
     def code_operator_multiplication():
-        actions.auto_insert(" * ")
+        actions.insert(" * ")
 
     # action(user.code_operator_exponent): " ** "
     def code_operator_division():
-        actions.auto_insert(" / ")
+        actions.insert(" / ")
 
     def code_operator_modulo():
-        actions.auto_insert(" % ")
+        actions.insert(" % ")
 
     def code_operator_equal():
-        actions.auto_insert(" == ")
+        actions.insert(" == ")
 
     def code_operator_not_equal():
-        actions.auto_insert(" ~= ")
+        actions.insert(" ~= ")
 
     def code_operator_greater_than():
-        actions.auto_insert(" > ")
+        actions.insert(" > ")
 
     def code_operator_greater_than_or_equal_to():
-        actions.auto_insert(" >= ")
+        actions.insert(" >= ")
 
     def code_operator_less_than():
-        actions.auto_insert(" < ")
+        actions.insert(" < ")
 
     def code_operator_less_than_or_equal_to():
-        actions.auto_insert(" <= ")
+        actions.insert(" <= ")
 
     def code_operator_and():
-        actions.auto_insert(" and ")
+        actions.insert(" and ")
 
     def code_operator_or():
-        actions.auto_insert(" or ")
+        actions.insert(" or ")
 
     # code_operators_bitwise
     # NOTE: < 5.3 assumes Lua BitOp usage
@@ -302,32 +302,32 @@ class UserActions:
     # includes bit32. Neovim uses luajit, which uses Lua BitOp
     def code_operator_bitwise_and():
         if settings.get("user.lua_version") > 5.2:
-            actions.auto_insert(" & ")
+            actions.insert(" & ")
         else:
-            actions.auto_insert(" bit.band() ")
+            actions.insert(" bit.band() ")
 
     def code_operator_bitwise_or():
         if settings.get("user.lua_version") > 5.2:
-            actions.auto_insert(" | ")
+            actions.insert(" | ")
         else:
-            actions.auto_insert(" bit.bor() ")
+            actions.insert(" bit.bor() ")
 
     def code_operator_bitwise_exclusive_or():
         if settings.get("user.lua_version") > 5.2:
-            actions.auto_insert(" ~ ")
+            actions.insert(" ~ ")
         else:
-            actions.auto_insert(" bit.xor() ")
+            actions.insert(" bit.xor() ")
 
     def code_operator_bitwise_left_shift():
         if settings.get("user.lua_version") > 5.2:
-            actions.auto_insert(" << ")
+            actions.insert(" << ")
         else:
-            actions.auto_insert(" bit.lshift() ")
+            actions.insert(" bit.lshift() ")
 
     def code_operator_bitwise_right_shift():
         if settings.get("user.lua_version") > 5.2:
-            actions.auto_insert(" >> ")
+            actions.insert(" >> ")
         else:
-            actions.auto_insert(" bit.rshift() ")
+            actions.insert(" bit.rshift() ")
 
     # non-tag related actions
