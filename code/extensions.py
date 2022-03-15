@@ -5,6 +5,7 @@ mod = Module()
 mod.list("file_extension", desc="A file extension, such as .py")
 
 _file_extensions_defaults = {
+    "dot B T": ".bt",
     "dot build": ".build",
     "dot back": ".bak",
     "dot backup": ".bkp",

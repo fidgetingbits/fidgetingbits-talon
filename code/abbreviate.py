@@ -40,6 +40,7 @@ abbreviations = {
     "block": "blk",
     "boolean": "bool",
     "B P F": "ebpf",
+    "B P F trace": "bpftrace",
     "break point": "bp",
     "break points": "bps",
     "british columbia": "bc",
