@@ -40,9 +40,22 @@ cast to <user.bpftrace_cast>: "{bpftrace_cast}"
 <user.bpftrace_pointers>: "{bpftrace_pointers}"
 <user.bpftrace_signed>: "{bpftrace_signed}"
 probe {user.bpftrace_probes}: "{user.bpftrace_probes}:"
+state array:
+    insert("@[]")
+    edit.left()
+state global: "@"
+state local: "$"
+state define: "#define "
+state include system:
+    insert('#include <>')
+    edit.left()
 
 state filter: 
     insert("//")
     edit.left()
 
-global {user.bpftrace_builtins}: "{user.bpftrace_builtins}"
+state filter {user.bpftrace_builtins}: 
+    insert("/{bpftrace_builtins} /")
+    edit.left()
+
+global {user.bpftrace_builtins}: "{bpftrace_builtins}"

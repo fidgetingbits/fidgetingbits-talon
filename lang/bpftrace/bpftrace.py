@@ -85,6 +85,7 @@ ctx.lists["user.bpftrace_builtins"] = {
     "process": "pid",
     "pid": "pid",
     "thread": "tid",
+    "tid": "tid",
     "you I D": "uid",
     "G I D": "gid",
     "seconds": "nsecs",
