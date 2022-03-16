@@ -58,21 +58,37 @@ ctx.lists["user.code_functions"] = {
     "override": "override",
     "buf": "buf",
     "size of": "sizeof",
-    "print": "print",
     "stir F time": "strftime",
     "path": "path",
     "you pointer": "uptr",
     "K pointer": "kptr",
     "mac adder": "macaddr",
+
+    # map functions
+    # https://github.com/iovisor/bpftrace/blob/master/docs/reference_guide.md#map-functions
+    "count": "count",
+    "some": "sum",
+    "average": "avg",
+    "min": "min",
+    "max": "max",
+    "stats": "stats",
+    "hist": "hist",
+    "L hist": "lhist",
+    "delete": "delete",
+    "print": "print",
+    "clear": "clear",
+    "zero": "zero",
 }
 
 # https://github.com/iovisor/bpftrace/blob/master/docs/reference_guide.md#1-builtins
 ctx.lists["user.bpftrace_builtins"] = {
     "process": "pid",
-    "thread": "pid",
+    "pid": "pid",
+    "thread": "tid",
     "you I D": "uid",
     "G I D": "gid",
     "seconds": "nsecs",
+    "N sex": "nsecs",
     "elapsed": "elapsed",
     "C P U": "cpu",
     "calm": "comm",
@@ -222,3 +238,38 @@ class UserActions:
     def code_state_while():
         actions.insert("while ()")
         actions.edit.left()
+
+    ###
+    # code_operator_bitwise
+    ###
+    def code_operator_bitwise_and():
+        actions.auto_insert(" & ")
+
+    def code_operator_bitwise_and_assignment():
+        actions.auto_insert(" &= ")
+
+    def code_operator_bitwise_or():
+        actions.auto_insert(" | ")
+
+    def code_operator_bitwise_or_assignment():
+        actions.auto_insert(" |= ")
+
+    def code_operator_bitwise_exclusive_or():
+        actions.auto_insert(" ^ ")
+
+    def code_operator_bitwise_exclusive_or_assignment():
+        actions.auto_insert(" ^= ")
+
+    def code_operator_bitwise_left_shift():
+        actions.auto_insert(" << ")
+
+    def code_operator_bitwise_left_shift_assignment():
+        actions.auto_insert(" <<= ")
+
+    def code_operator_bitwise_right_shift():
+        actions.auto_insert(" >> ")
+
+    def code_operator_bitwise_right_shift_assignment():
+        actions.auto_insert(" >>= ")
+
+
