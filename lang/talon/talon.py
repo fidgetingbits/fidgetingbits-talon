@@ -40,6 +40,11 @@ ctx.lists["user.code_functions"] = {
     "system command": "user.system_command",
     "system command no block": "user.system_command_nb",
     "insert between": "user.insert_between",
+    "paste": "edit.paste",
+    "left": "edit.left",
+    "right": "edit.right",
+    "up": "edit.up",
+    "down": "edit.down",
 }
 
 
