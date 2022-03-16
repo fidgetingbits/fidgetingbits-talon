@@ -219,7 +219,7 @@ now less [that]:
     insert("| less\n")
 
 # piping
-pipe tea: "| tee "
+tea that: "| tee "
 
 # grepping
 
@@ -557,3 +557,9 @@ limits show processes: "ulimit -u\n"
 limits show stack: "ulimit -s\n"
 limits show core: "ulimit -c\n"
 
+###
+# Sorting
+###
+file sort column [<user.number_string>]: 
+    insert("sort -k ")
+    insert(number_string or "")
