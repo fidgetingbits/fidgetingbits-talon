@@ -129,6 +129,10 @@ matching <user.symbol_key>: user.vim_any_motion_mode("f{symbol_key}%")
 # ctags/symbol
 taggy jump: user.vim_normal_mode_key("ctrl-]")
 taggy back: user.vim_normal_mode_key("ctrl-t")
+taggy that:
+    user.vim_command_mode(":tag ")
+    edit.paste()
+    key(enter)
 
 ###
 # Text editing, copying, and manipulation
