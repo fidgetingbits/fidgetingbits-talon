@@ -1334,7 +1334,7 @@ class VimMode:
                 if wanted == "n" and active_mode in self.vim_normal_mode_indicators:
                     return True
 
-                logger.debug(
+                self.debug_print(
                     "Wanted mode: %s vs Current mode: %s" % (wanted, active_mode)
                 )
                 # XXX - for wait value should be configurable
@@ -1344,8 +1344,10 @@ class VimMode:
                 check_count += 1
                 if check_count > max_check_count:
                     # prevent occasional infinite loops stalling talon
-                    logger.debug("early break to avoid infinite loop")
+                    self.debug_print("early break to avoid infinite loop")
                     return False
+                active_mode = self.nvrpc.get_active_mode()["mode"]
+
             return True
         else:
             time.sleep(self.wait_mode_timeout)
