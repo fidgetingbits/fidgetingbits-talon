@@ -115,7 +115,7 @@ file P D F open: "evince "
 file touch: "touch "
 file copy: "cp "
 file deep copy: "cp -R "
-file type: "file "
+file (file|info|type): "file "
 file show <user.text>: "cat {text}"
 file show: "cat "
 file edit: insert("edit ")
@@ -317,6 +317,7 @@ find <user.text> inside (python|pie) files less:
 
 man page: "man "
 so do: "sudo "
+so do with (env|environment): "sudo -E "
 so do sue: "sudo su\n"
 so do that: 
     edit.line_start()
