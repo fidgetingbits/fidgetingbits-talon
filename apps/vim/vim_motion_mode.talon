@@ -133,6 +133,8 @@ taggy that:
     user.vim_command_mode(":tag ")
     edit.paste()
     key(enter)
+jump tag:
+    user.vim_command_mode(":tag ")
 
 ###
 # Text editing, copying, and manipulation
