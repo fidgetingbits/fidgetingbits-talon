@@ -259,6 +259,7 @@ abbreviations = {
     "process": "proc",
     "processor": "cpu",
     "program": "prog",
+    "programs": "progs",
     "property": "prop",
     "protocol": "proto",
     "public": "pub",
