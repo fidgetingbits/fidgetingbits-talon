@@ -128,7 +128,7 @@ settings():
     user.vim_use_rpc = 1
 
     # Adds debug output to the talon log
-    user.vim_debug = 1
+    user.vim_debug = 0
 
 
 ###
@@ -472,23 +472,23 @@ buffer (end diff|compare):
 ###
 
 # `misc/tab.talon` versions
-[go] tab <number_small>: user.vim_normal_mode_exterm("{number_small}gt")
+[go] tabby <number_small>: user.vim_normal_mode_exterm("{number_small}gt")
 
 
-(list|show) tabs: user.vim_command_mode(":tabs\n")
+tabby list: user.vim_command_mode(":tabs\n")
 
 # XXX - overlaps with the user.tabs stuff
-[go] tab (next|right): user.vim_command_mode_exterm(":tabnext\n")
-[go] tab (left|prev|previous): user.vim_command_mode_exterm(":tabprevious\n")
-[go] tab first: user.vim_command_mode_exterm(":tabfirst\n")
-[go] tab last: user.vim_command_mode_exterm(":tablast\n")
-[go] tab flip: user.vim_normal_mode_exterm("g\t")
-tab edit: user.vim_command_mode_exterm(":tabedit ")
-tab move right: user.vim_command_mode_exterm(":tabm +\n")
-tab move left: user.vim_command_mode_exterm(":tabm -\n")
+[go] tabby (next|right): user.vim_command_mode_exterm(":tabnext\n")
+[go] tabby (left|prev|previous): user.vim_command_mode_exterm(":tabprevious\n")
+[go] tabby first: user.vim_command_mode_exterm(":tabfirst\n")
+[go] tabby last: user.vim_command_mode_exterm(":tablast\n")
+[go] tabby flip: user.vim_normal_mode_exterm("g\t")
+tabby edit: user.vim_command_mode_exterm(":tabedit ")
+tabby move right: user.vim_command_mode_exterm(":tabm +\n")
+tabby move left: user.vim_command_mode_exterm(":tabm -\n")
 edit (buf|buffer) <number_small> [in] new tab: user.vim_command_mode_exterm(":tabnew #{number_small}\n")
 
-[new] tab terminal: user.vim_command_mode_exterm(":tabe term://bash\n")
+[new] tabby terminal: user.vim_command_mode_exterm(":tabe term://bash\n")
 
 ###
 # Settings
@@ -616,8 +616,7 @@ search:
     user.vim_any_motion_mode_exterm("/\\c")
 
 # case sensitive search
-seek:
-    key(escape)
+search exact:
     user.vim_any_motion_mode_exterm("/\\C")
 
 #search <user.text>$:
@@ -636,7 +635,7 @@ seek:
 search (reversed|reverse):
     user.vim_any_motion_mode_exterm("?\\c")
 
-seek (reversed|reverse):
+search exact (reversed|reverse):
     user.vim_any_motion_mode_exterm("?\\C")
 
 
