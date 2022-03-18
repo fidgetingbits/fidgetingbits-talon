@@ -118,10 +118,9 @@ def populate_shell_tags(shell_command, window_title):
     if shell_command in shell_tags:
         if isinstance(shell_tags[shell_command], list):
             ctx.tags = shell_tags[shell_command]
-            # print(ctx.tags)
+            print(ctx.tags)
         else:
             ctx.tags = [shell_tags[shell_command]]
-            # print(ctx.tags)
     else:
         found_fuzzy = False
         for tag in fuzzy_shell_tags:
@@ -130,19 +129,16 @@ def populate_shell_tags(shell_command, window_title):
                 ctx.tags = [fuzzy_shell_tags[tag]]
                 found_fuzzy = True
                 break
-        # XXX - sometimes I need to match on a much larger command than just
-        # the first shell command, for now I do it on the entire window
-        # title... best would probably to be have something like CMD:
-        # eventually followed by something else so we can difference, since we
-        # don't really need to parse the (term:) part and beyond...
+
         for expression in regex_shell_tags:
+            m = re.match(expression, shell_command)
+            if m is not None:
+                ctx.tags = [regex_shell_tags[expression]]
+                break
             m = re.match(expression, window_title)
             if m is not None:
                 ctx.tags = [regex_shell_tags[expression]]
-
-        # ctx.tags = ["terminal"]
-
-
+                break
 #        if not found_fuzzy:
 #            print(f"WARNING: missing tag for shell cmd: {shell_command}")
 #            print(f"WARNING: consider updating vim_terminal.py: {shell_command}")
