@@ -14,7 +14,7 @@ mod = Module()
 class Actions:
     def pop():
         """pop action overrideable by contexts"""
-        print("noise.py pop()")
+#        print("noise.py pop()")
         actions.user.mouse()
 
     def pop_quick_action_clear():
@@ -93,11 +93,11 @@ def on_pop(active):
     # commands enabled...
     if actions.speech.enabled():
         if pop_quick_action is None:
-            print("noise.py on_pop()")
+#            print("noise.py on_pop()")
             actions.user.pop()
         else:
             actions.user.pop_quick_action_run()
-            print("quick action")
+ #           print("quick action")
 
 
 hiss_quick_action = None
