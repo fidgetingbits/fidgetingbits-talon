@@ -564,3 +564,6 @@ limits show core: "ulimit -c\n"
 file sort column [<user.number_string>]: 
     insert("sort -k ")
     insert(number_string or "")
+
+run B P F trace: 
+    user.insert_cursor("sudo BPFTRACE_PERF_RB_PAGES=256 bpftrace [|].bt | tee trace.log")
