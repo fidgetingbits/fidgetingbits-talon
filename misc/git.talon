@@ -23,6 +23,7 @@ git checkout <number_small> before clip:
     edit.paste()
     key("^:{number_small}")
     key(enter)
+git check ignore: "git check-ignore -v " 
 git cherry pick: "git cherry-pick "
 git cherry pick continue: "git cherry-pick --continue "
 git cherry pick abort: "git cherry-pick --abort "
