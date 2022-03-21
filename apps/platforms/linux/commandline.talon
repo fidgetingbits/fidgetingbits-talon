@@ -567,3 +567,16 @@ file sort column [<user.number_string>]:
 
 run B P F trace: 
     user.insert_cursor("sudo BPFTRACE_PERF_RB_PAGES=256 bpftrace [|].bt | tee trace.log")
+
+code Q L resolve: "codeql resolve languages\n"
+
+### 
+# Kernel
+###
+kernel generate tags: "python scripts/clang-tools/gen_compile_command.py"
+
+###
+# Development
+###
+
+generate compile commands: "bear make"
