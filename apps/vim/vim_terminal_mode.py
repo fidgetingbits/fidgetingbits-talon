@@ -102,13 +102,15 @@ def populate_shell_tags(shell_command, window_title):
         "gef": ["user.gdb", "user.gef"],
         "htop": "user.htop",
         "taskwarrior-tui": "user.taskwarrior_tui",
-        "~/.talon/bin/repl": "user.talon_repl",
+        "~/.talon/bin/repl": ["user.talon_repl", "user.python"],
+        "python": "user.python"
     }
     # XXX - there's probably a better way to deal with this
     fuzzy_shell_tags = {
         # Match on stuff like fzf running in floating term
         # "term://": "user.readline",
         "root@": "terminal",  # hacky match for docker containers
+        "python:": "user.python"
     }
     regex_shell_tags = {
         r"^\w*@\w*": "terminal",
