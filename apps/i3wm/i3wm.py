@@ -28,6 +28,7 @@ def i3wm_window_resize(size, grow=True):
         actions.key(f"up:{size}")
     # escape resize mode
     actions.key("escape")
+    actions.sleep("200ms")
     # center window
     actions.user.system_command("i3-msg move position center")
 
