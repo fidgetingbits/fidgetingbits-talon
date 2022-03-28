@@ -116,6 +116,14 @@ class _RecordingReplayer(object):
             app.notify("No recording saved? Nothing to play")
 
     @check_settings
+    def play_last_played(self):
+        """Play the last selected recording"""
+        if self.last_played_recording is not None:
+            self.play_file(self.last_played_recording)
+        else:
+            app.notify("No previous recording selected? Nothing to play")
+
+    @check_settings
     def remove_last_saved(self):
         """Remove the last saved recording"""
         if self.last_saved_recording is not None:
@@ -272,3 +280,8 @@ class Actions:
         """Remove the last saved recording"""
         global rr
         rr.remove_last_saved()
+
+    def replay_last_played_recording():
+        """Insert some info from the last self.count recordings"""
+        global rr
+        rr.play_last_played()
