@@ -171,7 +171,7 @@ pivot clip:
     edit.paste()
     key(enter)
 pivot <user.paths>:
-    edit.paste("cd {paths}\n")
+    user.paste("cd {paths}\n")
     insert("ls\n")
 # pivot up doesn't work with talon
 pivot back: "cd ../\n"
@@ -458,7 +458,7 @@ system [list] memory: "lshw -short -C memory"
 system [list] processor: "lscpu\n"
 system [list] pee bus: "lspci\n"
 system [list] yew bus: "lsusb\n"
-system release: "cat /etc/lsb_release\n"
+system release: "cat /etc/lsb-release\n"
 
 # debugging
 debug server: "gdbserver "
@@ -527,7 +527,7 @@ kernel trace functions: "echo function > /sys/kernel/tracing/current_tracer\n"
 ###
 (cis|system) I D: "id\n"
 (cis|system) user: "whoami\n"
-(cis|system) show kernel: "uname -a\n"
+(cis|system) (version|kernel): "uname -a\n"
 (cis|system) show release: "cat /etc/lsb-release\n"
 
 ###
@@ -573,7 +573,8 @@ code Q L resolve: "codeql resolve languages\n"
 ### 
 # Kernel
 ###
-kernel generate tags: "python scripts/clang-tools/gen_compile_command.py"
+kernel generate tags: "python scripts/clang-tools/gen_compile_commands.py"
+run pa hole: "pahole "
 
 ###
 # Development
