@@ -24,6 +24,10 @@ git checkout <number_small> before clip:
     edit.paste()
     key("^:{number_small}")
     key(enter)
+git checkout clip: 
+    insert("git checkout ")
+    edit.paste()
+    key(enter)
 git check ignore: "git check-ignore -v " 
 git cherry pick: "git cherry-pick "
 git cherry pick continue: "git cherry-pick --continue "
@@ -143,6 +147,11 @@ git switch detached: "git switch --detach "
 git (switch create | new branch) [<user.text>]:
   "git switch -c {user.formatted_text(text or '', 'DASH_SEPARATED')}"
 git switch orphan: "git switch --orphan "
+git switch clip: 
+    insert("git switch ")
+    edit.paste()
+    key(enter)
+
 git [sub] module add:  "git submodule add "
 git [sub] module status: "git submodule status\n"
 git [sub] module status recurse: "git submodule status --recursive\n"
