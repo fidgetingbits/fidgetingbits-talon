@@ -136,7 +136,7 @@ class UserActions:
     def code_state_return():
         actions.insert("return ")
 
-    def code_state_break():
+    def code_break():
         actions.insert("break ")
 
     # Assumes a ::continue:: label
