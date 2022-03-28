@@ -31,6 +31,7 @@ app: vim
 plugin_tag_list = [
     "vim_ale",
     "vim_change_inside_surroundings",
+    "vim_codeql",
     "vim_cscope",
     "vim_easy_align",
     "vim_easymotion",

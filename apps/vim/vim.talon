@@ -67,6 +67,7 @@ tag(): user.vim_you_are_here
 tag(): user.vim_zoom
 tag(): user.vim_zenmode
 tag(): user.vim_lsp
+tag(): user.vim_codeql
 
 
 # To the settings below dictate how certain parts of Talon VIM will work. You
@@ -178,11 +179,9 @@ go row <number>:
 # XXX - I'm not sure these are well usable from the terminal?
 jump list show: user.vim_command_mode_exterm(":jumps\n")
 jump list clear: user.vim_command_mode_exterm(":clearjumps\n")
-jump last [entry]:
+jump list last [entry]:
     user.vim_normal_mode_exterm_key("ctrl-o")
-jump back:
-    user.vim_normal_mode_exterm_key("ctrl-o")
-jump next [entry]: user.vim_normal_mode_exterm_key("ctrl-i")
+jump list next [entry]: user.vim_normal_mode_exterm_key("ctrl-i")
 
 # scrolling and page position
 # NOTE counted scrolling his handled in vim.py
@@ -285,7 +284,7 @@ vertical split (buf|buffer) <number_small>:
 
 # creating and auto-entering splits
 
-split (close|quit):
+split (close|kill):
     user.vim_set_normal_mode_exterm()
     key(ctrl-w)
     key(q)
@@ -304,9 +303,10 @@ new (empty|unnamed) (vertical|v) split:
 # navigating splits
 # XXX - we could leverage split.talon stuff here?
 split <user.vim_arrow>:
-    user.vim_set_normal_mode_exterm()
-    key(ctrl-w)
-    key("{vim_arrow}")
+    user.vim_normal_mode("\<c-w>{vim_arrow}")
+    #user.vim_set_normal_mode_exterm()
+    #key(ctrl-w)
+    #key("{vim_arrow}")
 (split flip|spitter):
     user.vim_set_normal_mode_exterm()
     key(ctrl-w)
@@ -576,6 +576,7 @@ session save: user.vim_command_mode_exterm(":mksession ")
 session force save: user.vim_command_mode_exterm(":mksession! ")
 # XXX - this path could be made into a setting
 session load: user.vim_command_mode_exterm(":source ~/.vim/sessions/")
+session show: user.vim_command_mode_exterm(":echo v:this_session\n")
 
 
 # XXX - this is quite slow pasting into a terminal, so might want to move
@@ -753,3 +754,5 @@ paste as line:
 file make:
     user.vim_normal_mode(":!make\n")
 
+louis call func: user.vim_command_mode_exterm(":lua ") 
+louis reload (plug in|module): user.vim_command_mode_exterm(":lua require('plenary').reload_module('')")
