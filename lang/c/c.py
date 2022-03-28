@@ -280,12 +280,6 @@ class CLangState:
 c_lang_state = CLangState(mod)
 
 
-@mod.capture(rule="{self.c_signals}")
-def c_signals(m) -> str:
-    "Returns a signal"
-    return m.c_signals
-
-
 @mod.capture(rule="{self.c_pointers}")
 def c_pointers(m) -> str:
     "Returns a string"

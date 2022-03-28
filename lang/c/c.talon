@@ -51,8 +51,8 @@ state type deaf struct:
     edit.up()
     key('tab')
 
-signal <user.c_signals>: "{c_signals}"
-error <user.c_errors>: "{c_errors}"
+signal {user.c_signals}: "{c_signals}"
+error {user.c_errors}: "{c_errors}"
 
 block:
     insert("{\n\n}")
@@ -78,6 +78,8 @@ standard cast to <user.c_stdint_cast>: "{c_stdint_cast}"
 <user.c_signed>: "{c_signed}"
 basic <user.c_basic_types>: "{c_basic_types}"
 standard <user.c_stdint_types>: "{c_stdint_types}"
+
+# XXX - shouldn't this be generic now?
 toggle includes: user.code_toggle_libraries()
 include <user.code_libraries>:
     user.code_insert_library("", code_libraries)
