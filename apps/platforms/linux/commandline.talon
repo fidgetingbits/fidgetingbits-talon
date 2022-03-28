@@ -170,7 +170,7 @@ pivot clip:
     insert("cd ")
     edit.paste()
     key(enter)
-pivot <user.paths>:
+pivot <user.folder_paths>:
     user.paste("cd {paths}\n")
     insert("ls\n")
 # pivot up doesn't work with talon
