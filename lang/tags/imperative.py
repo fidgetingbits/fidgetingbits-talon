@@ -3,7 +3,11 @@ from talon import Context, Module
 ctx = Context()
 mod = Module()
 
-mod.tag("code_imperative", desc="Tag for enabling basic imperative programming commands (loops, functions, etc)")
+mod.tag(
+    "code_imperative",
+    desc="Tag for enabling basic imperative programming commands (loops, functions, etc)",
+)
+
 
 @mod.action_class
 class Actions:
@@ -45,6 +49,9 @@ class Actions:
 
     def code_break():
         """Inserts break statement"""
+
+    def code_state_continue():
+        """Inserts continue statement"""
 
     def code_next():
         """Inserts next statement"""
