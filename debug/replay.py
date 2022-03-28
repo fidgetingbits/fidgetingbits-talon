@@ -54,7 +54,8 @@ tag: user.record_replay
 
 
 def check_settings(f):
-    """Validate settings match the expectation of having the tags set """
+    """Validate settings match the expectation of having the tags set"""
+
     def wrapper(*args):
         if settings.get("speech.record_all") != 1:
             app.notify("Recording appears to be disabled")
@@ -68,7 +69,9 @@ def check_settings(f):
                 settings.get("user.saved_replay_recordings_directory")
             ).expanduser()
         return f(*args)
+
     return wrapper
+
 
 class _RecordingReplayer(object):
     """Manages recent recordings and make them available for replay"""
@@ -92,7 +95,10 @@ class _RecordingReplayer(object):
 
         if self.count == 0:
             self.count = settings.get("user.replay_recordings_list_count")
-        list_of_files = sorted(self.recordings.iterdir(), key=os.path.getmtime)
+        list_of_files = sorted(
+            [file for file in self.recordings.iterdir() if file.is_file()],
+            key=os.path.getmtime,
+        )
 
         file_count = len(list_of_files)
         if file_count < self.count:
@@ -174,6 +180,7 @@ class _RecordingReplayer(object):
 main_screen = ui.main_screen()
 rr = _RecordingReplayer()
 
+
 def close_replay_picker():
     global rr
     gui.hide()
@@ -245,7 +252,6 @@ class Actions:
         if settings.get("user.replay_paste_name_on_save") != 0:
             clip.set_text(file_name)
             actions.user.insert_cursor_paste('"[|]":', "")
-
 
     def replay_save_last():
         """Save the last recording to a preconfigured directory"""
