@@ -31,6 +31,7 @@ extension_lang_map = {
     ".pl": "perl",
     ".ps1": "powershell",
     ".py": "python",
+    ".ql": "codeql",
     ".r": "r",
     ".rb": "ruby",
     ".s": "assembly",
@@ -67,6 +68,9 @@ special_file_map = {
     "meson.build": "meson",
     ".bashrc": "bash",
     ".zshrc": "zsh",
+    "PKGBUILD": "pkgbuild",
+    ".vimrc": "vimscript",
+    "vimrc": "vimscript",
 }
 
 
