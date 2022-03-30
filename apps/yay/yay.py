@@ -20,6 +20,9 @@ class UserActions:
     def package_install():
         actions.auto_insert("yay -S ")
 
+    def package_update():
+        actions.auto_insert("yay -Su ")
+
     def package_remove():
         actions.auto_insert("yay -R ")
 
