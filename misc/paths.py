@@ -22,6 +22,7 @@ linux_folder_paths = {
     "you dev rules": "/etc/udev/rules.d/",
     "vim sessions": "~/.vim/sessions/",
     "vim plugins": "~/.vim/plugged/",
+    "vim": "~/.vim/",
     "temp": "/tmp/",
     "config": "/etc/",
     "it see": "/etc/",
