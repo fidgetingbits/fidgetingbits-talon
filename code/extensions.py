@@ -31,6 +31,7 @@ _file_extensions_defaults = {
     "dot exe": ".exe",
     "dot flack": ".flac",
     "dot G bag": ".gdb",
+    "dot G D B": ".gdb",
     "dot git": ".git",
     "dot G Z": ".gz",
     "dot G zip": ".gz",
