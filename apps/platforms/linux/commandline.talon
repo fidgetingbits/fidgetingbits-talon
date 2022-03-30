@@ -88,6 +88,7 @@ file list folders: "ls -d */\n"
 file strings: "strings "
 file (tail|follow): "tail -f "
 file line count: "wc -l "
+file list <user.letter>: 'find . -maxdepth 1 -name "{letter}*" -ls\n'
 
 # find command
 file find all links: "find . -maxdepth 1 -type l  -ls\n"
@@ -155,7 +156,7 @@ file [disk] usage all: "du -sh *\n"
 trash list: "trash-list\n"
 trash restore: "trash-restore "
 trash empty: "trash-empty "
-file watch latest: "vlc $(exa --sort latest --no-icons | tail -n1)"
+file watch latest: "vlc $(exa --sort changed --no-icons | tail -n1)"
 
 echo param <user.text>: 
     insert("echo ${")
@@ -171,7 +172,7 @@ pivot clip:
     edit.paste()
     key(enter)
 pivot <user.folder_paths>:
-    user.paste("cd {paths}\n")
+    user.paste("cd {folder_paths}\n")
     insert("ls\n")
 # pivot up doesn't work with talon
 pivot back: "cd ../\n"
@@ -188,7 +189,7 @@ pivot next:
     insert("ls\n")
 
 pivot (last|flip): "cd -\n"
-pivot latest: "cd $(exa --sort latest --no-icons | tail -n1)\n"
+pivot latest: "cd $(exa --sort changed --no-icons | tail -n1)\n"
 
 
 folder remove: "rmdir "
@@ -364,11 +365,12 @@ module remove: "rmmod "
 
 run curl: "curl "
 run double you get: "wget "
-download: "wget "
-download clip:
+[file] download: "wget "
+[file] download clip:
     insert("wget ")
     edit.paste()
     key(enter)
+[file] download ignore cert: "wget --no-check-certificate "
 
 # because talent doesn't seem to like me saying ./
 run script: "./"
@@ -431,7 +433,7 @@ edit authorized keys: "vi ~/.ssh/authorized_keys\n"
 go secure shell config: "cd ~/.ssh\n"
 # talon suddenly loves the word termini
 #tunnel (terminate|termini):
-tunnel terminate:
+tunnel (pop|terminate):
     key(enter ~ .)
 
 # virtsh virtual console escape
@@ -461,6 +463,7 @@ system [list] yew bus: "lsusb\n"
 system release: "cat /etc/lsb-release\n"
 
 # debugging
+run debug script: "gdb -x debug.gdb\n"
 debug server: "gdbserver "
 debug remote server: "gdbserver --multi :9999\n"
 
@@ -472,7 +475,7 @@ errors ignore: "2>/dev/null"
 ###
 image show: "feh "
 wallpaper set: "feh --bg-scale "
-wallpaper set latest: "feh --bg-scale $(find ~/images/wallpaper/ -name $(exa --sort latest --no-icons ~/images/wallpaper/ | tail -n1))\n"
+wallpaper set latest: "feh --bg-scale $(find ~/images/wallpaper/ -name $(exa --sort changed --no-icons ~/images/wallpaper/ | tail -n1))\n"
 
 
 ###
@@ -581,3 +584,8 @@ run pa hole: "pahole "
 ###
 
 generate compile commands: "bear make"
+file build: "gcc "
+file build clip: 
+    insert("gcc ")
+    edit.paste()
+    insert(" -o ")
