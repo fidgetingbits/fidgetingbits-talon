@@ -21,7 +21,7 @@ half down:
 #    key("h")
 #right:
 #    key("l")
-[(page|tab)] (refresh|reload):
+(page|tab) (refresh|reload):
     key("r")
 (address|Earl|link) copy:
     insert("yy")
