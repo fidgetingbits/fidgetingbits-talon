@@ -211,7 +211,7 @@ symbol_key_words = {
     "grave": "`",
     "calm": ",",  # i found comma and commit would conflict too much
     "dot": ".",
-    "blank": " ",
+    #"blank": " ", # suddenly always conflicting with bat
     "void": " ",
     "semi": ";",
     "tick": "'",
@@ -246,7 +246,7 @@ symbol_key_words = {
     "piper": "|",
     #"column": "|",
     "quote": '"',
-    "pound": "£",
+    "pound sign": "£",
 }
 
 # make punctuation words also included in {user.symbol_keys}
