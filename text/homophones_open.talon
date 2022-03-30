@@ -1,6 +1,6 @@
 mode: user.homophones
 -
-hide: user.homophones_hide()
+[phones] hide: user.homophones_hide()
 choose <number_small>:
     result = user.homophones_select(number_small)
     insert(result)
