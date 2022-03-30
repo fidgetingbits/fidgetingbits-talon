@@ -525,9 +525,15 @@ class UserActions:
             text = text + "({})".format(selection)
         else:
             text = text + "()"
-
         actions.user.paste(text)
         actions.edit.left()
+
+    def code_insert_terminated_function(text: str, selection: str):
+        if selection:
+            text = text + "({})".format(selection)
+        else:
+            text = text + "();"
+        actions.user.paste(text)
 
     # TODO - it would be nice that you integrate that types from c_basic_cast
     # instead of defaulting to void

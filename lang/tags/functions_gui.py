@@ -41,6 +41,8 @@ class Actions:
     def code_insert_function(text: str, selection: str):
         """Inserts a function and positions the cursor appropriately"""
 
+    def code_insert_terminated_function(text: str, selection: str):
+        """Inserts a terminated function call with no arguments"""
 
 def update_function_list_and_freeze():
     global function_list
