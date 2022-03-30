@@ -47,6 +47,7 @@ ctx.lists["user.code_libraries"] = {
     "random": "random",
     "reg ex": "re",
     "shell utils": "shutil",
+    "shlacks": "shlex",
     "socket": "socket",
     "string": "string",
     "struct": "struct",
@@ -364,11 +365,16 @@ class UserActions:
         actions.user.insert_cursor('"""[|]"""')
 
     def code_insert_function(text: str, selection: str):
+
+        formatted_text = actions.user.formatted_text(
+            text, settings.get("user.code_private_function_formatter")
+        )
+
         if selection:
-            text = text + "({})".format(selection)
+            result = formatted_text + "({})".format(selection)
         else:
-            text = text + "()"
-        actions.user.paste(text)
+            result = formatted_text + "()"
+        actions.user.paste(result)
         actions.edit.left()
 
     def code_default_function(text: str):

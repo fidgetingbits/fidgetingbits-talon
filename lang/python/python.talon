@@ -103,13 +103,7 @@ raise {user.python_exception}: user.insert_cursor("raise {python_exception}([|])
 except {user.python_exception}: "except {python_exception}:"
 except {user.python_exception} as: user.insert_cursor("except {python_exception} as [|]:")
 
-# function calling
-call <user.text>:
-    insert(user.formatted_text(text, "snake"))
-    insert("()")
-    edit.left()
-
-# for annotating function parameters
+# function # for annotating function parameters
 is type <user.python_type_list>:
     insert(": {python_type_list}")
 returns [type] <user.python_type_list>:
@@ -136,7 +130,7 @@ dock returns type {user.code_type}:
 toggle imports: user.code_toggle_libraries()
 import <user.code_libraries>:
     user.code_insert_library(code_libraries, "")
-    key(end enter)
+    key(end)
 
 from <user.code_libraries> import:
     insert('from ')
