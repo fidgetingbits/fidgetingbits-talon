@@ -8,4 +8,11 @@ mode: command
 and code.language: lua
 """
 # spoken name -> ultisnips snippet name
-ctx.lists["user.snippets"] = {}
+# spoken name -> snippet name
+ultisnips_snippets = {}
+
+private_snippets = {
+    "dump table": "dumpt",
+}
+
+ctx.lists["user.snippets"] = {**ultisnips_snippets, **private_snippets}
