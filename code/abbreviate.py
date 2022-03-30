@@ -10,6 +10,7 @@ mod.list("abbreviation", desc="Common abbreviation")
 ctx = Context()
 abbreviations = {
     "abort": "abrt",
+    "acknowledge": "ack",
     "address": "addr",
     "addresses": "addrs",
     "administrator": "admin",
@@ -203,6 +204,7 @@ abbreviations = {
     "length": "len",
     "lib see": "libc",
     "library": "lib",
+    "lib P T malloc": "libptmalloc",
     "lisp": "lsp",
     "lycanthrope": "lycan",
     "mail": "smtp",
@@ -269,7 +271,9 @@ abbreviations = {
     "programs": "progs",
     "property": "prop",
     "protocol": "proto",
+    "P T malloc": "ptmalloc",
     "public": "pub",
+    "pound bag": "pwndbg",
     "pone to own": "pwn2own",
     "pone": "pwn",
     "python": "py",
