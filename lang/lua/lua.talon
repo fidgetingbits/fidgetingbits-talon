@@ -51,18 +51,6 @@ state local (variable|var) [<user.text>] [over]:
     insert("local ")
     user.code_private_variable_formatter(text)
 
-# for builtins/library functions
-funk <user.code_functions>:
-    user.code_public_function_formatter(code_functions)
-    insert("()")
-    edit.left()
-
-# for arbitrary names
-call <user.text>:
-    insert(user.formatted_text(text, "snake"))
-    insert("()")
-    edit.left()
-
 # for built in object methods, ex: foo:gsub()
 method <user.text>:
     insert(":")
