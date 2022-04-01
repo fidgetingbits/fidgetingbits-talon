@@ -34,6 +34,7 @@ private_snippets = {
     "dock in": "doxypi",
     "dock out": "doxypo",
     "dock in out": "doxypio",
+    "main": "main",
 }
 
 ctx.lists["user.snippets"] = {**ultisnips_snippets, **private_snippets}
