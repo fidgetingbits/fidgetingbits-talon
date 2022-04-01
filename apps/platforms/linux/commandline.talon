@@ -76,6 +76,8 @@ kill all:
     key(ctrl-c)
 
 file list: "ls "
+file list <user.folder_paths>: "ls {folder_paths}\n"
+
 file bare list: "ls --no-icons "
 #file (list here|lisa): "ls -l\n"
 file bare (list here|lisa): "ls -l --no-icons\n"
@@ -85,6 +87,7 @@ file (list long here|lily): "ls -al\n"
 file list latest: "exa --sort changed --no-icons | tail -n1\n"
 file list last <number>: "exa --sort changed --no-icons | tail -n{number}\n"
 file list folders: "ls -d */\n"
+file list (runnable|executable): "find . -type f -executable\n"
 file strings: "strings "
 file (tail|follow): "tail -f "
 file line count: "wc -l "
@@ -589,3 +592,5 @@ file build clip:
     insert("gcc ")
     edit.paste()
     insert(" -o ")
+
+clipboard as Q R code: "xclip -o -s c | qrencode -o - | feh --force-aliasing -ZF -"
