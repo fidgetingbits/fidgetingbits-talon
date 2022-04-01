@@ -62,6 +62,7 @@ linux_folder_paths = {
     "lib thirty two": "/lib32/",
     "lib three two": "/lib32/",
     "proc": "/proc/",
+    "root": "/root/",
 }
 
 linux_file_paths = {
