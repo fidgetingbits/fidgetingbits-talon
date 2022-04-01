@@ -51,7 +51,7 @@ tricky: user.mouse_click(0, 3)
 # key("{modifiers}:up")
 
 # move to eye location without clicking
-hover: user.mouse_move_cursor()
+#hover: user.mouse_move_cursor()
 
 # zoom and then move to designated location without clicking
 
