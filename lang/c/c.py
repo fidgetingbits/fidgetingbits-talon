@@ -163,6 +163,8 @@ ctx.lists["user.code_libraries"] = {
     "sys wait": "sys/wait.h",
     "time": "time.h",
     "unix standard": "unistd.h",
+    "net I net in": "netinet/in.h",
+    "sys cuddle": "linux/sysctl.h",
 }
 
 ctx.lists["user.code_functions"] = {
@@ -218,6 +220,10 @@ ctx.lists["user.code_functions"] = {
     "stir to unsigned int": "strtouint",
     "message send": "msgsnd",
     "message get": "msgget",
+    "send message": "sendmsg",
+    "receive message": "recvmsg",
+    "sys cuttle": "sysctl",
+    "I O cuddle": "ioctl",
 }
 
 ctx.lists["user.c_signals"] = {
