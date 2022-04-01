@@ -70,7 +70,7 @@ class Actions:
     def package_remove_by_name(name: str):
         """Uninstall the package by name"""
 
-    def package_update():
+    def package_update(name: str):
         """Update from the package database"""
 
     def package_update_by_name(name: str):

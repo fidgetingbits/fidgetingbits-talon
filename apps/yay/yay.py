@@ -12,28 +12,34 @@ and tag: user.packager_yay
 class UserActions:
     # see yay.py for additional actions
     def packager():
-        actions.auto_insert("yay ")
+        actions.insert("yay ")
 
     def package_search():
-        actions.auto_insert("yay -sS ")
+        actions.insert("yay -sS ")
 
     def package_install():
-        actions.auto_insert("yay -S ")
+        actions.insert("yay -S ")
 
-    def package_update():
-        actions.auto_insert("yay -Su ")
+    def package_update_all():
+        actions.insert("yay -Su ")
+
+    def package_update(name: str):
+        actions.insert("yay -S ")
+        if name and name != "":
+            actions.insert(name)
+
 
     def package_remove():
-        actions.auto_insert("yay -R ")
+        actions.insert("yay -R ")
 
     def package_help():
-        actions.auto_insert("yay --help\n")
+        actions.insert("yay --help\n")
 
     def package_list():
-        actions.auto_insert("yay -Qe\n")
+        actions.insert("yay -Qe\n")
 
     def package_list_contents():
-        actions.auto_insert("yay -Ql ")
+        actions.insert("yay -Ql ")
 
     def package_search_by_name(name: str):
         actions.insert(f"yay -sS {name}")
