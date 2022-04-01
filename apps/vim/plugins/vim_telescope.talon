@@ -35,6 +35,7 @@ telescope file types: user.vim_command_mode_exterm(":Telescope filetypes\n")
 telescope [high] lights: user.vim_command_mode_exterm(":Telescope highlights\n")
 telescope buffer: user.vim_command_mode_exterm(":Telescope current_buffer_fuzzy_find\n")
 telescope tags: user.vim_command_mode_exterm(":Telescope current_buffer_key_tags\n")
+telescope reload: user.vim_command_mode_exterm(":Telescope reloader\n")
 
 # Neovim LSP Pickers
 telescope refs: user.vim_command_mode_exterm(":Telescope lsp_references\n")

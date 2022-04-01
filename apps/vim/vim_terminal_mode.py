@@ -126,8 +126,9 @@ def populate_shell_tags(shell_command, window_title):
     else:
         found_fuzzy = False
         for tag in fuzzy_shell_tags:
+            #print(f"shell_command: {shell_command}")
             if shell_command.startswith(tag):
-
+                #print("found python")
                 ctx.tags = [fuzzy_shell_tags[tag]]
                 found_fuzzy = True
                 break

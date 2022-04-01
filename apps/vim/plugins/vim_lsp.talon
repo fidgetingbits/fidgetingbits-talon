@@ -17,12 +17,14 @@ lisp log file show: user.vim_command_mode_exterm(":exe 'tabnew ' .. luaeval(\"vi
 #user.vim_command_mode(':exe ":lua vim.lsp.buf.code_action()"\n')
 #user.vim_command_mode(':exe ":lua vim.lsp.buf.completion()"\n')
 
-(jump|tag|lisp) (declaration|deck): user.vim_command_mode(':exe ":lua vim.lsp.buf.declaration()"\n')
+#(jump|tag|lisp) (declaration|deck): user.vim_command_mode(':exe ":lua vim.lsp.buf.declaration()"\n')
+(jump|tag|lisp) implementation: user.vim_command_mode(':exe ":lua vim.lsp.buf.implementation()"\n')
 (jump|tag|lisp) (definition|deaf): user.vim_command_mode(':exe ":lua vim.lsp.buf.definition()"\n')
 (jump|tag|lisp) (highlight|light): user.vim_command_mode(':exe ":lua vim.lsp.buf.document_highlight()"\n')
 
 #user.vim_command_mode(':exe ":lua vim.lsp.buf.formatting()"\n')
 (jump|tag|lisp) hover: user.vim_command_mode(':exe ":lua vim.lsp.buf.hover()"\n')
+peek (tag|this|deaf): user.vim_command_mode(':exe ":lua vim.lsp.buf.hover()"\n')
 #user.vim_command_mode(':exe ":lua vim.lsp.buf.implementation()"\n')
 (jump|tag|lisp) in [coming]: user.vim_command_mode(':exe ":lua vim.lsp.buf.incoming_calls()"\n')
 (jump|tag|lisp) out [going]: user.vim_command_mode(':exe ":lua vim.lsp.buf.outgoing_calls()"\n')

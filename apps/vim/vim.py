@@ -43,6 +43,7 @@ plugin_tag_list = [
     "vim_fugitive_summary",
     "vim_fzf",
     "vim_grammarous",
+    "vim_lightspeed",
     "vim_lsp",
     "vim_markdown",
     "vim_markdown_toc",
@@ -154,8 +155,8 @@ standard_counted_actions_control_keys = {
     "redo": "ctrl-r",
     "scroll": "ctrl-f",
     "punk": "ctrl-b",
-    #    "skip": "ctrl-d",
-    #"skate": "ctrl-u",
+    "half down": "ctrl-d",
+    "half up": "ctrl-u",
     "increment": "ctrl-a",
     "decrement": "ctrl-x",
 }
@@ -290,8 +291,8 @@ motions = {
     "last tense": "(",
     "graph": "}",
     "last graph": "{",
-    "section": "]]",
-    "last section": "[[",
+#    "section": "]]",
+#    "last section": "[[",
     "end section": "][",
     "last end section": "[]",
     # XXX - not sure about naming - don't seem to work yet
@@ -311,16 +312,30 @@ motions = {
     # "file ent": "G",
 }
 
+# XXX - These come from treesitter-textobjects, so should really be injected
+# from that .py
+treesitter_motions = {
+    "funk start": "[m",
+    "funk next": "]m",
+    "class start": "[[",
+    "class next": "]]",
+    "comment start": "[/",
+    "comment next": "]/",
+    "loop start": "[l",
+    "loop next": "]l",
+    "condition start": "[C",
+    "condition next": "]C",
+
+}
+
 motions_custom = {
-    "function start": "[[",
-    "funk start": "[[",
-    "next function": "]]",
-    "next funk": "]]",
+
 }
 
 ctx.lists["self.vim_motions"] = {
     **motions,
     **motions_custom,
+    **treesitter_motions,
 }
 
 

@@ -56,6 +56,7 @@ tag(): user.vim_mkdx
 tag(): user.vim_nerdtree
 tag(): user.vim_obsession
 tag(): user.vim_plug
+tag(): user.vim_lightspeed
 tag(): user.vim_signature
 tag(): user.vim_taboo
 tag(): user.vim_tabular
@@ -191,7 +192,7 @@ scroll [on] line <number>:
 center [on] line <number>:
     user.vim_command_mode_exterm(":{number}\nz.")
 scroll top: user.vim_normal_mode_exterm("zt")
-[scroll] middle: user.vim_normal_mode_exterm("zz")
+scroll middle: user.vim_normal_mode_exterm("zz")
 scroll bottom: user.vim_normal_mode_exterm("zb")
 # XXX - change these exist scroll top curse ?
 scroll top reset cursor: user.vim_normal_mode_exterm("z\n")
@@ -214,6 +215,8 @@ force botch: user.vim_command_mode_exterm(":bd!\n")
 [go] (buf|buffer) (left|prev): user.vim_command_mode_exterm(":bprev\n")
 [go] (buf|buffer) (right|next): user.vim_command_mode_exterm(":bnext\n")
 [go] (buf|buffer) flip: user.vim_command_mode_exterm(":b#\n")
+# this is more consistent with some of my other editing commands
+file back: user.vim_command_mode_exterm(":b#\n")
 [go] (buf|buffer) last: user.vim_command_mode_exterm(":bl\n")
 close (bufs|buffers): user.vim_command_mode_exterm(":bd ")
 (buf|buffer) open <number>: user.vim_command_mode_exterm(":b {number}\n")
@@ -555,7 +558,7 @@ mark global [(new|create)] <user.upper_letter>:
     key(`)
     key(letter)
 
-(mark global|gallop) (go|jump) [to] <user.upper_letter>:
+(marker global|gallop) (go|jump) [to] [ship] <user.upper_letter>:
     user.vim_set_normal_mode_exterm()
     key(`)
     key(upper_letter)

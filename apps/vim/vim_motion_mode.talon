@@ -23,7 +23,7 @@ tag(): user.vim_cscope
 tag(): user.vim_fugitive
 tag(): user.vim_fugitive_summary
 tag(): user.vim_grammarous
-tag(): user.vim_markdown
+#tag(): user.vim_markdown
 tag(): user.vim_markdown_toc
 tag(): user.vim_youcompleteme
 tag(): user.vim_easy_align
@@ -129,12 +129,17 @@ matching <user.symbol_key>: user.vim_any_motion_mode("f{symbol_key}%")
 # ctags/symbol
 jump tag: user.vim_normal_mode_key("ctrl-]")
 (jump|taggy) back: user.vim_normal_mode_key("ctrl-t")
+jump forward: 
+    user.vim_command_mode(":tag\n")
 jump tag that:
     user.vim_command_mode(":tag ")
     edit.paste()
     key(enter)
 jump exact tag:
     user.vim_command_mode(":tag ")
+taggy list:    
+    user.vim_command_mode(":tags\n")
+
 
 ###
 # Text editing, copying, and manipulation
