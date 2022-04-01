@@ -1,12 +1,16 @@
 <!-- vim-markdown-toc GFM -->
 
+* [Important notes](#important-notes)
+* [Importing only vim app from fidgetingbits repo](#importing-only-vim-app-from-fidgetingbits-repo)
 * [Using VIM under Talon](#using-vim-under-talon)
 * [Initial Setup Walkthrough](#initial-setup-walkthrough)
     * [Talon Change - The word `yank`](#talon-change---the-word-yank)
     * [Talon Change - The key `end`](#talon-change---the-key-end)
     * [Talon Change - The command `word`](#talon-change---the-command-word)
     * [The `generic_editor.talon` commands](#the-generic_editortalon-commands)
-    * [Detecting VIM running inside terminals from Talon](#detecting-vim-running-inside-terminals-from-talon)
+    * [Vim Config Changes](#vim-config-changes)
+        * [Detecting VIM running inside terminals from Talon](#detecting-vim-running-inside-terminals-from-talon)
+        * [Preventing title truncation](#preventing-title-truncation)
     * [Detecting the code language of edited files](#detecting-the-code-language-of-edited-files)
     * [Detecting current vim mode](#detecting-current-vim-mode)
     * [Automatically switching neovim using RPC](#automatically-switching-neovim-using-rpc)
@@ -36,6 +40,21 @@
     * [What are some disadvantages of using talon vim v man mode?](#what-are-some-disadvantages-of-using-talon-vim-v-man-mode)
 
 <!-- vim-markdown-toc -->
+
+# Important notes
+
+This document isn't regularly updated lately. Some stuff might be out of date.
+Ask on #vim in the talon Slack if anything is unclear. Also unless you
+explicitly require some vim functionality, in general I would suggest checking
+out [Cursorless](https://github.com/pokey/cursorless-vscode) first. I think in
+general it's more suited to voice use, in eventually it will probably become
+the primary means of driving vim in the long term anyway.
+
+# Importing only vim app from fidgetingbits repo
+
+A lot of people only want to use apps/vim from my repo, without having to deal
+with the other changes I make that might negatively impact experience. This can
+be done with git, an is done by some people
 
 # Using VIM under Talon
 
@@ -101,7 +120,9 @@ some cases are too simple for more complicated use with vim. You can try to use
 them in general but in some cases you will want to switch to use the vim
 specific ones.
 
-## Detecting VIM running inside terminals from Talon
+## Vim Config Changes
+
+### Detecting VIM running inside terminals from Talon
 
 The vim support in talon is built around supporting running vim as your
 terminal and being able to pop in and out of terminal mode.
@@ -119,7 +140,7 @@ me to set the `vim` talon tag by using `win.title: /VIM/`. It also lets me
 descriminate terminal vs vim tags in terminal talon files by using
 `not win.title: /VIM/`.
 
-To set your titlestring to include `VIM`, use something like the following:
+To set your `titlestring` to include `VIM`, use something like the following:
 
 ```
 let &titlestring ='VIM - (%f) %t'
@@ -128,6 +149,16 @@ set title " required for neovim
 
 Talon will search the active terminal window title and look for `VIM`, at which
 point it will correctly trigger the vim tag and disable the terminal tag.
+
+### Preventing title truncation
+
+In some scenarios if the window is very narrow the title gets truncated, and
+talon isn't able to detect the right information. In order to fix this you can
+set the following setting in your vim configuration:
+
+```
+let &titlelen = 2048
+```
 
 ## Detecting the code language of edited files
 
