@@ -159,7 +159,7 @@ git [sub] module sink: "git submodule sync\n"
 git [sub] module update: "git submodule update --init --recursive --remote"
 git module references: "git ls-files --stage | grep 160000\n"
 git tag: "git tag "
-git tag list: "git tag\n"
+git tag list: "git --no-pager tag\n"
 git tag list specific: 
     insert('git tag -l ""')
     edit.left()
