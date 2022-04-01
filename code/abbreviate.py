@@ -323,6 +323,7 @@ abbreviations = {
     "shell": "sh",
     "shellcode": "sc",
     "signal": "sig",
+    "size": "sz",
     "snipped": "[...]",
     "source": "src",
     "sources": "srcs",
