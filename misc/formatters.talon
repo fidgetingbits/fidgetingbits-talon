@@ -5,6 +5,7 @@
 {user.prose_formatter} <user.prose>$: user.insert_formatted(prose, prose_formatter)
 {user.prose_formatter} <user.prose> over: user.insert_formatted(prose, prose_formatter)
 <user.format_text>+$: user.insert_many(format_text_list)
+<user.format_letters>+$: user.insert_many(format_letters_list)
 <user.format_text>+ [over]: user.insert_many(format_text_list)
 <user.formatters> that: user.formatters_reformat_selection(user.formatters)
 (only|lonely) <user.word>: user.insert_formatted(user.word, "NOOP")

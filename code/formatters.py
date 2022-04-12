@@ -51,6 +51,17 @@ def format_phrase(m: Union[str, Phrase], fmtrs: str):
     # way and I don't feel like rewriting it just now. -rntz, 2020-11-04
     return result
 
+def format_phrase_letters(m: str, fmtrs: str):
+    global last_phrase, last_phrase_formatted
+    last_phrase = m
+    words = m.split(" ")
+
+    result = last_phrase_formatted = format_phrase_no_history(words, fmtrs)
+    actions.user.add_phrase_to_history(result)
+    # Arguably, we shouldn't be dealing with history here, but somewhere later
+    # down the line. But we have a bunch of code that relies on doing it this
+    # way and I don't feel like rewriting it just now. -rntz, 2020-11-04
+    return result
 
 def format_phrase_no_history(word_list, fmtrs: str):
     fmtr_list = fmtrs.split(",")
@@ -113,9 +124,10 @@ def every_word(word_func):
 
     return formatter_function
 
+
 def spongebob(i, word, _):
     capitalize = bool(randint(0, 1))
-    formatted_string = ''
+    formatted_string = ""
 
     for char in word:
         if not char.isalpha():
@@ -128,13 +140,14 @@ def spongebob(i, word, _):
 
     return formatted_string
 
+
 formatters_dict = {
     "ALL_CAPS": (SEP, every_word(lambda w: w.upper())),
     "ALL_LOWERCASE": (SEP, every_word(lambda w: w.lower())),
     # XXX - finish me
-#    "BRIEF": (NOSEP,
-#        lambda i, word, _: word
-#    ),
+    #    "BRIEF": (NOSEP,
+    #        lambda i, word, _: word
+    #    ),
     "CAPITALIZE_ALL_WORDS": (
         SEP,
         lambda i, word, _: word.capitalize()
@@ -174,11 +187,11 @@ formatters_dict = {
     "SPACE_SURROUNDED_STRING": (SEP, surround(" ")),
     "SPONGEBOB": (SEP, spongebob),
 }
-# This is the mapping from spoken phrases to formatters. 
+# This is the mapping from spoken phrases to formatters.
 formatters_words = {
     "allcaps": formatters_dict["ALL_CAPS"],
     "alldown": formatters_dict["ALL_LOWERCASE"],
-#    "brief": formatters_dict["BRIEF"],
+    #    "brief": formatters_dict["BRIEF"],
     "camel": formatters_dict["PRIVATE_CAMEL_CASE"],
     "arguing": formatters_dict["COMMA_SEPARATED"],
     "dotted": formatters_dict["DOT_SEPARATED"],
@@ -202,12 +215,19 @@ formatters_words = {
     "upper": formatters_dict["ALL_CAPS"],
 }
 
+# This is the mapping for series of letters to formatters ex: abc to A B C
+formatters_keys = {
+    "spacing": formatters_dict["ALL_CAPS"],
+}
+
 all_formatters = {}
 all_formatters.update(formatters_dict)
 all_formatters.update(formatters_words)
+all_formatters.update(formatters_keys)
 
 mod = Module()
-mod.list("formatters", desc="list of formatters")
+mod.list("formatters", desc="list of formatters handling words")
+mod.list("formatters_keys", desc="list of formatters handling individual letters")
 mod.list(
     "prose_formatter",
     desc="words to start dictating prose, and the formatter they apply",
@@ -218,6 +238,11 @@ mod.list(
 def formatters(m) -> str:
     "Returns a comma-separated string of formatters e.g. 'SNAKE,DUBSTRING'"
     return ",".join(m.formatters_list)
+
+@mod.capture(rule="{self.formatters_keys}+")
+def formatters_letters(m) -> str:
+    "Returns a comma-separated string of formatters e.g. 'SNAKE,DUBSTRING'"
+    return ",".join(m.formatters_keys_list)
 
 
 @mod.capture(
@@ -235,6 +260,15 @@ def format_text(m) -> str:
             out += chunk.string
         else:
             out += format_phrase(chunk, formatters)
+    return out
+
+
+@mod.capture(rule="<self.formatters_letters> <user.letters>")
+def format_letters(m) -> str:
+    "Formats the keys and returns a string"
+    formatters = m[0]
+    letters = m[1]
+    out = format_phrase_letters(" ".join(list(letters)), formatters)
     return out
 
 
@@ -272,9 +306,7 @@ class Actions:
     def insert_formatted(phrase: Union[str, Phrase], formatters: str):
         """Inserts a phrase formatted according to formatters. Formatters is a comma separated list of formatters (e.g. 'CAPITALIZE_ALL_WORDS,DOUBLE_QUOTED_STRING')"""
         actions.insert(format_phrase(phrase, formatters))
-        #actions.user.paste(format_phrase(phrase, formatters))
-
-
+        # actions.user.paste(format_phrase(phrase, formatters))
 
     def formatters_reformat_last(formatters: str) -> str:
         """Clears and reformats last formatted phrase"""
@@ -301,15 +333,17 @@ class Actions:
         edit.delete()
         text = actions.self.formatted_text(unformatted, formatters)
         actions.insert(text)
-        #actions.user.paste(text)
+        # actions.user.paste(text)
         return text
 
     def get_formatters_words():
         """returns a list of words currently used as formatters, and a demonstration string using those formatters"""
         formatters_help_demo = {}
         for name in sorted(set(formatters_words.keys())):
-            formatters_help_demo[name] = format_phrase_no_history(['one', 'two', 'three'], name)
-        return  formatters_help_demo
+            formatters_help_demo[name] = format_phrase_no_history(
+                ["one", "two", "three"], name
+            )
+        return formatters_help_demo
 
     def reformat_text(text: str, formatters: str) -> str:
         """Reformat the text."""
@@ -320,23 +354,29 @@ class Actions:
         """Insert a list of strings, sequentially."""
         for string in strings:
             actions.insert(string)
-            #actions.user.paste(string)
+            # actions.user.paste(string)
+
 
 def unformat_text(text: str) -> str:
     """Remove format from text"""
     unformatted = re.sub(r"[^\w]+", " ", text)
     # Split on camelCase, including numbers
     # FIXME: handle non-ASCII letters!
-    unformatted = re.sub(r"(?<=[a-z])(?=[A-Z])|(?<=[A-Z])(?=[A-Z][a-z])|(?<=[a-zA-Z])(?=[0-9])|(?<=[0-9])(?=[a-zA-Z])", " ", unformatted)
+    unformatted = re.sub(
+        r"(?<=[a-z])(?=[A-Z])|(?<=[A-Z])(?=[A-Z][a-z])|(?<=[a-zA-Z])(?=[0-9])|(?<=[0-9])(?=[a-zA-Z])",
+        " ",
+        unformatted,
+    )
     # TODO: Separate out studleycase vars
     return unformatted.lower()
 
+
 ctx.lists["self.formatters"] = formatters_words.keys()
+ctx.lists["self.formatters_keys"] = formatters_keys.keys()
 ctx.lists["self.prose_formatter"] = {
     "phrase": "NOOP",
-    #"speak": "NOOP",
+    # "speak": "NOOP",
     "sentence": "CAPITALIZE_FIRST_WORD",
     # because sentence constantly fails
     "tense": "CAPITALIZE_FIRST_WORD",
 }
-
