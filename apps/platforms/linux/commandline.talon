@@ -44,7 +44,7 @@ tag(): user.iptables
 #tag(): user.meson
 #tag(): user.kubectl
 
-# XXX - See generic_terminal.talon for some basics as well. 
+# XXX - See generic_terminal.talon for some basics as well.
 tag(): user.generic_unix_shell
 
 
@@ -92,6 +92,7 @@ file strings: "strings "
 file (tail|follow): "tail -f "
 file line count: "wc -l "
 file list <user.letter>: 'find . -maxdepth 1 -name "{letter}*" -ls\n'
+file list fuzzy {user.file_extension}: "ls *{file_extension}"
 
 # find command
 file find all links: "find . -maxdepth 1 -type l  -ls\n"
@@ -115,7 +116,7 @@ file find excluding:
     user.insert_cursor("find . -type d '!' -exec sh -c 'ls -1 \"{}\"|egrep -i -q \"^*.[|]$\"' ';' -print")
 file move: "mv "
 file open: "vim "
-file P D F open: "evince "
+file P D F: "evince "
 file touch: "touch "
 file copy: "cp "
 file deep copy: "cp -R "
@@ -132,8 +133,12 @@ file disk image copy: user.insert_cursor("dd bs=4M if=[|] of=/dev/sdX conv=fsync
 (file|folder) real deep remove: "/bin/rm -rIf "
 file diff: "diff "
 # find
-file find: 
+file find:
     user.insert_cursor("find . -name \"[|]\" 2>/dev/null")
+file find file:
+    user.insert_cursor("find . -type f -name \"[|]\" 2>/dev/null")
+file find folder:
+    user.insert_cursor("find . -type d -name \"[|]\" 2>/dev/null")
 # case insensitive fuzzy find
 file fuzzy [find]:
     user.insert_cursor("find . -iname \"*[|]*\" 2>/dev/null")
@@ -161,7 +166,7 @@ trash restore: "trash-restore "
 trash empty: "trash-empty "
 file watch latest: "vlc $(exa --sort changed --no-icons | tail -n1)"
 
-echo param <user.text>: 
+echo param <user.text>:
     insert("echo ${")
     snake = user.formatted_text(text, "snake")
     upper = user.formatted_text(snake, "upper")
@@ -179,7 +184,7 @@ pivot <user.folder_paths>:
     insert("ls\n")
 # pivot up doesn't work with talon
 pivot back: "cd ../\n"
-pivot <number_small> back: 
+pivot <number_small> back:
     insert("cd ")
     insert(user.path_traverse(number_small))
     key(enter)
@@ -259,12 +264,12 @@ net [stat] (listen|listening) S C T P: "netstat --sctp -nlp\n"
 net [stat] (listen|listening): "netstat -lnpt\n"
 net [stat] (listen|listening) all: "netstat --sctp -lnput\n"
 net trace: "traceroute "
-net trace clip: 
+net trace clip:
     insert("traceroute")
     edit.paste()
     key(enter)
 net ping: "ping "
-net ping clip: 
+net ping clip:
     insert("ping")
     edit.paste()
     key(enter)
@@ -280,7 +285,7 @@ net bridge (list|show): "brctl show\n"
 
 show hosts file: "cat /etc/hosts\n"
 edit hosts file: "sudoedit /etc/hosts\n"
-net (remote desktop|R D P): 
+net (remote desktop|R D P):
     user.insert_cursor("xfreerdp /timeout:90000 /size:1280x800 /v:[|] /u: /p:")
 
 (generate see tags|tags generate): "ctags --recurse --exclude=.git --exclude=.pc *"
@@ -323,7 +328,7 @@ man page: "man "
 so do: "sudo "
 so do with (env|environment): "sudo -E "
 so do sue: "sudo su\n"
-so do that: 
+so do that:
     edit.line_start()
     insert("sudo ")
     key(enter)
@@ -386,7 +391,6 @@ run clean and make: "make clean && make\n"
 run make clean: "make clean\n"
 run see make: "cmake "
 run configure make: "./configure && make\n"
-run B P F trace: "bpftrace "
 
 sub command:
     insert("$()")
@@ -410,7 +414,7 @@ core dump debug: "coredumpctl debug\n"
 
 # ssh
 # XXX - make texts actually query a series of names from the %h config
-#(secure shell|tunnel) [<user.text>]: 
+#(secure shell|tunnel) [<user.text>]:
 #    insert("ssh ")
 #    insert(text or "")
 tunnel last:
@@ -450,7 +454,7 @@ process tree: "pstree\n"
 process top: "htop\n"
 process fuzzy kill: "pkill "
 process fuzzy kill <user.text>: "pkill {text}"
-process loop kill: 
+process loop kill:
     user.insert_cursor("for PID in $(ps -ef | grep [|] | grep -v grep | awk '{{print $2}}'); do kill -9 $PID 2>/dev/null; done")
 process kill <number>: "kill -9 {number}"
 process kill job <number>: "kill -9 %{number}"
@@ -476,7 +480,7 @@ errors ignore: "2>/dev/null"
 ###
 # images
 ###
-image show: "feh "
+file image: "feh "
 wallpaper set: "feh --bg-scale "
 wallpaper set latest: "feh --bg-scale $(find ~/images/wallpaper/ -name $(exa --sort changed --no-icons ~/images/wallpaper/ | tail -n1))\n"
 
@@ -484,8 +488,8 @@ wallpaper set latest: "feh --bg-scale $(find ~/images/wallpaper/ -name $(exa --s
 ###
 # ELF file
 ###
-elf header: "eu-readelf -h "
-elf symbols: "eu-readelf -s "
+file elf header: "eu-readelf -h "
+file elf symbols: "eu-readelf -s "
 
 
 ###
@@ -567,16 +571,16 @@ limits show core: "ulimit -c\n"
 ###
 # Sorting
 ###
-file sort column [<user.number_string>]: 
+file sort column [<user.number_string>]:
     insert("sort -k ")
     insert(number_string or "")
 
-run B P F trace: 
+run B P F trace:
     user.insert_cursor("sudo BPFTRACE_PERF_RB_PAGES=256 bpftrace [|].bt | tee trace.log")
 
 code Q L resolve: "codeql resolve languages\n"
 
-### 
+###
 # Kernel
 ###
 kernel generate tags: "python scripts/clang-tools/gen_compile_commands.py"
@@ -588,9 +592,15 @@ run pa hole: "pahole "
 
 generate compile commands: "bear make"
 file build: "gcc "
-file build clip: 
+file build clip:
     insert("gcc ")
     edit.paste()
     insert(" -o ")
 
 clipboard as Q R code: "xclip -o -s c | qrencode -o - | feh --force-aliasing -ZF -"
+
+###
+# udev
+###
+
+you dev admin: "udevadm "
