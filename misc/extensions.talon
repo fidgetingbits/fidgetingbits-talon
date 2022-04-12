@@ -1,3 +1,3 @@
 mode: command
 -
-{user.file_extension}: "{file_extension}"
+dot {user.file_extension}: "{file_extension}"
