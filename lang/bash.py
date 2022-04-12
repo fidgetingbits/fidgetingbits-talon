@@ -1,4 +1,4 @@
-from talon import Context, actions
+from talon import Context, actions, settings
 
 ctx = Context()
 ctx.matches = r"""
@@ -109,3 +109,35 @@ class UserActions:
         actions.insert("if [];")
         actions.key("left")
         # XXX - redundant with snippet
+
+    def code_public_function(text: str):
+        result = "function {} {".format(
+            actions.user.formatted_text(
+                text, settings.get("user.code_public_function_formatter")
+            )
+        )
+
+        actions.insert("\n\n}")
+        actions.key("up:2")
+        actions.user.code_insert_function(result, None)
+
+    def code_insert_function(text: str, selection: str):
+        if selection:
+            text = text + " {} ".format(selection)
+        else:
+            text = text + " "
+
+        actions.user.paste(text)
+        actions.edit.left()
+
+    def code_default_function(text: str):
+        """Inserts function definition"""
+        result = "function {} {{".format(
+            actions.user.formatted_text(
+                text, settings.get("user.code_public_function_formatter")
+            )
+        )
+
+        actions.insert("\n\n}")
+        actions.key("up:2")
+        actions.user.code_insert_function(result, None)

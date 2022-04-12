@@ -9,6 +9,7 @@ tag(): user.code_imperative
 # XXX - this might be missing some since the split of operators
 tag(): user.code_comment_line
 tag(): user.code_functions
+tag(): user.code_functions_gui
 tag(): user.code_libraries
 tag(): user.code_operators_array
 tag(): user.code_operators_assignment
@@ -56,3 +57,4 @@ recursive copy file:
 state redirect out: "1>&2"
 state redirect error: "2>&1"
 state error to null: "2>/dev/null"
+state keypress: "read -r -n 1 -s\n"
