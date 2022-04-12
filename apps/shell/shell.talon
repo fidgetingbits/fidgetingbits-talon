@@ -6,8 +6,8 @@ tag(): user.zsh
 cancel [that]: key(ctrl-c)
 # fzf keybindings
 # history search: key(ctrl-r)
-fuzzy (dir|dear|dur): key(alt-c)
-fuzzy (dir|dear|dur) <user.text>:
+folder fuzzy: key(alt-c)
+folder fuzzy <user.text>:
     key(alt-c)
     insert("{text}")
 
