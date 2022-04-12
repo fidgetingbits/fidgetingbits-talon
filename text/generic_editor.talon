@@ -21,16 +21,16 @@ go (word left|back):
 go (word right|word):
     edit.word_right()
 
-[go] left:
+go left:
     edit.left()
 
-[go] right:
+go right:
     edit.right()
 
-(go up|north):
+go (up|north):
     edit.up()
 
-(go down|south):
+go (down|south):
     edit.down()
 
 go (line start|head):
