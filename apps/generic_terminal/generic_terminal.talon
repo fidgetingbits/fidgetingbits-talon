@@ -2,9 +2,9 @@ tag: terminal
 -
 # tags should be activated for each specific terminal in the respective talon file
 
-file (list here|lisa): 
+file list: 
     user.terminal_list_directories()
-file (list long here|lily):
+file list long:
     user.terminal_list_all_directories()
 pivot: user.terminal_change_directory("")
 clear screen: user.terminal_clear_screen()
