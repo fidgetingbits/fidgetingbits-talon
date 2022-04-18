@@ -75,15 +75,14 @@ rerun last tunnel:
 kill all:
     key(ctrl-c)
 
-file list: "ls "
 file list <user.folder_paths>: "ls {folder_paths}\n"
 
-file bare list: "ls --no-icons "
-#file (list here|lisa): "ls -l\n"
-file bare (list here|lisa): "ls -l --no-icons\n"
+file list bare exact: "ls --no-icons "
+file list bare: "ls -l --no-icons\n"
 file size: "ls -lh "
-file list long: "ls -al "
-file (list long here|lily): "ls -al\n"
+file list exact: "ls -l"
+file list long exact: "ls -al "
+file list with paths: 'ls --sort changed --no-icons -d - "$PWD"/*'
 file list latest: "exa --sort changed --no-icons | tail -n1\n"
 file list last <number>: "exa --sort changed --no-icons | tail -n{number}\n"
 file list folders: "ls -d */\n"
@@ -92,7 +91,8 @@ file strings: "strings "
 file (tail|follow): "tail -f "
 file line count: "wc -l "
 file list <user.letter>: 'find . -maxdepth 1 -name "{letter}*" -ls\n'
-file list fuzzy {user.file_extension}: "ls *{file_extension}"
+file list fuzzy {user.file_extension}: "ls *{file_extension}\n"
+file list {user.file_extension} files: "ls *{file_extension}\n"
 
 # find command
 file find all links: "find . -maxdepth 1 -type l  -ls\n"
@@ -118,8 +118,9 @@ file move: "mv "
 file open: "vim "
 file P D F: "evince "
 file touch: "touch "
-file copy: "cp "
-file deep copy: "cp -R "
+file copy: "cp -d "
+file copy latest <user.folder_paths>: user.paste("cp $(ls --sort changed --no-icons -d {folder_paths}/* | tail -n1) .")
+file (deep copy|copy deep): "cp -dR "
 file (file|info|type): "file "
 file show <user.text>: "cat {text}"
 file show: "cat "
@@ -140,11 +141,14 @@ file find file:
 file find folder:
     user.insert_cursor("find . -type d -name \"[|]\" 2>/dev/null")
 # case insensitive fuzzy find
-file fuzzy [find]:
+file fuzzy find:
     user.insert_cursor("find . -iname \"*[|]*\" 2>/dev/null")
-file fuzzy [find] today:
+file fuzzy find today:
     user.insert_cursor("find . -mtime -1 -name \"*[|]*\" 2>/dev/null")
-
+file fuzzy find at clip:
+    insert("find ")
+    edit.paste()
+    user.insert_cursor(" -iname \"*[|]*\" 2>/dev/null")
 file hash: "sha256sum "
 file check sec: "checksec --file="
 file locate: "locate "
@@ -363,7 +367,8 @@ file extract Z S T: "tar --use-compress-program=unzstd -xvf "
 file B unzip: "bunzip2 "
 file (unzip|seven extract): "7z x "
 file (seven|zip) list: "7z l "
-file zip folder: "zip -re output.zip "
+file zip folder: "zip -rP changepassword output.zip "
+file create encrypted (zip|archive): "zip -P changepassword output.zip "
 
 # kernel modules
 module list: "lsmod\n"
@@ -390,7 +395,8 @@ run make: "make\n"
 run clean and make: "make clean && make\n"
 run make clean: "make clean\n"
 run see make: "cmake "
-run configure make: "./configure && make\n"
+run configure make: "./configure && bear -- make\n"
+run auto jen make: "./autogen.sh && ./configure && bear -- make\n"
 
 sub command:
     insert("$()")
@@ -470,9 +476,9 @@ system [list] yew bus: "lsusb\n"
 system release: "cat /etc/lsb-release\n"
 
 # debugging
-run debug script: "gdb -x debug.gdb\n"
-debug server: "gdbserver "
-debug remote server: "gdbserver --multi :9999\n"
+run (debug script|debugger): "gdb -x debug.gdb\n"
+run debug server: "gdbserver "
+run debug remote server: "gdbserver --multi :9999\n"
 
 errors redirect: "2>&1 "
 errors ignore: "2>/dev/null"
@@ -557,6 +563,7 @@ bat cache build: "bat cache --build\n"
 
 file P D F compress: "gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/ebook -dNOPAUSE -dQUIET -dBATCH -sOutputFile=output.pdf input.pdf"
 file P D F strip pages: "gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/ebook -dNOPAUSE -dQUIET -dBATCH -sOutputFile=output.pdf -dFirstPage=1 -dLastPage=1 input.pdf"
+file P D F scale: 'cpdf -scale-page "0.5 0.5" in.pdf -o out.pdf'
 
 ###
 # Limits
@@ -590,7 +597,7 @@ run pa hole: "pahole "
 # Development
 ###
 
-generate compile commands: "bear make"
+(generate compile commands|run bear make): "bear -- make"
 file build: "gcc "
 file build clip:
     insert("gcc ")
@@ -604,3 +611,8 @@ clipboard as Q R code: "xclip -o -s c | qrencode -o - | feh --force-aliasing -ZF
 ###
 
 you dev admin: "udevadm "
+run wiggly: "weggli '{}'"
+
+bytes disassemble: 
+  insert("rasm2 -d ''")
+  key(left)
