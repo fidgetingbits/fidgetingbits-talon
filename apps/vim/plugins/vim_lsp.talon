@@ -4,6 +4,8 @@ tag: user.vim_lsp
 -
 
 (code server|lisp) info: user.vim_command_mode(':exe ":LspInfo"\n')
+(code server|lisp) start: user.vim_command_mode(':exe ":LspStart"\n')
+(code server|lisp) stop: user.vim_command_mode(":LspStop ")
 lisp dock sym: user.vim_command_mode(':exe ":lua vim.lsp.buf.document_symbol()"\n')
 lisp log level trace: user.vim_command_mode(':exe ":lua vim.lsp.set_log_level(\'trace\')"\n')
 lisp log level debug: user.vim_command_mode(':exe ":lua vim.lsp.set_log_level(\'debug\')"\n')
