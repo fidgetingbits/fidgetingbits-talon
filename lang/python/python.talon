@@ -49,7 +49,7 @@ state except: "except "
 state raise: "raise "
 state continue: "continue"
 self taught: "self."
-for in:
+state for in:
     insert("for in ")
     key(left)
     edit.word_left()
