@@ -10,6 +10,13 @@ tab search <user.text>$:
     browser.focus_address()
     insert("% {text}")
     key(down)
+tab jump <user.text>$:
+    browser.focus_address()
+    insert("% {text}")
+    sleep(500ms)
+    key(down)
+    sleep(500ms)
+    key(enter)
 
 outline that:
     browser.focus_address()
@@ -21,3 +28,5 @@ archive that:
     key(home)
     insert("https://web.archive.org/web/*/")
     key(end enter)
+
+
