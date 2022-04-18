@@ -32,7 +32,7 @@ debug restart: user.debugger_restart()
 # Register
 (show|info) registers: user.debugger_show_registers()
 # XXX -
-(show|get) register [<user.register>]: user.debugger_get_register(register or '')
+(show|get) register [{user.registers}]: user.debugger_get_register(registers or '')
 set register: user.debugger_set_register()
 
 # Breakpoints
@@ -88,16 +88,16 @@ inspect type clip: user.debugger_inspect_type_clip()
 
 # Memory Analysis
 hex dump help: user.debugger_hexdump_help()
-hex dump [<number>] [from <user.register>]: 
-    user.debugger_hexdump(number or 0, register or '')
-hex dump [<number>] bytes [from <user.register>]: 
-    user.debugger_hexdump_bytes(number or 0, register or '')
-hex dump [<number>] words [from <user.register>]:
-    user.debugger_hexdump_word(number or 0, register or '')
-hex dump [<number>] (D|long) words [from <user.register>]:
-    user.debugger_hexdump_dword(number or 0, register or '')
-hex dump [<number>] (Q|quad) words [from <user.register>]:
-    user.debugger_hexdump_qword(number or 0, register or '')
+hex dump [<number>] [from {user.registers}]: 
+    user.debugger_hexdump(number or 0, registers or '')
+hex dump [<number>] bytes [from {user.registers}]: 
+    user.debugger_hexdump_bytes(number or 0, registers or '')
+hex dump [<number>] words [from {user.registers}]:
+    user.debugger_hexdump_word(number or 0, registers or '')
+hex dump [<number>] (D|long) words [from {user.registers}]:
+    user.debugger_hexdump_dword(number or 0, registers or '')
+hex dump [<number>] (Q|quad) words [from {user.registers}]:
+    user.debugger_hexdump_qword(number or 0, registers or '')
 
 hex dump [<number>] [from] clip:
     user.debugger_hexdump_clip(number or 0)
@@ -110,14 +110,14 @@ hex dump [<number>] (D|long) words [from] clip:
 hex dump [<number>] (Q|quad) words [from] clip:
     user.debugger_hexdump_qword_clip(number or 0)
 
-dump [<number> byte] string [from <user.register>]: user.debugger_dump_ascii_string(number or 0, register or '')
+dump [<number> byte] string [from {user.registers}]: user.debugger_dump_ascii_string(number or 0, registers or '')
 dump [<number> byte] string from clip: user.debugger_dump_ascii_string_clip(number or 0)
-dump [<number> byte] unicode [string] [from <user.register>]: user.debugger_dump_unicode_string(number or 0, register or '')
+dump [<number> byte] unicode [string] [from {user.registers}]: user.debugger_dump_unicode_string(number or 0, registers or '')
 dump [<number> byte] unicode [string] from clip: user.debugger_dump_unicode_string_clip(number or 0)
-dump pointers [from <user.register>]: user.debugger_dump_pointers(register or '')
+dump pointers [from {user.registers}]: user.debugger_dump_pointers(registers or '')
 dump pointers from clip: user.debugger_dump_pointers_clip()
 
 
 # Convenience
 clear command: user.debugger_clear_line()
-register <user.register>: user.debugger_access_register(register)
+register {user.registers}: user.debugger_access_register(registers)
