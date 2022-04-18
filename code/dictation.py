@@ -29,6 +29,7 @@ ctx.lists["user.prose_modifiers"] = {
     "no caps": "no_cap", # "no caps" variant for Dragon
     "no space": "no_space",
 }
+
 ctx.lists["user.prose_snippets"] = {
     "spacebar": " ",
     "new line": "\n",
@@ -36,9 +37,10 @@ ctx.lists["user.prose_snippets"] = {
     # Curly quotes are used to obtain proper spacing for left and right quotes, but will later be straightened.
     "open quote": "“",
     "close quote": "”",
-    "smiley": ":-)",
-    "winky": ";-)",
-    "frowny": ":-(",
+    "smiley": ":)",
+    "big smiley": ":D",
+    "winky": ";)",
+    "frowny": ":(",
 }
 
 @mod.capture(rule="{user.prose_modifiers}")
