@@ -29,6 +29,7 @@ _file_extensions_defaults = {
     "debug": ".debug",
     "dock ex": ".docx",
     "dock": ".doc",
+    "E M L": ".eml",
     "exe": ".exe",
     "flack": ".flac",
     "G bag": ".gdb",
