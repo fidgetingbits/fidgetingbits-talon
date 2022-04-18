@@ -23,6 +23,8 @@ tag(): user.readline
 tag(): user.gdb_vmlinux
 tag(): user.slabdbg
 
+tag(): user.x64
+
 until <number>: "until {number}"
 
 force clear all break points:
@@ -140,6 +142,7 @@ set system root: "set sysroot "
 show system root: "show sysroot\n"
 
 set substitute path: "set substitute-path "
+unset substitute path: "unset substitute-path "
 show substitute path: "show substitute-path\n"
 
 show list size: "show listsize\n"
