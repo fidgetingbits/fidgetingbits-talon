@@ -110,6 +110,7 @@ ctx.lists["user.c_stdint_types"] = stdint_types
 ctx.lists["user.c_basic_types"] = basic_types
 
 ctx.lists["user.code_libraries"] = {
+    "arba I net": "arpa/inet.h",
     "assert": "assert.h",
     "type": "ctype.h",
     "error": "err.h",
@@ -165,6 +166,7 @@ ctx.lists["user.code_libraries"] = {
     "unix standard": "unistd.h",
     "net I net in": "netinet/in.h",
     "sys cuddle": "linux/sysctl.h",
+    "ex adder": "sys/xattr.h",
 }
 
 ctx.lists["user.code_functions"] = {
