@@ -7,7 +7,7 @@ tag: user.i3wm
 ##
 portal <number_small>: user.system_command("i3-msg workspace {number_small}")
 portal ten: user.system_command("i3-msg workspace 10")
-(portal flip|flipper): user.system_command("i3-msg workspace back_and_forth")
+portal flip: user.system_command("i3-msg workspace back_and_forth")
 
 # XXX - This is because of buggy recognition of port flip all the time, the
 # alternative would be to rework the portal argument to not accept anything
@@ -30,31 +30,31 @@ portal left: user.system_command("i3-msg workspace prev")
 (win|window) flip: user.system_command("/home/aa/scripts/i3/i3-focus-last.py --switch")
 (win|window) focus <number_small>:
     user.system_command("/home/aa/scripts/i3/i3-nth_window_in_workspace.py $(i3-msg -t get_workspaces | jq -r '.[] | select(.focused==true).name') {number_small-1}")
-window focus parent: user.system_command("i3-msg focus parent")
-window focus child: user.system_command("i3-msg focus child")
+(win|window) focus parent: user.system_command("i3-msg focus parent")
+(win|window) focus child: user.system_command("i3-msg focus child")
 
-[window] full screen: user.system_command("i3-msg fullscreen")
-[window] floating toggle: user.system_command("i3-msg floating toggle")
-[window] floating focus: user.system_command("i3-msg focus mode_toggle")
-window center: user.system_command("i3-msg move position center")
-window move left: user.system_command("i3-msg move left") 
-window move <number> left: user.system_command("i3-msg move left {number} px") 
-window move right: user.system_command("i3-msg move right") 
-window move <number> right: user.system_command("i3-msg move right {number} px") 
-window move up: user.system_command("i3-msg move up") 
-window move <number> up: user.system_command("i3-msg move up {number} px") 
-window move down: user.system_command("i3-msg move down") 
-window move <number> down: user.system_command("i3-msg move down {number} px") 
-window resize: user.system_command('i3-msg mode "resize"')
+[(win|window)] full screen: user.system_command("i3-msg fullscreen")
+[(win|window)] floating toggle: user.system_command("i3-msg floating toggle")
+[(win|window)] floating focus: user.system_command("i3-msg focus mode_toggle")
+(win|window) center: user.system_command("i3-msg move position center")
+(win|window) move left: user.system_command("i3-msg move left") 
+(win|window) move <number> left: user.system_command("i3-msg move left {number} px") 
+(win|window) move right: user.system_command("i3-msg move right") 
+(win|window) move <number> right: user.system_command("i3-msg move right {number} px") 
+(win|window) move up: user.system_command("i3-msg move up") 
+(win|window) move <number> up: user.system_command("i3-msg move up {number} px") 
+(win|window) move down: user.system_command("i3-msg move down") 
+(win|window) move <number> down: user.system_command("i3-msg move down {number} px") 
+(win|window) resize: user.system_command('i3-msg mode "resize"')
 (win|window) horizontal: user.system_command("i3-msg split h")
 (win|window) vertical: user.system_command("i3-msg split v")
 
-window [<number>] grow: user.i3wm_window_grow(number or 1)
-window [<number>] shrink: user.i3wm_window_shrink(number or 1)
-window [<number>] taller: user.i3wm_window_adjust_height_up(number or 50)
-window [<number>] shorter: user.i3wm_window_adjust_height_down(number or 50)
-window [<number>] fatter: user.i3wm_window_adjust_width_out(number or 50)
-window [<number>] skinnier: user.i3wm_window_adjust_width_in(number or 50)
+(win|window) [<number>] grow: user.i3wm_window_grow(number or 1)
+(win|window) [<number>] shrink: user.i3wm_window_shrink(number or 1)
+(win|window) [<number>] taller: user.i3wm_window_adjust_height_up(number or 50)
+(win|window) [<number>] shorter: user.i3wm_window_adjust_height_down(number or 50)
+(win|window) [<number>] fatter: user.i3wm_window_adjust_width_out(number or 50)
+(win|window) [<number>] skinnier: user.i3wm_window_adjust_width_in(number or 50)
 
 horizontal (shell|terminal):
     user.system_command("i3-msg split h")
@@ -78,7 +78,7 @@ shuffle up: user.system_command("i3-msg move up")
 shuffle down: user.system_command("i3-msg move down")
 
 
-# move a window to a workspace and follow it there
+# move a (win|window) to a workspace and follow it there
 follow <number_small>:
     user.system_command("i3-msg move container to workspace {number_small}")
     user.system_command("i3-msg workspace {number_small}")
@@ -93,7 +93,7 @@ follow ten:
 shuffle screen left: user.system_command("i3-msg move container to output right")
 shuffle screen right: user.system_command("i3-msg move container to output left")
 
-[window] make scratch: user.system_command("i3-msg move scratchpad")
+[(win|window)] make scratch: user.system_command("i3-msg move scratchpad")
 [(show|hide)] scratch: user.system_command("i3-msg scratchpad show")
 next scratch:
     user.system_command("i3-msg scratchpad show")
