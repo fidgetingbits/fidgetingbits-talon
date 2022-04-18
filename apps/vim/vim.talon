@@ -130,7 +130,7 @@ settings():
     user.vim_use_rpc = 1
 
     # Adds debug output to the talon log
-    user.vim_debug = 0
+    user.vim_debug = 0 
 
 
 ###
@@ -553,12 +553,12 @@ mark (add|new|create) <user.letter>:
 mark global [(new|create)] <user.upper_letter>:
     user.vim_normal_mode_exterm_keys("m {upper_letter}", "True")
 
-(marker|mark jump [to]) <user.letter>:
+(marker|jump mark) <user.letter>:
     user.vim_set_normal_mode_exterm()
     key(`)
     key(letter)
 
-(marker global|gallop) (go|jump) [to] [ship] <user.upper_letter>:
+(marker global|gallop|jump mark global) <user.upper_letter>:
     user.vim_set_normal_mode_exterm()
     key(`)
     key(upper_letter)
@@ -590,7 +590,9 @@ session show: user.vim_command_mode_exterm(":echo v:this_session\n")
 ###
 # Informational
 ###
-open man page: user.vim_command_mode_exterm(":Man ")
+man page: user.vim_command_mode_exterm(":Man ")
+man page sys call: user.vim_command_mode_exterm(":Man 2 ")
+man page this: user.vim_normal_mode("K")
 
 ###
 # Mode Switching
