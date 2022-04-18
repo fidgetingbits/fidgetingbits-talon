@@ -6,17 +6,18 @@ ctx.matches = r"""
 tag: user.x86
 """
 
-
 registers = {
-    "air": "eax",
-    "bat": "ebx",
-    "cap": "ecx",
-    "drum": "edx",
-    "source": "esi",
-    "dest": "edi",
+    "E A X": "eax",
+    "E B X": "ebx",
+    "E C X": "ecx",
+    "E D X": "edx",
+    "E S I": "esi",
+    "E D I": "edi",
     "stack": "esp",
+    "E S P": "esp",
     "frame": "ebp",
-    "instruction": "eip",
+    "E B P": "ebp",
+    "E I P": "eip",
 }
 
 ctx.lists["user.registers"] = registers
