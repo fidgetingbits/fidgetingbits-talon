@@ -120,8 +120,11 @@ file P D F: "evince "
 file touch: "touch "
 file copy: "cp -d "
 file copy latest <user.folder_paths>: user.paste("cp $(ls --sort changed --no-icons -d {folder_paths}/* | tail -n1) .")
-file (deep copy|copy deep): "cp -dR "
+(file|folder) (deep copy|copy deep): "cp -dR "
 file (file|info|type): "file "
+file list hidden: 'ls -al | grep "^."\n'
+file list hidden files: 'find . -maxdepth 1 -not -type d -name ".*" -printf "%f\\n"\n'
+file list hidden folders: "ls -d .[^.]*\n"
 file show <user.text>: "cat {text}"
 file show: "cat "
 file edit: insert("edit ")
