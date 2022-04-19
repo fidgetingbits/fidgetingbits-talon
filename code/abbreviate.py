@@ -273,6 +273,7 @@ abbreviations = {
     "preference": "pref",
     "preferences": "prefs",
     "previous": "prev",
+    "private": "priv",
     "process": "proc",
     "processor": "cpu",
     "program": "prog",
