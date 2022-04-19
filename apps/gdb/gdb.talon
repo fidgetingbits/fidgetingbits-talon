@@ -50,6 +50,9 @@ print hex: "p/x "
 print hex (var|variable) <user.text>:
     insert("p/x ")
     insert(user.formatted_text(text, "snake"))
+print hex {user.registers}:
+    insert("p/x ${user.registers}\n")
+
 print string: "p/s "
 print (bits|binary): "p/t "
 
@@ -165,7 +168,7 @@ print (struct|structure) size clip:
     key(enter)
 
 print type:
-    insert("ptype")
+    insert("ptype ")
 unset print elements:
     insert("set print elements 0\n")
 
@@ -193,3 +196,16 @@ set title G D B:
 
 set title pone: 
     insert('shell echo -n -e "\\033]0;pwndbg\\007"\n')
+
+# typecasting
+# maybe we should make these generic across gdb and C 
+# XXX - we should make these expressible to gdb
+# Ex. (int *)
+cast to <user.c_cast>: "{c_cast}"
+basic cast to <user.c_basic_cast>: "{c_basic_cast}"
+standard cast to <user.c_stdint_cast>: "{c_stdint_cast}"
+[state] type <user.c_types>: "{c_types}"
+<user.c_pointers>: "{c_pointers}"
+<user.c_signed>: "{c_signed}"
+basic <user.c_basic_types>: "{c_basic_types}"
+standard <user.c_stdint_types>: "{c_stdint_types}"

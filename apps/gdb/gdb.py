@@ -14,7 +14,7 @@ ctx.matches = r"""
 tag: user.gdb
 """
 
-
+# see gdb_generic.py for actions that can also be overridden by other plugins
 @ctx.action_class("user")
 class UserActions:
     # Code execution
