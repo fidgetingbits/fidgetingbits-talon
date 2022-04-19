@@ -15,7 +15,7 @@ step next call: user.debugger_step_call()
 step next ret: user.debugger_step_ret()
 step next sys call: user.debugger_step_syscall()
 
-## line level
+## line level (NOTE: pwndbg doesn't override these)
 step line: user.debugger_step_line()
 (step over|next) line: user.debugger_step_over_line()
 (step out|finish): user.debugger_step_out()
@@ -120,4 +120,4 @@ dump pointers from clip: user.debugger_dump_pointers_clip()
 
 # Convenience
 clear command: user.debugger_clear_line()
-register {user.registers}: user.debugger_access_register(registers)
+(reg|register) {user.registers}: user.debugger_access_register(registers)
