@@ -36,3 +36,8 @@ class EditActions:
     def down():
         actions.key("down")
 
+    def zoom_out():
+        actions.key("ctrl-shift--")
+
+    def zoom_in():
+        actions.key("ctrl-shift-+")
