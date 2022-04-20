@@ -4,7 +4,7 @@ import re
 from random import randint
 from typing import List, Union
 
-from talon import Context, Module, actions, app, clip, imgui, ui
+from talon import Context, Module, actions, app, clip, imgui, ui, registry
 from talon.grammar import Phrase
 
 ctx = Context()
@@ -51,6 +51,7 @@ def format_phrase(m: Union[str, Phrase], fmtrs: str):
     # way and I don't feel like rewriting it just now. -rntz, 2020-11-04
     return result
 
+
 def format_phrase_letters(m: str, fmtrs: str):
     global last_phrase, last_phrase_formatted
     last_phrase = m
@@ -62,6 +63,7 @@ def format_phrase_letters(m: str, fmtrs: str):
     # down the line. But we have a bunch of code that relies on doing it this
     # way and I don't feel like rewriting it just now. -rntz, 2020-11-04
     return result
+
 
 def format_phrase_no_history(word_list, fmtrs: str):
     fmtr_list = fmtrs.split(",")
@@ -141,13 +143,17 @@ def spongebob(i, word, _):
     return formatted_string
 
 
+def brief(word):
+    formatted_string = ""
+    if word in registry.lists["user.abbreviation"][0].keys():
+        return registry.lists["user.abbreviation"][0][word]
+    return word
+
+
 formatters_dict = {
     "ALL_CAPS": (SEP, every_word(lambda w: w.upper())),
     "ALL_LOWERCASE": (SEP, every_word(lambda w: w.lower())),
-    # XXX - finish me
-    #    "BRIEF": (NOSEP,
-    #        lambda i, word, _: word
-    #    ),
+    "ALL_BRIEF": (SEP, every_word(brief)),
     "CAPITALIZE_ALL_WORDS": (
         SEP,
         lambda i, word, _: word.capitalize()
@@ -192,7 +198,7 @@ formatters_dict = {
 formatters_words = {
     "allcaps": formatters_dict["ALL_CAPS"],
     "alldown": formatters_dict["ALL_LOWERCASE"],
-    #    "brief": formatters_dict["BRIEF"],
+    "briefing": formatters_dict["ALL_BRIEF"],
     "camel": formatters_dict["PRIVATE_CAMEL_CASE"],
     "arguing": formatters_dict["COMMA_SEPARATED"],
     "dotted": formatters_dict["DOT_SEPARATED"],
@@ -240,6 +246,7 @@ mod.list(
 def formatters(m) -> str:
     "Returns a comma-separated string of formatters e.g. 'SNAKE,DUBSTRING'"
     return ",".join(m.formatters_list)
+
 
 @mod.capture(rule="{self.formatters_keys}+")
 def formatters_letters(m) -> str:
