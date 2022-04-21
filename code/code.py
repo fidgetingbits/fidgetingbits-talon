@@ -64,6 +64,7 @@ forced_context_language = None
 # with specific languages. Ex: CMakeLists.txt is cmake
 special_file_map = {
     "CMakeLists.txt": "cmake",
+    "Makefile": "make",
     "Dockerfile": "docker",
     "meson.build": "meson",
     ".bashrc": "bash",
