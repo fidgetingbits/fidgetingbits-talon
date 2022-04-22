@@ -144,6 +144,7 @@ abbreviations = {
     "execute": "exec",
     "experience": "exp",
     "expression": "expr",
+    "expressions": "exprs",
     "extend": "ext",
     "extension": "ext",
     "eye three": "i3",
