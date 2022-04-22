@@ -50,6 +50,7 @@ _file_extensions_defaults = {
     "J peg": ".jpg",
     "key": ".key",
     "K O": ".ko",
+    "kay oh": ".ko",
     "local": ".local",
     "log": ".log",
     "lua": ".lua",
