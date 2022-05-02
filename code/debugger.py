@@ -41,7 +41,12 @@ class Debugger:
         for arch in self.architectures:
             mod.tag(arch, desc="Tag for enabling {arch} architecture")
         self.architecture = settings.get("user.debug_default_architecture")
-        ctx.tags = [f"user.{self.architecture}"]
+        if self.architecture:
+            ctx.tags = [f"user.{self.architecture}"]
+        else:
+            print("Just encountered bug!!!")
+            # it seems like sometimes the above isn't set yet...
+            ctx.tags = ["user.x64"]
 
     def cycle_architecture(self):
         """Switch between supported architectures"""
@@ -185,7 +190,6 @@ class Actions:
 
     def debugger_goto_highlighted():
         """Jump to a specific highlighted address in the debugger"""
-
 
     def debugger_inspect_type():
         """Inspect a specific data type in the debugger"""
