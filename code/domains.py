@@ -9,10 +9,16 @@ mod = Module()
 mod.list("domains", desc="Commonly used domains")
 
 ctx = Context()
+
+
 class Domain:
     db = None
+
     def __init__(self):
-        cwd = pathlib.Path(__file__).parent.parent.joinpath("settings/domains_private.json") 
+        # assumes separate ~/.talon/user/private/ directory
+        cwd = pathlib.Path(__file__).parent.parent.joinpath(
+            "../private/settings/domains_private.json"
+        )
         self.domain_file = cwd.absolute()
         self.update_commands()
         fs.watch(self.domain_file, self.__on_fs_change)
@@ -28,6 +34,8 @@ class Domain:
 
 
 domain = Domain()
+
+
 @mod.capture(rule="{user.domains}")
 def domains(m) -> str:
     "One domains"

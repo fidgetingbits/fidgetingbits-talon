@@ -1,4 +1,4 @@
-from .user_settings import get_list_from_csv
+from .user_settings import get_list_from_csv, get_list_from_private_csv
 from talon import Module, Context
 from urllib.parse import quote_plus
 import webbrowser
@@ -39,12 +39,12 @@ public_sites = get_list_from_csv(
     default=website_defaults,
 )
 
-private_sites = get_list_from_csv(
+private_sites = get_list_from_private_csv(
     "websites_private.csv",
     headers=("URL", "Spoken name"),
     default={},
-)
-ctx.lists["self.website"] = {**public_sites,**private_sites}
+    )
+ctx.lists["self.website"] = {**public_sites, **private_sites}
 ctx.lists["self.search_engine"] = get_list_from_csv(
     "search_engines.csv",
     headers=("URL Template", "Name"),

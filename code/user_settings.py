@@ -7,16 +7,31 @@ from talon import resource
 # NOTE: This method requires this module to be one folder below the top-level
 #   knausj folder.
 SETTINGS_DIR = Path(__file__).parents[1] / "settings"
+# NOTE: This method requires this module to be in ~/.talon/user
+PRIVATE_SETTINGS_DIR = Path(__file__).parents[2] / "private" / "settings"
 
 if not SETTINGS_DIR.is_dir():
     os.mkdir(SETTINGS_DIR)
 
+
+def get_list_from_private_csv(
+    filename: str, headers: Tuple[str, str], default: Dict[str, str] = {}
+):
+    """Retrieves list from CSV"""
+    path = PRIVATE_SETTINGS_DIR / filename
+    return parse_csv(path, filename, headers, default)
 
 def get_list_from_csv(
     filename: str, headers: Tuple[str, str], default: Dict[str, str] = {}
 ):
     """Retrieves list from CSV"""
     path = SETTINGS_DIR / filename
+    return parse_csv(path, filename, headers, default)
+
+
+def parse_csv(
+        path: Path, filename: str, headers: Tuple[str, str], default: Dict[str, str] = {}
+):
     assert filename.endswith(".csv")
 
     if not path.is_file():

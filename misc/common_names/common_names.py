@@ -1,5 +1,6 @@
 import os
 import sys
+import pathlib
 from typing import Set
 
 from talon import Context, Module, actions
@@ -14,8 +15,12 @@ last_names_file = os.path.join(cwd, "last_names.csv")
 
 # These list should contain values you don't want to be published publicly.
 # see the read me about keeping them private
-private_first_names_file = os.path.join(cwd, "private_first_names.csv")
-private_last_names_file = os.path.join(cwd, "private_last_names.csv")
+private_first_names_file = pathlib.Path(__file__).parent.parent.joinpath(
+    "../../private/misc/common_names/private_first_names.csv"
+)
+private_last_names_file = pathlib.Path(__file__).parent.parent.joinpath(
+    "../../private/misc/common_names/private_last_names.csv"
+)
 
 
 def populate_list(name_list, file_name):
@@ -52,6 +57,6 @@ def first_name(m) -> str:
 
 
 @mod.capture(rule="{self.last_names}")
-def last_name(m) ->str:
+def last_name(m) -> str:
     "One last name"
     return m.last_names
