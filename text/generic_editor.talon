@@ -155,6 +155,8 @@ clear way down:
 #    edit.select_all()
 #    edit.delete()
 
+copy that:
+    edit.copy()
 #copy commands
 copy all:
     edit.select_all()
