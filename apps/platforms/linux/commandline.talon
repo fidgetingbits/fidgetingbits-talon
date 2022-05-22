@@ -114,7 +114,7 @@ file find excluding with depth:
     user.insert_cursor("find . -mindepth 2 -maxdepth 2 -type d '!' -exec sh -c 'ls -1 \"{}\"|egrep -i -q \"^*.[|]$\"' ';' -print")
 file find excluding:
     user.insert_cursor("find . -type d '!' -exec sh -c 'ls -1 \"{}\"|egrep -i -q \"^*.[|]$\"' ';' -print")
-file move: "mv "
+file (move|rename): "mv "
 file open: "vim "
 file P D F: "evince "
 file touch: "touch "
@@ -344,7 +344,7 @@ d message: "dmesg"
 
 # disk management
 # NOTE - talon doesn't like the word disk with on MD431-II
-(disk|drive) usage: "df -h\n"
+(disk|drive) (usage|space): "df -h\n"
 (disk|drive) list: "lsblk -l\n"
 (disk|drive) file systems: "lsblk -f\n"
 (disk|drive) mounted: "mount\n"
@@ -395,10 +395,12 @@ run again:
     key(up enter)
 run vim: "vim "
 run make: "make\n"
+run make install: "make install\n"
 run clean and make: "make clean && make\n"
 run make clean: "make clean\n"
 run see make: "cmake "
 run configure make: "./configure && bear -- make\n"
+run configure help: "./configure --help\n"
 run auto jen make: "./autogen.sh && ./configure && bear -- make\n"
 
 sub command:
@@ -468,6 +470,8 @@ process loop kill:
 process kill <number>: "kill -9 {number}"
 process kill job <number>: "kill -9 %{number}"
 process kill: "kill -9 "
+process kill all: "killall "
+process kill all <user.word>: "killall {word}"
 
 system reboot: "sudo reboot -h now"
 
@@ -619,3 +623,16 @@ run wiggly: "weggli '{}'"
 bytes disassemble: 
   insert("rasm2 -d ''")
   key(left)
+
+module load N F tables: "unshare -U -r -n -- iptables -L \n"
+
+print hex as decimal: "printf '%d\\n', 0x"
+print decimal as hex: "printf '0x%x\\n', "
+
+while true loop: "while true; do ; done"
+
+file swap in place: "sed -i s///g "
+file swap many in place: 'find . -name "" | xargs sed -i s///g'
+file swap many see: 'find . -name "*.[ch]" | xargs sed -i -e s///g'
+file swap many pie: 'find . -name "*.py" | xargs sed -i -e s///g'
+
