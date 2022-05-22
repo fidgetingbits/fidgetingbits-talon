@@ -3,5 +3,5 @@ tag: terminal
 and tag: user.make
 -
 
-make file: "make -f "
-make clean: "make clean\n"
+run make file: "make -f "
+run make clean: "make clean\n"
