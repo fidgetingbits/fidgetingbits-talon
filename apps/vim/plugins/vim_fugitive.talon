@@ -5,7 +5,7 @@ tag: user.vim_fugitive
 -
 
 # File management
-(fugitive|git) add (current|this) file: user.vim_command_mode(':exe ":G add %"\n')
+(fugitive|git) add file: user.vim_command_mode(':exe ":G add %"\n')
 (fugitive|git) add everything: user.vim_command_mode(':exe ":G add -u"\n')
 (fugitive|git) blame: user.vim_command_mode(':exe ":Git blame"\n')
 (fugitive|git) browse: user.vim_command_mode(':exe ":G Browse"\n')

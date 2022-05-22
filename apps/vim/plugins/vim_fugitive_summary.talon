@@ -30,7 +30,7 @@ preview file: user.vim_normal_mode_key("p")
 
 # Commit maps
 
-[file] commit [changes]: 
+file commit [changes]: 
     user.vim_normal_mode_keys("c c")
     user.vim_set_insert_mode()
 amend [last commit]: user.vim_normal_mode_keys("c a")

@@ -35,7 +35,7 @@ wrap line with <user.vim_surround_targets>:
 wrap and indent line with <user.vim_surround_targets>:
     user.vim_normal_mode("ySS{vim_surround_targets}")
 
-clear those <user.vim_surround_targets>:
+(clear|drop) those <user.vim_surround_targets>:
     user.vim_normal_mode("ds{vim_surround_targets}")
 
 swap those <user.vim_surround_targets> with <user.vim_surround_targets>:

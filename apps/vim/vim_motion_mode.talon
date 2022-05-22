@@ -40,18 +40,29 @@ tag(): user.vim_treesitter_textobjects
 # have counting, etc
 # XXX - I still need to investigate whether or not a subset of these should be
 # exposed in terminal mode
-<user.vim_normal_counted_motion_command>:
-    user.vim_any_motion_mode("{vim_normal_counted_motion_command}")
+
+# NOTE: After about two years I got fed up of all of the misrecognitions for
+# these, so I decided to prefix everything with go. You may want to change them
+# if you don't have issues with lots of bad recognitions
+go <user.vim_normal_counted_motion_keys>:
+    user.vim_any_motion_mode_key("{vim_normal_counted_motion_keys}")
+go <user.vim_motions_all_adjust>:
+    user.vim_any_motion_mode("{vim_motions_all_adjust}")
+
 <user.vim_normal_counted_motion_keys>:
     user.vim_any_motion_mode_key("{vim_normal_counted_motion_keys}")
-<user.vim_motions_all_adjust>:
-    user.vim_any_motion_mode("{vim_motions_all_adjust}")
 <user.vim_normal_counted_action>:
     user.vim_any_motion_mode("{vim_normal_counted_action}")
 <user.vim_normal_counted_actions_keys>:
     user.vim_any_motion_mode_key("{vim_normal_counted_actions_keys}")
 <user.vim_counted_motion_command_with_ordinals>:
    user.vim_any_motion_mode("{vim_counted_motion_command_with_ordinals}")
+
+<user.vim_normal_counted_motion_command>:
+    user.vim_any_motion_mode("{vim_normal_counted_motion_command}")
+
+
+
 
 
 ###
@@ -90,6 +101,8 @@ pivot <user.folder_paths>:
     user.vim_command_mode(":lcd {folder_paths}\n")
 file yank path:
     user.vim_command_mode(":let @+ = expand('%:p')\n")
+folder yank path:
+    user.vim_command_mode(":let @+ = expand('%:h')\n")
 file recover:
     user.vim_command_mode(":recover")
 
@@ -106,7 +119,7 @@ open [this] link:
 (open this file offset|file jump offset): user.vim_normal_mode("gF")
 # XXX - should automate this with the previous open for cases when a file
 # doesn't exist...
-file create this: 
+file create this:
     user.vim_command_mode(':call writefile([], expand("<cfile>"), "b")\n')
 (river this [file]|file river jump):
     user.vim_set_normal_mode()
@@ -129,15 +142,15 @@ matching <user.symbol_key>: user.vim_any_motion_mode("f{symbol_key}%")
 # ctags/symbol
 jump tag: user.vim_normal_mode_key("ctrl-]")
 (jump|taggy) back: user.vim_normal_mode_key("ctrl-t")
-jump forward: 
+jump forward:
     user.vim_command_mode(":tag\n")
-jump tag that:
+jump tag (that|clip):
     user.vim_command_mode(":tag ")
     edit.paste()
     key(enter)
-jump exact tag:
+jump (exact tag|tag exact):
     user.vim_command_mode(":tag ")
-taggy list:    
+taggy list:
     user.vim_command_mode(":tags\n")
 
 
@@ -185,16 +198,16 @@ shoot <user.unmodified_key>:
 # deleting
 (delete|trim) remaining [line]:
     user.vim_normal_mode_key("D")
-# XXX - are temporarily disabled for speed testing
-#delete line [at|number] <number>$:
-#    user.vim_command_mode(":{number}d\n")
-#delete (line|lines) [at|number] <number> through <number>$:
-#    user.vim_command_mode(":{number_1},{number_2}d\n")
-#delete (until|till) line <number>:
-#    user.vim_normal_mode_np("m'")
-#    insert(":{number}\n")
-#    user.vim_set_visual_line_mode()
-#    insert("''d")
+# XXX - these need to intelligently handle relative versus absolute numbering
+clear line [at|number] <number>$:
+    user.vim_command_mode(":{number}d\n")
+clear (line|lines) [at|number] <number> through <number>$:
+    user.vim_command_mode(":{number_1},{number_2}d\n")
+clear (until|till) line <number>:
+    user.vim_normal_mode_np("m'")
+    insert(":{number}\n")
+    user.vim_set_visual_line_mode()
+    insert("''d")
 
 # XXX - For stuff like this where we have multiple inputs in a motion mode but
 # at the very end we want the preservation of the original mode, technically we
@@ -212,23 +225,22 @@ forget line:
     user.vim_normal_mode("\"_dd")
 
 # copying
-# XXX - are temporarily disabled for speed testing
 yank line <number>$:
     user.vim_command_mode_exterm(":{number}y\n")
-#(copy|yank) <number_small> lines at line <number>$:
-#    user.vim_command_mode_exterm(":{number}\n")
-#    user.vim_normal_mode_exterm("y{number_small}y")
-#(copy|yank) line (at|number) <number> through <number>:
-#    user.vim_command_mode_exterm(":{number_1},{number_2}y\n")
-#    user.vim_command_mode(":{number_1},{number_2}y\n")
-#    user.vim_command_mode("p")
-#
-#(copy|yank) line relative up <number>:
-#    user.vim_command_mode_exterm("{number}k")
-#    user.vim_command_mode("yy")
-#(copy|yank) <number_small> lines relative up <number>:
-#    user.vim_command_mode_exterm("{number}k")
-#    user.vim_command_mode("{number_small}yy")
+(copy|yank) <number_small> lines at line <number>$:
+    user.vim_command_mode_exterm(":{number}\n")
+    user.vim_normal_mode_exterm("y{number_small}y")
+(copy|yank) line (at|number) <number> through <number>:
+    user.vim_command_mode_exterm(":{number_1},{number_2}y\n")
+    user.vim_command_mode(":{number_1},{number_2}y\n")
+    user.vim_command_mode("p")
+
+(copy|yank) line relative up <number>:
+    user.vim_command_mode_exterm("{number}k")
+    user.vim_command_mode("yy")
+(copy|yank) <number_small> lines relative up <number>:
+    user.vim_command_mode_exterm("{number}k")
+    user.vim_command_mode("{number_small}yy")
 (copy|yank) (above|last) <number_small> lines:
     user.vim_normal_mode_exterm("{number_small}k")
     user.vim_normal_mode_exterm("y{number_small}y")
@@ -247,7 +259,7 @@ yank line <number>$:
 bring line <number>$:
     user.vim_command_mode(":{number}y\n")
     user.vim_normal_mode("p")
-#(dup|duplicate) line: 
+#(dup|duplicate) line:
 #    user.vim_normal_mode_np("yy")
 #    user.vim_normal_mode_np("p")
 
@@ -414,7 +426,8 @@ spell last: user.vim_normal_mode('[s')
 # differences this puts you into insert mode
 # TODO - change the way you say this?
 (continue|continue last insert): user.vim_normal_mode("gi")
-jump last curse: user.vim_normal_mode("``")
+jump last curse: user.vim_normal_mode_keys("ctrl-o")
+jump next curse: user.vim_normal_mode_keys("ctrl-I")
 jump last line: user.vim_normal_mode("''")
 (go|jump) [to] last change: user.vim_normal_mode("g;")
 (go|jump) [to] next change: user.vim_normal_mode("g,")
@@ -448,7 +461,22 @@ quick [fix] do:
 quick [fix] swap:
     user.vim_command_mode(":cdo s///g| update")
     key(left:11)
+quick list older:  user.vim_command_mode(":colder\n")
+quick list newer:  user.vim_command_mode(":cnewer\n")
 set auto write all: user.vim_command_mode(":set autowriteall\n")
+
+###
+# Location List
+###
+loke open: user.vim_command_mode(":lopen\n")
+loke close: user.vim_command_mode(":lclose\n")
+loke next: user.vim_command_mode(":lnext\n")
+loke prev: user.vim_command_mode(":lprev\n")
+loke last: user.vim_command_mode(":llast\n")
+loke jump <number>: user.vim_command_mode(":ll {number}\n")
+loke vim grep:
+    user.vim_command_mode(":lvimgrep // **")
+    key(left:4)
 
 
 ###
@@ -600,12 +628,22 @@ run sandbox script:
     user.insert_cursor(":exec '!env/bin/python3 [|]'")
 
 # Change how these get displayed in splits?
-run make:
+(run make|file build):
     user.vim_normal_mode_np(":w\n")
     insert(":!make\n")
 run make all:
     user.vim_normal_mode_np(":w\n")
     insert(":!make all\n")
+run make clean:
+    user.vim_normal_mode_np(":w\n")
+    insert(":!make clean\n")
+run make debug:
+    user.vim_normal_mode_np(":w\n")
+    insert(":!make debug\n")
+run bare make:
+    user.vim_normal_mode_np(":w\n")
+    insert(":!bear -- make\n")
+
 
 exec repeat:
     user.vim_normal_mode_np(":exec ")
@@ -675,5 +713,10 @@ go last <user.unmodified_key>:
 popup clear:
     user.vim_command_mode(":call popup_clear(1)")
 
-yank funk: 
+yank funk:
     user.vim_normal_mode("f(Byt(")
+
+# XXX - This should auto detect the current file type, and swap the reference from
+# all files
+file swap many see: user.vim_command_mode('!find . -name "*.[ch]" | xargs sed -i -e s///g')
+file swap many pie: user.vim_command_mode('!find . -name "*.py" | xargs sed -i -e s///g')

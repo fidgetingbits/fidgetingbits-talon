@@ -47,10 +47,10 @@ tag(): user.tabs
 # they should only include things that you want enabled in effectively all
 # modes, including terminal mode. anything else should be more granularly
 # enabled
-tag(): user.vim_fern
-tag(): user.vim_fern_mapping_fzf
+#tag(): user.vim_fern
+#tag(): user.vim_fern_mapping_fzf
 tag(): user.vim_floaterm
-tag(): user.vim_fzf
+#tag(): user.vim_fzf
 tag(): user.vim_telescope
 tag(): user.vim_mkdx
 tag(): user.vim_nerdtree
@@ -60,7 +60,7 @@ tag(): user.vim_lightspeed
 tag(): user.vim_signature
 tag(): user.vim_taboo
 tag(): user.vim_tabular
-tag(): user.vim_taskwiki
+#tag(): user.vim_taskwiki
 tag(): user.vim_test
 tag(): user.vim_unicode
 tag(): user.vim_wiki
@@ -69,6 +69,7 @@ tag(): user.vim_zoom
 tag(): user.vim_zenmode
 tag(): user.vim_lsp
 tag(): user.vim_codeql
+tag(): user.vim_markdown_preview
 
 
 # To the settings below dictate how certain parts of Talon VIM will work. You
@@ -401,6 +402,7 @@ split (move to|make) tab:
 # easier to read well full screen
 # XXX - we can calculate this automatically using the trick here:
 # https://stackoverflow.com/questions/12952479/how-to-center-horizontally-the-contents-of-the-open-file-in-vim
+# if you have zen mode plug in it's better than this...
 split zen mode:
     user.vim_set_normal_mode_exterm()
     insert(":topleft vnew\n")
@@ -597,15 +599,15 @@ man page this: user.vim_normal_mode("K")
 ###
 # Mode Switching
 ###
-mode normal: user.vim_set_normal_mode_np()
-mode insert: user.vim_set_insert_mode()
+[mode] normal: user.vim_set_normal_mode_np()
+[mode] insert: user.vim_set_insert_mode()
 mode terminal: user.vim_set_terminal_mode()
 # command mode: user.vim_set_command_mode()
 mode command [line]: user.vim_any_motion_mode_exterm_key(":")
 (mode replace|overwrite): user.vim_set_replace_mode()
 mode visual replace: user.vim_set_visual_replace_mode()
 # This always conflicts with virtual pop somehow...
-mode visual: user.vim_set_visual_mode()
+[mode] visual: user.vim_set_visual_mode()
 mode line: user.vim_set_visual_line_mode()
 mode block: user.vim_set_visual_block_mode()
 
@@ -755,9 +757,6 @@ paste as line:
     user.vim_command_mode_exterm(":let @+=substitute(strtrans(@+),'\\^@',' ','g')\n")
     sleep(200ms)
     edit.paste()
-
-file make:
-    user.vim_normal_mode(":!make\n")
 
 louis call func: user.vim_command_mode_exterm(":lua ") 
 louis reload (plug in|module): user.vim_command_mode_exterm(":lua require('plenary').reload_module('')")

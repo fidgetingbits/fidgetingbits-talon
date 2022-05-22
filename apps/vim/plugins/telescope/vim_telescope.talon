@@ -39,9 +39,9 @@ tag: user.vim_telescope
 
 # Neovim LSP Pickers
 (telescope|hunt) refs: user.vim_command_mode_exterm(':exe ":Telescope lsp_references"\n')
-(telescope|hunt) document symbols: user.vim_command_mode_exterm(':exe ":Telescope lsp_document_symbols"\n')
-(telescope|hunt) workspace symbols: user.vim_command_mode_exterm(':exe ":Telescope lsp_workspace_symbols"\n')
-(telescope|hunt) dynamic workspace symbols: user.vim_command_mode_exterm(':exe ":Telescope lsp_dynamic_workspace_symbols"\n')
+(telescope|hunt) [document] symbols: user.vim_command_mode_exterm(':exe ":Telescope lsp_document_symbols"\n')
+(telescope|hunt) global symbols: user.vim_command_mode_exterm(':exe ":Telescope lsp_workspace_symbols"\n')
+(telescope|hunt) global dynamic symbols: user.vim_command_mode_exterm(':exe ":Telescope lsp_dynamic_workspace_symbols"\n')
 (telescope|hunt) code actions: user.vim_command_mode_exterm(':exe ":Telescope lsp_code_actions"\n')
 (telescope|hunt) range code actions: user.vim_command_mode_exterm(':exe ":Telescope lsp_range_code_actions"\n')
 (telescope|hunt) document diagnostics: user.vim_command_mode_exterm(':exe ":Telescope lsp_document_diagnostics"\n')
@@ -52,7 +52,7 @@ tag: user.vim_telescope
 # Git Pickers
 (telescope|hunt) git commits: user.vim_command_mode_exterm(':exe ":Telescope git_commits"\n')
 (telescope|hunt) git buffer commits: user.vim_command_mode_exterm(':exe ":Telescope git_bcommits"\n')
-(telescope|hunt) git branches: user.vim_command_mode_exterm(':exe ":Telescope git_branches"\n')
+(telescope|hunt) [git] branches: user.vim_command_mode_exterm(':exe ":Telescope git_branches"\n')
 (telescope|hunt) git status: user.vim_command_mode_exterm(':exe ":Telescope git_status"\n')
 (telescope|hunt) git stash: user.vim_command_mode_exterm(':exe ":Telescope git_stash"\n')
 

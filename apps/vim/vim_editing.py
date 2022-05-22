@@ -18,11 +18,15 @@ class EditActions:
         actions.user.vim_normal_mode_exterm_key("/")
 
     def page_down():
-        actions.user.vim_normal_mode_exterm_key("ctrl-f")
+        # I prefer half page scrolling. Use ctrl-f for full page
+        actions.user.vim_normal_mode_exterm_key("ctrl-d")
+        # actions.user.vim_normal_mode_exterm_key("ctrl-f")
 
     def page_up():
-        actions.user.vim_normal_mode_exterm_key("ctrl-b")
-        # selecting (see generic_editor.talon)
+        # I prefer half page scrolling. Use ctrl-b for full page
+
+        actions.user.vim_normal_mode_exterm_key("ctrl-u")
+        # actions.user.vim_normal_mode_exterm_key("ctrl-b")
 
     def left():
         actions.key("left")
