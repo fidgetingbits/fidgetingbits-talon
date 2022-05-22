@@ -20,15 +20,22 @@ virtual (stop|shutdown): insert("sudo virsh shutdown ")
 virtual (restart|reboot): insert("sudo virsh reboot ")
 
 # Config
-virtual dump config: insert("virsh -c qemu:///system net-dumpxml default")
+virtual edit config: "sudo virsh edit "
+virtual dump network config: insert("virsh -c qemu:///system net-dumpxml default")
+
+# VM management
+virtual rename: "sudo virsh domrename old new"
+virtual remove: "sudo virsh undefine "
 
 # Disk management
-
 virtual disk list: insert("sudo virsh domblklist ")
-
 virtual disk resize <number>: user.insert_cursor("sudo qemu-img resize [|] +{number}G")
 
-virtual snapshot create otto: insert("$ virsh snapshot-create ")
-virtual snapshot list: insert("$ virsh snapshot-list ")
-virtual snapshot create: user.insert_cursor("virsh snapshot-create-as [|] --name <name_here>")
+# Snapshots
+virtual snapshot create otto: insert("sudo virsh snapshot-create ")
+virtual snapshot list: insert("sudo virsh snapshot-list ")
+virtual snapshot create: user.insert_cursor("sudo virsh snapshot-create-as [|] --name <name_here>")
 
+# virt-clone
+
+virtual clone: "sudo virt-clone --original oldname --auto-clone --name newname"
