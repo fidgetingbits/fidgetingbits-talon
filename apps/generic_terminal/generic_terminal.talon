@@ -4,7 +4,7 @@ tag: terminal
 
 file list: 
     user.terminal_list_directories()
-file list long:
+file list (long|all):
     user.terminal_list_all_directories()
 pivot: user.terminal_change_directory("")
 clear screen: user.terminal_clear_screen()
