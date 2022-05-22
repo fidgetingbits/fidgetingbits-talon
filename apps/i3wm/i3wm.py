@@ -19,7 +19,7 @@ mod.setting(
 # XXX - this should use i3-msg commands instead
 def i3wm_window_resize(size, grow=True):
     """resizes the selected window by the specified number of key movements"""
-    actions.user.system_command('i3-msg mode "resize"')
+    actions.user.system_command_nb('i3-msg mode "resize"')
     if grow:
         actions.key(f"right:{size}")
         actions.key(f"down:{size}")
@@ -30,7 +30,7 @@ def i3wm_window_resize(size, grow=True):
     actions.key("escape")
     actions.sleep("200ms")
     # center window
-    actions.user.system_command("i3-msg move position center")
+    actions.user.system_command_nb("i3-msg move position center")
 
 
 @mod.action_class
@@ -65,19 +65,19 @@ class Actions:
 
     def i3wm_window_adjust_height_up(size: int):
         """resizes the selected window by the specified number of key movements"""
-        actions.user.system_command(f"i3-msg 'resize grow height {size}px'")
+        actions.user.system_command_nb(f"i3-msg 'resize grow height {size}px'")
 
     def i3wm_window_adjust_height_down(size: int):
         """resizes the selected window by the specified number of key movements"""
-        actions.user.system_command(f"i3-msg 'resize shrink height {size}px'")
+        actions.user.system_command_nb(f"i3-msg 'resize shrink height {size}px'")
 
     def i3wm_window_adjust_width_out(size: int):
         """resizes the selected window by the specified number of key movements"""
-        actions.user.system_command(f"i3-msg 'resize grow width {size}px'")
+        actions.user.system_command_nb(f"i3-msg 'resize grow width {size}px'")
 
     def i3wm_window_adjust_width_in(size: int):
         """resizes the selected window by the specified number of key movements"""
-        actions.user.system_command(f"i3-msg 'resize shrink width {size}px'")
+        actions.user.system_command_nb(f"i3-msg 'resize shrink width {size}px'")
 
     # Other people often use actions.user.notify() so we need to supply
     # something... here I just rely on my monkey patch, to redirected
