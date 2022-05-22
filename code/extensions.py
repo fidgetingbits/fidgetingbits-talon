@@ -18,6 +18,7 @@ _file_extensions_defaults = {
     "B Z two": ".bz2",
     "B zip": ".bz2",
     "C G I": ".cgi",
+    "C F G": ".cfg",
     "conf": ".conf",
     "config": ".config",
     "com": ".com",
