@@ -1,7 +1,6 @@
 app: microsoft_teams
 os: windows
 os: linux
-
 -
 
 # Shortcut reference
@@ -35,12 +34,12 @@ move [selected] team down: key(ctrl-shift-down)
 [go] [to] next section: key(ctrl-f6)
 
 # messaging
-[go] [to] compose [box]: key(c)
-[expand] compose [box]: key(ctrl-shift-x)
-send: key(ctrl-enter)
+go [to] compose [box]: key(c)
+expand compose [box]: key(ctrl-shift-x)
+send message: key(ctrl-enter)
 attach file: key(ctrl-o)
 [start] new line: key(shift-enter)
-reply [to] [thread]: key(r)
+reply [to] thread: key(r)
 
 # Meetings, Calls and Calendar
 accept video call: key(ctrl-shift-a)
