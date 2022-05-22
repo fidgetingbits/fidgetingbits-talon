@@ -46,6 +46,7 @@ plugin_tag_list = [
     "vim_lightspeed",
     "vim_lsp",
     "vim_markdown",
+    "vim_markdown_preview",
     "vim_markdown_toc",
     "vim_mkdx",
     "vim_nerdtree",
@@ -147,7 +148,7 @@ standard_counted_actions = {
     "dedent": "<<",
     "indent": ">>",
     "drop": "x",
-    "orca": "O",
+    "open above": "O",
 }
 
 # Standard self.vim_counted_actions key() entries
@@ -208,7 +209,7 @@ ctx.lists["self.vim_counted_actions_args"] = {
 # includes motions and no motions :|
 commands_with_motion = {
     # no motions
-    "join": "J",
+    "join line": "J", # join alone too often conflicts with junk
     "merge": "gJ",  # won't produce spaces between joined words
     # "filter": "=",  # XXX - not sure about how to use this
     "paste": "p",  # XXX this really have motion
@@ -221,6 +222,7 @@ commands_with_motion = {
     "indent": ">",
     "unindent": "<",
     "yank": "y",  # NOTE: conflicts with talon 'yank' alphabet for 'y' key
+    "copy": "y",  # NOTE: conflicts with talon 'yank' alphabet for 'y' key
     "fold": "zf",
     "format": "gq",
     "to upper": "gU",
@@ -306,7 +308,7 @@ motions = {
     "curse top": "H",
     "curse middle": "M",
     "curse last": "L",
-    "loft": "gg",
+    #"loft": "gg",
     # "file top": "gg",
     "gutter": "G",
     # "file ent": "G",
@@ -316,14 +318,19 @@ motions = {
 # from that .py
 treesitter_motions = {
     "funk start": "[m",
+    "funk": "[m",
     "funk next": "]m",
     "class start": "[[",
+    "class": "[[",
     "class next": "]]",
     "comment start": "[/",
+    "comment": "[/",
     "comment next": "]/",
     "loop start": "[l",
+    "loop": "[l",
     "loop next": "]l",
     "condition start": "[C",
+    "condition": "[C",
     "condition next": "]C",
 
 }
@@ -349,7 +356,7 @@ ctx.lists["self.vim_motions_keys"] = {
 
 # all of these motions take a character argument
 vim_character_motions = {
-    "go mark": "'",
+    "mark": "'",
     "find": "f",
     "fever": "F",
     "till": "t",
@@ -880,8 +887,19 @@ class Actions:
     def vim_normal_mode(cmd: str):
         """run a given list of commands in normal mode, preserve INSERT"""
         v = VimMode()
-        v.set_normal_mode()
-        actions.insert(cmd)
+        # XXX - This needs to be abstracted for the case where we don't have
+        # RPC
+        # This is required despite using the nvim.command() method because we
+        # can access that mode from terminal mode:
+        #  https://github.com/neovim/neovim/issues/4895#issuecomment-303073838
+        if v.is_terminal_mode():
+            v.set_normal_mode_exterm()
+        #def async_command():
+        #    v.nvrpc.nvim.command(f':exe "normal" "{cmd}"')
+        #v.nvrpc.nvim.async_call(async_command)
+        v.nvrpc.nvim.command(f':exe "normal" "{cmd}"')
+
+        #actions.insert(cmd)
 
     def vim_normal_mode_np(cmd: str):
         """run a given list of commands in normal mode, don't preserve
@@ -1085,13 +1103,22 @@ class VimRPC:
             # XXX - This doesn't seem to work for certain plugin commands, and
             # commands like squeak, if we're already in INSERT mode
             try:
+                #print(f"sending: {cmd}")
                 self.nvrpc.nvim.command(cmd)
+                # XXX - it would be nice to make this so it doesn't block, with
+                # things like showing messages and other errors
+                #def async_command(cmd):
+                #    self.nvrpc.nvim.command(cmd)
+                #self.nvrpc.nvim.loop.create_task(async_command())
             # I sometimes get this for things like needing a w! for write...
             except pynvim.api.common.NvimError as e:
                 app.notify(subtitle=e)
-                pynvim.api.err_write(str(e))
-            except Exception:
+                self.nvrpc.nvim.err_write(str(e))
+                print(e)
+            except Exception as e:
+
                 app.notify(subtitle="Unknown Neovim API error. See talon log")
+                print(e)
 
     def run_command_mode_command_exterm(self, cmd):
         """Exit terminal mode and run a command in commandline mode using RPC."""
@@ -1210,7 +1237,7 @@ class VimMode:
     def mode(self):
         if self.nvrpc.init_ok is True:
             mode = self.nvrpc.get_active_mode()["mode"]
-            # self.debug_print(f"RPC reported mode: {self.current_mode_id()}")
+            #self.debug_print(f"RPC reported mode: {mode}")
         else:
             title = ui.active_window().title
             mode = None
@@ -1388,13 +1415,12 @@ class VimMode:
     # combinations
     def set_mode(self, wanted_mode, no_preserve=False, escape_terminal=False):
         current_mode = self.mode()
-
         if current_mode == wanted_mode or (
             self.is_terminal_mode() and wanted_mode == self.INSERT
         ):
             return
 
-        self.debug_print("Setting mode to {}".format(wanted_mode))
+        self.debug_print(f"Setting mode to {wanted_mode} from {current_mode}")
         # enter normal mode where necessary
         # XXX - need to handle normal mode in Command Line window, we need to
         # be able to escape from it
