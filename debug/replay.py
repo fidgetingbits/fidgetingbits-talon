@@ -144,7 +144,8 @@ class _RecordingReplayer(object):
         """Play the recording file passed in."""
         actions.speech.disable()
         # TODO -  start using cubeb
-        subprocess.run(["mplayer", recording])
+        # mplayer broke do to some libssl error, so use vlc for now
+        subprocess.run(["vlc", "--play-and-exit", "--intf", "dummy", "--no-interact", recording])
         self.last_played_recording = recording
         actions.speech.enable()
 
