@@ -206,10 +206,11 @@ punctuation_words = {
     "amper": "&",
     "swirl": "@",
     "pound sign": "£",
+    "daddy": "...",
 }
 symbol_key_words = {
     "grave": "`",
-    "calm": ",",  # i found comma and commit would conflict too much
+    "comma": ",",  # i found comma and commit would conflict too much
     "dot": ".",
     #"blank": " ", # suddenly always conflicting with bat
     "void": " ",
@@ -228,7 +229,8 @@ symbol_key_words = {
     "bang": "!",
     "dollar": "$",
     "score": "_",
-    "coal": ":",
+    "colon": ":",
+    #"coal": ":",
     "lub": "(",
     "rub": ")",
     # lace somehow clashes with everything lol
@@ -239,14 +241,16 @@ symbol_key_words = {
     "star": "*",
     "hash": "#",
     "percent": "%",
-    "cent": "%",
-    "caret": "^",
+    #"cent": "%", # way too many conflicts lately
+    #"caret": "^", # conflicts with go right
+    "dagger": "^",
     "swirl": "@",
     "amper": "&",
     "piper": "|",
     #"column": "|",
     "quote": '"',
     "pound sign": "£",
+    "euro sign": "€",
 }
 
 # make punctuation words also included in {user.symbol_keys}
