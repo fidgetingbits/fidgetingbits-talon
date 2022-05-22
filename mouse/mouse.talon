@@ -80,16 +80,17 @@ wheel tiny right: mouse_scroll(0, 20)
 curse (show|yes): user.mouse_show_cursor()
 curse (hide|no): user.mouse_hide_cursor()
 
-left drag | drag:
-    user.mouse_drag(0)
-    # close the mouse grid
-    user.grid_close()
-right drag | righty drag:
-    user.mouse_drag(1)
-    # close the mouse grid
-    user.grid_close()
-end drag | drag end:
-    user.mouse_drag_end()
+# see mouse_zoomed.talon
+#left drag | drag:
+#    user.mouse_drag(0)
+#    # close the mouse grid
+#    user.grid_close()
+#right drag | righty drag:
+#    user.mouse_drag(1)
+#    # close the mouse grid
+#    user.grid_close()
+#end drag | drag end:
+#    user.mouse_drag_end()
 
 ###
 # Coordinate capturing
