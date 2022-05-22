@@ -40,9 +40,8 @@ state include:
 state include system:
     insert('#include <>')
     edit.left()
-state include local:
-    insert('#include ""')
-    edit.left()
+[state] include local [<user.text>]:
+    insert("#include \"{user.formatted_text(text or '', 'NOOP')}.h\"")
 state type deaf:
     insert('typedef ')
 state type deaf struct:
@@ -53,10 +52,6 @@ state type deaf struct:
 
 signal {user.c_signals}: "{c_signals}"
 error {user.c_errors}: "{c_errors}"
-
-block:
-    insert("{\n\n}")
-    key(up)
 
 #declare <user.c_variable>:
 
@@ -69,6 +64,7 @@ block:
 declare <user.c_variable> <user.letter>:
     insert("{c_variable} {letter} ")
 
+# XXX - we should make these expressible to gdb
 # Ex. (int *)
 cast to <user.c_cast>: "{c_cast}"
 basic cast to <user.c_basic_cast>: "{c_basic_cast}"
@@ -81,7 +77,7 @@ standard <user.c_stdint_types>: "{c_stdint_types}"
 
 # XXX - shouldn't this be generic now?
 toggle includes: user.code_toggle_libraries()
-include <user.code_libraries>:
+[state] include <user.code_libraries>:
     user.code_insert_library("", code_libraries)
     key(end enter)
 
@@ -96,17 +92,24 @@ state break: "break;"
 
 state define: "#define "
 state undefine: "#undef "
-state if define: "#ifdef "
+state [short] if define: "#ifdef "
+state [short] if not define: "#ifndef "
 state pre if: "#if "
 state pre if zero: "#if 0"
 state error: "#error "
+state pre else: "#else"
 state pre else if: "#elif "
 state pre end: "#endif"
 state pragma: "#pragma "
 state default: "default:\nbreak;"
-state pre if block: 
+state pre if end:
     insert("#if 0\n#endif")
     key(up)
+state long pre if defined:
+    insert("#if defined()")
+
+state long pre if not defined:
+    insert("#if !defined()")
 
 state define new source: "#define _GNU_SOURCE"
 state go to label <user.text>:

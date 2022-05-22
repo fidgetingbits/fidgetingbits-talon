@@ -53,6 +53,8 @@ common_types = {
     "V A list": "va_list",
     "boole": "bool",
     "boolean": "bool",
+    "clock": "clock_t",
+    "pointer": "intptr_t",
 }
 
 basic_types_ints = {
@@ -81,13 +83,15 @@ stdint_types_ints = {
     "integer": "int32_t",
     "int": "int32_t",
     "long": "int64_t",
-    "character": "int8_t",
-    "char": "int8_t",
+    "character": "char",
+    "char": "char",
+    "byte": "int8_t",
 }
 
 stdint_signed = {
     "un signed": "u",
     "unsigned": "u",
+    "signed": "",  # this just helps in case we say it
 }
 
 stdint_types = {**stdint_types_ints, **common_types}
@@ -107,6 +111,10 @@ common_types = {
     "register": "register",
     "static": "static",
     "volatile": "volatile",
+    "const": "const",
+    "constant": "const",
+    "external": "extern",
+    "extern": "extern",
 }
 
 ctx.lists["user.c_stdint_types"] = stdint_types
@@ -127,7 +135,7 @@ ctx.lists["user.code_libraries"] = {
     "key utils": "keyutils.h",
     "limits": "limits.h",
     "key control": "linux/keyctl.h",
-    "locale": "locale.h",
+    "localization": "locale.h",
     "math": "math.h",
     "poll": "poll.h",
     "P thread": "pthread.h",
@@ -149,6 +157,8 @@ ctx.lists["user.code_libraries"] = {
     "system I P C": "sys/ipc.h",
     "sys I P C": "sys/ipc.h",
     "memory management": "sys/mman.h",
+    "sys M man": "sys/mman.h",
+    "M map": "sys/mman.h",
     "system message": "sys/msg.h",
     "sys message": "sys/msg.h",
     "system parameters": "sys/param.h",
@@ -172,7 +182,10 @@ ctx.lists["user.code_libraries"] = {
     "ex adder": "sys/xattr.h",
 }
 
-ctx.lists["user.code_functions"] = {
+code_functions_private = {
+    "hex dump": "hexdump",
+}
+code_functions_public = {
     "alloc A": "alloca",
     "A to I": "atoi",
     "C alloc": "calloc",
@@ -201,6 +214,9 @@ ctx.lists["user.code_functions"] = {
     "print": "printf",
     "puts": "puts",
     "P error": "perror",
+    "pierre": "perror",
+    "P thread create": "pthread_create",
+    "P thread join": "pthread_join",
     "re alloc": "realloc",
     "set jump": "setjmp",
     "signal": "signal",
@@ -217,7 +233,9 @@ ctx.lists["user.code_functions"] = {
     "stir L cat": "strlcat",
     "stir L copy": "strlcpy",
     "stir len": "strlen",
+    "sterling": "strlen",
     "string len": "strlen",
+    "stir stir": "strstr",
     "stir N cat": "strncat",
     "stir N comp": "strncmp",
     "system": "system",
@@ -232,9 +250,15 @@ ctx.lists["user.code_functions"] = {
     "I O cuddle": "ioctl",
 }
 
+ctx.lists["user.code_functions"] = {**code_functions_public, **code_functions_private}
+
+
 ctx.lists["user.c_signals"] = {
     "sig child": "SIGCHLD",
     "sig kill": "SIGKILL",
+    "sig term": "SIGTERM",
+    "sig user": "SIGUSR1",
+    "sig stop": "SIGSTOP",
     # XXX maybe make this a separate list
     "sig default": "SIG_DFLT",
     "sig ignore": "SIG_IGN",
