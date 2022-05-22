@@ -6,4 +6,7 @@ pound bag: "pwndbg\n"
 context: "context\n"
 show (process id|pid): "pid\n"
 
+# Settings
 
+# This should move into my own helpers file
+dump list: "list-print "

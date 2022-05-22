@@ -24,7 +24,7 @@ continue: user.debugger_continue()
 ## these are multi word to avoid accidental utterance
 debug start: user.debugger_start()
 debug stop: user.debugger_stop()
-debug exit: user.debugger_exit()
+debug (exit|quit): user.debugger_exit()
 debug force exit: user.debugger_exit_force()
 debug detach: user.debugger_detach()
 debug restart: user.debugger_restart()

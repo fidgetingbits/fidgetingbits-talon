@@ -21,7 +21,7 @@ tag(): user.readline
 
 # linux kernel
 tag(): user.gdb_vmlinux
-tag(): user.slabdbg
+tag(): user.libslab
 
 tag(): user.x64
 
@@ -30,7 +30,6 @@ until <number>: "until {number}"
 force clear all break points:
     insert("d br\n")
     insert("y\n")
-
 break [on] clip:
     insert("break ")
     edit.paste()
@@ -39,6 +38,10 @@ break [on] clip:
 clear screen: "shell clear\n"
 # information
 list [source]: "list\n"
+list clip:
+    insert("list ")
+    edit.paste()
+    key(enter)
 list (base|P C): "list $pc\n"
 
 print: "p "
@@ -46,14 +49,14 @@ print (var|variable) <user.text>:
     insert("p ")
     insert(user.formatted_text(text, "snake"))
 
-print hex: "p/x "
+(print hex|funk print): "p/x "
 print hex (var|variable) <user.text>:
     insert("p/x ")
     insert(user.formatted_text(text, "snake"))
 print hex {user.registers}:
     insert("p/x ${user.registers}\n")
 
-print string: "p/s "
+print string: "x/s "
 print (bits|binary): "p/t "
 
 print casted struck: 
@@ -109,7 +112,7 @@ resume from main:
 resume [from] (inf|inferior) <number_small>$:
     insert("inferior {number_small}\n")
     insert("c\n")
-    
+
 # arguments
 set args: "set args "
 
@@ -179,7 +182,17 @@ watch list: "info watch\n"
 watch read: "rwatch *"
 
 file show: "info line\n"
+assign:"="
 
+set var [<user.word>]:
+    insert("set $")
+    # XXX - this should be formatter for the language...
+    insert(word or "")
+    # XXX - we should support a second word for the assignment
+
+# XXX - this should use default for matter
+var <user.word>: "${word}"
+    
 # Convenience for repeated commands
 hex stump saved: "x/50gx $ADDRESS\n"
 save address clip: 
@@ -209,3 +222,15 @@ standard cast to <user.c_stdint_cast>: "{c_stdint_cast}"
 <user.c_signed>: "{c_signed}"
 basic <user.c_basic_types>: "{c_basic_types}"
 standard <user.c_stdint_types>: "{c_stdint_types}"
+
+define offset of: "macro define offsetof(t, f) &((t *) 0)->f\n"
+define macro: "macro define "
+
+# XXX - this needs to be ingrated as a language, and we need to break out using
+# debugger from the language parts
+state python continue: 'python gdb.execute("continue")\n'
+state commands: "commands"
+state end: "end"
+state break: "break"
+state set: "set"
+func stir equal: "$_streq()"
