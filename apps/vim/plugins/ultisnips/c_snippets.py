@@ -35,6 +35,8 @@ private_snippets = {
     "dock out": "doxypo",
     "dock in out": "doxypio",
     "main": "main",
+    "unshare": "unshare",
+    "N F T headers": "nft_headers",
 }
 
 ctx.lists["user.snippets"] = {**ultisnips_snippets, **private_snippets}
