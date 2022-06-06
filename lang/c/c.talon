@@ -70,8 +70,8 @@ cast to <user.c_cast>: "{c_cast}"
 basic cast to <user.c_basic_cast>: "{c_basic_cast}"
 standard cast to <user.c_stdint_cast>: "{c_stdint_cast}"
 [state] type <user.c_types>: "{c_types}"
-<user.c_pointers>: "{c_pointers}"
-<user.c_signed>: "{c_signed}"
+state <user.c_pointers>: "{c_pointers}"
+state <user.c_signed>: "{c_signed}"
 basic <user.c_basic_types>: "{c_basic_types}"
 standard <user.c_stdint_types>: "{c_stdint_types}"
 
@@ -87,6 +87,8 @@ show data type: user.current_c_datatype()
 state return <number>: "return {number};"
 state return negative <number>: "return -{number};"
 state return null: "return NULL;"
+state return false: "return false;"
+state return true: "return true;"
 state continue: "continue;"
 state break: "break;"
 
@@ -127,6 +129,12 @@ dock fun:
     key(up end)
 dock var:
     user.insert_cursor("/**< [|].*/")
+dock brief:
+    insert("@brief ")
+dock return:
+    insert("@return")
+dock param:
+    insert("@param ")
 dock in:
     insert("@param[in] ")
 dock out:

@@ -188,7 +188,8 @@ code_functions_private = {
 code_functions_public = {
     "alloc A": "alloca",
     "A to I": "atoi",
-    "C alloc": "calloc",
+    "see alloc": "calloc",
+    "see lock": "calloc",
     "exit": "exit",
     "ef close": "fclose",
     "F open": "fopen",
@@ -209,6 +210,7 @@ code_functions_public = {
     "ma map": "mmap",
     "make dir": "mkdir",
     "M un map": "munmap",
+    "offset of": "offsetof",
     "P R cuddle": "prctl",
     "print F": "printf",
     "print": "printf",
@@ -223,10 +225,13 @@ code_functions_public = {
     "size of": "sizeof",
     "S print F": "sprintf",
     "S N print F": "snprintf",
+    "skid yield": "sched_yield",
     "stir cat": "strcat",
     "string cat": "strcat",
     "string char": "strchr",
     "stir comp": "strcmp",
+    "stir compare": "strcmp",
+    "string compare": "strcmp",
     "stir copy": "strcpy",
     "stir dupe": "strdup",
     "string dupe": "strdup",
@@ -379,7 +384,7 @@ def c_stdint_cast(m) -> str:
     return "(" + "".join(list(m)) + ")"
 
 
-@mod.capture(rule="[<user.c_signed>] <user.c_types>[<self.c_pointers>]")
+@mod.capture(rule="[<user.c_signed>] <user.c_types> [<self.c_pointers>]")
 def c_variable(m) -> str:
     "Returns a string"
     if hasattr(m, "c_signed") and len(m.c_signed) == 1:
