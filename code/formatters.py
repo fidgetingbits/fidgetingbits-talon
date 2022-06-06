@@ -214,7 +214,7 @@ formatters_words = {
     "padded": formatters_dict["SPACE_SURROUNDED_STRING"],
     "pointing": formatters_dict["C_POINTER_SEPARATED"],
     "slasher": formatters_dict["SLASH_SEPARATED"],
-    "smash": formatters_dict["NO_SPACES"],
+    "smashing": formatters_dict["NO_SPACES"],
     "snake": formatters_dict["SNAKE_CASE"],
     "spongbob": formatters_dict["SPONGEBOB"],
     "quoted": formatters_dict["DOUBLE_QUOTED_STRING"],
