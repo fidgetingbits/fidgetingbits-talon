@@ -74,10 +74,12 @@ git show hook folder: "git rev-parse --git-path hooks\n"
 git log all: "git log\n"
 git log all changes: "git log -c\n"
 git log: "git log -5\n"
+git log reverse: "git log -5 --reverse\n"
 git log <number>: "git log -{number}\n"
 git log files: "git log --name-status -5\n"
 git log files <number>: "git log --name-status -{number}\n"
 git log changes: "git log -c "
+
 git merge: "git merge "
 git merge <user.text>:"git merge {text}"
 git merge clip:
@@ -97,6 +99,7 @@ git push up stream origin: "git push -u origin "
 git push <user.text>: "git push {text} "
 git push tags: "git push --tags\n"
 git rebase: "git rebase "
+git rebase now: "git rebase\n"
 # NOTE - we don't use abort in the command because it conflicts with
 # abort.talon
 git rebase cancel: "git rebase --abort\n"
