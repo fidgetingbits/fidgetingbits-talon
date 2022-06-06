@@ -206,7 +206,7 @@ punctuation_words = {
     "amper": "&",
     "swirl": "@",
     "pound sign": "£",
-    "daddy": "...",
+    #"daddy": "...",
 }
 symbol_key_words = {
     "grave": "`",
