@@ -41,6 +41,8 @@ _file_extensions_defaults = {
     # NOTE - H conflicted with way too much
     "header": ".h",
     "hex": ".hex",
+    "H T M L": "html",
+    "hypertext": "html",
     "ida": ".idb",
     "jar": ".jar",
     "java": ".java",
