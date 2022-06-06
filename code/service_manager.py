@@ -1,4 +1,4 @@
-from talon import Context, Module, actions, app
+from talon import Context, Module, actions
 
 mod = Module()
 ctx = Context()
@@ -55,6 +55,9 @@ class Actions:
         """Stop a service by name"""
 
     def service_start_by_name(name: str):
+        """Start to service by name"""
+
+    def service_restart_by_name(name: str):
         """Start to service by name"""
 
     def service_enable_by_name(name: str):
