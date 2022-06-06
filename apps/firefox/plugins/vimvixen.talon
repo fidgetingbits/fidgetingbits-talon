@@ -105,7 +105,7 @@ bottom:
 
 mark <user.letter>:
     insert("m%({letter})s")
-go to mark <user.letter>':
+go to mark <user.letter>:
     insert("%({letter})s")
 #  Searching
 find <user.text>:
