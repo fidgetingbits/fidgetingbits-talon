@@ -291,7 +291,7 @@ net bridge (list|show): "brctl show\n"
 
 
 show hosts file: "cat /etc/hosts\n"
-edit hosts file: "sudoedit /etc/hosts\n"
+
 net (remote desktop|R D P):
     user.insert_cursor("xfreerdp /timeout:90000 /size:1280x800 /v:[|] /u: /p:")
 
@@ -340,7 +340,10 @@ so do that:
     insert("sudo ")
     key(enter)
 so do edit: "sudoedit "
-d message: "dmesg"
+so do edit <user.paths>: "sudoedit {paths}\n"
+
+run d message: "sudo dmesg --color --reltime\n"
+run d message samba: "sudo dmesg --color --reltime | rg CIFS\n"
 
 # disk management
 # NOTE - talon doesn't like the word disk with on MD431-II
@@ -349,6 +352,8 @@ d message: "dmesg"
 (disk|drive) file systems: "lsblk -f\n"
 (disk|drive) mounted: "mount\n"
 (disk|drive) mount: "mount "
+(disk|drive) mount list: "mount | rg '^/'\n"
+(disk|drive) mount list all: "mount\n"
 (disk|drive) unmount: "umount "
 (disk|drive) key dump: "sudo cryptsetup luksDump /dev/"
 (disk|drive) key add: "sudo cryptsetup luksAddKey --key-slot "
@@ -398,6 +403,8 @@ run make: "make\n"
 run make install: "make install\n"
 run clean and make: "make clean && make\n"
 run make clean: "make clean\n"
+run make debug: "make debug\n"
+run make kasan: "make kasan\n"
 run see make: "cmake "
 run configure make: "./configure && bear -- make\n"
 run configure help: "./configure --help\n"
@@ -473,7 +480,7 @@ process kill: "kill -9 "
 process kill all: "killall "
 process kill all <user.word>: "killall {word}"
 
-system reboot: "sudo reboot -h now"
+system reboot [now]: "sudo reboot -h now"
 
 # hardware
 system [list] memory: "lshw -short -C memory"
