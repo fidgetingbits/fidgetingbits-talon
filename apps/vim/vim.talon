@@ -307,7 +307,7 @@ new (empty|unnamed) (vertical|v) split:
 # navigating splits
 # XXX - we could leverage split.talon stuff here?
 split <user.vim_arrow>:
-    user.vim_normal_mode("\<c-w>{vim_arrow}")
+    user.vim_normal_mode("\\<c-w>{vim_arrow}")
     #user.vim_set_normal_mode_exterm()
     #key(ctrl-w)
     #key("{vim_arrow}")
@@ -403,13 +403,18 @@ split (move to|make) tab:
 # XXX - we can calculate this automatically using the trick here:
 # https://stackoverflow.com/questions/12952479/how-to-center-horizontally-the-contents-of-the-open-file-in-vim
 # if you have zen mode plug in it's better than this...
-split zen mode:
+split (zen mode|center):
     user.vim_set_normal_mode_exterm()
     insert(":topleft vnew\n")
     insert(":botright vnew\n")
     key(ctrl-w)
     key(=)
     key(ctrl-w h)
+
+#split grow:
+    # XXX - it would be nice if this could grow it fatter but keep it centered,
+    # like if were in split zen mode, but we want to make the middle split
+    # bigger
 
 # XXX - it would be nice to have percents for these resizes..
 # atm comboing these with ordinals is best, but may add number support
