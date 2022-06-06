@@ -101,6 +101,8 @@ pivot <user.folder_paths>:
     user.vim_command_mode(":lcd {folder_paths}\n")
 file yank path:
     user.vim_command_mode(":let @+ = expand('%:p')\n")
+file yank name:
+    user.vim_command_mode(":let @+ = expand('%:t')\n")
 folder yank path:
     user.vim_command_mode(":let @+ = expand('%:h')\n")
 file recover:
@@ -150,6 +152,10 @@ jump tag (that|clip):
     key(enter)
 jump (exact tag|tag exact):
     user.vim_command_mode(":tag ")
+jump exact (<user.format_text>+|<user.word>)$:
+    user.vim_command_mode(":tag ")
+    user.insert_many(format_text_list or word)
+
 taggy list:
     user.vim_command_mode(":tags\n")
 
@@ -640,10 +646,15 @@ run make clean:
 run make debug:
     user.vim_normal_mode_np(":w\n")
     insert(":!make debug\n")
+run make kasan:
+    user.vim_normal_mode_np(":w\n")
+    insert(":!make kasan\n")
 run bare make:
     user.vim_normal_mode_np(":w\n")
     insert(":!bear -- make\n")
-
+run generates see tags:
+    user.vim_normal_mode_np(":w\n")
+    insert(":!rm tags && ctags --recurse --exclude=.git --exclude=.pc *\n")
 
 exec repeat:
     user.vim_normal_mode_np(":exec ")
