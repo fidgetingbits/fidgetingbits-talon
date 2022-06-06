@@ -17,23 +17,30 @@ and win.title: /\[Git.*git.*index/
 unstage (all|everything): user.vim_normal_mode_key("U")
 [file] discard change: user.vim_normal_mode_key("X")
 file diff: user.vim_normal_mode_key("=")
+file diff top: 
+    user.vim_normal_mode("zt")
+    user.vim_normal_mode_key("=")
 file exclude: user.vim_normal_mode_keys("g I")
 
 # Diff maps
 
 # Navigation maps
 # XXX - these should may be override common file actions
-open file: user.vim_normal_mode_key("o")
-open vertical file: user.vim_normal_mode_keys("g O")
-open tab file: user.vim_normal_mode_key("O")
-preview file: user.vim_normal_mode_key("p")
+file open: user.vim_normal_mode_key("o")
+file open vertical : user.vim_normal_mode_keys("g O")
+file open tabbed: user.vim_normal_mode_key("O")
+file preview: user.vim_normal_mode_key("p")
 
 # Commit maps
 
-file commit [changes]: 
+git commit [changes]: 
     user.vim_normal_mode_keys("c c")
     user.vim_set_insert_mode()
 amend [last commit]: user.vim_normal_mode_keys("c a")
+commit reword: user.vim_normal_mode("cw")
+
+file restore:
+    user.vim_normal_mode_key("X")
 
 # Checkout/branch maps
 
@@ -41,9 +48,20 @@ amend [last commit]: user.vim_normal_mode_keys("c a")
 
 # Rebase maps
 
+git rebase start: user.vim_normal_mode("ri")
+git rebase continue: user.vim_normal_mode("rr")
+git rebase abort: user.vim_normal_mode("ra")
+
 # Miscellaneous maps
 
 [git] status close: user.vim_normal_mode_keys("g q")
-help: user.vim_normal_mode_keys("g ?")
+(fugitive|git) help: user.vim_normal_mode_keys("g ?")
+
+# Navigation
+jump untracked [<number>]: user.vim_normal_mode("gu")
+jump unstaged [<number>]: user.vim_normal_mode("gU")
+jump unpushed [<number>]: user.vim_normal_mode("gp")
+jump unpulled [<number>]: user.vim_normal_mode("gP")
 
 # Global maps
+git status close: user.vim_normal_mode("gq")

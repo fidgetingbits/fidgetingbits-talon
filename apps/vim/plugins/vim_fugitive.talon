@@ -25,15 +25,25 @@ tag: user.vim_fugitive
 (fugitive|git) diff last: user.vim_command_mode(':exe ":Gdiff !~1"\n')
 
 # Unsorted
-(fugitive|git) fetch: user.vim_command_mode(":G fetch ")
+(fugitive|git) fetch: user.vim_command_mode(":Git fetch\n")
+(fugitive|git) fetch and rebase: 
+    user.vim_command_mode(":Git fetch\n")
+    user.vim_command_mode(":Git rebase\n")
 (fugitive|git) force write: user.vim_command_mode(":Gwrite!")
-(fugitive|git) grep: user.vim_command_mode(":G grep ")
-(fugitive|git) log: user.vim_command_mode(':exe ":Gclog"\n')
+(fugitive|git) grep: user.vim_command_mode(":Git grep ")
+(fugitive|git) log tabbed: 
+    user.vim_command_mode(":tabnew\n")
+    user.vim_command_mode(':exe ":Gclog"\n')
+    user.vim_command_mode(':TabooRename GITLOG"\n')
+(fugitive|git) log: user.vim_command_mode(':exe ":Gclog!"\n')
+# this will automatically open the first commit into the active buffer
+(fugitive|git) log here: user.vim_command_mode(':exe ":Gclog"\n')
 (fugitive|git) merge: user.vim_command_mode(":G fallmerge")
 (fugitive|git) merge tool: user.vim_command_mode(":G mergetool")
 (fugitive|git) move: user.vim_command_mode(":GMove ")
-(fugitive|git) pull: user.vim_command_mode(":G pull ")
-(fugitive|git) push: user.vim_command_mode(":G push ")
+(fugitive|git) pull: user.vim_command_mode(":Git pull ")
+(fugitive|git) push: user.vim_command_mode(":Git push ")
+(fugitive|git) push now: user.vim_command_mode(":Git push\n")
 (fugitive|git) remove: user.vim_command_mode(":GRemove ")
 (fugitive|git) rename: user.vim_command_mode(":GRename ")
 (fugitive|git) reset (current|reset) file: user.vim_command_mode(':exe ":G reset HEAD %"\n')
