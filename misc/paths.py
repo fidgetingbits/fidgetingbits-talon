@@ -20,6 +20,7 @@ linux_folder_paths = {
     "user timers": "~/.config/systemd/user/",
     "services": "/etc/systemd/system/",
     "you dev rules": "/etc/udev/rules.d/",
+    "sue doers": "/etc/sudoers.d/",
     "vim sessions": "~/.vim/sessions/",
     "vim plugins": "~/.vim/plugged/",
     "vim": "~/.vim/",
@@ -43,7 +44,7 @@ linux_folder_paths = {
     "user local share": "/usr/local/share/",
     "lib": "/lib",
     "log": "/var/log/",
-    "kernel trace": "/sys/kernel/tracing",
+    "kernel trace": "/sys/kernel/tracing/",
     "K mem events": "/sys/kernel/tracing/events/kmem",
     "shell config": "~/.ohmyzsh/",
     "shell functions": "~/.ohmyzsh/custom/functions/",
@@ -54,10 +55,10 @@ linux_folder_paths = {
     "back": "../",
     "tunnel": "~/.ssh/",
     "S S H": "~/.ssh/",
-    "raffi": "~/.config/rofi",
+    "raffi": "~/.config/rofi/",
     "network manager": "/etc/NetworkManager/",
-    "network manager dispatcher": "/etc/NetworkManager/dispatcher.d",
-    "network manager config": "/etc/NetworkManager/conf.d",
+    "network manager dispatcher": "/etc/NetworkManager/dispatcher.d/",
+    "network manager config": "/etc/NetworkManager/conf.d/",
     # ubuntu-esque stuff
     "lib linux": "/lib/x86_64-linux-gnu/",
     "lib sixty four": "/lib64/",
@@ -65,6 +66,9 @@ linux_folder_paths = {
     "lib three two": "/lib32/",
     "proc": "/proc/",
     "root": "/root/",
+    "packman cache": "/var/cache/pacman/pkg/",
+    "yay cache": "~/.cache/yay/",
+    "open snitch rules": "/etc/opensnitchd/rules/",
 }
 
 linux_file_paths = {
@@ -101,7 +105,9 @@ linux_file_paths = {
     "kernel active trace": "/sys/kernel/tracing/trace",
     "kernel current tracer": "/sys/kernel/tracing/current_tracer",
     "kernel available tracersm": "/sys/kernel/tracing/available_tracers",
-    "Q emu config": "/etc/libvirt/qemu.conf"
+    "Q emu config": "/etc/libvirt/qemu.conf",
+    "proxy chains": "~/.proxychains/proxychains.conf",
+    "open snitch log": "/var/log/opensnitchd.log",
 }
 
 # this is used for specific commands like pivot
