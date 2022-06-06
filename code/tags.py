@@ -9,7 +9,7 @@ tagList = [
     "libptmalloc",
     "libdlmalloc",
     "libheap",
-    "libslab",
+    "libslub",
     "gdb_vmlinux",
     "git",  # commandline tag for git commands
     "ida",
