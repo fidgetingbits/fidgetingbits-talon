@@ -5,7 +5,7 @@ mod.list("slabs", desc="A list of linux kernel slabs")
 
 ctx = Context()
 ctx.matches = r"""
-tag: user.libslab
+tag: user.libslub
 """
 
 ctx.lists["user.slabs"] = {

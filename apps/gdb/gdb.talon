@@ -21,7 +21,7 @@ tag(): user.readline
 
 # linux kernel
 tag(): user.gdb_vmlinux
-tag(): user.libslab
+tag(): user.libslub
 
 tag(): user.x64
 

@@ -1,16 +1,25 @@
-tag: user.libslab
+tag: user.libslub
 -
 
-# libslab
 slab help: "sbhelp\n"
 
 # sbcache
 slab cache help: "sbcache -h\n"
-slab cache {user.slabs}: "sbcache -n {slabs} -M tag\n"
+slab [cache] show {user.slabs}: "sbcache -n {slabs} -M tag\n"
+slab [cache] show {user.slabs} main free: "sbcache --cpu 0 --show-lockless-freeshow --show-freeshow --main-slab -n {slabs}\n"
+slab [cache] show {user.slabs} all free: "sbcache --cpu 0 --show-lockless-freeshow --show-freeshow -n {slabs}\n"
+slab [cache] show {user.slabs} main (objects|chunks): "sbcache --cpu 0 --main-slab --show-region -n {slabs}\n"
+slab [cache] show {user.slabs} all (objects|chunks): "sbcache --cpu 0 --show-region -n {slabs}\n"
 
-# sbinfo
-slab info: "sbinfo\n"
-slab info help: "sbinfo -h\n"
+# sbobject
+slab object: "sbobject "
+slab object clip: 
+    insert("sbobject ")
+    edit.paste()
+slab object {user.slabs} clip: 
+    insert("sbobject -n {slabs} ")
+    edit.paste()
+slab object help: "sbobject -h\n"
 
 # sblist
 slab list: "sblist\n"
@@ -27,6 +36,7 @@ slab search help: "sbsearch -h\n"
 
 # sbcrosscache
 slab cross cache help: "sbcrosscache -h\n"
+
 
 # sbmeta
 slab meta help: "sbmeta -h\n"
