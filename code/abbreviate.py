@@ -244,6 +244,7 @@ abbreviations = {
     "number": "num",
     "numbers": "nums",
     "object": "obj",
+    "objects": "objs",
     "okay": "ok",
     "ontario": "on",
     "operation": "op",
