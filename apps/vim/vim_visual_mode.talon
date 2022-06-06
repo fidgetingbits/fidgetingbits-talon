@@ -85,7 +85,7 @@ push it:
 
 # Convert a number to hex
 convert to hex:
-    user.vim_command_mode(":%s/\d\+/\=printf(\"0x%04x\", submatch(0))")
+    user.vim_command_mode(":%s/\\d\\+/\\=printf(\"0x%04x\", submatch(0))")
 
 # Subtract hex
 # https://www.reddit.com/r/vim/comments/emtwgz/add_subtract_multiply_or_divide_a_value_to_each/
