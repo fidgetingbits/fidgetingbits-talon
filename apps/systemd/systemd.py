@@ -41,6 +41,9 @@ class UserActions:
     def timer_start():
         actions.user.insert_cursor("systemctl --no-pager start [|].timer")
 
+    def timer_restart():
+        actions.user.insert_cursor("systemctl --no-pager restart [|].timer")
+
     def timer_status():
         actions.user.insert_cursor("systemctl --no-pager status [|].timer")
 
@@ -60,6 +63,9 @@ class UserActions:
     def timer_user_start():
         actions.user.insert_cursor("systemctl --user --no-pager start [|].timer")
 
+    def timer_user_restart():
+        actions.user.insert_cursor("systemctl --user --no-pager restart [|].timer")
+
     def timer_user_status():
         actions.user.insert_cursor("systemctl --user --no-pager status [|].timer")
 
@@ -77,6 +83,9 @@ class UserActions:
 
     def service_start_by_name(name: str):
         actions.insert(f"systemctl start {name}")
+
+    def service_restart_by_name(name: str):
+        actions.insert(f"systemctl restart {name}")
 
     def service_enable_by_name(name: str):
         actions.insert(f"systemctl enable {name}")

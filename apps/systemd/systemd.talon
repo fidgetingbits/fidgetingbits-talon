@@ -2,7 +2,7 @@ tag: terminal
 and tag: user.systemd
 -
 
-
+service reload: "sudo systemctl daemon-reload\n"
 service list: "systemctl list-units --type=service\n"
 service list active: "systemctl list-units --type=service --state=active\n"
 service list running: "systemctl list-units --type=service --state=running\n"
@@ -15,5 +15,6 @@ system timer user list: "systemctl --user list-timers --no-pager\n"
 system timer user all: "systemctl --user --all list-timers --no-pager\n"
 system timer list: "systemctl list-timers --no-pager\n"
 system timer all: "systemctl --all list-timers --no-pager\n"
+system timer log: user.insert_cursor("journalctl -u [|].timer")
 
 system cuttle: "systemctl "
