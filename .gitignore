@@ -10,9 +10,5 @@ __pycache__
 /settings
 .vscode/settings.json
 
-# Private stuff
-code/common_names/private_*.csv
-misc/personal_info/personal_info.json
-*_private.py
-*_private.talon
-private/
+tags
+*_
