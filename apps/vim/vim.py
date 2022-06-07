@@ -51,6 +51,7 @@ plugin_tag_list = [
     "vim_mkdx",
     "vim_nerdtree",
     "vim_obsession",
+    "vim_ouroboros",
     "vim_plug",
     "vim_rooter",
     "vim_signature",
@@ -894,12 +895,8 @@ class Actions:
         #  https://github.com/neovim/neovim/issues/4895#issuecomment-303073838
         if v.is_terminal_mode():
             v.set_normal_mode_exterm()
-        #def async_command():
-        #    v.nvrpc.nvim.command(f':exe "normal" "{cmd}"')
-        #v.nvrpc.nvim.async_call(async_command)
-        v.nvrpc.nvim.command(f':exe "normal" "{cmd}"')
-
-        #actions.insert(cmd)
+        vapi = VimAPI()
+        vapi.api.run_normal_mode_command(cmd)
 
     def vim_normal_mode_np(cmd: str):
         """run a given list of commands in normal mode, don't preserve
@@ -1037,7 +1034,7 @@ class NeoVimRPC:
 
 
 class VimDirectInput:
-    """Implementation of functionality when RPC is not available.
+    """For when RPC is not available or we want to insert partial commands
 
     This relies on a more finnicky method of detecting no changes, stringing
     commands together, which can be a bit buggy. It's supported for people that
@@ -1055,6 +1052,9 @@ class VimDirectInput:
         v = VimMode()
         v.set_command_mode()
         v.insert_command_mode_command(cmd)
+
+    def run_normal_mode_command(self, cmd):
+        actions.insert(cmd)
 
 
 class VimRPC:
@@ -1100,16 +1100,9 @@ class VimRPC:
             v = VimDirectInput()
             v.run_command_mode_command(cmd)
         else:
-            # XXX - This doesn't seem to work for certain plugin commands, and
-            # commands like squeak, if we're already in INSERT mode
             try:
                 #print(f"sending: {cmd}")
-                self.nvrpc.nvim.command(cmd)
-                # XXX - it would be nice to make this so it doesn't block, with
-                # things like showing messages and other errors
-                #def async_command(cmd):
-                #    self.nvrpc.nvim.command(cmd)
-                #self.nvrpc.nvim.loop.create_task(async_command())
+                self.nvrpc.nvim.command(cmd, async_=True)
             # I sometimes get this for things like needing a w! for write...
             except pynvim.api.common.NvimError as e:
                 app.notify(subtitle=e)
@@ -1126,6 +1119,9 @@ class VimRPC:
             self.exit_terminal_mode()
         self.run_command_mode_command(cmd)
 
+    def run_normal_mode_command(self, cmd):
+        v = VimMode()
+        v.nvrpc.nvim.command(f':exe "normal" "{cmd}"', async_=True)
 
 # XXX - this should be moved somewhere else
 class VimAPI:

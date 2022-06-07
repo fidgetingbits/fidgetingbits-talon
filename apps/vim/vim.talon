@@ -55,6 +55,7 @@ tag(): user.vim_telescope
 tag(): user.vim_mkdx
 tag(): user.vim_nerdtree
 tag(): user.vim_obsession
+tag(): user.vim_ouroboros
 tag(): user.vim_plug
 tag(): user.vim_lightspeed
 tag(): user.vim_signature
