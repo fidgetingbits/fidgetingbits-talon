@@ -66,7 +66,8 @@ rerun last command:
 rerun last <user.word>:
     key(!)
     insert(word)
-    key(enter)
+    #this is pretty dangerous...
+    #key(enter)
 rerun last tunnel:
     key(!)
     insert("ssh\n")
