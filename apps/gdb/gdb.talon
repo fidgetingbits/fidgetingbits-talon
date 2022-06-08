@@ -10,6 +10,18 @@ tag(): user.debugger
 tag(): user.terminal_program
 tag(): user.readline
 
+tag(): user.code_imperative
+tag(): user.code_comment_line
+tag(): user.code_data_bool
+tag(): user.code_data_null
+tag(): user.code_functions
+tag(): user.code_functions_gui
+tag(): user.code_operators_array
+tag(): user.code_operators_assignment
+tag(): user.code_operators_bitwise
+tag(): user.code_operators_math
+tag(): user.code_operators_pointer
+
 # XXX - this would be better to be managed with settings maybe
 # optional generic debugger plugins
 # specify which heap plugin you're using
