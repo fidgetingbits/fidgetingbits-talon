@@ -558,7 +558,7 @@ kernel trace functions: "echo function > /sys/kernel/tracing/current_tracer\n"
 ###
 (cis|system) I D: "id\n"
 (cis|system) user: "whoami\n"
-(cis|system) (version|kernel): "uname -a\n"
+(cis|system) (name|version|kernel): "uname -a\n"
 (cis|system) show release: "cat /etc/lsb-release\n"
 
 ###
