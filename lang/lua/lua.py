@@ -294,8 +294,11 @@ class UserActions:
 
     def code_operator_or():
         actions.insert(" or ")
-
+    
+    ###
     # code_operators_bitwise
+    ###
+
     # NOTE: < 5.3 assumes Lua BitOp usage
     #       > 5.2 assumes native bitwise operators
     # TODO: Possibly add settings to define which library to use, as 5.2
