@@ -196,6 +196,9 @@ code_functions_public = {
     "fork": "fork",
     "F read": "fread",
     "free": "free",
+    "F control": "fcntl",
+    "file control": "fcntl",
+    "F flush": "fflush",
     "ef write": "fwrite",
     "get char": "getchar",
     "get op": "getopt",
@@ -395,6 +398,9 @@ def c_variable(m) -> str:
 
 @ctx.action_class("user")
 class UserActions:
+    ###
+    # code_operators_pointers
+    ###
     def code_operator_indirection():
         actions.insert("*")
 
@@ -404,13 +410,22 @@ class UserActions:
     def code_operator_structure_dereference():
         actions.insert("->")
 
+    ###
+    # code_operators_array
+    ###
     def code_operator_subscript():
         actions.insert("[]")
         actions.key("left")
 
+    ##
+    # code_operators_assignment
+    ##
     def code_operator_assignment():
         actions.insert(" = ")
 
+    ##
+    # code_operators_math
+    ##
     def code_operator_subtraction():
         actions.insert(" - ")
 
@@ -472,6 +487,9 @@ class UserActions:
     def code_operator_or():
         actions.insert(" || ")
 
+    ##
+    # code_operators_bitwise
+    ##
     def code_operator_bitwise_and():
         actions.insert(" & ")
 
