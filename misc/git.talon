@@ -135,7 +135,7 @@ git remote: "git remote "
 git remote add: "git remote add "
 git remote add upstream: "git remote add upstream "
 git remote remove: "git remote remove "
-git remote show origin: "git remote show origin\n"
+git [remote] show origin: "git remote show origin\n"
 git show: "git show "
 git show clip: 
     insert("git show ")
