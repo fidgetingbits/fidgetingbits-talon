@@ -3,7 +3,7 @@ win.title: /VIM MODE:t/
 
 tag(): user.vim_terminal
 
-
+normal [mode]: key(ctrl-\ ctrl-n)
 pop (terminal|term):
     key(ctrl-\ ctrl-n)
 
@@ -247,3 +247,5 @@ process kill line <number_small>:
     insert("kill -9 ")
     edit.paste()
     key(right)
+
+

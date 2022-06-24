@@ -46,6 +46,9 @@ class <user.text>:
 dunder in it: "__init__"
 state try: "try:\n"
 state except: "except "
+state except clip: 
+    insert("except ")
+    edit.paste()
 state raise: "raise "
 state continue: "continue"
 self taught: "self."

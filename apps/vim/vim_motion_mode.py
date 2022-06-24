@@ -99,6 +99,7 @@ class EditActions:
         actions.key("ctrl-shift-c")
 
     def paste():
+        #actions.user.vim_normal_mode("p")
         actions.key("ctrl-shift-v")
         # NOTE: There is it delay that happens inside of vim that can cause out
         # of order key pressing, in it seems to be that it's because the output

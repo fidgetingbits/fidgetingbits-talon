@@ -1,4 +1,5 @@
 {
+  "reportSelfClsParameterName": "none"
   "executionEnvironments": [
     {
       "root": "."

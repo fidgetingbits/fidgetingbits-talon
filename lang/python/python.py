@@ -15,6 +15,7 @@ ctx.lists["user.code_functions"] = {
     "enumerate": "enumerate",
     "integer": "int",
     "length": "len",
+    "len": "len",
     "list": "list",
     "print": "print",
     "range": "range",
@@ -23,6 +24,9 @@ ctx.lists["user.code_functions"] = {
     "string": "str",
     "update": "update",
     "help": "help",
+
+    # gdb
+    "G D B execute": "gdb.execute",
 }
 
 ctx.lists["user.code_libraries"] = {
@@ -34,6 +38,8 @@ ctx.lists["user.code_libraries"] = {
     "funk tools": "functools",
     "get pass": "getpass",
     "glob": "glob",
+    "G D B": "gdb",
+    "git lab": "gitlab",
     "hash lib": "hashlib",
     "heck stump": "hexdump",
     "import lib": "importlib",
@@ -46,6 +52,7 @@ ctx.lists["user.code_libraries"] = {
     "pretty print": "pprint",
     "random": "random",
     "reg ex": "re",
+    "requests": "requests",
     "shell utils": "shutil",
     "shlacks": "shlex",
     "socket": "socket",

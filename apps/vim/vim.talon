@@ -53,6 +53,7 @@ tag(): user.vim_floaterm
 #tag(): user.vim_fzf
 tag(): user.vim_telescope
 tag(): user.vim_mkdx
+tag(): user.vim_follows_md_links
 tag(): user.vim_nerdtree
 tag(): user.vim_obsession
 tag(): user.vim_ouroboros
@@ -152,6 +153,9 @@ force (close|quit):
     user.vim_command_mode_exterm(":q!\n")
 file (edit|open):
     user.vim_command_mode_exterm(":e ")
+file (edit|open) clip:
+    user.vim_command_mode_exterm(":e ")
+    edit.paste()
 file (edit|open) <user.paths>:
     user.vim_command_mode_exterm(":e {paths}\n")
 (reload [vim] config|config reload):
@@ -629,9 +633,17 @@ search command [mode]: user.vim_any_motion_mode_exterm_key("q/")
 search:
     user.vim_any_motion_mode_exterm("/\\c")
 
+search clip:
+    user.vim_any_motion_mode_exterm("/\\c")
+    edit.paste()
+
 # case sensitive search
 search exact:
     user.vim_any_motion_mode_exterm("/\\C")
+
+search exact clip:
+    user.vim_any_motion_mode_exterm("/\\C")
+    edit.paste()
 
 #search <user.text>$:
 #    user.vim_any_motion_mode_exterm("/\\c{text}\n")

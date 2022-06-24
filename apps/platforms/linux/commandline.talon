@@ -116,7 +116,7 @@ file find excluding with depth:
 file find excluding:
     user.insert_cursor("find . -type d '!' -exec sh -c 'ls -1 \"{}\"|egrep -i -q \"^*.[|]$\"' ';' -print")
 file (move|rename): "mv "
-file open: "vim "
+file open: "xdg-open "
 file P D F: "evince "
 file touch: "touch "
 file copy: "cp -d "
@@ -242,6 +242,10 @@ tea that: "| tee "
 
 rip that: " | rg -i "
 file rip: "rg -i "
+file rip clip: 
+    insert("rg -i ")
+    edit.paste()
+    key(enter)
 file rip exclude: "rg -i -g \\!"
 file rip around: "rg -B2 -A2 -i "
 file rip (exact|precise): "rg "
@@ -396,6 +400,7 @@ run double you get: "wget "
 
 # because talent doesn't seem to like me saying ./
 run script: "./"
+run script <user.word>: "./{word}"
 run again:
     insert("./")
     key(up enter)
@@ -406,6 +411,7 @@ run clean and make: "make clean && make\n"
 run make clean: "make clean\n"
 run make debug: "make debug\n"
 run make kasan: "make kasan\n"
+run make release: "make release\n"
 run see make: "cmake "
 run configure make: "./configure && bear -- make\n"
 run configure help: "./configure --help\n"
@@ -491,6 +497,7 @@ system [list] yew bus: "lsusb\n"
 system release: "cat /etc/lsb-release\n"
 
 # debugging
+file debug: "gdb "
 run (debug script|debugger): "gdb -x debug.gdb\n"
 run debug server: "gdbserver "
 run debug remote server: "gdbserver --multi :9999\n"
@@ -511,6 +518,8 @@ wallpaper set latest: "feh --bg-scale $(find ~/images/wallpaper/ -name $(exa --s
 ###
 file elf header: "eu-readelf -h "
 file elf symbols: "eu-readelf -s "
+file elf debug info: user.insert_cursor("readelf -w [|] | head -15")
+file strip: "strip --strip-all " 
 
 
 ###
@@ -644,3 +653,26 @@ file swap many in place: 'find . -name "" | xargs sed -i s///g'
 file swap many see: 'find . -name "*.[ch]" | xargs sed -i -e s///g'
 file swap many pie: 'find . -name "*.py" | xargs sed -i -e s///g'
 
+###
+# keyctl
+###
+
+key cuttle version: "keyctl --version\n"
+key cuttle list user: "keyctl list @u\n"
+key cuttle list process: "keyctl list @p\n"
+key cuttle list session: "keyctl list @s\n"
+key cuttle clear session: "keyctl clear @s\n"
+
+###
+# dpkg 
+###
+deb install: "dpkg -i"
+
+###
+# screen/tmux
+###
+
+mux list: "screen -list\n"
+mux attach now: "screen -x\n"
+mux next [window]: key(ctrl-a n)
+mux prev [window]: key(ctrl-a p)

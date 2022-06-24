@@ -49,6 +49,7 @@ plugin_tag_list = [
     "vim_markdown_preview",
     "vim_markdown_toc",
     "vim_mkdx",
+    "vim_follows_md_links",
     "vim_nerdtree",
     "vim_obsession",
     "vim_ouroboros",
@@ -1121,6 +1122,7 @@ class VimRPC:
 
     def run_normal_mode_command(self, cmd):
         v = VimMode()
+        cmd = cmd.replace('"', r'\"')
         v.nvrpc.nvim.command(f':exe "normal" "{cmd}"', async_=True)
 
 # XXX - this should be moved somewhere else

@@ -76,6 +76,7 @@ print casted struck:
 
 # symbols
 symbol refresh: "sharedlibrary\n"
+add symbol file: "add-symbol-file "
 
 # execution
 source: "source \t\t"

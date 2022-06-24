@@ -51,10 +51,12 @@ portal left: user.system_command("i3-msg workspace prev")
 
 (win|window) [<number>] grow: user.i3wm_window_grow(number or 1)
 (win|window) [<number>] shrink: user.i3wm_window_shrink(number or 1)
-(win|window) [<number>] taller: user.i3wm_window_adjust_height_up(number or 50)
-(win|window) [<number>] shorter: user.i3wm_window_adjust_height_down(number or 50)
-(win|window) [<number>] fatter: user.i3wm_window_adjust_width_out(number or 50)
-(win|window) [<number>] skinnier: user.i3wm_window_adjust_width_in(number or 50)
+# NOTE: these commands often conflict with split versions, which is why they
+# don't have win version 
+window [<number>] taller: user.i3wm_window_adjust_height_up(number or 50)
+window [<number>] shorter: user.i3wm_window_adjust_height_down(number or 50)
+window [<number>] fatter: user.i3wm_window_adjust_width_out(number or 50)
+window [<number>] skinnier: user.i3wm_window_adjust_width_in(number or 50)
 
 horizontal (shell|terminal):
     user.system_command("i3-msg split h")

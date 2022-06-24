@@ -28,7 +28,7 @@ camera overlay: eye_mouse.camera_overlay.toggle()
 ## middle click
 #midclick: user.mouse_click(2, 1)
 ## double click
-double [click]: user.mouse_click(0, 2)
+double click: user.mouse_click(0, 2)
 ## triple click
 triple [click]: user.mouse_click(0, 3)
 
@@ -41,10 +41,10 @@ triple [click]: user.mouse_click(0, 3)
 #shift
 #super = windows key
 
-#<user.modifiers> (touch):
-# key("{modifiers}:down")
-# user.mouse_click(0, 1)
-# key("{modifiers}:up")
+<user.modifiers> click:
+    key("{modifiers}:down")
+    user.mouse_click(0, 1)
+    key("{modifiers}:up")
 #<user.modifiers> (righty|rick):
 # key("{modifiers}:down")
 # user.mouse_click(1, 1)

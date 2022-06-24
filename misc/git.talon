@@ -52,6 +52,7 @@ git commit amend: "git commit --amend "
 git diff (colour|color) words: "git diff --color-words "
 git diff: "git diff "
 git diff cached: "git diff --cached\n"
+git diff main: "git diff main\n"
 git fetch: "git fetch\n"
 git fetch and rebase: "git fetch && git rebase\n"
 git fetch prune: "git fetch --prune\n"
@@ -79,6 +80,20 @@ git log <number>: "git log -{number}\n"
 git log files: "git log --name-status -5\n"
 git log files <number>: "git log --name-status -{number}\n"
 git log changes: "git log -c "
+
+# diff-filter
+#--diff-filter=[(A|C|D|M|R|T|U|X|B)…​[*]]
+#
+#    Select only files that are Added (A), Copied (C), Deleted (D), Modified (M), Renamed (R), have their type (i.e. regular file, symlink, submodule, …​) changed (T), are Unmerged (U), are Unknown (X), or have had their pairing Broken (B). Any combination of the filter characters (including none) can be used. When * (All-or-none) is added to the combination, all paths are selected if there is any file that matches other criteria in the comparison; if there is no file that matches other criteria, nothing is selected.
+#
+#    Also, these upper-case letters can be downcased to exclude. E.g. --diff-filter=ad excludes added and deleted paths.
+#
+#    Note that not all diffs can feature all types. For instance, copied and renamed entries cannot appear if detection for those types is disabled.
+#
+git log added files: "git log --diff-filter=A --summary\n"
+git log added files only: "git log --diff-filter=A --summary | grep create\n"
+git log removed files: "git log --diff-filter=D --summary\n"
+git log removed files only: "git log --diff-filter=D --summary | grep delete\n"
 
 git merge: "git merge "
 git merge <user.text>:"git merge {text}"
@@ -138,7 +153,7 @@ git stash apply: "git stash apply\n"
 git stash list: "git stash list\n"
 git stash show: "git stash show"
 git status: "git status --untracked-files=no\n"
-git status full: "git status\n"
+git status (all|full): "git status\n"
 git status staged: "git status --short | grep '^[MARCD]'\n"
 git sub tree: "git subtree "
 git switch: "git switch "

@@ -33,7 +33,7 @@ tag: user.vim_telescope
 (telescope|hunt) key maps: user.vim_command_mode_exterm(':exe ":Telescope keymaps"\n')
 (telescope|hunt) file types: user.vim_command_mode_exterm(':exe ":Telescope filetypes"\n')
 (telescope|hunt) [high] lights: user.vim_command_mode_exterm(':exe ":Telescope highlights"\n')
-(telescope|hunt) buffer: user.vim_command_mode_exterm(':exe ":Telescope current_buffer_fuzzy_find"\n')
+(telescope|hunt) (buffer|lines): user.vim_command_mode_exterm(':exe ":Telescope current_buffer_fuzzy_find"\n')
 (telescope|hunt) tags: user.vim_command_mode_exterm(':exe ":Telescope current_buffer_key_tags"\n')
 (telescope|hunt) reload: user.vim_command_mode_exterm(':exe ":Telescope reloader"\n')
 

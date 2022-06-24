@@ -198,7 +198,7 @@ punctuation_words = {
     "colon": ":",
     "forward slash": "/",
     "question mark": "?",
-    "bang": "!",
+    "banger": "!", # two years later bang suddenly conflicts with yank lol
     "dollar sign": "$",
     "asterisk": "*",
     "hash sign": "#",
@@ -226,7 +226,7 @@ symbol_key_words = {
     "plus": "+",
     "question": "?",
     "wave": "~",
-    "bang": "!",
+    "banger": "!",
     "dollar": "$",
     "score": "_",
     "colon": ":",

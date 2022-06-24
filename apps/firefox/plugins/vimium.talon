@@ -61,7 +61,7 @@ select main frame:
     insert("gF")
 mark <user.letter>:
     insert("m{letter}")
-go to mark <user.letter>':
+go to mark <user.letter>:
     insert("`{letter}")
 
 # Using the vomnibar

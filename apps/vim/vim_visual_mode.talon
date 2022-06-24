@@ -41,12 +41,13 @@ prefix with <user.unmodified_key>:
     sleep(50ms)
     insert("s/^/{unmodified_key}/g\n")
 
-    # XXX - maybe make this work another modes
-yank with numb:
+# XXX - maybe make this work another modes
+# copy with line numbers
+(yank|copy) with [line] (numb|numbers):
     # NOTE - xclip struggles with we use @+ directly, we indirect through @n
     # this turns @n into a scratch register. XXX - we may want to document
     # this eventually
-    user.vim_command_mode_exterm(":redir @n | silent! :'<,'>number | redir END | let @+=@n\n")
+    user.vim_command_mode(":redir @n | silent! :'<,'>number | redir END | let @+=@n\n")
 
 # XXX - we could add something with motions, so we search for something
 # selected via motion

@@ -18,6 +18,7 @@ virtual run console: insert("sudo virsh start --console ")
 virtual start: insert("sudo virsh start ")
 virtual (stop|shutdown): insert("sudo virsh shutdown ")
 virtual (restart|reboot): insert("sudo virsh reboot ")
+virtual destroy: insert("sudo virsh destroy ")
 
 # Config
 virtual edit config: "sudo virsh edit "
