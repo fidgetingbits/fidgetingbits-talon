@@ -1,3 +1,7 @@
+not tag: user.full_mouse_grid_showing
+and not mode:sleep
+-
+
 # TODO:
 # - need a generic for any clicking zoom overlay to trigger the click
 
@@ -10,8 +14,7 @@ mouse sleep:
 mouse wake:
     user.mouse_sleep()
     user.mouse_wake()
-control mouse: user.mouse_toggle_control_mouse()
-camera overlay: eye_mouse.camera_overlay.toggle()
+mouse control: user.mouse_toggle_control_mouse()
 (mouse|run) calibration: user.mouse_calibrate()
 [(enable|disable)] zoom mouse: user.mouse_toggle_zoom_mouse()
 [(enable|disable)] auto click: user.mouse_toggle_zoom_auto_click()
@@ -22,16 +25,23 @@ camera overlay: eye_mouse.camera_overlay.toggle()
 # General clicking and movement
 ###
 # single click
-(touch|chiff|click): user.mouse_click(0, 1)
+[mouse] click: user.mouse_click(0, 1)
 # right click
-(righty|ricky): user.mouse_click(1, 1)
+ricky: user.mouse_click(1, 1)
 ## middle click
-#midclick: user.mouse_click(2, 1)
+middle click: user.mouse_click(2, 1)
 ## double click
 double click: user.mouse_click(0, 2)
 ## triple click
 triple [click]: user.mouse_click(0, 3)
 
+mouse hover: user.mouse_move_cursor()
+
+# XXX - This should detective we are in zoom mode
+mouse drag: user.mouse_drag(0)
+<user.modifiers> mouse drag:
+    key("{modifiers}:down")
+    user.mouse_click(0, 1)
 
 #see keys.py for modifiers.
 #defaults
@@ -45,15 +55,6 @@ triple [click]: user.mouse_click(0, 3)
     key("{modifiers}:down")
     user.mouse_click(0, 1)
     key("{modifiers}:up")
-#<user.modifiers> (righty|rick):
-# key("{modifiers}:down")
-# user.mouse_click(1, 1)
-# key("{modifiers}:up")
-
-# move to eye location without clicking
-#hover: user.mouse_move_cursor()
-
-# zoom and then move to designated location without clicking
 
 ###
 # Scrolling and dragging
@@ -106,7 +107,7 @@ cancel zoom: user.mouse_cancel_zoom_mouse()
 
 # zoom single click - auto clicks if enabled
 #(kiff|eagle): user.mouse_zoom_single_click()
-eagle: user.mouse_zoom_single_click()
+#eagle: user.mouse_zoom_single_click()
 
 # zoom single click - auto click even if autoclick setting disabled
 #kick: user.mouse_zoom_auto_single_click()
@@ -117,4 +118,3 @@ eagle: user.mouse_zoom_single_click()
 # auto relocate cursor to clicked location
 auto portal: user.mouse_zoom_auto_move_cursor()
 
-#drift: user.mouse_zoom_drag()

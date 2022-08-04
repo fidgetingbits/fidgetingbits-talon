@@ -364,7 +364,7 @@ class Actions:
             eye_zoom_mouse.zoom_mouse.cancel()
 
     def mouse_zoom_drag():
-        """zoom end press in hold/release button 0 depending on state"""
+        """zoom and press in hold/release button 0 depending on state"""
 
         eye_zoom_mouse.zoom_mouse.on_pop(0, 1, auto=False, click=False, drag=True)
 
