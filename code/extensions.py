@@ -31,7 +31,7 @@ _file_extensions_defaults = {
     "desktop": ".desktop",
     "dock ex": ".docx",
     "dock": ".doc",
-    "draw I O": ".drawio",
+    "draw eye oh": ".drawio",
     "E M L": ".eml",
     "exe": ".exe",
     "flack": ".flac",
