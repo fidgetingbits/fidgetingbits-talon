@@ -399,7 +399,7 @@ run double you get: "wget "
 [file] download ignore cert: "wget --no-check-certificate "
 
 # because talent doesn't seem to like me saying ./
-run script: "./"
+(run script|file run): "./"
 run script <user.word>: "./{word}"
 run again:
     insert("./")
@@ -676,3 +676,11 @@ mux list: "screen -list\n"
 mux attach now: "screen -x\n"
 mux next [window]: key(ctrl-a n)
 mux prev [window]: key(ctrl-a p)
+
+###
+# Monitors
+###
+display list: "polybar --list-monitors\n"
+camera list: "v4l2-ctl --list-devices\n"
+
+udev reload: "sudo udevadm control --reload-rules && sudo udevadm trigger"
