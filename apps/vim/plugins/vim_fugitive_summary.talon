@@ -6,6 +6,8 @@
 # ex: let &titlestring ='VIM MODE:%{mode()} RPC:%{v:servername} %{FugitiveStatusline()} (%f) %t'
 tag: user.vim_fugitive_summary
 and win.title: /\[Git.*git.*index/
+tag: user.vim_fugitive_summary
+and win.title: /fugitive:\/\//
 #tag: user.vim_fugitive_summary
 #and win.title: /.git\/index/
 -
