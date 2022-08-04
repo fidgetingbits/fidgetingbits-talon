@@ -1,1 +1,1 @@
-port <user.ports>: "{ports}"
+net port <user.ports>: "{ports}"
