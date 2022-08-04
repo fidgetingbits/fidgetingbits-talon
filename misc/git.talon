@@ -9,6 +9,7 @@ git add (changed|everything): "git add -u\n"
 git bisect: "git bisect "
 git blame: "git blame "
 git branch: "git branch "
+git branch list: "git branch -a\n"
 git branch (remove|delete): "git branch -d "
 git branch force (remove|delete): "git branch -D "
 git branch remote: "git branch --remote\n"
@@ -147,6 +148,7 @@ git show change clip:
     edit.paste()
     key(enter)
 git show head: "git show -c HEAD\n"
+git change head to main: "git symbolic-ref refs/remotes/origin/HEAD refs/remotes/origin/main\n"
 git stash pop: "git stash pop\n"
 git stash: "git stash\n"
 git stash apply: "git stash apply\n"
