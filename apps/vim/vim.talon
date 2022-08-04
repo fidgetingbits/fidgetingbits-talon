@@ -181,6 +181,9 @@ go row <number>:
 [go] relative down [line] <number_small>:
     user.vim_normal_mode_exterm("{number_small}j")
 
+push line <number>:
+    user.vim_command_mode_exterm(":{number}\n")
+    user.vim_normal_mode_np("$a")
 
 # jump list
 # XXX - I'm not sure these are well usable from the terminal?
