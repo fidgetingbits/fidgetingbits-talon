@@ -45,6 +45,7 @@ linux_folder_paths = {
     "user local config": "/usr/local/etc/",
     "user local share": "/usr/local/share/",
     "lib": "/lib",
+    "dev": "/dev",
     "log": "/var/log/",
     "kernel trace": "/sys/kernel/tracing/",
     "K mem events": "/sys/kernel/tracing/events/kmem",
@@ -73,6 +74,7 @@ linux_folder_paths = {
     "yay cache": "~/.cache/yay/",
     "open snitch rules": "/etc/opensnitchd/rules/",
     "local apps": "~/.local/share/applications",
+    "Polly bar": "~/.config/polybar",
 }
 
 linux_file_paths = {
@@ -118,6 +120,8 @@ linux_file_paths = {
     "Q emu config": "/etc/libvirt/qemu.conf",
     "proxy chains": "~/.proxychains/proxychains.conf",
     "open snitch log": "/var/log/opensnitchd.log",
+    "howdy config": "/usr/lib/security/howdy/config.ini",
+    "et see keeper": "/etc/etckeeper/etckeeper.conf",
 }
 
 # this is used for specific commands like pivot
