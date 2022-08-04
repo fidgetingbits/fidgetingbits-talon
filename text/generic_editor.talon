@@ -12,7 +12,7 @@ next one:
 find <user.unmodified_key>:
     user.line_find_forward(unmodified_key)
 
-(find last|fever) <user.unmodified_key>:
+find last <user.unmodified_key>:
     user.line_find_backward(unmodified_key)
 
 go (word left|back):
@@ -107,7 +107,7 @@ select (way down|gut):
 indent [more]:
     edit.indent_more()
 
-(indent less | out dent):
+de dent:
     edit.indent_less()
 
 # deleting
