@@ -114,6 +114,7 @@ ctx.lists["self.vim_arrow"] = {
 # Standard self.vim_counted_actions insertable entries
 standard_counted_actions = {
     "suffix": "a",
+    "append": "a",
     "suffix line": "A",
     "insert mode": "i",
     "insert column zero": "gI",
@@ -211,7 +212,7 @@ ctx.lists["self.vim_counted_actions_args"] = {
 # includes motions and no motions :|
 commands_with_motion = {
     # no motions
-    "join line": "J", # join alone too often conflicts with junk
+    "join line": "J", # join alone too often conflicts with junkvim
     "merge": "gJ",  # won't produce spaces between joined words
     # "filter": "=",  # XXX - not sure about how to use this
     "paste": "p",  # XXX this really have motion
@@ -237,7 +238,7 @@ commands_with_motion = {
 visual_commands = {
     # normal overlap
     "change": '"_c',  # NOTE: we purposely use the black hole register
-    "join": "J",
+    "join lines": "J",
     "clear": "d",  # this is to be consistent with talon generic_editor.talon
     "forget": '"_d',  # this is to be consistent with talon generic_editor.talon
     "yank": "y",  # NOTE: conflicts with talon 'yank' alphabet for 'y' key
