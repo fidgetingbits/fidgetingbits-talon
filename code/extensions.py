@@ -22,7 +22,6 @@ _file_extensions_defaults = {
     "conf": ".conf",
     "config": ".config",
     "com": ".com",
-    "comma": ".csv",
     "C S V": ".csv",
     "data": ".data",
     "database": ".db",
