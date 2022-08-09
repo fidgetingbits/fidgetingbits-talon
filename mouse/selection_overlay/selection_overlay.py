@@ -34,43 +34,29 @@ ctx.matches = r"""
 tag: user.selection_overlay_enabled
 """
 
-# XXX - Understand how this works better
-# XXX - Add basic directions as well
 direction_name_steps = [
     "east",
-    "east south east",
     "south east",
-    "south south east",
     "south",
-    "south south west",
     "south west",
-    "west south west",
     "west",
-    "west north west",
     "north west",
-    "north north west",
     "north",
-    "north north east",
     "north east",
-    "east north east",
 ]
 
+arrow_name_steps = ["right", "down", "left", "up"]
+
 direction_vectors = [Point2d(0, 0) for _ in range(len(direction_name_steps))]
+arrow_vectors = [Point2d(0, 0) for _ in range(len(arrow_name_steps))]
 
-direction_vectors[0] = Point2d(1, 0)  # east
-direction_vectors[4] = Point2d(0, 1)  # south
-direction_vectors[8] = Point2d(-1, 0)  # west
-direction_vectors[12] = Point2d(0, -1)  # north
-
-# This edits the triple entry ones
-for i in [2, 6, 10, 14]:
-    direction_vectors[i] = (
-        direction_vectors[(i - 2) % len(direction_vectors)]
-        + direction_vectors[(i + 2) % len(direction_vectors)]
-    )
+arrow_vectors[0] = direction_vectors[0] = Point2d(1, 0)  # east
+arrow_vectors[1] = direction_vectors[2] = Point2d(0, 1)  # south
+arrow_vectors[2] = direction_vectors[4] = Point2d(-1, 0)  # west
+arrow_vectors[3] = direction_vectors[6] = Point2d(0, -1)  # north
 
 # This edits all single and double entries
-for i in [1, 3, 5, 7, 9, 11, 13, 15]:
+for i in [1, 3, 5, 7]:
     direction_vectors[i] = (
         direction_vectors[(i - 1) % len(direction_vectors)]
         + direction_vectors[(i + 1) % len(direction_vectors)]
@@ -82,6 +68,8 @@ ctx.lists["self.points_of_compass"] = direction_name_steps
 class SelectionOverlay:
     def __init__(self, debug=False):
         self.debug = debug
+        # XXX - Should this be configurable?
+        self.screen_num = 1
         self.screen = None
         self.screen_rect = None
         self.history = []
@@ -112,24 +100,27 @@ class SelectionOverlay:
 
         screens = ui.screens()
         # each if block here might set the rect to None to indicate failure
+        selected_screen = None
         if rect is not None:
             try:
-                screen = ui.screen_containing(*rect.center)
+                selected_screen = ui.screen_containing(*rect.center)
             except Exception:
                 rect = None
         if rect is None and screen_num is not None:
-            screen = screens[screen_num % len(screens)]
-            rect = screen.rect
+            selected_screen = actions.user.screens_get_by_number(screen_num)
+            rect = selected_screen.rect
         if rect is None:
-            screen = screens[0]
-            rect = screen.rect
+            selected_screen = screen.main_screen()
+            rect = selected_screen.rect
+
         print(f"Screen rect {rect}")
+        self.screen_num = screen_num
         self.screen_rect = rect.copy()
-        self.screen = screen
+        self.screen = selected_screen
         self.img = None
         if self.canvas is not None:
             self.canvas.close()
-        self.canvas = canvas.Canvas.from_screen(screen)
+        self.canvas = canvas.Canvas.from_screen(selected_screen)
         if self.active:
             self.canvas.register("draw", self.draw)
             self.canvas.freeze()
@@ -137,11 +128,15 @@ class SelectionOverlay:
         self.columns = int(self.screen_rect.width // self.field_size)
         self.rows = int(self.screen_rect.height // self.field_size)
 
+    def set_selection(self, pos):
+        """Set the actual coordinates for the current selection"""
+        self.x, self.y, self.width, self.height = pos
+
     def show(self):
         """Show the selection overlay"""
         if self.active:
             return
-        self.x, self.y, self.width, self.height = self.get_selection()
+        self.set_selection(self.get_last_selection())
         self.canvas.register("draw", self.draw)
         self.canvas.freeze()
         self.active = True
@@ -178,23 +173,32 @@ class SelectionOverlay:
         # XXX - in force some selection limit
         self.selection_history.append(pos)
 
-    def get_selection(self):
+    def default_selection(self):
+        """Return the ordinates for the default selection"""
+        # XXX - We may want to make snapping to the mouse by default
+        # optional...
+        mouse_x, mouse_y = self.get_mouse_coordinates()
+
+        return (mouse_x, mouse_y, self.default_width, self.default_height)
+
+    def get_last_selection(self):
         """Return a rectangle to highlight the last or default selection"""
         if len(self.selection_history) != 0:
             x, y, width, height = self.selection_history[-1]
         else:
-            # XXX - We may want to make snapping to the mouse by default
-            # optional...
-            mouse_x, mouse_y = self.get_mouse_coordinates()
-            x, y, width, height = (
-                mouse_x,
-                mouse_y,
-                self.default_width,
-                self.default_height,
-            )
+            x, y, width, height = self.default_selection()
             self.record_selection((x, y, width, height))
 
         return x, y, width, height
+
+    def selected_rect(self):
+        """Return a rectangle of the current selection"""
+        return Rect(self.x, self.y, self.width, self.height)
+
+    def unclipped_rect(self):
+        """Return a rectangle of the current selection without clipping
+        to the screen"""
+        return Rect(self.screen_rect.x+self.x, self.screen_rect.y+self.y, self.width, self.height)
 
     def draw(self, canvas):
         """Draw an updated canvas"""
@@ -213,7 +217,7 @@ class SelectionOverlay:
         )
         # At any given time there are 4 darkened rectangles, and this
         # selection rectangle
-        selection_rect = Rect(self.x, self.y, self.width, self.height)
+        selection_rect = self.selected_rect()
         canvas.paint.color = self.overlay_color + hex_to_string(35)
         canvas.paint.style = Paint.Style.FILL
 
@@ -276,29 +280,98 @@ class SelectionOverlay:
         canvas.draw_rect(overlay_left_rect)
         canvas.draw_rect(overlay_right_rect)
 
-    def adjust(self, size):
+    def adjust(self, direction, size):
         """Adjust the size of the overlay in all directions by the amount specified"""
-        # XXX - Add a direction for resizing
-        self.x = self.x - size
-        self.y = self.y - size
-        # *2 because the sizes will already be adjusted by the new x,y
-        self.width = self.width + (size * 2)
-        self.height = self.height + (size * 2)
+
+        # No explicit direction means adjust in all directions
+        if direction == "":
+            self.x = self.x - size
+            self.y = self.y - size
+            # *2 because the sizes will already be adjusted by the new x,y
+            self.width = self.width + (size * 2)
+            self.height = self.height + (size * 2)
+        else:
+            if direction.startswith("north") or direction == "up":
+                self.y = self.y - size
+                self.height = self.height + size
+            if direction.startswith("south") or direction == "down":
+                self.height = self.height + size
+            if "east" in direction or direction == "right":
+                self.width = self.width + size
+            if "west" in direction or direction == "left":
+                self.x = self.x - size
+                self.width = self.width + size
+
+        self.commit()
+
+    def set_x(self, x):
+        """Set the x coordinate of the current selection"""
+        # XXX - Sanity checking of boundary
+        self.x = x
+        self.commit()
+
+    def set_y(self, y):
+        """Set the y coordinate of the current selection"""
+        # XXX - Sanity checking of boundary
+        self.y = y
+        self.commit()
+
+    def set_width(self, width):
+        """Set the width of the current selection"""
+        # XXX - Sanity  checking of boundary
+        self.width = width
+        self.commit()
+
+    def set_height(self, height):
+        """Set the height of the current selection"""
+        # XXX - Sanity  checking of boundary
+        self.height = height
+        self.commit()
+
+    def set_size(self, width, height):
+        """Set the width and height of the current selection"""
+        self.width = width
+        self.height = height
         self.commit()
 
     def move(self, direction, count):
         global direction_name_steps
         global direction_vectors
-        index = direction_name_steps.index(direction)
-        point = direction_vectors[index]
+        global arrow_name_steps
+        global arrow_vectors
+        if direction in direction_name_steps:
+            index = direction_name_steps.index(direction)
+            point = direction_vectors[index]
+        else:
+            index = arrow_name_steps.index(direction)
+            point = arrow_vectors[index]
+
         self.x = self.x + (point.x * count)
         self.y = self.y + (point.y * count)
         self.commit()
 
+    def reset(self):
+        """Reset the selection to the default boundaries"""
+        self.set_selection(self.default_selection())
+        self.commit()
+
     def commit(self):
-        """Commit the cord nat adjustments"""
+        """Commit the coordinate adjustments"""
         self.record_selection((self.x, self.y, self.width, self.height))
         self.canvas.freeze()
+
+    def screenshot(self):
+        """Take a screenshot of the current selection"""
+        # Temporarily disable overlay
+        # XXX - This should be doable without closing everything, maybe
+        # just set max transparency...
+        self.close()
+        selection_rect = self.unclipped_rect()
+        # XXX - Have to select this screen?
+
+        actions.user.screenshot_rect(selection_rect, screen_num=self.screen_num)
+        self.setup()
+        self.show()
 
 
 def hex_to_string(v: int) -> str:
@@ -311,14 +384,12 @@ overlay = SelectionOverlay(debug=False)
 
 def selection_overlay_mode_enable():
     """Enable the selection overlay talon mode"""
-    print("Enabling selection overlay mode")
     actions.mode.enable("user.selection_overlay")
     actions.mode.disable("command")
 
 
 def selection_overlay_mode_disable():
     """Disable the selection overlay talon mode"""
-    print("Disabling selection overlay mode")
     actions.mode.disable("user.selection_overlay")
     actions.mode.enable("command")
 
@@ -332,12 +403,11 @@ class SelectionOverlayActions:
         overlay.show()
         print("Setting tag")
         ctx.tags = ["user.selection_overlay_showing"]
-        print(ctx.tags)
         selection_overlay_mode_enable()
 
-    def selection_overlay_select_screen(screen: int):
+    def selection_overlay_select_screen(screen_num: int):
         """Brings up mouse grid on the specified screen"""
-        overlay.setup(screen_num=screen - 1)
+        overlay.setup(screen_num=screen_num)
         overlay.show()
         ctx.tags = ["user.selection_overlay_showing"]
         selection_overlay_mode_enable()
@@ -353,14 +423,50 @@ class SelectionOverlayActions:
         """Snap the current selection to the mouse cursor"""
         overlay.snap_mouse()
 
-    def selection_overlay_grow(size: int):
+    def selection_overlay_grow(direction: str, size: int):
         """Increase the size of the selection from all angles"""
-        overlay.adjust(size)
+        overlay.adjust(direction, size)
 
-    def selection_overlay_shrink(size: int):
+    def selection_overlay_shrink(direction: str, size: int):
         """Decrease the size of the selection from all angles"""
-        overlay.adjust(-size)
+        overlay.adjust(direction, -size)
 
     def selection_overlay_move(direction: str, count: int):
         """Move the selection in some direction"""
         overlay.move(direction, count)
+
+    def selection_overlay_screenshot():
+        """Take a screenshot of the current selection"""
+        overlay.screenshot()
+
+    def selection_overlay_set_x(x: int):
+        """Set the x coordinate of the current selection"""
+        overlay.set_x(x)
+
+    def selection_overlay_set_y(y: int):
+        """Set the y coordinate of the current selection"""
+        overlay.set_y(y)
+
+    def selection_overlay_set_width(width: int):
+        """Set the width of the current selection"""
+        overlay.set_width(width)
+
+    def selection_overlay_set_height(height: int):
+        """Set the height of the current selection"""
+        overlay.set_height(height)
+
+    def selection_overlay_set_size(width: int, height: int):
+        """Set the width and height of the current selection"""
+        overlay.set_size(width, height)
+
+    def selection_overlay_reset():
+        """Reset the selection to the default"""
+        overlay.reset()
+
+    def selection_overlay_width_double():
+        """Double the width of the selection"""
+        overlay.set_width(overlay.width * 2)
+
+    def selection_overlay_height_double():
+        """Double the height of the selection"""
+        overlay.set_height(overlay.height * 2)
