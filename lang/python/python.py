@@ -25,6 +25,9 @@ ctx.lists["user.code_functions"] = {
     "update": "update",
     "help": "help",
 
+    # sys
+    "exit": "sys.exit",
+
     # gdb
     "G D B execute": "gdb.execute",
 }

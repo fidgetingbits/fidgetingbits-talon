@@ -164,3 +164,5 @@ pack big int: user.insert_cursor('struct.pack(">I", [|])')
 pack little long: user.insert_cursor('struct.pack("<Q"", [|])')
 pack big long: user.insert_cursor('struct.pack(">Q"", [|])')
 
+state arg <number>: "sys.argv[{number}]"
+state arg count: "len(sys.argv)"
