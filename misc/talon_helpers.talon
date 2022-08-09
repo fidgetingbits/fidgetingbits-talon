@@ -1,3 +1,6 @@
+mode: user.selection_overlay
+mode: command
+-
 talon check updates: menu.check_for_updates()
 talon open log: menu.open_log()
 talon open rebel: menu.open_repl()
