@@ -41,6 +41,7 @@ tag require [{user.talon_tags}]:
     tag = talon_tags or ""
     user.paste("tag: {tag}")
 #commands for dictating key combos
+func key enter: "key(enter)"
 funk key [<user.modifiers>+] <user.keys>:
     insert("key(")
     insert(modifiers or "")
