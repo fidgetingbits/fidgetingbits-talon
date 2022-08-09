@@ -290,7 +290,8 @@ class Actions:
     def mouse_zoom_move_cursor():
         """Move the cursor but don't actually click, an zoom if necessary"""
         if not config.control_mouse:
-            eye_zoom_mouse.zoom_mouse.on_pop(0, 1, auto=False, click=False)
+            print(eye_zoom_mouse.zoom_mouse.capture())
+            #eye_zoom_mouse.zoom_mouse.on_pop(0, 1, click=False)
 
     def mouse_zoom_capture_coordinates():
         """Zoom and copy the clicked coordinate tuple to the clipboard"""
@@ -319,7 +320,8 @@ class Actions:
     def mouse_zoom_auto_move_cursor():
         """Move the cursor but don't actually click, an zoom if necessary"""
         if not config.control_mouse:
-            eye_zoom_mouse.zoom_mouse.on_pop(0, 1, auto=True, click=False)
+            print(eye_zoom_mouse.zoom_mouse.get_pos())
+            #eye_zoom_mouse.zoom_mouse.on_pop(0, 1, auto=True, click=False)
 
     def mouse_zoom_auto_capture_coordinates():
         """Zoom and copy the auto click coordinate tuple to the clipboard"""

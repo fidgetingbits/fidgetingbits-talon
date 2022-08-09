@@ -1,5 +1,8 @@
 not tag: user.full_mouse_grid_showing
 and not mode:sleep
+
+not tag: user.selection_overlay_showing
+and not mode:sleep
 -
 
 # TODO:
@@ -27,13 +30,13 @@ mouse control: user.mouse_toggle_control_mouse()
 # single click
 [mouse] click: user.mouse_click(0, 1)
 # right click
-ricky: user.mouse_click(1, 1)
+[mouse] (ricky|right click): user.mouse_click(1, 1)
 ## middle click
-middle click: user.mouse_click(2, 1)
+[mouse] middle click: user.mouse_click(2, 1)
 ## double click
-double click: user.mouse_click(0, 2)
+[mouse] double click: user.mouse_click(0, 2)
 ## triple click
-triple [click]: user.mouse_click(0, 3)
+[mouse] triple click: user.mouse_click(0, 3)
 
 mouse hover: user.mouse_move_cursor()
 
@@ -42,6 +45,8 @@ mouse drag: user.mouse_drag(0)
 <user.modifiers> mouse drag:
     key("{modifiers}:down")
     user.mouse_click(0, 1)
+    
+    key("{modifiers}:up")
 
 #see keys.py for modifiers.
 #defaults
@@ -113,7 +118,7 @@ cancel zoom: user.mouse_cancel_zoom_mouse()
 #kick: user.mouse_zoom_auto_single_click()
 
 # relocate cursor to clicked location
-#portal: user.mouse_zoom_move_cursor()
+zoom portal: user.mouse_zoom_move_cursor()
 
 # auto relocate cursor to clicked location
 auto portal: user.mouse_zoom_auto_move_cursor()
