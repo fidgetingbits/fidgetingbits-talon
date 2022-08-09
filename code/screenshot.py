@@ -1,4 +1,4 @@
-from talon import Module, screen, ui, cron, app, actions, clip
+from talon import Module, screen, ui, cron, app, actions, clip, settings
 from talon.canvas import Canvas
 from typing import Optional
 from datetime import datetime
@@ -25,40 +25,45 @@ class Actions:
     def screenshot(screen_number: Optional[int] = None):
         """Takes a screenshot of the entire screen and saves it to the pictures folder.
         Optional screen number can be given to use screen other than main."""
-        screen = get_screen(screen_number)
-        screenshot_rect(screen.rect)
+        selected_screen = get_screen(screen_number)
+        actions.user.screenshot_rect(selected_screen.rect)
 
     def screenshot_window():
         """Takes a screenshot of the active window and saves it to the pictures folder"""
         win = ui.active_window()
-        screenshot_rect(win.rect, win.app.name)
+        actions.user.screenshot_rect(win.rect, win.app.name)
 
     def screenshot_selection():
         """Triggers an application is capable of taking a screenshot of a portion of the screen"""
-        if app.platform == "windows":
-            actions.key("super-shift-s")
-        elif app.platform == "mac":
-            actions.key("ctrl-shift-cmd-4")
-        elif app.platform == "linux":
-            actions.key("shift-printscr")
+        if settings.get("user.selection_overlay_enabled"):
+            actions.user.selection_overlay_select_screen(1)
+            actions.user.selection_overlay_activate()
+        else:
+            if app.platform == "windows":
+                actions.key("super-shift-s")
+            elif app.platform == "mac":
+                actions.key("ctrl-shift-cmd-4")
+            elif app.platform == "linux":
+                actions.key("shift-printscr")
 
     def screenshot_clipboard(screen_number: Optional[int] = None):
         """Takes a screenshot of the entire screen and saves it to the clipboard.
         Optional screen number can be given to use screen other than main."""
-        screen = get_screen(screen_number)
-        clipboard_rect(screen.rect)
+        selected_screen = get_screen(screen_number)
+        clipboard_rect(selected_screen.rect)
 
     def screenshot_window_clipboard():
         """Takes a screenshot of the active window and saves it to the clipboard"""
         win = ui.active_window()
         clipboard_rect(win.rect)
 
-
-def screenshot_rect(rect: ui.Rect, title: str = ""):
-    flash_rect(rect)
-    img = screen.capture_rect(rect)
-    path = get_screenshot_path(title)
-    img.write_file(path)
+    def screenshot_rect(rect: ui.Rect, screen_num: Optional[int] = None, title: str = ""):
+        """Allow other modules this screenshot a rectangle"""
+        selected_screen = get_screen(screen_num)
+        flash_rect(rect)
+        img = screen.capture_rect(rect)
+        path = get_screenshot_path(title)
+        img.write_file(path)
 
 
 def clipboard_rect(rect: ui.Rect):
@@ -71,7 +76,9 @@ def get_screenshot_path(title: str = ""):
     if title:
         title = f" - {title.replace('.', '_')}"
     date = datetime.now().strftime("%Y-%m-%dT%H-%M-%S")
-    filename = f"Screenshot {date}{title}.png"
+    # XXX - This should be is setting, in also overridable in the function
+    # arguments
+    filename = f"screenshot-{date}{title}.png"
     folder_path = screenshot_folder.get()
     path = os.path.expanduser(os.path.join(folder_path, filename))
     return os.path.normpath(path)
