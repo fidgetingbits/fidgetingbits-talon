@@ -1,4 +1,3 @@
-# written by timo, based on mousegrid written by timo and cleaned up a lot by aegis
 from talon import (
     Module,
     Context,
@@ -82,7 +81,14 @@ background_transparency = mod.setting(
     "full_mouse_grid_background_transparency",
     type=int,
     default=0x22,
-    desc="sets the background transparent sea value",
+    desc="sets the background transparency value",
+)
+
+selector_transparency = mod.setting(
+    "full_mouse_grid_selector_transparency",
+    type=int,
+    default=0x99,
+    desc="sets the background selector number transparency value",
 )
 
 label_transparency = mod.setting(
@@ -96,7 +102,7 @@ click_type_default = mod.setting(
     "full_mouse_grid_click_type_default",
     type=str,
     default="hover",
-    desc="sets the default click type for mouse grid: hover, click, drag",
+    desc="sets the default click type for mouse grid: hover, click, drag_open, drag_close",
 )
 
 
@@ -151,7 +157,6 @@ ctx.lists["self.mg_point_of_compass"] = direction_name_steps
 
 letters = string.ascii_uppercase
 
-
 class MouseGridDense:
     def __init__(self):
         self.screen = None
@@ -169,6 +174,9 @@ class MouseGridDense:
         self.init_settings = False
         self.label_transparency = 153
         self.bg_transparency = 35
+        self.selector_transparency = 153
+        self.selector_color = "FFFFFF"
+        self.selector_color_high_contrast = "000000"
 
         self.field_size = 32
 
@@ -182,19 +190,21 @@ class MouseGridDense:
         self.input_so_far = ""
 
         self.click_type = None
+        self.last_drag_coords = [None, None]
 
     def set_click_type(self, type: str):
         self.click_type = type
+        #print(f"click_type: {self.click_type}")
 
     def add_partial_input(self, letter: str):
 
         # this logic swaps around which superblock is selected.
         if letter.isdigit():
-            print("user inputted a number, switching superblock")
+            #print("user inputted a number, switching superblock")
             self.default_superblock = int(letter) - 1
             if self.mcanvas:
                 self.mcanvas.freeze()
-                print("updating graphics")
+                #print("updating graphics")
             return
 
         # this logic collects letters.  you can only collect up to two letters.
@@ -213,23 +223,29 @@ class MouseGridDense:
 
         if self.mcanvas:
             self.mcanvas.freeze()
-            print("updating graphics")
+            #print("updating graphics")
+
+    def adjust_transparency(self, value: int, amount: int):
+        value += amount
+        if value < 0:
+            value = 0
+        if value > 255:
+            value = 255
+        return value
 
     def adjust_bg_transparency(self, amount: int):
-        self.bg_transparency += amount
-        if self.bg_transparency < 0:
-            self.bg_transparency = 0
-        if self.bg_transparency > 255:
-            self.bg_transparency = 255
+        self.bg_transparency = self.adjust_transparency(self.bg_transparency, amount)
         if self.mcanvas:
             self.mcanvas.freeze()
 
+    def adjust_selector_transparency(self, amount: int):
+        self.selector_transparency = self.adjust_transparency(self.selector_transparency, amount)
+        if self.mcanvas:
+            self.mcanvas.freeze()
+
+
     def adjust_label_transparency(self, amount: int):
-        self.label_transparency += amount
-        if self.label_transparency < 0:
-            self.label_transparency = 0
-        if self.label_transparency > 255:
-            self.label_transparency = 255
+        self.label_transparency = self.adjust_transparency(self.label_transparency, amount)
         if self.mcanvas:
             self.mcanvas.freeze()
 
@@ -238,6 +254,8 @@ class MouseGridDense:
             self.init_settings = True
             self.bg_transparency = background_transparency.get()
             self.label_transparency = label_transparency.get()
+            self.selector_transparency = selector_transparency.get()
+            self.selector_color = setting_large_number_color.get()
             self.click_type = click_type_default.get()
 
         screens = ui.screens()
@@ -253,6 +271,7 @@ class MouseGridDense:
         if rect is None:
             screen = screens[0]
             rect = screen.rect
+        print(f"Screen rect {rect}")
         self.rect = rect.copy()
         self.screen = screen
         self.img = None
@@ -294,6 +313,10 @@ class MouseGridDense:
         # actions.user.mouse_grid_help_overlay_close()
 
         self.active = False
+        # XXX - needed to weak this if were still in drag_open, to not re
+        # enable eye_mouse under the assumption the person's going to wanted
+        # tweak the drag the location with something like cross hair after the
+        # fact.
         if self.was_control_mouse_active and not eye_mouse.control_mouse.enabled:
             eye_mouse.control_mouse.toggle()
         if self.was_zoom_mouse_active and not eye_zoom_mouse.zoom_mouse.enabled:
@@ -319,6 +342,7 @@ class MouseGridDense:
         crosswidth = 6
 
         def draw_crosses():
+            """Draw Straw small crosses overtop of the grid"""
             for row in range(1, self.rows):
                 for col in range(1, self.columns):
                     cx = self.field_size * col
@@ -337,6 +361,7 @@ class MouseGridDense:
 
         superblock_size = len(string.ascii_lowercase) * self.field_size
 
+        # XXX - What are these colors?
         colors = ["000055", "665566", "554444", "888855", "aa55aa", "55cccc"] * 100
         num = 1
 
@@ -411,8 +436,8 @@ class MouseGridDense:
                     # text_rect.center = blockrect.center
                     text_rect.x = blockrect.x
                     text_rect.y = blockrect.y
-                    canvas.paint.color = setting_large_number_color.get() + hx(
-                        self.bg_transparency
+                    canvas.paint.color = self.selector_color + hx(
+                        self.selector_transparency
                     )
                     canvas.draw_text(
                         str(num), text_rect.x, text_rect.y + text_rect.height
@@ -567,20 +592,31 @@ class MouseGridDense:
         else:
             point = Point2d(0, 0)
 
+        target_x = point.x + base_rect.x + x_idx * self.field_size + self.field_size / 2
+        target_y = point.y + base_rect.y + y_idx * self.field_size + self.field_size / 2
         ctrl.mouse_move(
-            point.x + base_rect.x + x_idx * self.field_size + self.field_size / 2,
-            point.y + base_rect.y + y_idx * self.field_size + self.field_size / 2,
+            target_x,
+            target_y,
         )
 
         if self.click_type == "left_click":
             ctrl.mouse_click(0)
-        elif self.click_type == "drag":
+        elif self.click_type.startswith("drag"):
             if self.dragging == True:
-                ctrl.mouse_click(0, up=True)
+                if self.click_type == "drag_close":
+                    print("Releasing mouse")
+                    ctrl.mouse_click(0, up=True)
+                # We let the drag finish without releasing if we are in
+                # "drag_open". NOTE: that this will conflict with an eye
+                # tracker, so it should be disabled when using this feature.
                 self.dragging = False
+                self.last_drag_coords[1] = (target_x, target_y)
+                print(f"Ended dragging at: {target_x}, {target_y}")
             else:
                 ctrl.mouse_click(0, down=True)
                 self.dragging = True
+                self.last_drag_coords[0] = (target_x, target_y)
+                print(f"Started dragging from: {target_x}, {target_y}")
         self.input_so_far = ""
 
     def toggle_checkers(self):
@@ -593,6 +629,14 @@ class MouseGridDense:
         if self.mcanvas:
             self.mcanvas.freeze()
 
+    def toggle_high_contrast(self):
+        if self.selector_color == self.selector_color_high_contrast:
+            self.selector_color = setting_large_number_color.get()
+        else:
+            self.selector_color  = self.selector_color_high_contrast
+        if self.mcanvas:
+            self.mcanvas.freeze()
+
     def full_grid_finish(self):
         """Finish a grid command in decide if we should close the grid."""
 
@@ -601,6 +645,20 @@ class MouseGridDense:
             # Leave the grid open until the drag is finished
             return
         actions.user.full_grid_close()
+
+    def replay_drag(self):
+        """Replay the last drag selection"""
+        if self.last_drag_coords[0] is not None:
+            ctrl.mouse_move(
+                self.last_drag_coords[0][0],
+                self.last_drag_coords[0][1],
+            )
+            ctrl.mouse_click(0, down=True)
+            ctrl.mouse_move(
+                self.last_drag_coords[1][0],
+                self.last_drag_coords[1][1],
+            )
+            ctrl.mouse_click(0, up=True)
 
 
 mg = MouseGridDense()
@@ -614,7 +672,6 @@ def full_mouse_grid_mode_enable():
 def full_mouse_grid_mode_disable():
     actions.mode.disable("user.full_mouse_grid")
     actions.mode.enable("command")
-
 
 @mod.action_class
 class GridActions:
@@ -673,6 +730,11 @@ class GridActions:
         """Show or hide rulers all around the window"""
         mg.toggle_rulers()
 
+    def full_grid_adjust_selector_transparency(amount: int) -> int:
+        """Increase or decrease the opacity of the selector of the full mouse grid (also returns new value)"""
+        mg.adjust_selector_transparency(amount)
+        return mg.selector_transparency
+
     def full_grid_adjust_bg_transparency(amount: int) -> int:
         """Increase or decrease the opacity of the background of the full mouse grid (also returns new value)"""
         mg.adjust_bg_transparency(amount)
@@ -696,7 +758,21 @@ class GridActions:
         """Set the click mode to hover"""
         mg.set_click_type("hover")
 
-    def full_grid_set_drag():
-        """Set the click mode to drag"""
-        print("Set click type to: drag")
-        mg.set_click_type("drag")
+    def full_grid_set_drag_open():
+        """Set the click mode to drag where last click keeps dragging"""
+        print("Set click type to: drag_open")
+        mg.set_click_type("drag_open")
+
+    def full_grid_set_drag_close():
+        """Set the click mode to drag were last click stops dragging"""
+        print("Set click type to: drag_close")
+        mg.set_click_type("drag_close")
+
+    def full_grid_toggle_high_contrast():
+        """Try to adjust the colors so that it works better on certain backgrounds"""
+        mg.toggle_high_contrast()
+
+    def full_grid_replay_drag():
+        """Try to adjust the colors so that it works better on certain backgrounds"""
+        mg.replay_drag()
+
