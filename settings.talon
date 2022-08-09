@@ -125,7 +125,8 @@ settings():
     user.full_mouse_grid_superblock_stroke_color = "FFFFFF"
     user.full_mouse_grid_background_transparency = 30
     user.full_mouse_grid_label_transparency = 50
-    user.full_mouse_grid_click_type_default = "hover" 
+    user.full_mouse_grid_selector_transparency = 50
+    user.full_mouse_grid_click_type_default = "drag" 
 
     ###
     # DEBUGGER
@@ -153,4 +154,5 @@ tag(): user.record_replay
 # Uncomment this to enable the curse yes/curse no commands (show hide mouse cursor). See issue #688.
 tag(): user.mouse_cursor_commands_enable
 tag(): user.full_mouse_grid_enabled
+tag(): user.selection_overlay_enabled
 
