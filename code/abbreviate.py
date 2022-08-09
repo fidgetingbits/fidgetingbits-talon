@@ -301,6 +301,7 @@ abbreviations = {
     "receive": "recv",
     "record": "rec",
     "recording": "rec",
+    "rectangle": "rect",
     "reference": "ref",
     "references": "refs",
     "ref count": "refcnt",
