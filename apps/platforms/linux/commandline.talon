@@ -85,6 +85,7 @@ file list exact: "ls -l"
 file list long exact: "ls -al "
 file list with paths: 'ls --sort changed --no-icons -d - "$PWD"/*'
 file list latest: "exa --sort changed --no-icons | tail -n1\n"
+file list today: "find . -maxdepth 1 -newermt \"$(date +%D)\"\n"
 file list last <number>: "exa --sort changed --no-icons | tail -n{number}\n"
 file list folders: "ls -d */\n"
 file list (runnable|executable): "find . -type f -executable\n"
@@ -95,7 +96,23 @@ file list <user.letter>: 'find . -maxdepth 1 -name "{letter}*" -ls\n'
 file list fuzzy {user.file_extension}: "ls *{file_extension}\n"
 file list {user.file_extension} files: "ls *{file_extension}\n"
 
-# find command
+# find
+file find:
+    user.insert_cursor("find . -name \"[|]\" 2>/dev/null")
+file find file:
+    user.insert_cursor("find . -type f -name \"[|]\" 2>/dev/null")
+file find folder:
+    user.insert_cursor("find . -type d -name \"[|]\" 2>/dev/null")
+# case insensitive fuzzy find
+file fuzzy find:
+    user.insert_cursor("find . -iname \"*[|]*\" 2>/dev/null")
+file fuzzy find today:
+    user.insert_cursor("find . -mtime -1 -name \"*[|]*\" 2>/dev/null")
+file fuzzy find at clip:
+    insert("find ")
+    edit.paste()
+    user.insert_cursor(" -iname \"*[|]*\" 2>/dev/null")
+
 file find all links: "find . -maxdepth 1 -type l  -ls\n"
 file find all folders: "find . -maxdepth 1 -type d  -ls\n"
 file fine all files: "find . -maxdepth 1 -type f  -ls\n"
@@ -120,6 +137,7 @@ file open: "xdg-open "
 file P D F: "evince "
 file touch: "touch "
 file copy: "cp -d "
+file recopy: "!cp\n"
 file copy latest <user.folder_paths>: user.paste("cp $(ls --sort changed --no-icons -d {folder_paths}/* | tail -n1) .")
 (file|folder) (deep copy|copy deep): "cp -dR "
 file (file|info|type): "file "
@@ -137,22 +155,7 @@ file disk image copy: user.insert_cursor("dd bs=4M if=[|] of=/dev/sdX conv=fsync
 (file|folder) deep remove: "rm -rIf "
 (file|folder) real deep remove: "/bin/rm -rIf "
 file diff: "diff "
-# find
-file find:
-    user.insert_cursor("find . -name \"[|]\" 2>/dev/null")
-file find file:
-    user.insert_cursor("find . -type f -name \"[|]\" 2>/dev/null")
-file find folder:
-    user.insert_cursor("find . -type d -name \"[|]\" 2>/dev/null")
-# case insensitive fuzzy find
-file fuzzy find:
-    user.insert_cursor("find . -iname \"*[|]*\" 2>/dev/null")
-file fuzzy find today:
-    user.insert_cursor("find . -mtime -1 -name \"*[|]*\" 2>/dev/null")
-file fuzzy find at clip:
-    insert("find ")
-    edit.paste()
-    user.insert_cursor(" -iname \"*[|]*\" 2>/dev/null")
+
 file hash: "sha256sum "
 file check sec: "checksec --file="
 file locate: "locate "
@@ -684,3 +687,8 @@ display list: "polybar --list-monitors\n"
 camera list: "v4l2-ctl --list-devices\n"
 
 udev reload: "sudo udevadm control --reload-rules && sudo udevadm trigger"
+
+###
+# XML
+###
+X M L lint: "xmllint --format "
