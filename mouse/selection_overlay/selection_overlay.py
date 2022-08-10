@@ -9,7 +9,6 @@
 # - Add command to center the current selection
 # - Configure the screenshot flash color
 # - New name
-# - Add sanity checks for all coordinate setting
 # - Add support for dragging the mouse over the selection
 
 from talon import (
@@ -197,10 +196,18 @@ class SelectionOverlay:
         self.columns = int(self.screen_rect.width // self.field_size)
         self.rows = int(self.screen_rect.height // self.field_size)
 
+        self.max_x = self.screen_rect.width
+        self.max_y = self.screen_rect.height
+        self.max_width = self.screen_rect.width
+        self.max_height = self.screen_rect.height
+
     def set_selection(self, pos):
         """Set the actual coordinates for the current selection"""
-        # XXX - This needs to do bounds validation
-        self.x, self.y, self.width, self.height = pos
+        x, y, width, height = pos
+        self.x = min(x, self.max_x)
+        self.y = min(y, self.max_y)
+        self.width = min(width, self.max_width-self.x)
+        self.height = min(height, self.max_height-self.y)
 
     def show(self):
         """Show the selection overlay"""
@@ -481,6 +488,8 @@ class SelectionOverlay:
 
     def commit(self):
         """Commit the coordinate adjustments"""
+        # We do this to do a boundary sanitation pass
+        self.set_selection((self.x, self.y, self.width, self.height))
         self.record_selection((self.x, self.y, self.width, self.height))
         self.canvas.freeze()
 
