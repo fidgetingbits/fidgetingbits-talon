@@ -113,6 +113,7 @@ abbreviations = {
     "directory": "dir",
     "directories": "dirs",
     "display": "disp",
+    "distance": "dist",
     "distribution": "dist",
     "document": "doc",
     "documents": "docs",
