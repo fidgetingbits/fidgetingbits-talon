@@ -15,6 +15,8 @@
 # become negative
 # - Setting for if the crosshair grid is enabled by default
 # - Add numbers to the crosshair grid
+# - Setting to decide whether or not you automatically close after taking a
+# screenshot
 
 from talon import (
     Module,
@@ -575,16 +577,12 @@ class SelectionOverlay:
 
     def screenshot(self):
         """Take a screenshot of the current selection"""
-        # Temporarily disable overlay
-        # XXX - This should be doable without closing everything, maybe
-        # just set max transparency...
-        self.close()
+        # XXX - if I don't just completely disable it, it seems to race with
+        # this screenshot taking and sleeps are not super reliable (unless
+        # their painfully long)
+        self.disable()
         selection_rect = self.unclipped_rect()
-        # XXX - Have to select this screen?
-
         actions.user.screenshot_rect(selection_rect, screen_num=self.screen_num)
-        self.setup()
-        self.show()
 
     def undo(self):
         """Undo the last selection modification"""
