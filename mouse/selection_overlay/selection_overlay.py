@@ -1,3 +1,17 @@
+# Somewhat inspired by flameshot
+# TODO
+# - Add the pixel grid indicated movement/size
+# - Allow selecting a point on the rectangle you only move it
+# - Indicate the selection size as metadata on the overlay
+# - Allow setting a temporary screenshot naming scheme
+# - Implement a separate screenshot coordinate history
+# - Add the ability to cycle through old selections
+# - Add command to center the current selection
+# - Configure the screenshot flash color
+# - New name
+# - Add sanity checks for all coordinate setting
+# - Add support for dragging the mouse over the selection
+
 from talon import (
     Module,
     Context,
@@ -27,6 +41,64 @@ mod.tag(
 mod.tag("selection_overlay_enabled", desc="Tag enables the selection overlay commands.")
 mod.list("points_of_compass", desc="point of compass for selection overlay")
 mod.mode("selection_overlay", desc="indicate the selection overlay is active")
+
+setting_grow_size = mod.setting(
+    "overlay_select_default_grow_size",
+    type=int,
+    default=5,
+    desc="The number of pixels to grow/shrink by default",
+)
+
+setting_undo_history_size = mod.setting(
+    "overlay_select_undo_history_size",
+    type=int,
+    default=100,
+    desc="The number of box selections to record",
+)
+
+setting_snap_to_mouse = mod.setting(
+    "overlay_select_start_snapped_to_mouse",
+    type=int,
+    default=1,
+    desc="Whether the default selection on start snaps to mouse",
+)
+
+setting_default_x = mod.setting(
+    "overlay_select_default_x",
+    type=int,
+    default=500,
+    desc="The default X coordinate",
+)
+
+setting_default_y = mod.setting(
+    "overlay_select_default_y",
+    type=int,
+    default=500,
+    desc="The default Y coordinate",
+)
+
+setting_default_width = mod.setting(
+    "overlay_select_default_width",
+    type=int,
+    default=200,
+    desc="The default box width",
+)
+
+setting_default_height = mod.setting(
+    "overlay_select_default_height",
+    type=int,
+    default=200,
+    desc="The default box height",
+)
+
+setting_box_color = mod.setting(
+    "overlay_select_box_color",
+    type=str,
+    default="#FF00FF",
+    desc="The default box color",
+)
+
+
 
 ctx = Context()
 
@@ -83,17 +155,14 @@ class SelectionOverlay:
         self.overlay_color = "000000"
         # XXX - This could be cached somewhere to disk
         self.selection_history = []
-        # XXX - These should be configurable in settings
-        self.default_x = 100
-        self.default_y = 100
-        self.default_width = 100
-        self.default_height = 100
+        self.selection_history_idx = 0
+        self.screen_history = []
+        self.screen_history_idx = 0
 
-        # Set to the default or last selection prior to draw
-        self.x = 100
-        self.y = 100
-        self.width = 100
-        self.height = 100
+        self.x = self.default_x = setting_default_x.get()
+        self.y = self.default_y = setting_default_y.get()
+        self.width = self.default_width = setting_default_width.get()
+        self.height = self.default_height = setting_default_height.get()
 
     def setup(self, *, rect: Rect = None, screen_num: int = None):
         """Initial overlay setup to get screen dimensions, etc"""
@@ -130,6 +199,7 @@ class SelectionOverlay:
 
     def set_selection(self, pos):
         """Set the actual coordinates for the current selection"""
+        # XXX - This needs to do bounds validation
         self.x, self.y, self.width, self.height = pos
 
     def show(self):
@@ -140,8 +210,6 @@ class SelectionOverlay:
         self.canvas.register("draw", self.draw)
         self.canvas.freeze()
         self.active = True
-
-        # actions.user.full_mouse_grid_help_overlay_show()
 
     def close(self):
         """Clear the selection overlay"""
@@ -170,25 +238,49 @@ class SelectionOverlay:
 
     def record_selection(self, pos):
         """Record the selection in the history"""
-        # XXX - in force some selection limit
+        # If we record a new selection after a redo, we trash all previous
+        # redoable entries
+        if (self.selection_history_idx) != len(self.selection_history):
+            self.selection_history = self.selection_history[
+                : self.selection_history_idx - 1
+            ]
+
+        if len(self.selection_history) == setting_undo_history_size.get():
+            self.selection_history = self.selection_history[1:]
+            self.selection_history_idx -= 1
+
         self.selection_history.append(pos)
+        self.selection_history_idx += 1
+        print(self.selection_history)
 
     def default_selection(self):
         """Return the ordinates for the default selection"""
-        # XXX - We may want to make snapping to the mouse by default
-        # optional...
-        mouse_x, mouse_y = self.get_mouse_coordinates()
 
-        return (mouse_x, mouse_y, self.default_width, self.default_height)
+        if setting_snap_to_mouse.get() == 1:
+            x, y = self.get_mouse_coordinates()
+        else:
+            x = self.default_x
+            y = self.default_y
 
-    def get_last_selection(self):
+        return (x, y, self.default_width, self.default_height)
+
+    def get_last_selection(self, direction=1):
         """Return a rectangle to highlight the last or default selection"""
         if len(self.selection_history) != 0:
-            x, y, width, height = self.selection_history[-1]
+            idx = self.selection_history_idx - direction
+            if idx < 0:
+                idx = 0
+            elif idx == len(self.selection_history):
+                idx = len(self.selection_history) - 1
+            if direction ==  1:
+                x, y, width, height = self.selection_history[idx - 1]
+            else:
+                x, y, width, height = self.selection_history[idx]
+            self.selection_history_idx = idx
         else:
             x, y, width, height = self.default_selection()
-            self.record_selection((x, y, width, height))
 
+        print((x, y, width, height))
         return x, y, width, height
 
     def selected_rect(self):
@@ -198,7 +290,12 @@ class SelectionOverlay:
     def unclipped_rect(self):
         """Return a rectangle of the current selection without clipping
         to the screen"""
-        return Rect(self.screen_rect.x+self.x, self.screen_rect.y+self.y, self.width, self.height)
+        return Rect(
+            self.screen_rect.x + self.x,
+            self.screen_rect.y + self.y,
+            self.width,
+            self.height,
+        )
 
     def draw(self, canvas):
         """Draw an updated canvas"""
@@ -279,6 +376,33 @@ class SelectionOverlay:
         canvas.draw_rect(overlay_bottom_rect)
         canvas.draw_rect(overlay_left_rect)
         canvas.draw_rect(overlay_right_rect)
+
+        canvas.paint.style = Paint.Style.FILL
+        canvas.paint.color = setting_box_color.get()
+        margin = 0
+        # XXX - Add the margins, and use leftmost = self.x + margin
+        # See talon_hud
+        canvas.draw_line(self.x, self.y, self.x + self.width, self.y)
+        canvas.draw_line(self.x, self.y, self.x, self.y + self.height)
+        canvas.draw_line(
+            self.x + self.width, self.y, self.x + self.width, self.y + self.height
+        )
+        canvas.draw_line(
+            self.x, self.y + self.height, self.x + self.width, self.y + self.height
+        )
+
+        # XXX - circle should be configurable
+        # top circles
+        canvas.draw_circle(self.x, self.y, 5, None)
+        canvas.draw_circle(self.x + (self.width / 2), self.y, 5, None)
+        canvas.draw_circle(self.x + self.width, self.y, 5, None)
+        # side circles
+        canvas.draw_circle(self.x, self.y + (self.height / 2), 5, None)
+        canvas.draw_circle(self.x + self.width, self.y + (self.height / 2), 5, None)
+        # bottom circles
+        canvas.draw_circle(self.x, self.y + self.height, 5, None)
+        canvas.draw_circle(self.x + (self.width / 2), self.y + self.height, 5, None)
+        canvas.draw_circle(self.x + self.width, self.y + self.height, 5, None)
 
     def adjust(self, direction, size):
         """Adjust the size of the overlay in all directions by the amount specified"""
@@ -373,6 +497,21 @@ class SelectionOverlay:
         self.setup()
         self.show()
 
+    def undo(self):
+        """Undo the last selection modification"""
+        if len(self.selection_history) == 0:
+            return
+        self.set_selection(self.get_last_selection(1))
+        self.canvas.freeze()
+
+    def redo(self):
+        """Redo the last selection modification"""
+        if self.selection_history_idx == len(self.selection_history):
+            return
+        print("Trying to redo")
+        self.set_selection(self.get_last_selection(-1))
+        self.canvas.freeze()
+
 
 def hex_to_string(v: int) -> str:
     """Convert hexadecimal integer to string-based transparency hex value"""
@@ -425,14 +564,20 @@ class SelectionOverlayActions:
 
     def selection_overlay_grow(direction: str, size: int):
         """Increase the size of the selection from all angles"""
+        if size == -1:
+            size = setting_grow_size.get()
         overlay.adjust(direction, size)
 
     def selection_overlay_shrink(direction: str, size: int):
         """Decrease the size of the selection from all angles"""
+        if size == -1:
+            size = setting_grow_size.get()
         overlay.adjust(direction, -size)
 
     def selection_overlay_move(direction: str, count: int):
         """Move the selection in some direction"""
+        if count == -1:
+            count = setting_grow_size.get()
         overlay.move(direction, count)
 
     def selection_overlay_screenshot():
@@ -470,3 +615,11 @@ class SelectionOverlayActions:
     def selection_overlay_height_double():
         """Double the height of the selection"""
         overlay.set_height(overlay.height * 2)
+
+    def selection_overlay_undo():
+        """Undo the last selection modification"""
+        overlay.undo()
+
+    def selection_overlay_redo():
+        """Redo the last selection modification"""
+        overlay.redo()

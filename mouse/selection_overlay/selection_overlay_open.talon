@@ -6,21 +6,21 @@ snap mouse:
     user.selection_overlay_snap_mouse()
 
 (go|slide|move) ({user.points_of_compass}|{user.arrow_key}) [<number>]:
-    user.selection_overlay_move(arrow_key orpoints_of_compass, number or 1)
+    user.selection_overlay_move(arrow_key orpoints_of_compass, number or -1)
 
 grow [<number>]:
-    user.selection_overlay_grow('', number or 1)
+    user.selection_overlay_grow('', number or -1)
 
 grow ({user.points_of_compass}|{user.arrow_key}) [<number>]:
-    user.selection_overlay_grow(arrow_key or points_of_compass, number or 1)
+    user.selection_overlay_grow(arrow_key or points_of_compass, number or -1)
 
 shrink [<number>]:
-    user.selection_overlay_shrink('', number or 1)
+    user.selection_overlay_shrink('', number or -1)
 
 shrink ({user.points_of_compass}|{user.arrow_key}) [<number>]:
-    user.selection_overlay_shrink(arrow_key or points_of_compass, number or 1)
+    user.selection_overlay_shrink(arrow_key or points_of_compass, number or -1)
 
-overlay off:
+overlay [off]:
     user.selection_overlay_close()
 
 grab:
@@ -44,8 +44,15 @@ set <number> by <number>:
 reset:
     user.selection_overlay_reset()
 
+# XXX - We might want to just use the points of compass: ex double north
 double (width|length):
     user.selection_overlay_width_double()
 
 double height:
     user.selection_overlay_height_double()
+
+undo:
+    user.selection_overlay_undo()
+
+redo:
+    user.selection_overlay_redo()

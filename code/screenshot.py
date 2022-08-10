@@ -1,4 +1,4 @@
-from talon import Module, screen, ui, cron, app, actions, clip, settings
+from talon import Module, screen, ui, cron, app, actions, clip, registry
 from talon.canvas import Canvas
 from typing import Optional
 from datetime import datetime
@@ -35,8 +35,7 @@ class Actions:
 
     def screenshot_selection():
         """Triggers an application is capable of taking a screenshot of a portion of the screen"""
-        if settings.get("user.selection_overlay_enabled"):
-            actions.user.selection_overlay_select_screen(1)
+        if "user.selection_overlay_enabled" in registry.tags:
             actions.user.selection_overlay_activate()
         else:
             if app.platform == "windows":
