@@ -56,3 +56,6 @@ undo:
 
 redo:
     user.selection_overlay_redo()
+
+drag:
+    user.selection_overlay_mouse_drag()

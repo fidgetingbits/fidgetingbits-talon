@@ -10,6 +10,8 @@
 # - Configure the screenshot flash color
 # - New name
 # - Add support for dragging the mouse over the selection
+# - Possibly save clipped length and width when moving screen boundaries, so
+# when it moves back its going to the original size
 
 from talon import (
     Module,
@@ -96,7 +98,6 @@ setting_box_color = mod.setting(
     default="#FF00FF",
     desc="The default box color",
 )
-
 
 
 ctx = Context()
@@ -206,8 +207,8 @@ class SelectionOverlay:
         x, y, width, height = pos
         self.x = min(x, self.max_x)
         self.y = min(y, self.max_y)
-        self.width = min(width, self.max_width-self.x)
-        self.height = min(height, self.max_height-self.y)
+        self.width = min(width, self.max_width - self.x)
+        self.height = min(height, self.max_height - self.y)
 
     def show(self):
         """Show the selection overlay"""
@@ -258,7 +259,6 @@ class SelectionOverlay:
 
         self.selection_history.append(pos)
         self.selection_history_idx += 1
-        print(self.selection_history)
 
     def default_selection(self):
         """Return the ordinates for the default selection"""
@@ -279,7 +279,7 @@ class SelectionOverlay:
                 idx = 0
             elif idx == len(self.selection_history):
                 idx = len(self.selection_history) - 1
-            if direction ==  1:
+            if direction == 1:
                 x, y, width, height = self.selection_history[idx - 1]
             else:
                 x, y, width, height = self.selection_history[idx]
@@ -287,7 +287,6 @@ class SelectionOverlay:
         else:
             x, y, width, height = self.default_selection()
 
-        print((x, y, width, height))
         return x, y, width, height
 
     def selected_rect(self):
@@ -298,6 +297,14 @@ class SelectionOverlay:
         """Return a rectangle of the current selection without clipping
         to the screen"""
         return Rect(
+            self.screen_rect.x + self.x,
+            self.screen_rect.y + self.y,
+            self.width,
+            self.height,
+        )
+    def unclipped_selection(self):
+        """Return current selection ordinates without clipping to the screen"""
+        return (
             self.screen_rect.x + self.x,
             self.screen_rect.y + self.y,
             self.width,
@@ -517,10 +524,39 @@ class SelectionOverlay:
         """Redo the last selection modification"""
         if self.selection_history_idx == len(self.selection_history):
             return
-        print("Trying to redo")
         self.set_selection(self.get_last_selection(-1))
         self.canvas.freeze()
 
+    def mouse_drag(self, modifiers=None):
+        """Drag the mouse across the current selection"""
+        x, y, width, height = self.unclipped_selection()
+        start_x = x
+        start_y = y
+        end_x = x + width
+        end_y = y + height
+        self.disable()
+
+        ctrl.mouse_move(
+            start_x,
+            start_y,
+        )
+
+        ctrl.mouse_click(0, down=True)
+        # Let the underlying application react
+        actions.sleep(0.05)
+        ctrl.mouse_move(
+            end_x,
+            end_y,
+        )
+        ctrl.mouse_click(0, up=True)
+
+    def disable(self):
+        """Disable the selection overlay"""
+        # XXX - I don't like that this access is context
+        global ctx
+        ctx.tags = []
+        self.close()
+        selection_overlay_mode_disable()
 
 def hex_to_string(v: int) -> str:
     """Convert hexadecimal integer to string-based transparency hex value"""
@@ -632,3 +668,7 @@ class SelectionOverlayActions:
     def selection_overlay_redo():
         """Redo the last selection modification"""
         overlay.redo()
+
+    def selection_overlay_mouse_drag():
+        """Drag the mouse over the current selection box"""
+        overlay.mouse_drag()
