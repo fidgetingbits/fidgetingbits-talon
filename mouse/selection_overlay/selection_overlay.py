@@ -1,6 +1,5 @@
 # Somewhat inspired by flameshot
 # TODO
-# - Add the pixel grid indicated movement/size
 # - Allow selecting a point on the rectangle so you only move it
 # - Indicate the selection size as metadata on the overlay
 # - Allow setting a temporary screenshot naming scheme
@@ -12,6 +11,10 @@
 # - Possibly save clipped length and width when moving screen boundaries, so
 # when it moves back its going to the original size
 # - Sometimes compass doesn't work, sometimes arrows doesn't work
+# - Bounds checking still needs also check that the width or height does not
+# become negative
+# - Setting for if the crosshair grid is enabled by default
+# - Add numbers to the crosshair grid
 
 from talon import (
     Module,
@@ -186,7 +189,6 @@ class SelectionOverlay:
             selected_screen = screen.main_screen()
             rect = selected_screen.rect
 
-        print(f"Screen rect {rect}")
         self.screen_num = screen_num
         self.screen_rect = rect.copy()
         self.screen = selected_screen
@@ -195,7 +197,7 @@ class SelectionOverlay:
             self.canvas.close()
         self.canvas = canvas.Canvas.from_screen(selected_screen)
         if self.active:
-            self.canvas.register("draw", self.draw)
+            self.canvas.register("draw", self.draw_box)
             self.canvas.freeze()
 
         self.columns = int(self.screen_rect.width // self.field_size)
@@ -219,7 +221,7 @@ class SelectionOverlay:
         if self.active:
             return
         self.set_selection(self.get_last_selection())
-        self.canvas.register("draw", self.draw)
+        self.canvas.register("draw", self.draw_box)
         self.canvas.freeze()
         self.active = True
 
@@ -227,7 +229,7 @@ class SelectionOverlay:
         """Clear the selection overlay"""
         if not self.active:
             return
-        self.canvas.unregister("draw", self.draw)
+        self.canvas.unregister("draw", self.draw_box)
         self.canvas.close()
         self.canvas = None
         self.img = None
@@ -316,7 +318,49 @@ class SelectionOverlay:
             self.height,
         )
 
-    def draw(self, canvas):
+    def draw_grid(self, canvas):
+        """Draw the grid over the non-selected portion"""
+
+        # This was largely taken from mouse_guide.py
+        SMALL_DIST = 5
+        SMALL_LENGTH = 5
+        SMALL_COLOR = setting_box_color.get()
+        MID_DIST = 10
+        MID_LENGTH = 10
+        MID_COLOR = setting_box_color.get()
+        LARGE_DIST = 50
+        LARGE_LENGTH = 20
+        LARGE_COLOR = setting_box_color.get()
+        canvas.paint.antialias = False
+
+        irange = lambda start, stop, step: range(int(start), int(stop), int(step))
+
+        rect = self.selected_rect()
+        cx, cy = rect.center
+        margin = 200  # How many pixels around the box to paint
+
+        for tick_dist, tick_length, color in (
+            (SMALL_DIST, SMALL_LENGTH, SMALL_COLOR),
+            (MID_DIST, MID_LENGTH, MID_COLOR),
+            (LARGE_DIST, LARGE_LENGTH, LARGE_COLOR),
+        ):
+
+            half = tick_length // 2
+            canvas.paint.color = color
+            # top
+            for y in irange(rect.top - margin - 1, rect.top - 1, tick_dist):
+                canvas.draw_line(cx - half, y, cx + half, y)
+            # bottom
+            for y in irange(rect.bot + tick_dist, rect.bot + margin + 1, tick_dist):
+                canvas.draw_line(cx - half, y, cx + half, y)
+            # left
+            for x in irange(rect.left - margin - 1, rect.left - 1, tick_dist):
+                canvas.draw_line(x, cy - half, x, cy + half)
+            # right
+            for x in irange(rect.right + tick_dist, rect.right + margin + 1, tick_dist):
+                canvas.draw_line(x, cy - half, x, cy + half)
+
+    def draw_box(self, canvas):
         """Draw an updated canvas"""
         paint = canvas.paint
 
@@ -422,6 +466,8 @@ class SelectionOverlay:
         canvas.draw_circle(self.x, self.y + self.height, 5, None)
         canvas.draw_circle(self.x + (self.width / 2), self.y + self.height, 5, None)
         canvas.draw_circle(self.x + self.width, self.y + self.height, 5, None)
+
+        self.draw_grid(canvas)
 
     def adjust(self, direction, size):
         """Adjust the size of the overlay in direction specified.
@@ -613,7 +659,6 @@ class SelectionOverlayActions:
         if not overlay.canvas:
             overlay.setup()
         overlay.show()
-        print("Setting tag")
         ctx.tags = ["user.selection_overlay_showing"]
         selection_overlay_mode_enable()
 
