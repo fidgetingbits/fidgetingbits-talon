@@ -1,7 +1,7 @@
 # Somewhat inspired by flameshot
 # TODO
 # - Add the pixel grid indicated movement/size
-# - Allow selecting a point on the rectangle you only move it
+# - Allow selecting a point on the rectangle so you only move it
 # - Indicate the selection size as metadata on the overlay
 # - Allow setting a temporary screenshot naming scheme
 # - Implement a separate screenshot coordinate history
@@ -9,9 +9,9 @@
 # - Add command to center the current selection
 # - Configure the screenshot flash color
 # - New name
-# - Add support for dragging the mouse over the selection
 # - Possibly save clipped length and width when moving screen boundaries, so
 # when it moves back its going to the original size
+# - Sometimes compass doesn't work, sometimes arrows doesn't work
 
 from talon import (
     Module,
@@ -40,8 +40,10 @@ mod.tag(
     desc="Tag indicates whether the selection overlay is showing",
 )
 mod.tag("selection_overlay_enabled", desc="Tag enables the selection overlay commands.")
-mod.list("points_of_compass", desc="point of compass for selection overlay")
-mod.mode("selection_overlay", desc="indicate the selection overlay is active")
+mod.list("points_of_compass", desc="Point of compass for selection overlay")
+mod.list("box_multipliers", desc="Multipliers for growing/shrinking the box")
+mod.list("box_dimensions", desc="Box dimensions for multiplication")
+mod.mode("selection_overlay", desc="zindicate the selection overlay is active")
 
 setting_grow_size = mod.setting(
     "overlay_select_default_grow_size",
@@ -135,6 +137,8 @@ for i in [1, 3, 5, 7]:
     ) / 2
 
 ctx.lists["self.points_of_compass"] = direction_name_steps
+ctx.lists["self.box_multipliers"] = ["double", "triple", "half"]
+ctx.lists["self.box_dimensions"] = ["width", "length", "height"]
 
 
 class SelectionOverlay:
@@ -302,6 +306,7 @@ class SelectionOverlay:
             self.width,
             self.height,
         )
+
     def unclipped_selection(self):
         """Return current selection ordinates without clipping to the screen"""
         return (
@@ -419,7 +424,11 @@ class SelectionOverlay:
         canvas.draw_circle(self.x + self.width, self.y + self.height, 5, None)
 
     def adjust(self, direction, size):
-        """Adjust the size of the overlay in all directions by the amount specified"""
+        """Adjust the size of the overlay in direction specified.
+
+        Note that the direction meaning is inverse during shrinkage, because if
+        you say shrink up you don't actually want that top to shrink...
+        """
 
         # No explicit direction means adjust in all directions
         if direction == "":
@@ -430,39 +439,57 @@ class SelectionOverlay:
             self.height = self.height + (size * 2)
         else:
             if direction.startswith("north") or direction == "up":
-                self.y = self.y - size
-                self.height = self.height + size
+                if size < 0:
+                    # Shrinking
+                    self.height = self.height + size
+                else:
+                    # Growing
+                    self.y = self.y - size
+                    self.height = self.height + size
             if direction.startswith("south") or direction == "down":
-                self.height = self.height + size
+                if size < 0:
+                    # Shrinking
+                    self.y = self.y - size
+                    self.height = self.height + size
+                else:
+                    # Growing
+                    self.height = self.height + size
             if "east" in direction or direction == "right":
-                self.width = self.width + size
+                if size < 0:
+                    # Shrinking
+                    self.x = self.x - size
+                    self.width = self.width + size
+
+                else:
+                    self.width = self.width + size
             if "west" in direction or direction == "left":
-                self.x = self.x - size
-                self.width = self.width + size
+                if size < 0:
+                    # Shrinking
+
+                    self.width = self.width + size
+                else:
+                    self.x = self.x - size
+                    self.width = self.width + size
 
         self.commit()
 
     def set_x(self, x):
         """Set the x coordinate of the current selection"""
-        # XXX - Sanity checking of boundary
         self.x = x
         self.commit()
 
     def set_y(self, y):
         """Set the y coordinate of the current selection"""
-        # XXX - Sanity checking of boundary
         self.y = y
         self.commit()
 
     def set_width(self, width):
         """Set the width of the current selection"""
-        # XXX - Sanity  checking of boundary
         self.width = width
         self.commit()
 
     def set_height(self, height):
         """Set the height of the current selection"""
-        # XXX - Sanity  checking of boundary
         self.height = height
         self.commit()
 
@@ -557,6 +584,7 @@ class SelectionOverlay:
         ctx.tags = []
         self.close()
         selection_overlay_mode_disable()
+
 
 def hex_to_string(v: int) -> str:
     """Convert hexadecimal integer to string-based transparency hex value"""
@@ -653,13 +681,14 @@ class SelectionOverlayActions:
         """Reset the selection to the default"""
         overlay.reset()
 
-    def selection_overlay_width_double():
-        """Double the width of the selection"""
-        overlay.set_width(overlay.width * 2)
-
-    def selection_overlay_height_double():
-        """Double the height of the selection"""
-        overlay.set_height(overlay.height * 2)
+    def selection_overlay_multiply_box(multiplier: str, direction: str):
+        """Adjust the box by a multiplayer"""
+        multipliers = {"double": 2, "triple": 3, "half": 0.5}
+        m = multipliers[multiplier]
+        if direction == "width" or direction == "length":
+            overlay.set_width(overlay.width * m)
+        elif direction == "height":
+            overlay.set_height(overlay.height * m)
 
     def selection_overlay_undo():
         """Undo the last selection modification"""

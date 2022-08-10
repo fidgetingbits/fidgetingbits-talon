@@ -45,11 +45,8 @@ reset:
     user.selection_overlay_reset()
 
 # XXX - We might want to just use the points of compass: ex double north
-double (width|length):
-    user.selection_overlay_width_double()
-
-double height:
-    user.selection_overlay_height_double()
+[grow|shrink] {user.box_multipliers} {user.box_dimensions}:
+    user.selection_overlay_multiply_box(box_multipliers, box_dimensions)
 
 undo:
     user.selection_overlay_undo()
@@ -59,3 +56,8 @@ redo:
 
 drag:
     user.selection_overlay_mouse_drag()
+
+<user.modifiers> drag:
+    key("{modifiers}:down")
+    user.user.selection_overlay_mouse_drag()
+    key("{modifiers}:up")
