@@ -1,7 +1,7 @@
 not tag: user.full_mouse_grid_showing
 and not mode:sleep
 
-not tag: user.selection_overlay_showing
+not tag: user.shotbox_showing
 and not mode:sleep
 -
 

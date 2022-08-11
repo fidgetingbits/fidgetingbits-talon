@@ -1,4 +1,4 @@
-mode: user.selection_overlay
+mode: user.shotbox
 mode: command
 -
 talon check updates: menu.check_for_updates()
