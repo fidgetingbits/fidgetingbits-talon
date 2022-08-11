@@ -122,7 +122,7 @@ call file latest: "$(exa --sort changed --no-icons | tail -n1)\n"
 
 # TODO - somehow make this scriptable to print anything
 file edit latest: "edit $(exa --sort changed --no-icons | tail -n1)\n"
-file latest: "$(exa --sort changed --no-icons | tail -n1)"
+file latest: "$(exa --sort changed --no-icons | tail -n1) "
 file link: "ln -s "
 file link force: "ln -sf "
 file hard link: "ln "
