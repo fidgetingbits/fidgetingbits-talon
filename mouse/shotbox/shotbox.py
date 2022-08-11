@@ -3,11 +3,8 @@
 # - Allow selecting a point on the rectangle so you only move it
 # - Indicate the selection size as metadata on the overlay
 # - Allow setting a temporary screenshot naming scheme
-# - Implement a separate screenshot coordinate history
-# - Add the ability to cycle through old selections
 # - Add command to center the current selection
 # - Configure the screenshot flash color
-# - New name
 # - Possibly save clipped length and width when moving screen boundaries, so
 # when it moves back its going to the original size
 # - Sometimes compass doesn't work, sometimes arrows doesn't work
@@ -15,8 +12,11 @@
 # become negative
 # - Setting for if the crosshair grid is enabled by default
 # - Add numbers to the crosshair grid
-# - Setting to decide whether or not you automatically close after taking a
-# screenshot
+# - Figure out how to speed up closing the canvas, and taking screenshot
+# - Allows cycling windows?
+# - Allow flushing both caches
+# - Make current window selection seamless, it doesn't show the original
+# selection at first
 
 from talon import (
     Module,
@@ -33,74 +33,81 @@ from talon import (
 from talon.skia import Shader, Color, Paint, Rect
 from talon.types.point import Point2d
 from talon_plugins import eye_mouse, eye_zoom_mouse
+from talon_init import TALON_HOME
+
 from typing import Union
 
-import math, time, string
-
-import typing
+import math, time, string, pathlib, json
 
 mod = Module()
 mod.tag(
-    "selection_overlay_showing",
-    desc="Tag indicates whether the selection overlay is showing",
+    "shotbox_showing",
+    desc="Tag indicates whether shotbox is showing",
 )
-mod.tag("selection_overlay_enabled", desc="Tag enables the selection overlay commands.")
-mod.list("points_of_compass", desc="Point of compass for selection overlay")
+mod.tag("shotbox_enabled", desc="Tag enables shotbox commands.")
+mod.list("points_of_compass", desc="Point of compass for shotbox")
 mod.list("box_multipliers", desc="Multipliers for growing/shrinking the box")
 mod.list("box_dimensions", desc="Box dimensions for multiplication")
-mod.mode("selection_overlay", desc="zindicate the selection overlay is active")
+mod.mode("shotbox", desc="Indicate shotbox is active")
 
 setting_grow_size = mod.setting(
-    "overlay_select_default_grow_size",
+    "shotbox_default_grow_size",
     type=int,
     default=5,
     desc="The number of pixels to grow/shrink by default",
 )
 
 setting_undo_history_size = mod.setting(
-    "overlay_select_undo_history_size",
+    "shotbox_undo_history_size",
     type=int,
     default=100,
     desc="The number of box selections to record",
 )
 
+setting_screenshot_history_size = mod.setting(
+    "shotbox_screenshot_history_size",
+    type=int,
+    default=100,
+    desc="The number of screenshot selections to record",
+)
+
 setting_snap_to_mouse = mod.setting(
-    "overlay_select_start_snapped_to_mouse",
+    "shotbox_start_snapped_to_mouse",
     type=int,
     default=1,
     desc="Whether the default selection on start snaps to mouse",
 )
 
 setting_default_x = mod.setting(
-    "overlay_select_default_x",
+    "shotbox_default_x",
     type=int,
     default=500,
     desc="The default X coordinate",
 )
 
 setting_default_y = mod.setting(
-    "overlay_select_default_y",
+    "shotbox_default_y",
     type=int,
     default=500,
     desc="The default Y coordinate",
 )
 
 setting_default_width = mod.setting(
-    "overlay_select_default_width",
+    "shotbox_default_width",
     type=int,
     default=200,
     desc="The default box width",
 )
 
 setting_default_height = mod.setting(
-    "overlay_select_default_height",
+    "shotbox_default_height",
     type=int,
     default=200,
     desc="The default box height",
 )
 
 setting_box_color = mod.setting(
-    "overlay_select_box_color",
+    "shotbox_box_color",
     type=str,
     default="#FF00FF",
     desc="The default box color",
@@ -110,7 +117,7 @@ setting_box_color = mod.setting(
 ctx = Context()
 
 ctx.matches = r"""
-tag: user.selection_overlay_enabled
+tag: user.shotbox_enabled
 """
 
 direction_name_steps = [
@@ -143,40 +150,75 @@ for i in [1, 3, 5, 7]:
 
 ctx.lists["self.points_of_compass"] = direction_name_steps
 ctx.lists["self.box_multipliers"] = ["double", "triple", "half"]
-ctx.lists["self.box_dimensions"] = ["width", "length", "height"]
+ctx.lists["self.box_dimensions"] = ["width", "length", "height", "all"]
 
 
-class SelectionOverlay:
+class ShotBox:
     def __init__(self, debug=False):
         self.debug = debug
         # XXX - Should this be configurable?
         self.screen_num = 1
         self.screen = None
         self.screen_rect = None
-        self.history = []
         self.img = None
         self.canvas = None
         self.active = False
+
+        # XXX - we don't use the next three fields atm
         self.columns = 0
         self.rows = 0
         self.field_size = 32  # Breaks overlay into 32-pixel blocks
+
+        # Theming
         self.overlay_transparency = 155  # Out of 255. +5 because we adjust by 50
         self.overlay_color = "000000"
-        # XXX - This could be cached somewhere to disk
+
+        # Caching
         self.selection_history = []
         self.selection_history_idx = 0
-        self.screen_history = []
-        self.screen_history_idx = 0
+        self.screenshot_history = []
+        self.screenshot_history_idx = 0
+        self.cycle_direction = 1
+        self.cache_folder = pathlib.Path(TALON_HOME, "cache/shotbox/")
+        self.selection_history_file = self.cache_folder / "selection.json"
+        self.screenshot_history_file = self.cache_folder / "screenshots.json"
+        self.init_cache()
 
+        # Coordinates
         self.x = self.default_x = setting_default_x.get()
         self.y = self.default_y = setting_default_y.get()
         self.width = self.default_width = setting_default_width.get()
         self.height = self.default_height = setting_default_height.get()
 
+    def init_cache(self):
+        """Make sure all cache files and folders exist"""
+        self.cache_folder.mkdir(parents=True, exist_ok=True)
+        # XXX - The two below could be copied into one function...
+        self.selection_history_file.touch()
+        with self.selection_history_file.open() as f:
+            try:
+                history = json.load(f)
+                if len(history) > 0:
+                    self.selection_history_idx = len(history) - 1
+                self.selection_history = history
+            except Exception:
+                pass
+            print(self.selection_history)
+
+        self.screenshot_history_file.touch()
+        with self.screenshot_history_file.open() as f:
+            try:
+                history = json.load(f)
+                if len(history) > 0:
+                    self.screenshot_history_idx = len(history) - 1
+                self.screenshot_history = history
+            except Exception:
+                pass
+            print(self.screenshot_history)
+
     def setup(self, *, rect: Rect = None, screen_num: int = None):
         """Initial overlay setup to get screen dimensions, etc"""
 
-        screens = ui.screens()
         # each if block here might set the rect to None to indicate failure
         selected_screen = None
         if rect is not None:
@@ -210,6 +252,10 @@ class SelectionOverlay:
         self.max_width = self.screen_rect.width
         self.max_height = self.screen_rect.height
 
+    def set_selection_rect(self, rect):
+        """Set the actual coordinates for the rect"""
+        self.set_selection((rect.x, rect.y, rect.width, rect.height))
+
     def set_selection(self, pos):
         """Set the actual coordinates for the current selection"""
         x, y, width, height = pos
@@ -219,16 +265,16 @@ class SelectionOverlay:
         self.height = min(height, self.max_height - self.y)
 
     def show(self):
-        """Show the selection overlay"""
+        """Show the shotbox overlay"""
         if self.active:
             return
-        self.set_selection(self.get_last_selection())
+        self.set_selection(self.get_last_selection(direction=0))
         self.canvas.register("draw", self.draw_box)
         self.canvas.freeze()
         self.active = True
 
     def close(self):
-        """Clear the selection overlay"""
+        """Clear the shotbox overlay"""
         if not self.active:
             return
         self.canvas.unregister("draw", self.draw_box)
@@ -258,7 +304,7 @@ class SelectionOverlay:
         # redoable entries
         if (self.selection_history_idx) != len(self.selection_history):
             self.selection_history = self.selection_history[
-                : self.selection_history_idx - 1
+                : self.selection_history_idx
             ]
 
         if len(self.selection_history) == setting_undo_history_size.get():
@@ -267,6 +313,10 @@ class SelectionOverlay:
 
         self.selection_history.append(pos)
         self.selection_history_idx += 1
+
+        # Commit to file
+        with self.selection_history_file.open("w+") as f:
+            json.dump(self.selection_history, f)
 
     def default_selection(self):
         """Return the ordinates for the default selection"""
@@ -283,6 +333,9 @@ class SelectionOverlay:
         """Return a rectangle to highlight the last or default selection"""
         if len(self.selection_history) != 0:
             idx = self.selection_history_idx - direction
+            if self.debug:
+                print(f"Calculated index: {idx}")
+                print(f"History length: {len(self.selection_history)}")
             if idx < 0:
                 idx = 0
             elif idx == len(self.selection_history):
@@ -300,6 +353,21 @@ class SelectionOverlay:
     def selected_rect(self):
         """Return a rectangle of the current selection"""
         return Rect(self.x, self.y, self.width, self.height)
+
+    # XXX - This will only work for duel monitors at the moment?
+    def clip_rect(self, rect):
+        """Clip a rectangle to fit on the current canvas"""
+
+        if rect.x >= self.screen_rect.x or rect.y < self.screen_rect.y:
+            new_x = rect.x
+            new_y = rect.y
+            if rect.x >= self.screen_rect.x:
+                new_x = rect.x - self.screen_rect.x
+            if rect.y >= self.screen_rect.y:
+                new_y = rect.y - self.screen_rect.y
+            return Rect(new_x, new_y, rect.width, rect.height)
+        else:
+            return rect
 
     def unclipped_rect(self):
         """Return a rectangle of the current selection without clipping
@@ -577,12 +645,49 @@ class SelectionOverlay:
 
     def screenshot(self):
         """Take a screenshot of the current selection"""
+
+        if len(self.screenshot_history) == setting_screenshot_history_size.get():
+            self.screenshot_history = self.screenshot_history[1:]
+
+        # XXX - This should record this screen number and coordinates
+        self.screenshot_history.append((self.x, self.y, self.width, self.height))
+        self.screenshot_history_idx += 1
+        with self.screenshot_history_file.open("w+") as f:
+            json.dump(self.screenshot_history, f)
+
         # XXX - if I don't just completely disable it, it seems to race with
         # this screenshot taking and sleeps are not super reliable (unless
         # their painfully long)
         self.disable()
-        selection_rect = self.unclipped_rect()
-        actions.user.screenshot_rect(selection_rect, screen_num=self.screen_num)
+        rect = self.unclipped_rect()
+        actions.user.screenshot_rect(rect, screen_num=self.screen_num)
+        self.screenshot_history_idx = -1
+
+    def screenshot_next(self):
+        """Cycle to the next screenshot based off the previously used direction"""
+        self.screenshot_cycle(self.cycle_direction)
+
+    # XXX - it would be nice to show which screenshot in the text somewhere
+    def screenshot_cycle(self, direction):
+        """Cycle to the next screenshot in the specified direction"""
+        if len(self.screenshot_history) == 0:
+            return
+        self.cycle_direction = direction
+        idx = self.screenshot_history_idx
+        if idx == -1:
+            idx = len(self.screenshot_history) - 1
+        else:
+            if direction > 0:
+                idx -= 1
+            elif direction < 0:
+                idx += 1
+
+        self.screenshot_select(idx)
+
+    def screenshot_select(self, idx):
+        self.screenshot_history_idx = idx
+        self.set_selection(self.screenshot_history[self.screenshot_history_idx])
+        self.commit()
 
     def undo(self):
         """Undo the last selection modification"""
@@ -622,12 +727,12 @@ class SelectionOverlay:
         ctrl.mouse_click(0, up=True)
 
     def disable(self):
-        """Disable the selection overlay"""
+        """Disable the shotbox overlay"""
         # XXX - I don't like that this access is context
         global ctx
         ctx.tags = []
         self.close()
-        selection_overlay_mode_disable()
+        shotbox_mode_disable()
 
 
 def hex_to_string(v: int) -> str:
@@ -635,112 +740,154 @@ def hex_to_string(v: int) -> str:
     return "{0:x}".format(v)
 
 
-overlay = SelectionOverlay(debug=False)
+shotbox = ShotBox(debug=False)
 
 
-def selection_overlay_mode_enable():
-    """Enable the selection overlay talon mode"""
-    actions.mode.enable("user.selection_overlay")
+def shotbox_mode_enable():
+    """Enable shotbox"""
+    actions.mode.enable("user.shotbox")
     actions.mode.disable("command")
 
 
-def selection_overlay_mode_disable():
-    """Disable the selection overlay talon mode"""
-    actions.mode.disable("user.selection_overlay")
+def shotbox_mode_disable():
+    """Disable shotbox"""
+    actions.mode.disable("user.shotbox")
     actions.mode.enable("command")
 
 
 @mod.action_class
-class SelectionOverlayActions:
-    def selection_overlay_activate():
-        """Show selection overlay on default screen"""
-        if not overlay.canvas:
-            overlay.setup()
-        overlay.show()
-        ctx.tags = ["user.selection_overlay_showing"]
-        selection_overlay_mode_enable()
+class ShotBoxActions:
+    def shotbox_activate():
+        """Show the shotbox overlay on default screen"""
+        if not shotbox.canvas:
+            shotbox.setup()
+        shotbox.show()
+        ctx.tags = ["user.shotbox_showing"]
+        shotbox_mode_enable()
 
-    def selection_overlay_select_screen(screen_num: int):
-        """Brings up mouse grid on the specified screen"""
-        overlay.setup(screen_num=screen_num)
-        overlay.show()
-        ctx.tags = ["user.selection_overlay_showing"]
-        selection_overlay_mode_enable()
+    def shotbox_activate_win():
+        """Show the shotbox overlay on default screen, highlighting active window"""
+        actions.user.shotbox_activate()
+        win = ui.active_window()
+        shotbox.set_selection(shotbox.clip_rect(win.rect))
+        shotbox.commit()
 
-    def selection_overlay_close():
-        """Close the active selection overlay"""
-        if overlay.active:
+    def selection_shotbox_screen(screen_num: int):
+        """Brings up overlay on the specified screen"""
+        shotbox.setup(screen_num=screen_num)
+        shotbox.show()
+        ctx.tags = ["user.shotbox_showing"]
+        shotbox_mode_enable()
+
+    def shotbox_close():
+        """Close the active shotbox overlay"""
+        if shotbox.active:
             ctx.tags = []
-            overlay.close()
-            selection_overlay_mode_disable()
+            shotbox.close()
+            shotbox_mode_disable()
 
-    def selection_overlay_snap_mouse():
+    def shotbox_snap_mouse():
         """Snap the current selection to the mouse cursor"""
-        overlay.snap_mouse()
+        shotbox.snap_mouse()
 
-    def selection_overlay_grow(direction: str, size: int):
+    def shotbox_grow(direction: str, size: int):
         """Increase the size of the selection from all angles"""
         if size == -1:
             size = setting_grow_size.get()
-        overlay.adjust(direction, size)
+        shotbox.adjust(direction, size)
 
-    def selection_overlay_shrink(direction: str, size: int):
+    def shotbox_shrink(direction: str, size: int):
         """Decrease the size of the selection from all angles"""
         if size == -1:
             size = setting_grow_size.get()
-        overlay.adjust(direction, -size)
+        shotbox.adjust(direction, -size)
 
-    def selection_overlay_move(direction: str, count: int):
+    def shotbox_move(direction: str, count: int):
         """Move the selection in some direction"""
         if count == -1:
             count = setting_grow_size.get()
-        overlay.move(direction, count)
+        shotbox.move(direction, count)
 
-    def selection_overlay_screenshot():
+    def shotbox_screenshot():
         """Take a screenshot of the current selection"""
-        overlay.screenshot()
+        shotbox.screenshot()
 
-    def selection_overlay_set_x(x: int):
+    def shotbox_set_x(x: int):
         """Set the x coordinate of the current selection"""
-        overlay.set_x(x)
+        shotbox.set_x(x)
 
-    def selection_overlay_set_y(y: int):
+    def shotbox_set_y(y: int):
         """Set the y coordinate of the current selection"""
-        overlay.set_y(y)
+        shotbox.set_y(y)
 
-    def selection_overlay_set_width(width: int):
+    def shotbox_set_width(width: int):
         """Set the width of the current selection"""
-        overlay.set_width(width)
+        shotbox.set_width(width)
 
-    def selection_overlay_set_height(height: int):
+    def shotbox_set_height(height: int):
         """Set the height of the current selection"""
-        overlay.set_height(height)
+        shotbox.set_height(height)
 
-    def selection_overlay_set_size(width: int, height: int):
+    def shotbox_set_size(width: int, height: int):
         """Set the width and height of the current selection"""
-        overlay.set_size(width, height)
+        shotbox.set_size(width, height)
 
-    def selection_overlay_reset():
+    def shotbox_reset():
         """Reset the selection to the default"""
-        overlay.reset()
+        shotbox.reset()
 
-    def selection_overlay_multiply_box(multiplier: str, direction: str):
+    def shotbox_grow_multiply(multiplier: str, direction: str):
         """Adjust the box by a multiplayer"""
-        multipliers = {"double": 2, "triple": 3, "half": 0.5}
+        multipliers = {"double": 2, "triple": 3, "half": 1.5}
         m = multipliers[multiplier]
         if direction == "width" or direction == "length":
-            overlay.set_width(overlay.width * m)
+            shotbox.set_width(shotbox.width * m)
         elif direction == "height":
-            overlay.set_height(overlay.height * m)
+            shotbox.set_height(shotbox.height * m)
+        elif direction == "all":
+            shotbox.set_width(shotbox.width * m)
+            shotbox.set_height(shotbox.height * m)
 
-    def selection_overlay_undo():
+    def shotbox_shrink_multiply(multiplier: str, direction: str):
+        """Adjust the box by a multiplayer"""
+        multipliers = {"double": 0.5, "triple": 0.25, "half": 0.5}
+        m = multipliers[multiplier]
+        if direction == "width" or direction == "length":
+            shotbox.set_width(shotbox.width * m)
+        elif direction == "height":
+            shotbox.set_height(shotbox.height * m)
+        elif direction == "all":
+            shotbox.set_width(shotbox.width * m)
+            shotbox.set_height(shotbox.height * m)
+
+    def shotbox_undo():
         """Undo the last selection modification"""
-        overlay.undo()
+        shotbox.undo()
 
-    def selection_overlay_redo():
+    def shotbox_redo():
         """Redo the last selection modification"""
-        overlay.redo()
+        shotbox.redo()
 
-    def selection_overlay_mouse_drag():
+    def shotbox_mouse_drag():
         """Drag the mouse over the current selection box"""
-        overlay.mouse_drag()
+        shotbox.mouse_drag()
+
+    def shotbox_screenshot_cycle_next():
+        """Cycle to the next screenshot based off the previous direction"""
+        shotbox.screenshot_next()
+
+    def shotbox_screenshot_cycle_older():
+        """Cycle to the next oldest screenshot based off the previous direction"""
+        shotbox.screenshot_cycle(-1)
+
+    def shotbox_screenshot_cycle_newer():
+        """Cycle to the next newer screenshot based off the previous direction"""
+        shotbox.screenshot_cycle(1)
+
+    def shotbox_screenshot_cycle_first():
+        """Cycle to the first screenshot in the cache"""
+        shotbox.screenshot_select(0)
+
+    def shotbox_screenshot_cycle_last():
+        """Cycle to the last screenshot in the cache"""
+        shotbox.screenshot_select(len(shotbox.screenshot_history) - 1)
