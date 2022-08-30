@@ -17,6 +17,7 @@
 # - Allow flushing both caches
 # - Make current window selection seamless, it doesn't show the original
 # selection at first
+# - Make mouse snapping go to this center of the mouse?
 
 from talon import (
     Module,

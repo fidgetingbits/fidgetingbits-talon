@@ -1,6 +1,6 @@
 tag: user.shotbox_enabled
 -
-shotbox on:
+shotbox [on]:
     user.shotbox_activate()
 
 shotbox win:
