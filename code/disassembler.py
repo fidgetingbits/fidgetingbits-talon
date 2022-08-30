@@ -10,6 +10,9 @@ class Actions:
     def disassembler_open_file():
         """Open a new file for disassembly"""
 
+    def disassembler_save_file():
+        """Save current file"""
+
     # Formatting
     def disassembler_make_array():
         """Convert into an array"""
