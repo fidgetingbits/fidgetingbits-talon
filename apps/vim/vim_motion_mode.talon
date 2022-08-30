@@ -452,7 +452,7 @@ vim real grep:
     user.vim_command_mode(":grep -r  *")
     key(left:2)
 quick [fix] next: user.vim_command_mode(":cn\n")
-quick [fix] (back|prev|previous): user.vim_command_mode(":cp\n")
+quick [fix] (last|back|prev|previous): user.vim_command_mode(":cp\n")
 quick [fix] (show|hide): user.vim_command_mode(":cw\n")
 quick [fix] close: user.vim_command_mode(":ccl\n")
 quick [fix] files:
