@@ -42,7 +42,7 @@ open new file:
     key(down:1)
     key(enter)
 
-load script file:
+load script [file]:
     key(alt-f7)
 
 

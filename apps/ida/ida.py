@@ -34,6 +34,10 @@ class UserActions:
         actions.sleep("100ms")
         actions.key("down enter")
 
+    def disassembler_save_file():
+        actions.key("ctrl-w")
+
+
     # Formatting
     def disassembler_make_array():
         actions.key("shift-8")

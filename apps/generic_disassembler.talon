@@ -3,6 +3,7 @@ tag: user.disassembler
 
 # File handling
 open new file: user.disassembler_open_file()
+(save file|sage): user.disassembler_save_file()
 
 # Formatting
 make array: user.disassembler_make_array()
