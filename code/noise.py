@@ -3,7 +3,6 @@
 
 import talon
 from talon import Module, noise, actions, scripting, ui, app
-from talon_plugins import eye_zoom_mouse
 from typing import Callable, Union, Any
 import logging
 
@@ -14,8 +13,8 @@ mod = Module()
 class Actions:
     def pop():
         """pop action overrideable by contexts"""
-#        print("noise.py pop()")
-        actions.user.mouse()
+        # XXX - this doesn't necessarily actually zoom, should be renamed
+        actions.user.mouse_zoom_click()
 
     def pop_quick_action_clear():
         """Clears the quick macro"""
@@ -31,9 +30,8 @@ class Actions:
     def pop_quick_action_set():
         """Sets the quick macro"""
         global pop_quick_action
-        if len(scripting.core.core.command_history) > 1:
-            pop_quick_action = scripting.core.core.command_history[-1]
-            app.notify(subtitle=f"pop quick action set\n{pop_quick_action}")
+        pop_quick_action = actions.core.last_command()
+        app.notify(subtitle=f"pop quick action set\n{pop_quick_action}")
 
     def pop_quick_action_set_last():
         """Sets the quick macro to the previously set action"""
@@ -45,7 +43,7 @@ class Actions:
     def pop_quick_action_run():
         """Runs the quick macro"""
         print(*pop_quick_action)
-        scripting.core.core.CoreActions.run_command(*pop_quick_action)
+        actions.core.run_command(*pop_quick_action)
 
     def hiss():
         """hiss action overrideable by contexts"""
@@ -62,9 +60,8 @@ class Actions:
     def hiss_quick_action_set():
         """Sets the quick macro"""
         global hiss_quick_action
-        if len(scripting.core.core.command_history) > 1:
-            hiss_quick_action = scripting.core.core.command_history[-1]
-            app.notify(subtitle=f"hiss quick action set\n{pop_quick_action}")
+        hiss_quick_action = actions.core.last_command()
+        app.notify(subtitle=f"hiss quick action set\n{pop_quick_action}")
 
     def hiss_quick_action_set_last():
         """Sets the quick macro to the previously set action"""
@@ -76,7 +73,7 @@ class Actions:
     def hiss_quick_action_run():
         """Runs the quick macro"""
         print(*hiss_quick_action)
-        scripting.core.core.CoreActions.run_command(*hiss_quick_action)
+        actions.core.run_command(*hiss_quick_action)
 
 
 ui.register("app_deactivate", lambda app: actions.user.pop_quick_action_clear())
@@ -89,15 +86,10 @@ pop_quick_action_history = []
 
 def on_pop(active):
     global pop_quick_action
-    # XXX - It would be nice to have this enabled sometimes without other
-    # commands enabled...
-    if actions.speech.enabled():
-        if pop_quick_action is None:
-#            print("noise.py on_pop()")
-            actions.user.pop()
-        else:
-            actions.user.pop_quick_action_run()
- #           print("quick action")
+    if pop_quick_action is None:
+        actions.user.pop()
+    else:
+        actions.user.pop_quick_action_run()
 
 
 hiss_quick_action = None
@@ -114,17 +106,7 @@ def on_hiss(active):
 
 
 try:
-    # we have to disable the existing pop mouse, so we can override it with
-    # a custom version that allows us to do quick actions, etc
-
-    # Unbind before every pop to reset the unbind when the zoom mouse is
-    # restarted.
-    noise.register(
-        "pre:pop", lambda *_: noise.unregister("pop", eye_zoom_mouse.zoom_mouse.on_pop)
-    )
-
     noise.register("pop", on_pop)
-
     # noise.register("hiss", on_hiss)
 except talon.lib.cubeb.CubebError as e:
     app.notify("Failed to register pop. Is possible audio error")

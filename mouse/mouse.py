@@ -260,7 +260,7 @@ class Actions:
 
     def mouse_zoom_click(count: int = 1):
         """Click the mouse count times and zoom if necessary."""
-        eye_zoom_mouse.zoom_mouse.on_pop(0, count)
+        eye_zoom_mouse.zoom_mouse.on_pop(0)
 
     def mouse_zoom_single_click():
         """Click the mouse, prime one click, and zoom if necessary."""
