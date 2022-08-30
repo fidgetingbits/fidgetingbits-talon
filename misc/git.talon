@@ -69,7 +69,7 @@ git ignore changes: "git update-index --assume-unchanged "
 git in it: "git init\n"
 git list files: "git ls-files\n"
 git list modified: "git ls-files -m\n"
-git list tracked: "git ls-files -r master --name-only\n"
+git list tracked: "git ls-files -r main --name-only\n"
 git list ignored: "git ls-files . --ignored --exclude-standard --others\n"
 git list untracked: "git ls-files . --ignored --exclude-standard --others\n"
 git show hook folder: "git rev-parse --git-path hooks\n"
@@ -80,7 +80,11 @@ git log reverse: "git log -5 --reverse\n"
 git log <number>: "git log -{number}\n"
 git log files: "git log --name-status -5\n"
 git log files <number>: "git log --name-status -{number}\n"
-git log changes: "git log -c "
+git log [changes|code]: "git log -c "
+git log clip:
+    insert("git log -1 -c ")
+    edit.paste()
+    key(enter)
 
 # diff-filter
 #--diff-filter=[(A|C|D|M|R|T|U|X|B)…​[*]]
