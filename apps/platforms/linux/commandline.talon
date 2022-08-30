@@ -76,17 +76,17 @@ rerun last tunnel:
 kill all:
     key(ctrl-c)
 
-file list <user.folder_paths>: "ls {folder_paths}\n"
+file list <user.folder_paths>: "ls {folder_paths} \n"
 
 file list bare exact: "ls --no-icons "
-file list bare: "ls -l --no-icons\n"
+file list bare: "ls -l --no-icons \n"
 file size: "ls -lh "
-file list exact: "ls -l"
+file list exact: "ls -l "
 file list long exact: "ls -al "
 file list with paths: 'ls --sort changed --no-icons -d - "$PWD"/*'
 file list latest: "exa --sort changed --no-icons | tail -n1\n"
 file list today: "find . -maxdepth 1 -newermt \"$(date +%D)\"\n"
-file list last <number>: "exa --sort changed --no-icons | tail -n{number}\n"
+file list (last|latest) <number>: "exa --sort changed --no-icons | tail -n{number}\n"
 file list folders: "ls -d */\n"
 file list (runnable|executable): "find . -type f -executable\n"
 file strings: "strings "
@@ -95,6 +95,9 @@ file line count: "wc -l "
 file list <user.letter>: 'find . -maxdepth 1 -name "{letter}*" -ls\n'
 file list fuzzy {user.file_extension}: "ls *{file_extension}\n"
 file list {user.file_extension} files: "ls *{file_extension}\n"
+file list hidden: 'ls -al | grep "^."\n'
+file list hidden files: 'find . -maxdepth 1 -not -type d -name ".*" -printf "%f\\n"\n'
+file list hidden folders: "ls -d .[^.]*\n"
 
 # find
 file find:
@@ -106,6 +109,12 @@ file find folder:
 # case insensitive fuzzy find
 file fuzzy find:
     user.insert_cursor("find . -iname \"*[|]*\" 2>/dev/null")
+file fuzzy find depth <number>:
+    user.insert_cursor("find . -maxdepth {number} -iname \"*[|]*\" 2>/dev/null")
+(file fuzzy find folder|folder fuzzy find):
+    user.insert_cursor("find . -type d -iname \"*[|]*\" 2>/dev/null")
+(file fuzzy find folder|folder fuzzy find) depth <number>:
+    user.insert_cursor("find . -maxdepth {number} -type d -iname \"*[|]*\" 2>/dev/null")
 file fuzzy find today:
     user.insert_cursor("find . -mtime -1 -name \"*[|]*\" 2>/dev/null")
 file fuzzy find at clip:
@@ -119,10 +128,10 @@ file fine all files: "find . -maxdepth 1 -type f  -ls\n"
 
 # TODO - revisit the grammar for $() commands
 call file latest: "$(exa --sort changed --no-icons | tail -n1)\n"
+[sub] file latest: "$(exa --sort changed --no-icons | tail -n1) "
 
 # TODO - somehow make this scriptable to print anything
 file edit latest: "edit $(exa --sort changed --no-icons | tail -n1)\n"
-file latest: "$(exa --sort changed --no-icons | tail -n1) "
 file link: "ln -s "
 file link force: "ln -sf "
 file hard link: "ln "
@@ -141,9 +150,7 @@ file recopy: "!cp\n"
 file copy latest <user.folder_paths>: user.paste("cp $(ls --sort changed --no-icons -d {folder_paths}/* | tail -n1) .")
 (file|folder) (deep copy|copy deep): "cp -dR "
 file (file|info|type): "file "
-file list hidden: 'ls -al | grep "^."\n'
-file list hidden files: 'find . -maxdepth 1 -not -type d -name ".*" -printf "%f\\n"\n'
-file list hidden folders: "ls -d .[^.]*\n"
+
 file show <user.text>: "cat {text}"
 file show: "cat "
 file edit: insert("edit ")
@@ -224,7 +231,7 @@ file tree depth <number_small>: "tree -f -L {number_small}\n"
 
 folder pop: "popd\n"
 # pwd | tr -d \\n\\r | xclip -sel clipboard
-folder yank path: "pwd | tr -d \\\\n\\\\r | xclip -sel clipboard\n"
+(folder yank path|folder path copy|folder copy): "pwd | tr -d \\\\n\\\\r | xclip -sel clipboard\n"
 
 # permissions
 file [change] mode: "chmod "
@@ -366,6 +373,7 @@ run d message samba: "sudo dmesg --color --reltime | rg CIFS\n"
 (disk|drive) key dump: "sudo cryptsetup luksDump /dev/"
 (disk|drive) key add: "sudo cryptsetup luksAddKey --key-slot "
 (disk|drive) F stab: "cat /etc/fstab\n"
+(disk|drive) remount temp (exec|executable): "mount /tmp -o remount,exec"
 
 # system configuration
 sis cuddle: "sysctl "
@@ -431,7 +439,7 @@ parameter:
 
 # bash convenience stuff
 history show: "history\n"
-extra that: "| xargs "
+(X args|extra) that: "| xargs "
 
 net man log: "journalctl -u NetworkManager --no-pager --lines 100\n"
 
@@ -512,6 +520,7 @@ errors ignore: "2>/dev/null"
 # images
 ###
 file image: "feh "
+file image meta: "identify -verbose "
 wallpaper set: "feh --bg-scale "
 wallpaper set latest: "feh --bg-scale $(find ~/images/wallpaper/ -name $(exa --sort changed --no-icons ~/images/wallpaper/ | tail -n1))\n"
 
@@ -692,3 +701,10 @@ udev reload: "sudo udevadm control --reload-rules && sudo udevadm trigger"
 # XML
 ###
 X M L lint: "xmllint --format "
+
+###
+# crontab
+###
+cron tab list: "crontab -l\n"
+cron tab list user: "crontab -l -u "
+cron tab (delete|remove): "crontab -i -r "
