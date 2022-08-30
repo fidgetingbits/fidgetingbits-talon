@@ -37,5 +37,5 @@ zoom out: key(ctrl-keypad_minus)
 group: key(ctrl-g)
 un group: key(ctrl-shift-u)
 # Object
-[send] to back: key(ctrl-shift-b)
-[send] to front: key(ctrl-shift-f)
+[(bring|send)] to back: key(ctrl-shift-b)
+[(bring|send)] to front: key(ctrl-shift-f)
