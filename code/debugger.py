@@ -1,11 +1,10 @@
 # XXX - execute until line number/cursor
 
-from talon import Context, Module, actions, app, settings
+from talon import Context, Module, actions, app, settings, ui
 
 mod = Module()
 mod.tag("debugger", desc="Tag for enabling generic debugger commands")
 # this list is updated by architecture specific python files
-mod.list("registers", desc="A list of architecture registers")
 mod.setting(
     "debug_default_architecture",
     type=str,
@@ -24,8 +23,27 @@ ctx.matches = r"""
 tag: user.debugger
 """
 
-ctx.lists["user.registers"] = {}
 
+def parse_debugger_title(window):
+    if window != ui.active_window() or "ARCH" not in window.title:
+        return
+    index = window.title.find("ARCH:")
+    arch = window.title[index + len("ARCH:") :].split(" ")[0]
+    ctx.tags = [f"user.{arch}"]
+
+
+def win_title_hook(window):
+    #print(f"debugger.py win_title_hook: {window.title}")
+    parse_debugger_title(window)
+
+
+def win_focus_hook(window):
+    #print("debugger.py win_focus_hook")
+    parse_debugger_title(window)
+
+
+ui.register("win_title", win_title_hook)
+ui.register("win_focus", win_focus_hook)
 
 # This is more generic than debugger, I should move somewhere else. assembly.py maybe
 @mod.capture(rule="{self.registers}")
@@ -37,16 +55,10 @@ def register(m) -> str:
 class Debugger:
     def __init__(self, mod):
         self.arch_index = 0
-        self.architectures = ["x86", "x64"]
+        self.architectures = ["x86", "x64", "arm32", "arm64"]
         for arch in self.architectures:
             mod.tag(arch, desc="Tag for enabling {arch} architecture")
         self.architecture = settings.get("user.debug_default_architecture")
-        if self.architecture:
-            ctx.tags = [f"user.{self.architecture}"]
-        else:
-            print("Just encountered bug!!!")
-            # it seems like sometimes the above isn't set yet...
-            ctx.tags = ["user.x64"]
 
     def cycle_architecture(self):
         """Switch between supported architectures"""
@@ -54,7 +66,6 @@ class Debugger:
         if self.arch_index == len(self.architectures):
             self.arch_index = 0
         self.architecture = self.architectures[self.arch_index]
-        # XXX - debugger ever has more tags, this will be a problem
         ctx.tags = [f"user.{self.architecture}"]
         app.notify(subtitle=f"Debug architecture: {self.architecture}")
 
@@ -122,14 +133,24 @@ class Actions:
     def debugger_backtrace():
         """Print a back trace in the debugger"""
 
-    def debugger_get_register(register:str):
+    def debugger_register_variable(register: str):
+        """Print register as variable in the debugger"""
+
+    def debugger_get_register(register: str):
         """Print specific register in the debugger"""
 
-    def debugger_set_register():
+    def debugger_set_register(register: str):
         """Set specific register in the debugger"""
 
     def debugger_show_registers():
         """Print the current registers in the debugger"""
+
+    def debugger_set_variable():
+        """Set some variable"""
+
+    def debugger_set_variable_clip():
+        """Set some variable to clipboard value"""
+
 
     def debugger_break_now():
         """Break into the debugger"""
@@ -243,13 +264,13 @@ class Actions:
     def debugger_hexdump_qword(number: int, register: str):
         """Dump memory as qword"""
 
-    def debugger_dump_pointers(register:str):
+    def debugger_dump_pointers(register: str):
         """Dump memory as a series of pointers"""
 
-    def debugger_dump_ascii_string(number:int, register:str):
+    def debugger_dump_ascii_string(number: int, register: str):
         """Dump memory as a strings"""
 
-    def debugger_dump_unicode_string(number:int, register:str):
+    def debugger_dump_unicode_string(number: int, register: str):
         """Display as specific address as an unicode string in the debugger"""
 
     def debugger_hexdump_clip(number: int):
@@ -270,10 +291,10 @@ class Actions:
     def debugger_dump_pointers_clip():
         """Dump memory as a series of pointers"""
 
-    def debugger_dump_ascii_string_clip(number:int):
+    def debugger_dump_ascii_string_clip(number: int):
         """Dump the memory as a string"""
 
-    def debugger_dump_unicode_string_clip(number:int):
+    def debugger_dump_unicode_string_clip(number: int):
         """Display as specific address as an unicode string in the debugger"""
 
     def debugger_hexdump_highlighted(count: int):

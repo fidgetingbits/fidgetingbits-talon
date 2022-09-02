@@ -33,7 +33,8 @@ debug restart: user.debugger_restart()
 (show|info) registers: user.debugger_show_registers()
 # XXX -
 (show|get) register [{user.registers}]: user.debugger_get_register(registers or '')
-set register: user.debugger_set_register()
+register {user.registers}: user.debugger_register_variable(registers)
+set register {user.registers}: user.debugger_set_register(registers)
 
 # Breakpoints
 break (now|into): user.debugger_break_now()

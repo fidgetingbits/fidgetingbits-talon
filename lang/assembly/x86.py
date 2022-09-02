@@ -1,6 +1,8 @@
 from talon import Context, Module
 
 mod = Module()
+mod.tag("x86", desc="Tag for enabling x86 functionality")
+
 ctx = Context()
 ctx.matches = r"""
 tag: user.x86

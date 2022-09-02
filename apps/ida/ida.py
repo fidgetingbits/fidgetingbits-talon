@@ -1,6 +1,7 @@
 from talon import Context, Module, actions
 import time
 
+
 mod = Module()
 mod.setting(
     "ida_opcode_count",
@@ -15,12 +16,14 @@ app: ida
 """
 
 
+
 @mod.action_class
 class Actions:
     def ida_open_general_options():
         """Open the general options menu"""
         actions.key("alt-o g")
         time.sleep(0.2)
+
     def accept_change():
         """Accept dialogue change after a small wait"""
         time.sleep(0.4)
@@ -29,6 +32,8 @@ class Actions:
 
 @ctx.action_class("user")
 class UserActions:
+
+
     def disassembler_open_file():
         actions.key("alt-f")
         actions.sleep("100ms")
@@ -36,7 +41,6 @@ class UserActions:
 
     def disassembler_save_file():
         actions.key("ctrl-w")
-
 
     # Formatting
     def disassembler_make_array():
@@ -150,3 +154,12 @@ class UserActions:
 
     def disassembler_next_void():
         actions.key("ctrl-v")
+
+    def disassembler_undo():
+        actions.key("ctrl-z")
+
+    def disassembler_redo():
+        actions.key("ctrl-shift-v")
+
+
+

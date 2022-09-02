@@ -50,3 +50,5 @@ next value: user.disassembler_next_value()
 next void: user.disassembler_next_void()
 
 # Documenting
+undo: user.disassembler_undo()
+redo: user.disassembler_redo()

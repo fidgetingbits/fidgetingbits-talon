@@ -1,7 +1,7 @@
 from talon import Context, Module
 
 mod = Module()
-mod.list("registers", desc="A list of x64 architecture registers")
+mod.tag("x64", desc="Tag for enabling x64 functionality")
 ctx = Context()
 ctx.matches = r"""
 tag: user.x64
@@ -26,7 +26,7 @@ registers = {
     "R B P": "rbp",
     "R eight": "r8",
     "R nine": "r9",
-    "R ten": "",
+    "R ten": "r10",
     "R eleven": "r11",
     "R twelve": "r12",
     "R thirteen": "r13",

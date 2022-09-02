@@ -48,12 +48,13 @@ class UserActions:
         actions.auto_insert("")
 
     # Registers
+    def debugger_register_variable(register: str):
+        actions.auto_insert(f"${register}")
 
-    def debugger_set_register():
-        actions.insert("set $=")
-        actions.edit.left()
-        # Breakpoints
-
+    def debugger_set_register(register):
+        actions.insert(f"set ${register}=")
+    
+    # Breakpoints
     def debugger_show_breakpoints():
         actions.auto_insert("info breakpoints\n")
 
@@ -145,3 +146,13 @@ class UserActions:
 
     def debugger_access_register(register:str):
         actions.user.paste(f"${register}")
+
+    def debugger_set_variable():
+        actions.insert("set $=")
+        actions.edit.left()
+
+    # XXX - This might be able to use insert_cursor to let us get right on the
+    # variable name
+    def debugger_set_variable():
+        actions.insert("set $=")
+        actions.edit.paste()

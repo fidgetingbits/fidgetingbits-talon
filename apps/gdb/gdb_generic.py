@@ -32,6 +32,8 @@ def handle_hexdump_count(fmt, number, register, clip=False, copy=False):
         actions.edit.paste()
         actions.key("enter")
 
+# These are specifically functions that can be overridden by other plugins,
+# like pwndbg or gef
 @ctx.action_class("user")
 class UserActions:
 
@@ -42,7 +44,7 @@ class UserActions:
         actions.auto_insert("info registers\n")
 
     def debugger_get_register(register: str):
-        actions.auto_insert("r ")
+        actions.auto_insert("i r ")
         if len(register):
             actions.auto_insert(f"{register}\n")
 

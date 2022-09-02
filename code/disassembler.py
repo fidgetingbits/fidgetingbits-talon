@@ -122,5 +122,10 @@ class Actions:
     def disassembler_next_void():
         """Repeat search for next instruction with void operand"""
 
+    # Documenting
+    # Miscellaneous
+    def disassembler_undo():
+        """undo last action"""
 
-# Documenting
+    def disassembler_redo():
+        """redo last action"""

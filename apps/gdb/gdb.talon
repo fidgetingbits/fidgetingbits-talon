@@ -32,10 +32,9 @@ tag(): user.code_operators_pointer
 #tag(): user.libheap
 
 # linux kernel
+# XXX These should be based off a list in the title set by the gdb script
 tag(): user.gdb_vmlinux
 tag(): user.libslub
-
-tag(): user.x64
 
 until <number>: "until {number}"
 
