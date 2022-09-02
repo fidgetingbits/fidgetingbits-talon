@@ -141,7 +141,6 @@ from <user.code_libraries> import:
     insert(' import ')
 
 # XXX - it would be good to have a set of common overrides?
-funk path: "pathlib.Path()"
 funk bug: 
     insert('print(f"!!! ")')
     key(left:2)

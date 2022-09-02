@@ -24,12 +24,20 @@ ctx.lists["user.code_functions"] = {
     "string": "str",
     "update": "update",
     "help": "help",
+    "starts with": "startswith",
 
     # sys
     "exit": "sys.exit",
 
+    # os
+    "get U I D": "os.getuid",
+
     # gdb
     "G D B execute": "gdb.execute",
+
+    # pathlib
+    "path": "pathlib.Path"
+
 }
 
 ctx.lists["user.code_libraries"] = {
@@ -70,6 +78,7 @@ ctx.lists["user.code_libraries"] = {
     "trace back": "traceback",
     "unit test": "unittest",
     "warnings": "warnings",
+    "date time": "datetime",
 }
 
 
