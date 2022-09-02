@@ -16,6 +16,7 @@ arch_linux_paths = {
 }
 # paths that will work with pivot command
 linux_folder_paths = {
+    "var F S": "/var/fs/",
     "G D B init": "~/.gdbinit",
     "user services": "~/.config/systemd/user/",
     "user timers": "~/.config/systemd/user/",
