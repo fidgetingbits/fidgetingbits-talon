@@ -708,3 +708,9 @@ X M L lint: "xmllint --format "
 cron tab list: "crontab -l\n"
 cron tab list user: "crontab -l -u "
 cron tab (delete|remove): "crontab -i -r "
+
+###
+# cross-compiled tools
+###
+arm L D D: user.insert_cursor("/usr/arm-linux-gnueabi/bin/readelf -d [|] | rg NEEDED")
+arm readelf: ""/usr/arm-linux-gnueabi/bin/readelf "
