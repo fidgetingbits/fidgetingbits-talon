@@ -141,7 +141,5 @@ dock out:
     insert("@param[out] ")
 dock in out:
     insert("@param[in, out] ")
-dock return:
-    insert("@return")
 dock file:
     insert("/** @file */")
