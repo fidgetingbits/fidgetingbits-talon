@@ -30,6 +30,7 @@ extension_lang_map = {
     ".nse": "lua",
     ".pl": "perl",
     ".ps1": "powershell",
+    ".ps": "postscript",
     ".py": "python",
     ".ql": "codeql",
     ".r": "r",
