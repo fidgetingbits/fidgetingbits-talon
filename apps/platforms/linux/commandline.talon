@@ -509,9 +509,12 @@ system release: "cat /etc/lsb-release\n"
 
 # debugging
 file debug: "gdb "
+file arm debug: "arm-none-eabi-gdb "
 run (debug script|debugger): "gdb -x debug.gdb\n"
+run arm (debug script|debugger): "arm-none-eabi-gdb -x debug.gdb\n"
 run debug server: "gdbserver "
 run debug remote server: "gdbserver --multi :9999\n"
+run debug remote server [on] port <number>: "gdbserver --multi :{number}\n"
 
 errors redirect: "2>&1 "
 errors ignore: "2>/dev/null"
