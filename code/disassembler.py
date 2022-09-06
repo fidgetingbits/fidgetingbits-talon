@@ -1,7 +1,18 @@
-from talon import Module
+from talon import Module, Context
 
 mod = Module()
 mod.tag("disassembler", desc="Tag for enabling generic disassembler commands")
+mod.list("data_widths", desc="Common data widths encountered in disassemblers")
+
+ctx = Context()
+ctx.matches = r"""
+tag: user.disassembler
+"""
+
+ctx.lists["self.data_widths"] = {
+    "D word": "dword",
+    "Q word": "qword",
+}
 
 
 @mod.action_class

@@ -47,4 +47,6 @@ class IDATalonActions:
         """Copies the current address into the clipboard"""
         ida.copy_address("base")
 
-
+    def ida_modify_raw_datatype(datatype: str):
+        """Convert data at cursor to the specified datatype"""
+        actions.user.run_rpc_command("modify_raw_datatype", datatype)

@@ -45,6 +45,8 @@ open new file:
 load script [file]:
     key(alt-f7)
 
+# C header
+load header: key(ctrl-f9)
 
 # Open subviews
 quick view: key(ctrl-1)
@@ -57,8 +59,8 @@ view segment registers: key(shift-f8)
 view signatures: key(shift-f5)
 view type libraries: key(shift-f11)
 view structures: key(shift-f9)
-view enumerations: key(key)
-view local types: key(shift-f1)
+view (enumerations|E numbs): key(shift-f10)
+view [local] types: key(shift-f1)
 
 ##
 # General options management
@@ -80,11 +82,16 @@ toggle opcodes:
 
 collapse: key(keypad_minus)
 expand: key(keypad_plus)
-
+set type: key(y)
+matching: key(%)
+refresh: key(f5)
 
 ##
 # Misc
 ##
 
-[book] marks show: key(ctrl-m)
+(jump mark|[book] marks show): key(ctrl-m)
 [book] mark new : key(alt-m)
+
+# Data Window
+make pointer: key(o)
