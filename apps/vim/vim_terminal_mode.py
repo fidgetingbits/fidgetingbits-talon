@@ -1,7 +1,7 @@
 import re
 import pprint as pp
 from timeit import default_timer as timer
-from talon import Context, Module, actions, settings, ui, registry
+from talon import Context, Module, app, actions, settings, ui, registry
 
 mod = Module()
 ctx = Context()
@@ -45,22 +45,25 @@ def parse_vim_term_title(window):
     global last_window
     global last_title
     start = timer()
+
+    if last_window == window and last_title == window.title:
+        print("parse_vim_term_title(): Skipping due to duplicate title")
+        end = timer()
+
+        #        print(start)
+        #        print(end)
+        #print(f"parse_vim_term_title - duplicate: {end - start}")
+        return
     if (
         window != ui.active_window()
         or not window.title.startswith("VIM MODE:t")
         or "TERM:" not in window.title
     ):
+        print("parse_vim_term_title(): Skipping due to not a terminal")
         end = timer()
         #        print(start)
         #        print(end)
         #        print(f"parse_vim_term_title - not vim: {end - start}")
-        return
-    if last_window == window and last_title == window.title:
-        end = timer()
-
-        #        print(start)
-        #        print(end)
-        #        print(f"parse_vim_term_title - duplicate: {end - start}")
         return
     last_window = window
     last_title = window.title
@@ -108,7 +111,7 @@ def populate_language_modes(shell_command):
     # XXX - sometimes this throws an exception saying it's not declared, but it
     # should be a global module action from code.py
     # Why do I clear the context language if there's no match?
-    actions.user.code_clear_context_language()
+    #actions.user.code_clear_context_language()
     return
 
 
@@ -149,13 +152,12 @@ def populate_shell_tags(shell_command, window_title):
     :returns: TODO
 
     """
-
     if shell_command in shell_tags:
         # XXX - make a better way of marking stuff in noisy event log,
         # ins this writes to our file/terminal
         # actions.insert('marker start')
         print(f"setting shell tags: {window_title}")
-        print(ctx.tags)
+        #print(ctx.tags)
         if isinstance(shell_tags[shell_command], list):
             start = timer()
             ctx.tags = shell_tags[shell_command]
@@ -197,14 +199,19 @@ def populate_shell_tags(shell_command, window_title):
 
 
 def win_title_hook(window):
-    # print(f"vim win_title_hook: {window.title}")
+    print(f"vim win_title_hook: {window.title}")
     parse_vim_term_title(window)
 
 
 def win_focus_hook(window):
-    # print("vim win_focus_hook")
+    print("vim win_focus_hook")
     parse_vim_term_title(window)
 
+def register_events():
+    ui.register("win_title", win_title_hook)
+    ui.register("win_focus", win_focus_hook)
 
-ui.register("win_title", win_title_hook)
-ui.register("win_focus", win_focus_hook)
+
+# prevent scary errors in the log by waiting for talon to be fully loaded
+# before registering the events
+app.register("ready", register_events)
