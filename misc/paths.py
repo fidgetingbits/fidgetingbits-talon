@@ -60,6 +60,7 @@ linux_folder_paths = {
     "back": "../",
     "tunnel": "~/.ssh/",
     "S S H": "~/.ssh/",
+    "known hosts": "~/.ssh/known_hosts",
     "raffi": "~/.config/rofi/",
     "network manager": "/etc/NetworkManager/",
     "network manager dispatcher": "/etc/NetworkManager/dispatcher.d/",
