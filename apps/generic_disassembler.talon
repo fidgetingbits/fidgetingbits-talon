@@ -21,7 +21,7 @@ make unicode: user.disassembler_make_unicode()
 # Navigation
 [(jump|go)] [to] entry point: user.disassembler_entry_point()
 (jump|go) back: user.disassembler_jump_back()
-(jump|go) to address: user.disassembler_jump_address()
+(jump|go) [to] address: user.disassembler_jump_address()
 [(jump|go) to] next call: user.disassembler_next_call()
 [(jump|go) to] previous call: user.disassembler_previous_call()
 function start: user.disassembler_function_start()
