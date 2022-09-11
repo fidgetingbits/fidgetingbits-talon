@@ -3,6 +3,7 @@ import time
 
 
 mod = Module()
+mod.tag("hexrayspytools", desc="HexRaysPyTools IDA Plugin")
 mod.setting(
     "ida_opcode_count",
     type=int,

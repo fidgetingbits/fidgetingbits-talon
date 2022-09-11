@@ -5,6 +5,9 @@ app: ida
 -
 tag(): user.ida
 tag(): user.disassembler
+tag(): user.retsync
+tag(): user.hexrayspytools
+
 settings():
     # the number of opcodes to display next to assembly instructions, this will
     # depend on your architecture
@@ -41,7 +44,10 @@ open new file:
     sleep(500ms)
     key(down:1)
     key(enter)
-
+open last [file]:
+    key(alt-f)
+    sleep(500ms)
+    key(0)
 load script [file]:
     key(alt-f7)
 

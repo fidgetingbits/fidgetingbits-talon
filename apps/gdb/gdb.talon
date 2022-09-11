@@ -33,8 +33,10 @@ tag(): user.code_operators_pointer
 
 # linux kernel
 # XXX These should be based off a list in the title set by the gdb script
-tag(): user.gdb_vmlinux
-tag(): user.libslub
+#tag(): user.gdb_vmlinux
+#tag(): user.libslub
+
+tag(): user.retsync
 
 until <number>: "until {number}"
 
