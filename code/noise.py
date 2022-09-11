@@ -1,10 +1,7 @@
 # this is adapted from @rntz script:
 # https://gist.github.com/rntz/914bdb60187858d4a014e82fbcf591c3
 
-import talon
-from talon import Module, noise, actions, scripting, ui, app
-from typing import Callable, Union, Any
-import logging
+from talon import Module, noise, actions, ui, app
 
 mod = Module()
 
@@ -13,8 +10,9 @@ mod = Module()
 class Actions:
     def pop():
         """pop action overrideable by contexts"""
-        # XXX - this doesn't necessarily actually zoom, should be renamed
-        actions.user.mouse_zoom_click()
+        print("noise.py - pop()")
+        actions.user.mouse()
+
 
     def pop_quick_action_clear():
         """Clears the quick macro"""
