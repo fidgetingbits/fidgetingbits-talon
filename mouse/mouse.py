@@ -13,8 +13,6 @@ from talon import (
     noise,
     ui,
 )
-from talon_plugins import eye_mouse, eye_zoom_mouse
-from talon_plugins.eye_mouse import config, toggle_camera_overlay, toggle_control
 
 key = actions.key
 self = actions.self
@@ -165,9 +163,9 @@ def mouse_wake():
     """Enable control mouse, zoom mouse, and disables cursor"""
     time.sleep(1)
     if setting_mouse_control_mouse_zoom.get() >= 1:
-        eye_zoom_mouse.toggle_zoom_mouse(True)
+        actions.tracking.control_zoom_toggle(True)
     if setting_mouse_control_mouse.get() >= 1:
-        eye_mouse.control_mouse.enable()
+        actions.tracking.control_enable(True)
     if setting_mouse_wake_hides_cursor.get() >= 1:
         show_cursor_helper(False)
 
@@ -191,10 +189,12 @@ class Actions:
         for i in range(count):
             ctrl.mouse_click(button=button)
         if (
-            eye_zoom_mouse.zoom_mouse.enabled
-            and eye_zoom_mouse.zoom_mouse.state != eye_zoom_mouse.STATE_IDLE
+            actions.tracking.controls_zoom_enabled()
+            # XXX - there's now no equivalent to telling whether or not
+            # resumed
+            #and eye_zoom_mouse.zoom_mouse.state != eye_zoom_mouse.STATE_IDLE
         ):
-            eye_zoom_mouse.zoom_mouse.cancel()
+            actions.tracking.zoom_cancel(True)
 
     def mouse_show_cursor():
         """Shows the cursor"""
@@ -211,35 +211,29 @@ class Actions:
 
     def mouse_calibrate():
         """Start calibration"""
-        eye_mouse.calib_start()
+        actions.tracking.calibrate()
 
     def mouse_enable_control_mouse():
         """Enables control mouse if disabled"""
-        if not config.control_mouse:
-            toggle_control(True)
+        actions.tracking.control_toggle(True)
 
     def mouse_disable_control_mouse():
         """Disables control mouse if enabled"""
-        if config.control_mouse:
-            toggle_control(False)
+        actions.tracking.control_toggle(False)
 
     def mouse_toggle_control_mouse():
         """Toggles control mouse"""
-        if not config.control_mouse:
+        if not actions.tracking.control_enabled():
             app.notify(subtitle="Control mouse: ON")
         else:
             app.notify(subtitle="Control mouse: OFF")
-        toggle_control(not config.control_mouse)
-
-    def mouse_toggle_camera_overlay():
-        """Toggles camera overlay"""
-        toggle_camera_overlay(not config.show_camera)
+        actions.tracking.control_toggle(not actions.tracking.control_enabled())
 
     def mouse_toggle_zoom_mouse():
         """Toggles zoom mouse setting"""
-        eye_zoom_mouse.toggle_zoom_mouse(not eye_zoom_mouse.zoom_mouse.enabled)
+        actions.tracking.control_zoom_toggle(not actions.tracking.control_zoom_enabled())
         s = "Zoom mouse: "
-        if eye_zoom_mouse.zoom_mouse.enabled:
+        if actions.tracking.control_zoom_enabled():
             s += "ENABLED"
         else:
             s += "DISABLED"
@@ -247,38 +241,44 @@ class Actions:
 
     def mouse_cancel_zoom_mouse():
         """Cancel zoom mouse if pending"""
-        if (
-            eye_zoom_mouse.zoom_mouse.enabled
-            and eye_zoom_mouse.zoom_mouse.state != eye_zoom_mouse.STATE_IDLE
-        ):
-            eye_zoom_mouse.zoom_mouse.cancel()
+        if actions.tracking.control_zoom_enabled():
+            actions.tracking.zoom_cancel(True)
 
-    # XXX - you should all get a property to test zoom mouse enabled
     def mouse_zoom_single_click(count: int = 1):
         """Click the mouse and zoom if necessary."""
-        eye_zoom_mouse.zoom_mouse.on_pop(0, count)
+        actions.tracking.zoom(True)
 
     def mouse_zoom_click(count: int = 1):
         """Click the mouse count times and zoom if necessary."""
-        eye_zoom_mouse.zoom_mouse.on_pop(0)
+        # XXX - broken since the new tracking API
+        actions.tracking.zoom(True)
+        #eye_zoom_mouse.zoom_mouse.on_pop(0)
 
     def mouse_zoom_single_click():
         """Click the mouse, prime one click, and zoom if necessary."""
-        eye_zoom_mouse.zoom_mouse.on_pop(0, 1)
+        # XXX - broken since the new tracking API
+        actions.tracking.zoom(True)
+        #eye_zoom_mouse.zoom_mouse.on_pop(0, 1)
 
     def mouse_zoom_double_click():
         """Click the mouse, prime two clicks, and zoom if necessary."""
-        eye_zoom_mouse.zoom_mouse.on_pop(0, 2)
+        # XXX - broken since the new tracking API
+        #eye_zoom_mouse.zoom_mouse.on_pop(0, 2)
+        actions.tracking.zoom(True)
 
     def mouse_zoom_triple_click():
         """Click the mouse, prime three clicks, and zoom if necessary."""
-        eye_zoom_mouse.zoom_mouse.on_pop(0, 3)
+        # XXX - broken since the new tracking API
+        #eye_zoom_mouse.zoom_mouse.on_pop(0, 3)
+        
+        # XXX - broken since the new tracking API
+        actions.tracking.zoom(True)
 
     def mouse_move_cursor():
         """Move the cursor but don't actually click, and disable control mouse"""
-        if config.control_mouse:
-            eye_mouse.control_mouse.disable()
-        _, origin = eye_zoom_mouse.zoom_mouse.get_pos()
+        actions.tracking.control_toggle(False)
+        # XXX - broken since the new tracking API
+        _, origin = actions.tracking.eye_zoom_mouse.zoom_mouse.get_pos()
         ctrl.mouse_move(origin.x, origin.y)
 
     def mouse_capture_coordinates():
@@ -288,9 +288,10 @@ class Actions:
         clip.set_text(f"{x},{y}")
 
     def mouse_zoom_move_cursor():
-        """Move the cursor but don't actually click, an zoom if necessary"""
-        if not config.control_mouse:
-            print(eye_zoom_mouse.zoom_mouse.capture())
+        """Move the cursor but don't actually click"""
+        if not actions.tracking.control_enabled():
+            #print(eye_zoom_mouse.zoom_mouse.capture())
+            print("broken")
             #eye_zoom_mouse.zoom_mouse.on_pop(0, 1, click=False)
 
     def mouse_zoom_capture_coordinates():
@@ -303,24 +304,34 @@ class Actions:
 
     def mouse_zoom_auto_single_click(count: int = 1):
         """Click the mouse, prime count clicks, and zoom if necessary."""
-        eye_zoom_mouse.zoom_mouse.on_pop(0, count, auto=True)
+        #eye_zoom_mouse.zoom_mouse.on_pop(0, count, auto=True)
+        # XXX - broken since the new tracking API
+        actions.tracking.zoom(True)
 
     def mouse_zoom_auto_single_click():
         """Click the mouse, prime one click, and zoom if necessary."""
-        eye_zoom_mouse.zoom_mouse.on_pop(0, 1, auto=True)
+        #eye_zoom_mouse.zoom_mouse.on_pop(0, 1, auto=True)
+        # XXX - broken since the new tracking API
+        actions.tracking.zoom(True)
 
     def mouse_zoom_auto_double_click():
         """Click the mouse, prime two clicks, and zoom if necessary."""
-        eye_zoom_mouse.zoom_mouse.on_pop(0, 2, auto=True)
+        #eye_zoom_mouse.zoom_mouse.on_pop(0, 2, auto=True)
+        # XXX - broken since the new tracking API
+        actions.tracking.zoom(True)
 
     def mouse_zoom_auto_triple_click():
         """Click the mouse, prime three clicks, and zoom if necessary."""
-        eye_zoom_mouse.zoom_mouse.on_pop(0, 3, auto=True)
+        #eye_zoom_mouse.zoom_mouse.on_pop(0, 3, auto=True)
+        # XXX - broken since the new tracking API
+        actions.tracking.zoom(True)
+
 
     def mouse_zoom_auto_move_cursor():
         """Move the cursor but don't actually click, an zoom if necessary"""
-        if not config.control_mouse:
-            print(eye_zoom_mouse.zoom_mouse.get_pos())
+        if not actions.tracking.control_enabled():
+            #print(eye_zoom_mouse.zoom_mouse.get_pos())
+            print("broken")
             #eye_zoom_mouse.zoom_mouse.on_pop(0, 1, auto=True, click=False)
 
     def mouse_zoom_auto_capture_coordinates():
@@ -329,21 +340,17 @@ class Actions:
 
     def mouse_toggle_zoom_auto_click():
         """Enable auto click"""
-        eye_zoom_mouse.zoom_mouse.auto_click_timeout = (
-            setting_mouse_zoom_auto_click_timeout.get()
-        )
-        eye_zoom_mouse.zoom_mouse.toggle_auto_click()
-        s = "Auto-click zoom mouse: "
-        if eye_zoom_mouse.zoom_mouse.auto_click_enabled:
-            s += "ENABLED"
-        else:
-            s += "DISABLED"
-        app.notify(subtitle=s)
-
-    def mouse_trigger_zoom_mouse():
-        """Trigger zoom mouse if enabled"""
-        if eye_zoom_mouse.zoom_mouse.enabled:
-            eye_zoom_mouse.zoom_mouse.on_pop(eye_zoom_mouse.zoom_mouse.state)
+        print("broken")
+#        eye_zoom_mouse.zoom_mouse.auto_click_timeout = (
+#            setting_mouse_zoom_auto_click_timeout.get()
+#        )
+#        eye_zoom_mouse.zoom_mouse.toggle_auto_click()
+#        s = "Auto-click zoom mouse: "
+#        if eye_zoom_mouse.zoom_mouse.auto_click_enabled:
+#            s += "ENABLED"
+#        else:
+#            s += "DISABLED"
+#        app.notify(subtitle=s)
 
     def mouse_drag(button: int):
         """Press and hold/release a specific mouse button for dragging"""
@@ -367,13 +374,14 @@ class Actions:
 
     def mouse_zoom_drag():
         """zoom and press in hold/release button 0 depending on state"""
+        print("broken")
 
-        eye_zoom_mouse.zoom_mouse.on_pop(0, 1, auto=False, click=False, drag=True)
+        #eye_zoom_mouse.zoom_mouse.on_pop(0, 1, auto=False, click=False, drag=True)
 
     def mouse_sleep():
         """Disables control mouse, zoom mouse, and re-enables cursor"""
-        eye_zoom_mouse.toggle_zoom_mouse(False)
-        toggle_control(False)
+        actions.tracking.control_zoom_toggle(False)
+        actions.tracking.control_toggle(False)
         show_cursor_helper(True)
         stop_scroll()
 
@@ -440,7 +448,7 @@ class Actions:
 
         # enable 'control mouse' if eye tracker is present and not enabled already
         global control_mouse_forced
-        if eye_mouse.tracker is not None and not config.control_mouse:
+        if not actions.tracking.control_enabled():
             toggle_control(True)
             control_mouse_forced = True
 
@@ -467,13 +475,13 @@ class Actions:
         ):
             stop_scroll()
         elif (
-            not eye_zoom_mouse.zoom_mouse.enabled
-            and eye_mouse.mouse.attached_tracker is not None
+            not actions.tracking.control_zoom_enabled()
         ):
             if setting_mouse_enable_pop_click.get() >= 1:
                 ctrl.mouse_click(button=0, hold=16000)
         else:
-            eye_zoom_mouse.zoom_mouse.on_pop(True)
+            actions.tracking.zoom(False)
+            print(f"mouse.py - zoom_mouse.on_pop() {actions.tracking.control_zoom_enabled()}")
 
 
 def show_cursor_helper(show):
@@ -519,8 +527,7 @@ def on_pop(active):
     if setting_mouse_enable_pop_stops_scroll.get() >= 1 and (gaze_job or scroll_job):
         stop_scroll()
     elif (
-        not eye_zoom_mouse.zoom_mouse.enabled
-        and eye_mouse.mouse.attached_tracker is not None
+        not actions.tracking.control_zoom_enabled()
     ):
         print("Triggering non-zoom click")
         if setting_mouse_enable_pop_click.get() >= 1:
@@ -597,7 +604,7 @@ def stop_scroll():
         cron.cancel(gaze_job)
 
     global control_mouse_forced
-    if control_mouse_forced and config.control_mouse:
+    if control_mouse_forced and actions.tracking.control_enabled():
         toggle_control(False)
         control_mouse_forced = False
 
@@ -623,7 +630,7 @@ if app.platform == "mac":
     from talon import tap
 
     def on_move(e):
-        if not config.control_mouse:
+        if not actions.tracking.control_enabled():
             buttons = ctrl.mouse_buttons_down()
             # print(str(ctrl.mouse_buttons_down()))
             if not e.flags & tap.DRAG and buttons:
