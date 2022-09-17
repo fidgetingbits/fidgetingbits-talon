@@ -460,8 +460,8 @@ ctx.lists["self.vim_surround_targets"] = {
     "paragraph": "p",
     "spaces": "  ",  # double spaces is required because surround gets confused
     "tags": "t",
-    "h1 tags": "<h1>",
-    "h2 tags": "<h2>",
+    "H one tags": "<h1>",
+    "H two tags": "<h2>",
     "div tags": "<div>",
     "bold tags": "<b>",
 }
