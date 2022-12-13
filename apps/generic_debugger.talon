@@ -30,7 +30,7 @@ debug detach: user.debugger_detach()
 debug restart: user.debugger_restart()
 
 # Register
-(show|info) registers: user.debugger_show_registers()
+(show|info) (reg|regs|registers): user.debugger_show_registers()
 # XXX -
 (show|get) register [{user.registers}]: user.debugger_get_register(registers or '')
 register {user.registers}: user.debugger_register_variable(registers)

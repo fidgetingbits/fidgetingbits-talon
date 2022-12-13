@@ -32,6 +32,7 @@ plugin_tag_list = [
     "vim_ale",
     "vim_change_inside_surroundings",
     "vim_codeql",
+    "vim_copilot",
     "vim_cscope",
     "vim_easy_align",
     "vim_easymotion",
@@ -125,7 +126,9 @@ standard_counted_actions = {
     "substitute": "s",
     "substitute line": "S",
     "undo": "u",
+    "regret": "u",
     "undo line": "U",
+    "regret line": "U",
     # "erase": "x",
     "forget": '"_x',
     "erase reversed": "X",
@@ -217,6 +220,7 @@ commands_with_motion = {
     # "filter": "=",  # XXX - not sure about how to use this
     "paste": "p",  # XXX this really have motion
     "undo": "u",  # XXX this really have motion
+    "regret": "u",  # XXX this really have motion
     "swap case": "~",
     # motions
     "change": '"_c',  # NOTE: we purposely use the black hole register
@@ -225,7 +229,8 @@ commands_with_motion = {
     "indent": ">",
     "unindent": "<",
     "yank": "y",  # NOTE: conflicts with talon 'yank' alphabet for 'y' key
-    "copy": "y",  # NOTE: conflicts with talon 'yank' alphabet for 'y' key
+    "copy": "y",  
+    "fetch": "y",  
     "fold": "zf",
     "format": "gq",
     "to upper": "gU",
@@ -460,8 +465,8 @@ ctx.lists["self.vim_surround_targets"] = {
     "paragraph": "p",
     "spaces": "  ",  # double spaces is required because surround gets confused
     "tags": "t",
-    "h1 tags": "<h1>",
-    "h2 tags": "<h2>",
+    "H one tags": "<h1>",
+    "H two tags": "<h2>",
     "div tags": "<div>",
     "bold tags": "<b>",
 }

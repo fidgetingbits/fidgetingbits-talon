@@ -44,11 +44,12 @@ def parse_vim_term_title(window):
     """
     global last_window
     global last_title
-    start = timer()
+    #start = timer()
 
-    if last_window == window and last_title == window.title:
-        print("parse_vim_term_title(): Skipping due to duplicate title")
-        end = timer()
+    current_title = window.title
+    if last_window == window and last_title == current_title:
+        #print("parse_vim_term_title(): Skipping due to duplicate title")
+        #end = timer()
 
         #        print(start)
         #        print(end)
@@ -56,22 +57,22 @@ def parse_vim_term_title(window):
         return
     if (
         window != ui.active_window()
-        or not window.title.startswith("VIM MODE:t")
-        or "TERM:" not in window.title
+        or not current_title.startswith("VIM MODE:t")
+        or "TERM:" not in current_title
     ):
-        print("parse_vim_term_title(): Skipping due to not a terminal")
-        end = timer()
+        #print("parse_vim_term_title(): Skipping due to not a terminal")
+        #end = timer()
         #        print(start)
         #        print(end)
         #        print(f"parse_vim_term_title - not vim: {end - start}")
         return
     last_window = window
-    last_title = window.title
+    last_title = current_title
 
     # pull a TERM: line out of something potentially like
     # VIM MODE:t RPC:/tmp/nvimlVeccr/0  TERM:gdb (term://~//161917:/usr/bin/zsh) zsh
-    index = window.title.find("TERM:")
-    shell_command = window.title[index + len("TERM:") :]
+    index = current_title.find("TERM:")
+    shell_command = current_title[index + len("TERM:") :]
     if ":" in shell_command:
         shell_command = shell_command.split(":")[0]
     if shell_command.startswith("sudo"):
@@ -80,7 +81,7 @@ def parse_vim_term_title(window):
         shell_command = shell_command.split(" ")[1]
     else:
         shell_command = shell_command.split(" ")[0]
-    end = timer()
+    #end = timer()
     #    print(start)
     #    print(end)
     #    print(f"parse_vim_term_title - pass to populate: {end - start}")
@@ -156,7 +157,7 @@ def populate_shell_tags(shell_command, window_title):
         # XXX - make a better way of marking stuff in noisy event log,
         # ins this writes to our file/terminal
         # actions.insert('marker start')
-        print(f"setting shell tags: {window_title}")
+        #print(f"setting shell tags: {window_title}")
         #print(ctx.tags)
         if isinstance(shell_tags[shell_command], list):
             start = timer()
@@ -165,13 +166,13 @@ def populate_shell_tags(shell_command, window_title):
             start = timer()
             ctx.tags = [shell_tags[shell_command]]
         end = timer()
-        print(f"populate_shell_tags: {end - start}")
+        #print(f"populate_shell_tags: {end - start}")
 
         # actions.insert('marker end')
 
         # print(f"populate_shell_tags(): set {ctx.tags}")
     else:
-        print(f"trying fuzzy: {window_title}")
+        #print(f"trying fuzzy: {window_title}")
         found_fuzzy = False
         for tag in fuzzy_shell_tags:
             # print(f"shell_command: {shell_command}")
@@ -199,12 +200,10 @@ def populate_shell_tags(shell_command, window_title):
 
 
 def win_title_hook(window):
-    print(f"vim win_title_hook: {window.title}")
     parse_vim_term_title(window)
 
 
 def win_focus_hook(window):
-    print("vim win_focus_hook")
     parse_vim_term_title(window)
 
 def register_events():

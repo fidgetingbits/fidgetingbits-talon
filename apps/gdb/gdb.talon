@@ -206,7 +206,7 @@ set var [<user.word>]:
     # XXX - we should support a second word for the assignment
 
 # XXX - this should use default for matter
-var <user.word>: "${word}"
+get var <user.word>: "${word}"
     
 # Convenience for repeated commands
 hex stump saved: "x/50gx $ADDRESS\n"

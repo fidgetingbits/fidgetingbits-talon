@@ -71,6 +71,7 @@ tag(): user.vim_zoom
 tag(): user.vim_zenmode
 tag(): user.vim_lsp
 tag(): user.vim_codeql
+tag(): user.vim_copilot
 tag(): user.vim_markdown_preview
 
 
@@ -214,10 +215,9 @@ scroll bottom reset cursor: user.vim_normal_mode_exterm("z ")
 (buf|buffer) list: user.vim_command_mode_exterm(":ls\n")
 (buf|buffer) (close|delete) <number_small>: user.vim_command_mode_exterm(":bd {number_small} ")
 (buf|buffer) delete: user.vim_command_mode_exterm(":bd ")
-(buf|buffer) close current: user.vim_command_mode_exterm(":bd\n")
+(buf|buffer) close [current]: user.vim_command_mode_exterm(":bd\n")
 (buf|buffer) close last: user.vim_command_mode_exterm(":bd #\n")
 (buf|buffer) force close: user.vim_command_mode_exterm(":bd!\n")
-botch: user.vim_command_mode_exterm(":bd\n")
 force botch: user.vim_command_mode_exterm(":bd!\n")
 (buf|buffer) open: user.vim_command_mode_exterm(":b ")
 [go] (buf|buffer) (first|rewind): user.vim_command_mode_exterm(":br\n")
@@ -511,6 +511,9 @@ edit (buf|buffer) <number_small> [in] new tab: user.vim_command_mode_exterm(":ta
 ###
 # Settings
 ###
+# Sometimes the command bar height is too big, this makes it smaller
+rebalance command:
+    user.vim_command_mode_exterm(":set cmdheight=1\n")
 # XXX - this is a weird edge case because we actually probably want to slip back
 # to the terminal mode after setting options, but atm
 # user.vim_normal_mode_exterm() implies no preservation

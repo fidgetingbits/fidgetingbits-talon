@@ -29,7 +29,7 @@ settings():
     ###
 
     # the default is now 300ms
-    speech.timeout = 0.150
+    speech.timeout = 0.300
     speech.record_all = 1
     #speech.gain = 100
     speech.normalize = 1
@@ -82,10 +82,10 @@ settings():
     user.mouse_enable_on_startup = 1
 
     # enables zoom most by default
-    user.mouse_control_mouse_zoom = 1
+    user.mouse_control_mouse_zoom = 0
     
     # disable control mouse 
-    user.mouse_control_mouse = 0
+    #user.mouse_control_mouse = 1
 
     #stop continuous scroll/gaze scroll with a pop
     user.mouse_enable_pop_stops_scroll = 1
@@ -153,6 +153,6 @@ tag(): user.noise_quick_actions
 tag(): user.record_replay
 # Uncomment this to enable the curse yes/curse no commands (show hide mouse cursor). See issue #688.
 tag(): user.mouse_cursor_commands_enable
-tag(): user.full_mouse_grid_enabled
+#tag(): user.full_mouse_grid_enabled
 tag(): user.shotbox_enabled
 

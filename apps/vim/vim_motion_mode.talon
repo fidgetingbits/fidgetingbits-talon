@@ -547,7 +547,7 @@ find (reversed|previous) <user.ordinals> <user.unmodified_key>:
 ###
 # Visual Text Selection
 ###
-make ascending: user.vim_normal_mode_key("g ctrl-a")
+make (ascending|number list|incrementing): user.vim_normal_mode_key("g ctrl-a")
 take line: user.vim_visual_mode("V")
 block take: user.vim_any_motion_mode_exterm_key("ctrl-v")
 

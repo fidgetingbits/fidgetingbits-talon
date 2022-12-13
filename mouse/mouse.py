@@ -165,7 +165,7 @@ def mouse_wake():
     if setting_mouse_control_mouse_zoom.get() >= 1:
         actions.tracking.control_zoom_toggle(True)
     if setting_mouse_control_mouse.get() >= 1:
-        actions.tracking.control_enable(True)
+        actions.tracking.control_toggle(True)
     if setting_mouse_wake_hides_cursor.get() >= 1:
         show_cursor_helper(False)
 

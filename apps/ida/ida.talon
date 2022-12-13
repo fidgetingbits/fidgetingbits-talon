@@ -15,6 +15,8 @@ settings():
 toggle graph: key(space)
 
 # Documenting
+insert block comment: key(insert)
+insert comment: key(/) 
 
 ##
 # Menu
@@ -28,12 +30,15 @@ open options menu: key(alt-o)
 open search menu: key(alt-h)
 open view menu: key(alt-v)
 open windows menu: key(alt-w)
-(quit|exit) without saving:
+# File Menu
+[file] (quit|exit) without saving:
     key(alt-x)
     sleep(500ms)
     key(tab down space tab enter)
-
-# File Menu
+file quit:
+    key(alt-x)
+    sleep(500ms)
+    key(enter)
 open new instance:
     key(alt-f)
     sleep(500ms)
@@ -53,6 +58,10 @@ load script [file]:
 
 # C header
 load header: key(ctrl-f9)
+load last header: 
+    key(ctrl-f9)
+    sleep(500ms)
+    key(enter)
 
 # Open subviews
 quick view: key(ctrl-1)
@@ -83,7 +92,7 @@ toggle opcodes:
     user.accept_change()
 
 ##
-# Decompiler
+# Decompile
 ##
 
 collapse: key(keypad_minus)
@@ -101,3 +110,55 @@ refresh: key(f5)
 
 # Data Window
 make pointer: key(o)
+
+## 
+# Lumina
+##
+
+lumina push: key(f12)
+lumina pull: key(ctrl-f12)
+lumina view: key(alt-f12)
+
+##
+# Window Focusing
+#
+# Some of these are custom, you have to set them in Options->Shortcuts. You can
+# also see the current ones with shortcuts in the quick view (ctrl-1). You can
+# see the OpenXXX Actions in the shortcuts to find most of the views, although
+# it's missing the disassembly view.
+##
+go quick view: key(ctrl-1)
+
+go in numbs: key(shift-f10)
+go command: key(ctrl-.)
+go functions: key(shift-f3)
+go local types: key(shift-f1)
+go names: key(shift-f4)
+go segment registers: key(shift-f8)
+go segment: key(shift-f7)
+go signatures: key(shift-f5)
+go stack variables:  key(ctrl-k)
+go strings: key(shift-f12)
+go structures: key(shift-f9)
+go type libraries: key(shift-f11)
+
+go code: key(tab)
+
+# Custom Actions
+go callers: key(ctrl-shift-f10)
+go exports: key(ctrl-shift-f12)
+go imports: key(ctrl-shift-f9)
+go notepad: key()
+go problems: key()
+go selectors: key()
+go source file: key()
+
+tabby close: key(alt-f3)
+tabby left: key(shift-f6)
+tabby right: key(f6)
+
+##
+# Dialog Boxes
+##
+box confirm: key(alt-k)
+box close: key(alt-f4)

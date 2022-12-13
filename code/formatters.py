@@ -387,5 +387,5 @@ ctx.lists["self.prose_formatter"] = {
     # "speak": "NOOP",
     "sentence": "CAPITALIZE_FIRST_WORD",
     # because sentence constantly fails
-    "tense": "CAPITALIZE_FIRST_WORD",
+    #"tense": "CAPITALIZE_FIRST_WORD",
 }

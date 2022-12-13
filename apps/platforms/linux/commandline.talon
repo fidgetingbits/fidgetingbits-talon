@@ -87,7 +87,11 @@ file list with paths: 'ls --sort changed --no-icons -d - "$PWD"/*'
 file list latest: "exa --sort changed --no-icons | tail -n1\n"
 file list today: "find . -maxdepth 1 -newermt \"$(date +%D)\"\n"
 file list (last|latest) <number>: "exa --sort changed --no-icons | tail -n{number}\n"
-file list folders: "ls -d */\n"
+folder list latest: "exa -D --sort changed --no-icons | tail -n1\n"
+folder list (last|latest) <number>: "exa -D --sort changed --no-icons | tail -n{number}\n"
+folder list: "exa -D --no-icons\n"
+file list (folders|directories): "ls -d */\n"
+file list (folders|directories) long: "ls -ld */\n"
 file list (runnable|executable): "find . -type f -executable\n"
 file strings: "strings "
 file (tail|follow): "tail -f "
@@ -98,6 +102,7 @@ file list {user.file_extension} files: "ls *{file_extension}\n"
 file list hidden: 'ls -al | grep "^."\n'
 file list hidden files: 'find . -maxdepth 1 -not -type d -name ".*" -printf "%f\\n"\n'
 file list hidden folders: "ls -d .[^.]*\n"
+
 
 # find
 file find:
@@ -193,6 +198,7 @@ echo param <user.text>:
 
 # directory and files
 pivot: "cd "
+pivot first: "cd *\n"
 pivot clip:
     insert("cd ")
     edit.paste()
@@ -221,13 +227,15 @@ pivot latest: "cd $(exa --sort changed --no-icons | tail -n1)\n"
 folder remove: "rmdir "
 folder (create|new): "mkdir -p  "
 
+# XXX - It would be nice to make the depth configurable
 # tree
 file tree: "tree -f -L 2\n"
+file tree <user.folder_paths>: "tree -f -L 2 {folder_paths}\n"
 file tree more: "tree -f -L "
 file tree long: "tree -f -L 2 -p\n"
 file tree all: "tree -f -L 2 -a\n"
 file tree folders: "tree -f -L 2 -d\n"
-file tree depth <number_small>: "tree -f -L {number_small}\n"
+file tree [depth] <number_small>: "tree -f -L {number_small}\n"
 
 folder pop: "popd\n"
 # pwd | tr -d \\n\\r | xclip -sel clipboard
@@ -235,7 +243,7 @@ folder pop: "popd\n"
 
 # permissions
 file [change] mode: "chmod "
-file make executable: "chmod +x "
+file make (exec|executable): "chmod +x "
 file [change] ownership: "chown "
 file [change] deep ownership: "chown -R $UID:$GID "
 
@@ -252,6 +260,7 @@ tea that: "| tee "
 
 rip that: " | rg -i "
 file rip: "rg -i "
+file rip: "rg -i --binary"
 file rip clip: 
     insert("rg -i ")
     edit.paste()
@@ -272,8 +281,14 @@ now grep:
     insert("| grep -i ")
 
 # networking
-net (interfaces|I P|address): "ip addr\n"
+net (interfaces|I P|address) [show]: "ip addr\n"
+net flush: "ip addr flush dev "
+net show: "ip addr show "
+net [address] (set|add [ip]): "ip addr add "
+net [address] (remove|delete) [ip]: "ip addr del "
+
 net (route|routes): "ip route\n"
+net (route|routes) six: "ip -6 route\n"
 net route add: user.insert_cursor("ip route add [|] dev ")
 net route add tunnel: user.insert_cursor("ip route add [|] dev tun0")
 net route (remove|delete|drop): "ip route del"
@@ -301,6 +316,9 @@ net cat listener: "nc -v -l -p "
 net my I P: "dig +short myip.opendns.com @resolver1.opendns.com\n"
 net port <user.ports>: "{ports}"
 net dump: "tcpdump "
+
+net [dev|device] up: user.insert_cursor("ip link set dev [|] up")
+net [dev|device] down: user.insert_cursor("ip link set dev [|] down")
 
 net bridge (list|show): "brctl show\n"
 
@@ -363,7 +381,7 @@ run d message samba: "sudo dmesg --color --reltime | rg CIFS\n"
 # disk management
 # NOTE - talon doesn't like the word disk with on MD431-II
 (disk|drive) (usage|space): "df -h\n"
-(disk|drive) list: "lsblk -l\n"
+(disk|drive) list: "lsblk\n"
 (disk|drive) file systems: "lsblk -f\n"
 (disk|drive) mounted: "mount\n"
 (disk|drive) mount: "mount "
@@ -487,6 +505,7 @@ tunnel (pop|terminate):
 process list: "ps -ef\n"
 process find: "ps -ef | rg -i "
 process tree: "pstree\n"
+process forest: "ps -aef --forest\n"
 process top: "htop\n"
 process fuzzy kill: "pkill "
 process fuzzy kill <user.text>: "pkill {text}"
@@ -503,8 +522,8 @@ system reboot [now]: "sudo reboot -h now"
 # hardware
 system [list] memory: "lshw -short -C memory"
 system [list] processor: "lscpu\n"
-system [list] pee bus: "lspci\n"
-system [list] yew bus: "lsusb\n"
+system [list] (P C I|pee) bus: "lspci\n"
+system [list] (yew bus|U S B): "lsusb\n"
 system release: "cat /etc/lsb-release\n"
 
 # debugging
@@ -533,6 +552,7 @@ wallpaper set latest: "feh --bg-scale $(find ~/images/wallpaper/ -name $(exa --s
 ###
 file elf header: "eu-readelf -h "
 file elf symbols: "eu-readelf -s "
+file elf dependencies: "eu-readelf -d "
 file elf debug info: user.insert_cursor("readelf -w [|] | head -15")
 file strip: "strip --strip-all " 
 
@@ -720,3 +740,11 @@ cron tab (delete|remove): "crontab -i -r "
 ###
 arm L D D: user.insert_cursor("/usr/arm-linux-gnueabi/bin/readelf -d [|] | rg NEEDED")
 arm readelf: ""/usr/arm-linux-gnueabi/bin/readelf "
+
+#
+volume scan: "lvscan\n"
+
+file hex dump: "hexdump -C "
+
+file bin walk: "binwalk -Me "
+file un squash: "unsquashfs "

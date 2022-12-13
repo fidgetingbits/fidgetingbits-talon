@@ -21,6 +21,9 @@ class Actions:
     def disassembler_open_file():
         """Open a new file for disassembly"""
 
+    def disassembler_close_file():
+        """Closed the currently open file"""
+
     def disassembler_save_file():
         """Save current file"""
 

@@ -40,6 +40,9 @@ class UserActions:
         actions.sleep("100ms")
         actions.key("down enter")
 
+    def disassembler_close_file():
+        actions.key("alt-x")
+
     def disassembler_save_file():
         actions.key("ctrl-w")
 
