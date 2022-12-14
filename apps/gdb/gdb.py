@@ -62,6 +62,8 @@ class UserActions:
     def debugger_add_sw_breakpoint():
         actions.auto_insert("break ")
 
+    def debugger_show_registers(): actions.auto_insert('info registers\n')
+    def debugger_get_register(): actions.auto_insert('r ')
     # XXX -
     def debugger_add_hw_breakpoint():
         actions.auto_insert("")

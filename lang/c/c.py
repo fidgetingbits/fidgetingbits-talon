@@ -20,10 +20,7 @@ mod.list("c_errors", desc="Common C errors")
 
 ctx = Context()
 ctx.matches = r"""
-mode: user.c
-
-mode: user.auto_lang
-and code.language: c
+tag: user.c
 """
 
 basic_ctx = Context()
@@ -322,6 +319,11 @@ class CLangState:
 
 
 c_lang_state = CLangState(mod)
+mod.list("c_pointers", desc="Common C pointers")
+mod.list("c_signed", desc="Common C datatype signed modifiers")
+mod.list("c_types", desc="Common C types")
+mod.list("stdint_types", desc="Common stdint C types")
+mod.list("stdint_signed", desc="Common stdint C datatype signed modifiers")
 
 
 @mod.capture(rule="{self.c_pointers}")
@@ -335,6 +337,10 @@ def c_signed(m) -> str:
     "Returns a string"
     return m.c_signed
 
+@mod.capture(rule="{self.c_keywords}")
+def c_keywords(m) -> str:
+    "Returns a string"
+    return m.c_keywords
 
 @mod.capture(rule="[<user.c_signed>] {user.c_types} [<self.c_pointers>+]")
 def c_types(m) -> str:

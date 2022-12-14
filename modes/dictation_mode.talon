@@ -3,8 +3,8 @@ mode: dictation
 settings():
     user.warn_dictation_mode = 1
 
-#everything here should call auto_insert to preserve the state to correctly auto-capitalize/auto-space.
-^press <user.keys>$: key("{keys}")
+^press <user.modifiers>$: key(modifiers)
+^press <user.keys>$: key(keys)
 
 # Everything here should call `auto_insert()` (instead of `insert()`), to preserve the state to correctly auto-capitalize/auto-space.
 # (Talonscript string literals implicitly call `auto_insert`, so there's no need to wrap those)
@@ -16,9 +16,6 @@ cap: user.dictation_format_cap()
 ^cap that$: user.dictation_reformat_cap()
 ^(no cap | no-caps) that$: user.dictation_reformat_no_cap()
 ^(no space | no-space) that$: user.dictation_reformat_no_space()
-
-# XXX - This should all get replaced with using draft editor rather than saying
-# in dictation node.
 
 # Navigation
 go up <number_small> (line|lines):

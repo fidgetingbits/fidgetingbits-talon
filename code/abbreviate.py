@@ -331,6 +331,7 @@ abbreviations = {
     "return": "ret",
     "revision": "rev",
     "ruby": "rb",
+    "rust": "rs",
     "samba": "smb",
     "samba D": "smbd",
     "saskatchewan": "sk",

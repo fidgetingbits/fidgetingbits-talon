@@ -50,11 +50,14 @@ git commit message:
     edit.left()
 git commit: "git commit\n"
 git commit amend: "git commit --amend "
+git commit existing: "git commit -a\n"
 git diff (colour|color) words: "git diff --color-words "
 git diff: "git diff "
 git diff cached: "git diff --cached\n"
 git diff staged: "git diff --staged\n"
 git diff main: "git diff main\n"
+git diff tool: "git difftool -d\n"
+git diff tool cached: "git difftool --cached -d\n"
 git fetch: "git fetch\n"
 git fetch and rebase: "git fetch && git rebase\n"
 git fetch prune: "git fetch --prune\n"
@@ -106,6 +109,7 @@ git merge <user.text>:"git merge {text}"
 git merge clip:
     insert("git merge ")
     edit.paste()
+git merge tool: "git mergetool\n"
 git move: "git mv "
 git new branch: "git checkout -b "
 git prune: "git prune"

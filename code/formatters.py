@@ -11,40 +11,37 @@ ctx = Context()
 key = actions.key
 edit = actions.edit
 
-words_to_keep_lowercase = (
-    "a,an,the,at,by,for,in,is,of,on,to,up,and,as,but,or,nor".split(",")
-)
+words_to_keep_lowercase = "a an the at by for in is of on to up and as but or nor".split()
 
 # The last phrase spoken, without & with formatting. Used for reformatting.
 last_phrase = ""
 last_phrase_formatted = ""
 
+# Internally, a formatter is a pair (sep, fn).
+#
+# - sep: a boolean, true iff the formatter should leave spaces between words.
+#   We use SEP & NOSEP for this for clarity.
+#
+# - fn: a function (i, word, is_end) --> formatted_word, called on each `word`.
+#   `i` is the word's index in the list, and `is_end` is True iff it's the
+#   last word in the list.
+SEP = True
+NOSEP = False
 
-def surround(by):
-    def func(i, word, last):
-        if i == 0:
-            word = by + word
-        if last:
-            word += by
-        return word
 
-    return func
-
-
-def format_phrase(m: Union[str, Phrase], fmtrs: str):
+def format_phrase(m: Union[str, Phrase], formatters: str):
     global last_phrase, last_phrase_formatted
     last_phrase = m
     words = []
     if isinstance(m, str):
         words = m.split(" ")
     else:
-        # TODO: is this still necessary, and if so why?
+        # FIXME: I believe this is no longer necessary. -rntz, 2022-02-10
         if m.words[-1] == "over":
             m.words = m.words[:-1]
-        words = actions.dictate.parse_words(m)
-        words = actions.user.replace_phrases(words)
+        words = actions.dictate.replace_words(actions.dictate.parse_words(m))
 
-    result = last_phrase_formatted = format_phrase_no_history(words, fmtrs)
+    result = last_phrase_formatted = format_phrase_without_adding_to_history(words, formatters)
     actions.user.add_phrase_to_history(result)
     # Arguably, we shouldn't be dealing with history here, but somewhere later
     # down the line. But we have a bunch of code that relies on doing it this
@@ -52,35 +49,22 @@ def format_phrase(m: Union[str, Phrase], fmtrs: str):
     return result
 
 
-def format_phrase_letters(m: str, fmtrs: str):
-    global last_phrase, last_phrase_formatted
-    last_phrase = m
-    words = m.split(" ")
-
-    result = last_phrase_formatted = format_phrase_no_history(words, fmtrs)
-    actions.user.add_phrase_to_history(result)
-    # Arguably, we shouldn't be dealing with history here, but somewhere later
-    # down the line. But we have a bunch of code that relies on doing it this
-    # way and I don't feel like rewriting it just now. -rntz, 2020-11-04
-    return result
-
-
-def format_phrase_no_history(word_list, fmtrs: str):
-    fmtr_list = fmtrs.split(",")
+def format_phrase_without_adding_to_history(word_list, formatters: str):
+    # A formatter is a pair (keep_spaces, function). We drop spaces if any
+    # formatter does; we apply their functions in reverse order.
+    formatters = [all_formatters[name] for name in formatters.split(',')]
+    separator = ' ' if all(x[0] for x in formatters) else ''
+    functions = [x[1] for x in reversed(formatters)]
     words = []
-    spaces = True
-    for i, w in enumerate(word_list):
-        for name in reversed(fmtr_list):
-            smash, func = all_formatters[name]
-            w = func(i, w, i == len(word_list) - 1)
-            spaces = spaces and not smash
-        words.append(w)
-    sep = " " if spaces else ""
-    return sep.join(words)
+    for i, word in enumerate(word_list):
+        for f in functions:
+            word = f(i, word, i == len(word_list) - 1)
+        words.append(word)
+    return separator.join(words)
 
-
-NOSEP = True
-SEP = False
+# Formatter helpers
+def surround(by):
+    return lambda i, word, last: (by if i == 0 else '') + word + (by if last else '')
 
 
 def prefixed_words_with_joiner(prefix, joiner):
@@ -94,11 +78,7 @@ def prefixed_words_with_joiner(prefix, joiner):
 
 def words_with_joiner(joiner):
     """Pass through words unchanged, but add a separator between them."""
-
-    def formatter_function(i, word, _):
-        return word if i == 0 else joiner + word
-
-    return (NOSEP, formatter_function)
+    return (NOSEP, lambda i, word, _: ('' if i == 0 else joiner) + word)
 
 
 def first_vs_rest(first_func, rest_func=lambda w: w):
@@ -108,23 +88,15 @@ def first_vs_rest(first_func, rest_func=lambda w: w):
     Leave second argument out if you want all but the first word to be passed
     through unchanged.
     Set first argument to None if you want the first word to be passed
-    through unchanged."""
-    if first_func is None:
-        first_func = lambda w: w
-
-    def formatter_function(i, word, _):
-        return first_func(word) if i == 0 else rest_func(word)
-
-    return formatter_function
+    through unchanged.
+    """
+    first_func = first_func or (lambda w: w)
+    return lambda i, word, _: first_func(word) if i == 0 else rest_func(word)
 
 
 def every_word(word_func):
     """Apply one function to every word."""
-
-    def formatter_function(i, word, _):
-        return word_func(word)
-
-    return formatter_function
+    return lambda i, word, _: word_func(word)
 
 
 def spongebob(i, word, _):
@@ -195,164 +167,136 @@ formatters_dict = {
     "SPONGEBOB": (SEP, spongebob),
 }
 # This is the mapping from spoken phrases to formatters.
-formatters_words = {
-    "allcaps": formatters_dict["ALL_CAPS"],
-    "alldown": formatters_dict["ALL_LOWERCASE"],
-    "briefing": formatters_dict["ALL_BRIEF"],
-    "camel": formatters_dict["PRIVATE_CAMEL_CASE"],
-    "arguing": formatters_dict["COMMA_SEPARATED"],
-    "dotted": formatters_dict["DOT_SEPARATED"],
-    "dunder": formatters_dict["DOUBLE_UNDERSCORE"],
-    "scoring": formatters_dict["SCORE_SEPARATED"],
-    "pathing": formatters_dict["FOLDER_SEPARATED"],
-    "windows pathing": formatters_dict["WINDOWS_FOLDER_SEPARATED"],
-    "hammer": formatters_dict["PUBLIC_CAMEL_CASE"],
-    "dashing": formatters_dict["DASH_SEPARATED"],
-    "equaling": formatters_dict["EQUAL_SEPARATED"],
-    "long arg": formatters_dict["LONG_ARG"],
-    "packing": formatters_dict["DOUBLE_COLON_SEPARATED"],
-    "padded": formatters_dict["SPACE_SURROUNDED_STRING"],
-    "pointing": formatters_dict["C_POINTER_SEPARATED"],
-    "slasher": formatters_dict["SLASH_SEPARATED"],
-    "smashing": formatters_dict["NO_SPACES"],
-    "snake": formatters_dict["SNAKE_CASE"],
-    "spongbob": formatters_dict["SPONGEBOB"],
-    "quoted": formatters_dict["DOUBLE_QUOTED_STRING"],
-    "ticks": formatters_dict["SINGLE_QUOTED_STRING"],
-    "title": formatters_dict["CAPITALIZE_ALL_WORDS"],
-    "upper": formatters_dict["ALL_CAPS"],
-}
+formatters_words = { "allcaps": formatters_dict["ALL_CAPS"], "alldown":
+    formatters_dict["ALL_LOWERCASE"], "briefing":
+    formatters_dict["ALL_BRIEF"], "camel":
+    formatters_dict["PRIVATE_CAMEL_CASE"], "arguing":
+    formatters_dict["COMMA_SEPARATED"], "dotted":
+    formatters_dict["DOT_SEPARATED"], "dunder":
+    formatters_dict["DOUBLE_UNDERSCORE"], "scoring":
+    formatters_dict["SCORE_SEPARATED"], "pathing":
+    formatters_dict["FOLDER_SEPARATED"], "windows pathing":
+    formatters_dict["WINDOWS_FOLDER_SEPARATED"], "hammer":
+    formatters_dict["PUBLIC_CAMEL_CASE"], "dashing":
+    formatters_dict["DASH_SEPARATED"], "equaling":
+    formatters_dict["EQUAL_SEPARATED"], "long arg":
+    formatters_dict["LONG_ARG"], "packing":
+    formatters_dict["DOUBLE_COLON_SEPARATED"], "padded":
+    formatters_dict["SPACE_SURROUNDED_STRING"], "pointing":
+    formatters_dict["C_POINTER_SEPARATED"], "slasher":
+    formatters_dict["SLASH_SEPARATED"], "smashing":
+    formatters_dict["NO_SPACES"], "snake": formatters_dict["SNAKE_CASE"],
+    "spongbob": formatters_dict["SPONGEBOB"], "quoted":
+    formatters_dict["DOUBLE_QUOTED_STRING"], "ticks":
+    formatters_dict["SINGLE_QUOTED_STRING"], "title":
+    formatters_dict["CAPITALIZE_ALL_WORDS"], "upper":
+    formatters_dict["ALL_CAPS"], }
 
 # This is the mapping for series of letters to formatters ex: abc to A B C
-formatters_keys = {
-    "spacing": formatters_dict["ALL_CAPS"],
-}
+formatters_keys = { "spacing": formatters_dict["ALL_CAPS"], }
 
-all_formatters = {}
-all_formatters.update(formatters_dict)
-all_formatters.update(formatters_words)
-all_formatters.update(formatters_keys)
+all_formatters = {} all_formatters.update(formatters_dict)
+all_formatters.update(formatters_words) all_formatters.update(formatters_keys)
 
-mod = Module()
-mod.list("formatters", desc="list of formatters handling words")
-mod.list("formatters_keys", desc="list of formatters handling individual letters")
-mod.list(
-    "prose_formatter",
-    desc="words to start dictating prose, and the formatter they apply",
-)
+mod = Module() mod.list("formatters", desc="list of formatters handling words")
+mod.list("formatters_keys", desc="list of formatters handling individual
+         letters") mod.list( "prose_formatter", desc="words to start
+         dictating prose, and the formatter they apply",)
 
 
-@mod.capture(rule="{self.formatters}+")
-def formatters(m) -> str:
+@mod.capture(rule="{self.formatters}+") def formatters(m) -> str: "Returns a
+comma-separated string of formatters e.g. 'SNAKE,DUBSTRING'" return
+",".join(m.formatters_list)
+
+
+@mod.capture(rule="{self.formatters_keys}+") def formatters_letters(m) -> str:
     "Returns a comma-separated string of formatters e.g. 'SNAKE,DUBSTRING'"
-    return ",".join(m.formatters_list)
-
-
-@mod.capture(rule="{self.formatters_keys}+")
-def formatters_letters(m) -> str:
-    "Returns a comma-separated string of formatters e.g. 'SNAKE,DUBSTRING'"
-    return ",".join(m.formatters_keys_list)
+return ",".join(m.formatters_keys_list)
 
 
 @mod.capture(
     # Note that if the user speaks something like "snake dot", it will
     # insert "dot" - otherwise, they wouldn't be able to insert punctuation
     # words directly.
-    rule="<self.formatters> <user.text> (<user.text> | <user.formatter_immune>)*"
-)
-def format_text(m) -> str:
-    "Formats the text and returns a string"
-    out = ""
-    formatters = m[0]
-    for chunk in m[1:]:
-        if isinstance(chunk, ImmuneString):
-            out += chunk.string
-        else:
-            out += format_phrase(chunk, formatters)
-    return out
+        rule="<self.formatters> <user.text> (<user.text> |
+        <user.formatter_immune>)*") def format_text(m) -> str: "Formats
+        the text and returns a string" out = "" formatters = m[0] for
+        chunk in m[1:]: if isinstance(chunk, ImmuneString): out +=
+        chunk.string else: out += format_phrase(chunk, formatters)
+        return out
 
 
-@mod.capture(rule="<self.formatters_letters> <user.letters>")
-def format_letters(m) -> str:
-    "Formats the keys and returns a string"
-    formatters = m[0]
-    letters = m[1]
-    out = format_phrase_letters(" ".join(list(letters)), formatters)
-    return out
+            @mod.capture(rule="<self.formatters_letters>
+                         <user.letters>") def
+    format_letters(m) -> str: "Formats the keys and returns a string"
+    formatters = m[0] letters = m[1] out = format_phrase_letters("
+    ".join(list(letters)), formatters) return out
 
 
-class ImmuneString(object):
-    """Wrapper that makes a string immune from formatting."""
+    class ImmuneString(object): """Wrapper that makes a string immune from
+    formatting."""
 
-    def __init__(self, string):
-        self.string = string
+    def __init__(self, string): self.string = string
 
 
-@mod.capture(
-    # Add anything else into this that you want to be able to speak during a
-    # formatter.
-    rule="(<user.symbol_key> | numb <number>)"
-)
-def formatter_immune(m) -> ImmuneString:
-    """Text that can be interspersed into a formatter, e.g. characters.
+        @mod.capture(
+            # Add anything else into this that you want to be able
+            # to speak during a formatter.
+            rule="(<user.symbol_key> | numb <number>)") def
+        formatter_immune(m) -> ImmuneString: """Text that can be
+        interspersed into a formatter, e.g. characters.
 
     It will be inserted directly, without being formatted.
 
-    """
-    if hasattr(m, "number"):
-        value = m.number
-    else:
-        value = m[0]
-    return ImmuneString(str(value))
+    """ if hasattr(m, "number"): value = m.number else: value = m[0] return
+                 ImmuneString(str(value))
 
 
-@mod.action_class
-class Actions:
-    def formatted_text(phrase: Union[str, Phrase], formatters: str) -> str:
-        """Formats a phrase according to formatters. formatters is a comma-separated string of formatters (e.g. 'CAPITALIZE_ALL_WORDS,DOUBLE_QUOTED_STRING')"""
-        return format_phrase(phrase, formatters)
+        @mod.action_class class Actions: def formatted_text(phrase:
+                                                            Union[str,
+                                                            Phrase],
+                                                            formatters:
+                                                            str)
+    -> str: """Formats a phrase according to formatters. formatters is a
+    comma-separated string of formatters (e.g.
+    'CAPITALIZE_ALL_WORDS,DOUBLE_QUOTED_STRING')""" return
+    format_phrase(phrase, formatters)
 
     def insert_formatted(phrase: Union[str, Phrase], formatters: str):
-        """Inserts a phrase formatted according to formatters. Formatters is a comma separated list of formatters (e.g. 'CAPITALIZE_ALL_WORDS,DOUBLE_QUOTED_STRING')"""
-        actions.insert(format_phrase(phrase, formatters))
-        # actions.user.paste(format_phrase(phrase, formatters))
+    """Inserts a phrase formatted according to formatters. Formatters is a
+    comma separated list of formatters (e.g.
+    'CAPITALIZE_ALL_WORDS,DOUBLE_QUOTED_STRING')"""
+    actions.insert(format_phrase(phrase, formatters))
+    # actions.user.paste(format_phrase(phrase, formatters))
 
-    def formatters_reformat_last(formatters: str) -> str:
-        """Clears and reformats last formatted phrase"""
-        global last_phrase, last_phrase_formatted
-        if actions.user.get_last_phrase() != last_phrase_formatted:
-            # The last thing we inserted isn't the same as the last thing we
-            # formatted, so abort.
-            logging.warning(
-                "formatters_reformat_last(): Last phrase wasn't a formatter!"
-            )
-            return
-        actions.user.clear_last_phrase()
-        actions.user.insert_formatted(last_phrase, formatters)
+    def formatters_reformat_last(formatters: str) -> str: """Clears and
+    reformats last formatted phrase""" global last_phrase,
+    last_phrase_formatted if actions.user.get_last_phrase() !=
+    last_phrase_formatted:
+    # The last thing we inserted isn't the same as the last thing we
+    # formatted, so abort.
+    logging.warning( "formatters_reformat_last(): Last phrase wasn't a
+    formatter!") return actions.user.clear_last_phrase()
+    actions.user.insert_formatted(last_phrase, formatters)
 
-    def formatters_reformat_selection(formatters: str) -> str:
-        """Reformats the current selection."""
-        selected = edit.selected_text()
-        if not selected:
-            print("Asked to reformat selection, but nothing selected!")
-            return
-        unformatted = unformat_text(selected)
-        # Delete separately for compatibility with programs that don't overwrite
-        # selected text (e.g. Emacs, Vim)
-        edit.delete()
-        text = actions.self.formatted_text(unformatted, formatters)
-        actions.insert(text)
-        # actions.user.paste(text)
-        return text
+    def formatters_reformat_selection(formatters: str) -> str: """Reformats
+    the current selection.""" selected = edit.selected_text() if not
+    selected: print("Asked to reformat selection, but nothing selected!")
+    return unformatted = unformat_text(selected)
+    # Delete separately for compatibility with programs that don't
+    # overwrite selected text (e.g. Emacs, Vim)
+    edit.delete() text = actions.self.formatted_text(unformatted,
+                                                     formatters)
+    actions.insert(text)
+    # actions.user.paste(text)
+    return text
 
-    def get_formatters_words():
-        """returns a list of words currently used as formatters, and a demonstration string using those formatters"""
-        formatters_help_demo = {}
-        for name in sorted(set(formatters_words.keys())):
-            formatters_help_demo[name] = format_phrase_no_history(
-                ["one", "two", "three"], name
-            )
-        return formatters_help_demo
+    def get_formatters_words(): """returns a list of words currently used
+    as formatters, and a demonstration string using those formatters"""
+    formatters_help_demo = {} for name in
+    sorted(set(formatters_words.keys())):
+            formatters_help_demo[name] = format_phrase_without_adding_to_history(['one', 'two', 'three'], name)
+        return  formatters_help_demo
 
     def reformat_text(text: str, formatters: str) -> str:
         """Reformat the text."""

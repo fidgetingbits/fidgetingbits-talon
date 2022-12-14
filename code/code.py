@@ -1,9 +1,8 @@
-from talon import Context, Module, actions, app
+from talon import Context, Module, actions
 
 ctx = Context()
 mod = Module()
 
-key = actions.key
 extension_lang_map = {
     ".asm": "assembly",
     ".bat": "batch",
@@ -75,6 +74,91 @@ special_file_map = {
     "vimrc": "vimscript",
 }
 
+# Maps language mode names to the extensions that activate them. Only put things
+# here which have a supported language mode; that's why there are so many
+# commented out entries. TODO: make this a csv file?
+language_extensions = {
+    # 'assembly': 'asm s',
+    # 'bash': 'bashbook sh',
+    'batch': 'bat',
+    'c': 'c h',
+    # 'cmake': 'cmake',
+    # 'cplusplus': 'cpp hpp',
+    'csharp': 'cs',
+    # 'css': 'css',
+    # 'elisp': 'el',
+    # 'elm': 'elm',
+    'gdb': 'gdb',
+    'go': 'go',
+    # 'html': 'html',
+    'java': 'java',
+    'javascript': 'js',
+    'javascriptreact': 'jsx',
+    # 'json': 'json',
+    # 'lua': 'lua',
+    'markdown': 'md',
+    # 'perl': 'pl',
+    # 'powershell': 'ps1',
+    'python': 'py',
+    'protobuf': 'proto',
+    'r': 'r',
+    # 'racket': 'rkt',
+    'ruby': 'rb',
+    'rust': 'rs',
+    # 'sass': 'sass',
+    'scala': 'scala',
+    # 'snippets': 'snippets',
+    'talon': 'talon',
+    'terraform': 'tf',
+    'typescript': 'ts',
+    'typescriptreact': 'tsx',
+    # 'vba': 'vba',
+    'vimscript': 'vim vimrc',
+}
+
+# Override speakable forms for language modes. If not present, a language mode's
+# name is used directly.
+language_name_overrides = {
+    "cplusplus": ["see plus plus"],
+    "csharp": ["see sharp"],
+    "css": ["c s s"],
+    "gdb": ["g d b"],
+    "go": ["go", "go lang", "go language"],
+    "r": ["are language"],
+}
+mod.list("language_mode", desc="Name of a programming language mode.")
+ctx.lists["self.language_mode"] = {
+    name: language
+    for language in language_extensions
+    for name in language_name_overrides.get(language, [language])
+}
+
+# Maps extension to languages.
+#XXX - Override this for now to use my hardcoded one above vs only what has
+# known modes
+#extension_lang_map = {
+#    '.' + ext: language
+#    for language, extensions in language_extensions.items()
+#    for ext in extensions.split()
+#}
+
+# Create a context for each defined language
+for lang in language_extensions.keys():
+    mod.tag(lang)
+    mod.tag(f"{lang}_forced")
+    c = Context()
+    # Context is active if language is forced or auto language matches
+    c.matches = f"""
+    tag: user.{lang}_forced
+    tag: user.auto_lang
+    and code.language: {lang}
+    """
+    c.tags = [f"user.{lang}"]
+
+# Create a mode for the automated language detection. This is active when no lang is forced.
+mod.tag("auto_lang")
+ctx.tags = ["user.auto_lang"]
+
 
 @ctx.action_class("code")
 class code_actions:
@@ -82,9 +166,7 @@ class code_actions:
         if forced_context_language is not None:
             return forced_context_language
         file_extension = actions.win.file_ext()
-        # print(f"!! file extension: {file_extension}")
         file_name = actions.win.filename()
-        # print(f"!! file name: {file_name}")
 
         # Favor full matches
         if file_name in special_file_map:
@@ -92,20 +174,6 @@ class code_actions:
 
         if file_extension and file_extension in extension_lang_map:
             return extension_lang_map[file_extension]
-
-
-# create a mode for each defined language
-for d in (extension_lang_map, special_file_map):
-    for __, lang in d.items():
-        mod.mode(lang)
-        mod.tag(lang)
-
-# Create a mode for the automated language detection. This is active when no
-# lang is forced.
-mod.mode("auto_lang")
-
-# Auto lang is enabled by default
-app.register("ready", lambda: actions.user.code_clear_language_mode())
 
 
 @mod.action_class
@@ -122,13 +190,9 @@ class Actions:
 
     def code_set_language_mode(language: str):
         """Sets the active language mode, and disables extension matching"""
-        actions.user.code_clear_language_mode()
-        actions.mode.disable("user.auto_lang")
-        actions.mode.enable("user.{}".format(language))
-        app.notify(subtitle="Enabled {} mode".format(language))
+        assert language in language_extensions
+        ctx.tags = [f"user.{language}_forced"]
 
     def code_clear_language_mode():
         """Clears the active language mode, and re-enables code.language: extension matching"""
-        actions.mode.enable("user.auto_lang")
-        for _, lang in extension_lang_map.items():
-            actions.mode.disable("user.{}".format(lang))
+        ctx.tags = ["user.auto_lang"]

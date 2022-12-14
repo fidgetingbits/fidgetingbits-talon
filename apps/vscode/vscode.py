@@ -33,6 +33,8 @@ and app.name: Visual Studio Code
 os: windows
 and app.name: Visual Studio Code Insiders
 os: windows
+and app.name: Visual Studio Code - Insiders
+os: windows
 and app.exe: Code.exe
 os: windows
 and app.exe: Code-Insiders.exe
@@ -167,6 +169,12 @@ class UserActions:
     def split_flip():
         actions.user.vscode("workbench.action.toggleEditorGroupLayout")
 
+    def split_maximize():
+        actions.user.vscode("workbench.action.maximizeEditor")
+
+    def split_reset():
+        actions.user.vscode("workbench.action.evenEditorWidths")
+
     def split_last():
         actions.user.vscode("workbench.action.focusLeftGroup")
 
@@ -245,13 +253,13 @@ class UserActions:
     def tab_jump(number: int):
         if number < 10:
             if is_mac:
-                actions.key("ctrl-{}".format(number))
+                actions.user.vscode_with_plugin(f"workbench.action.openEditorAtIndex{number}")
             else:
                 actions.key("alt-{}".format(number))
 
     def tab_final():
         if is_mac:
-            actions.key("ctrl-0")
+            actions.user.vscode("workbench.action.lastEditorInGroup")
         else:
             actions.key("alt-0")
 

@@ -35,7 +35,7 @@ def parse_csv(
     assert filename.endswith(".csv")
 
     if not path.is_file():
-        with open(path, "w", encoding="utf-8") as file:
+        with open(path, "w", encoding="utf-8", newline="") as file:
             writer = csv.writer(file)
             writer.writerow(headers)
             for key, value in default.items():

@@ -65,8 +65,7 @@ class UserActions:
         actions.insert("r @")
 
     def debugger_set_register():
-        actions.insert("set $@=")
-        actions.edit.left()
+        actions.user.insert_between('set $@', '=')
         # Breakpoints
 
     def debugger_show_breakpoints():

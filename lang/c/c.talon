@@ -1,9 +1,4 @@
-mode: command
-and mode: user.c
-mode: command
-and mode: user.auto_lang
-and code.language: c
-
+tag: user.c
 -
 tag(): user.code_imperative
 
@@ -12,7 +7,7 @@ tag(): user.code_comment_block_c_like
 tag(): user.code_data_bool
 tag(): user.code_data_null
 tag(): user.code_functions
-tag(): user.code_functions_gui
+tag(): user.code_functions_common
 tag(): user.code_libraries
 tag(): user.code_libraries_gui
 tag(): user.code_operators_array
@@ -38,10 +33,9 @@ settings():
 state include:
     insert('#include ')
 state include system:
-    insert('#include <>')
-    edit.left()
+    user.insert_between("#include <", ">")
 [state] include local [<user.text>]:
-    insert("#include \"{user.formatted_text(text or '', 'NOOP')}.h\"")
+    user.insert('#include "{user.formatted_text(text or '', 'NOOP')}.h"')
 state type deaf:
     insert('typedef ')
 state type deaf struct:

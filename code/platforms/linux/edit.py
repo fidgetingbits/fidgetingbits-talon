@@ -148,10 +148,10 @@ class EditActions:
     def select_all():
         actions.key("ctrl-a")
 
-    def select_line(n: int = None):
-        actions.key("end shift-home")
-        # action(edit.select_lines(a: int, b: int)):
-
+    def select_line(n: int=None):
+        if n is not None: actions.edit.jump_line(n)
+        actions.key('end shift-home')
+        #action(edit.select_lines(a: int, b: int)):
     def select_none():
         actions.key("right")
         # action(edit.select_paragraph):

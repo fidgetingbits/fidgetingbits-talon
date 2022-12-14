@@ -7,6 +7,7 @@ __pycache__
 .mypy_cache
 
 # Locally generated settings
+.idea/
 /settings
 .vscode/settings.json
 
