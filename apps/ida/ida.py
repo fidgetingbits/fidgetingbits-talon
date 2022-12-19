@@ -1,6 +1,6 @@
-from talon import Context, Module, actions
 import time
 
+from talon import Context, Module, actions
 
 mod = Module()
 mod.tag("hexrayspytools", desc="HexRaysPyTools IDA Plugin")
@@ -15,7 +15,6 @@ ctx = Context()
 ctx.matches = r"""
 app: ida
 """
-
 
 
 @mod.action_class
@@ -33,8 +32,6 @@ class Actions:
 
 @ctx.action_class("user")
 class UserActions:
-
-
     def disassembler_open_file():
         actions.key("alt-f")
         actions.sleep("100ms")

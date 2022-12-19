@@ -1,4 +1,4 @@
-from talon import Context, Module, actions
+from talon import Context, Module
 
 ctx = Context()
 mod = Module()
@@ -8,6 +8,7 @@ mod.tag("code_comment_block", desc="Tag for enabling generic block comment comma
 ctx.matches = """
 tag: user.code_comment_block
 """
+
 
 @mod.action_class
 class Actions:

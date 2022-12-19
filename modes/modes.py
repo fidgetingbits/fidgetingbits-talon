@@ -1,6 +1,7 @@
-from talon import Context, Module, actions, app, speech_system
-from talon.grammar import Phrase
 from typing import Union
+
+from talon import Module, actions
+from talon.grammar import Phrase
 
 mod = Module()
 

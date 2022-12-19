@@ -185,7 +185,7 @@ formatters_words = { "allcaps": formatters_dict["ALL_CAPS"], "alldown":
     formatters_dict["SPACE_SURROUNDED_STRING"], "pointing":
     formatters_dict["C_POINTER_SEPARATED"], "slasher":
     formatters_dict["SLASH_SEPARATED"], "smashing":
-    formatters_dict["NO_SPACES"], 
+    formatters_dict["NO_SPACES"],
     "snake": formatters_dict["SNAKE_CASE"],
     "spongbob": formatters_dict["SPONGEBOB"], "quoted":
     formatters_dict["DOUBLE_QUOTED_STRING"], "ticks":
@@ -248,10 +248,10 @@ return ",".join(m.formatters_keys_list)
 
     It will be inserted directly, without being formatted.
 
-    """ 
-    if hasattr(m, "number"): 
-        value = m.number 
-    else: 
+    """
+    if hasattr(m, "number"):
+        value = m.number
+    else:
         value = m[0] return
         ImmuneString(str(value))
 
@@ -302,10 +302,10 @@ return ",".join(m.formatters_keys_list)
         actions.user.add_phrase_to_history(text)
         actions.insert(text)
 
-    def get_formatters_words(): 
+    def get_formatters_words():
     """returns a list of words currently used
     as formatters, and a demonstration string using those formatters"""
-        formatters_help_demo = {} 
+        formatters_help_demo = {}
         for name in sorted(set(formatters_words.keys())):
             formatters_help_demo[name] = format_phrase_without_adding_to_history(['one', 'two', 'three'], name)
         return  formatters_help_demo

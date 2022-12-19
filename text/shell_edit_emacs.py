@@ -17,6 +17,7 @@ tag: user.shell_edit_emacs
 """
 # XXX - change this tag name
 
+
 @ctx.action_class("edit")
 class EditActions:
     def word_left():

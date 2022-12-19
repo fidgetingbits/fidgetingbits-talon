@@ -19,26 +19,21 @@
 # selection at first
 # - Make mouse snapping go to this center of the mouse?
 
+import json
+import pathlib
+
 from talon import (
-    Module,
     Context,
-    app,
+    Module,
     actions,
     canvas,
-    screen,
-    settings,
-    ui,
     ctrl,
-    cron,
+    screen,
+    ui,
 )
-from talon.skia import Shader, Color, Paint, Rect
+from talon.skia import Paint, Rect
 from talon.types.point import Point2d
-from talon_plugins import eye_mouse, eye_zoom_mouse
 from talon_init import TALON_HOME
-
-from typing import Union
-
-import math, time, string, pathlib, json
 
 mod = Module()
 mod.tag(
@@ -738,7 +733,7 @@ class ShotBox:
 
 def hex_to_string(v: int) -> str:
     """Convert hexadecimal integer to string-based transparency hex value"""
-    return "{0:x}".format(v)
+    return f"{v:x}"
 
 
 shotbox = ShotBox(debug=False)

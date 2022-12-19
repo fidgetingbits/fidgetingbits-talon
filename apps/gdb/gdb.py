@@ -62,8 +62,12 @@ class UserActions:
     def debugger_add_sw_breakpoint():
         actions.auto_insert("break ")
 
-    def debugger_show_registers(): actions.auto_insert('info registers\n')
-    def debugger_get_register(): actions.auto_insert('r ')
+    def debugger_show_registers():
+        actions.auto_insert("info registers\n")
+
+    def debugger_get_register():
+        actions.auto_insert("r ")
+
     # XXX -
     def debugger_add_hw_breakpoint():
         actions.auto_insert("")
@@ -101,11 +105,11 @@ class UserActions:
     def debugger_enable_breakpoint_id(number_small: int):
         actions.insert(f"enable br {number_small}\n")
 
-# XXX - Now that I'm using pop again with control mouse, this becomes pretty
-# annoying, so need to rely on quick actions instead...
-#    def pop():
-#        """Optional way of pressing enter via pop sound"""
-#        actions.key("enter")
+    # XXX - Now that I'm using pop again with control mouse, this becomes pretty
+    # annoying, so need to rely on quick actions instead...
+    #    def pop():
+    #        """Optional way of pressing enter via pop sound"""
+    #        actions.key("enter")
 
     def debugger_backtrace():
         actions.auto_insert("bt\n")
@@ -147,7 +151,7 @@ class UserActions:
         actions.user.paste("info proc mappings")
         actions.key("enter")
 
-    def debugger_access_register(register:str):
+    def debugger_access_register(register: str):
         actions.user.paste(f"${register}")
 
     def debugger_set_variable():

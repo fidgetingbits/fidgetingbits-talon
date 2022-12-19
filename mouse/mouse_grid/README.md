@@ -1,6 +1,6 @@
 This is the "full mouse grid". It fills the screen with fields that can be reached with two letters and a number.
 
-__To activate it, put this in whatever talon file you use for settings:__
+**To activate it, put this in whatever talon file you use for settings:**
 
 `tag(): user.full_mouse_grid_enabled`
 
@@ -10,41 +10,40 @@ __To activate it, put this in whatever talon file you use for settings:__
 
 then use these voice commands:
 
-* `alphabet soup` to show the grid
-* `alphabet win` to put the grid over the active window
-* `alphabet screen <number>` to put the grid over a different screen from the first one
+- `alphabet soup` to show the grid
+- `alphabet win` to put the grid over the active window
+- `alphabet screen <number>` to put the grid over a different screen from the first one
 
 When the screen is showing you can select fields using your alphabet words and a number for the field:
 
-* `cap whale one` selects field CW in the top left field
-* `one drum gust` selects field DG in the top left field
-* `three vest near` selects field VN in whatever field has number 3
+- `cap whale one` selects field CW in the top left field
+- `one drum gust` selects field DG in the top left field
+- `three vest near` selects field VN in whatever field has number 3
 
 There are some commands to customize what the grid looks like:
 
-* `alphabet rulers` turns on "rulers" that show the letters on the top and bottom as well as left and right, useful mostly for `alphabet win`
-* `alphabet checkers` hides or shows every other field so you can see more of the screen content
+- `alphabet rulers` turns on "rulers" that show the letters on the top and bottom as well as left and right, useful mostly for `alphabet win`
+- `alphabet checkers` hides or shows every other field so you can see more of the screen content
 
 Future plans:
 
-* allow refining the target position more by adding another number (a la numpad / M grid)
-* allow refining the target position with points-of-compass names
-* allow refining even more closely with something like "plus" or "minus"
-* make the superblock that contains the mouse cursor when the grid is brought up the "default" so the number doesn't have to be said
+- allow refining the target position more by adding another number (a la numpad / M grid)
+- allow refining the target position with points-of-compass names
+- allow refining even more closely with something like "plus" or "minus"
+- make the superblock that contains the mouse cursor when the grid is brought up the "default" so the number doesn't have to be said
 
 Possible ideas:
 
-* configure look even more with voice commands; colors, transparency, etc
-* make size of fields configurable with voice commands as well
+- configure look even more with voice commands; colors, transparency, etc
+- make size of fields configurable with voice commands as well
 
 # Tara's Additions:
-
 
 Full mouse grid now has a special mode that excludes all other commands except for the commands in full_mouse_grid_open while the mouse grid is open.
 
 It is possible to put talon to sleep, and the mouse_grid commands will be disabled while talon is asleep and return to full_mouse_grid mode when Talon is reawakened.
 
-Many of the coloring settigs have been extracted to the file full_mouse_settings.talon.  The colors for various items in the full mouse grid can be reset using RGB hexadecimal colors.
+Many of the coloring settigs have been extracted to the file full_mouse_settings.talon. The colors for various items in the full mouse grid can be reset using RGB hexadecimal colors.
 
 The colors currently look like this:
 
@@ -53,7 +52,7 @@ The colors currently look like this:
 Instead of saying the commands as a sequence of numbers, there are commands added so that
 
 1. you can say a single number, pause and see that a certain superblock is selected,
-2.  then say a single letter, and pause while all rows with that letter are highlighted,
+2. then say a single letter, and pause while all rows with that letter are highlighted,
 3. and say the final letter to select the coordinate that is in both the highlighted superblock and highlighted row.
 
 the image below shows superblock 6 selected, and row N highlighted.

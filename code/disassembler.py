@@ -1,4 +1,4 @@
-from talon import Module, Context
+from talon import Context, Module
 
 mod = Module()
 mod.tag("disassembler", desc="Tag for enabling generic disassembler commands")

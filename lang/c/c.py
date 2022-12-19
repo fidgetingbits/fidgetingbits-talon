@@ -337,10 +337,12 @@ def c_signed(m) -> str:
     "Returns a string"
     return m.c_signed
 
+
 @mod.capture(rule="{self.c_keywords}")
 def c_keywords(m) -> str:
     "Returns a string"
     return m.c_keywords
+
 
 @mod.capture(rule="[<user.c_signed>] {user.c_types} [<self.c_pointers>+]")
 def c_types(m) -> str:
@@ -591,7 +593,7 @@ class UserActions:
     # code_functions
     def code_insert_function(text: str, selection: str):
         if selection:
-            text = text + "({})".format(selection)
+            text = text + f"({selection})"
         else:
             text = text + "()"
         actions.user.paste(text)
@@ -599,7 +601,7 @@ class UserActions:
 
     def code_insert_terminated_function(text: str, selection: str):
         if selection:
-            text = text + "({})".format(selection)
+            text = text + f"({selection})"
         else:
             text = text + "();"
         actions.user.paste(text)
@@ -627,7 +629,7 @@ class UserActions:
         actions.user.code_insert_function(result, None)
 
     def code_insert_library(text: str, selection: str):
-        actions.user.paste("#include <{}>".format(selection))
+        actions.user.paste(f"#include <{selection}>")
 
     def code_import():
         """Inserts an empty include line for the selected library header"""

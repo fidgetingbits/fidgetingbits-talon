@@ -1,5 +1,6 @@
-import re
 import json
+import re
+
 
 def file_extensions(x):
     x = re.sub("\\.py$", " dot pie", x)
@@ -27,10 +28,10 @@ def numbers(x):
 
 def punctuation(x, specials):
     specials = specials or ""
-    x = re.sub("\\.", " dot " if '.' in specials else ' ', x)
-    x = re.sub("_", " under " if '_' in specials else ' ', x)
-    x = re.sub("-", " dash " if '-' in specials else ' ', x)
-    x = re.sub("/", " slash " if '/' in specials else ' ', x)
+    x = re.sub("\\.", " dot " if "." in specials else " ", x)
+    x = re.sub("_", " under " if "_" in specials else " ", x)
+    x = re.sub("-", " dash " if "-" in specials else " ", x)
+    x = re.sub("/", " slash " if "/" in specials else " ", x)
     # talon pukes on multiple spaces
     x = re.sub(" +", " ", x)
     # talon also pukes on leading spaces
@@ -45,6 +46,7 @@ SHORTHAND_NOPREFIX = 4
 
 class Edit:
     """A compound type sometimes returned by a Speakifier talon list."""
+
     def __init__(self, prefix, results):
         self.prefix = prefix
         self.results = results
@@ -88,13 +90,14 @@ class Speakifier:
         dos2unix -> dos
         c99 -> c
     """
+
     def __init__(self, prefix=""):
         self.prefix = prefix
 
         # If there is a symbol in the prefix, we never allow pronouncing before
         # it.  Think of pronouncing "--amend" when "--" is the prefix or "a/b"
         # when "a/" is the prefix.  You wouldn't.
-        symboled_prefix = re.match('(.*[0-9._/-])[^0-9._/-]*$', prefix)
+        symboled_prefix = re.match("(.*[0-9._/-])[^0-9._/-]*$", prefix)
         if symboled_prefix:
             self.dont_speak = len(symboled_prefix[1])
         else:
@@ -122,18 +125,18 @@ class Speakifier:
         self._add_pronunciation(punctuation(speakable, None), symbol, kind)
 
         # support the most explicit form
-        self._add_pronunciation(punctuation(speakable, '._-/'), symbol, kind)
+        self._add_pronunciation(punctuation(speakable, "._-/"), symbol, kind)
 
         # support the one-of-each forms
-        self._add_pronunciation(punctuation(speakable, '.'), symbol, kind)
-        self._add_pronunciation(punctuation(speakable, '_'), symbol, kind)
-        self._add_pronunciation(punctuation(speakable, '-'), symbol, kind)
-        self._add_pronunciation(punctuation(speakable, '/'), symbol, kind)
+        self._add_pronunciation(punctuation(speakable, "."), symbol, kind)
+        self._add_pronunciation(punctuation(speakable, "_"), symbol, kind)
+        self._add_pronunciation(punctuation(speakable, "-"), symbol, kind)
+        self._add_pronunciation(punctuation(speakable, "/"), symbol, kind)
 
     def add_symbol(self, symbol):
         """Register a unique symbol with the speakifier"""
-        speakable = symbol[self.dont_speak:]
-        prefix = self.prefix[self.dont_speak:]
+        speakable = symbol[self.dont_speak :]
+        prefix = self.prefix[self.dont_speak :]
 
         # Support speaking the full symbol (minus dont_speak).
         self._gen_variations(speakable, symbol, FULL)
@@ -142,13 +145,13 @@ class Speakifier:
         # options, support either the full (remaining) symbol, or just the part
         # that is remaining.
         if prefix:
-            self._gen_variations(speakable[len(prefix):], symbol, NOPREFIX)
+            self._gen_variations(speakable[len(prefix) :], symbol, NOPREFIX)
 
         # Figure out what shorthand variations are allowed.
 
         # Now, in case you want to pronounce just until the next symbol, we'll
         # support that shorthand pronunciation.
-        shorthand = re.match('^([^0-9._/-]*)[0-9._/-].*$', speakable)
+        shorthand = re.match("^([^0-9._/-]*)[0-9._/-].*$", speakable)
         if shorthand:
             shorthand = shorthand[1]
             self._gen_variations(shorthand, symbol, SHORTHAND)
@@ -156,7 +159,7 @@ class Speakifier:
             # Also support the shorthand of the symbol without the prefix.
             if len(prefix) < len(shorthand):
                 self._gen_variations(
-                    shorthand[len(prefix):], symbol, SHORTHAND_NOPREFIX
+                    shorthand[len(prefix) :], symbol, SHORTHAND_NOPREFIX
                 )
 
     def get_talon_list(self):
@@ -172,9 +175,7 @@ class Speakifier:
                 symbol = next(iter(results.keys()))
                 if symbol.startswith(self.prefix):
                     # unambiguous choice with no special editing required.
-                    out[speakable] = symbol[len(self.prefix):]
+                    out[speakable] = symbol[len(self.prefix) :]
                     continue
-            out[speakable] = json.dumps(
-                vars(Edit(prefix=self.prefix, results=results))
-            )
+            out[speakable] = json.dumps(vars(Edit(prefix=self.prefix, results=results)))
         return out

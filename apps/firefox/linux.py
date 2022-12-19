@@ -1,10 +1,12 @@
 from talon import Context, actions
+
 ctx = Context()
 ctx.matches = r"""
 os: linux
 app: Firefox
 app: firefox
 """
+
 
 @ctx.action_class("app")
 class AppActions:
@@ -81,7 +83,7 @@ class BrowserActions:
 class UserActions:
     def tab_jump(number: int):
         if number < 9:
-            actions.key("alt-{}".format(number))
+            actions.key(f"alt-{number}")
 
     def tab_final():
         actions.key("alt-9")

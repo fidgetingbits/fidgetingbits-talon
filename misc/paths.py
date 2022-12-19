@@ -1,7 +1,6 @@
 # XXX - this should have os awarenss
-import pathlib
-from talon import Context, Module, actions
 
+from talon import Context, Module
 
 mod = Module()
 mod.list("paths_public", desc="Common paths")

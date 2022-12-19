@@ -1,5 +1,6 @@
-from talon import Module, actions, app
 import time
+
+from talon import Module, actions
 
 mod = Module()
 setting = mod.setting("sleep_word", type=str)
@@ -17,13 +18,13 @@ class Actions:
         actions.user.notify("Talon sleeping")
         actions.speech.disable()
         actions.user.mouse_sleep()
-        #actions.user.talon_sleep_callback()
+        # actions.user.talon_sleep_callback()
 
     def talon_wake():
         """Wake Talon from sleep"""
         actions.speech.enable()
         actions.user.mouse_wake()
-        #actions.user.talon_wake_callback()
+        # actions.user.talon_wake_callback()
         actions.user.notify("Talon awake")
 
     def talon_wake_on_pop():

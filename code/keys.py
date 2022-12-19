@@ -1,6 +1,3 @@
-import sys
-from typing import Set
-
 from talon import Context, Module, actions, app
 
 # My experience:
@@ -198,7 +195,7 @@ punctuation_words = {
     "colon": ":",
     "forward slash": "/",
     "question mark": "?",
-    "banger": "!", # two years later bang suddenly conflicts with yank lol
+    "banger": "!",  # two years later bang suddenly conflicts with yank lol
     "dollar sign": "$",
     "asterisk": "*",
     "hash sign": "#",
@@ -206,13 +203,13 @@ punctuation_words = {
     "amper": "&",
     "swirl": "@",
     "pound sign": "£",
-    #"daddy": "...",
+    # "daddy": "...",
 }
 symbol_key_words = {
     "grave": "`",
     "comma": ",",  # i found comma and commit would conflict too much
     "dot": ".",
-    #"blank": " ", # suddenly always conflicting with bat
+    # "blank": " ", # suddenly always conflicting with bat
     "void": " ",
     "semi": ";",
     "tick": "'",
@@ -230,7 +227,7 @@ symbol_key_words = {
     "dollar": "$",
     "score": "_",
     "colon": ":",
-    #"coal": ":",
+    # "coal": ":",
     "lub": "(",
     "rub": ")",
     # lace somehow clashes with everything lol
@@ -241,13 +238,13 @@ symbol_key_words = {
     "star": "*",
     "hash": "#",
     "percent": "%",
-    #"cent": "%", # way too many conflicts lately
-    #"caret": "^", # conflicts with go right
+    # "cent": "%", # way too many conflicts lately
+    # "caret": "^", # conflicts with go right
     "dagger": "^",
     "swirl": "@",
     "amper": "&",
     "piper": "|",
-    #"column": "|",
+    # "column": "|",
     "quote": '"',
     "pound sign": "£",
     "euro sign": "€",
@@ -274,10 +271,10 @@ ctx.lists["self.arrow_key"] = {
 
 simple_keys = [
     #    "backspace",
-    #"end", # use go tail
-    #"enter",
+    # "end", # use go tail
+    # "enter",
     "escape",
-    #"home", # us go head
+    # "home", # us go head
     #    "insert",
     #    "pagedown",
     #    "pageup",
@@ -309,7 +306,7 @@ class Actions:
     def move_cursor(s: str):
         """Given a sequence of directions, eg. 'left left up', moves the cursor accordingly using edit.{left,right,up,down}."""
         for d in s.split():
-            if d in ('left','right','up','down'):
+            if d in ("left", "right", "up", "down"):
                 getattr(actions.edit, d)()
             else:
-                raise RuntimeError(f'invalid arrow key: {d}')
+                raise RuntimeError(f"invalid arrow key: {d}")

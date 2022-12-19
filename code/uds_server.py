@@ -25,7 +25,7 @@ class Server:
         self.server_socket = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
 
         # Bind socket to port
-        print("Starting server on %s" % self.server_address, file=sys.stderr)
+        print(f"Starting server on {self.server_address}", file=sys.stderr)
 
         self.server_socket.bind(self.server_address)
 

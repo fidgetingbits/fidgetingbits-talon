@@ -1,16 +1,16 @@
-from talon import Context, Module, actions
+from talon import Context, Module
 
 mod = Module()
 ctx = Context()
 ctx.matches = r"""
 tag: disabled
 """
-#mode: command
-#and code.language: c
+# mode: command
+# and code.language: c
 #
-#mode: command
-#and tag: user.gdb
-#"""
+# mode: command
+# and tag: user.gdb
+# """
 
 ctx.lists["self.c_pointers"] = {
     "pointer": "*",
@@ -22,7 +22,7 @@ ctx.lists["self.c_signed"] = {
     "unsigned": "unsigned",
 }
 
-#ctx.lists["self.c_types"] = {
+# ctx.lists["self.c_types"] = {
 #    "character": "char",
 #    "char": "char",
 #    "short": "short",
@@ -32,7 +32,7 @@ ctx.lists["self.c_signed"] = {
 #    "void": "void",
 #    "double": "double",
 #    "struct": "struct",
-#}
+# }
 
 mod.list("c_pointers", desc="Common C pointers")
 mod.list("c_signed", desc="Common C datatype signed modifiers")

@@ -1,9 +1,8 @@
 import glob
 import os
-import pathlib
 import subprocess
 
-from talon import Context, Module, actions, settings
+from talon import Module, actions, settings
 
 mod = Module()
 mod.tag("obs_studio_global", desc="tag that's active if oba-studio is running")

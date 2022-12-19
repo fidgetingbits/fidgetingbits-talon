@@ -1,9 +1,9 @@
-from talon import Context, Module, actions, scripting
+from talon import Context, Module
 
 mod = Module()
 ctx = Context()
-#@ctx.action_class("main")
-#class main_actions:
+# @ctx.action_class("main")
+# class main_actions:
 #    def insert(text: str):
 #       """override global insert action to improve speed in some scenarios"""
 #       actions.next(text)

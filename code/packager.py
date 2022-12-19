@@ -1,4 +1,4 @@
-from talon import Context, Module, actions, app, imgui, ui
+from talon import Context, Module, actions, imgui, ui
 
 mod = Module()
 ctx = Context()
@@ -28,9 +28,11 @@ for packager in packager_list:
 
 main_screen = ui.main_screen()
 
+
 def close_packager_picker():
     gui.hide()
     actions.mode.disable("user.packager_picker_open")
+
 
 @imgui.open(y=0, x=main_screen.width / 2.6)
 def gui(gui: imgui.GUI):

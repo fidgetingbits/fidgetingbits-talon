@@ -1,6 +1,6 @@
 # XXX - execute until line number/cursor
 
-from talon import Context, Module, actions, app, settings, ui
+from talon import Context, Module, app, settings, ui
 
 mod = Module()
 mod.tag("debugger", desc="Tag for enabling generic debugger commands")
@@ -33,12 +33,12 @@ def parse_debugger_title(window):
 
 
 def win_title_hook(window):
-    #print(f"debugger.py win_title_hook: {window.title}")
+    # print(f"debugger.py win_title_hook: {window.title}")
     parse_debugger_title(window)
 
 
 def win_focus_hook(window):
-    #print("debugger.py win_focus_hook")
+    # print("debugger.py win_focus_hook")
     parse_debugger_title(window)
 
 
@@ -150,7 +150,6 @@ class Actions:
 
     def debugger_set_variable_clip():
         """Set some variable to clipboard value"""
-
 
     def debugger_break_now():
         """Break into the debugger"""

@@ -1,8 +1,9 @@
-from typing import Iterator, List, Optional, Union
+import ast
+from collections.abc import Iterator
+from typing import Union
 
 from talon import Context, Module, actions, clip
 
-import ast
 mod = Module()
 ctx = Context()
 
@@ -17,7 +18,7 @@ digits_map["oh"] = 0
 digits_strict_map = {n: i for i, n in enumerate(digits)}
 teens_map = {n: i + 10 for i, n in enumerate(teens)}
 tens_map = {n: 10 * (i + 2) for i, n in enumerate(tens)}
-scales_map = {n: 10 ** (3 * (i+1)) for i, n in enumerate(scales[1:])}
+scales_map = {n: 10 ** (3 * (i + 1)) for i, n in enumerate(scales[1:])}
 scales_map["hundred"] = 100
 
 numbers_map = digits_map.copy()
@@ -26,7 +27,7 @@ numbers_map.update(tens_map)
 numbers_map.update(scales_map)
 
 
-def parse_number(l: List[str]) -> str:
+def parse_number(l: list[str]) -> str:
     """Parses a list of words into a number/digit string."""
     l = list(scan_small_numbers(l))
     for scale in scales:
@@ -34,7 +35,7 @@ def parse_number(l: List[str]) -> str:
     return "".join(str(n) for n in l)
 
 
-def scan_small_numbers(l: List[str]) -> Iterator[Union[str, int]]:
+def scan_small_numbers(l: list[str]) -> Iterator[Union[str, int]]:
     """
     Takes a list of number words, yields a generator of mixed numbers & strings.
     Translates small number terms (<100) into corresponding numbers.
@@ -60,7 +61,7 @@ def scan_small_numbers(l: List[str]) -> Iterator[Union[str, int]]:
             yield n
 
 
-def parse_scale(scale: str, l: List[Union[str, int]]) -> List[Union[str, int]]:
+def parse_scale(scale: str, l: list[Union[str, int]]) -> list[Union[str, int]]:
     """Parses a list of mixed numbers & strings for occurrences of the following
     pattern:
 
@@ -161,15 +162,15 @@ def split_list(value, l: list) -> Iterator:
 
 
 # ---------- CAPTURES ----------
-alt_digits = "(" + ("|".join(digits_map.keys())) + ")"
-alt_digits_strict = "(" + ("|".join(digits_strict_map.keys())) + ")"
-alt_teens = "(" + ("|".join(teens_map.keys())) + ")"
-alt_tens = "(" + ("|".join(tens_map.keys())) + ")"
-alt_scales = "(" + ("|".join(scales_map.keys())) + ")"
+alt_digits = "(" + "|".join(digits_map.keys()) + ")"
+alt_digits_strict = "(" + "|".join(digits_strict_map.keys()) + ")"
+alt_teens = "(" + "|".join(teens_map.keys()) + ")"
+alt_tens = "(" + "|".join(tens_map.keys()) + ")"
+alt_scales = "(" + "|".join(scales_map.keys()) + ")"
 number_word = "(" + "|".join(numbers_map.keys()) + ")"
 # don't allow numbers to start with scale words like "hundred", "thousand", etc
 leading_words = numbers_map.keys() - scales_map.keys()
-leading_words -= {'oh', 'o'} # comment out to enable bare/initial "oh"
+leading_words -= {"oh", "o"}  # comment out to enable bare/initial "oh"
 number_word_leading = f"({'|'.join(leading_words)})"
 
 # TODO: allow things like "double eight" for 88
@@ -177,8 +178,9 @@ number_word_leading = f"({'|'.join(leading_words)})"
 def digit_string(m) -> str:
     return parse_number(list(m))
 
-#@ctx.capture("digit_strict_string", rule=f"({alt_digits_strict} | {alt_teens} | {alt_tens})+")
-#def digit_strict_string(m) -> str:
+
+# @ctx.capture("digit_strict_string", rule=f"({alt_digits_strict} | {alt_teens} | {alt_tens})+")
+# def digit_strict_string(m) -> str:
 #    return parse_number(list(m))
 
 
@@ -186,6 +188,7 @@ def digit_string(m) -> str:
 def digits(m) -> int:
     """Parses a phrase representing a digit sequence, returning it as an integer."""
     return int(m.digit_string)
+
 
 @mod.capture(rule=f"{number_word_leading} ([and] {number_word})*")
 def number_string(m) -> str:
@@ -210,6 +213,7 @@ def number_signed(m):
 )
 def number_small(m):
     return int(parse_number(list(m)))
+
 
 @mod.action_class
 class Actions:
@@ -268,7 +272,6 @@ class Actions:
     def paste_clipboard_as_hex():
         """convert and paste the number in the clipboard to hexadecimal"""
         actions.user.paste(f"{int(clip.text()):#x}")
-
 
     def paste_clipboard_as_dec():
         """convert and paste the number in the clipboard to decimal"""

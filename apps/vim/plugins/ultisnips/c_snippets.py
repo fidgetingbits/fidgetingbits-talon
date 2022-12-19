@@ -1,4 +1,4 @@
-from talon import Context, Module, actions, app, ui
+from talon import Context
 
 ctx = Context()
 ctx.matches = r"""

@@ -1,7 +1,4 @@
-import sys
-from typing import Set
-
-from talon import Context, Module, actions
+from talon import Context, Module
 
 mod = Module()
 ctx = Context()

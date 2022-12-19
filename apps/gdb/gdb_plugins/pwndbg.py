@@ -1,4 +1,4 @@
-from talon import Context, Module, actions, app, settings
+from talon import Context, Module, actions, settings
 
 mod = Module()
 
@@ -14,7 +14,7 @@ def handle_hexdump_count(cmd, number, register, clip=False, copy=False):
         count = number
 
     actions.auto_insert(f"{cmd} ")
-    if len(register):
+    if register:
         actions.auto_insert(f"${register} {count}\n")
     elif clip:
         if copy:
@@ -36,7 +36,7 @@ class UserActions:
 
     def debugger_get_register(register: str):
         actions.auto_insert("regs ")
-        if len(register):
+        if register:
             actions.auto_insert(f"{register}\n")
 
     ###
@@ -83,7 +83,7 @@ class UserActions:
 
     def debugger_dump_pointers(register: str):
         actions.auto_insert(f"dps ")
-        if len(register):
+        if register:
             actions.auto_insert(f"${register}\n")
 
     def debugger_dump_ascii_string(number: int, register: str):

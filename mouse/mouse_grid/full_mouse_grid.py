@@ -1,27 +1,21 @@
+import string
+
 from talon import (
-    Module,
     Context,
-    app,
+    Module,
     actions,
     canvas,
-    screen,
+    ctrl,
     settings,
     ui,
-    ctrl,
-    cron,
 )
-from talon.skia import Shader, Color, Paint, Rect
+from talon.skia import Paint, Rect
 from talon.types.point import Point2d
 from talon_plugins import eye_mouse, eye_zoom_mouse
-from typing import Union
-
-import math, time, string
-
-import typing
 
 
 def hx(v: int) -> str:
-    return "{0:x}".format(v)
+    return f"{v:x}"
 
 
 mod = Module()
@@ -157,6 +151,7 @@ ctx.lists["self.mg_point_of_compass"] = direction_name_steps
 
 letters = string.ascii_uppercase
 
+
 class MouseGridDense:
     def __init__(self):
         self.screen = None
@@ -194,22 +189,22 @@ class MouseGridDense:
 
     def set_click_type(self, type: str):
         self.click_type = type
-        #print(f"click_type: {self.click_type}")
+        # print(f"click_type: {self.click_type}")
 
     def add_partial_input(self, letter: str):
 
         # this logic swaps around which superblock is selected.
         if letter.isdigit():
-            #print("user inputted a number, switching superblock")
+            # print("user inputted a number, switching superblock")
             self.default_superblock = int(letter) - 1
             if self.mcanvas:
                 self.mcanvas.freeze()
-                #print("updating graphics")
+                # print("updating graphics")
             return
 
         # this logic collects letters.  you can only collect up to two letters.
         self.input_so_far += letter
-        #print("input so far: " + self.input_so_far)
+        # print("input so far: " + self.input_so_far)
         if len(self.input_so_far) >= 2:
             self.jump(self.input_so_far)
             self.input_so_far = ""
@@ -223,7 +218,7 @@ class MouseGridDense:
 
         if self.mcanvas:
             self.mcanvas.freeze()
-            #print("updating graphics")
+            # print("updating graphics")
 
     def adjust_transparency(self, value: int, amount: int):
         value += amount
@@ -239,13 +234,16 @@ class MouseGridDense:
             self.mcanvas.freeze()
 
     def adjust_selector_transparency(self, amount: int):
-        self.selector_transparency = self.adjust_transparency(self.selector_transparency, amount)
+        self.selector_transparency = self.adjust_transparency(
+            self.selector_transparency, amount
+        )
         if self.mcanvas:
             self.mcanvas.freeze()
 
-
     def adjust_label_transparency(self, amount: int):
-        self.label_transparency = self.adjust_transparency(self.label_transparency, amount)
+        self.label_transparency = self.adjust_transparency(
+            self.label_transparency, amount
+        )
         if self.mcanvas:
             self.mcanvas.freeze()
 
@@ -602,7 +600,7 @@ class MouseGridDense:
         if self.click_type == "left_click":
             ctrl.mouse_click(0)
         elif self.click_type.startswith("drag"):
-            if self.dragging == True:
+            if self.dragging is True:
                 if self.click_type == "drag_close":
                     print("Releasing mouse")
                     ctrl.mouse_click(0, up=True)
@@ -633,7 +631,7 @@ class MouseGridDense:
         if self.selector_color == self.selector_color_high_contrast:
             self.selector_color = setting_large_number_color.get()
         else:
-            self.selector_color  = self.selector_color_high_contrast
+            self.selector_color = self.selector_color_high_contrast
         if self.mcanvas:
             self.mcanvas.freeze()
 
@@ -672,6 +670,7 @@ def full_mouse_grid_mode_enable():
 def full_mouse_grid_mode_disable():
     actions.mode.disable("user.full_mouse_grid")
     actions.mode.enable("command")
+
 
 @mod.action_class
 class GridActions:

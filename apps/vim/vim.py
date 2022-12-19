@@ -1,11 +1,9 @@
 # see doc/vim.md
 
-import time
-import enum
-import sys
 import logging
+import time
 
-from talon import Context, Module, actions, app, settings, ui, scripting
+from talon import Context, Module, actions, app, settings, ui
 
 try:
     import pynvim
@@ -136,7 +134,7 @@ standard_counted_actions = {
     "paste above": "P",
     "repeat": ".",
     "forget line": '"_dd',  # TODO - can we avoid because of clear line?
-    #"yank line": "Y", # XXX - this has mode specific implementations now
+    # "yank line": "Y", # XXX - this has mode specific implementations now
     # "copy line": "Y",
     "scroll left": "zh",
     "scroll right": "zl",
@@ -215,7 +213,7 @@ ctx.lists["self.vim_counted_actions_args"] = {
 # includes motions and no motions :|
 commands_with_motion = {
     # no motions
-    "join line": "J", # join alone too often conflicts with junkvim
+    "join line": "J",  # join alone too often conflicts with junkvim
     "merge": "gJ",  # won't produce spaces between joined words
     # "filter": "=",  # XXX - not sure about how to use this
     "paste": "p",  # XXX this really have motion
@@ -301,8 +299,8 @@ motions = {
     "last tense": "(",
     "graph": "}",
     "last graph": "{",
-#    "section": "]]",
-#    "last section": "[[",
+    #    "section": "]]",
+    #    "last section": "[[",
     "end section": "][",
     "last end section": "[]",
     # XXX - not sure about naming - don't seem to work yet
@@ -316,7 +314,7 @@ motions = {
     "curse top": "H",
     "curse middle": "M",
     "curse last": "L",
-    #"loft": "gg",
+    # "loft": "gg",
     # "file top": "gg",
     "gutter": "G",
     # "file ent": "G",
@@ -340,12 +338,9 @@ treesitter_motions = {
     "condition start": "[C",
     "condition": "[C",
     "condition next": "]C",
-
 }
 
-motions_custom = {
-
-}
+motions_custom = {}
 
 ctx.lists["self.vim_motions"] = {
     **motions,
@@ -725,7 +720,7 @@ def vim_motion_commands(m) -> str:
     # because if not in visual mode already, there is no selection anyway so
     # the command is moot
     elif str(m) not in commands_with_motion:
-        print("no match for {}".format(str(m)))
+        print(f"no match for {str(m)}")
         return ""
 
     v.set_normal_mode()
@@ -1108,7 +1103,7 @@ class VimRPC:
             v.run_command_mode_command(cmd)
         else:
             try:
-                #print(f"sending: {cmd}")
+                # print(f"sending: {cmd}")
                 self.nvrpc.nvim.command(cmd, async_=True)
             # I sometimes get this for things like needing a w! for write...
             except pynvim.api.common.NvimError as e:
@@ -1128,8 +1123,9 @@ class VimRPC:
 
     def run_normal_mode_command(self, cmd):
         v = VimMode()
-        cmd = cmd.replace('"', r'\"')
+        cmd = cmd.replace('"', r"\"")
         v.nvrpc.nvim.command(f':exe "normal" "{cmd}"', async_=True)
+
 
 # XXX - this should be moved somewhere else
 class VimAPI:
@@ -1241,7 +1237,7 @@ class VimMode:
     def mode(self):
         if self.nvrpc.init_ok is True:
             mode = self.nvrpc.get_active_mode()["mode"]
-            #self.debug_print(f"RPC reported mode: {mode}")
+            # self.debug_print(f"RPC reported mode: {mode}")
         else:
             title = ui.active_window().title
             mode = None
@@ -1382,7 +1378,7 @@ class VimMode:
                     return True
 
                 self.debug_print(
-                    "Wanted mode: %s vs Current mode: %s" % (wanted, active_mode)
+                    f"Wanted mode: {wanted} vs Current mode: {active_mode}"
                 )
                 # XXX - for wait value should be configurable
                 time.sleep(0.020)
@@ -1529,4 +1525,3 @@ class VimMode:
     def notify_mode_change(self, mode):
         """Function to be customized by talon user to determine how they want
         notifications on mode changes"""
-        pass

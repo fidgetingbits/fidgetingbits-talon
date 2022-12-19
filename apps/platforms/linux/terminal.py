@@ -9,6 +9,7 @@ os: linux
 tag: terminal
 """
 
+
 @ctx.action_class("edit")
 class EditActions:
     # todo: generic tab commands
@@ -27,6 +28,7 @@ class EditActions:
 
     def find(text: str = None):
         actions.key("ctrl-shift-f")
+
 
 @ctx.action_class("app")
 class AppActions:

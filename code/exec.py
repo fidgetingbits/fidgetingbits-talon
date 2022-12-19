@@ -1,8 +1,7 @@
 import os
 import subprocess
 
-from talon import actions
-from talon import Module
+from talon import Module, actions
 
 mod = Module()
 

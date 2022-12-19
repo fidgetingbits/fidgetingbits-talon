@@ -1,26 +1,29 @@
 from typing import Optional
-from talon import imgui, Module, speech_system, actions, app
+
+from talon import Module, actions, app, imgui, speech_system
 
 # We keep command_history_size lines of history, but by default display only
 # command_history_display of them.
 mod = Module()
 setting_command_history_auto = mod.setting("command_history_auto", bool, default=0)
-setting_command_history_auto_more = mod.setting("command_history_auto_more", bool, default=0)
+setting_command_history_auto_more = mod.setting(
+    "command_history_auto_more", bool, default=0
+)
 setting_command_history_size = mod.setting("command_history_size", int, default=50)
 setting_command_history_display = mod.setting(
     "command_history_display", int, default=10
 )
-setting_command_history_sticky = mod.setting("command_history_sticky", int,
-        default=0)
+setting_command_history_sticky = mod.setting("command_history_sticky", int, default=0)
 
 hist_more = False
 history = []
 gui = None
 
+
 def on_phrase(j):
     global history
 
-    words = j.get('text')
+    words = j.get("text")
 
     text = actions.user.history_transform_phrase_text(words)
 
@@ -45,6 +48,7 @@ def update_gui(gui: imgui.GUI):
     if gui.button("Command history close"):
         actions.user.history_disable()
 
+
 def on_ready():
     global hist_more
     global gui
@@ -65,11 +69,11 @@ def on_ready():
         if not gui.showing:
             gui.show()
 
+
 app.register("ready", on_ready)
 
 
 speech_system.register("phrase", on_phrase)
-
 
 
 @mod.action_class
@@ -115,4 +119,4 @@ class Actions:
         if not actions.speech.enabled():
             return None
 
-        return ' '.join(words) if words else None
+        return " ".join(words) if words else None

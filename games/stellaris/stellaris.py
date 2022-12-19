@@ -8,7 +8,6 @@ import os
 from time import sleep
 
 from talon import Context, Module, actions, ctrl, settings, ui
-from talon_plugins.eye_mouse import config, mouse, toggle_control
 
 mod = Module()
 # these are used to differentiate between menus with differing hot keys
@@ -35,7 +34,7 @@ def stellaris_topbar(m) -> str:
     return m.stellaris_topbar
 
 
-class Stellaris(object):
+class Stellaris:
 
     """Managed database for tracking ts game screen coordinates"""
 
@@ -48,7 +47,7 @@ class Stellaris(object):
         # self.width = self.game_screen.rect.width
         # self.height = self.game_screen.rect.height
 
-        with open(self.coords_file, "r") as f:
+        with open(self.coords_file) as f:
             self.db = json.loads(f.read())
         self.coords = self.db[self.resolution]
         # topbar coordinates are isolated to allow to automated cycling
@@ -108,7 +107,6 @@ class Stellaris(object):
 
     def hover_alert_move_direction(self, direction: int):
         """Move the mouse left or right by one alert slot"""
-        pass
 
     def hover_location(self, name):
         x, y = self.coords[name]
@@ -131,7 +129,7 @@ class Stellaris(object):
             ctrl.mouse_click(button=0, hold=16000)
 
     def toggle_outliner(self):
-        """Open or close the outliner window on the right """
+        """Open or close the outliner window on the right"""
         actions.key("o")
         if self.outliner_state == "closed":
             self.outliner_state = "open"

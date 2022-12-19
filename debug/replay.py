@@ -13,7 +13,6 @@ import os
 import pathlib
 import shutil
 import subprocess
-from typing import List
 
 from talon import Context, Module, actions, app, clip, imgui, settings, ui
 from talon_init import TALON_HOME
@@ -73,7 +72,7 @@ def check_settings(f):
     return wrapper
 
 
-class _RecordingReplayer(object):
+class _RecordingReplayer:
     """Manages recent recordings and make them available for replay"""
 
     def __init__(self):
@@ -86,7 +85,7 @@ class _RecordingReplayer(object):
         self.last_played_recording = None
         self.saved_recording_directory = None
 
-    def last_recordings(self) -> List:
+    def last_recordings(self) -> list:
         """Checks the last number of recordings from the recording directory,
         :returns: a list of the most recent self.count recordings
         :rtype: List
@@ -145,7 +144,9 @@ class _RecordingReplayer(object):
         actions.speech.disable()
         # TODO -  start using cubeb
         # mplayer broke do to some libssl error, so use vlc for now
-        subprocess.run(["vlc", "--play-and-exit", "--intf", "dummy", "--no-interact", recording])
+        subprocess.run(
+            ["vlc", "--play-and-exit", "--intf", "dummy", "--no-interact", recording]
+        )
         self.last_played_recording = recording
         actions.speech.enable()
 

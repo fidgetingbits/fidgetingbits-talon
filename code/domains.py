@@ -1,7 +1,5 @@
 import json
-import os
 import pathlib
-
 
 from talon import Context, Module, fs
 
@@ -28,7 +26,7 @@ class Domain:
         self.update_commands()
 
     def update_commands(self):
-        with open(self.domain_file, "r") as f:
+        with open(self.domain_file) as f:
             global ctx
             ctx.lists["user.domains"] = json.loads(f.read())
 

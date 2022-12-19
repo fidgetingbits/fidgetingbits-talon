@@ -1,9 +1,11 @@
-from talon import Module, actions, ui, Context
-
+from talon import Context, Module, actions, ui
 
 mod = Module()
 mod.tag("draft_editor_active", "Indicates whether the draft editor has been activated")
-mod.tag("draft_editor_app_focused", "Indicates that the draft editor app currently has focus")
+mod.tag(
+    "draft_editor_app_focused",
+    "Indicates that the draft editor app currently has focus",
+)
 
 ctx = Context()
 tags: set[str] = set()
@@ -19,13 +21,7 @@ def remove_tag(tag: str):
     ctx.tags = list(tags)
 
 
-default_names = [
-    "Visual Studio Code",
-    "Code",
-    "VSCodium",
-    "Codium",
-    "code-oss"
-]
+default_names = ["Visual Studio Code", "Code", "VSCodium", "Codium", "code-oss"]
 
 setting_editor_names = mod.setting(
     "draft_editor",
@@ -38,7 +34,6 @@ setting_editor_names = mod.setting(
 def get_editor_names():
     names_csv = setting_editor_names.get()
     return names_csv.split(", ") if names_csv else default_names
-
 
 
 @mod.scope
@@ -106,7 +101,6 @@ def get_editor_app() -> ui.App:
         for app in ui.apps(background=False):
             if app.name in editor_names:
                 return app
-
 
     raise RuntimeError("Draft editor is not running")
 

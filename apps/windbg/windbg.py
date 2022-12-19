@@ -22,6 +22,7 @@ def windows_dlls(m) -> str:
     "Return an register"
     return m.windows_dlls
 
+
 # XXX - trigger alt-1 to hit command window for necessary commands?
 # ex: user.windbg_insert_in_cmd()
 #    edit.left()
@@ -65,7 +66,7 @@ class UserActions:
         actions.insert("r @")
 
     def debugger_set_register():
-        actions.user.insert_between('set $@', '=')
+        actions.user.insert_between("set $@", "=")
         # Breakpoints
 
     def debugger_show_breakpoints():

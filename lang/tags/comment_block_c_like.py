@@ -1,4 +1,3 @@
-
 from talon import Context, Module, actions
 
 c_like_ctx = Context()
@@ -10,6 +9,7 @@ c_like_ctx.matches = """
 tag: user.code_comment_block_c_like
 """
 c_like_ctx.tags = ["user.code_comment_block"]
+
 
 @c_like_ctx.action_class("user")
 class CActions:

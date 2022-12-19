@@ -102,7 +102,7 @@ class UserActions:
         actions.auto_insert(" >>= ")
 
     def code_import_local():
-        actions.user.paste('source ')
+        actions.user.paste("source ")
 
     def code_comment_line_prefix():
         actions.auto_insert("#")

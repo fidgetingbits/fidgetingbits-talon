@@ -1,25 +1,24 @@
 import os
-import pathlib
 import subprocess
 
-from talon import app, imgui, ui, scripting
+from talon import app, imgui, ui
 
 
 def monkey_notify(body="", title="", subtitle="", *kwargs):
     subprocess.Popen(
-        ["notify-send.sh", "-t", "3000", "-f", "-u", "low", '"%s"' % subtitle]
+        ["notify-send.sh", "-t", "3000", "-f", "-u", "low", f'"{subtitle}"']
     )
 
 
 def monkey_focus(self, *kwargs):
     if self.active_window.id == -1:
-        os.system("i3-msg '[class=\"(?)%s\"] focus'" % self.name)
+        os.system(f"i3-msg '[class=\"(?){self.name}\"] focus'")
     else:
-        os.system("i3-msg '[id=\"%s\"] focus'" % self.active_window.id)
+        os.system(f"i3-msg '[id=\"{self.active_window.id}\"] focus'")
 
 
 def install_monkey_show():
-    """ On i3wm the pop up windows often minimize to unviewable size
+    """On i3wm the pop up windows often minimize to unviewable size
 
     Also no way to actually resize them. show() auto refreshes,
     so is more cpu intensive, but does not have this problem
@@ -65,7 +64,7 @@ def install_monkey_patches():
     print("Installing fidget monkey patches")
     install_monkey_notify()
     install_monkey_focus()
-    #install_monkey_show()
+    # install_monkey_show()
 
 
 install_monkey_patches()

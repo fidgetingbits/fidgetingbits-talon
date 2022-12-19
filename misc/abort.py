@@ -1,6 +1,4 @@
-from talon import actions, speech_system
-from talon import Context, Module, app
-
+from talon import Context, Module, actions, app, speech_system
 
 ctx = Context()
 mod = Module()
@@ -17,5 +15,6 @@ def fn(d):
     if words[-1] in ABORT_WORDS and actions.speech.enabled():
         d["parsed"]._sequence = []
         app.notify(subtitle=f"Command aborted due to one of {ABORT_WORDS}")
+
 
 speech_system.register("pre:phrase", fn)

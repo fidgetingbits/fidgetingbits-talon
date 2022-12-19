@@ -1,6 +1,6 @@
 # This file handles generic debug actions that may be overridden by gdb plugins
 # such as pwndbg
-from talon import Context, Module, actions, app, settings
+from talon import Context, Module, actions, settings
 
 mod = Module()
 
@@ -24,13 +24,14 @@ def handle_hexdump_count(fmt, number, register, clip=False, copy=False):
         count = number
 
     actions.auto_insert(f"x/{count}{fmt} ")
-    if len(register):
+    if register:
         actions.auto_insert(f"${register}\n")
     elif clip:
         if copy:
             actions.edit.copy()
         actions.edit.paste()
         actions.key("enter")
+
 
 # These are specifically functions that can be overridden by other plugins,
 # like pwndbg or gef
@@ -45,7 +46,7 @@ class UserActions:
 
     def debugger_get_register(register: str):
         actions.auto_insert("i r ")
-        if len(register):
+        if register:
             actions.auto_insert(f"{register}\n")
 
     ###

@@ -3,7 +3,7 @@
 # additional edit action overrides that are available in terminal, see
 # vim_editing.py
 
-import time
+
 from talon import Context, actions
 
 ctx = Context()
@@ -99,7 +99,7 @@ class EditActions:
         actions.key("ctrl-shift-c")
 
     def paste():
-        #actions.user.vim_normal_mode("p")
+        # actions.user.vim_normal_mode("p")
         actions.key("ctrl-shift-v")
         # NOTE: There is it delay that happens inside of vim that can cause out
         # of order key pressing, in it seems to be that it's because the output
@@ -111,11 +111,10 @@ class EditActions:
         # `<pasted content>()`
         # for now the only way i see to fix this is to introduce an artificial
         # delay to allow vim to actually paste the content...
-        #time.sleep(0.800)
+        # time.sleep(0.800)
         #  XXX - This might be one solution for it, but i haven't got it to
         #  work yet
-        #actions.user.vim_normal_mode('"+p')
-
+        # actions.user.vim_normal_mode('"+p')
 
 
 @ctx.action_class("user")

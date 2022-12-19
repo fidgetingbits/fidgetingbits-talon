@@ -1,7 +1,7 @@
 import re
-import pprint as pp
 from timeit import default_timer as timer
-from talon import Context, Module, app, actions, settings, ui, registry
+
+from talon import Context, Module, actions, app, ui
 
 mod = Module()
 ctx = Context()
@@ -44,24 +44,24 @@ def parse_vim_term_title(window):
     """
     global last_window
     global last_title
-    #start = timer()
+    # start = timer()
 
     current_title = window.title
     if last_window == window and last_title == current_title:
-        #print("parse_vim_term_title(): Skipping due to duplicate title")
-        #end = timer()
+        # print("parse_vim_term_title(): Skipping due to duplicate title")
+        # end = timer()
 
         #        print(start)
         #        print(end)
-        #print(f"parse_vim_term_title - duplicate: {end - start}")
+        # print(f"parse_vim_term_title - duplicate: {end - start}")
         return
     if (
         window != ui.active_window()
         or not current_title.startswith("VIM MODE:t")
         or "TERM:" not in current_title
     ):
-        #print("parse_vim_term_title(): Skipping due to not a terminal")
-        #end = timer()
+        # print("parse_vim_term_title(): Skipping due to not a terminal")
+        # end = timer()
         #        print(start)
         #        print(end)
         #        print(f"parse_vim_term_title - not vim: {end - start}")
@@ -81,7 +81,7 @@ def parse_vim_term_title(window):
         shell_command = shell_command.split(" ")[1]
     else:
         shell_command = shell_command.split(" ")[0]
-    #end = timer()
+    # end = timer()
     #    print(start)
     #    print(end)
     #    print(f"parse_vim_term_title - pass to populate: {end - start}")
@@ -112,7 +112,7 @@ def populate_language_modes(shell_command):
     # XXX - sometimes this throws an exception saying it's not declared, but it
     # should be a global module action from code.py
     # Why do I clear the context language if there's no match?
-    #actions.user.code_clear_context_language()
+    # actions.user.code_clear_context_language()
     return
 
 
@@ -157,8 +157,8 @@ def populate_shell_tags(shell_command, window_title):
         # XXX - make a better way of marking stuff in noisy event log,
         # ins this writes to our file/terminal
         # actions.insert('marker start')
-        #print(f"setting shell tags: {window_title}")
-        #print(ctx.tags)
+        # print(f"setting shell tags: {window_title}")
+        # print(ctx.tags)
         if isinstance(shell_tags[shell_command], list):
             start = timer()
             ctx.tags = shell_tags[shell_command]
@@ -166,13 +166,13 @@ def populate_shell_tags(shell_command, window_title):
             start = timer()
             ctx.tags = [shell_tags[shell_command]]
         end = timer()
-        #print(f"populate_shell_tags: {end - start}")
+        # print(f"populate_shell_tags: {end - start}")
 
         # actions.insert('marker end')
 
         # print(f"populate_shell_tags(): set {ctx.tags}")
     else:
-        #print(f"trying fuzzy: {window_title}")
+        # print(f"trying fuzzy: {window_title}")
         found_fuzzy = False
         for tag in fuzzy_shell_tags:
             # print(f"shell_command: {shell_command}")
@@ -205,6 +205,7 @@ def win_title_hook(window):
 
 def win_focus_hook(window):
     parse_vim_term_title(window)
+
 
 def register_events():
     ui.register("win_title", win_title_hook)

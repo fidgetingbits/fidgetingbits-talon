@@ -1,4 +1,5 @@
-from talon import Context, Module, actions, settings
+from talon import Context, Module, actions
+
 # XXX - missing string concatenation, more explicit equality operator, etc
 
 mod = Module()

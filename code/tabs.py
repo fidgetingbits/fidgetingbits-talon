@@ -2,6 +2,7 @@ from talon import Module, actions
 
 mod = Module()
 
+
 @mod.action_class
 class tab_actions:
     def tab_jump(number: int):

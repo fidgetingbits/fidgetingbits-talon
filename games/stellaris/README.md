@@ -1,15 +1,15 @@
-
 <!-- vim-markdown-toc GFM -->
 
-* [Stellaris Talon support development notes](#stellaris-talon-support-development-notes)
-* [Resources](#resources)
-    * [Basic environment setup](#basic-environment-setup)
-    * [High level overview of requirements](#high-level-overview-of-requirements)
-    * [Talon set up](#talon-set-up)
-    * [Mouse additions](#mouse-additions)
-        * [Most coordinate capturing](#most-coordinate-capturing)
+- [Stellaris Talon support development notes](#stellaris-talon-support-development-notes)
+- [Resources](#resources)
+  - [Basic environment setup](#basic-environment-setup)
+  - [High level overview of requirements](#high-level-overview-of-requirements)
+  - [Talon set up](#talon-set-up)
+  - [Mouse additions](#mouse-additions)
+    - [Most coordinate capturing](#most-coordinate-capturing)
 
 <!-- vim-markdown-toc -->
+
 # Stellaris Talon support development notes
 
 Into this document describes the process of trying to add support for playing
@@ -23,11 +23,7 @@ tobii 4c
 
 ## Basic environment setup
 
-Tools used:
-    - nvim
-    - talon beta
-    - vim wiki for documentation
-    - stellaris on linux
+Tools used: - nvim - talon beta - vim wiki for documentation - stellaris on linux
 
 Recommended talon functionality
 
@@ -38,8 +34,8 @@ talon functionality that had to be added
 - ability to hover mouse automatically at a coordinate or after clicking with
   eyes
 - ability to auto click certain notifications based on coordinates
-   - ability to record mouse coordinates
-   -
+  - ability to record mouse coordinates
+  -
 - ability to remove all common command mode commands to reduce error rate
 
 ## Talon set up

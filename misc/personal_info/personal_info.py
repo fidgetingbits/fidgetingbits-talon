@@ -38,7 +38,7 @@ def gui(gui: imgui.GUI):
     gui.line()
     index = 1
     for word in personal_info_list:
-        gui.text("Pick {}: {} ".format(index, word))
+        gui.text(f"Pick {index}: {word} ")
         index = index + 1
 
     if gui.button("Hide"):
@@ -51,8 +51,9 @@ class PersonalInfo:
 
     def __init__(self):
         cwd = os.path.dirname(os.path.realpath(__file__))
-        self.personal_info_file = os.path.join(cwd,
-                                               "../../../private/misc/personal_info/personal_info.json")
+        self.personal_info_file = os.path.join(
+            cwd, "../../../private/misc/personal_info/personal_info.json"
+        )
         self.update_commands()
         fs.watch(self.personal_info_file, self.__on_fs_change)
 
@@ -61,7 +62,7 @@ class PersonalInfo:
         self.update_commands()
 
     def update_commands(self):
-        with open(self.personal_info_file, "r") as f:
+        with open(self.personal_info_file) as f:
             self.db = json.loads(f.read())
             for key in self.db:
                 self.command_key_map[" ".join(key.split("-"))] = key

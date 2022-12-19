@@ -7,18 +7,13 @@ When this file is reloaded, it will shut down any modules which depended on
 this event loop; and they must also be reloaded.
 """
 
-import os
-import typing
-import re
-import json
-import socket
 import contextlib
+import logging
 import selectors
+import socket
 import threading
 import traceback
-import logging
 
-from . import singletons
 
 class EventConsumer:
     def startup(self, ctx):
@@ -78,9 +73,7 @@ class LoopContext:
             return
         with self.loop.cond:
             if self.loop.closed:
-                logging.warning(
-                    "dropping notify_me() while event loop is closed"
-                )
+                logging.warning("dropping notify_me() while event loop is closed")
                 return
             self.loop.notifiables.append((self.consumer, msg))
             self.loop.ctrl_w.send(b"wake\n")
@@ -110,7 +103,6 @@ class EventLoop(threading.Thread):
         self.stoppables = []
         # notifiables is a list of (consumer, msg) tuples from ctx.notify_me
         self.notifiables = []
-
 
         self.closed = False
         self.paused = False
@@ -144,7 +136,7 @@ class EventLoop(threading.Thread):
             pass
 
         # remove from notifiables in reverse order
-        for i in range(len(self.notifiables) - 1, -1 , -1):
+        for i in range(len(self.notifiables) - 1, -1, -1):
             consumer, _ = self.notifiables[i]
             if consumer == old:
                 self.notifiables.pop(i)
@@ -154,10 +146,7 @@ class EventLoop(threading.Thread):
         try:
             yield
         except Exception as e:
-            logging.error(
-                "failure in consumer code:\n"
-                + traceback.format_exc()
-            )
+            logging.error("failure in consumer code:\n" + traceback.format_exc())
             try:
                 consumer.shutdown()
             except Exception as e:
@@ -184,8 +173,7 @@ class EventLoop(threading.Thread):
                                 consumer.shutdown()
                             except Exception as e:
                                 logging.error(
-                                    "failure in shutdown:\n"
-                                    + traceback.format_exc()
+                                    "failure in shutdown:\n" + traceback.format_exc()
                                 )
                             self.evict_consumer(consumer)
                         while self.startables:
@@ -224,17 +212,13 @@ class EventLoop(threading.Thread):
             try:
                 self.consumer.shutdown()
             except Exception:
-                logging.error(
-                    "failure in shutdown:\n"
-                    + traceback.format_exc()
-                )
+                logging.error("failure in shutdown:\n" + traceback.format_exc())
             self.evict_consumer(consumer)
         self.selector.unregister(self.ctrl_r)
         self.selector.unregister(self.ctrl_w)
         self.ctrl_r.close()
         self.ctrl_w.close()
         self.selector.close()
-
 
     def singleton(self, fn):
         """singleton is always be called off-thread"""
@@ -272,8 +256,8 @@ class EventLoop(threading.Thread):
         self.join()
 
 
-#@singletons.singleton
-#def event_loop():
+# @singletons.singleton
+# def event_loop():
 #    x = EventLoop()
 #    x.start()
 #    try:
@@ -281,4 +265,4 @@ class EventLoop(threading.Thread):
 #    finally:
 #        x.close()
 
-#singleton = event_loop.singleton
+# singleton = event_loop.singleton

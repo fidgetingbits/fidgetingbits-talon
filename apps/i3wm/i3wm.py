@@ -1,4 +1,4 @@
-from talon import Context, Module, actions, settings, ui, app
+from talon import Module, actions, app, settings
 
 mod = Module()
 
@@ -55,13 +55,13 @@ class Actions:
         key = settings.get("user.i3_mod_key")
         actions.key(f"{key}-shift-x")
 
-    def i3wm_window_grow(times: int =1):
+    def i3wm_window_grow(times: int = 1):
         """Resize the focused window larger"""
-        i3wm_window_resize(10*times, grow=True)
+        i3wm_window_resize(10 * times, grow=True)
 
-    def i3wm_window_shrink(times: int =1):
+    def i3wm_window_shrink(times: int = 1):
         """Resize the focused window smaller"""
-        i3wm_window_resize(10*times, grow=False)
+        i3wm_window_resize(10 * times, grow=False)
 
     def i3wm_window_adjust_height_up(size: int):
         """resizes the selected window by the specified number of key movements"""

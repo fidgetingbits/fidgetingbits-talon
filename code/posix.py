@@ -51,6 +51,7 @@ ctx.lists["user.signals"] = {
     "priority": "SIGPRIO",
 }
 
+
 @mod.capture(rule="{user.signals}")
 def signal(m) -> str:
     "One signal"

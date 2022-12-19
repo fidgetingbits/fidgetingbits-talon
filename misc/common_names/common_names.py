@@ -1,9 +1,7 @@
 import os
-import sys
 import pathlib
-from typing import Set
 
-from talon import Context, Module, actions
+from talon import Context, Module
 
 mod = Module()
 mod.list("first_names", desc="Common first names")
@@ -24,7 +22,7 @@ private_last_names_file = pathlib.Path(__file__).parent.parent.joinpath(
 
 
 def populate_list(name_list, file_name):
-    with open(file_name, "r") as f:
+    with open(file_name) as f:
         for line in f:
             line = line.rstrip()
             if "," in line:

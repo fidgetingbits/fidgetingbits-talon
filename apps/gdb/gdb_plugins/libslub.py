@@ -1,4 +1,4 @@
-from talon import Context, Module, actions, app, settings
+from talon import Context, Module
 
 mod = Module()
 mod.list("slabs", desc="A list of linux kernel slabs")

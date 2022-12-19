@@ -1,43 +1,43 @@
 <!-- vim-markdown-toc GFM -->
 
-* [Important notes](#important-notes)
-* [Importing only vim app from fidgetingbits repo](#importing-only-vim-app-from-fidgetingbits-repo)
-* [Using VIM under Talon](#using-vim-under-talon)
-* [Initial Setup Walkthrough](#initial-setup-walkthrough)
-    * [Talon Change - The word `yank`](#talon-change---the-word-yank)
-    * [Talon Change - The key `end`](#talon-change---the-key-end)
-    * [Talon Change - The command `word`](#talon-change---the-command-word)
-    * [The `generic_editor.talon` commands](#the-generic_editortalon-commands)
-    * [Vim Config Changes](#vim-config-changes)
-        * [Detecting VIM running inside terminals from Talon](#detecting-vim-running-inside-terminals-from-talon)
-        * [Preventing title truncation](#preventing-title-truncation)
-    * [Detecting the code language of edited files](#detecting-the-code-language-of-edited-files)
-    * [Detecting current vim mode](#detecting-current-vim-mode)
-    * [Automatically switching neovim using RPC](#automatically-switching-neovim-using-rpc)
-    * [Using VIM as your terminal](#using-vim-as-your-terminal)
-        * [Neovim Terminal Quirks](#neovim-terminal-quirks)
-        * [Working directory](#working-directory)
-        * [Installing neovim python package inside talon](#installing-neovim-python-package-inside-talon)
-* [Supported command overview](#supported-command-overview)
-    * [Commands](#commands)
-    * [Motions](#motions)
-    * [Text object selection](#text-object-selection)
-* [VIM Plugins](#vim-plugins)
-    * [fugitive.vim](#fugitivevim)
-    * [vim-plug.vim](#vim-plugvim)
-    * [fzf.vim](#fzfvim)
-    * [nerdtree.vim](#nerdtreevim)
-    * [cscope.vim](#cscopevim)
-    * [ale.vim](#alevim)
-    * [surround.vim](#surroundvim)
-* [VIM Examples and Tutorial](#vim-examples-and-tutorial)
-    * [Simple motions and edits](#simple-motions-and-edits)
-        * [Intermediate Usage](#intermediate-usage)
-        * [Advanced Usage](#advanced-usage)
-* [Frequently Asked Questions](#frequently-asked-questions)
-    * [Why not just use raw vim keyboard commands](#why-not-just-use-raw-vim-keyboard-commands)
-    * [What are some advantages of using talon vim vs raw vim?](#what-are-some-advantages-of-using-talon-vim-vs-raw-vim)
-    * [What are some disadvantages of using talon vim v man mode?](#what-are-some-disadvantages-of-using-talon-vim-v-man-mode)
+- [Important notes](#important-notes)
+- [Importing only vim app from fidgetingbits repo](#importing-only-vim-app-from-fidgetingbits-repo)
+- [Using VIM under Talon](#using-vim-under-talon)
+- [Initial Setup Walkthrough](#initial-setup-walkthrough)
+  - [Talon Change - The word `yank`](#talon-change---the-word-yank)
+  - [Talon Change - The key `end`](#talon-change---the-key-end)
+  - [Talon Change - The command `word`](#talon-change---the-command-word)
+  - [The `generic_editor.talon` commands](#the-generic_editortalon-commands)
+  - [Vim Config Changes](#vim-config-changes)
+    - [Detecting VIM running inside terminals from Talon](#detecting-vim-running-inside-terminals-from-talon)
+    - [Preventing title truncation](#preventing-title-truncation)
+  - [Detecting the code language of edited files](#detecting-the-code-language-of-edited-files)
+  - [Detecting current vim mode](#detecting-current-vim-mode)
+  - [Automatically switching neovim using RPC](#automatically-switching-neovim-using-rpc)
+  - [Using VIM as your terminal](#using-vim-as-your-terminal)
+    - [Neovim Terminal Quirks](#neovim-terminal-quirks)
+    - [Working directory](#working-directory)
+    - [Installing neovim python package inside talon](#installing-neovim-python-package-inside-talon)
+- [Supported command overview](#supported-command-overview)
+  - [Commands](#commands)
+  - [Motions](#motions)
+  - [Text object selection](#text-object-selection)
+- [VIM Plugins](#vim-plugins)
+  - [fugitive.vim](#fugitivevim)
+  - [vim-plug.vim](#vim-plugvim)
+  - [fzf.vim](#fzfvim)
+  - [nerdtree.vim](#nerdtreevim)
+  - [cscope.vim](#cscopevim)
+  - [ale.vim](#alevim)
+  - [surround.vim](#surroundvim)
+- [VIM Examples and Tutorial](#vim-examples-and-tutorial)
+  - [Simple motions and edits](#simple-motions-and-edits)
+    - [Intermediate Usage](#intermediate-usage)
+    - [Advanced Usage](#advanced-usage)
+- [Frequently Asked Questions](#frequently-asked-questions)
+  - [Why not just use raw vim keyboard commands](#why-not-just-use-raw-vim-keyboard-commands)
+  - [What are some advantages of using talon vim vs raw vim?](#what-are-some-advantages-of-using-talon-vim-vs-raw-vim)
+  - [What are some disadvantages of using talon vim v man mode?](#what-are-some-disadvantages-of-using-talon-vim-v-man-mode)
 
 <!-- vim-markdown-toc -->
 
@@ -72,15 +72,15 @@ make modifications to both the vim config and talon.
 
 Currently supported VIM features:
 
-* motions
-* registers
-* macros
-* folds
-* tabs
-* splits
-* [plugins](plugins) (see list below)
-* settings
-* automatic mode switching (including terminal)
+- motions
+- registers
+- macros
+- folds
+- tabs
+- splits
+- [plugins](plugins) (see list below)
+- settings
+- automatic mode switching (including terminal)
 
 You can contact `fidget` on the Talon slack for questions/support.
 
@@ -100,11 +100,11 @@ it will trigger pressing the keyboard key `end`.
 
 You currently have two options to deal with this:
 
-1) You can disable the `end` key in talon, however this will negatively impact
-other scenarios where you would normally like to be able to press key directly.
+1. You can disable the `end` key in talon, however this will negatively impact
+   other scenarios where you would normally like to be able to press key directly.
 
-2) Use the alternate vim motion verb `end word`. There aren't too many
-downside to this approach aside from it being somewhat cumbersome.
+2. Use the alternate vim motion verb `end word`. There aren't too many
+   downside to this approach aside from it being somewhat cumbersome.
 
 ## Talon Change - The command `word`
 
@@ -354,6 +354,7 @@ motions when combined with commands.
 ```
 
 With character arguments:
+
 ```
     "jump to mark": "'",
     "find": "f",
@@ -410,21 +411,27 @@ adding a `.disable` suffix.
 `vim_plugins/fugitive.talon`
 
 ## vim-plug.vim
+
 `vim_plugins/plug.talon`
 
 ## fzf.vim
+
 `vim_plugins/fzf.talon`
 
 ## nerdtree.vim
+
 `vim_plugins/nerdtree.talon`
 
 ## cscope.vim
+
 `vim_plugins/cscope.talon`
 
 ## ale.vim
+
 `vim_plugins/ale.talon`
 
 ## surround.vim
+
 `vim_plugins/surround.talon`
 
 # VIM Examples and Tutorial
@@ -437,8 +444,8 @@ since it is the original project that talon vim was originally ported from. You
 could try to follow along with his demos as most of the command should be
 supported.
 
-* [vimspeak code demo](https://www.youtube.com/watch?v=TEBMlXRjhZY)
-* [vimspeak vim golf demo](https://www.youtube.com/watch?v=qy84TYvXJbk)
+- [vimspeak code demo](https://www.youtube.com/watch?v=TEBMlXRjhZY)
+- [vimspeak vim golf demo](https://www.youtube.com/watch?v=qy84TYvXJbk)
 
 ## Simple motions and edits
 
@@ -455,81 +462,81 @@ from inside vim and it is the only open buffer and split.
 
 Next let's create a little sandbox to work inside.
 
-* `normal mode`
-* `new empty vertical split`
-* `split rotate`
-* `split left`
+- `normal mode`
+- `new empty vertical split`
+- `split rotate`
+- `split left`
 
 Next we will set this `vim.md` file to read-only, to help prevent you
 accidentally deleting things while experimenting.
 
-* `unset modifiable`
+- `unset modifiable`
 
 You should now have a new empty vertical split containing on the right side of
 your vim screen, and your cursor should be back in the split with the tutorial.
 
 Speak the following commands
 
-* `search reversed lazy  dog` (extra space is on purpose to simplify search)
-* `enter`
-* `yank line`
-* `split right`
-* `paste above`
-* `unset highlights`
-* `set line numbers`
+- `search reversed lazy dog` (extra space is on purpose to simplify search)
+- `enter`
+- `yank line`
+- `split right`
+- `paste above`
+- `unset highlights`
+- `set line numbers`
 
 Now you should have a new line in the buffer on the right on line number 1.
 
-* `end of line`
-* `start of line`
-* `word`
-* `two word`
-* `find run`
-* `append`
-* `say and under`
-* `normal mode`
-* `find reversed air`
-* `inject space`
-* `back`
-* `two delete word`
-* `find reversed quench`
-* `change word`
-* `say slow`
-* `normal mode`
-* `back`
-* `swap words`
-* `two back`
-* `replace gust`
-* `yank line`
-* `paste below`
-* `repeat that twentyieth`
-* `top of file`
-* `go line ten`
-* `gap below`
-* `two down`
-* `select line`
-* `go down`
-* `delete`
-* `select paragraph`
-* `swap selected`
-* `say lazy`
-* `go right`
-* `say hyper`
-* `enter` (this might be mapped differently for you. how ever you say press enter)
-* `reselect`
-* `swap selected`
-* `space`
-* `go right`
-* `dash`
-* `swap global`
-* `backslash dot`
-* `go right`
-* `bang`
-* `enter` (this might be mapped differently for you. however you press enter)
+- `end of line`
+- `start of line`
+- `word`
+- `two word`
+- `find run`
+- `append`
+- `say and under`
+- `normal mode`
+- `find reversed air`
+- `inject space`
+- `back`
+- `two delete word`
+- `find reversed quench`
+- `change word`
+- `say slow`
+- `normal mode`
+- `back`
+- `swap words`
+- `two back`
+- `replace gust`
+- `yank line`
+- `paste below`
+- `repeat that twentyieth`
+- `top of file`
+- `go line ten`
+- `gap below`
+- `two down`
+- `select line`
+- `go down`
+- `delete`
+- `select paragraph`
+- `swap selected`
+- `say lazy`
+- `go right`
+- `say hyper`
+- `enter` (this might be mapped differently for you. how ever you say press enter)
+- `reselect`
+- `swap selected`
+- `space`
+- `go right`
+- `dash`
+- `swap global`
+- `backslash dot`
+- `go right`
+- `bang`
+- `enter` (this might be mapped differently for you. however you press enter)
 
 All done for now. You can close the sandbox buffer:
 
-* `force close this buffer`
+- `force close this buffer`
 
 This really only touches the surface of the commands supported. You will need
 to spend time reading `vim.talon`, `vim.py`, and experimenting to get a feel
@@ -584,9 +591,7 @@ need to say: `escape colon bat number enter`. In talon vim you would say
 
 Example: If you are in INSERT mode and you decide you want to select five lines
 down and then swap cat with dog on the selected lines you would say the
-following: `escape vest five jury colon sun slash say cat slash say dog slash
-gust enter`. With talon vim you would say: `select five lines swap selected say
-cat go right say dog enter`
+following: `escape vest five jury colon sun slash say cat slash say dog slash gust enter`. With talon vim you would say: `select five lines swap selected say cat go right say dog enter`
 
 It also supports intelligent mode switching, as well as the ability to stay in
 INSERT mode despite calling NORMAL mode commands. So you don't need to say

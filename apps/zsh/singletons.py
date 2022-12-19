@@ -7,6 +7,7 @@ import logging
 
 _singletons = {}
 
+
 def singleton(fn):
     name = f"{fn.__module__}.{fn.__name__}"
     # Do any cleanup actions from before.

@@ -1,4 +1,4 @@
-from talon import Context, Module, actions, app, settings
+from talon import Context, Module, actions
 
 ctx = Context()
 ctx.matches = r"""
@@ -63,7 +63,6 @@ ctx.lists["user.code_functions"] = {
     "you pointer": "uptr",
     "K pointer": "kptr",
     "mac adder": "macaddr",
-
     # map functions
     # https://github.com/iovisor/bpftrace/blob/master/docs/reference_guide.md#map-functions
     "count": "count",
@@ -205,7 +204,7 @@ class UserActions:
     ###
     def code_insert_function(text: str, selection: str):
         if selection:
-            text = text + "({})".format(selection)
+            text = text + f"({selection})"
         else:
             text = text + "()"
 

@@ -80,41 +80,41 @@ special_file_map = {
 language_extensions = {
     # 'assembly': 'asm s',
     # 'bash': 'bashbook sh',
-    'batch': 'bat',
-    'c': 'c h',
+    "batch": "bat",
+    "c": "c h",
     # 'cmake': 'cmake',
     # 'cplusplus': 'cpp hpp',
-    'csharp': 'cs',
-    'css': 'css',
+    "csharp": "cs",
+    "css": "css",
     # 'elisp': 'el',
     # 'elm': 'elm',
-    'gdb': 'gdb',
-    'go': 'go',
+    "gdb": "gdb",
+    "go": "go",
     # 'html': 'html',
-    'java': 'java',
-    'javascript': 'js',
-    'javascriptreact': 'jsx',
+    "java": "java",
+    "javascript": "js",
+    "javascriptreact": "jsx",
     # 'json': 'json',
     # 'lua': 'lua',
-    'markdown': 'md',
+    "markdown": "md",
     # 'perl': 'pl',
-    'php': 'php',
+    "php": "php",
     # 'powershell': 'ps1',
-    'python': 'py',
-    'protobuf': 'proto',
-    'r': 'r',
+    "python": "py",
+    "protobuf": "proto",
+    "r": "r",
     # 'racket': 'rkt',
-    'ruby': 'rb',
-    'rust': 'rs',
+    "ruby": "rb",
+    "rust": "rs",
     # 'sass': 'sass',
-    'scala': 'scala',
+    "scala": "scala",
     # 'snippets': 'snippets',
-    'talon': 'talon',
-    'terraform': 'tf',
-    'typescript': 'ts',
-    'typescriptreact': 'tsx',
+    "talon": "talon",
+    "terraform": "tf",
+    "typescript": "ts",
+    "typescriptreact": "tsx",
     # 'vba': 'vba',
-    'vimscript': 'vim vimrc',
+    "vimscript": "vim vimrc",
 }
 
 # Override speakable forms for language modes. If not present, a language mode's
@@ -135,13 +135,13 @@ ctx.lists["self.language_mode"] = {
 }
 
 # Maps extension to languages.
-#XXX - Override this for now to use my hardcoded one above vs only what has
+# XXX - Override this for now to use my hardcoded one above vs only what has
 # known modes
-#extension_lang_map = {
+# extension_lang_map = {
 #    '.' + ext: language
 #    for language, extensions in language_extensions.items()
 #    for ext in extensions.split()
-#}
+# }
 
 # Create a context for each defined language
 for lang in language_extensions.keys():

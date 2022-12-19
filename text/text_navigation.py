@@ -1,7 +1,7 @@
-import re
-from talon import ctrl, ui, Module, Context, actions, clip
 import itertools
-from typing import Union
+import re
+
+from talon import Context, Module, actions
 
 ctx = Context()
 mod = Module()

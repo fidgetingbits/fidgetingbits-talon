@@ -1,6 +1,5 @@
-from typing import Tuple
+from talon import Context, Module, canvas, cron, ctrl
 
-from talon import Context, Module, canvas, cron, ctrl, cron
 
 class MouseGuide:
     def __init__(self, width: float, height: float):
@@ -18,11 +17,11 @@ class MouseGuide:
         self.last_pos = None
         self.canvas = canvas.Canvas(0, 0, self.width + 2, self.height + 2)
         self.check_mouse()
-        self.canvas.register('mousemove', self.on_mouse)
-        self.canvas.register('draw', self.draw_canvas)
+        self.canvas.register("mousemove", self.on_mouse)
+        self.canvas.register("draw", self.draw_canvas)
         self.canvas.freeze()
         # uncomment this if the mouse movement event isn't working
-        self.job = cron.interval('16ms', self.check_mouse)
+        self.job = cron.interval("16ms", self.check_mouse)
 
     def disable(self):
         if not self.enabled:
@@ -40,16 +39,16 @@ class MouseGuide:
 
     def draw_canvas(self, canvas):
         paint = canvas.paint
-        paint.color = 'fff'
+        paint.color = "fff"
         rect = canvas.rect
 
-        SMALL_DIST   = 5
+        SMALL_DIST = 5
         SMALL_LENGTH = 10
-        LARGE_DIST   = 25
+        LARGE_DIST = 25
         LARGE_LENGTH = 30
         irange = lambda start, stop, step: range(int(start), int(stop), int(step))
         paint.antialias = False
-        for off, color in ((0, 'ffffffff'), (1, '000000ff')):
+        for off, color in ((0, "ffffffff"), (1, "000000ff")):
             paint.color = color
 
             # draw axis lines
@@ -58,8 +57,10 @@ class MouseGuide:
             cyo = cy + off
 
             # draw ticks
-            for tick_dist, tick_length in ((SMALL_DIST, SMALL_LENGTH),
-                                           (LARGE_DIST, LARGE_LENGTH)):
+            for tick_dist, tick_length in (
+                (SMALL_DIST, SMALL_LENGTH),
+                (LARGE_DIST, LARGE_LENGTH),
+            ):
                 half = tick_length // 2
                 # ticks to the left
                 for x in irange(rect.left + off, cx - tick_dist + 1, tick_dist):
@@ -84,29 +85,32 @@ class MouseGuide:
             self.canvas.move(x - self.width // 2, y - self.height // 2)
             self.last_pos = pos
 
+
 mouse_guide = MouseGuide(500, 500)
-#mouse_guide.enable()
+# mouse_guide.enable()
 
 mod = Module()
-mod.list('mouse_cardinal', desc='cardinal directions for relative mouse movement')
+mod.list("mouse_cardinal", desc="cardinal directions for relative mouse movement")
 
-def parse_cardinal(direction: str, distance: int) -> Tuple[bool, int]:
+
+def parse_cardinal(direction: str, distance: int) -> tuple[bool, int]:
     x, y = ctrl.mouse_pos()
-    if ' ' in direction:
-        modifier, direction = direction.split(' ', 1)
-        if modifier == 'minor':
+    if " " in direction:
+        modifier, direction = direction.split(" ", 1)
+        if modifier == "minor":
             distance *= 5
-        if modifier == 'major':
+        if modifier == "major":
             distance *= 25
-    if direction == 'left':
+    if direction == "left":
         return True, x - distance
-    elif direction == 'right':
+    elif direction == "right":
         return True, x + distance
-    elif direction == 'up':
+    elif direction == "up":
         return False, y - distance
-    elif direction == 'down':
+    elif direction == "down":
         return False, y + distance
     raise ValueError(f"unsupported cardinal direction: {direction}")
+
 
 @mod.action_class
 class Actions:
@@ -142,15 +146,25 @@ class Actions:
         horiz1, pos1 = parse_cardinal(dir1, dist1)
         horiz2, pos2 = parse_cardinal(dir2, dist2)
         if horiz1 == horiz2:
-            raise ValueError('cannot move twice along the same axis')
+            raise ValueError("cannot move twice along the same axis")
         x, y = pos1, pos2
         if horiz2:
             y, x = x, y
         ctrl.mouse_move(x, y)
 
+
 ctx = Context()
-ctx.lists['user.mouse_cardinal'] = [
-    'up', 'left', 'down', 'right',
-    'major up', 'major left', 'major down', 'major right',
-    'minor up', 'minor left', 'minor down', 'minor right',
+ctx.lists["user.mouse_cardinal"] = [
+    "up",
+    "left",
+    "down",
+    "right",
+    "major up",
+    "major left",
+    "major down",
+    "major right",
+    "minor up",
+    "minor left",
+    "minor down",
+    "minor right",
 ]

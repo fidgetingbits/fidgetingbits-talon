@@ -1,4 +1,4 @@
-from talon import Module, Context, actions, ui, imgui, clip, settings
+from talon import Context, actions
 
 ctx = Context()
 ctx.matches = r"""
@@ -6,9 +6,8 @@ mode: user.auto_lang
 and code.language: gdb
 """
 
-ctx.lists["user.code_functions"] = {
-"print": "printf"
-}
+ctx.lists["user.code_functions"] = {"print": "printf"}
+
 
 @ctx.action_class("user")
 class UserActions:

@@ -1,7 +1,7 @@
 # this is adapted from @rntz script:
 # https://gist.github.com/rntz/914bdb60187858d4a014e82fbcf591c3
 
-from talon import Module, noise, actions, ui, app
+from talon import Module, actions, app, noise, ui
 
 mod = Module()
 
@@ -12,7 +12,6 @@ class Actions:
         """pop action overrideable by contexts"""
         print("noise.py - pop()")
         actions.user.mouse()
-
 
     def pop_quick_action_clear():
         """Clears the quick macro"""
@@ -46,7 +45,6 @@ class Actions:
     def hiss():
         """hiss action overrideable by contexts"""
         print("hissing")
-        pass
 
     def hiss_quick_action_clear():
         """Clears the quick macro"""

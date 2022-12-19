@@ -99,7 +99,7 @@ class UserActions:
         actions.auto_insert(" >>= ")
 
     def code_import_local():
-        actions.user.paste('source ')
+        actions.user.paste("source ")
 
     def code_comment_line_prefix():
         actions.auto_insert("#")
@@ -123,7 +123,7 @@ class UserActions:
 
     def code_insert_function(text: str, selection: str):
         if selection:
-            text = text + " {} ".format(selection)
+            text = text + f" {selection} "
         else:
             text = text + " "
 

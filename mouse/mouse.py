@@ -1,18 +1,7 @@
 import os
 import time
 
-
-from talon import (
-    Module,
-    actions,
-    app,
-    clip,
-    cron,
-    ctrl,
-    imgui,
-    noise,
-    ui,
-)
+from talon import Module, actions, app, clip, cron, ctrl, imgui, ui
 
 key = actions.key
 self = actions.self
@@ -136,14 +125,14 @@ continuous_scroll_mode = ""
 
 @imgui.open(x=700, y=0)
 def gui_wheel(gui: imgui.GUI):
-    gui.text("Scroll mode: {}".format(continuous_scroll_mode))
+    gui.text(f"Scroll mode: {continuous_scroll_mode}")
     gui.line()
     if gui.button("Wheel Stop [stop scrolling]"):
         actions.user.mouse_scroll_stop()
 
 
 # XXX - add gui for showing cursor positions
-class MouseTracker(object):
+class MouseTracker:
 
     """Tracks and gives mouse positions"""
 
@@ -188,12 +177,7 @@ class Actions:
         """Click the specified mouse button a certain number of times."""
         for i in range(count):
             ctrl.mouse_click(button=button)
-        if (
-            actions.tracking.controls_zoom_enabled()
-            # XXX - there's now no equivalent to telling whether or not
-            # resumed
-            #and eye_zoom_mouse.zoom_mouse.state != eye_zoom_mouse.STATE_IDLE
-        ):
+        if actions.tracking.controls_zoom_enabled():
             actions.tracking.zoom_cancel(True)
 
     def mouse_show_cursor():
@@ -231,7 +215,9 @@ class Actions:
 
     def mouse_toggle_zoom_mouse():
         """Toggles zoom mouse setting"""
-        actions.tracking.control_zoom_toggle(not actions.tracking.control_zoom_enabled())
+        actions.tracking.control_zoom_toggle(
+            not actions.tracking.control_zoom_enabled()
+        )
         s = "Zoom mouse: "
         if actions.tracking.control_zoom_enabled():
             s += "ENABLED"
@@ -252,24 +238,24 @@ class Actions:
         """Click the mouse count times and zoom if necessary."""
         # XXX - broken since the new tracking API
         actions.tracking.zoom(True)
-        #eye_zoom_mouse.zoom_mouse.on_pop(0)
+        # eye_zoom_mouse.zoom_mouse.on_pop(0)
 
     def mouse_zoom_single_click():
         """Click the mouse, prime one click, and zoom if necessary."""
         # XXX - broken since the new tracking API
         actions.tracking.zoom(True)
-        #eye_zoom_mouse.zoom_mouse.on_pop(0, 1)
+        # eye_zoom_mouse.zoom_mouse.on_pop(0, 1)
 
     def mouse_zoom_double_click():
         """Click the mouse, prime two clicks, and zoom if necessary."""
         # XXX - broken since the new tracking API
-        #eye_zoom_mouse.zoom_mouse.on_pop(0, 2)
+        # eye_zoom_mouse.zoom_mouse.on_pop(0, 2)
         actions.tracking.zoom(True)
 
     def mouse_zoom_triple_click():
         """Click the mouse, prime three clicks, and zoom if necessary."""
         # XXX - broken since the new tracking API
-        #eye_zoom_mouse.zoom_mouse.on_pop(0, 3)
+        # eye_zoom_mouse.zoom_mouse.on_pop(0, 3)
 
         # XXX - broken since the new tracking API
         actions.tracking.zoom(True)
@@ -290,67 +276,64 @@ class Actions:
     def mouse_zoom_move_cursor():
         """Move the cursor but don't actually click"""
         if not actions.tracking.control_enabled():
-            #print(eye_zoom_mouse.zoom_mouse.capture())
+            # print(eye_zoom_mouse.zoom_mouse.capture())
             print("broken")
-            #eye_zoom_mouse.zoom_mouse.on_pop(0, 1, click=False)
+            # eye_zoom_mouse.zoom_mouse.on_pop(0, 1, click=False)
 
     def mouse_zoom_capture_coordinates():
         """Zoom and copy the clicked coordinate tuple to the clipboard"""
-        pass
 
     def mouse_log_clicks():
         """Cause coordinates to be logged a small stack"""
-        pass
 
     def mouse_zoom_auto_single_click(count: int = 1):
         """Click the mouse, prime count clicks, and zoom if necessary."""
-        #eye_zoom_mouse.zoom_mouse.on_pop(0, count, auto=True)
+        # eye_zoom_mouse.zoom_mouse.on_pop(0, count, auto=True)
         # XXX - broken since the new tracking API
         actions.tracking.zoom(True)
 
     def mouse_zoom_auto_single_click():
         """Click the mouse, prime one click, and zoom if necessary."""
-        #eye_zoom_mouse.zoom_mouse.on_pop(0, 1, auto=True)
+        # eye_zoom_mouse.zoom_mouse.on_pop(0, 1, auto=True)
         # XXX - broken since the new tracking API
         actions.tracking.zoom(True)
 
     def mouse_zoom_auto_double_click():
         """Click the mouse, prime two clicks, and zoom if necessary."""
-        #eye_zoom_mouse.zoom_mouse.on_pop(0, 2, auto=True)
+        # eye_zoom_mouse.zoom_mouse.on_pop(0, 2, auto=True)
         # XXX - broken since the new tracking API
         actions.tracking.zoom(True)
 
     def mouse_zoom_auto_triple_click():
         """Click the mouse, prime three clicks, and zoom if necessary."""
-        #eye_zoom_mouse.zoom_mouse.on_pop(0, 3, auto=True)
+        # eye_zoom_mouse.zoom_mouse.on_pop(0, 3, auto=True)
         # XXX - broken since the new tracking API
         actions.tracking.zoom(True)
-
 
     def mouse_zoom_auto_move_cursor():
         """Move the cursor but don't actually click, an zoom if necessary"""
         if not actions.tracking.control_enabled():
-            #print(eye_zoom_mouse.zoom_mouse.get_pos())
+            # print(eye_zoom_mouse.zoom_mouse.get_pos())
             print("broken")
-            #eye_zoom_mouse.zoom_mouse.on_pop(0, 1, auto=True, click=False)
+            # eye_zoom_mouse.zoom_mouse.on_pop(0, 1, auto=True, click=False)
 
     def mouse_zoom_auto_capture_coordinates():
         """Zoom and copy the auto click coordinate tuple to the clipboard"""
-        pass
 
     def mouse_toggle_zoom_auto_click():
         """Enable auto click"""
         print("broken")
-#        eye_zoom_mouse.zoom_mouse.auto_click_timeout = (
-#            setting_mouse_zoom_auto_click_timeout.get()
-#        )
-#        eye_zoom_mouse.zoom_mouse.toggle_auto_click()
-#        s = "Auto-click zoom mouse: "
-#        if eye_zoom_mouse.zoom_mouse.auto_click_enabled:
-#            s += "ENABLED"
-#        else:
-#            s += "DISABLED"
-#        app.notify(subtitle=s)
+
+    #        eye_zoom_mouse.zoom_mouse.auto_click_timeout = (
+    #            setting_mouse_zoom_auto_click_timeout.get()
+    #        )
+    #        eye_zoom_mouse.zoom_mouse.toggle_auto_click()
+    #        s = "Auto-click zoom mouse: "
+    #        if eye_zoom_mouse.zoom_mouse.auto_click_enabled:
+    #            s += "ENABLED"
+    #        else:
+    #            s += "DISABLED"
+    #        app.notify(subtitle=s)
 
     def mouse_drag(button: int):
         """Press and hold/release a specific mouse button for dragging"""
@@ -376,7 +359,7 @@ class Actions:
         """zoom and press in hold/release button 0 depending on state"""
         print("broken")
 
-        #eye_zoom_mouse.zoom_mouse.on_pop(0, 1, auto=False, click=False, drag=True)
+        # eye_zoom_mouse.zoom_mouse.on_pop(0, 1, auto=False, click=False, drag=True)
 
     def mouse_sleep():
         """Disables control mouse, zoom mouse, and re-enables cursor"""
@@ -455,7 +438,7 @@ class Actions:
     def copy_mouse_position():
         """Copy the current mouse position coordinates"""
         position = ctrl.mouse_pos()
-        clip.set_text((repr(position)))
+        clip.set_text(repr(position))
 
     def mouse_move_center_active_window():
         """move the mouse cursor to the center of the currently active window"""
@@ -474,14 +457,14 @@ class Actions:
             gaze_job or scroll_job
         ):
             stop_scroll()
-        elif (
-            not actions.tracking.control_zoom_enabled()
-        ):
+        elif not actions.tracking.control_zoom_enabled():
             if setting_mouse_enable_pop_click.get() >= 1:
                 ctrl.mouse_click(button=0, hold=16000)
         else:
             actions.tracking.zoom(False)
-            print(f"mouse.py - zoom_mouse.on_pop() {actions.tracking.control_zoom_enabled()}")
+            print(
+                f"mouse.py - zoom_mouse.on_pop() {actions.tracking.control_zoom_enabled()}"
+            )
 
 
 def show_cursor_helper(show):
@@ -513,8 +496,8 @@ def show_cursor_helper(show):
                 win32con.SPI_SETCURSORS, 0, None, 0
             )
 
-        except WindowsError:
-            print("Unable to show_cursor({})".format(str(show)))
+        except OSError:
+            print(f"Unable to show_cursor({str(show)})")
     else:
         ctrl.cursor_visible(show)
 
@@ -526,9 +509,7 @@ if setting_mouse_enable_on_startup.get() >= 1:
 def on_pop(active):
     if setting_mouse_enable_pop_stops_scroll.get() >= 1 and (gaze_job or scroll_job):
         stop_scroll()
-    elif (
-        not actions.tracking.control_zoom_enabled()
-    ):
+    elif not actions.tracking.control_zoom_enabled():
         print("Triggering non-zoom click")
         if setting_mouse_enable_pop_click.get() >= 1:
             ctrl.mouse_click(button=0, hold=16000)

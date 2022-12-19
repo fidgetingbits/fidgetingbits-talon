@@ -25,12 +25,10 @@ ctx.lists["user.code_functions"] = {
     "assert": "assert",
     "get meta table": "getmetatable",
     "set meta table": "setmetatable",
-
     # io
     "eye oh write": "io.write",
     "eye oh read": "io.read",
     "eye oh open": "io.open",
-
     # string
     "format": "string.format",
     "string G find": "string.gfind",
@@ -42,22 +40,17 @@ ctx.lists["user.code_functions"] = {
     "string G sub": "string.gsub",
     "string match": "string.match",
     "string G match": "string.gmatch",
-
     # table
     "table unpack": "table.unpack",
     "table insert": "table.insert",
     "tabel get N": "table.getn",
     "tabel sort": "table.sort",
-
     # math
     "math max": "math.max",
-
     # json
     "jason parse": "json.parse",
-
     # http
     "web get": "http.get",
-
     # os
     "O S date": "os.date",
     "O S time": "os.time",
@@ -85,7 +78,6 @@ ctx.lists["user.code_libraries"] = {
     "H T T P": "http",
     "web": "http",
     "jason": "json",
-
     # Nmap Scripting Engine
     # XXX - They should go in its own extension for .nse files
     "short port": "shortport",
@@ -202,7 +194,6 @@ class UserActions:
         actions.key("up:2")
         actions.user.code_insert_function(result, None)
 
-
     def code_public_function(text: str):
         result = "function {}".format(
             actions.user.formatted_text(
@@ -216,7 +207,7 @@ class UserActions:
 
     def code_insert_function(text: str, selection: str):
         if selection:
-            text = text + "({})".format(selection)
+            text = text + f"({selection})"
         else:
             text = text + "()"
 
@@ -243,8 +234,8 @@ class UserActions:
     # code_operators_array
     ##
     def code_operator_subscript():
-        actions.insert('[]')
-        actions.key('left')
+        actions.insert("[]")
+        actions.key("left")
 
     ##
     # code_operators_assignment

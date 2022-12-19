@@ -1,21 +1,9 @@
 # a significant amount of this was taken from https://github.com/rexroni/rexroni_talon
 # but with a new command added for handling folders
-from talon import Module, Context, ui, actions, linux, actions, ui
-from talon.scripting import core
-
 import os
-import typing
-import json
-import socket
-import contextlib
-import selectors
-import threading
-import traceback
-import logging
 
-from . import singletons
-from . import speakify
-from . import events
+from talon import Context, Module
+
 
 HERE = os.path.dirname(__file__)
 
@@ -36,9 +24,7 @@ tag: user.zsh
 # """
 
 
-mod.tag(
-    "zsh", desc="Tag for enabling zsh shell support"
-)
+mod.tag("zsh", desc="Tag for enabling zsh shell support")
 
 plugin_tag_list = [
     "zsh_cd_gitroot",
@@ -48,12 +34,11 @@ for entry in plugin_tag_list:
     mod.tag(entry, f"tag to load {entry} zsh plugin commands")
 
 
-
-#mod.list("zsh_completion", desc="zsh completions")
-#ctx.lists["user.zsh_completion"] = {}
+# mod.list("zsh_completion", desc="zsh completions")
+# ctx.lists["user.zsh_completion"] = {}
 #
-#mod.list("shell_command", desc="user shell commands")
-#ctx.lists["user.shell_command"] = {
+# mod.list("shell_command", desc="user shell commands")
+# ctx.lists["user.shell_command"] = {
 #    "less": "less",
 #    "ell ess": "ls",
 #    "cd": "cd",
@@ -68,15 +53,15 @@ for entry in plugin_tag_list:
 #    "remove": "rm",
 #    "make dir": "mkdir",
 #    "remove directory": "rmdir",
-#}
+# }
 #
-#@mod.capture(rule="{user.shell_command}")
-#def shell_command(m) -> str:
+# @mod.capture(rule="{user.shell_command}")
+# def shell_command(m) -> str:
 #    """Returns a shell command"""
 #    return m.shell_command
 #
-#@mod.capture(rule="{user.zsh_completion}")
-#def zsh_completion(m) -> str:
+# @mod.capture(rule="{user.zsh_completion}")
+# def zsh_completion(m) -> str:
 #    """Returns a zsh_completion"""
 #    if not m.zsh_completion.startswith("{"):
 #        # unambiguous result
@@ -105,11 +90,11 @@ for entry in plugin_tag_list:
 #    return symbol[len(edit.prefix):] + "\t"
 #
 #
-#_typed_special = False
-#_typed_anything = False
+# _typed_special = False
+# _typed_anything = False
 #
-#@contextlib.contextmanager
-#def maybe_trigger_completions():
+# @contextlib.contextmanager
+# def maybe_trigger_completions():
 #    """
 #    After running any command, retrigger the completion calculation,
 #    unless you typed enter at any point.
@@ -126,15 +111,15 @@ for entry in plugin_tag_list:
 #    # print('triggered!' if should_triger else 'not triggered!')
 #
 #
-#@ctx.action_class("core")
-#class core_action:
+# @ctx.action_class("core")
+# class core_action:
 #    def run_phrase(phrase: core.Capture):
 #        with maybe_trigger_completions():
 #            core.CoreActions.run_phrase(phrase)
 #
 #
-#@ctx.action_class("main")
-#class main_action:
+# @ctx.action_class("main")
+# class main_action:
 #    def key(key: str):
 #        global _typed_special
 #        global _typed_anything
@@ -149,7 +134,7 @@ for entry in plugin_tag_list:
 #        actions.next(key)
 #
 #
-#class Zsh:
+# class Zsh:
 #    def __init__(self, pid, ctx):
 #        self.pid = pid
 #        self.ctx = ctx
@@ -266,7 +251,7 @@ for entry in plugin_tag_list:
 #            self.sock.close()
 #
 #
-#class ZshPool(events.EventConsumer):
+# class ZshPool(events.EventConsumer):
 #    def __init__(self):
 #        # shells maps pids to Zsh objects.
 #        self.shells = {}
@@ -310,12 +295,12 @@ for entry in plugin_tag_list:
 #            self.ctx.notify_me(pid)
 #
 #
-#@events.singleton
-#def zsh_pool():
+# @events.singleton
+# def zsh_pool():
 #    return ZshPool()
 #
 #
-#class ZshTriggerWatch:
+# class ZshTriggerWatch:
 #    """
 #    Whenever a new zsh window is selected, reach out to the zsh completion
 #    server and have it tell us what its completion list is.

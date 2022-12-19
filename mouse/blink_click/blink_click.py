@@ -5,12 +5,12 @@ from time import sleep, time
 
 from talon import Module, actions, app, ctrl, settings, ui
 from talon.types import Point2d
-from talon_plugins.eye_mouse import menu, tracker
+from talon_plugins.eye_mouse import tracker
 
 mod = Module()
 
 
-class EyeMouseSleepTracker(object):
+class EyeMouseSleepTracker:
 
     """Track whether or not eyes are present. Wake and sleep the screen
     accordingly"""
@@ -225,7 +225,7 @@ class EyeMouseBlink:
             if self.signal < 3:  # 4:
                 return  # print("Open your eyes more between blinks!"); return
 
-            if self.eyes == False:
+            if self.eyes is False:
                 if self.two_blinks:
                     if abs(self.current_time - self.first_blink) > self.expire:
                         # Second blink, but expired.
@@ -314,7 +314,7 @@ class Actions:
         else:
             tracker.unregister("gaze", blink.on_gaze)
             blink.enabled = False
-        app.notify(subtitle="blink click: %s" % blink.enabled)
+        app.notify(subtitle=f"blink click: {blink.enabled}")
 
     def mouse_toggle_eye_mouse_sleep_tracker():
         """Turn on an off eye mouse sleep tracker"""
@@ -325,7 +325,7 @@ class Actions:
         else:
             tracker.unregister("gaze", sleep_tracker.on_gaze)
             sleep_tracker.enabled = False
-        app.notify(subtitle="eye sleep tracker: %s" % sleep_tracker.enabled)
+        app.notify(subtitle=f"eye sleep tracker: {sleep_tracker.enabled}")
 
 
 # menu.toggle('Blink Click + Wink Scroll', weight=2, cb=toggle_blink_click)

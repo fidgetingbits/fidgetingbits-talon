@@ -1,7 +1,6 @@
 # This follows yyyy-mm-dd format
 
 import datetime
-import time
 from datetime import date, datetime, timedelta
 
 from talon import Module
@@ -12,7 +11,7 @@ mod = Module()
 @mod.action_class
 class Actions:
     def date_now() -> str:
-        """returns the date YYYY-MM-DD and time """
+        """returns the date YYYY-MM-DD and time"""
         return datetime.today()
 
     def date_today() -> str:

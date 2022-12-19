@@ -1,7 +1,7 @@
-from collections import OrderedDict
-from talon import Context, Module, registry, ui, speech_system, scope, actions
-import talon.scripting.rctx as rctx
 import pprint
+
+import talon.scripting.rctx as rctx
+from talon import Context, Module, actions, registry, scope, speech_system, ui
 
 ctx = Context()
 mod = Module()
@@ -9,6 +9,8 @@ mod = Module()
 # Unable to print all window updates the talon sees
 # ui.register('', print)
 pp = pprint.PrettyPrinter(indent=4)
+
+
 @mod.action_class
 class module_actions:
     def debug_active_context():
@@ -40,24 +42,21 @@ class module_actions:
         print(speech_system.engine.engine.cfg_blobs)
         print("-------DEBUG LOST CONTEXT END-------")
 
-
     def debug_registry_commands():
         """dump out the largest registry lists for a given context"""
         d = {}
         print(f"Commands: {len(registry.commands)}")
         for key, item in registry.commands.items():
             print(key)
-        for ent in sorted(d.items(), key=lambda x:x[1], reverse=True):
+        for ent in sorted(d.items(), key=lambda x: x[1], reverse=True):
             print(f"{ent[1]}: {ent[0]}")
-
-
 
     def debug_registry_lists():
         """dump out the largest registry lists for a given context"""
         d = {}
         for key, item in registry.lists.items():
             d[key] = len(item[-1])
-        for ent in sorted(d.items(), key=lambda x:x[1], reverse=True):
+        for ent in sorted(d.items(), key=lambda x: x[1], reverse=True):
             print(f"{ent[1]}: {ent[0]}")
 
     def debug_grammar_list():
@@ -66,5 +65,5 @@ class module_actions:
         d = {}
         for key, item in speech_system.grammar.list_nfas.items():
             d[key] = len(item[0])
-        for ent in sorted(d.items(), key=lambda x:x[1], reverse=True):
+        for ent in sorted(d.items(), key=lambda x: x[1], reverse=True):
             print(f"{ent[1]}: {ent[0]}")

@@ -36,6 +36,7 @@ class IDATalon:
         """Copies the label at location into the clipboard"""
         self._copy_value("copy_relative_offset", location)
 
+
 ida = IDATalon()
 
 # These ones are specific too an API exposed through the ida-talon plugin
@@ -46,6 +47,7 @@ class UserActions:
 
     def trigger_command_server_command_execution():
         actions.key("alt-shift-T")
+
 
 @mod.action_class
 class IDATalonActions:

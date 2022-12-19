@@ -425,6 +425,7 @@ abbreviations = {
 
 ctx.lists["user.abbreviation"] = abbreviations
 
+
 @mod.capture(rule="brief {user.abbreviation}")
 def abbreviation(m) -> str:
     "One abbreviation"

@@ -1,6 +1,7 @@
 # defines the default edit actions for windows
 
 from talon import Context, actions
+
 ctx = Context()
 ctx.matches = r"""
 os: windows
@@ -88,10 +89,12 @@ class EditActions:
         actions.key("ctrl-end")
 
     def file_start():
-        actions.key('ctrl-home')
-    def find(text: str=""):
-        actions.key('ctrl-f')
+        actions.key("ctrl-home")
+
+    def find(text: str = ""):
+        actions.key("ctrl-f")
         actions.insert(text)
+
     def find_next():
         actions.key("f3")
         # action(edit.find_previous):
@@ -158,10 +161,11 @@ class EditActions:
     def select_all():
         actions.key("ctrl-a")
 
-    def select_line(n: int=None):
-        if n is not None: actions.edit.jump_line(n)
-        actions.key('end shift-home')
-        #action(edit.select_lines(a: int, b: int)):
+    def select_line(n: int = None):
+        if n is not None:
+            actions.edit.jump_line(n)
+        actions.key("end shift-home")
+        # action(edit.select_lines(a: int, b: int)):
 
     def select_none():
         actions.key("right")
@@ -169,7 +173,7 @@ class EditActions:
         # action(edit.select_sentence):
 
     def select_word():
-        #actions.key("ctrl-left ctrl-shift-right")
+        # actions.key("ctrl-left ctrl-shift-right")
         # action(edit.selected_text): -> str
         # action(edit.sentence_end):
         # action(edit.sentence_next):

@@ -28,7 +28,6 @@ class UserActions:
         if name and name != "":
             actions.insert(name)
 
-
     def package_remove():
         actions.insert("yay -R ")
 
