@@ -67,6 +67,8 @@ class Actions:
 @imgui.open()
 def gui(gui: imgui.GUI):
     gui.text("Recent phrases")
+    gui.text("Say 'recent repeat <number>' retype a phrase on this list.")
+    gui.text("Say 'recent copy <number>' to copy a phrase from this list.")
     gui.line()
     # XXX - it would be nice if somehow we could lift the straight out of the
     # talon file, possibly by figuring out which rules call into functions

@@ -50,6 +50,7 @@ git commit message:
     edit.left()
 git commit: "git commit\n"
 git commit amend: "git commit --amend "
+git commit no verify: "git commit -n"
 git commit existing: "git commit -a\n"
 git diff (colour|color) words: "git diff --color-words "
 git diff: "git diff "
@@ -143,6 +144,8 @@ git restore source: "git restore --source="
 get remote set origin: "git remote set-url origin "
 git remote: "git remote "
 git remote add: "git remote add "
+git remote list: "git remote -v\n"
+git remote set url: "git remote set-url "
 git remote add upstream: "git remote add upstream "
 git remote remove: "git remote remove "
 git [remote] show origin: "git remote show origin\n"
@@ -160,6 +163,9 @@ git show head: "git show -c HEAD\n"
 git change head to main: "git symbolic-ref refs/remotes/origin/HEAD refs/remotes/origin/main\n"
 git stash pop: "git stash pop\n"
 git stash: "git stash\n"
+git stash push:
+  insert("git stash push -m ''")
+  key(left)
 git stash apply: "git stash apply\n"
 git stash list: "git stash list\n"
 git stash show: "git stash show"

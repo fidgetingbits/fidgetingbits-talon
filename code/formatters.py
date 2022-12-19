@@ -185,7 +185,8 @@ formatters_words = { "allcaps": formatters_dict["ALL_CAPS"], "alldown":
     formatters_dict["SPACE_SURROUNDED_STRING"], "pointing":
     formatters_dict["C_POINTER_SEPARATED"], "slasher":
     formatters_dict["SLASH_SEPARATED"], "smashing":
-    formatters_dict["NO_SPACES"], "snake": formatters_dict["SNAKE_CASE"],
+    formatters_dict["NO_SPACES"], 
+    "snake": formatters_dict["SNAKE_CASE"],
     "spongbob": formatters_dict["SPONGEBOB"], "quoted":
     formatters_dict["DOUBLE_QUOTED_STRING"], "ticks":
     formatters_dict["SINGLE_QUOTED_STRING"], "title":
@@ -194,7 +195,6 @@ formatters_words = { "allcaps": formatters_dict["ALL_CAPS"], "alldown":
 
 # This is the mapping for series of letters to formatters ex: abc to A B C
 formatters_keys = { "spacing": formatters_dict["ALL_CAPS"], }
-
 all_formatters = {} all_formatters.update(formatters_dict)
 all_formatters.update(formatters_words) all_formatters.update(formatters_keys)
 
@@ -248,11 +248,14 @@ return ",".join(m.formatters_keys_list)
 
     It will be inserted directly, without being formatted.
 
-    """ if hasattr(m, "number"): value = m.number else: value = m[0] return
-                 ImmuneString(str(value))
+    """ 
+    if hasattr(m, "number"): 
+        value = m.number 
+    else: 
+        value = m[0] return
+        ImmuneString(str(value))
 
-
-        @mod.action_class class Actions: def formatted_text(phrase:
+@mod.action_class class Actions: def formatted_text(phrase:
                                                             Union[str,
                                                             Phrase],
                                                             formatters:
@@ -263,38 +266,47 @@ return ",".join(m.formatters_keys_list)
     format_phrase(phrase, formatters)
 
     def insert_formatted(phrase: Union[str, Phrase], formatters: str):
-    """Inserts a phrase formatted according to formatters. Formatters is a
-    comma separated list of formatters (e.g.
-    'CAPITALIZE_ALL_WORDS,DOUBLE_QUOTED_STRING')"""
-    actions.insert(format_phrase(phrase, formatters))
-    # actions.user.paste(format_phrase(phrase, formatters))
+        """Inserts a phrase formatted according to formatters. Formatters is a comma separated list of formatters (e.g. 'CAPITALIZE_ALL_WORDS,DOUBLE_QUOTED_STRING')"""
+        actions.insert(format_phrase(phrase, formatters))
+        # actions.user.paste(format_phrase(phrase, formatters))
 
-    def formatters_reformat_last(formatters: str) -> str: """Clears and
-    reformats last formatted phrase""" global last_phrase,
-    last_phrase_formatted if actions.user.get_last_phrase() !=
-    last_phrase_formatted:
-    # The last thing we inserted isn't the same as the last thing we
-    # formatted, so abort.
-    logging.warning( "formatters_reformat_last(): Last phrase wasn't a
-    formatter!") return actions.user.clear_last_phrase()
-    actions.user.insert_formatted(last_phrase, formatters)
+    def formatters_reformat_last(formatters: str) -> str:
+        """Clears and reformats last formatted phrase"""
+        global last_phrase, last_phrase_formatted
+        if actions.user.get_last_phrase() != last_phrase_formatted:
+            # The last thing we inserted isn't the same as the last thing we
+            # formatted, so abort.
+            logging.warning(
+                "formatters_reformat_last(): Last phrase wasn't a formatter!"
+            )
+            return
+        actions.user.clear_last_phrase()
+        actions.user.insert_formatted(last_phrase, formatters)
 
-    def formatters_reformat_selection(formatters: str) -> str: """Reformats
-    the current selection.""" selected = edit.selected_text() if not
-    selected: print("Asked to reformat selection, but nothing selected!")
-    return unformatted = unformat_text(selected)
-    # Delete separately for compatibility with programs that don't
-    # overwrite selected text (e.g. Emacs, Vim)
-    edit.delete() text = actions.self.formatted_text(unformatted,
-                                                     formatters)
-    actions.insert(text)
-    # actions.user.paste(text)
-    return text
+    def formatters_reformat_selection(formatters: str) -> str:
+        """Reformats the current selection."""
+        selected = edit.selected_text()
+        if not selected:
+            print("Asked to reformat selection, but nothing selected!")
+            return
+        unformatted = unformat_text(selected)
+        # Delete separately for compatibility with programs that don't overwrite
+        # selected text (e.g. Emacs)
+        edit.delete()
+        text = actions.self.formatted_text(unformatted, formatters)
+        actions.insert(text)
+        return text
 
-    def get_formatters_words(): """returns a list of words currently used
+    def insert_with_history(text: str):
+        """Inserts some text, remembering it in the phrase history."""
+        actions.user.add_phrase_to_history(text)
+        actions.insert(text)
+
+    def get_formatters_words(): 
+    """returns a list of words currently used
     as formatters, and a demonstration string using those formatters"""
-    formatters_help_demo = {} for name in
-    sorted(set(formatters_words.keys())):
+        formatters_help_demo = {} 
+        for name in sorted(set(formatters_words.keys())):
             formatters_help_demo[name] = format_phrase_without_adding_to_history(['one', 'two', 'three'], name)
         return  formatters_help_demo
 
