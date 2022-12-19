@@ -226,3 +226,6 @@ cut line:
     edit.cut()
 
 assign: " = "
+(pace | paste) all:
+  edit.select_all()
+  edit.paste()

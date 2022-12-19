@@ -1,12 +1,12 @@
 <!-- vim-markdown-toc GFM -->
 
-- [Fidgeting Bits Talon Repo](#fidgeting-bits-talon-repo)
-  - [WARNING](#warning)
-  - [Dependencies](#dependencies)
-    - [Monkey Patching](#monkey-patching)
-  - [Hardware](#hardware)
-  - [Recommendations](#recommendations)
-  - [Pull requests](#pull-requests)
+* [Fidgeting Bits Talon Repo](#fidgeting-bits-talon-repo)
+    * [WARNING](#warning)
+    * [Dependencies](#dependencies)
+        * [Monkey Patching](#monkey-patching)
+    * [Hardware](#hardware)
+    * [Recommendations](#recommendations)
+    * [Pull requests](#pull-requests)
 
 <!-- vim-markdown-toc -->
 
@@ -66,7 +66,6 @@ repo I'm more than happy to fix it to make it more generic, I just don't do
 this type of proactive testing on my own due to lack of time.
 
 ### Monkey Patching
-
 There are a few features that I don't like the way they work on i3, so I choose
 to monkey patch them. These patches may break on your system, in you need to
 test a different repo first if you run into problems, before assuming its
