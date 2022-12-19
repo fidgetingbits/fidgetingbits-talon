@@ -221,6 +221,9 @@ def python_docstring_fields(m) -> str:
 
 @ctx.action_class("user")
 class UserActions:
+    def code_operator_lambda():
+        actions.user.insert_between("lambda ", ": ")
+
     def code_operator_subscript():
         actions.user.insert_between("[", "]")
 
