@@ -32,14 +32,14 @@ folder edit: key(e)
 nerd menu: key(m)
 
 # menu-based actions
-(file|node) (add|new): "ma"
-folder (add|new):
+(file | node) (add | new): "ma"
+folder (add | new):
     insert("ma/")
     edit.left()
-(node|file) (remove|delete): "md"
-(node|file) (move|rename): "mm"
-(node|file) list: "ml"
-(node|file) copy: "mc"
+(node | file) (remove | delete): "md"
+(node | file) (move | rename): "mm"
+(node | file) list: "ml"
+(node | file) copy: "mc"
 
 # tree navigation mappings
 [folder] go root: key(P)

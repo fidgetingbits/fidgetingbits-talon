@@ -1,19 +1,16 @@
 tag: user.vim_normal_mode
 -
 
-(shift|indent) right: insert(">>")
-(shift|indent) left: insert("<<")
+(shift | indent) right: insert(">>")
+(shift | indent) left: insert("<<")
 
-(dup|duplicate) line:
+(dup | duplicate) line:
     insert("yy")
     insert("p")
 
-yank line:
-    insert("yy")
+yank line: insert("yy")
 
-
-push:
-    user.vim_normal_mode_np("$a")
+push: user.vim_normal_mode_np("$a")
 
 # NOTE - We need a separate key() call because some unmodified keys have
 # special names, like backspace.

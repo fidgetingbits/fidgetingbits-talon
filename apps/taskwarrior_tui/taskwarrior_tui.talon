@@ -12,7 +12,7 @@ view next: key(])
 view list: key([)
 
 ## task view
-task (search|filter): key(/)
+task (search | filter): key(/)
 task add: key(a)
 task done: key(d)
 task edit: key(e)
@@ -20,7 +20,7 @@ task edit: key(e)
 task log: key(l)
 task modify: key(m)
 quit: key(q)
-task (start|stop): key(s)
+task (start | stop): key(s)
 task undo: key(u)
 task delete: key(x)
 task info: key(z)
@@ -34,6 +34,5 @@ next year: key(j)
 last year: key(k)
 next decade: key(J)
 last decade: key(K)
-
 
 # helpers for filters

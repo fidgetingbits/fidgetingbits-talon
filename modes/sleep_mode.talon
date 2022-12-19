@@ -7,5 +7,4 @@ settings():
     user.mouse_enable_pop_click = 0
 
 <phrase>: skip()
-wake up:
-    user.talon_wake()
+wake up: user.talon_wake()

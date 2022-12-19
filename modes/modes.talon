@@ -24,4 +24,4 @@ and not mode: user.presentation
 
 # XXX - from https://github.com/AndreasArvidsson/andreas-talon/blob/master/misc/modes/dictation_mode.talon
 # Switch to dictation mode and insert a phrase
-dictate [<phrase>]$:      user.dictation_mode(phrase or "")
+dictate [<phrase>]$: user.dictation_mode(phrase or "")

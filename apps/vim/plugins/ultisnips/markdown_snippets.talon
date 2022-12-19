@@ -3,7 +3,6 @@ tag: user.vim_ultisnips
 mode: user.markdown
 mode: command
 and code.language: markdown
-
 -
 
 # XXX - unsupported by current snippets.py

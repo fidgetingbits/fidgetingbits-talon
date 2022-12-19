@@ -25,7 +25,7 @@ see scope [find] text:
     key(ctrl-\)
     key(t)
 
-see scope [find] (grip|grep):
+see scope [find] (grip | grep):
     key(ctrl-\)
     key(e)
 

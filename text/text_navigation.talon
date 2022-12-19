@@ -1,23 +1,22 @@
 # XXX - come up with a better way to disable this situationally in certain
 # apps
 not app: vim
-and not win.title:/VIM/
-
+and not win.title: /VIM/
 # Technically we want the generic functionality to work when were in the
 # terminal, with whatever the underlying bindkey setting is, so we allow it in
 # this case.
-app:vim
-and win.title:/VIM MODE:t/
+app: vim
+and win.title: /VIM MODE:t/
 -
 
 ## (2021-03-09) This syntax is experimental and may change. See below for an explanation.
 ## If you are having issues with this module not working in vscode try adding the vscode setting "editor.emptySelectionClipboard": false
 
 navigate [{user.arrow_key}] [{user.navigation_action}] [{user.navigation_target_name}] [{user.before_or_after}] [<user.ordinals>] <user.navigation_target>:
-## If you use this command a lot, you may wish to have a shorter syntax that
-# omits the navigate keyword. Note that you then at least have to say either a
-# navigation_action or before_or_after:
-# ({user.navigation_action} [{user.arrow_key}] [{user.navigation_target_name}] [{user.before_or_after}] | [{user.arrow_key}] {user.before_or_after}) [<user.ordinals>] <user.navigation_target>:
+    ## If you use this command a lot, you may wish to have a shorter syntax that
+    # omits the navigate keyword. Note that you then at least have to say either a
+    # navigation_action or before_or_after:
+    # ({user.navigation_action} [{user.arrow_key}] [{user.navigation_target_name}] [{user.before_or_after}] | [{user.arrow_key}] {user.before_or_after}) [<user.ordinals>] <user.navigation_target>:
 
     user.navigation(navigation_action or "GO", arrow_key or "RIGHT", navigation_target_name or "DEFAULT", before_or_after or "DEFAULT", navigation_target, ordinals or 1)
 
@@ -85,20 +84,31 @@ navigate [{user.arrow_key}] [{user.navigation_action}] [{user.navigation_target_
 # Specifies the target to search for/navigate to.
 
 # The functionality for all these commands is covered in the lines above, but these commands are kept here for convenience. Originally from word_selection.talon.
-word neck [<number_small>]: user.navigation_by_name("SELECT", "RIGHT", "DEFAULT", "word", number_small or 1)
-word pre [<number_small>]: user.navigation_by_name("SELECT", "LEFT", "DEFAULT", "word", number_small or 1)
-small word neck [<number_small>]: user.navigation_by_name("SELECT", "RIGHT", "DEFAULT", "small", number_small or 1)
-small word pre [<number_small>]: user.navigation_by_name("SELECT", "LEFT", "DEFAULT", "small", number_small or 1)
-big word neck [<number_small>]: user.navigation_by_name("SELECT", "RIGHT", "DEFAULT", "big", number_small or 1)
-big word pre [<number_small>]: user.navigation_by_name("SELECT", "LEFT", "DEFAULT", "big", number_small or 1)
+word neck [<number_small>]:
+    user.navigation_by_name("SELECT", "RIGHT", "DEFAULT", "word", number_small or 1)
+word pre [<number_small>]:
+    user.navigation_by_name("SELECT", "LEFT", "DEFAULT", "word", number_small or 1)
+small word neck [<number_small>]:
+    user.navigation_by_name("SELECT", "RIGHT", "DEFAULT", "small", number_small or 1)
+small word pre [<number_small>]:
+    user.navigation_by_name("SELECT", "LEFT", "DEFAULT", "small", number_small or 1)
+big word neck [<number_small>]:
+    user.navigation_by_name("SELECT", "RIGHT", "DEFAULT", "big", number_small or 1)
+big word pre [<number_small>]:
+    user.navigation_by_name("SELECT", "LEFT", "DEFAULT", "big", number_small or 1)
 
 # The following are designed to match VIM grammars from apps/vim/
-till <user.navigation_target>: user.navigation("GO", "RIGHT", "DEFAULT", "BEFORE", navigation_target, number_small or 1)
-find <user.navigation_target>: user.navigation("GO", "RIGHT", "DEFAULT", "AFTER", navigation_target, number_small or 1)
-fever <user.navigation_target>: user.navigation("GO", "LEFT", "DEFAULT", "BEFORE", navigation_target, number_small or 1)
-tier <user.navigation_target>: user.navigation("GO", "LEFT", "DEFAULT", "AFTER", navigation_target, number_small or 1)
+till <user.navigation_target>:
+    user.navigation("GO", "RIGHT", "DEFAULT", "BEFORE", navigation_target, number_small or 1)
+find <user.navigation_target>:
+    user.navigation("GO", "RIGHT", "DEFAULT", "AFTER", navigation_target, number_small or 1)
+fever <user.navigation_target>:
+    user.navigation("GO", "LEFT", "DEFAULT", "BEFORE", navigation_target, number_small or 1)
+tier <user.navigation_target>:
+    user.navigation("GO", "LEFT", "DEFAULT", "AFTER", navigation_target, number_small or 1)
 
-clear till <user.navigation_target>: user.navigation("CLEAR", "RIGHT", "DEFAULT", "BEFORE", navigation_target, number_small or 1)
+clear till <user.navigation_target>:
+    user.navigation("CLEAR", "RIGHT", "DEFAULT", "BEFORE", navigation_target, number_small or 1)
 
 # XXX - I don't know where to put this for now, but we don't want it to mess with
 # the one that vim already uses

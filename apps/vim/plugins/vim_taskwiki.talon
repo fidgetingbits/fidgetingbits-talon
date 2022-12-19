@@ -3,7 +3,7 @@ tag: user.vim_taskwiki
 and code.language: md
 -
 
-task (annotate|meta): user.vim_command_mode(":TaskWikiAnnotate\n")
+task (annotate | meta): user.vim_command_mode(":TaskWikiAnnotate\n")
 task burn [down] daily: user.vim_command_mode(":TaskWikiBurndownDaily\n")
 task burn [down] weekly: user.vim_command_mode(":TaskWikiBurndownWeekly\n")
 task burn [down] monthly: user.vim_command_mode(":TaskWikiBurndownMonthly\n")
@@ -11,7 +11,6 @@ task burn [down] monthly: user.vim_command_mode(":TaskWikiBurndownMonthly\n")
 # Interactive
 task choose project: user.vim_command_mode(":TaskWikiChooseProject\n")
 task choose tag: user.vim_command_mode(":TaskWikiChooseTag\n")
-
 
 task calendar: user.vim_command_mode(":TaskWikiCalendar\n")
 task done: user.vim_command_mode(":TaskWikiDone\n")
@@ -33,7 +32,7 @@ task tags: user.vim_command_mode(":TaskWikiTags\n")
 task start: user.vim_command_mode(":TaskWikiStart\n")
 task stop: user.vim_command_mode(":TaskWikiStop\n")
 
-task (refresh|reload): user.vim_command_mode(":TaskWikiBufferLoad\n")
+task (refresh | reload): user.vim_command_mode(":TaskWikiBufferLoad\n")
 task save: user.vim_command_mode(":TaskWikiBufferSave\n")
 task inspect: user.vim_command_mode(":TaskWikiInspect\n")
 

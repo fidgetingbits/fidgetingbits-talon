@@ -1,4 +1,4 @@
-(shock|hawk): key(enter)
+(shock | hawk): key(enter)
 
 # XXX - block alone conflicts with vim key words
 add code block:

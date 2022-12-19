@@ -10,13 +10,13 @@ quit wire shark: key(ctrl-q)
 # View
 # Go
 next packet: key(ctrl-down)
-(prev|previous) packet: key(ctrl-up)
+(prev | previous) packet: key(ctrl-up)
 first packet: key(ctrl-home)
 last packet: key(ctrl-end)
 go to packet: key(ctrl-g)
 
 # Capture
-(start|stop) capture: key(ctrl-e)
+(start | stop) capture: key(ctrl-e)
 restart capture: key(ctrl-r)
 # Analyze
 # Statistics

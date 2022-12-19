@@ -1,6 +1,5 @@
 # This is a custom set of rules to control a obs-studio script I wrote in order
 # to automatically record all sessions, and splice interesting parts.
-
 tag: user.obs_studio_global
 -
 settings():
@@ -26,10 +25,9 @@ broadcast save:
 # splices by a default time amount
 broadcast clip:
     user.system_command_nb("/home/aa/source/obs-cli/obs-cli.py --splice-recording")
-broadcast clip <number_small> (minute|minutes):
+broadcast clip <number_small> (minute | minutes):
     user.system_command_nb("/home/aa/source/obs-cli/obs-cli.py --splice-recording --splice-minutes {number_small}")
 
 # XXX - buggy. killing window/screen keeps playing video
 # This should launch a new app instead with launcher
-broadcast replay clip:
-    user.obs_play_last_clip()
+broadcast replay clip: user.obs_play_last_clip()

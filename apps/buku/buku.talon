@@ -7,7 +7,7 @@ and tag: user.buku
 bookmark help: "buku -h\n"
 bookmark version: "buku -v\n"
 bookmark new: "buku -a "
-bookmark (auto add|that):
+bookmark (auto add | that):
     insert("buku -a ")
     edit.paste()
     key(enter)
@@ -16,8 +16,7 @@ bookmark delete: "buku -d "
 
 bookmark update: "buku -u "
 bookmark edit: "buku -w "
-bookmark edit last:
-    insert("buku -w -1\n")
+bookmark edit last: insert("buku -w -1\n")
 
 # edit options
 

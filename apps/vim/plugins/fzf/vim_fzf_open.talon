@@ -7,7 +7,6 @@
 # NOTE: by default certain commands will not advertise that they're running
 # inside of fzf, so the title matching below doesn't necessarily work without
 # manual modification. Ex: anything other than :Files?
-
 tag: user.vim_fzf
 win.title: /#FZF/
 -

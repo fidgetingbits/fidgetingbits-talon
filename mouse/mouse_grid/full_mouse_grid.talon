@@ -12,8 +12,7 @@ soup win:
     user.full_grid_place_window()
     user.full_grid_activate()
 
-soup replay drag:
-    user.full_grid_replay_drag()
+soup replay drag: user.full_grid_replay_drag()
 
 soup <user.modifiers> replay drag:
     key("{modifiers}:down")

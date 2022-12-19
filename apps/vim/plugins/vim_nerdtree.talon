@@ -1,6 +1,5 @@
 # vim_nerdtree_open.talon for the remainder of commands
 # https://github.com/preservim/nerdtree
-
 tag: user.vim_nerdtree
 -
 

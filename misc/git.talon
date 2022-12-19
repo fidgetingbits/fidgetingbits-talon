@@ -5,19 +5,19 @@ and tag: user.git
 git add patch: "git add . -p\n"
 git add: "git add "
 git add force: "git add -f "
-git add (changed|everything): "git add -u\n"
+git add (changed | everything): "git add -u\n"
 git bisect: "git bisect "
 git blame: "git blame "
 git branch: "git branch "
 git branch list: "git branch -a\n"
-git branch (remove|delete): "git branch -d "
-git branch force (remove|delete): "git branch -D "
+git branch (remove | delete): "git branch -d "
+git branch force (remove | delete): "git branch -D "
 git branch remote: "git branch --remote\n"
 git branch <user.text>: "git branch {text}"
 git checkout: "git checkout "
 git checkout master: "git checkout master\n"
 git checkout file master: "git checkout master --"
-git checkout (main|men): "git checkout main\n"
+git checkout (main | men): "git checkout main\n"
 git checkout dev: "git checkout dev\n"
 git checkout <user.text>: "git checkout {text}"
 git checkout <number_small> before clip:
@@ -42,7 +42,7 @@ git clone clip:
 # Leave \n out for confirmation since the operation is destructive
 git clean: "git clean"
 git clean everything: "git clean -dfx"
-git clean FD : "git clean -fd"
+git clean FD: "git clean -fd"
 # XXX - should use text or
 git commit message <user.text>: "git commit -m '{text}'"
 git commit message:
@@ -52,7 +52,7 @@ git commit: "git commit\n"
 git commit amend: "git commit --amend "
 git commit no verify: "git commit -n"
 git commit existing: "git commit -a\n"
-git diff (colour|color) words: "git diff --color-words "
+git diff (colour | color) words: "git diff --color-words "
 git diff: "git diff "
 git diff cached: "git diff --cached\n"
 git diff staged: "git diff --staged\n"
@@ -85,7 +85,7 @@ git log reverse: "git log -5 --reverse\n"
 git log <number>: "git log -{number}\n"
 git log files: "git log --name-status -5\n"
 git log files <number>: "git log --name-status -{number}\n"
-git log [changes|code]: "git log -c "
+git log [changes | code]: "git log -c "
 git log clip:
     insert("git log -1 -c ")
     edit.paste()
@@ -106,7 +106,7 @@ git log removed files: "git log --diff-filter=D --summary\n"
 git log removed files only: "git log --diff-filter=D --summary | grep delete\n"
 
 git merge: "git merge "
-git merge <user.text>:"git merge {text}"
+git merge <user.text>: "git merge {text}"
 git merge clip:
     insert("git merge ")
     edit.paste()
@@ -133,7 +133,7 @@ git rebase continue: "git rebase --continue\n"
 git rebase skip: "git rebase --skip"
 git remove: "git rm "
 git remove cached: "git rm --cached"
-git (remove|delete) remote branch: "git push --delete origin "
+git (remove | delete) remote branch: "git push --delete origin "
 git remove remote origin: "git remote rm origin"
 git reset: "git reset "
 git reset soft: "git reset --soft "
@@ -160,7 +160,8 @@ git show change clip:
     edit.paste()
     key(enter)
 git show head: "git show -c HEAD\n"
-git change head to main: "git symbolic-ref refs/remotes/origin/HEAD refs/remotes/origin/main\n"
+git change head to main:
+    "git symbolic-ref refs/remotes/origin/HEAD refs/remotes/origin/main\n"
 git stash pop: "git stash pop\n"
 git stash: "git stash\n"
 git stash push: user.insert_between("git stash push -m '", "'")
@@ -168,25 +169,26 @@ git stash apply: "git stash apply\n"
 git stash list: "git stash list\n"
 git stash show: "git stash show"
 git status: "git status --untracked-files=no\n"
-git status (all|full): "git status\n"
+git status (all | full): "git status\n"
 git status staged: "git status --short | grep '^[MARCD]'\n"
 git sub tree: "git subtree "
 git switch: "git switch "
 git switch branch: "git switch -c"
-git switch [<user.text>]: "git switch {user.formatted_text(text or '', 'DASH_SEPARATED')}"
+git switch [<user.text>]:
+    "git switch {user.formatted_text(text or '', 'DASH_SEPARATED')}"
 git switch master: "git switch master "
 git switch main: "git switch main "
 git switch develop: "git switch develop "
 git switch detached: "git switch --detach "
 git (switch create | new branch) [<user.text>]:
-  "git switch -c {user.formatted_text(text or '', 'DASH_SEPARATED')}"
+    "git switch -c {user.formatted_text(text or '', 'DASH_SEPARATED')}"
 git switch orphan: "git switch --orphan "
 git switch clip:
     insert("git switch ")
     edit.paste()
     key(enter)
 
-git [sub] module add:  "git submodule add "
+git [sub] module add: "git submodule add "
 git [sub] module status: "git submodule status\n"
 git [sub] module status recurse: "git submodule status --recursive\n"
 git [sub] module sink: "git submodule sync\n"
@@ -197,8 +199,7 @@ git tag list: "git --no-pager tag\n"
 git tag list specific:
     insert('git tag -l ""')
     edit.left()
-git tag add:
-    user.insert_cursor('git tag -a v[|] -m ""')
+git tag add: user.insert_cursor('git tag -a v[|] -m ""')
 git tag remove: "git tag -d "
 git tag remove remote: "git push origin --delete "
 
@@ -206,9 +207,9 @@ git tag remove remote: "git push origin --delete "
 git edit config: "git config --local -e\n"
 
 git clone clipboard:
-  insert("git clone ")
-  edit.paste()
-  key(enter)
+    insert("git clone ")
+    edit.paste()
+    key(enter)
 git diff highlighted:
     edit.copy()
     insert("git diff ")

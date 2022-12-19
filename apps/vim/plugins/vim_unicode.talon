@@ -1,6 +1,6 @@
 # https://github.com/chrisbra/unicode.vim
 # Plug 'chrisbra/unicode.vim'
-tag:user.vim_unicode
+tag: user.vim_unicode
 -
 
 unicode graphs: user.vim_normal_mode_exterm(":Digraphs ")

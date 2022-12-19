@@ -1,51 +1,51 @@
 {
-  "2560x1440": {
-    "neutral": [2321, 34],
-    "government": [29, 34],
-    "alert_slot_0": [346, 82],
-    "alert_slot_1": [400, 82],
-    "navigation": {
-      "slot_0": [26, 82],
-      "slot_delta": [26, 122]
-    },
-    "outliner": {
-      "entries": {
-        "planets": [2346, 205],
-        "sectors": [2343, 238],
-        "shipyards": [2353, 272],
-        "fleet": [2356, 313],
-        "ships": [2356, 346],
-        "armies": [2354, 387],
-        "factions": [2350, 431]
-      },
-      "status_x": [2328, 520],
-      "status_x_delta": [2327, 561],
-      "entry_x": [2450, 508],
-      "planet_x": [2539, 507]
-    },
-    "topbar": {
-      "energy": [112, 34],
-      "minerals": [193, 34],
-      "food": [269, 34],
-      "goods": [350, 34],
-      "alloys": [427, 34],
-      "influence": [509, 34],
-      "unity": [586, 34],
-      "research": [654, 34],
-      "matter": [716, 34],
-      "sprawl": [795, 34],
-      "envoys": [852, 34],
-      "population": [903, 34],
-      "starbase": [968, 34],
-      "naval": [1041, 34]
-    },
-    "offsets": {
-      "planet_orders": {
-        "description": "menu popped up when right clicking planet",
-        "base": [603, 746],
-        "explore_system": [617, 788],
-        "survey_system": [615, 819]
-      }
+    "2560x1440": {
+        "neutral": [2321, 34],
+        "government": [29, 34],
+        "alert_slot_0": [346, 82],
+        "alert_slot_1": [400, 82],
+        "navigation": {
+            "slot_0": [26, 82],
+            "slot_delta": [26, 122]
+        },
+        "outliner": {
+            "entries": {
+                "planets": [2346, 205],
+                "sectors": [2343, 238],
+                "shipyards": [2353, 272],
+                "fleet": [2356, 313],
+                "ships": [2356, 346],
+                "armies": [2354, 387],
+                "factions": [2350, 431]
+            },
+            "status_x": [2328, 520],
+            "status_x_delta": [2327, 561],
+            "entry_x": [2450, 508],
+            "planet_x": [2539, 507]
+        },
+        "topbar": {
+            "energy": [112, 34],
+            "minerals": [193, 34],
+            "food": [269, 34],
+            "goods": [350, 34],
+            "alloys": [427, 34],
+            "influence": [509, 34],
+            "unity": [586, 34],
+            "research": [654, 34],
+            "matter": [716, 34],
+            "sprawl": [795, 34],
+            "envoys": [852, 34],
+            "population": [903, 34],
+            "starbase": [968, 34],
+            "naval": [1041, 34]
+        },
+        "offsets": {
+            "planet_orders": {
+                "description": "menu popped up when right clicking planet",
+                "base": [603, 746],
+                "explore_system": [617, 788],
+                "survey_system": [615, 819]
+            }
+        }
     }
-  }
 }

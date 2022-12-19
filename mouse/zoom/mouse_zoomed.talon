@@ -8,5 +8,4 @@ tag: user.mouse_zoomed
     user.mouse_drag(1)
     # close the mouse grid
     user.grid_close()
-(end drag | drag end):
-    user.mouse_drag_end()
+(end drag | drag end): user.mouse_drag_end()

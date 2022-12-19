@@ -3,7 +3,6 @@ and mode: user.bpftrace
 mode: command
 and mode: user.auto_lang
 and code.language: bpftrace
-
 -
 tag(): user.code_imperative
 
@@ -47,7 +46,7 @@ state global: "@"
 state local: "$"
 state define: "#define "
 state include system:
-    insert('#include <>')
+    insert("#include <>")
     edit.left()
 
 state filter:

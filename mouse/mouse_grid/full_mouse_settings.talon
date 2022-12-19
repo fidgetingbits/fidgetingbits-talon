@@ -9,7 +9,7 @@ settings():
     user.full_mouse_grid_row_highlighter = "990000"
 
     #sets the color of the large number label in the superblock
-    user.full_mouse_grid_large_number_color ="00ff00"
+    user.full_mouse_grid_large_number_color = "00ff00"
 
     #sets the color of the small letters label in the superblock
     user.full_mouse_grid_small_letters_color = "ffff55"

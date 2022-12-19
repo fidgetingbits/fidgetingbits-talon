@@ -5,5 +5,4 @@ mode: dictation
 settings():
     user.sleep_word = "drowse"
 
-drowse:
-    user.talon_sleep()
+drowse: user.talon_sleep()

@@ -1,7 +1,6 @@
 -
 # NOTE: Other files also declare settings, see mouse/mouse.talon, etc
 settings():
-
     ###
     # GUI
     ###
@@ -37,7 +36,6 @@ settings():
     # Adjust how sensitive picking up commands are.
     # XXX what is the default?
     speech.threshold = 0.1
-
 
     ###
     # HISTORY
@@ -143,7 +141,6 @@ settings():
     # Draft Editor
     ###
     user.draft_editor = "Code"
-
 
 # uncomment tag to enable mouse grid
 # tag(): user.mouse_grid_enabled

@@ -1,6 +1,5 @@
 # For linux kernel debugging
 # See https://www.kernel.org/doc/Documentation/dev-tools/gdb-kernel-debugging.rst
-
 tag: user.gdb_vmlinux
 -
 
@@ -30,7 +29,7 @@ lux config dump: insert("lx-configdump\n")
 lux see pee ewes: insert("lx-cpus\n")
 lux D message: insert("lx-dmesg\n")
 lux list check: insert("lx-list-check ")
-lux (modules|module list): insert("lx-lsmod\n")
+lux (modules | module list): insert("lx-lsmod\n")
 lux process list: insert("lx-ps\n")
 lux symbols: insert("lx-symbols\n")
 

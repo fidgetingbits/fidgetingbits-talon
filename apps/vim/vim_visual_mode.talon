@@ -1,7 +1,7 @@
 tag: user.vim_visual_mode
 -
 
-swap (selected|highlighted):
+swap (selected | highlighted):
     insert(":")
     # leave time for vim to populate '<,'>
     sleep(50ms)
@@ -23,7 +23,7 @@ unique selected:
     insert("sort u\n")
 
     # assumes visual mode
-reswap (selected|highlighted):
+reswap (selected | highlighted):
     insert(":")
     # leave time for vim to populate '<,'>
     sleep(50ms)
@@ -43,7 +43,7 @@ prefix with <user.unmodified_key>:
 
 # XXX - maybe make this work another modes
 # copy with line numbers
-(yank|copy) with [line] (numb|numbers):
+(yank | copy) with [line] (numb | numbers):
     # NOTE - xclip struggles with we use @+ directly, we indirect through @n
     # this turns @n into a scratch register. XXX - we may want to document
     # this eventually
@@ -57,20 +57,16 @@ search that:
     insert("=escape(@\",'/\\')")
     key("enter:2")
 
+(shift | indent) right: insert(">")
+(shift | indent) left: insert("<")
 
-(shift|indent) right: insert(">")
-(shift|indent) left: insert("<")
-
-
-(dup|duplicate) line:
+(dup | duplicate) line:
     insert("Y")
     insert("p")
 
-yank line:
-    insert("Y")
+yank line: insert("Y")
 
-push:
-    user.vim_normal_mode_np("$a")
+push: user.vim_normal_mode_np("$a")
 
 # NOTE - We need a separate key() call because some unmodified keys have
 # special names, like backspace.
@@ -86,18 +82,16 @@ push it:
 
 # Convert a number to hex
 convert to hex:
-    user.vim_command_mode(":%s/\\d\\+/\\=printf(\"0x%04x\", submatch(0))")
+    user.vim_command_mode(':%s/\\d\\+/\\=printf("0x%04x", submatch(0))')
 
 # Subtract hex
 # https://www.reddit.com/r/vim/comments/emtwgz/add_subtract_multiply_or_divide_a_value_to_each/
 # Only works on the last number in a line
-subtract that:
-    insert(":s/\\d\\+$/\\=submatch(0)-")
+subtract that: insert(":s/\\d\\+$/\\=submatch(0)-")
 
 subtract that clip:
     insert(":s/\\d\\+$/\\=submatch(0)-")
     edit.paste()
 
 # this should only be enabled within python
-sort by dick value:
-    insert(":!sort -t ':' -k 2\n")
+sort by dick value: insert(":!sort -t ':' -k 2\n")

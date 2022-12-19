@@ -4,7 +4,7 @@ app: drawio
 undo: key(ctrl-z)
 
 # File
-(file save|sage): key(ctrl-s)
+(file save | sage): key(ctrl-s)
 file save as: key(ctrl-shift-s)
 
 # Edit
@@ -21,13 +21,13 @@ select all: key(ctrl-a)
 select edges: key(ctrl-shift-e)
 select vertices: key(ctrl-shift-i)
 select none: key(ctrl-shift-a)
-[toggle] (lock|unlock): key(ctrl-l)
+[toggle] (lock | unlock): key(ctrl-l)
 
 # View
-(show|hide) format [panel]: key(ctrl-shift-p)
-(show|hide) outline: key(ctrl-shift-o)
-(show|hide) layers: key(ctrl-shift-l)
-(show|hide) grid: key(ctrl-shift-g)
+(show | hide) format [panel]: key(ctrl-shift-p)
+(show | hide) outline: key(ctrl-shift-o)
+(show | hide) layers: key(ctrl-shift-l)
+(show | hide) grid: key(ctrl-shift-g)
 reset view: key(home)
 
 zoom in: key(ctrl-keypad_plus)
@@ -37,5 +37,5 @@ zoom out: key(ctrl-keypad_minus)
 group: key(ctrl-g)
 un group: key(ctrl-shift-u)
 # Object
-[(bring|send)] to back: key(ctrl-shift-b)
-[(bring|send)] to front: key(ctrl-shift-f)
+[(bring | send)] to back: key(ctrl-shift-b)
+[(bring | send)] to front: key(ctrl-shift-f)

@@ -31,7 +31,7 @@ open search menu: key(alt-h)
 open view menu: key(alt-v)
 open windows menu: key(alt-w)
 # File Menu
-[file] (quit|exit) without saving:
+[file] (quit | exit) without saving:
     key(alt-x)
     sleep(500ms)
     key(tab down space tab enter)
@@ -53,8 +53,7 @@ open last [file]:
     key(alt-f)
     sleep(500ms)
     key(0)
-load script [file]:
-    key(alt-f7)
+load script [file]: key(alt-f7)
 
 # C header
 load header: key(ctrl-f9)
@@ -74,14 +73,14 @@ view segment registers: key(shift-f8)
 view signatures: key(shift-f5)
 view type libraries: key(shift-f11)
 view structures: key(shift-f9)
-view (enumerations|E numbs): key(shift-f10)
+view (enumerations | E numbs): key(shift-f10)
 view [local] types: key(shift-f1)
 
 ##
 # General options management
 ##
 open general options: user.ida_open_general_options()
-toggle (addresses|[line] prefixes):
+toggle (addresses | [line] prefixes):
     user.ida_open_general_options()
     key(alt-p)
     user.accept_change()
@@ -105,8 +104,8 @@ refresh: key(f5)
 # Misc
 ##
 
-(jump mark|[book] marks show): key(ctrl-m)
-[book] mark new : key(alt-m)
+(jump mark | [book] marks show): key(ctrl-m)
+[book] mark new: key(alt-m)
 
 # Data Window
 make pointer: key(o)
@@ -137,7 +136,7 @@ go names: key(shift-f4)
 go segment registers: key(shift-f8)
 go segment: key(shift-f7)
 go signatures: key(shift-f5)
-go stack variables:  key(ctrl-k)
+go stack variables: key(ctrl-k)
 go strings: key(shift-f12)
 go structures: key(shift-f9)
 go type libraries: key(shift-f11)

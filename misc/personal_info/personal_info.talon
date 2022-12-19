@@ -8,7 +8,7 @@ show my full name:
     user.personal_info("first-name")
     key(space)
     user.personal_info("last-name")
-show my talon version:
-    user.print_talon_version()
+show my talon version: user.print_talon_version()
 
-show my <user.ordinals> <user.personal_info>: user.personal_info_by_id(personal_info, ordinals)
+show my <user.ordinals> <user.personal_info>:
+    user.personal_info_by_id(personal_info, ordinals)

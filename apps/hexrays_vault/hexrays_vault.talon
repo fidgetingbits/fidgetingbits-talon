@@ -2,9 +2,9 @@ app: hexrays_vault
 -
 
 expand: key(right)
-expand (all|tree): key(ctrl-keypad_plus)
+expand (all | tree): key(ctrl-keypad_plus)
 collapse: key(left)
-collapse (all|tree): key(ctrl-keypad_minus)
+collapse (all | tree): key(ctrl-keypad_minus)
 flip: key(ctrl+tab)
 file refresh: key(f5)
 hunt files: key(ctrl-alt-f)

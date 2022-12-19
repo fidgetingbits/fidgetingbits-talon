@@ -1,6 +1,6 @@
-os:linux
-tag:terminal
-and tag:user.ninja
+os: linux
+tag: terminal
+and tag: user.ninja
 -
 
 ninja build: "ninja -C build"

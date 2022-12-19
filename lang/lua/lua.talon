@@ -30,7 +30,7 @@ state end: "end"
 state then: "then"
 state repeat: "repeat"
 state until: "until"
-state return (null|nil): "return nil"
+state return (null | nil): "return nil"
 state return true: "return true"
 state return false: "return false"
 state append string: " .. "
@@ -44,10 +44,10 @@ require <user.code_libraries>:
     user.code_insert_library("", code_libraries)
     key(end enter)
 
-state (variable|var) [<user.text>] [over]:
+state (variable | var) [<user.text>] [over]:
     user.code_public_variable_formatter(text)
 
-state local (variable|var) [<user.text>] [over]:
+state local (variable | var) [<user.text>] [over]:
     insert("local ")
     user.code_private_variable_formatter(text)
 
@@ -61,6 +61,6 @@ method <user.text>:
 self dot: "self."
 
 index <user.word>: '["{word}"]'
-index (var|variable) <user.text>:
+index (var | variable) <user.text>:
     var = user.formatted_text(text, "snake")
-    insert('[{var}]')
+    insert("[{var}]")

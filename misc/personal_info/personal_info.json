@@ -1,10 +1,10 @@
 {
-  "first-name": "John",
-  "last-name": "Smith",
-  "personal-email": ["john.smith@email.com"],
-  "work-email": ["john.smith@work.com"],
-  "phone-number": ["123-4567", "999-8888"],
-  "work-phone-number": ["765-4321"],
-  "address": ["123 Talon St."],
-  "work-address": ["456 Talon St."]
+    "first-name": "John",
+    "last-name": "Smith",
+    "personal-email": ["john.smith@email.com"],
+    "work-email": ["john.smith@work.com"],
+    "phone-number": ["123-4567", "999-8888"],
+    "work-phone-number": ["765-4321"],
+    "address": ["123 Talon St."],
+    "work-address": ["456 Talon St."]
 }

@@ -17,18 +17,17 @@ settings():
 ###
 # VIM Script Specific
 ###
-assign [<user.vimscript_scope>] (variable|var) [<user.text>] [over]:
+assign [<user.vimscript_scope>] (variable | var) [<user.text>] [over]:
     insert("let ")
-    insert(vimscript_scope or '')
+    insert(vimscript_scope or "")
     user.code_private_variable_formatter(text)
 
-[<user.vimscript_scope>] (variable|var) [<user.text>] [over]:
-    insert(vimscript_scope or '')
+[<user.vimscript_scope>] (variable | var) [<user.text>] [over]:
+    insert(vimscript_scope or "")
     user.code_private_variable_formatter(text)
 
 # see lang/vimscript/vimscript.py for list
-<user.vimscript_functions>:
-    insert("{vimscript_functions} ")
+<user.vimscript_functions>: insert("{vimscript_functions} ")
 
 # XXX - possibly overlap with some programming.talon
 state command: "command! "
@@ -37,7 +36,6 @@ state end for: "endfor"
 state end while: "endwhile"
 state end function: "endfunction"
 state continue: "continue"
-
 
 # XXX - should be a generic
 # function calling

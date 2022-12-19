@@ -3,14 +3,12 @@ tag: user.i3wm
 
 # Custom stuff relying on i3wm commands
 
-
 # fix an error related to the layout of vim terminals inside i3 also helps with
 # split balance issues inside of vim
 wiggle:
     key(super-f)
     sleep(500ms)
     key(super-f)
-
 
 orwell me:
     key(super-0)
@@ -21,7 +19,6 @@ orwell me:
     edit.paste()
     key(enter)
 
-
 #reveal:
 #    key(super-0)
 #    sleep(1000ms)
@@ -30,7 +27,6 @@ orwell me:
 #    sleep(1000ms)
 #    edit.paste()
 #    key(enter)
-
 
 new scratch shell:
     user.system_command_nb("/home/aa/scripts/workflow/scratch_shell.sh")

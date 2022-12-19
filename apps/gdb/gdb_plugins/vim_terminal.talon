@@ -17,7 +17,7 @@ tag: user.gdb
 ## SAME LINE COMMANDS
 
 # Assumes you are already on a line with hex addresses
-copy <user.ordinals> (hex value|address):
+copy <user.ordinals> (hex value | address):
     user.vim_command_mode(":call search(\"0x\", 'c', line('.'))\n")
     insert("{ordinals-1}n")
     insert("yw")
@@ -35,12 +35,12 @@ copy <user.ordinals> (hex value|address):
 #    edit.paste()
 #    key(enter)
 
-go <user.ordinals> (hex value|address):
+go <user.ordinals> (hex value | address):
     user.vim_command_mode(":call search(\"0x\", 'c', line('.'))\n")
     insert("{ordinals-1}n")
     user.vim_command_mode(":set nohls\n")
 
-(hexdump|matrix) [this] address:
+(hexdump | matrix) [this] address:
     insert("yiw")
     insert("i")
     insert("x/10gx ")
@@ -50,12 +50,11 @@ go <user.ordinals> (hex value|address):
 ### LINE JUMPING COMMANDS
 
 # relative
-copy line <number> (hex value|address):
+copy line <number> (hex value | address):
     user.vim_normal_mode_exterm("{number}k0")
     user.vim_command_mode(":call search(\"0x\", 'c', line('.'))\n")
     user.vim_normal_mode("yw")
     user.vim_command_mode(":set nohls\n")
-
 
 # relative
 # no arg, is just line above
@@ -77,7 +76,6 @@ bring hex <number>:
     user.vim_set_insert_mode()
     edit.paste()
 
-
 # copy and paste the Nth hex value from the specified relative line
 # note for numbers like 70 actual individual digits really fast is more
 # accurate
@@ -96,7 +94,7 @@ bring hex <number> <user.ordinals>$:
     edit.paste()
 
 ## absolute
-(hexdump|matrix) line <number>$:
+(hexdump | matrix) line <number>$:
     user.vim_normal_mode_exterm(":{number}\n")
     insert("^")
     user.vim_command_mode(":call search(\"0x\", 'c', line('.'))\n")
@@ -110,7 +108,7 @@ bring hex <number> <user.ordinals>$:
     key(enter)
 
 # relative
-(hexdump|matrix) [relative] <number>$:
+(hexdump | matrix) [relative] <number>$:
     user.vim_normal_mode_exterm("{number+1}k")
     insert("^")
     user.vim_command_mode(":call search(\"0x\", 'c', line('.'))\n")
@@ -124,7 +122,7 @@ bring hex <number> <user.ordinals>$:
     key(enter)
 
 # relative
-(hexdump|matrix) [relative] down [line] <number>$:
+(hexdump | matrix) [relative] down [line] <number>$:
     user.vim_normal_mode_exterm("{number+1}j")
     insert("^")
     user.vim_command_mode(":call search(\"0x\", 'c', line('.'))\n")
@@ -138,7 +136,7 @@ bring hex <number> <user.ordinals>$:
     key(enter)
 
 # absolute
-(hexdump|matrix) line <number> <user.ordinals>$:
+(hexdump | matrix) line <number> <user.ordinals>$:
     user.vim_normal_mode_exterm(":{number}\n")
     insert("^")
     user.vim_command_mode(":call search(\"0x\", 'c', line('.'))\n")
@@ -153,7 +151,7 @@ bring hex <number> <user.ordinals>$:
     key(enter)
 
 # relative
-(hexdump|matrix) [relative] down [line] <number> <user.ordinals>$:
+(hexdump | matrix) [relative] down [line] <number> <user.ordinals>$:
     user.vim_normal_mode_exterm("{number+1}j")
     insert("^")
     user.vim_command_mode(":call search(\"0x\", 'c', line('.'))\n")
@@ -168,7 +166,7 @@ bring hex <number> <user.ordinals>$:
     key(enter)
 
 # for use with relative number lines
-(hexdump|matrix) [relative] up [line] <number> <user.ordinals>$:
+(hexdump | matrix) [relative] up [line] <number> <user.ordinals>$:
     user.vim_normal_mode_exterm("{number+1}k")
     insert("^")
     user.vim_command_mode(":call search(\"0x\", 'c', line('.'))\n")

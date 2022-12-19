@@ -4,13 +4,11 @@ win.title: /VIM MODE:t/
 tag(): user.vim_terminal
 
 normal [mode]: key(ctrl-\ ctrl-n)
-pop (terminal|term):
-    key(ctrl-\ ctrl-n)
+pop (terminal | term): key(ctrl-\ ctrl-n)
 
 # pop terminal mode and scroll up once, from this point onward you can scroll
 # like normal
-scroll up:
-    key(ctrl-\ ctrl-n ctrl-b)
+scroll up: key(ctrl-\ ctrl-n ctrl-b)
 
 # this causes exclusive terminal windows to exit without requiring key press or
 # dropping to a new empty buffer
@@ -63,9 +61,9 @@ yank words <number_small>:
     # XXX - should this be terminal mode?
     user.vim_set_insert_mode()
 
-yank words (last <number_small>|<number_small> last):
+yank words (last <number_small> | <number_small> last):
     user.vim_normal_mode_exterm("{number_small}k")
-    insert('$T ')
+    insert("$T ")
     insert("yE")
     user.vim_set_insert_mode()
     edit.paste()
@@ -99,21 +97,21 @@ yank words <number_small> funk:
 
 # echo commands are for copying words from a given point, and then pasting them
 bring <number_small>:
-#    user.vim_terminal_echo_line_number("{number_small}")
-   user.vim_normal_mode_exterm("{number_small}k")
-   key('0')
-   insert("yE")
-   # See `:help pattern`
-   # \_s   - match single white space
-   # \{2,} - at least two in a row
-   user.vim_command_mode(":set nohls | let @+=substitute(strtrans(@+), '\\_s\\{{2,}}', '', 'g')\n")
-   user.vim_set_insert_mode()
-   edit.paste()
-   key(space)
-
-bring (last <number_small>|<number_small> last):
+    #    user.vim_terminal_echo_line_number("{number_small}")
     user.vim_normal_mode_exterm("{number_small}k")
-    insert('$T ')
+    key('0')
+    insert("yE")
+    # See `:help pattern`
+    # \_s   - match single white space
+    # \{2,} - at least two in a row
+    user.vim_command_mode(":set nohls | let @+=substitute(strtrans(@+), '\\_s\\{{2,}}', '', 'g')\n")
+    user.vim_set_insert_mode()
+    edit.paste()
+    key(space)
+
+bring (last <number_small> | <number_small> last):
+    user.vim_normal_mode_exterm("{number_small}k")
+    insert("$T ")
     insert("yE")
     user.vim_set_insert_mode()
     edit.paste()
@@ -171,9 +169,9 @@ yank line <number_small> <user.ordinals>:
     insert("y$")
     user.vim_set_insert_mode()
 
-yank line (last <number_small>|<number_small> last):
+yank line (last <number_small> | <number_small> last):
     user.vim_normal_mode_exterm("{number_small}k")
-    insert('$T ')
+    insert("$T ")
     insert("yE")
     user.vim_set_insert_mode()
 
@@ -181,7 +179,6 @@ yank line command:
     user.vim_normal_mode_exterm("0f y$")
     user.vim_command_mode(":let @+=substitute(strtrans(@+), '\\_s\\{{2,}}', '', 'g')\n")
     user.vim_set_insert_mode()
-
 
     # this is used for pexpect interactive environments
     # https://pexpect.readthedocs.io/en/stable/api/pexpect.html#spawn-class
@@ -219,7 +216,7 @@ pivot pillar <number_small>:
 edit <number_small>:
     user.vim_normal_mode_exterm("{number_small}k")
     key('0')
-    insert('gf')
+    insert("gf")
 
 river <number_small>:
     user.vim_normal_mode_exterm("{number_small}k")

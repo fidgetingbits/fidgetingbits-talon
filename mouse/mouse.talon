@@ -1,8 +1,7 @@
 not tag: user.full_mouse_grid_showing
-and not mode:sleep
-
+and not mode: sleep
 not tag: user.shotbox_showing
-and not mode:sleep
+and not mode: sleep
 -
 
 # TODO:
@@ -11,18 +10,17 @@ and not mode:sleep
 ###
 # Configuration
 ###
-mouse sleep:
-    user.mouse_sleep()
+mouse sleep: user.mouse_sleep()
 # sometimes the tobii stops tracking when awake, and triggering wake again won't fix it
 mouse wake:
     user.mouse_sleep()
     user.mouse_wake()
 mouse control: user.mouse_toggle_control_mouse()
-(mouse|run) calibration: user.mouse_calibrate()
-[(enable|disable)] zoom mouse: user.mouse_toggle_zoom_mouse()
-[(enable|disable)] auto click: user.mouse_toggle_zoom_auto_click()
-[(enable|disable)] blink click: user.mouse_toggle_blink_click()
-[(enable|disable)] sleep tracker: user.mouse_toggle_eye_mouse_sleep_tracker()
+(mouse | run) calibration: user.mouse_calibrate()
+[(enable | disable)] zoom mouse: user.mouse_toggle_zoom_mouse()
+[(enable | disable)] auto click: user.mouse_toggle_zoom_auto_click()
+[(enable | disable)] blink click: user.mouse_toggle_blink_click()
+[(enable | disable)] sleep tracker: user.mouse_toggle_eye_mouse_sleep_tracker()
 
 ###
 # General clicking and movement
@@ -30,7 +28,7 @@ mouse control: user.mouse_toggle_control_mouse()
 # single click
 [mouse] click: user.mouse_click(0, 1)
 # right click
-[mouse] (ricky|right click): user.mouse_click(1, 1)
+[mouse] (ricky | right click): user.mouse_click(1, 1)
 ## middle click
 [mouse] middle click: user.mouse_click(2, 1)
 ## double click
@@ -83,8 +81,8 @@ wheel tiny left: mouse_scroll(0, -20)
 wheel right: mouse_scroll(0, 40)
 wheel tiny right: mouse_scroll(0, 20)
 
-curse (show|yes): user.mouse_show_cursor()
-curse (hide|no): user.mouse_hide_cursor()
+curse (show | yes): user.mouse_show_cursor()
+curse (hide | no): user.mouse_hide_cursor()
 
 # see mouse_zoomed.talon
 #left drag | drag:

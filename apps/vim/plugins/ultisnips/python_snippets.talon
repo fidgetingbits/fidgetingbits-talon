@@ -5,7 +5,6 @@ code.language: python
 # Public snippets - part of vim-snippets
 ###
 
-
 ###
 # Private snippets
 #

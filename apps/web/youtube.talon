@@ -1,5 +1,5 @@
 tag: browser
-win.title:/youtube.com/
+win.title: /youtube.com/
 -
 # https://support.google.com/youtube/answer/7631406?hl=en
 

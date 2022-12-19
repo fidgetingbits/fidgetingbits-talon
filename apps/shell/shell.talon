@@ -11,8 +11,7 @@ folder fuzzy <user.text>:
     key(alt-c)
     insert("{text}")
 
-
 # zsh autosuggestions plugin
-(got|run) (it|that): key(ctrl-o)
+(got | run) (it | that): key(ctrl-o)
 #found [it]: key(ctrl-g)
 keep [it]: key(ctrl-f)

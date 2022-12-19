@@ -6,7 +6,5 @@ and code.language: markdown
 # just call of macro instead
 # It would be nice if this was even more specific, but probably need to move it
 # to vim to detect if I have build_sides.sh in the current folder
-build slides:
-    user.system_command_nb("./build_slides.sh\n")
-build slides preview:
-    user.system_command_nb("./build_slides.sh preview\n")
+build slides: user.system_command_nb("./build_slides.sh\n")
+build slides preview: user.system_command_nb("./build_slides.sh preview\n")

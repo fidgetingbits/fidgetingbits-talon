@@ -13,7 +13,6 @@ hunt code this:
     user.vim_command_mode_exterm(':exe ":Rg"\n')
     edit.paste()
 
-
 fuzz buffer commits: user.vim_command_mode_exterm(':exe ":BCommit"\n')
 
 # Lines across current buffer
@@ -24,7 +23,6 @@ hunt tags: user.vim_command_mode_exterm(':exe ":BTags"\n')
 # Open buffers
 hunt buffers: user.vim_command_mode_exterm(':exe ":Buffers"\n')
 
-
 fuzz code search: user.vim_command_mode_exterm(':exe ":Ag"\n')
 fuzz colors: user.vim_command_mode_exterm(':exe ":Colors"\n')
 hunt command history: user.vim_command_mode_exterm(':exe ":History:"\n')
@@ -34,8 +32,8 @@ fuzz file types: user.vim_command_mode_exterm(':exe ":Filetypes"\n')
 
 # Files under current directory
 
-hunt (file|files): user.vim_command_mode_exterm(':exe ":Files"\n')
-hunt (file|files) <user.text>:
+hunt (file | files): user.vim_command_mode_exterm(':exe ":Files"\n')
+hunt (file | files) <user.text>:
     user.vim_command_mode_exterm(':exe ":Files"\n')
     insert(text)
 

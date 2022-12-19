@@ -5,7 +5,6 @@ sync help: "synchelp\n"
 sync on: "sync\n"
 sync off: "syncoff\n"
 
-
 sync symbol: "rln "
 sync symbol clip:
     insert("rln ")

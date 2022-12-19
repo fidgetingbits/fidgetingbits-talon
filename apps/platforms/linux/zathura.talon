@@ -14,15 +14,11 @@ bookmark list:
 go <number>: "{number}G"
 go first: "gg"
 go last: "G"
-half:
-    key(ctrl-d)
-half up:
-    key(ctrl-u)
-jump back:
-    key(ctrl-o)
-jump next:
-    key(ctrl-i)
-search:  "/"
+half: key(ctrl-d)
+half up: key(ctrl-u)
+jump back: key(ctrl-o)
+jump next: key(ctrl-i)
+search: "/"
 page next: "J"
 page back: "K"
 zoom in: "shift-+"

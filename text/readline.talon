@@ -10,7 +10,6 @@
 # generic talon line editing commands will still work. Is also allows for
 # things like zsh being configured in vi mode, but then using gdb with the more
 # traditional emacs-style keyboard shortcuts
-
 tag: user.readline
 -
 clear screen: key(ctrl-l)

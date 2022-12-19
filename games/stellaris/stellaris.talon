@@ -18,7 +18,7 @@ exit game: key(e)
 pause: key(space)
 close: key(escape)
 # place the mouse on a benign location with no popups
-(newt|neutral): user.stellaris_hover("neutral")
+(newt | neutral): user.stellaris_hover("neutral")
 # next star
 next: key(tab)
 # previous star
@@ -33,25 +33,20 @@ search: key(f)
 faster: key(+)
 slower: key(-)
 
-
 # Bottom hot key bar
 science: key(3)
 
 # Outline bar
-outline:
-    user.stellaris_outliner()
+outline: user.stellaris_outliner()
 # XXX - this will have to all be coordinates
 
 # Top bar
-<user.stellaris_topbar>:
-    user.stellaris_hover_topbar("{stellaris_topbar}")
+<user.stellaris_topbar>: user.stellaris_hover_topbar("{stellaris_topbar}")
 <user.stellaris_topbar> market:
     user.stellaris_click_topbar("{stellaris_topbar}")
 
-alert:
-    user.stellaris_hover_alert(1)
-alert <number_small>:
-    user.stellaris_hover_alert(number_small)
+alert: user.stellaris_hover_alert(1)
+alert <number_small>: user.stellaris_hover_alert(number_small)
 
 open: user.mouse_click(0, 1)
 diss: user.mouse_click(1, 1)
@@ -123,7 +118,6 @@ build: key(b)
 # NOTE: these are configurable so you need to use some sort of consistent
 # default layout
 ###
-
 
 ###
 # Custom stay tracking

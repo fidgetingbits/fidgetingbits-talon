@@ -1,11 +1,9 @@
 # See https://github.com/vimwiki/vimwiki/
 tag: user.vim_wiki
-
 # In general calls need to use something like this: `:execute "normal
 # \<Plug>NiceCenterCursor"`, since the wiki relies on `<leader>`. You can see
 # the mappings with `:nmap` or similar.
 # XXX - consider switching to `key` instead of wiki
-
 -
 
 ###
@@ -39,7 +37,5 @@ diary last:
 diary next:
     user.vim_command_mode_exterm(':execute "normal \\<Plug>VimwikiMakeTomorrowDiaryNote"\n')
 
-wiki help:
-    user.vim_command_mode_exterm(':help vimwiki')
-wiki help commands:
-    user.vim_command_mode_exterm(':help vimwiki-commands')
+wiki help: user.vim_command_mode_exterm(":help vimwiki")
+wiki help commands: user.vim_command_mode_exterm(":help vimwiki-commands")
