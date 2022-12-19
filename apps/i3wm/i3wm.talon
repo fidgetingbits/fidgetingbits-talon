@@ -5,8 +5,8 @@ tag: user.i3wm
 ##
 # Workspaces
 ##
-portal <number_small>: user.system_command("i3-msg workspace {number_small}")
-portal ten: user.system_command("i3-msg workspace 10")
+portal <number_small>: user.system_command("i3-msg workspace number {number_small}")
+portal ten: user.system_command("i3-msg workspace number 10")
 portal flip: user.system_command("i3-msg workspace back_and_forth")
 
 # XXX - This is because of buggy recognition of port flip all the time, the
@@ -66,10 +66,8 @@ vertical (shell|terminal):
     user.system_command("i3-msg split v")
     user.i3wm_shell()
 
-# XXX - like also need to match the generic talon commands (snap?)
-shuffle <number_small>:  user.system_command("i3-msg move container to workspace {number_small}")
-
-shuffle ten: user.system_command("i3-msg move container to workspace 10")
+shuffle <number_small>:  user.system_command("i3-msg move container to workspace number {number_small}")
+shuffle ten: user.system_command("i3-msg move container to workspace number 10")
 shuffle (parent|all) <number_small>:
     user.system_command("i3-msg focus parent")
     user.system_command("i3-msg move container to workspace {number_small}")

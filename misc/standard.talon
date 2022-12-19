@@ -64,3 +64,5 @@ smiley: ":)"
 sad face: ":("
 big smiley: ":D"
 jiff smiley: ">\\o "
+(pad | padding): user.insert_between(" ", " ")
+#slap: edit.line_insert_down()

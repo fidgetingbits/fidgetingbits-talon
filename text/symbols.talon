@@ -12,7 +12,6 @@ triple bang: "!!!"
 (ellipses|dotty): "..."
 snipped code: "[SNIPPED]"
 (comma and | spamma): ", "
-plus: "+"
 arrow: "->"
 dub arrow: "=>"
 new line: "\\n"
@@ -21,66 +20,44 @@ line feed: "\\r\\n"
 end of file: "EOF"
 
 empty (string|quotes):
-    insert('""')
-    key(left)
+    user.insert_between('"', '"')
 empty escaped (string|quotes):
-    insert('\\"\\"')
-    key(left)
-    key(left)
+    user.insert_between('\\"', '\\"')
 empty ticks:
-    "''"
-    key(left)
+    user.insert_between("'", "'")
 empty escaped ticks:
-    insert("\\'\\'")
-    key(left)
-    key(left)
+    user.insert_between("\\'", "\\'")
 empty round:
-    insert("()")
-    key(left)
+    user.insert_between("(", ")")
 empty (square | list):
-    insert("[]")
-    key(left)
+    user.insert_between("[", "]")
 empty (bracket | braces):
-    insert("{}")
-    key(left)
+    user.insert_between("{", "}")
 empty percent:
-    insert("%%")
-    key(left)
+    user.insert_between("%", "%")
 empty coals:
-    insert("::")
-    key(left)
+    user.insert_between(":", ":")
 
 [pair] (round):
-    insert("()")
-    edit.left()
+    user.insert_between("(", ")")
 escaped (round):
-    insert("\\(\\)")
-    edit.left()
-    edit.left()
+    user.insert_between("\\(", "\\)")
 [pair] (brackets|braces):
-    insert("{}")
-    edit.left()
+    user.insert_between("{", "}")
 [pair] (square|squares):
-    insert("[]")
-    edit.left()
+    user.insert_between("[", "]")
 [pair] angles:
-    insert("<>")
-    edit.left()
+    user.insert_between("<", ">")
 [pair] graves:
-    insert("``")
-    edit.left()
+    user.insert_between("`", "`")
 [pair] percents:
-    insert("%%")
-    edit.left()
+    user.insert_between("%", "%")
 [pair] ticks:
-    insert("''")
-    edit.left()
+    user.insert_between("'", "'")
 [pair] quotes:
-    insert('""')
-    edit.left()
+    user.insert_between('"', '"')
 [pair] slashes:
-    insert('//')
-    edit.left()
+    user.insert_between("/", "/")
 # NOTE: purposely no edit.left()
 [pair] ampers: "&&"
 

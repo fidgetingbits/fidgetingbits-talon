@@ -163,9 +163,7 @@ git show head: "git show -c HEAD\n"
 git change head to main: "git symbolic-ref refs/remotes/origin/HEAD refs/remotes/origin/main\n"
 git stash pop: "git stash pop\n"
 git stash: "git stash\n"
-git stash push:
-  insert("git stash push -m ''")
-  key(left)
+git stash push: user.insert_between("git stash push -m '", "'")
 git stash apply: "git stash apply\n"
 git stash list: "git stash list\n"
 git stash show: "git stash show"
