@@ -70,5 +70,3 @@ toggle <user.modifiers> drag:
 
 toggle click:
     user.full_grid_set_left_click()
-
-

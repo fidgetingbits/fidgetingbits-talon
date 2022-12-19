@@ -134,7 +134,7 @@ settings():
     user.vim_use_rpc = 1
 
     # Adds debug output to the talon log
-    user.vim_debug = 0 
+    user.vim_debug = 0
 
 
 ###
@@ -782,5 +782,5 @@ paste as line:
     sleep(200ms)
     edit.paste()
 
-louis call func: user.vim_command_mode_exterm(":lua ") 
+louis call func: user.vim_command_mode_exterm(":lua ")
 louis reload (plug in|module): user.vim_command_mode_exterm(":lua require('plenary').reload_module('')")

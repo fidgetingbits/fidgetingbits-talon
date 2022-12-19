@@ -61,5 +61,3 @@ class Actions:
 
     def delete_line_remaining():
         """Delete from the cursor until the end of the line"""
-
-

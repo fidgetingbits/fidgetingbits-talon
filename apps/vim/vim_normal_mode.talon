@@ -4,7 +4,7 @@ tag: user.vim_normal_mode
 (shift|indent) right: insert(">>")
 (shift|indent) left: insert("<<")
 
-(dup|duplicate) line: 
+(dup|duplicate) line:
     insert("yy")
     insert("p")
 

@@ -22,4 +22,3 @@ private_snippets = {
     "dick string": "dstr",
 }
 ctx.lists["user.snippets"] = {**ultisnips_snippets, **private_snippets}
-

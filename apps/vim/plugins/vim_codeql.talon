@@ -1,10 +1,10 @@
 # XXX this should only be enabled if were in a .ql file
-# see also vim_codeql_panel.talon 
+# see also vim_codeql_panel.talon
 tag: user.vim_codeql
 -
 
 query set database: user.vim_command_mode(":SetDatabase ")
-query set last database: 
+query set last database:
     user.vim_command_mode(":SetDatabase ")
     key(up enter)
 query unset database: user.vim_command_mode(":UnsetDatabase ")
@@ -17,4 +17,3 @@ query syntax tree: user.vim_command_mode(":PrintAST\n")
 query load serif: user.vim_command_mode(":LoadSarif")
 # This shows the database bar
 query archive tree: user.vim_command_mode(":ArchiveTree\n")
-

@@ -63,4 +63,3 @@ class EditActions:
 
     def delete_line():
         actions.insert("D")
-

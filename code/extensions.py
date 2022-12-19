@@ -77,7 +77,7 @@ _file_extensions_defaults = {
     "pie": ".py",
     "pie four": ".py4",
     "ping": ".png",
-    "postscript": ".ps", 
+    "postscript": ".ps",
     "P S": ".ps",
     "power shell": ".ps1",
     "queue el": ".ql",

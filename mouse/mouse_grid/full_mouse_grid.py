@@ -775,4 +775,3 @@ class GridActions:
     def full_grid_replay_drag():
         """Try to adjust the colors so that it works better on certain backgrounds"""
         mg.replay_drag()
-

@@ -54,7 +54,7 @@ class UserActions:
 
     def debugger_set_register(register):
         actions.insert(f"set ${register}=")
-    
+
     # Breakpoints
     def debugger_show_breakpoints():
         actions.auto_insert("info breakpoints\n")

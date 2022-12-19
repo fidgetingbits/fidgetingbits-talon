@@ -46,7 +46,7 @@ funk key [<user.modifiers>+] <user.keys>:
 press [<user.modifiers>+] <user.keys>:
     insert(modifiers or "")
     insert("{keys}")
-tag set [{user.talon_tags}]: 
+tag set [{user.talon_tags}]:
     tag = talon_tags or ""
     user.paste("tag(): {tag}")
 # requires user.talon_populate_lists tag. do not use with dragon

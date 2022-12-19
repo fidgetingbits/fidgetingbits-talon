@@ -62,7 +62,7 @@ search that:
 (shift|indent) left: insert("<")
 
 
-(dup|duplicate) line: 
+(dup|duplicate) line:
     insert("Y")
     insert("p")
 
@@ -101,4 +101,3 @@ subtract that clip:
 # this should only be enabled within python
 sort by dick value:
     insert(":!sort -t ':' -k 2\n")
-

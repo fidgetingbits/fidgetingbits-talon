@@ -465,7 +465,7 @@ def register_events(register: bool):
         registry.unregister("update_commands", commands_updated)
 
 def hide_all_help_guis():
-    gui_context_help.hide()    
+    gui_context_help.hide()
     gui_formatters.hide()
     gui_list_help.hide()
 
@@ -482,7 +482,7 @@ def draw_list_commands(gui: imgui.GUI):
 
     talon_list = registry.lists[selected_list][0]
     #numpages = math.ceil(len(talon_list) / SIZE)
-    
+
     pages_list = []
 
     for item in paginate_list(talon_list):
@@ -490,7 +490,7 @@ def draw_list_commands(gui: imgui.GUI):
     #print(pages_list)
 
     total_page_count = len(pages_list)
-    return pages_list  
+    return pages_list
 
 @imgui.open(y=0)
 def gui_list_help(gui: imgui.GUI):
@@ -505,12 +505,12 @@ def gui_list_help(gui: imgui.GUI):
     gui.text("{} {}/{}".format(selected_list, current_list_page, total_page_count))
 
     gui.line()
-    
+
     for key, value in pages_list[current_list_page - 1].items():
         gui.text("{}: {}".format(value, key))
 
     gui.spacer()
-    
+
     if total_page_count > 1:
         if gui.button("Help next"):
             actions.user.help_next()
@@ -660,7 +660,7 @@ class Actions:
         global current_context_page
         global selected_context
         global selected_context_page
-        global total_page_count 
+        global total_page_count
 
         global current_list_page
 

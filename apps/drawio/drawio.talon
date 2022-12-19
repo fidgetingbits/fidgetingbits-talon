@@ -17,10 +17,10 @@ edit data: key(ctrl-m)
 edit style: key(ctrl-e)
 edit geometry: key(ctrl-shift-m)
 edit: key(enter)
-select all: key(ctrl-a) 
-select edges: key(ctrl-shift-e) 
+select all: key(ctrl-a)
+select edges: key(ctrl-shift-e)
 select vertices: key(ctrl-shift-i)
-select none: key(ctrl-shift-a) 
+select none: key(ctrl-shift-a)
 [toggle] (lock|unlock): key(ctrl-l)
 
 # View

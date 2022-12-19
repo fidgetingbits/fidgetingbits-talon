@@ -270,7 +270,7 @@ class Actions:
         """Click the mouse, prime three clicks, and zoom if necessary."""
         # XXX - broken since the new tracking API
         #eye_zoom_mouse.zoom_mouse.on_pop(0, 3)
-        
+
         # XXX - broken since the new tracking API
         actions.tracking.zoom(True)
 

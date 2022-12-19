@@ -16,7 +16,7 @@ toggle graph: key(space)
 
 # Documenting
 insert block comment: key(insert)
-insert comment: key(/) 
+insert comment: key(/)
 
 ##
 # Menu
@@ -58,7 +58,7 @@ load script [file]:
 
 # C header
 load header: key(ctrl-f9)
-load last header: 
+load last header:
     key(ctrl-f9)
     sleep(500ms)
     key(enter)
@@ -111,7 +111,7 @@ refresh: key(f5)
 # Data Window
 make pointer: key(o)
 
-## 
+##
 # Lumina
 ##
 

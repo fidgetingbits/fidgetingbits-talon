@@ -83,8 +83,8 @@ settings():
 
     # enables zoom most by default
     user.mouse_control_mouse_zoom = 0
-    
-    # disable control mouse 
+
+    # disable control mouse
     #user.mouse_control_mouse = 1
 
     #stop continuous scroll/gaze scroll with a pop
@@ -126,7 +126,7 @@ settings():
     user.full_mouse_grid_background_transparency = 30
     user.full_mouse_grid_label_transparency = 50
     user.full_mouse_grid_selector_transparency = 50
-    user.full_mouse_grid_click_type_default = "drag" 
+    user.full_mouse_grid_click_type_default = "drag"
 
     ###
     # DEBUGGER
@@ -155,4 +155,3 @@ tag(): user.record_replay
 tag(): user.mouse_cursor_commands_enable
 #tag(): user.full_mouse_grid_enabled
 tag(): user.shotbox_enabled
-

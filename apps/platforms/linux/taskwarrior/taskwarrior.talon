@@ -23,7 +23,7 @@ task view <user.text>: "task list project:{text}\n"
 task <number> edit: "task {number} edit\n"
 
 # task add
-task add: 
+task add:
     insert('task add ""')
     key(left)
 task add <user.text>: 'task add "{text}"\n'

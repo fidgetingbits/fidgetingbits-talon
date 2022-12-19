@@ -52,17 +52,17 @@ break [point] enable all: user.debugger_enable_all_breakpoints()
 break [point] enable: user.debugger_enable_breakpoint()
 break [point] enable <number_small>: user.debugger_enable_breakpoint_id(number_small)
 
-break [(set|add)] (indirect|star): 
+break [(set|add)] (indirect|star):
     user.debugger_add_sw_breakpoint()
     key(*)
 
-break star clip: 
+break star clip:
     user.debugger_add_sw_breakpoint()
     key(*)
     edit.paste()
     key(enter)
 
-break add clip: 
+break add clip:
     user.debugger_add_sw_breakpoint()
     edit.paste()
     key(enter)
@@ -89,9 +89,9 @@ inspect type clip: user.debugger_inspect_type_clip()
 
 # Memory Analysis
 hex dump help: user.debugger_hexdump_help()
-hex dump [<number>] [from {user.registers}]: 
+hex dump [<number>] [from {user.registers}]:
     user.debugger_hexdump(number or 0, registers or '')
-hex dump [<number>] bytes [from {user.registers}]: 
+hex dump [<number>] bytes [from {user.registers}]:
     user.debugger_hexdump_bytes(number or 0, registers or '')
 hex dump [<number>] words [from {user.registers}]:
     user.debugger_hexdump_word(number or 0, registers or '')
@@ -102,7 +102,7 @@ hex dump [<number>] (Q|quad) words [from {user.registers}]:
 
 hex dump [<number>] [from] clip:
     user.debugger_hexdump_clip(number or 0)
-hex dump [<number>] bytes [from] clip: 
+hex dump [<number>] bytes [from] clip:
     user.debugger_hexdump_bytes_clip(number or 0)
 hex dump [<number>] words [from] clip:
     user.debugger_hexdump_word_clip(number or 0)

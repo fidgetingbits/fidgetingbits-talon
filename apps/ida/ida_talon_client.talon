@@ -32,4 +32,3 @@ copy [cursor] demangled funk [(name|label)]:
 
 make ({user.data_widths}|last):
     user.ida_modify_raw_datatype(data_widths or "last")
-

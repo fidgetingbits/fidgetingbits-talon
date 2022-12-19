@@ -124,7 +124,7 @@ class Actions:
         )
         app.notify(error)
         raise error
-    
+
     def print_talon_version():
         """print the current talon version"""
         actions.insert(app.version)

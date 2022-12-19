@@ -10,7 +10,7 @@
 
 <!-- vim-markdown-toc -->
 
-# Fidgeting Bits Talon Repo 
+# Fidgeting Bits Talon Repo
 
 Please read the WARNING section before you use this repo, as using some of
 the stuff I have may break your talon experience as I only test this repo on my
@@ -96,7 +96,7 @@ Eye Tracker:
 - Laptop: Tobii 5
 
 Monitors:
-- Desktop: Dual 27" monitors, with the right monitor having the eye tracker and webcam. 
+- Desktop: Dual 27" monitors, with the right monitor having the eye tracker and webcam.
 
 
 Foot pedal:

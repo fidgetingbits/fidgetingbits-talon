@@ -87,7 +87,7 @@ def on_ready():
 
     dfa = w2l.cfg_to_dfa(cfg, tokens)
     # print(dfa.ends)
-    
+
 # app.register('ready', on_ready)
 
 def on_ready2():

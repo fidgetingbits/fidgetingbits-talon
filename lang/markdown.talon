@@ -37,25 +37,25 @@ code block clip:
     # the next set of ```
 
 state task: "- [ ] "
-paste as code: 
+paste as code:
     insert("```\n\n")
     insert("```\n")
     key(up:2)
     edit.paste()
 
-paste as bash code: 
+paste as bash code:
     insert("```bash\n\n")
     insert("```\n")
     key(up:2)
     edit.paste()
 
-paste as see code: 
+paste as see code:
     insert("```cpp\n\n")
     insert("```\n")
     key(up:2)
     edit.paste()
 
-paste as python code: 
+paste as python code:
     insert("```python\n\n")
     insert("```\n")
     key(up:2)
@@ -73,4 +73,3 @@ link clip:
 
 # XXX - turn the word under the cursor into a link
 # link this:
-

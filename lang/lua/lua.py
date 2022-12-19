@@ -44,7 +44,7 @@ ctx.lists["user.code_functions"] = {
     "string G match": "string.gmatch",
 
     # table
-    "table unpack": "table.unpack", 
+    "table unpack": "table.unpack",
     "table insert": "table.insert",
     "tabel get N": "table.getn",
     "tabel sort": "table.sort",
@@ -294,7 +294,7 @@ class UserActions:
 
     def code_operator_or():
         actions.insert(" or ")
-    
+
     ###
     # code_operators_bitwise
     ###

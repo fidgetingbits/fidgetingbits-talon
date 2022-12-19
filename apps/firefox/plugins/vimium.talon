@@ -183,4 +183,3 @@ duck duck <user.text>:
     # now have general focus
 page close:
     app.tab_close()
-

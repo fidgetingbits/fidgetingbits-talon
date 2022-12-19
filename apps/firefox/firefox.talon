@@ -28,5 +28,3 @@ archive that:
     key(home)
     insert("https://web.archive.org/web/*/")
     key(end enter)
-
-

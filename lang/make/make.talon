@@ -1,4 +1,4 @@
-mode: user.auto_lang 
+mode: user.auto_lang
 and code.language: make
 -
 

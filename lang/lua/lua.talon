@@ -35,7 +35,7 @@ state return true: "return true"
 state return false: "return false"
 state append string: " .. "
 
-state label <user.text>: 
+state label <user.text>:
     insert("::")
     user.insert_formatted(text, "snake")
     insert("::")
@@ -61,6 +61,6 @@ method <user.text>:
 self dot: "self."
 
 index <user.word>: '["{word}"]'
-index (var|variable) <user.text>: 
+index (var|variable) <user.text>:
     var = user.formatted_text(text, "snake")
     insert('[{var}]')

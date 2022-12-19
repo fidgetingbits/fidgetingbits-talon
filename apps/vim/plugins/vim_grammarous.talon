@@ -34,4 +34,3 @@ grammar disable:
 
 grammar close:
     user.vim_command_mode(':execute "normal \\<Plug>(grammarous-close-info-window)"\n')
-

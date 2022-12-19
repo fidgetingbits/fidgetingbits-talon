@@ -3,7 +3,7 @@ mode: user.auto_lang
 and code.language: docker
 -
 
-run off: 
+run off:
     insert("&& \\")
     key(enter)
 

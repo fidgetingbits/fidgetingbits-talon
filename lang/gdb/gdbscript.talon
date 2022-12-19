@@ -1,5 +1,5 @@
 mode: user.gdb
-mode: user.auto_lang 
+mode: user.auto_lang
 and code.language: gdb
 -
 tag(): user.code_imperative

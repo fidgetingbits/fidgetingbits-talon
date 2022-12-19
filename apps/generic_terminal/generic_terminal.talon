@@ -2,7 +2,7 @@ tag: terminal
 -
 # tags should be activated for each specific terminal in the respective talon file
 
-file list: 
+file list:
     user.terminal_list_directories()
 file list (long|all):
     user.terminal_list_all_directories()

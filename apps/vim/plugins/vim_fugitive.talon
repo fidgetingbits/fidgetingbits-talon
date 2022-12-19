@@ -9,7 +9,7 @@ tag: user.vim_fugitive
 (fugitive|git) add everything: user.vim_command_mode(':exe ":G add -u"\n')
 (fugitive|git) blame: user.vim_command_mode(':exe ":Git blame"\n')
 (fugitive|git) browse: user.vim_command_mode(':exe ":G Browse"\n')
-(fugitive|git) commit: 
+(fugitive|git) commit:
     user.vim_command_mode(':exe ":G commit"\n')
     user.vim_set_insert_mode()
 (fugitive|git) (delete|remove): user.vim_command_mode(":GDelete")
@@ -19,19 +19,19 @@ tag: user.vim_fugitive
 (fugitive|git) diff: user.vim_command_mode(':exe ":Gdiffsplit"\n')
 (fugitive|git) [(vertical|pillar)] split diff:
     user.vim_command_mode(':exe ":Gvdiffsplit!"\n')
-(fugitive|git) [(vertical|pillar)] diff split: 
+(fugitive|git) [(vertical|pillar)] diff split:
     user.vim_command_mode(':exe ":Gvdiffsplit!"\n')
 (fugitive|git) (horizontal|river) diff: user.vim_command_mode(':exe ":Gdiffsplit!"\n')
 (fugitive|git) diff last: user.vim_command_mode(':exe ":Gdiff !~1"\n')
 
 # Unsorted
 (fugitive|git) fetch: user.vim_command_mode(":Git fetch\n")
-(fugitive|git) fetch and rebase: 
+(fugitive|git) fetch and rebase:
     user.vim_command_mode(":Git fetch\n")
     user.vim_command_mode(":Git rebase\n")
 (fugitive|git) force write: user.vim_command_mode(":Gwrite!")
 (fugitive|git) grep: user.vim_command_mode(":Git grep ")
-(fugitive|git) log tabbed: 
+(fugitive|git) log tabbed:
     user.vim_command_mode(":tabnew\n")
     user.vim_command_mode(':exe ":Gclog"\n')
     user.vim_command_mode(':TabooRename GITLOG"\n')
@@ -83,4 +83,3 @@ conflict next:
     # open the next diff
     user.vim_command_mode(':exe ":Gvdiffsplit!"\n')
     # XXX - maybe add a search for the next merge conflict?
-

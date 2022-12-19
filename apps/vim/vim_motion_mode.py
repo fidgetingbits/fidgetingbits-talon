@@ -107,7 +107,7 @@ class EditActions:
         # getting interpreted? in example would be "sit graves pasty round".
         # typically the output of this will be something like:
         # `(<pasted content>)`
-        # but the intended output would be 
+        # but the intended output would be
         # `<pasted content>()`
         # for now the only way i see to fix this is to introduce an artificial
         # delay to allow vim to actually paste the content...

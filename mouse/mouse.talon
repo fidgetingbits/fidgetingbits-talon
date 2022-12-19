@@ -45,7 +45,7 @@ mouse drag: user.mouse_drag(0)
 <user.modifiers> mouse drag:
     key("{modifiers}:down")
     user.mouse_click(0, 1)
-    
+
     key("{modifiers}:up")
 
 #see keys.py for modifiers.
@@ -122,4 +122,3 @@ zoom portal: user.mouse_zoom_move_cursor()
 
 # auto relocate cursor to clicked location
 auto portal: user.mouse_zoom_auto_move_cursor()
-

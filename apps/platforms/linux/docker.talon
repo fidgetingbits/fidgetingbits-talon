@@ -16,7 +16,7 @@ docker run interactive: "sudo docker run -it --rm "
 docker (log|logs): "sudo docker logs "
 docker inspect: "sudo docker inspect "
 docker enter: "~/bin/docker-enter "
-docker (terminal|shell): 
+docker (terminal|shell):
     insert("sudo docker ps\n")
     user.insert_cursor("sudo docker exec -it [|] /bin/bash")
 
@@ -91,6 +91,6 @@ docker compose build: "docker-compose build\n"
 docker compose kill: "docker-compose kill\n"
 
 # docker visualization (requires dockviz)
-docker image tree: "sudo dockviz images -t\n" 
-docker image incremental tree: "sudo dockviz images -t -i\n" 
-docker image labeled tree: "sudo dockviz images -t -l\n" 
+docker image tree: "sudo dockviz images -t\n"
+docker image incremental tree: "sudo dockviz images -t -i\n"
+docker image labeled tree: "sudo dockviz images -t -l\n"

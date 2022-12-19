@@ -19,7 +19,7 @@ and win.title: /fugitive:\/\//
 unstage (all|everything): user.vim_normal_mode_key("U")
 [file] discard change: user.vim_normal_mode_key("X")
 file diff: user.vim_normal_mode_key("=")
-file diff top: 
+file diff top:
     user.vim_normal_mode("zt")
     user.vim_normal_mode_key("=")
 file exclude: user.vim_normal_mode_keys("g I")
@@ -35,7 +35,7 @@ file preview: user.vim_normal_mode_key("p")
 
 # Commit maps
 
-git commit [changes]: 
+git commit [changes]:
     user.vim_normal_mode_keys("c c")
     user.vim_set_insert_mode()
 amend [last commit]: user.vim_normal_mode_keys("c a")

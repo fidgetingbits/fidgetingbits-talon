@@ -229,8 +229,8 @@ commands_with_motion = {
     "indent": ">",
     "unindent": "<",
     "yank": "y",  # NOTE: conflicts with talon 'yank' alphabet for 'y' key
-    "copy": "y",  
-    "fetch": "y",  
+    "copy": "y",
+    "fetch": "y",
     "fold": "zf",
     "format": "gq",
     "to upper": "gU",

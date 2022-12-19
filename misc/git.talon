@@ -20,16 +20,16 @@ git checkout file master: "git checkout master --"
 git checkout (main|men): "git checkout main\n"
 git checkout dev: "git checkout dev\n"
 git checkout <user.text>: "git checkout {text}"
-git checkout <number_small> before clip: 
+git checkout <number_small> before clip:
     insert("git checkout ")
     edit.paste()
     key("^:{number_small}")
     key(enter)
-git checkout clip: 
+git checkout clip:
     insert("git checkout ")
     edit.paste()
     key(enter)
-git check ignore: "git check-ignore -v " 
+git check ignore: "git check-ignore -v "
 git cherry pick: "git cherry-pick "
 git cherry pick continue: "git cherry-pick --continue "
 git cherry pick abort: "git cherry-pick --abort "
@@ -45,7 +45,7 @@ git clean everything: "git clean -dfx"
 git clean FD : "git clean -fd"
 # XXX - should use text or
 git commit message <user.text>: "git commit -m '{text}'"
-git commit message: 
+git commit message:
     insert("git commit -m ''")
     edit.left()
 git commit: "git commit\n"
@@ -147,7 +147,7 @@ git remote add upstream: "git remote add upstream "
 git remote remove: "git remote remove "
 git [remote] show origin: "git remote show origin\n"
 git show: "git show "
-git show clip: 
+git show clip:
     insert("git show ")
     edit.paste()
     key(enter)
@@ -177,7 +177,7 @@ git switch detached: "git switch --detach "
 git (switch create | new branch) [<user.text>]:
   "git switch -c {user.formatted_text(text or '', 'DASH_SEPARATED')}"
 git switch orphan: "git switch --orphan "
-git switch clip: 
+git switch clip:
     insert("git switch ")
     edit.paste()
     key(enter)
@@ -190,10 +190,10 @@ git [sub] module update: "git submodule update --init --recursive --remote"
 git module references: "git ls-files --stage | grep 160000\n"
 git tag: "git tag "
 git tag list: "git --no-pager tag\n"
-git tag list specific: 
+git tag list specific:
     insert('git tag -l ""')
     edit.left()
-git tag add: 
+git tag add:
     user.insert_cursor('git tag -a v[|] -m ""')
 git tag remove: "git tag -d "
 git tag remove remote: "git push origin --delete "

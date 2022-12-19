@@ -272,5 +272,3 @@ class UserActions:
 
     def code_operator_bitwise_right_shift_assignment():
         actions.auto_insert(" >>= ")
-
-

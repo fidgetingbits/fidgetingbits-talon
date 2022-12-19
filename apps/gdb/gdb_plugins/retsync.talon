@@ -7,7 +7,7 @@ sync off: "syncoff\n"
 
 
 sync symbol: "rln "
-sync symbol clip: 
+sync symbol clip:
     insert("rln ")
     edit.paste()
     key(enter)

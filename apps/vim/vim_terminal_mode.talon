@@ -247,5 +247,3 @@ process kill line <number_small>:
     insert("kill -9 ")
     edit.paste()
     key(right)
-
-

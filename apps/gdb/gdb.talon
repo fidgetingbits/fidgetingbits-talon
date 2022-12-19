@@ -58,7 +58,7 @@ list clip:
 list (base|P C): "list $pc\n"
 
 print: "p "
-print (var|variable) <user.text>: 
+print (var|variable) <user.text>:
     insert("p ")
     insert(user.formatted_text(text, "snake"))
 
@@ -72,7 +72,7 @@ print hex {user.registers}:
 print string: "x/s "
 print (bits|binary): "p/t "
 
-print casted struck: 
+print casted struck:
     user.insert_cursor("p/x *(struct [|] *)")
 
 # symbols
@@ -175,11 +175,11 @@ print size of:
     insert("p/x sizeof()")
     edit.left()
 
-print (struct|structure) size: 
+print (struct|structure) size:
     insert("p/x sizeof(struct )")
     edit.left()
 
-print (struct|structure) size clip: 
+print (struct|structure) size clip:
     insert("p/x sizeof(")
     edit.paste()
     key(")")
@@ -207,26 +207,26 @@ set var [<user.word>]:
 
 # XXX - this should use default for matter
 get var <user.word>: "${word}"
-    
+
 # Convenience for repeated commands
 hex stump saved: "x/50gx $ADDRESS\n"
-save address clip: 
+save address clip:
     insert("set $ADDRESS=")
     edit.paste()
     key(enter)
 
 # Useful to set tags if you didn't user script file
-set title: 
+set title:
     user.insert_cursor('shell echo -n -e "\\033]0;[|]\\007"')
 
-set title G D B: 
+set title G D B:
     insert('shell echo -n -e "\\033]0;gdb\\007"\n')
 
-set title pone: 
+set title pone:
     insert('shell echo -n -e "\\033]0;pwndbg\\007"\n')
 
 # typecasting
-# maybe we should make these generic across gdb and C 
+# maybe we should make these generic across gdb and C
 # XXX - we should make these expressible to gdb
 # Ex. (int *)
 cast to <user.c_cast>: "{c_cast}"

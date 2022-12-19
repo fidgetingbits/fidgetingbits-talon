@@ -37,14 +37,14 @@ portal left: user.system_command("i3-msg workspace prev")
 [(win|window)] floating toggle: user.system_command("i3-msg floating toggle")
 [(win|window)] floating focus: user.system_command("i3-msg focus mode_toggle")
 (win|window) center: user.system_command("i3-msg move position center")
-(win|window) move left: user.system_command("i3-msg move left") 
-(win|window) move <number> left: user.system_command("i3-msg move left {number} px") 
-(win|window) move right: user.system_command("i3-msg move right") 
-(win|window) move <number> right: user.system_command("i3-msg move right {number} px") 
-(win|window) move up: user.system_command("i3-msg move up") 
-(win|window) move <number> up: user.system_command("i3-msg move up {number} px") 
-(win|window) move down: user.system_command("i3-msg move down") 
-(win|window) move <number> down: user.system_command("i3-msg move down {number} px") 
+(win|window) move left: user.system_command("i3-msg move left")
+(win|window) move <number> left: user.system_command("i3-msg move left {number} px")
+(win|window) move right: user.system_command("i3-msg move right")
+(win|window) move <number> right: user.system_command("i3-msg move right {number} px")
+(win|window) move up: user.system_command("i3-msg move up")
+(win|window) move <number> up: user.system_command("i3-msg move up {number} px")
+(win|window) move down: user.system_command("i3-msg move down")
+(win|window) move <number> down: user.system_command("i3-msg move down {number} px")
 (win|window) resize: user.system_command('i3-msg mode "resize"')
 (win|window) horizontal: user.system_command("i3-msg split h")
 (win|window) vertical: user.system_command("i3-msg split v")
@@ -52,7 +52,7 @@ portal left: user.system_command("i3-msg workspace prev")
 (win|window) [<number>] grow: user.i3wm_window_grow(number or 1)
 (win|window) [<number>] shrink: user.i3wm_window_shrink(number or 1)
 # NOTE: these commands often conflict with split versions, which is why they
-# don't have win version 
+# don't have win version
 window [<number>] taller: user.i3wm_window_adjust_height_up(number or 50)
 window [<number>] shorter: user.i3wm_window_adjust_height_down(number or 50)
 window [<number>] fatter: user.i3wm_window_adjust_width_out(number or 50)
@@ -70,7 +70,7 @@ vertical (shell|terminal):
 shuffle <number_small>:  user.system_command("i3-msg move container to workspace {number_small}")
 
 shuffle ten: user.system_command("i3-msg move container to workspace 10")
-shuffle (parent|all) <number_small>: 
+shuffle (parent|all) <number_small>:
     user.system_command("i3-msg focus parent")
     user.system_command("i3-msg move container to workspace {number_small}")
 shuffle flip: user.system_command("i3-msg move container to workspace back_and_forth")
@@ -85,7 +85,7 @@ follow <number_small>:
     user.system_command("i3-msg move container to workspace {number_small}")
     user.system_command("i3-msg workspace {number_small}")
 
-follow ten: 
+follow ten:
     user.system_command("i3-msg move container to workspace 10")
     user.system_command("i3-msg workspace 10")
 
@@ -129,11 +129,11 @@ i three restart: user.system_command("i3-msg restart")
 ##
 # Marks
 ##
-(win|window) mark <user.word>: 
+(win|window) mark <user.word>:
     user.system_command("i3-msg mark {word}")
-(win|window) clear marks: 
+(win|window) clear marks:
     user.system_command("i3-msg unmark")
-(win|window) focus [mark] <user.word>: 
+(win|window) focus [mark] <user.word>:
     user.system_command("i3-msg [con_mark=\"{word}\"] focus")
 (win|window) focus alert:
     user.system_command("i3-msg [urgent=latest] focus")

@@ -40,24 +40,24 @@ Possible ideas:
 # Tara's Additions:
 
 
-Full mouse grid now has a special mode that excludes all other commands except for the commands in full_mouse_grid_open while the mouse grid is open.  
+Full mouse grid now has a special mode that excludes all other commands except for the commands in full_mouse_grid_open while the mouse grid is open.
 
-It is possible to put talon to sleep, and the mouse_grid commands will be disabled while talon is asleep and return to full_mouse_grid mode when Talon is reawakened.  
+It is possible to put talon to sleep, and the mouse_grid commands will be disabled while talon is asleep and return to full_mouse_grid mode when Talon is reawakened.
 
-Many of the coloring settigs have been extracted to the file full_mouse_settings.talon.  The colors for various items in the full mouse grid can be reset using RGB hexadecimal colors. 
+Many of the coloring settigs have been extracted to the file full_mouse_settings.talon.  The colors for various items in the full mouse grid can be reset using RGB hexadecimal colors.
 
-The colors currently look like this: 
+The colors currently look like this:
 
 ![image](https://user-images.githubusercontent.com/1163925/114628783-0abdfb80-9c7d-11eb-9a47-d9a492aa5e09.png)
 
-Instead of saying the commands as a sequence of numbers, there are commands added so that 
+Instead of saying the commands as a sequence of numbers, there are commands added so that
 
 1. you can say a single number, pause and see that a certain superblock is selected,
-2.  then say a single letter, and pause while all rows with that letter are highlighted, 
-3. and say the final letter to select the coordinate that is in both the highlighted superblock and highlighted row.  
+2.  then say a single letter, and pause while all rows with that letter are highlighted,
+3. and say the final letter to select the coordinate that is in both the highlighted superblock and highlighted row.
 
-the image below shows superblock 6 selected, and row N highlighted.  
+the image below shows superblock 6 selected, and row N highlighted.
 
 ![image](https://user-images.githubusercontent.com/1163925/114629052-861fad00-9c7d-11eb-84ad-42369379879d.png)
 
-It is possible to change your mind and select a different superblock, but it is not currently possible to select a different letter row without starting over. 
+It is possible to change your mind and select a different superblock, but it is not currently possible to select a different letter row without starting over.

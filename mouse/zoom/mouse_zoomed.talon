@@ -10,5 +10,3 @@ tag: user.mouse_zoomed
     user.grid_close()
 (end drag | drag end):
     user.mouse_drag_end()
-
-

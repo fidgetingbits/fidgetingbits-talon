@@ -50,11 +50,11 @@ state include system:
     insert('#include <>')
     edit.left()
 
-state filter: 
+state filter:
     insert("//")
     edit.left()
 
-state filter {user.bpftrace_builtins}: 
+state filter {user.bpftrace_builtins}:
     insert("/{bpftrace_builtins} /")
     edit.left()
 

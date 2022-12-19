@@ -11,6 +11,6 @@ node list: "npm list\n"
 node global list: "npm -g list\n"
 node list depth <number_small>: "npm list --depth={number_small}\n"
 node global list <number_small>: "npm -g list --depth={number_small}\n"
-node config set prefix: 
+node config set prefix:
     insert("npm config set prefix ''")
     edit.left()

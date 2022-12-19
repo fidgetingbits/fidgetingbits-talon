@@ -261,7 +261,7 @@ tea that: "| tee "
 rip that: " | rg -i "
 file rip: "rg -i "
 file rip: "rg -i --binary"
-file rip clip: 
+file rip clip:
     insert("rg -i ")
     edit.paste()
     key(enter)
@@ -554,7 +554,7 @@ file elf header: "eu-readelf -h "
 file elf symbols: "eu-readelf -s "
 file elf dependencies: "eu-readelf -d "
 file elf debug info: user.insert_cursor("readelf -w [|] | head -15")
-file strip: "strip --strip-all " 
+file strip: "strip --strip-all "
 
 
 ###
@@ -675,7 +675,7 @@ you dev reload: "sudo udevadm control --reload-rules && sudo udevadm trigger"
 
 run wiggly: "weggli '{}'"
 
-bytes disassemble: 
+bytes disassemble:
   insert("rasm2 -d ''")
   key(left)
 
@@ -702,7 +702,7 @@ key cuttle list session: "keyctl list @s\n"
 key cuttle clear session: "keyctl clear @s\n"
 
 ###
-# dpkg 
+# dpkg
 ###
 deb install: "dpkg -i"
 

@@ -81,7 +81,7 @@ class Actions:
         actions.app.tab_open()
         if selected_text != "":
             actions.user.paste(selected_text)
-        add_tag("user.draft_editor_active") 
+        add_tag("user.draft_editor_active")
 
     def draft_editor_submit():
         """Submit/save draft editor"""

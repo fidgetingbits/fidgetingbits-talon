@@ -31,4 +31,3 @@ def singleton(fn):
     # We want the object yielded by the iterator to be available at the name
     # of the function, so instead of returning a function we return an object.
     return obj
-

@@ -38,7 +38,7 @@ slower: key(-)
 science: key(3)
 
 # Outline bar
-outline: 
+outline:
     user.stellaris_outliner()
 # XXX - this will have to all be coordinates
 

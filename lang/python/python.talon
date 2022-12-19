@@ -50,7 +50,7 @@ class <user.text>:
 dunder in it: "__init__"
 state try: "try:\n"
 state except: "except "
-state except clip: 
+state except clip:
     insert("except ")
     edit.paste()
 state raise: "raise "
@@ -84,7 +84,7 @@ false: "False"
 self dot: "self,"
 
 index <user.word>: '["{word}"]'
-index (var|variable) <user.text>: 
+index (var|variable) <user.text>:
     var = user.formatted_text(text, "snake")
     insert('[{var}]')
 
@@ -95,14 +95,14 @@ state is: " is "
 state is none: " is None"
 state as string: '.decode("utf-8")'
 state as bytes: '.encode("utf-8")'
-form string: 
+form string:
     insert('f""')
     edit.left()
-raw string: 
+raw string:
     insert('r""')
     edit.left()
 
-^init <user.text>$: 
+^init <user.text>$:
     var = user.formatted_text(text, "snake")
     insert("self.{var} = {var}")
 
@@ -146,10 +146,10 @@ from <user.code_libraries> import:
     insert(' import ')
 
 # XXX - it would be good to have a set of common overrides?
-funk bug: 
+funk bug:
     insert('print(f"!!! ")')
     key(left:2)
-funk pretty print: 
+funk pretty print:
     insert("pp.pprint()")
     key(left)
 

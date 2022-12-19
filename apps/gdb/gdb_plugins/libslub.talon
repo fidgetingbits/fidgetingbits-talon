@@ -13,10 +13,10 @@ slab [cache] show {user.slabs} all (objects|chunks): "sbcache --cpu 0 --show-reg
 
 # sbobject
 slab object: "sbobject "
-slab object clip: 
+slab object clip:
     insert("sbobject ")
     edit.paste()
-slab object {user.slabs} clip: 
+slab object {user.slabs} clip:
     insert("sbobject -n {slabs} ")
     edit.paste()
 slab object help: "sbobject -h\n"
@@ -24,7 +24,7 @@ slab object help: "sbobject -h\n"
 # sblist
 slab list: "sblist\n"
 slab list help: "sblist -h\n"
-slab list pattern [<user.text>]: 
+slab list pattern [<user.text>]:
     insert("sblist -p {user.formatted_text(text or '', 'NOOP')}")
 slab list kay only: "sblist -k\n"
 

@@ -164,6 +164,3 @@ class UserActions:
 
     def disassembler_redo():
         actions.key("ctrl-shift-v")
-
-
-

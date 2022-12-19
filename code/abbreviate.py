@@ -184,7 +184,7 @@ abbreviations = {
     "information": "info",
     "initialize": "init",
     "initializer": "init",
-    "inode": "ino", 
+    "inode": "ino",
     "in real life": "irl",
     "instance": "inst",
     "instruction": "insn",

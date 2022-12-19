@@ -11,7 +11,7 @@ task list: key(esc)
 view next: key(])
 view list: key([)
 
-## task view 
+## task view
 task (search|filter): key(/)
 task add: key(a)
 task done: key(d)
@@ -31,10 +31,9 @@ task help: key(?)
 
 ## calendar view
 next year: key(j)
-last year: key(k) 
+last year: key(k)
 next decade: key(J)
 last decade: key(K)
 
 
 # helpers for filters
-

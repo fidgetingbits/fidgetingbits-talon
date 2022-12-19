@@ -1,5 +1,5 @@
-# see vim_fzf.talon for the main commands. 
-# 
+# see vim_fzf.talon for the main commands.
+#
 # The commands in this file are only relevant for when an actual fzf.vim
 # floating window is open
 # See https://github.com/junegunn/fzf.vim#global-options for bindings

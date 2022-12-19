@@ -2,7 +2,7 @@ from talon import Module, Context, actions, ui, imgui, clip, settings
 
 ctx = Context()
 ctx.matches = r"""
-mode: user.auto_lang 
+mode: user.auto_lang
 and code.language: gdb
 """
 

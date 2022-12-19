@@ -12,7 +12,7 @@ speech_system.register("pre:phrase", on_pre_phrase)
 speech_system.register("post:phrase", on_post_phrase)
 
 @mod.action_class
-class Actions: 
+class Actions:
     def rephrase(phrase: Phrase, run_async: bool = False):
         """Re-evaluate and run phrase"""
         try:

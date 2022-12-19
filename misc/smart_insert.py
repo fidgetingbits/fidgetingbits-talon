@@ -8,5 +8,3 @@ ctx = Context()
 #       """override global insert action to improve speed in some scenarios"""
 #       actions.next(text)
 #       #scripting.core.main.MainActions.insert(text)
-
-

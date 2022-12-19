@@ -63,22 +63,22 @@ escaped (round):
 [pair] (square|squares):
     insert("[]")
     edit.left()
-[pair] angles: 
+[pair] angles:
     insert("<>")
     edit.left()
-[pair] graves: 
+[pair] graves:
     insert("``")
     edit.left()
-[pair] percents: 
+[pair] percents:
     insert("%%")
     edit.left()
-[pair] ticks: 
+[pair] ticks:
     insert("''")
     edit.left()
-[pair] quotes: 
+[pair] quotes:
     insert('""')
     edit.left()
-[pair] slashes: 
+[pair] slashes:
     insert('//')
     edit.left()
 # NOTE: purposely no edit.left()

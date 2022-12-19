@@ -3,13 +3,13 @@ tag: user.vim_fzf
 
 # ripgrep through files under current directory
 hunt code: user.vim_command_mode_exterm(':exe ":Rg"\n')
-hunt code clip: 
+hunt code clip:
     user.vim_command_mode_exterm(':exe ":Rg"\n')
     edit.paste()
 # XXX - this should behave differently depending on if it's a selection in
 # visual mode, etc
-hunt code this: 
-    user.vim_normal_mode("yiw") 
+hunt code this:
+    user.vim_normal_mode("yiw")
     user.vim_command_mode_exterm(':exe ":Rg"\n')
     edit.paste()
 
@@ -35,7 +35,7 @@ fuzz file types: user.vim_command_mode_exterm(':exe ":Filetypes"\n')
 # Files under current directory
 
 hunt (file|files): user.vim_command_mode_exterm(':exe ":Files"\n')
-hunt (file|files) <user.text>: 
+hunt (file|files) <user.text>:
     user.vim_command_mode_exterm(':exe ":Files"\n')
     insert(text)
 
