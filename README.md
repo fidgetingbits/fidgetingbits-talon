@@ -1,12 +1,12 @@
 <!-- vim-markdown-toc GFM -->
 
-- [Fidgeting Bits Talon Repo](#fidgeting-bits-talon-repo)
-  - [WARNING](#warning)
-  - [Dependencies](#dependencies)
-    - [Monkey Patching](#monkey-patching)
-  - [Hardware](#hardware)
-  - [Recommendations](#recommendations)
-  - [Pull requests](#pull-requests)
+* [Fidgeting Bits Talon Repo](#fidgeting-bits-talon-repo)
+    * [WARNING](#warning)
+    * [Dependencies](#dependencies)
+        * [Monkey Patching](#monkey-patching)
+    * [Hardware](#hardware)
+    * [Recommendations](#recommendations)
+    * [Pull requests](#pull-requests)
 
 <!-- vim-markdown-toc -->
 
