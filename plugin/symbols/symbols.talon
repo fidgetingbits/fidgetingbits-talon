@@ -60,7 +60,7 @@ percent that:
 quote that:
     text = edit.selected_text()
     user.paste("'{text}'")
-(double quote | dubquote) that:
+(double quote | dub quote) that:
     text = edit.selected_text()
     user.paste('"{text}"')
 (globby | glob line):

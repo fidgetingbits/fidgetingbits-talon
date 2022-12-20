@@ -55,3 +55,5 @@ class Actions:
 
     def delete_line_remaining():
         """Delete from the cursor until the end of the line"""
+        actions.edit.jump_line(line)
+        actions.edit.line_clone()

@@ -116,7 +116,7 @@ launch <user.text>:
     user.i3wm_launch()
     sleep(100ms)
     insert("{text}")
-screen lock: user.i3wm_launch()
+screen lock: user.i3wm_lock()
 
 term me: user.i3wm_shell()
 new test term: user.i3wm_testing_shell()

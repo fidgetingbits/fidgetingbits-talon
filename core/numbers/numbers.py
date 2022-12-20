@@ -5,12 +5,12 @@ from talon import Context, Module, actions, clip
 mod = Module()
 ctx = Context()
 
-digits = "zero one two three four five six seven eight nine".split()
+digit_list = "zero one two three four five six seven eight nine".split()
 teens = "ten eleven twelve thirteen fourteen fifteen sixteen seventeen eighteen nineteen".split()
 tens = "twenty thirty forty fifty sixty seventy eighty ninety".split()
 scales = "hundred thousand million billion trillion quadrillion quintillion sextillion septillion octillion nonillion decillion".split()
 
-digits_map = {n: i for i, n in enumerate(digits)}
+digits_map = {n: i for i, n in enumerate(digit_list)}
 digits_map["oh"] = 0
 # For stuff where we definitely don't want to match on "oh"
 digits_strict_map = {n: i for i, n in enumerate(digits)}
@@ -171,6 +171,18 @@ leading_words = numbers_map.keys() - scales_map.keys()
 leading_words -= {"oh", "o"}  # comment out to enable bare/initial "oh"
 number_word_leading = f"({'|'.join(leading_words)})"
 
+
+# Numbers used in `number_small` capture
+number_small_list = [*digit_list, *teens]
+for ten in tens:
+    number_small_list.append(ten)
+    number_small_list.extend(f"{ten} {digit}" for digit in digit_list[1:])
+number_small_map = {n: i for i, n in enumerate(number_small_list)}
+
+mod.list("number_small", desc="List of small numbers")
+ctx.lists["self.number_small"] = number_small_map.keys()
+
+
 # TODO: allow things like "double eight" for 88
 @ctx.capture("digit_string", rule=f"({alt_digits} | {alt_teens} | {alt_tens})+")
 def digit_string(m) -> str:
@@ -206,11 +218,17 @@ def number_signed(m):
     return -number if (m[0] in ["negative", "minus"]) else number
 
 
-@ctx.capture(
-    "number_small", rule=f"({alt_digits} | {alt_teens} | {alt_tens} [{alt_digits}])"
-)
-def number_small(m):
-    return int(parse_number(list(m)))
+# XXX - new number_small seems less inclusive than my old rule, so revisit
+# commented out rule below.
+@ctx.capture("number_small", rule="{user.number_small}")
+def number_small(m) -> int:
+    return number_small_map[m.number_small]
+
+#@ctx.capture(
+#    "number_small", rule=f"({alt_digits} | {alt_teens} | {alt_tens} [{alt_digits}])"
+#)
+#def number_small(m):
+#    return int(parse_number(list(m)))
 
 
 @mod.action_class

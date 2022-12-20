@@ -10,5 +10,5 @@ __pycache__
 .idea/
 /settings
 .vscode/settings.json
-
 *_
+.DS_Store

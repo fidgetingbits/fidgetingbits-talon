@@ -66,7 +66,6 @@ repo I'm more than happy to fix it to make it more generic, I just don't do
 this type of proactive testing on my own due to lack of time.
 
 ### Monkey Patching
-
 There are a few features that I don't like the way they work on i3, so I choose
 to monkey patch them. These patches may break on your system, in you need to
 test a different repo first if you run into problems, before assuming its
@@ -108,7 +107,6 @@ Foot pedal:
 - [Stinky board](https://web.archive.org/web/20160531205704/http://stinkyboard.com/)
 
 Mouse:
-
 - Primary: [Corsair SCIMITAR RGB](https://www.corsair.com/us/en/Categories/Products/Gaming-Mice/SCIMITAR-RGB-Optical-MOBA-MMO-Gaming-Mouse/p/CH-9000091-NA)
 - Secondary: [Logitech Trackman Marble](https://www.logitech.com/assets/51557/bossa-trackman-marble.pdf)
 

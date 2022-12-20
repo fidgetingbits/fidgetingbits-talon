@@ -142,12 +142,19 @@ settings():
     ###
     user.draft_editor = "Code"
 
+    # How to resize windows moved across physical screens (eg. via `snap next`).
+    # Default is 'proportional', which preserves window size : screen size ratio.
+    # 'size aware' keeps absolute window size the same, except full-height or
+    # -width windows are resized to stay full-height/width.
+    #user.window_snap_screen = "size aware"
+
 # uncomment tag to enable mouse grid
 # tag(): user.mouse_grid_enabled
 
 tag(): user.i3wm
 tag(): user.noise_quick_actions
 tag(): user.record_replay
+
 # Uncomment this to enable the curse yes/curse no commands (show hide mouse cursor). See issue #688.
 tag(): user.mouse_cursor_commands_enable
 #tag(): user.full_mouse_grid_enabled

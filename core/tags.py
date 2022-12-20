@@ -3,7 +3,6 @@ from talon import Module
 mod = Module()
 
 tagList = [
-    "debugger",
     "disassembler",
     "gdb",
     "libptmalloc",
@@ -16,6 +15,7 @@ tagList = [
     "tabs",
     "generic_windows_shell",
     "generic_unix_shell",
+    "readline",
     "taskwarrior",  # commandline tag for taskwarrior commands
     "tmux",
     "windbg",

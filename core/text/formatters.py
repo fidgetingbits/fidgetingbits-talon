@@ -256,20 +256,22 @@ return ",".join(m.formatters_keys_list)
         value = m[0] return
         ImmuneString(str(value))
 
-@mod.action_class class Actions: def formatted_text(phrase:
-                                                            Union[str,
-                                                            Phrase],
-                                                            formatters:
-                                                            str)
-    -> str: """Formats a phrase according to formatters. formatters is a
-    comma-separated string of formatters (e.g.
-    'CAPITALIZE_ALL_WORDS,DOUBLE_QUOTED_STRING')""" return
-    format_phrase(phrase, formatters)
+@mod.action_class 
+class Actions: 
+    def formatted_text(phrase: Union[str, Phrase], formatters: str) -> str: 
+        """Formats a phrase according to formatters. formatters is a comma-separated string of formatters (e.g. 'CAPITALIZE_ALL_WORDS,DOUBLE_QUOTED_STRING')""" 
+        return format_phrase(phrase, formatters)
 
     def insert_formatted(phrase: Union[str, Phrase], formatters: str):
         """Inserts a phrase formatted according to formatters. Formatters is a comma separated list of formatters (e.g. 'CAPITALIZE_ALL_WORDS,DOUBLE_QUOTED_STRING')"""
         actions.insert(format_phrase(phrase, formatters))
-        # actions.user.paste(format_phrase(phrase, formatters))
+
+    def insert_with_history(text: str):
+        """Inserts some text, remembering it in the phrase history."""
+        actions.user.deprecate_action("2022-12-11", "user.insert_with_history")
+
+        actions.user.add_phrase_to_history(text)
+        actions.insert(text)
 
     def formatters_reformat_last(formatters: str) -> str:
         """Clears and reformats last formatted phrase"""
@@ -298,14 +300,8 @@ return ",".join(m.formatters_keys_list)
         actions.insert(text)
         return text
 
-    def insert_with_history(text: str):
-        """Inserts some text, remembering it in the phrase history."""
-        actions.user.add_phrase_to_history(text)
-        actions.insert(text)
-
-    def get_formatters_words():
-    """returns a list of words currently used
-    as formatters, and a demonstration string using those formatters"""
+    def get_formatters_words() -> dict:
+        """returns a list of words currently used as formatters, and a demonstration string using those formatters"""
         formatters_help_demo = {}
         for name in sorted(set(formatters_words.keys())):
             formatters_help_demo[name] = format_phrase_without_adding_to_history(['one', 'two', 'three'], name)

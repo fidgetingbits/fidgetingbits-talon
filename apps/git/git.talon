@@ -203,9 +203,29 @@ git tag add: user.insert_cursor('git tag -a v[|] -m ""')
 git tag remove: "git tag -d "
 git tag remove remote: "git push origin --delete "
 
-# Convenience
-git edit config: "git config --local -e\n"
+# XXX - revisit this with sublists for ones I want to always run with \n, as
+#git {user.git_command} [<user.git_arguments>]:
+#    args = git_arguments or ""
+#    "git {git_command}{args} "
+#git commit [<user.git_arguments>] message [<user.prose>]:
+#    args = git_arguments or ""
+#    message = prose or ""
+#    user.insert_between("git commit{args} --message '{message}", "'")
+git stash [push] [<user.git_arguments>] message [<user.prose>]:
+    args = git_arguments or ""
+    message = prose or ""
+    user.insert_between("git stash push{args} --message '{message}", "'")
 
+# Optimistic execution for frequently used commands that are harmless (don't
+# change repository or index state).
+# XXX - revisit as I'm just favouring my old stuff for now
+#git status$: "git status\n"
+#git add patch$: "git add --patch\n"
+#git show head$: "git show HEAD\n"
+#git diff: "git diff\n"
+#git diff (cached | cashed)$: "git diff --cached\n"
+
+# Convenience
 git clone clipboard:
     insert("git clone ")
     edit.paste()

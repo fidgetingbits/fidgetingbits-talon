@@ -47,6 +47,17 @@ state type deaf struct:
 signal {user.c_signals}: "{c_signals}"
 error {user.c_errors}: "{c_errors}"
 
+# XXX - create a preprocessor tag for these, as they will match cpp, etc
+state define: "#define "
+state (undefine | undeaf): "#undef "
+state if (define | deaf): "#ifdef "
+[state] define <user.text>$:
+    "#define {user.formatted_text(text, 'ALL_CAPS,SNAKE_CASE')}"
+[state] (undefine | undeaf) <user.text>$:
+    "#undef {user.formatted_text(text, 'ALL_CAPS,SNAKE_CASE')}"
+[state] if (define | deaf) <user.text>$:
+    "#ifdef {user.formatted_text(text, 'ALL_CAPS,SNAKE_CASE')}"
+
 #declare <user.c_variable>:
 
 # Declare variables or structs etc.

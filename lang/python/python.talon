@@ -1,16 +1,4 @@
-<<<<<<< HEAD
-mode: command
-and mode: user.python
-mode: command
-and mode: user.auto_lang
-and code.language: python
-
-mode: user.auto_lang
-and tag: user.python_repl
-
-=======
 tag: user.python
->>>>>>> d69578e6fd0d9887d8291de0aa970e0d276b1e00
 -
 tag(): user.code_imperative
 tag(): user.code_object_oriented
@@ -108,9 +96,9 @@ raw string:
     var = user.formatted_text(text, "snake")
     insert("self.{var} = {var}")
 
-raise {user.python_exception}: user.insert_between("raise {python_exception}(", ")")
-except {user.python_exception}: "except {python_exception}:"
-except {user.python_exception} as: user.insert_cursor("except {python_exception} as [|]:")
+[state] raise {user.python_exception}: user.insert_between("raise {python_exception}(", ")")
+[state] except {user.python_exception}: "except {python_exception}:"
+[state] except {user.python_exception} as: user.insert_cursor("except {python_exception} as [|]:")
 
 # function # for annotating function parameters
 is type <user.python_type_list>:
@@ -131,17 +119,15 @@ dock {user.python_docstring_fields}:
     insert("{python_docstring_fields}")
     edit.left()
     insert(" ")
-dock type {user.code_type}:
-    user.insert_between(":type ", ": {code_type}")
-dock returns type {user.code_type}:
-    user.insert_between(":rtype ", ": {code_type}")
+dock type {user.code_type}: user.insert_between(":type ", ": {code_type}")
+dock returns type {user.code_type}: user.insert_between(":rtype ", ": {code_type}")
 
 toggle imports: user.code_toggle_libraries()
 import <user.code_libraries>:
     user.code_insert_library(code_libraries, "")
     key(end)
 
-<<<<<<< HEAD
+from import: user.insert_between("from ", " import ")
 from <user.code_libraries> import:
     insert('from ')
     user.code_insert_library(code_libraries, "")
@@ -172,6 +158,3 @@ pack big long: user.insert_cursor('struct.pack(">Q"", [|])')
 
 state arg <number>: "sys.argv[{number}]"
 state arg count: "len(sys.argv)"
-=======
-from import: user.insert_between("from ", " import ")
->>>>>>> d69578e6fd0d9887d8291de0aa970e0d276b1e00
