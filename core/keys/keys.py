@@ -21,16 +21,6 @@ def setup_default_alphabet():
 alphabet_list = get_list_from_csv(
     "alphabet.csv", ("Letter", "Spoken Form"), setup_default_alphabet())
 
-# XXX - add to alphabet.csv
-# My experience:
-#   fine - conflicts with find
-#   jury  - two syllables, and matching with three or tree
-#   jail  - suddenly always with til
-#   pit  - conflicts with page
-#   yank - conflicts with vim command
-#   sit - conflicting with split on conformer
-#default_alphabet = "air bat cap drum each fin gust harp sit jury crunch look made near odd peck quench red sun trap urge vest whale plex yell zip".split(" ")
-
 hex_alphabet = "A B C D E F".split(" ")
 hex_letters_string = "abcdef"
 
