@@ -275,7 +275,8 @@ ctx.lists["self.symbol_key"] = symbol_key_words
 number_keys = dict(zip(default_digits, numbers))
 ctx.lists["self.number_key"] = number_keys
 
-hex_spoken = dict(zip(default_alphabet[:6], hex_letters_string))
+
+hex_spoken = dict(zip(list(alphabet_list.values())[0:6], hex_letters_string))
 hex_alphabet = dict(zip(hex_alphabet, hex_letters_string))
 ctx.lists["self.hex_letter"] = {**hex_spoken, **hex_alphabet, **number_keys}
 

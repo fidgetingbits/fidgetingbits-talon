@@ -196,65 +196,72 @@ formatters_words = { "allcaps": formatters_dict["ALL_CAPS"], "alldown":
 
 # This is the mapping for series of letters to formatters ex: abc to A B C
 formatters_keys = { "spacing": formatters_dict["ALL_CAPS"], }
-all_formatters = {} all_formatters.update(formatters_dict)
-all_formatters.update(formatters_words) all_formatters.update(formatters_keys)
+all_formatters = {} 
+all_formatters.update(formatters_dict)
+all_formatters.update(formatters_words) 
+all_formatters.update(formatters_keys)
 
-mod = Module() mod.list("formatters", desc="list of formatters handling words")
-mod.list("formatters_keys", desc="list of formatters handling individual
-         letters") mod.list( "prose_formatter", desc="words to start
-         dictating prose, and the formatter they apply",)
-
-
-@mod.capture(rule="{self.formatters}+") def formatters(m) -> str: "Returns a
-comma-separated string of formatters e.g. 'SNAKE,DUBSTRING'" return
-",".join(m.formatters_list)
+mod = Module() 
+mod.list("formatters", desc="list of formatters handling words")
+mod.list("formatters_keys", desc="list of formatters handling individual letters") 
+mod.list( "prose_formatter", desc="words to start dictating prose, and the formatter they apply",)
 
 
-@mod.capture(rule="{self.formatters_keys}+") def formatters_letters(m) -> str:
+@mod.capture(rule="{self.formatters}+") 
+def formatters(m) -> str: 
+        "Returns a comma-separated string of formatters e.g. 'SNAKE,DUBSTRING'" 
+        return ",".join(m.formatters_list)
+
+
+@mod.capture(rule="{self.formatters_keys}+") 
+def formatters_letters(m) -> str:
     "Returns a comma-separated string of formatters e.g. 'SNAKE,DUBSTRING'"
-return ",".join(m.formatters_keys_list)
+    return ",".join(m.formatters_keys_list)
 
 
 @mod.capture(
     # Note that if the user speaks something like "snake dot", it will
     # insert "dot" - otherwise, they wouldn't be able to insert punctuation
     # words directly.
-        rule="<self.formatters> <user.text> (<user.text> |
-        <user.formatter_immune>)*") def format_text(m) -> str: "Formats
-        the text and returns a string" out = "" formatters = m[0] for
-        chunk in m[1:]: if isinstance(chunk, ImmuneString): out +=
-        chunk.string else: out += format_phrase(chunk, formatters)
-        return out
+        rule="<self.formatters> <user.text> (<user.text> | <user.formatter_immune>)*") 
+def format_text(m) -> str: 
+    "Formats the text and returns a string" 
+    out = "" 
+    formatters = m[0] 
+    for chunk in m[1:]: 
+        if isinstance(chunk, ImmuneString): 
+            out += chunk.string 
+        else: 
+            out += format_phrase(chunk, formatters)
+    return out
 
 
-            @mod.capture(rule="<self.formatters_letters>
-                         <user.letters>") def
-    format_letters(m) -> str: "Formats the keys and returns a string"
-    formatters = m[0] letters = m[1] out = format_phrase_letters("
-    ".join(list(letters)), formatters) return out
+@mod.capture(rule="<self.formatters_letters> <user.letters>") 
+def format_letters(m) -> str: 
+    "Formats the keys and returns a string"
+    formatters = m[0] 
+    letters = m[1] 
+    out = format_phrase_letters(" ".join(list(letters)), formatters) 
+    return out
 
 
-    class ImmuneString(object): """Wrapper that makes a string immune from
-    formatting."""
+class ImmuneString(object): 
+    """Wrapper that makes a string immune from formatting."""
 
-    def __init__(self, string): self.string = string
+    def __init__(self, string): 
+        self.string = string
 
-
-        @mod.capture(
-            # Add anything else into this that you want to be able
-            # to speak during a formatter.
-            rule="(<user.symbol_key> | numb <number>)") def
-        formatter_immune(m) -> ImmuneString: """Text that can be
-        interspersed into a formatter, e.g. characters.
-
-    It will be inserted directly, without being formatted.
-
-    """
+@mod.capture(
+        # Add anything else into this that you want to be able
+        # to speak during a formatter.
+        rule="(<user.symbol_key> | numb <number>)") 
+def formatter_immune(m) -> ImmuneString: 
+    """Text that can be interspersed into a formatter, e.g. characters. It will be inserted directly, without being formatted. """
     if hasattr(m, "number"):
         value = m.number
     else:
-        value = m[0] return
-        ImmuneString(str(value))
+        value = m[0] 
+        return ImmuneString(str(value))
 
 @mod.action_class 
 class Actions: 

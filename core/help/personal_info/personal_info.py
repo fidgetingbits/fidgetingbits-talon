@@ -52,7 +52,7 @@ class PersonalInfo:
     def __init__(self):
         cwd = os.path.dirname(os.path.realpath(__file__))
         self.personal_info_file = os.path.join(
-            cwd, "../../../private/misc/personal_info/personal_info.json"
+            cwd, "../../../../private/misc/personal_info/personal_info.json"
         )
         self.update_commands()
         fs.watch(self.personal_info_file, self.__on_fs_change)

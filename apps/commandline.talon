@@ -553,7 +553,7 @@ wallpaper set latest: "feh --bg-scale $(find ~/images/wallpaper/ -name $(exa --s
 file elf header: "eu-readelf -h "
 file elf symbols: "eu-readelf -s "
 file elf dependencies: "eu-readelf -d "
-file elf debug info: user.insert_cursor("readelf -w [|] | head -15")
+file elf debug info: user.insert_between("readelf -w", "| head -15")
 file strip: "strip --strip-all "
 
 
@@ -738,8 +738,8 @@ cron tab (delete|remove): "crontab -i -r "
 ###
 # cross-compiled tools
 ###
-arm L D D: user.insert_cursor("/usr/arm-linux-gnueabi/bin/readelf -d [|] | rg NEEDED")
-arm readelf: ""/usr/arm-linux-gnueabi/bin/readelf "
+arm L D D: user.insert_between("/usr/arm-linux-gnueabi/bin/readelf -d ", " | rg NEEDED")
+arm readelf: "/usr/arm-linux-gnueabi/bin/readelf "
 
 #
 volume scan: "lvscan\n"

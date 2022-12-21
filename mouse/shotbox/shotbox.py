@@ -199,7 +199,7 @@ class ShotBox:
                 self.selection_history = history
             except Exception:
                 pass
-            print(self.selection_history)
+            #print(self.selection_history)
 
         self.screenshot_history_file.touch()
         with self.screenshot_history_file.open() as f:
@@ -210,7 +210,7 @@ class ShotBox:
                 self.screenshot_history = history
             except Exception:
                 pass
-            print(self.screenshot_history)
+            #print(self.screenshot_history)
 
     def setup(self, *, rect: Rect = None, screen_num: int = None):
         """Initial overlay setup to get screen dimensions, etc"""

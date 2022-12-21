@@ -13,7 +13,7 @@ scales = "hundred thousand million billion trillion quadrillion quintillion sext
 digits_map = {n: i for i, n in enumerate(digit_list)}
 digits_map["oh"] = 0
 # For stuff where we definitely don't want to match on "oh"
-digits_strict_map = {n: i for i, n in enumerate(digits)}
+digits_strict_map = {n: i for i, n in enumerate(digits_map)}
 teens_map = {n: i + 10 for i, n in enumerate(teens)}
 tens_map = {n: 10 * (i + 2) for i, n in enumerate(tens)}
 scales_map = {n: 10 ** (3 * (i + 1)) for i, n in enumerate(scales[1:])}

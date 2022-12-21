@@ -85,8 +85,8 @@ def word(m) -> str:
             actions.dictate.replace_words(actions.dictate.parse_words(m.word))
         )
 
-
-@mod.capture(rule=text_rule)
+# XXX - pre-merge this used to be text_rule, maybe from andrea? need to revisit
+@mod.capture(rule="({user.vocabulary} | <phrase>)+")
 def text(m) -> str:
     """Mixed words, numbers and punctuation, including user-defined vocabulary, abbreviations and spelling."""
     return format_phrase(m)

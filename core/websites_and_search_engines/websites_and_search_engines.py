@@ -2,8 +2,7 @@ import webbrowser
 from urllib.parse import quote_plus
 
 from talon import Context, Module
-
-from .user_settings import get_list_from_csv, get_list_from_private_csv
+from ..user_settings import get_list_from_csv, get_list_from_private_csv
 
 mod = Module()
 mod.list("website", desc="A website.")

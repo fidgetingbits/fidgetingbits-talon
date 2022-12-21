@@ -35,7 +35,7 @@ state include:
 state include system:
     user.insert_between("#include <", ">")
 [state] include local [<user.text>]:
-    user.insert('#include "{user.formatted_text(text or '', 'NOOP')}.h"')
+    user.insert('#include "{user.formatted_text(text or \'\', \'NOOP\')}.h"')
 state type deaf:
     insert('typedef ')
 state type deaf struct:
