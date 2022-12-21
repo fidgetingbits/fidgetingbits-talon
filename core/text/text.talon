@@ -12,7 +12,7 @@ phrase <user.text> over:
 <user.format_letters>+$: user.insert_many(format_letters_list)
 <user.format_text>+ [over]: user.insert_many(format_text_list)
 <user.formatters> that: user.formatters_reformat_selection(user.formatters)
-(only | lonely) <user.word>: user.insert_with_history(user.word)
+(only | lonely) <user.word>: user.add_phrase_to_history(user.word)
 format help: user.formatters_help_toggle()
 
 recent list: user.toggle_phrase_history()
