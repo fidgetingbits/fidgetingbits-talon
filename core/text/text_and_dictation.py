@@ -140,6 +140,11 @@ def apply_formatting(m):
         if isinstance(item, Callable):
             item(formatter)
         else:
+            words = (
+                actions.dictate.replace_words(actions.dictate.parse_words(item))
+                if isinstance(item, grammar.vm.Phrase)
+                else [item]
+            )
             for word in words:
                 result += formatter.format(word)
     return result
