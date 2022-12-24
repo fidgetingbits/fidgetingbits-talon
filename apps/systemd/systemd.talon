@@ -4,6 +4,7 @@ and tag: user.systemd
 
 service reload: "sudo systemctl daemon-reload\n"
 service list: "systemctl list-units --type=service --no-pager\n"
+#service list: "systemctl list-unit-files --type=service --no-pager\n"
 service list active:
     "systemctl list-units --type=service --state=active --no-pager\n"
 service list running:
@@ -22,7 +23,6 @@ service find active:
 service find: "systemctl list-unit-files --type=service --no-pager | grep "
 service list disabled:
     "systemctl list-unit-files --type=service --no-pager | grep disabled\n"
-service list: "systemctl list-unit-files --type=service --no-pager\n"
 
 # TODO - generic
 system timer user list: "systemctl --user list-timers --no-pager\n"

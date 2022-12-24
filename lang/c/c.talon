@@ -51,6 +51,7 @@ error {user.c_errors}: "{c_errors}"
 state define: "#define "
 state (undefine | undeaf): "#undef "
 state if (define | deaf): "#ifdef "
+state [short] if not (define|deaf): "#ifndef "
 [state] define <user.text>$:
     "#define {user.formatted_text(text, 'ALL_CAPS,SNAKE_CASE')}"
 [state] (undefine | undeaf) <user.text>$:
@@ -97,10 +98,6 @@ state return true: "return true;"
 state continue: "continue;"
 state break: "break;"
 
-state define: "#define "
-state undefine: "#undef "
-state [short] if define: "#ifdef "
-state [short] if not define: "#ifndef "
 state pre if: "#if "
 state pre if zero: "#if 0"
 state error: "#error "

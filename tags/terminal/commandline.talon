@@ -77,7 +77,6 @@ kill all:
     key(ctrl-c)
 
 file list <user.folder_paths>: "ls {folder_paths} \n"
-
 file list bare exact: "ls --no-icons "
 file list bare: "ls -l --no-icons \n"
 file size: "ls -lh "
@@ -260,7 +259,7 @@ tea that: "| tee "
 
 rip that: " | rg -i "
 file rip: "rg -i "
-file rip: "rg -i --binary"
+file rip binary: "rg -i --binary"
 file rip clip:
     insert("rg -i ")
     edit.paste()
