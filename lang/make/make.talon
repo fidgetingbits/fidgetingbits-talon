@@ -1,5 +1,4 @@
-mode: user.auto_lang
-and code.language: make
+user: user.make
 -
 
 state phony: ".PHONY: "

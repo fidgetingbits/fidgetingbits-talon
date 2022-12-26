@@ -1017,6 +1017,18 @@ class NeoVimRPC:
         if self.rpc_path is not None:
             try:
                 self.nvim = pynvim.attach("socket", path=self.rpc_path)
+                # XXX - I'm not sure why but talon is automatically setting the
+                # loggers associated with pynvim to DEBUG, so I need to set
+                # them to WARNING every time
+                loggers = logging.root.manager.loggerDict.keys()
+                for l in loggers:
+                    if l.startswith("pynvim"):
+                        nvim_logger = logging.getLogger(l)
+                        nvim_logger.setLevel(logging.WARNING)
+                loggers = [logging.getLogger(name) for name in logging.root.manager.loggerDict]
+                #.from pprint import pprint
+                #print("Detected loggers:")
+                #pprint(loggers)
             except RuntimeError:
                 return
             self.init_ok = True
@@ -1213,7 +1225,6 @@ class VimMode:
 
     def debug_print(self, s):
         # XXX - need to override the logger
-        print(f"vim.py setting user.vim_debug: {settings.get('user.vim_debug')}")
         if settings.get("user.vim_debug"):
             logger.debug(s)
 

@@ -28,7 +28,7 @@ tagList = [
     "nmcli",
     "taskwarrior",
     "timewarrior",
-    "make",
+    "make_commands",
     "kubectl",
     "tmux",
     "docker",
@@ -50,7 +50,6 @@ tagList = [
     "taskwarrior_tui",
     "vimium",
     "obs_studio_global",
-    "onyx",  # XXX - switch to hostname scope
 ]
 
 for entry in tagList:

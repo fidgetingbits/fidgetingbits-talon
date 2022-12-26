@@ -79,10 +79,11 @@ special_file_map = {
 # commented out entries. TODO: make this a csv file?
 language_extensions = {
     # 'assembly': 'asm s',
-    # 'bash': 'bashbook sh',
+    'bash': 'bashbook sh',
     "batch": "bat",
     "c": "c h",
-    # 'cmake': 'cmake',
+    "codeql": "codeql",
+    'cmake': 'cmake',
     # 'cplusplus': 'cpp hpp',
     "csharp": "cs",
     "css": "css",
@@ -95,7 +96,8 @@ language_extensions = {
     "javascript": "js",
     "javascriptreact": "jsx",
     # 'json': 'json',
-    # 'lua': 'lua',
+    'lua': 'lua',
+    'make': 'make',
     "markdown": "md",
     # 'perl': 'pl',
     "php": "php",

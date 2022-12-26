@@ -72,8 +72,11 @@ class Actions:
         actions.core.run_command(*hiss_quick_action)
 
 
-ui.register("app_deactivate", lambda app: actions.user.pop_quick_action_clear())
-ui.register("win_focus", lambda win: actions.user.pop_quick_action_clear())
+def on_ready():
+    ui.register("app_deactivate", lambda app: actions.user.pop_quick_action_clear())
+    ui.register("win_focus", lambda win: actions.user.pop_quick_action_clear())
+
+app.register("ready", on_ready)
 
 pop_quick_action = None
 pop_quick_action_last = None

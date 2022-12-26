@@ -1,5 +1,4 @@
-mode: command
-and code.language: codeql
+user: user.codeql
 -
 
 tag(): user.code_comment_line

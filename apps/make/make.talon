@@ -1,6 +1,6 @@
 os: linux
 tag: terminal
-and tag: user.make
+and tag: user.make_commands
 -
 
 run make file: "make -f "

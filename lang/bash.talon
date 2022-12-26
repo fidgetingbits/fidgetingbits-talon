@@ -1,8 +1,4 @@
-mode: command
-and mode: user.bash
-mode: command
-and mode: user.auto_lang
-and code.language: bash
+tag: user.bash
 -
 tag(): user.code_imperative
 

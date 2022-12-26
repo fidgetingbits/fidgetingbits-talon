@@ -1,10 +1,5 @@
-os: linux
 tag: user.gdb
 
-# XXX - a lot of the stuff in here is probably not suited for inclusion when
-# writing the scripts?
-tag:user.auto_lang
-and code.language: gdb
 -
 tag(): user.debugger
 tag(): user.terminal_program

@@ -3,8 +3,7 @@ from talon import Context, Module, actions, settings
 mod = Module()
 ctx = Context()
 ctx.matches = r"""
-mode: user.auto_lang
-and code.language: lua
+tag: user.lua
 """
 
 mod.setting(

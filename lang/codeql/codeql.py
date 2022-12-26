@@ -2,8 +2,7 @@ from talon import Context, actions
 
 ctx = Context()
 ctx.matches = r"""
-mode: user.auto_lang
-and code.language: codeql
+user: user.codeql
 """
 
 ctx.lists["user.code_libraries"] = {

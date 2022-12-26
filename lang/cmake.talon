@@ -1,2 +1,2 @@
-code.language: cmake
+tag: user.cmake
 -

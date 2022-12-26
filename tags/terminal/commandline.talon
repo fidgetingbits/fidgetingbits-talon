@@ -29,7 +29,7 @@ tag(): user.yay
 #tag(): user.nmcli
 #tag(): user.taskwarrior
 #tag(): user.timewarrior
-tag(): user.make
+tag(): user.make_commands
 #tag(): user.tmux
 tag(): user.git
 tag(): user.docker
