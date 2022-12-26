@@ -613,8 +613,14 @@ capability list: "capsh --print\n"
 (unshare|namespace) root: "unshare -U -r\n"
 (unshare|namespace) net: "unshare -n\n"
 
+###
+# Environment variables
+###
+environment list: "env\n"
+environment search: "env|rg "
+environment fuzzy: "env|rg -i "
 # XXX - add support for saying words and making them too upper
-environment show: "echo $"
+variable show: "echo $"
 
 # Custom utility stuff
 bat cache build: "bat cache --build\n"
