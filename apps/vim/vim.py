@@ -12,6 +12,8 @@ try:
 except Exception:
     has_pynvim = False
 
+# NOTE: This is used to avoid Using selector: EpollSelector spam
+logging.getLogger('asyncio').setLevel(logging.WARNING)
 logger = logging.getLogger("talon.vim")
 
 mod = Module()
@@ -1016,19 +1018,20 @@ class NeoVimRPC:
         self.rpc_path = self.get_active_rpc()
         if self.rpc_path is not None:
             try:
-                self.nvim = pynvim.attach("socket", path=self.rpc_path)
-                # XXX - I'm not sure why but talon is automatically setting the
-                # loggers associated with pynvim to DEBUG, so I need to set
-                # them to WARNING every time
+                # XXX - I'm not sure why but suddenly talon is automatically
+                # setting the loggers associated with pynvim to DEBUG, so I
+                # need to set them to WARNING every time
                 loggers = logging.root.manager.loggerDict.keys()
                 for l in loggers:
                     if l.startswith("pynvim"):
+                        #print(f"DEBUG: Resetting log level for {l}")
                         nvim_logger = logging.getLogger(l)
                         nvim_logger.setLevel(logging.WARNING)
                 loggers = [logging.getLogger(name) for name in logging.root.manager.loggerDict]
                 #.from pprint import pprint
-                #print("Detected loggers:")
                 #pprint(loggers)
+                #print("Detected loggers:")
+                self.nvim = pynvim.attach("socket", path=self.rpc_path)
             except RuntimeError:
                 return
             self.init_ok = True
@@ -1149,6 +1152,8 @@ class VimAPI:
     def __init__(self):
         self.api = self._get_api()
 
+    # XXX - The should register a callback for context switches that closes the
+    # socket
     def _get_api(self):
         """return a RPC or non-RPC API object"""
         self.nvrpc = NeoVimRPC()

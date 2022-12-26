@@ -132,7 +132,7 @@ class UserActions:
         actions.user.vim_normal_mode("d0")
 
     def line_find_forward(key: str):
-        print(key)
+        #print(key)
         actions.user.vim_any_motion_mode(f"f{key}")
 
     def line_find_backward(key: str):
