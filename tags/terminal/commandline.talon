@@ -40,6 +40,7 @@ tag(): user.systemd
 tag(): user.pulse_audio
 tag(): user.virsh
 tag(): user.iptables
+tag(): user.nftables
 #tag(): user.npm
 #tag(): user.meson
 #tag(): user.kubectl

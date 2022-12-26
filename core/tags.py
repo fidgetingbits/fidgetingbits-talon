@@ -26,6 +26,7 @@ tagList = [
     "buku",
     "ghidra_server",
     "nmcli",
+    "nftables",
     "taskwarrior",
     "timewarrior",
     "make_commands",

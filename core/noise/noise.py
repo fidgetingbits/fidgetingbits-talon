@@ -10,7 +10,7 @@ mod = Module()
 class Actions:
     def pop():
         """pop action overrideable by contexts"""
-        print("noise.py - pop()")
+        #print("noise.py - pop()")
         actions.user.mouse()
 
     def pop_quick_action_clear():
