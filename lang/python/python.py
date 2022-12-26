@@ -207,10 +207,10 @@ ctx.lists["user.python_decorator"] = {
 }
 
 
-@mod.capture(rule="{self.python_type_list}")
+@mod.capture(rule="{self.code_type}")
 def python_type_list(m) -> str:
     "Returns a string"
-    return m.python_type_list
+    return m.code_type
 
 
 @mod.capture(rule="{self.python_docstring_fields}")

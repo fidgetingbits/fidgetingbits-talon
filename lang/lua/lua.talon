@@ -1,6 +1,4 @@
-mode: command
-and mode: user.auto_lang
-and code.language: lua
+tag: user.lua
 -
 
 tag(): user.code_imperative

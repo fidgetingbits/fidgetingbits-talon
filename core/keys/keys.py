@@ -189,10 +189,6 @@ ctx.lists["self.letter"] = alphabet_list
 # XXX - There should be a way to make some things only available in dictation
 # mode...
 punctuation_words = {
-    # TODO: I'm not sure why we need these, I think it has something to do with
-    # Dragon. Possibly it has been fixed by later improvements to talon? -rntz
-    "`": "`",
-    ",": ",",  # <== these things
     "back tick": "`",
     "grave": "`",
     # "comma": ",",

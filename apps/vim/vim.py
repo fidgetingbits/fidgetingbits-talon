@@ -1107,13 +1107,16 @@ class VimRPC:
                 self.nvrpc.nvim.command(cmd, async_=True)
             # I sometimes get this for things like needing a w! for write...
             except pynvim.api.common.NvimError as e:
+                print("NvimError START")
                 app.notify(subtitle=e)
                 self.nvrpc.nvim.err_write(str(e))
                 print(e)
+                print("NvimError END")
             except Exception as e:
-
                 app.notify(subtitle="Unknown Neovim API error. See talon log")
+                print("NvimError START")
                 print(e)
+                print("NvimError END")
 
     def run_command_mode_command_exterm(self, cmd):
         """Exit terminal mode and run a command in commandline mode using RPC."""
@@ -1210,6 +1213,7 @@ class VimMode:
 
     def debug_print(self, s):
         # XXX - need to override the logger
+        print(f"vim.py setting user.vim_debug: {settings.get('user.vim_debug')}")
         if settings.get("user.vim_debug"):
             logger.debug(s)
 

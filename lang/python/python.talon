@@ -101,13 +101,13 @@ raw string:
 [state] except {user.python_exception} as: user.insert_cursor("except {python_exception} as [|]:")
 
 # function # for annotating function parameters
-is type <user.python_type_list>:
-    insert(": {python_type_list}")
-returns [type] <user.python_type_list>:
-    insert(" -> {python_eype_list}")
+is type {user.code_type}:
+    insert(": {code_type}")
+returns [type] {user.code_type}:
+    insert(" -> {code_type}")
 # for generic reference of types
-type <user.python_type_list>:
-    insert("{python_type_list}")
+type {user.code_type}:
+    insert("{code_type}")
 
 # decorators
 deck static [method]: insert("@staticmethod")
