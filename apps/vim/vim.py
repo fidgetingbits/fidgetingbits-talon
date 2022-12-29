@@ -12,8 +12,6 @@ try:
 except Exception:
     has_pynvim = False
 
-# NOTE: This is used to avoid Using selector: EpollSelector spam
-logging.getLogger('asyncio').setLevel(logging.WARNING)
 logger = logging.getLogger("talon.vim")
 
 mod = Module()
@@ -1028,6 +1026,9 @@ class NeoVimRPC:
                         nvim_logger = logging.getLogger(l)
                         nvim_logger.setLevel(logging.WARNING)
                 loggers = [logging.getLogger(name) for name in logging.root.manager.loggerDict]
+
+                # NOTE: This is used to avoid "Using selector: EpollSelector" spam
+                logging.getLogger('asyncio').setLevel(logging.WARNING)
                 #.from pprint import pprint
                 #pprint(loggers)
                 #print("Detected loggers:")
