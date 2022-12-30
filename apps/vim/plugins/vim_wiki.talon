@@ -28,6 +28,8 @@ list wikis:
 # Diary Commands
 go diary:
     user.vim_command_mode_exterm(':execute "normal \\<Plug>VimwikiDiaryIndex"\n')
+go work diary:
+    user.vim_normal_mode(':VimwikiDiaryIndex 2\n')
 diary new:
     user.vim_command_mode_exterm(':execute "normal \\<Plug>VimwikiMakeDiaryNote"\n')
 diary new tab:
@@ -37,5 +39,5 @@ diary last:
 diary next:
     user.vim_command_mode_exterm(':execute "normal \\<Plug>VimwikiMakeTomorrowDiaryNote"\n')
 
-wiki help: user.vim_command_mode_exterm(":help vimwiki")
-wiki help commands: user.vim_command_mode_exterm(":help vimwiki-commands")
+wiki help: user.vim_command_mode_exterm(":help vimwiki\n")
+wiki help commands: user.vim_command_mode_exterm(":help vimwiki-commands\n")
