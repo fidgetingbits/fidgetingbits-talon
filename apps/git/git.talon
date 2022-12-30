@@ -43,11 +43,8 @@ git clone clip:
 git clean: "git clean"
 git clean everything: "git clean -dfx"
 git clean FD: "git clean -fd"
-# XXX - should use text or
-git commit message <user.text>: "git commit -m '{text}'"
-git commit message:
-    insert("git commit -m ''")
-    edit.left()
+git commit message <user.text>: "git commit -m \"{text}\""
+git commit message: user.insert_between("git commit -m \"", "\"")
 git commit: "git commit\n"
 git commit amend: "git commit --amend "
 git commit no verify: "git commit -n"
