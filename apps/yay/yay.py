@@ -40,6 +40,9 @@ class UserActions:
     def package_list_contents():
         actions.insert("yay -Ql ")
 
+    def package_dependencies():
+        actions.insert("yay -Si ")
+
     def package_search_by_name(name: str):
         actions.insert(f"yay -sS {name}")
 

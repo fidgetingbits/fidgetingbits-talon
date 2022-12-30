@@ -90,5 +90,8 @@ class Actions:
     def package_list_contents():
         """List a packages local contents"""
 
+    def package_dependencies():
+        """List packages dependent on a specific package"""
+
     def package_help():
         """List the packages help menu"""
