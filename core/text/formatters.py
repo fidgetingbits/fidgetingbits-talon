@@ -152,6 +152,7 @@ formatters_dict = {
     "SCORE_SEPARATED": prefixed_words_with_joiner("__", "_"),
     "NO_SPACES": (NOSEP, every_word(lambda w: w)),
     "NOOP": (SEP, lambda i, word, _: word),
+    "PIPE_SEPARATED": words_with_joiner("|"),
     "PRIVATE_CAMEL_CASE": (NOSEP, first_vs_rest(lambda w: w, lambda w: w.capitalize())),
     "PROTECTED_CAMEL_CASE": (
         NOSEP,
@@ -176,6 +177,7 @@ formatters_words = { "allcaps": formatters_dict["ALL_CAPS"], "alldown":
     formatters_dict["DOT_SEPARATED"], "dunder":
     formatters_dict["DOUBLE_UNDERSCORE"], "scoring":
     formatters_dict["SCORE_SEPARATED"], "pathing":
+    formatters_dict["PIPE_SEPARATED"], "piping":
     formatters_dict["FOLDER_SEPARATED"], "windows pathing":
     formatters_dict["WINDOWS_FOLDER_SEPARATED"], "hammer":
     formatters_dict["PUBLIC_CAMEL_CASE"], "dashing":

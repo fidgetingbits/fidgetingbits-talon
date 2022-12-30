@@ -13,6 +13,9 @@ tag: user.vim_wiki
 # Main wiki commands
 go wiki:
     user.vim_command_mode_exterm(':execute "normal \\<Plug>VimwikiIndex"\n')
+go work wiki:
+    user.vim_normal_mode(':VimwikiIndex 2"\n')
+
 go wiki tabbed:
     user.vim_command_mode_exterm(':execute "normal \\<Plug>VimwikiTabIndex"\n')
 go wiki <number_small>:

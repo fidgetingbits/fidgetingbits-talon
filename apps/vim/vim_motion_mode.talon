@@ -310,7 +310,7 @@ macro (done | finish | stop): user.vim_any_motion_mode("q")
 [copy] register <user.unmodified_key> [in] to [register] <user.unmodified_key>:
     user.vim_command_mode(":let@{unmodified_key_2}=@{unmodified_key_1}\n")
 
-yank into [register] <user.unmodified_key>:
+yank (into|to) [register] <user.unmodified_key>:
     user.vim_any_motion_mode('"{unmodified_key}y')
 clear into [register] <user.unmodified_key>:
     user.vim_any_motion_mode('"{unmodified_key}d')

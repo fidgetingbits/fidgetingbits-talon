@@ -21,3 +21,4 @@ copilot (last | previous | prev):
 # purposefully don't have new lines at the end of these commands
 copilot setup: user.vim_command_mode(":Copilot setup")
 copilot sign out: user.vim_command_mode(":Copilot signout")
+

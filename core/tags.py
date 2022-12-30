@@ -51,6 +51,8 @@ tagList = [
     "taskwarrior_tui",
     "vimium",
     "obs_studio_global",
+    "vboxmanage",
+    "glab",
 ]
 
 for entry in tagList:

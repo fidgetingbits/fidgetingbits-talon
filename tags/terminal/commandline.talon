@@ -44,6 +44,8 @@ tag(): user.nftables
 #tag(): user.npm
 #tag(): user.meson
 #tag(): user.kubectl
+tag(): user.vboxmanage
+tag(): user.glab
 
 # XXX - See generic_terminal.talon for some basics as well.
 tag(): user.generic_unix_shell
