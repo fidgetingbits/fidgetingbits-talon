@@ -1,7 +1,5 @@
 mode: command
 and tag: user.markdown
-mode: command
-and code.language: markdown
 -
 
 code block:
