@@ -29,6 +29,7 @@ linux_folder_paths = {
     "vim sessions": "~/.vim/sessions/",
     "vim plugins": "~/.vim/plugged/",
     "vim": "~/.vim/",
+    "neovim": "~/.config/nvim/",
     "temp": "/tmp/",
     "config": "/etc/",
     "it see": "/etc/",
@@ -63,6 +64,7 @@ linux_folder_paths = {
     "tunnel": "~/.ssh/",
     "S S H": "~/.ssh/",
     "raffi": "~/.config/rofi/",
+    "screen layout": "~/.screenlayout/",
     "network manager": "/etc/NetworkManager/",
     "network manager dispatcher": "/etc/NetworkManager/dispatcher.d/",
     "network manager config": "/etc/NetworkManager/conf.d/",
@@ -78,7 +80,10 @@ linux_folder_paths = {
     "open snitch rules": "/etc/opensnitchd/rules/",
     "local apps": "~/.local/share/applications/",
     "Polly bar": "~/.config/polybar/",
+    "eye lonely three": "~/.config/i3/",
+    "kitty": "~/.config/kitty/",
     "python sight packages": "/usr/lib/python3.10/site-packages",
+    "dot config": "~/.config/",
 }
 
 linux_file_paths = {
