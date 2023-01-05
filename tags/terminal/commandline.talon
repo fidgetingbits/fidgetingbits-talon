@@ -250,6 +250,9 @@ file [change] ownership: "chown "
 file [change] deep ownership: "chown -R $UID:$GID "
 
 # file viewing
+less this:
+    edit.line_end()
+    insert("| less")
 file less: "less "
 now less [that]:
     edit.up()
@@ -756,3 +759,5 @@ file hex dump: "hexdump -C "
 
 file bin walk: "binwalk -Me "
 file un squash: "unsquashfs "
+
+run I D: "id\n"
