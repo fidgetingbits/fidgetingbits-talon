@@ -3,10 +3,9 @@ from talon import Context
 ctx = Context()
 ctx.matches = r"""
 tag: user.vim_ultisnips
-mode: user.lua
-mode: command
-and code.language: lua
+and tag: user.lua
 """
+
 # spoken name -> ultisnips snippet name
 # spoken name -> snippet name
 ultisnips_snippets = {}

@@ -1,3 +1,2 @@
-mode: command
-and code.language: taskwarrior
+tag: user.taskwarrior
 -

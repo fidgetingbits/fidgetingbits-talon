@@ -1,5 +1,5 @@
 tag: user.vim_markdown_toc
-and code.language: markdown
+and tag: user.markdown
 -
 
 generate git hub (table of contents | talk):

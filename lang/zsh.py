@@ -1,15 +1,11 @@
+# this is largely based on bash.talon. any problems you find that aren't
+# explicitly in zsh functionality you may want to see if they also exist there
 from talon import Context, actions
 
 ctx = Context()
 ctx.matches = r"""
-# this is largely based on bash.talon. any problems you find that aren't
-# explicitly in zsh functionality you may want to see if they also exist there
-
-mode: user.zsh
-mode: command
-and code.language: zsh
+tag: user.zsh
 """
-
 
 @ctx.action_class("user")
 class UserActions:

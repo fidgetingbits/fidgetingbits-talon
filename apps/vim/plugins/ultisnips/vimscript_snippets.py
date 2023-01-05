@@ -5,9 +5,7 @@ from talon import Context
 ctx = Context()
 ctx.matches = r"""
 tag: user.vim_ultisnips
-mode: user.vimscript
-mode: command
-and code.language: vimscript
+and tag: user.vimscript
 """
 
 # short name -> UltiSnip clip name

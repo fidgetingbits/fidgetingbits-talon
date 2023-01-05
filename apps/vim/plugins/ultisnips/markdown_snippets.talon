@@ -1,8 +1,6 @@
 # see markdown_snippets.py for more complete list
 tag: user.vim_ultisnips
-mode: user.markdown
-mode: command
-and code.language: markdown
+and tag: user.markdown
 -
 
 # XXX - unsupported by current snippets.py

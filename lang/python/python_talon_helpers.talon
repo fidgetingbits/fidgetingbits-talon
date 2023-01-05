@@ -1,8 +1,6 @@
-mode: user.python
-mode: command
-and code.language: python
+tag: user.python
 -
-
+# XXX - The should is be a snippet
 capture <user.text>:
     insert("@mod.capture\ndef ")
     insert(user.formatted_text(text, "snake"))

@@ -2,10 +2,7 @@ from talon import Context, Module, actions
 
 ctx = Context()
 ctx.matches = r"""
-mode: user.bpftrace
-
-mode: user.auto_lang
-and code.language: bpftrace
+tag: user.bpftrace
 """
 
 mod = Module()
@@ -35,7 +32,7 @@ ctx.lists["user.bpftrace_types"] = {
 }
 
 # https://github.com/iovisor/bpftrace/blob/master/docs/reference_guide.md#1-builtins-1
-ctx.lists["user.code_functions"] = {
+ctx.lists["user.code_common_function"] = {
     "print F": "printf",
     "time": "time",
     "join": "join",

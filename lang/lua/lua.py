@@ -15,7 +15,7 @@ mod.setting(
 
 # XXX - this should be updatable with other modules like nse, neovim, base
 # off some tags
-ctx.lists["user.code_functions"] = {
+ctx.lists["user.code_common_function"] = {
     "to number": "tonumber",
     "eye pairs": "ipairs",
     "print": "print",
@@ -142,7 +142,7 @@ class UserActions:
     # code_comment_line
     ##
     def code_comment_line_prefix():
-        actions.insert("--")
+        actions.insert("-- ")
 
     ##
     # code_comment_block

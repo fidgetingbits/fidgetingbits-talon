@@ -1,3 +1,2 @@
-mode: command
-and code.language: yaml
+tag: user.yaml
 -

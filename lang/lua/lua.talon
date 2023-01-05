@@ -7,6 +7,7 @@ tag(): user.code_comment_line
 tag(): user.code_comment_block
 tag(): user.code_data_bool
 tag(): user.code_data_null
+tag(): user.code_functions_common
 tag(): user.code_functions
 tag(): user.code_functions_gui
 tag(): user.code_libraries
@@ -62,3 +63,5 @@ index <user.word>: '["{word}"]'
 index (var | variable) <user.text>:
     var = user.formatted_text(text, "snake")
     insert("[{var}]")
+
+state return dick: user.insert_between("return {", "}")

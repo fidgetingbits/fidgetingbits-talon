@@ -3,9 +3,7 @@ from talon import Context
 ctx = Context()
 ctx.matches = r"""
 tag: user.vim_ultisnips
-mode: user.gdb
-mode: command
-and code.language: gdb
+and tag: user.gdb
 """
 # spoken name -> snippet name
 ultisnips_snippets = {}

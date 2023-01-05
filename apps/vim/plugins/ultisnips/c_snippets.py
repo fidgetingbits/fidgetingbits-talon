@@ -3,7 +3,7 @@ from talon import Context
 ctx = Context()
 ctx.matches = r"""
 tag: user.vim_ultisnips
-and code.language: c
+and tag: user.c
 """
 
 

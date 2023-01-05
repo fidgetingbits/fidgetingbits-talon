@@ -1,5 +1,5 @@
 app: vim
-and code.language: markdown
+and tag: user.markdown
 -
 
 # XXX - These needs to detect the current working directory in vim, so should

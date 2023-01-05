@@ -16,6 +16,7 @@ action block: user.insert_between("action(", "):")
 setting block: insert("settings():\n\t")
 setting {user.talon_settings}: user.paste("{talon_settings} = ")
 #context requirements
+# XXX - I don't like that these are all something and then require, so change the order
 win require: insert("os: windows\n")
 mac require: insert("os: mac\n")
 linux require: insert("os: linux\n")
@@ -51,8 +52,6 @@ capture {user.talon_captures}: "<{talon_captures}>"
 key <user.keys> over: "{keys}"
 key <user.modifiers> over: "{modifiers}"
 
-# basic list of actions (e.g., insert, key)
-funk <user.code_functions>: user.code_insert_function(code_functions, "")
 
 # all actions (requires uncommenting user.talon_populate_lists tag above)
 funk {user.talon_actions}:

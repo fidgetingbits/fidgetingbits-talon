@@ -1,6 +1,6 @@
 # XXX - detect were actually specifically in something with a task before
 tag: user.vim_taskwiki
-and code.language: md
+and tag: user.markdown
 -
 
 task (annotate | meta): user.vim_command_mode(":TaskWikiAnnotate\n")

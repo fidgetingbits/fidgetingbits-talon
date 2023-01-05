@@ -3,14 +3,8 @@ from talon import Context, Module
 mod = Module()
 ctx = Context()
 ctx.matches = r"""
-tag: disabled
+tag: user.c
 """
-# mode: command
-# and code.language: c
-#
-# mode: command
-# and tag: user.gdb
-# """
 
 ctx.lists["self.c_pointers"] = {
     "pointer": "*",

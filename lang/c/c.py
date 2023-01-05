@@ -255,7 +255,10 @@ code_functions_public = {
     "I O cuddle": "ioctl",
 }
 
-ctx.lists["user.code_functions"] = {**code_functions_public, **code_functions_private}
+ctx.lists["user.code_common_function"] = {
+    **code_functions_public,
+    **code_functions_private,
+}
 
 
 ctx.lists["user.c_signals"] = {

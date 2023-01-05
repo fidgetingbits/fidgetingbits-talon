@@ -1,3 +1,3 @@
 tag: user.vim_ultisnips
-code.language: gdb
+and tag: user.gdb
 -

@@ -2,7 +2,7 @@ from talon import Context, actions
 
 ctx = Context()
 ctx.matches = r"""
-user: user.codeql
+tag: user.codeql
 """
 
 ctx.lists["user.code_libraries"] = {
@@ -14,7 +14,7 @@ ctx.lists["user.code_libraries"] = {
 
 # Note that these follow this standard naming convention for certain
 # objects, for instance FunctionCall
-ctx.lists["user.code_functions"] = {
+ctx.lists["user.code_common_function"] = {
     "exists": "exists",
     "target has name": "fc.getTarget().hasName()",
     "get target": "fc.getTarget()",

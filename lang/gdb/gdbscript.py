@@ -2,11 +2,10 @@ from talon import Context, actions
 
 ctx = Context()
 ctx.matches = r"""
-mode: user.auto_lang
-and code.language: gdb
+tag: user.gdb
 """
 
-ctx.lists["user.code_functions"] = {"print": "printf"}
+ctx.lists["user.code_common_function"] = {"print": "printf"}
 
 
 @ctx.action_class("user")

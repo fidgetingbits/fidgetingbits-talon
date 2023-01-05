@@ -1,8 +1,6 @@
 # this is largely based on bash.talon. any problems you find that aren't
 # explicitly in zsh functionality you may want to see if they also exist there
-mode: user.zsh
-mode: user.auto_lang
-and code.language: zsh
+tag: user.zsh
 -
 tag(): user.code_imperative
 

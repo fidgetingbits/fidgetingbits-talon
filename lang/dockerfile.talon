@@ -1,8 +1,8 @@
-mode: user.docker
-mode: user.auto_lang
-and code.language: docker
+tag: user.docker
+win.title: /Dockerfile/
 -
-
+# XXX - The win title thing above should get fixed because sometimes I probably
+# import docker files that don't have that name
 run off:
     insert("&& \\")
     key(enter)
