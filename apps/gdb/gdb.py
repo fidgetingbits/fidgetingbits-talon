@@ -13,9 +13,6 @@ ctx = Context()
 
 ctx.matches = r"""
 tag: user.gdb
-
-tag:user.auto_lang
-and code.language: gdb
 """
 
 # see gdb_generic.py for actions that can also be overridden by other plugins
