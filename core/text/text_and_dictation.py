@@ -45,6 +45,7 @@ ctx.lists["user.prose_snippets"] = {
     "void": " ",
     "phrase": "",
     "shock": "\n",
+    "slap": "\n",
 }
 
 
