@@ -108,6 +108,7 @@ _file_extensions_defaults = {
     "task": ".task",
     "text": ".txt",
     "timer": ".timer",
+    "tom L": ".toml",
     "N map": ".nse",
     "N S E": ".nse",
     "neo vim": ".nvim",
