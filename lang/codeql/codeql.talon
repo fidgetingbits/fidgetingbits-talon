@@ -4,7 +4,7 @@ user: user.codeql
 tag(): user.code_comment_line
 tag(): user.code_comment_block_c_like
 tag(): user.code_functions
-tag(): user.code_functions_gui
+tag(): user.code_functions_common
 tag(): user.code_libraries
 tag(): user.code_libraries_gui
 

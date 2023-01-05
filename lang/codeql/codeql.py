@@ -54,10 +54,6 @@ class UserActions:
         actions.insert("!= none")
 
     ##
-    # code_functions_gui
-    ##
-
-    ##
     # code_libraries
     ##
     def code_import():

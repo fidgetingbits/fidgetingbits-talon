@@ -214,10 +214,6 @@ class UserActions:
         actions.edit.left()
 
     ##
-    # code_functions_gui
-    ##
-
-    ##
     # code_libraries
     ##
     def code_import():

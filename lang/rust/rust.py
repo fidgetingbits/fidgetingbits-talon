@@ -354,7 +354,7 @@ class UserActions:
     def code_insert_return_type(type: str):
         actions.auto_insert(f" -> {type}")
 
-    # tag: functions_gui
+    # tag: functions_common
 
     def code_insert_function(text: str, selection: str):
         code_insert_function_or_macro(text, selection, "(", ")")
