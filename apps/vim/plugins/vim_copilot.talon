@@ -4,7 +4,7 @@ tag: user.vim_copilot
 # XXX - I don't know why this ends up not actually accepting, so just falling
 # back to use tab for now
 #pilot: user.vim_command_mode(":call copilot#Accept(\"\")\n")
-pilot: key("tab")
+([co] pilot|keep): key("ctrl-j")
 copilot disable: user.vim_command_mode(":Copilot disable\n")
 copilot enable: user.vim_command_mode(":Copilot enable\n")
 copilot status: user.vim_command_mode(":Copilot status\n")
