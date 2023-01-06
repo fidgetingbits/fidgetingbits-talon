@@ -19,3 +19,7 @@ class AppActions:
 
     def tab_next():
         actions.user.vim_command_mode_exterm(":tabnext\n")
+
+    def tab_previous():
+        actions.user.vim_command_mode_exterm(":tabprevious\n")
+
