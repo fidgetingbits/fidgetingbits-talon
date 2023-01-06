@@ -3,7 +3,6 @@ tag: user.glab
 
 gitlab help: "glab\n"
 gitlab auth login: "glab auth login\n"
-gitlab issue list: "glab issue list\n" 
 
 # projects
 #  archive:     Get an archive of the repository.
