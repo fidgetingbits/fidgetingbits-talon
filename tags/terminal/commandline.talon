@@ -101,9 +101,10 @@ file line count: "wc -l "
 file list <user.letter>: 'find . -maxdepth 1 -name "{letter}*" -ls\n'
 file list fuzzy {user.file_extension}: "ls *{file_extension}\n"
 file list {user.file_extension} files: "ls *{file_extension}\n"
-file list hidden: 'ls -al | grep "^."\n'
+file list hidden: 'ls -ld .?*\n'
+# XXX - it would be nice if these were coloured like regular ls sometimes
 file list hidden files: 'find . -maxdepth 1 -not -type d -name ".*" -printf "%f\\n"\n'
-file list hidden folders: "ls -d .[^.]*\n"
+file list hidden folders: 'find . -maxdepth 1 -not -type f -name ".*" -printf "%f\\n"\n'
 
 
 # find
