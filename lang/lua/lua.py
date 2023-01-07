@@ -12,6 +12,7 @@ mod.setting(
     default=5.1,
     desc="The default lua version to use. Dictates certain operators",
 )
+mod.tag("stylua", desc="Tag for stylua linting commands")
 
 # XXX - this should be updatable with other modules like nse, neovim, base
 # off some tags
