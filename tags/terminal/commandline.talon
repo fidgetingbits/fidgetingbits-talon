@@ -46,6 +46,7 @@ tag(): user.nftables
 #tag(): user.kubectl
 tag(): user.vboxmanage
 tag(): user.glab
+tag(): user.coredumpctl
 
 # XXX - See generic_terminal.talon for some basics as well.
 tag(): user.generic_unix_shell
@@ -466,11 +467,6 @@ history show: "history\n"
 (X args|extra) that: "| xargs "
 
 net man log: "journalctl -u NetworkManager --no-pager --lines 100\n"
-
-core dump list: "coredumpctl\n"
-core dump info: "coredumpctl info\n"
-core dump dump: "coredumpctl dump\n"
-core dump debug: "coredumpctl debug\n"
 
 # ssh
 # XXX - make texts actually query a series of names from the %h config
