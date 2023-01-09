@@ -52,3 +52,6 @@ comment warn:
 comment perf:
     user.code_comment_line_prefix()
     insert("PERF: ")
+comment fix me:
+    user.code_comment_line_prefix()
+    insert("FIXME: ")
