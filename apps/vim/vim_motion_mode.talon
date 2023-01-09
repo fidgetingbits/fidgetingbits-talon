@@ -607,6 +607,8 @@ run bare make:
 run generates see tags:
     user.vim_normal_mode_np(":w\n")
     insert(":!rm tags && ctags --recurse --exclude=.git --exclude=.pc *\n")
+run lua:
+    user.vim_normal_mode(":lua ")
 
 exec repeat:
     user.vim_normal_mode_np(":exec ")
