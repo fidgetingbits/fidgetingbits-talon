@@ -72,6 +72,7 @@ tag(): user.vim_lsp
 tag(): user.vim_codeql
 tag(): user.vim_copilot
 tag(): user.vim_markdown_preview
+tag(): user.vim_comment_nvim
 
 # To the settings below dictate how certain parts of Talon VIM will work. You
 # can leave them or tweak them to your needs.

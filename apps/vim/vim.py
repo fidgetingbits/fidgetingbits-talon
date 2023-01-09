@@ -30,6 +30,7 @@ plugin_tag_list = [
     "vim_ale",
     "vim_change_inside_surroundings",
     "vim_codeql",
+    "vim_comment_nvim",
     "vim_copilot",
     "vim_cscope",
     "vim_easy_align",
@@ -233,6 +234,8 @@ commands_with_motion = {
     "format": "gq",
     "to upper": "gU",
     "to lower": "gu",
+    # comment.nvim
+    "comment": "gc",
 }
 
 # only relevant when in visual mode. these will have some overlap with
@@ -1022,16 +1025,17 @@ class NeoVimRPC:
                 loggers = logging.root.manager.loggerDict.keys()
                 for l in loggers:
                     if l.startswith("pynvim"):
-                        #print(f"DEBUG: Resetting log level for {l}")
+                        # print(f"DEBUG: Resetting log level for {l}")
                         nvim_logger = logging.getLogger(l)
                         nvim_logger.setLevel(logging.WARNING)
-                loggers = [logging.getLogger(name) for name in logging.root.manager.loggerDict]
+                loggers = [
+                    logging.getLogger(name) for name in logging.root.manager.loggerDict
+                ]
 
                 # NOTE: This is used to avoid "Using selector: EpollSelector" spam
-                logging.getLogger('asyncio').setLevel(logging.WARNING)
-                #.from pprint import pprint
-                #pprint(loggers)
-                #print("Detected loggers:")
+                # .from pprint import pprint
+                # pprint(loggers)
+                # print("Detected loggers:")
                 self.nvim = pynvim.attach("socket", path=self.rpc_path)
             except RuntimeError:
                 return
@@ -1047,6 +1051,7 @@ class NeoVimRPC:
         return None
 
     def get_active_mode(self):
+
         mode = self.nvim.request("nvim_get_mode")
         return mode
 
@@ -1153,15 +1158,22 @@ class VimAPI:
     def __init__(self):
         self.api = self._get_api()
 
-    # XXX - The should register a callback for context switches that closes the
     # socket
     def _get_api(self):
         """return a RPC or non-RPC API object"""
+        # XXX - This is a hack but just trying to get rid of "DEBUG Using selector:
+        # EpollSelector"
+        logging.getLogger("asyncio").setLevel(logging.WARNING)
         self.nvrpc = NeoVimRPC()
         if self.nvrpc.init_ok is True:
             return VimRPC(self.nvrpc)
         else:
             return VimDirectInput()
+
+    def __del__(self):
+        """Clean up the RPC Connection"""
+        if self.nvrpc.init_ok is True:
+            self.nvrpc.nvim.close()
 
 
 # XXX - this should be updated to use feedkeys when RPC is available
