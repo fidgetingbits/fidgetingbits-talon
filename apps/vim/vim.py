@@ -235,7 +235,9 @@ commands_with_motion = {
     "to upper": "gU",
     "to lower": "gu",
     # comment.nvim
-    "comment": "gc",
+    # "comment": "gc",
+    # "comment outer": "gca",
+    # "comment inner": "gci",
 }
 
 # only relevant when in visual mode. these will have some overlap with
@@ -327,21 +329,19 @@ motions = {
 # from that .py
 treesitter_motions = {
     "funk start": "[m",
-    "funk": "[m",
     "funk next": "]m",
     "class start": "[[",
-    "class": "[[",
     "class next": "]]",
     "comment start": "[/",
-    "comment": "[/",
     "comment next": "]/",
     "loop start": "[l",
-    "loop": "[l",
+    # "loop": "[l",
     "loop next": "]l",
     "condition start": "[C",
-    "condition": "[C",
+    # "condition": "[C",
     "condition next": "]C",
 }
+
 
 motions_custom = {}
 
@@ -393,6 +393,8 @@ ctx.lists["self.vim_text_object_range"] = {
     "inner": "i",
     "inside": "i",
     "around": "a",
+    "out side": "a",
+    "outer": "a",
     "this": "a",
 }
 
@@ -424,6 +426,12 @@ text_object_select = {
     "sentence": "s",
     "graph": "p",
     "tag block": "t",
+    "funk": "f",  # This is for around or iner
+    "block": "b",
+    "condition": "m",
+    "loop": "l",
+    "class": "c",
+    "comment": "/",
 }
 
 text_object_select_custom = {}
@@ -692,8 +700,8 @@ def vim_jump_targets(m) -> str:
 
 @mod.capture(
     # XXX - trying to reduce list sizes and never use this
-    # rule="[<number_small>] <self.vim_text_object_range> <self.vim_text_object_select>"
-    rule="<self.vim_text_object_range> <self.vim_text_object_select>"
+    rule="[<number_small>] [<self.vim_text_object_range>] <self.vim_text_object_select>"
+    # rule="<self.vim_text_object_range> <self.vim_text_object_select>"
 )
 def vim_text_objects(m) -> str:
     "Returns a string representing a ranged texts objects selection"

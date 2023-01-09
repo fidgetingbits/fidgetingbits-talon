@@ -506,6 +506,7 @@ take line: user.vim_visual_mode("V")
 block take: user.vim_any_motion_mode_exterm_key("ctrl-v")
 
 take <user.vim_motions>: user.vim_visual_mode("{vim_motions}")
+take <user.vim_text_objects>: user.vim_visual_mode("{vim_text_objects}")
 block take <user.vim_motions>: user.vim_visual_block_mode("{vim_motions}")
 
 take lines <number> through <number>:

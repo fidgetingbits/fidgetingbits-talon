@@ -2,12 +2,20 @@
 tag: user.vim_comment_nvim
 -
 
-comment toggle: user.vim_normal_mode("gcc")
-block comment toggle: user.vim_normal_mode("gbc")
-comment above: user.vim_normal_mode_np("gcO")
-comment below: user.vim_normal_mode_np("gco")
-comment push: user.vim_normal_mode_np("gcA")
+# TODO: Move this to more explicit motion grammar, but at the moment I seem to have some
+# problems with conflicts, so I'm explicitly doing it here.
+[un] comment (toggle|this): user.vim_normal_mode("gcc")
+[un] comment <number_small> (line): user.vim_normal_mode("{number_small}gcc")
+block comment (toggle|this): user.vim_normal_mode("gbc")
+[un] comment above: user.vim_normal_mode_np("gcO")
+[un] comment below: user.vim_normal_mode_np("gco")
+[un] comment push: user.vim_normal_mode_np("gcA")
 
-# XXX - Still have to add smart tree-sitter based commands
-# Although some is already working because I added `gc` directly to
-# commands_with_motion in vim.py
+# TODO: This may differ in visual mode
+# TODO: Technically the included text objects here are outside the scope of what can be done with
+# commenting, but for the sake of not duplicating lists for now I will leave it here.
+[un] comment (<user.vim_text_objects>):
+    user.vim_normal_mode("gc{vim_text_objects}")
+
+[un] comment till (<user.vim_motions>):
+    user.vim_normal_mode("gc{vim_motions}")
