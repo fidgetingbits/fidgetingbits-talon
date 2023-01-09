@@ -53,6 +53,7 @@ tagList = [
     "obs_studio_global",
     "vboxmanage",
     "glab",
+    "coredumpctl",
 ]
 
 for entry in tagList:
