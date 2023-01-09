@@ -30,6 +30,7 @@ linux_folder_paths = {
     "vim plugins": "~/.vim/plugged/",
     "vim": "~/.vim/",
     "neovim": "~/.config/nvim/",
+    "N vim": "~/.config/nvim/",
     "temp": "/tmp/",
     "config": "/etc/",
     "it see": "/etc/",
