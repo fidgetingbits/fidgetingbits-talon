@@ -156,6 +156,7 @@ abbreviations = {
     "eye dent": "id",
     "eye low": "ilo",
     "eye octal": "ioctl",
+    "feature": "feat",
     "file system": "fs",
     "fingerprint": "fp",
     "for what": "fwiw",
