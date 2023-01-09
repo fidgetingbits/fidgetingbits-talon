@@ -1,14 +1,29 @@
 import csv
-import os
 from pathlib import Path
 
-from talon import Context, Module, actions, resource
+from talon import Context, Module, resource
 
 mod = Module()
 ctx = Context()
 
 mod.list("git_command", desc="Git commands.")
 mod.list("git_argument", desc="Command-line git options and arguments.")
+mod.list("git_conventional_commits", desc="Git conventional_commits.")
+
+ctx.lists["self.git_conventional_commits"] = {
+    "feature": "feat",
+    "feet": "feat",
+    "fix": "fix",
+    "documentation": "docs",
+    "dock": "docs",
+    "style": "style",
+    "refactor": "refactor",
+    "performance": "perf",
+    "test": "test",
+    "chore": "chore",
+    "revert": "revert",
+    "breaking": "BREAKING CHANGE",
+}
 
 dirpath = Path(__file__).parent
 arguments_csv_path = str(dirpath / "git_arguments.csv")

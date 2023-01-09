@@ -37,6 +37,10 @@ file preview: user.vim_normal_mode_key("p")
 git commit [changes]:
     user.vim_normal_mode_keys("c c")
     user.vim_set_insert_mode()
+(fugitive | git) commit {user.git_conventional_commits}:
+    user.vim_normal_mode_keys("c c")
+    user.vim_set_insert_mode()
+    insert("{user.git_conventional_commits}: ")
 amend [last commit]: user.vim_normal_mode_keys("c a")
 commit reword: user.vim_normal_mode("cw")
 
