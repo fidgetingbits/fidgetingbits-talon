@@ -272,6 +272,7 @@ abbreviations = {
     "parameter": "param",
     "parameters": "params",
     "password": "passwd",
+    "performance": "perf",
     "physical": "phys",
     "pick": "pic",
     "pico second": "ps",
