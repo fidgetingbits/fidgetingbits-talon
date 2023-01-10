@@ -4,7 +4,7 @@ tag: user.vim_comment_nvim
 
 # TODO: Move this to more explicit motion grammar, but at the moment I seem to have some
 # problems with conflicts, so I'm explicitly doing it here.
-[un] comment (toggle|this): user.vim_normal_mode("gcc")
+[un] comment (toggle|this|line): user.vim_normal_mode("gcc")
 [un] comment <number_small> (line): user.vim_normal_mode("{number_small}gcc")
 block comment (toggle|this): user.vim_normal_mode("gbc")
 [un] comment above: user.vim_normal_mode_np("gcO")
