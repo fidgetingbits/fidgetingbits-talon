@@ -323,6 +323,8 @@ motions = {
     # "file top": "gg",
     "gutter": "G",
     # "file ent": "G",
+    "change": "]c",
+    "last change": "[c",
 }
 
 # XXX - These come from treesitter-textobjects, so should really be injected
