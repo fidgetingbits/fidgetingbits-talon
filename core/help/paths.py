@@ -83,7 +83,7 @@ linux_folder_paths = {
     "open snitch rules": "/etc/opensnitchd/rules/",
     "local apps": "~/.local/share/applications/",
     "Polly bar": "~/.config/polybar/",
-    "eye lonely three": "~/.config/i3/",
+    "eye three": "~/.config/i3/",
     "kitty": "~/.config/kitty/",
     "python sight packages": "/usr/lib/python3.10/site-packages",
     "dot config": "~/.config/",
