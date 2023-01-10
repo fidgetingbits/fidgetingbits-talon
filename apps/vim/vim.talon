@@ -56,7 +56,7 @@ tag(): user.vim_follows_md_links
 tag(): user.vim_nerdtree
 tag(): user.vim_obsession
 tag(): user.vim_ouroboros
-tag(): user.vim_plug
+#tag(): user.vim_plug
 tag(): user.vim_lightspeed
 tag(): user.vim_signature
 tag(): user.vim_taboo
@@ -73,6 +73,8 @@ tag(): user.vim_codeql
 tag(): user.vim_copilot
 tag(): user.vim_markdown_preview
 tag(): user.vim_comment_nvim
+tag(): user.vim_mason
+tag(): user.vim_lazy
 
 # To the settings below dictate how certain parts of Talon VIM will work. You
 # can leave them or tweak them to your needs.
