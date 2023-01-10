@@ -26,6 +26,7 @@ app: vim
 # talon file.
 # XXX - that should just be automatically done based off the file names inside
 # of the plugin folder since it's annoying to manage
+# TODO: It would be good to mark some of these with nvim if their specific to neovim
 plugin_tag_list = [
     "vim_ale",
     "vim_change_inside_surroundings",
