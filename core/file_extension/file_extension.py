@@ -81,6 +81,7 @@ _file_extensions_defaults = {
     "postscript": ".ps",
     "P S": ".ps",
     "power shell": ".ps1",
+    "pub": ".pub",
     "queue el": ".ql",
     "run": ".run",
     # "R S": ".rs",
