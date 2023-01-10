@@ -54,6 +54,19 @@ def format_phrase(m: Union[str, Phrase], formatters: str):
     return result
 
 
+def format_phrase_letters(m: str, formatters: str):
+    """Mostly a copy of format_phrase, but for letters"""
+    global last_phrase, last_phrase_formatted
+    last_phrase = m
+    words = m.split(" ")
+
+    result = last_phrase_formatted = format_phrase_without_adding_to_history(
+        words, formatters
+    )
+    actions.user.add_phrase_to_history(result)
+    return result
+
+
 def format_phrase_without_adding_to_history(word_list, formatters: str):
     # A formatter is a pair (keep_spaces, function). We drop spaces if any
     # formatter does; we apply their functions in reverse order.
