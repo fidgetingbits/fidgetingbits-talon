@@ -164,7 +164,15 @@ formatters_dict = {
     "FIRST_FOUR": (NOSEP, lambda i, word, _: word[0:4]),
     "FIRST_FIVE": (NOSEP, lambda i, word, _: word[0:5]),
     "FOLDER_SEPARATED": (NOSEP, every_word(lambda w: w + os.sep)),
+    "ROOT_FOLDER_SEPARATED": (
+        NOSEP,
+        first_vs_rest(lambda w: os.sep + w + os.sep, lambda w: w + os.sep),
+    ),
     "WINDOWS_FOLDER_SEPARATED": (NOSEP, every_word(lambda w: w + "\\")),
+    "WINDOWS_ROOT_FOLDER_SEPARATED": (
+        NOSEP,
+        first_vs_rest(lambda w: "\\" + w + "\\", lambda w: w + "\\"),
+    ),
     "LONG_ARG": prefixed_words_with_joiner("--", "-"),
     "SHORT_ARG": prefixed_words_with_joiner("-", "-"),
     "SCORE_SEPARATED": prefixed_words_with_joiner("__", "_"),
@@ -178,7 +186,7 @@ formatters_dict = {
     ),
     "PUBLIC_CAMEL_CASE": (NOSEP, every_word(lambda w: w.capitalize())),
     "SINGLE_QUOTED_STRING": (SEP, surround("'")),
-    "SLASH_SEPARATED": (NOSEP, every_word(lambda w: "/" + w)),
+    "SLASH_SEPARATED": words_with_joiner("/"),
     "SNAKE_CASE": (
         NOSEP,
         first_vs_rest(lambda w: w.lower(), lambda w: "_" + w.lower()),
@@ -197,10 +205,12 @@ formatters_words = {
     "dunder": formatters_dict["DOUBLE_UNDERSCORE"],
     "scoring": formatters_dict["SCORE_SEPARATED"],
     "pathing": formatters_dict["FOLDER_SEPARATED"],
+    "root pathing": formatters_dict["ROOT_FOLDER_SEPARATED"],
     "piping": formatters_dict["PIPE_SEPARATED"],
     # This is good in addition to pathing, for when we are on linux and writing
     # windows code, etc.
     "windows pathing": formatters_dict["WINDOWS_FOLDER_SEPARATED"],
+    "windows root pathing": formatters_dict["WINDOWS_ROOT_FOLDER_SEPARATED"],
     "hammer": formatters_dict["PUBLIC_CAMEL_CASE"],
     "dashing": formatters_dict["DASH_SEPARATED"],
     "equaling": formatters_dict["EQUAL_SEPARATED"],
