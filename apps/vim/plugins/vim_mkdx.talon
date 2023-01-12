@@ -1,5 +1,6 @@
 tag: user.vim_mkdx
-and tag: user.markdown
 -
-dex jump:
-    user.vim_command_mode(':execute "normal \\<Plug>(mkdx-jump-to-header)"\n')
+
+jump (anchor | heading): user.vim_command_mode(":call mkdx#JumpToHeader()\n")
+quick talk: user.vim_command_mode(":call mkdx#QuickfixHeaders()\n")
+jump link: user.vim_normal_mode_key("enter")
