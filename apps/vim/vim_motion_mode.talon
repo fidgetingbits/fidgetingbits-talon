@@ -609,7 +609,9 @@ run generates see tags:
     user.vim_normal_mode_np(":w\n")
     insert(":!rm tags && ctags --recurse --exclude=.git --exclude=.pc *\n")
 run lua:
-    user.vim_normal_mode(":lua ")
+    user.vim_command_mode_exterm(":lua ")
+run [lua] buffer:
+    user.vim_command_mode_exterm(":luafile %")
 
 exec repeat:
     user.vim_normal_mode_np(":exec ")
