@@ -9,25 +9,22 @@ tag(): user.code_functions_common
 # see https://github.com/knausj85/knausj_talon/issues/600
 # tag(): user.talon_populate_lists
 
-dot talon: insert(".talon")
 user dot: "user."
 #defintion blocks for the context
 action block: user.insert_between("action(", "):")
 setting block: insert("settings():\n\t")
 setting {user.talon_settings}: user.paste("{talon_settings} = ")
-#context requirements
-# XXX - I don't like that these are all something and then require, so change the order
-win require: insert("os: windows\n")
-mac require: insert("os: mac\n")
-linux require: insert("os: linux\n")
-title require: insert("win.title: ")
-application [require] [{user.talon_apps}]:
+require win: insert("os: windows\n")
+require mac: insert("os: mac\n")
+require linux: insert("os: linux\n")
+require title: insert("win.title: ")
+require (application|app) [{user.talon_apps}]:
     app = talon_apps or ""
     user.paste("app: {app}")
-mode require [{user.talon_modes}]:
+require mode [{user.talon_modes}]:
     mode = talon_modes or ""
     user.paste("mode: {mode}")
-tag require [{user.talon_tags}]:
+require tag [{user.talon_tags}]:
     tag = talon_tags or ""
     user.paste("tag: {tag}")
 #commands for dictating key combos
