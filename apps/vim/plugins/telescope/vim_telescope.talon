@@ -32,7 +32,7 @@ tag: user.vim_telescope
     user.vim_command_mode_exterm(':exe ":Telescope command_history"\n')
 (telescope | hunt) search history:
     user.vim_command_mode_exterm(':exe ":Telescope search_history"\n')
-(telescope | hunt) help tags:
+(telescope | hunt) help [tags]:
     user.vim_command_mode_exterm(':exe ":Telescope help_tags"\n')
 (telescope | hunt) man pages:
     user.vim_command_mode_exterm(':exe ":Telescope man_page"\n')
