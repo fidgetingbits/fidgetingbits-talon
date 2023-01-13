@@ -41,9 +41,6 @@ link file: "file://"
 link git: "git://"
 link secure shell: "ssh://"
 
-# this should be part of comment plugin
-add to do: "# XXX - "
-
 ###
 # Networking
 ###
@@ -64,4 +61,4 @@ smiley: ":)"
 sad face: ":("
 big smiley: ":D"
 jiff smiley: ">\\o "
-(pad | padding): user.insert_between(" ", " ")
+padding: user.insert_between(" ", " ")
