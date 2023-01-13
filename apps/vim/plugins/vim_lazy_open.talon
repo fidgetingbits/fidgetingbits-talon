@@ -1,5 +1,5 @@
 tag: user.vim_lazy
-win.title: /(LazyFloat)/
+win.title: /FILETYPE:\[lazy\]/
 -
 
 install: key('I')

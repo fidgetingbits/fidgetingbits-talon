@@ -1,5 +1,5 @@
 tag: user.vim_mason
-win.title: /(Mason)/
+win.title: /FILETYPE:\[mason\]/
 -
 
 all: key('1')
