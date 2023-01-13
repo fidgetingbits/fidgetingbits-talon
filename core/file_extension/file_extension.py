@@ -10,7 +10,6 @@ _file_extensions_defaults = {
     "build": ".build",
     "back": ".bak",
     "backup": ".bkp",
-    "bat": ".bat",
     "batch": ".bat",
     "bin": ".bin",
     "bend": ".bin",
