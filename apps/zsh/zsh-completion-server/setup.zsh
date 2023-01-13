@@ -109,5 +109,3 @@ bindkey '^T' _push_request
 bindkey '^G' list-choices
 
 unset dir REPLY sockfile
-
-# vim: syntax=zsh
