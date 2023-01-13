@@ -62,8 +62,8 @@ portal left: user.system_command("i3-msg workspace prev")
 # don't have win version
 window [<number>] taller: user.i3wm_window_adjust_height_up(number or 50)
 window [<number>] shorter: user.i3wm_window_adjust_height_down(number or 50)
-window [<number>] fatter: user.i3wm_window_adjust_width_out(number or 50)
-window [<number>] skinnier: user.i3wm_window_adjust_width_in(number or 50)
+window [<number>] (wider|fatter): user.i3wm_window_adjust_width_out(number or 50)
+window [<number>] (thinner|skinnier): user.i3wm_window_adjust_width_in(number or 50)
 
 horizontal (shell | terminal):
     user.system_command("i3-msg split h")
