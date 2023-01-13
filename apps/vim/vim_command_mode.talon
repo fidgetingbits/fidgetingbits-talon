@@ -37,4 +37,4 @@ push that:
 
 # neovim lua stuff
 print nvim global: insert_between("print(vim.g.", ")")
-pretty print: user.insert_between("print(vim.inspect(", "))"
+pretty print: user.insert_between("print(vim.inspect(", ")")"
