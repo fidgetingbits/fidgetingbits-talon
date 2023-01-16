@@ -100,7 +100,7 @@ file strings: "strings "
 file (tail|follow): "tail -f "
 file line count: "wc -l "
 file list <user.letter>: 'find . -maxdepth 1 -name "{letter}*" -ls\n'
-file list fuzzy {user.file_extension}: "ls *{file_extension}\n"
+file fuzzy list <user.text>: 'find . -maxdepth 1 -name "*{text}*" -ls\n'
 file list {user.file_extension} files: "ls *{file_extension}\n"
 file list hidden: 'ls -ld .?*\n'
 # XXX - it would be nice if these were coloured like regular ls sometimes
