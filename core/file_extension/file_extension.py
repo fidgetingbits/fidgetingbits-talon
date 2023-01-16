@@ -119,6 +119,7 @@ _file_extensions_defaults = {
     "X M L": ".xml",
     "yaml": ".yml",
     "z shell": ".zsh",
+    "zsh": ".zsh",
     "zip": ".zip",
     # tlds
     "com": ".com",
