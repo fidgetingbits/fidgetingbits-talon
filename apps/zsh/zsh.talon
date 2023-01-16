@@ -1,6 +1,7 @@
 tag: user.zsh
 -
 tag(): user.zsh_cd_gitroot
+tag(): user.zsh_folder_completion
 
 # XXX - should be generic shell command
 # zsh commands

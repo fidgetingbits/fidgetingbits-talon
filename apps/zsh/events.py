@@ -7,12 +7,14 @@ When this file is reloaded, it will shut down any modules which depended on
 this event loop; and they must also be reloaded.
 """
 
-import contextlib
-import logging
-import selectors
 import socket
+import contextlib
+import selectors
 import threading
 import traceback
+import logging
+
+from . import singletons
 
 
 class EventConsumer:
@@ -256,13 +258,14 @@ class EventLoop(threading.Thread):
         self.join()
 
 
-# @singletons.singleton
-# def event_loop():
-#    x = EventLoop()
-#    x.start()
-#    try:
-#        yield x
-#    finally:
-#        x.close()
+@singletons.singleton
+def event_loop():
+    x = EventLoop()
+    x.start()
+    try:
+        yield x
+    finally:
+        x.close()
 
-# singleton = event_loop.singleton
+
+singleton = event_loop.singleton

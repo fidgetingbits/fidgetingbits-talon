@@ -160,9 +160,12 @@ file copy latest <user.folder_paths>: user.paste("cp $(ls --sort changed --no-ic
 (file|folder) (deep copy|copy deep): "cp -dR "
 file (file|info|type): "file "
 
-file show <user.text>: "cat {text}"
 file show: "cat "
+file show (<user.zsh_file_completion>|<user.text>):
+    file = zsh_file_completion or text
+    insert("cat {file}")
 file edit: insert("edit ")
+file edit <user.zsh_file_completion>: insert("edit {zsh_file_completion}")
 file edit here: insert("edit .\n")
 file (delete|remove): "rm -I "
 file safe remove all: "rm -i -- *"
@@ -173,6 +176,7 @@ file disk image copy: user.insert_cursor("dd bs=4M if=[|] of=/dev/sdX conv=fsync
 file diff: "diff "
 
 file hash: "sha256sum "
+file hash <user.zsh_file_completion>: "sha256sum {zsh_file_completion}"
 file check sec: "checksec --file="
 file locate: "locate "
 file [full] path: "readlink -f "
@@ -183,8 +187,9 @@ file tree permission: "tree -pufid "
 
 folder tree permissions: user.insert_cursor('FILE=[|]; until [ "$FILE" = "/" ]; do ls -lda $FILE; FILE=`dirname $FILE` done')
 
-file edit read me: insert("edit README.md\n")
-file edit make file: insert("edit Makefile\n")
+# NOTE: these are deprecated in light of these zsh autocompletion
+#file edit read me: insert("edit README.md\n")
+#file edit make file: insert("edit Makefile\n")
 file [disk] usage all: "du -sh *\n"
 #file [disk] usage: "du -sh "
 
@@ -207,9 +212,17 @@ pivot clip:
     insert("cd ")
     edit.paste()
     key(enter)
-pivot <user.folder_paths>:
-    user.paste("cd {folder_paths}\n")
-    insert("ls\n")
+# NOTE: I don't auto ls here because zsh is setup to automatically do it for me
+# FIXME: This should get moved to a zsh specific file
+pivot (<user.zsh_path_completion>|<user.folder_paths>):
+    path = zsh_path_completion or folder_paths
+    user.paste("cd {path}")
+    key(enter)
+pivot global <user.folder_paths>:
+    user.paste("cd {folder_paths}")
+    key(enter)
+pivot local <user.zsh_path_completion>:
+    user.paste("cd {zsh_path_completion}\n")
 # pivot up doesn't work with talon
 pivot back: "cd ../\n"
 pivot <number_small> back:
@@ -222,7 +235,7 @@ pivot next:
     key(tab)
     sleep(100ms)
     key(enter)
-    insert("ls\n")
+    # insert("ls\n")
 
 pivot (last|flip): "cd -\n"
 pivot latest: "cd $(exa --sort changed --no-icons | tail -n1)\n"
