@@ -1,6 +1,7 @@
 tag: user.vim_ale
 -
 
+# TODO: Add this stuff https://github.com/dense-analysis/ale/issues/1413
 ale help: user.vim_command_mode(":help ale\n")
 ale toggle: user.vim_command_mode(":ALEToggle\n")
 ale info: user.vim_command_mode(':exe ":ALEInfo"\n')
