@@ -52,7 +52,7 @@ tag: user.vim_telescope
     user.vim_command_mode_exterm(':exe ":Telescope autocommands"\n')
 (telescope | hunt) spell:
     user.vim_command_mode_exterm(':exe ":Telescope spell_suggest"\n')
-(telescope | hunt) key maps:
+(telescope | hunt) key (map|mappings):
     user.vim_command_mode_exterm(':exe ":Telescope keymaps"\n')
 (telescope | hunt) file types:
     user.vim_command_mode_exterm(':exe ":Telescope filetypes"\n')
@@ -102,3 +102,7 @@ tag: user.vim_telescope
 # Treesitter Picker
 (telescope | hunt) tree:
     user.vim_command_mode_exterm(':exe ":Telescope treesitter"\n')
+
+# tab picker
+(telescope | hunt) tabs:
+    user.vim_command_mode_exterm(':exe ":Telescope telescope-tabs list_tabs"\n')
