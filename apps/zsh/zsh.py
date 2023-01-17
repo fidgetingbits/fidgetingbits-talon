@@ -60,27 +60,37 @@ current_zsh_pid = None
 def _zsh_cwd_watch_folders(path, flags):
     """Update the folder list based off of a change of working directory"""
     # print(f"Detected an update for {path} with flags {flags}")
-    with open(path, "r") as f:
-        folder_list = f.read().splitlines()
-        if len(folder_list) == 0:
-            ctx.lists["user.zsh_folder_completion"] = {}
-        else:
-            ctx.lists[
-                "user.zsh_folder_completion"
-            ] = actions.user.create_spoken_forms_from_list(folder_list)
+    try:
+        with open(path, "r") as f:
+            folder_list = f.read().splitlines()
+            if len(folder_list) == 0:
+                ctx.lists["user.zsh_folder_completion"] = {}
+            else:
+                ctx.lists[
+                    "user.zsh_folder_completion"
+                ] = actions.user.create_spoken_forms_from_list(folder_list)
+    except Exception as e:
+        # If there's no folders in a directory this is expected
+        pass
+        # print(f"zsh.py _zsh_cwd_watch_folders() failed to read {path}: {e}")
 
 
 def _zsh_cwd_watch_files(path, flags):
     """Update the folder list based off of a change of working directory"""
     # print(f"Detected an update for {path} with flags {flags}")
-    with open(path, "r") as f:
-        file_list = f.read().splitlines()
-        if len(file_list) == 0:
-            ctx.lists["user.zsh_file_completion"] = {}
-        else:
-            ctx.lists[
-                "user.zsh_file_completion"
-            ] = actions.user.create_spoken_forms_from_list(file_list)
+    try:
+        with open(path, "r") as f:
+            file_list = f.read().splitlines()
+            if len(file_list) == 0:
+                ctx.lists["user.zsh_file_completion"] = {}
+            else:
+                ctx.lists[
+                    "user.zsh_file_completion"
+                ] = actions.user.create_spoken_forms_from_list(file_list)
+    except Exception as e:
+        # If there's no files in a directory this is expected
+        pass
+        # print(f"zsh.py _zsh_cwd_watch_files() failed to read {path}: {e}")
 
 
 def _is_zsh_window(window):
