@@ -40,7 +40,13 @@ git commit [changes]:
 (fugitive | git) commit {user.git_conventional_commits}:
     user.vim_normal_mode_keys("c c")
     user.vim_set_insert_mode()
+    sleep(0.1)
     insert("{user.git_conventional_commits}: ")
+(fugitive | git) commit {user.git_conventional_commits} <user.word>:
+    user.vim_normal_mode_keys("c c")
+    user.vim_set_insert_mode()
+    sleep(0.1)
+    insert("{user.git_conventional_commits}({word}): ")
 amend [last commit]: user.vim_normal_mode_keys("c a")
 commit reword: user.vim_normal_mode("cw")
 
