@@ -31,6 +31,12 @@ tag(): user.vim_rooter
 tag(): user.vim_suda
 tag(): user.vim_treesitter
 tag(): user.vim_treesitter_textobjects
+tag(): user.vim_lsp
+tag(): user.vim_copilot
+tag(): user.vim_markdown_preview
+tag(): user.vim_comment_nvim
+tag(): user.vim_follows_md_links
+
 
 ###
 # `code/vim.py` actions - includes most motions and core commands

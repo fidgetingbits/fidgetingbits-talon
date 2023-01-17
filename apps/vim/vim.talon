@@ -52,7 +52,6 @@ tag(): user.vim_floaterm
 #tag(): user.vim_fzf
 tag(): user.vim_telescope
 tag(): user.vim_mkdx
-tag(): user.vim_follows_md_links
 tag(): user.vim_nerdtree
 tag(): user.vim_obsession
 tag(): user.vim_ouroboros
@@ -68,11 +67,7 @@ tag(): user.vim_wiki
 tag(): user.vim_you_are_here
 tag(): user.vim_zoom
 tag(): user.vim_zenmode
-tag(): user.vim_lsp
 tag(): user.vim_codeql
-tag(): user.vim_copilot
-tag(): user.vim_markdown_preview
-tag(): user.vim_comment_nvim
 tag(): user.vim_mason
 tag(): user.vim_lazy
 
