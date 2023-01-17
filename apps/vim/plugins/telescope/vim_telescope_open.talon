@@ -10,9 +10,11 @@ win.title: /FILETYPE:\[TelescopePrompt\]/
 cancel: user.vim_insert_mode_key("ctrl-c")
 # this is mostly due to bad habits from fzf. the idea is to encourage me to
 # start using the explicit mode switching commands
-# (close|escape): key(ctrl-c)
+escape:
+    app.notify("Stop saying escape in telescope")
+    key(ctrl-c)
 close: key(ctrl-c)
-quick fix: key(ctrl-q)
+quick fix [that]: key(ctrl-q)
 
 # telescope-hop
 hop to: key(ctrl-h)
