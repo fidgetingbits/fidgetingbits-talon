@@ -302,23 +302,23 @@ class ZshPool(events.EventConsumer):
             self.ctx.notify_me(pid)
 
 
-@events.singleton
-def zsh_pool():
-    return ZshPool()
+# @events.singleton
+# def zsh_pool():
+#     return ZshPool()
+#
+
+# def win_focus(window):
+#     if _is_zsh_window(window):
+#         pid = _get_zsh_pid(window.title)
+#         # print(f"zsh.py win_focus() detected zsh pid {pid}")
+#         zsh_pool.trigger(pid)
 
 
-def win_focus(window):
-    if _is_zsh_window(window):
-        pid = _get_zsh_pid(window.title)
-        # print(f"zsh.py win_focus() detected zsh pid {pid}")
-        zsh_pool.trigger(pid)
-
-
-def win_title(window):
-    if window == ui.active_window() and _is_zsh_window(window):
-        pid = _get_zsh_pid(window.title)
-        # print(f"zsh.py win_title() detected zsh pid {pid}")
-        zsh_pool.trigger(pid)
+# def win_title(window):
+#     if window == ui.active_window() and _is_zsh_window(window):
+#         pid = _get_zsh_pid(window.title)
+#         # print(f"zsh.py win_title() detected zsh pid {pid}")
+#         zsh_pool.trigger(pid)
 
 
 # ui.register("win_focus", win_focus)
