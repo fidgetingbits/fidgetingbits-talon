@@ -95,3 +95,10 @@ subtract that clip:
 
 # this should only be enabled within python
 sort by dick value: insert(":!sort -t ':' -k 2\n")
+
+##
+# treesitter
+##
+node grow: key("g r n")
+node shrink: key("g r m")
+node scope: key("g r c")
