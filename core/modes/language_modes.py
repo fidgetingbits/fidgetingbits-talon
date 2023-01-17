@@ -79,11 +79,11 @@ special_file_map = {
 # commented out entries. TODO: make this a csv file?
 language_extensions = {
     # 'assembly': 'asm s',
-    'bash': 'bashbook sh',
+    "bash": "bashbook sh",
     "batch": "bat",
     "c": "c h",
     "codeql": "codeql",
-    'cmake': 'cmake',
+    "cmake": "cmake",
     # 'cplusplus': 'cpp hpp',
     "csharp": "cs",
     "css": "css",
@@ -96,8 +96,8 @@ language_extensions = {
     "javascript": "js",
     "javascriptreact": "jsx",
     # 'json': 'json',
-    'lua': 'lua',
-    'make': 'make',
+    "lua": "lua",
+    "make": "make",
     "markdown": "md",
     # 'perl': 'pl',
     "php": "php",
@@ -152,10 +152,27 @@ for lang in language_extensions.keys():
     mod.tag(f"{lang}_forced")
     c = Context()
     # Context is active if language is forced or auto language matches
+    # NOTE: I a special case vim here because otherwise even in normal and visual mode
+    # their certain commands that will conflict, for instance commenting code like
+    # "block comment" in visual mode
     c.matches = f"""
-    tag: user.{lang}_forced
-    tag: user.auto_lang
+
+    not app: vim
+    and tag: user.{lang}_forced
+
+    not app: vim
+    and tag: user.auto_lang
     and code.language: {lang}
+
+    app: vim
+    and tag: user.vim_insert_mode
+    and tag: user.{lang}_forced
+
+    app: vim
+    and tag: user.vim_insert_mode
+    and tag: user.auto_lang
+    and code.language: {lang}
+
     """
     c.tags = [f"user.{lang}"]
 
