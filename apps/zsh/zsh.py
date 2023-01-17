@@ -52,17 +52,16 @@ def zsh_path_completion(m) -> str:
     return m
 
 
-zsh_folder_path = TALON_HOME / "/cache/completions/talon_zsh_folders"
-zsh_file_path = TALON_HOME / "/cache/completions/talon_zsh_files"
+zsh_folder_path = TALON_HOME / "cache/completions/talon_zsh_folders"
+zsh_file_path = TALON_HOME / "cache/completions/talon_zsh_files"
 current_zsh_pid = None
 
 
 def _zsh_cwd_watch_folders(path, flags):
     """Update the folder list based off of a change of working directory"""
-    print(f"Detected an update for {path} with flags {flags}")
+    # print(f"Detected an update for {path} with flags {flags}")
     with open(path, "r") as f:
         folder_list = f.read().splitlines()
-        # print(f"zsh.py: folder_list = {folder_list}")
         if len(folder_list) == 0:
             ctx.lists["user.zsh_folder_completion"] = {}
         else:
@@ -73,14 +72,9 @@ def _zsh_cwd_watch_folders(path, flags):
 
 def _zsh_cwd_watch_files(path, flags):
     """Update the folder list based off of a change of working directory"""
-    print(f"Detected an update for {path} with flags {flags}")
+    # print(f"Detected an update for {path} with flags {flags}")
     with open(path, "r") as f:
         file_list = f.read().splitlines()
-        # print(f"zsh.py: file_list = {file_list}")
-        # It would be nice to be able to tell whether or not the list changed but
-        # because we're using the create spoken form in the list that we create we can
-        # actually compare it directly here, so we might need to create a copy of the
-        # original file list and compare that instead.
         if len(file_list) == 0:
             ctx.lists["user.zsh_file_completion"] = {}
         else:
@@ -106,13 +100,7 @@ def _get_zsh_pid(title):
         print(f"zsh.py _get_zsh_pid() failed to extract pid from {title}: {e}")
 
 
-def win_focus(window):
-    if _is_zsh_window(window):
-        pid = _get_zsh_pid(window.title)
-        print(f"zsh.py win_focus() detected zsh pid {pid}")
-
-
-def win_title(window):
+def _setup_watches(window):
     global zsh_folder_path
     if window == ui.active_window() and _is_zsh_window(window):
         pid = _get_zsh_pid(window.title)
@@ -129,6 +117,10 @@ def win_title(window):
             # fs.watch(f"/proc/{pid}/cwd", _zsh_cwd_watch_folders)
             folder_path = f"{zsh_folder_path}.{pid}"
             file_path = f"{zsh_file_path}.{pid}"
+            # Pre-run functions just to load any existing data, this is mostly relevant
+            # for first executing the shell
+            _zsh_cwd_watch_files(file_path, None)
+            _zsh_cwd_watch_folders(folder_path, None)
             if os.path.exists(folder_path):
                 fs.watch(folder_path, _zsh_cwd_watch_folders)
             if os.path.exists(file_path):
@@ -138,6 +130,16 @@ def win_title(window):
             fs.unwatch("{zsh_folder_path}.{current_zsh_pid}", _zsh_cwd_watch_folders)
             fs.unwatch("{zsh_file_path}.{current_zsh_pid}", _zsh_cwd_watch_files)
             current_zsh_pid = None
+
+
+def win_focus(window):
+    _setup_watches(window)
+    # print(f"zsh.py win_focus() detected zsh pid {pid}")
+
+
+def win_title(window):
+    _setup_watches(window)
+    # print(f"zsh.py win_title() detected zsh pid {pid}")
 
 
 ui.register("win_focus", win_title)
