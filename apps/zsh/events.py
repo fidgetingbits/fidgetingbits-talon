@@ -268,4 +268,4 @@ def event_loop():
         x.close()
 
 
-singleton = event_loop.singleton
+# singleton = event_loop.singleton
