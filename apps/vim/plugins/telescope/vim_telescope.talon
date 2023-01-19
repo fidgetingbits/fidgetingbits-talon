@@ -106,3 +106,7 @@ tag: user.vim_telescope
 # tab picker
 (telescope | hunt) tabs:
     user.vim_command_mode_exterm(':exe ":Telescope telescope-tabs list_tabs"\n')
+
+# frecency picker
+(telescope | hunt) frequent:
+    user.vim_command_mode_exterm(':exe ":Telescope frecency"\n')
