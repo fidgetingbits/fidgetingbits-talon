@@ -183,6 +183,7 @@ abbreviations = {
     "index": "idx",
     "increment": "inc",
     "information": "info",
+    "infrastructure": "infra",
     "initialize": "init",
     "initializer": "init",
     "inode": "ino",
