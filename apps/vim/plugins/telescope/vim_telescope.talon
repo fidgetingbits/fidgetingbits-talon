@@ -110,3 +110,9 @@ tag: user.vim_telescope
 # frecency picker
 (telescope | hunt) frequent:
     user.vim_command_mode_exterm(':exe ":Telescope frecency"\n')
+
+# Convenience
+hunt (resume|again):
+    user.vim_command_mode_exterm(':exe ":Telescope resume"\n')
+hunt pickers:
+    user.vim_command_mode_exterm(':exe ":Telescope pickers"\n')
