@@ -43,7 +43,13 @@ peek (this | deaf): user.vim_command_mode(':exe ":lua vim.lsp.buf.hover()"\n')
     user.vim_command_mode(':exe ":lua vim.lsp.buf.outgoing_calls()"\n')
 (jump | peak) (references | ref | callers):
     user.vim_command_mode(':exe ":lua vim.lsp.buf.references()"\n')
-#user.vim_command_mode(':exe ":lua vim.lsp.buf.rename()"\n')
 #user.vim_command_mode(':exe ":lua vim.lsp.buf.signature_help()"\n')
 #user.vim_command_mode(':exe ":lua vim.lsp.buf.type_definition()"\n')
 #user.vim_command_mode(':exe ":lua vim.lsp.buf.workspace_symbol()"\n')
+
+# Code refactoring
+code rename:
+    user.vim_command_mode(':exe ":lua vim.lsp.buf.rename()"\n')
+# Code linting and formatting
+file fix:
+    user.vim_command_mode(':exe ":lua vim.lsp.buf.format()"\n')
