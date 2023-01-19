@@ -10,7 +10,7 @@ mod = Module()
 class Actions:
     def pop():
         """pop action overrideable by contexts"""
-        #print("noise.py - pop()")
+        # print("noise.py - pop()")
         actions.user.mouse()
 
     def pop_quick_action_clear():
@@ -76,6 +76,7 @@ def on_ready():
     ui.register("app_deactivate", lambda app: actions.user.pop_quick_action_clear())
     ui.register("win_focus", lambda win: actions.user.pop_quick_action_clear())
 
+
 app.register("ready", on_ready)
 
 pop_quick_action = None
@@ -104,17 +105,17 @@ def on_hiss(active):
         actions.user.hiss_quick_action_run()
 
 
-try:
-    noise.register("pop", on_pop)
-    # noise.register("hiss", on_hiss)
-except talon.lib.cubeb.CubebError as e:
-    app.notify("Failed to register pop. Is possible audio error")
-    print("Failed to register pop. Is possible audio error")
-    print(e)
-
-try:
-    noise.register("hiss", on_hiss)
-except talon.lib.cubeb.CubebError as e:
-    app.notify("Failed to register hiss. Is possible audio error")
-    print("Failed to register hiss. Is possible audio error")
-    print(e)
+# try:
+#     noise.register("pop", on_pop)
+#     # noise.register("hiss", on_hiss)
+# except talon.lib.cubeb.CubebError as e:
+#     app.notify("Failed to register pop. Is possible audio error")
+#     print("Failed to register pop. Is possible audio error")
+#     print(e)
+#
+# try:
+#     noise.register("hiss", on_hiss)
+# except talon.lib.cubeb.CubebError as e:
+#     app.notify("Failed to register hiss. Is possible audio error")
+#     print("Failed to register hiss. Is possible audio error")
+#     print(e)
