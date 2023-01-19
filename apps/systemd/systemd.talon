@@ -2,7 +2,7 @@ tag: terminal
 and tag: user.systemd
 -
 
-service reload: "sudo systemctl daemon-reload\n"
+service [demon] reload: "sudo systemctl daemon-reload\n"
 service list: "systemctl list-units --type=service --no-pager\n"
 #service list: "systemctl list-unit-files --type=service --no-pager\n"
 service list active:
