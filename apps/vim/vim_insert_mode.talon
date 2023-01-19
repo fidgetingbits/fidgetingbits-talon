@@ -14,3 +14,10 @@ push <user.unmodified_key>:
 push it:
     key('end')
     edit.paste()
+
+# This is technically a neo-cmp specific command
+# they should probably also tie into something that uses pumvisible()
+close:
+    key('ctrl-e')
+accept:
+    key('ctrl-a')
