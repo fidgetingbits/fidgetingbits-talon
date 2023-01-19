@@ -5,6 +5,7 @@ tag: user.vim_copilot
 # back to use tab for now
 #pilot: user.vim_command_mode(":call copilot#Accept(\"\")\n")
 ([co] pilot|keep): key("ctrl-j")
+parrot(tut): key("ctrl-j")
 copilot disable: user.vim_command_mode(":Copilot disable\n")
 copilot enable: user.vim_command_mode(":Copilot enable\n")
 copilot status: user.vim_command_mode(":Copilot status\n")
