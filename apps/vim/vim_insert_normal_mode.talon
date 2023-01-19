@@ -11,3 +11,7 @@ tag: user.vim_normal_mode
 # it are command itself, but I didn't see it in the key map list in telescope so delaying
 # for now
 (node select|take node): user.vim_normal_mode_np("gnn")
+# NOTE: I'm keeping this separate just as a note that this is to prevent me from
+# mistakenly use the visual mode version... but it may be that I just start using this
+# all the time
+node grow: user.vim_normal_mode_np("gnn")
