@@ -1,0 +1,2 @@
+win.title: /FILETYPE:\[gitcommit\]/
+-
