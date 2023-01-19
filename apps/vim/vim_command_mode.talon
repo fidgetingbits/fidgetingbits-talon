@@ -26,6 +26,7 @@ state non greedy: "\\{{-}}"
 state greedy: ".*"
 state escaped or: user.insert_cursor("\\([|]\\|\\)")
 
+push: key('end')
 push <user.unmodified_key>:
     key('end')
     key('{unmodified_key}')
