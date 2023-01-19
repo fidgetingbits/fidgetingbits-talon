@@ -10,5 +10,8 @@ reload shell config: "source ~/.zshrc\n"
 # XXX - This functionality is disabled for now
 #^<user.zsh_completion>:
 #    insert(user.zsh_completion)
-dump zsh completion:
-    user.debug_zsh_completions()
+zsh dump (completion|completions):
+    user.zsh_dump_completions()
+
+zsh (dump|get) pid:
+    insert("{user.zsh_get_pid()}")

@@ -97,7 +97,7 @@ def _is_zsh_window(window):
     return (
         window.title.startswith("VIM ")
         and "TERM:" in window.title
-        and " zsh " in window.title
+        and " zsh" in window.title
     )
 
 
@@ -114,6 +114,7 @@ def _setup_watches(window):
     global zsh_folder_path
     if window == ui.active_window() and _is_zsh_window(window):
         pid = _get_zsh_pid(window.title)
+        # print(f"zsh.py _setup_watches() detected zsh pid {pid}")
         global current_zsh_pid
         if pid != current_zsh_pid:
             # print(f"zsh.py win_title() detected zsh pid {pid} != {current_zsh_pid}")
@@ -158,7 +159,13 @@ ui.register("win_title", win_title)
 
 @mod.action_class
 class Actions:
-    def debug_zsh_completions():
+    def zsh_dump_completions():
         """Dump add a pretty version of the completions to the log"""
+        logging.info("ZSH Folder Completions:")
         logging.info(pprint.pformat(ctx.lists["user.zsh_folder_completion"]))
+        logging.info("ZSH File Completions:")
         logging.info(pprint.pformat(ctx.lists["user.zsh_file_completion"]))
+
+    def zsh_get_pid():
+        """Return the current zsh pid"""
+        return current_zsh_pid
