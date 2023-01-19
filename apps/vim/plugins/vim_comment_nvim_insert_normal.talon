@@ -9,7 +9,7 @@ tag: user.vim_comment_nvim
 block comment (toggle|this): user.vim_normal_mode("gbc")
 [un] comment above: user.vim_normal_mode_np("gcO")
 [un] comment below: user.vim_normal_mode_np("gco")
-[un] comment push: user.vim_normal_mode_np("gcA")
+(comment push|push comment): user.vim_normal_mode_np("gcA")
 
 # TODO: This may differ in visual mode
 # TODO: Technically the included text objects here are outside the scope of what can be done with
