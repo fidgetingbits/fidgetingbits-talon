@@ -47,7 +47,20 @@ git commit [changes]:
     user.vim_set_insert_mode()
     sleep(0.1)
     insert("{user.git_conventional_commits}({word}): ")
-amend [last commit]: user.vim_normal_mode_keys("c a")
+git commit verbose [changes]:
+    user.vim_normal_mode_keys("c v c")
+    user.vim_set_insert_mode()
+(fugitive | git) commit verbose {user.git_conventional_commits}:
+    user.vim_normal_mode_keys("c v c")
+    user.vim_set_insert_mode()
+    sleep(0.1)
+    insert("{user.git_conventional_commits}: ")
+(fugitive | git) commit verbose {user.git_conventional_commits} <user.word>:
+    user.vim_normal_mode_keys("c v c")
+    user.vim_set_insert_mode()
+    sleep(0.1)
+    insert("{user.git_conventional_commits}({word}): ")
+amend [last commit]: user.vim_normal_mode_keys("c v a")
 commit reword: user.vim_normal_mode("cw")
 
 file restore: user.vim_normal_mode_key("X")
