@@ -1,4 +1,8 @@
-# Don't use macro alone as it conflicts with vim
 voice macro record: user.macro_record()
 voice macro stop: user.macro_stop()
-voice macro play: user.macro_play()
+voice macro play [{user.saved_macros}]: user.macro_play(saved_macros or "")
+voice macro copy [{user.saved_macros}]: user.macro_copy(saved_macros or "")
+voice macro copy as <user.text>: user.macro_copy(text)
+voice macro save as <user.text>: user.macro_save(text)
+voice macro list: user.macro_list()
+voice macro list close: user.macro_list_close()

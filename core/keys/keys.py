@@ -19,7 +19,8 @@ def setup_default_alphabet():
 
 
 alphabet_list = get_list_from_csv(
-    "alphabet.csv", ("Letter", "Spoken Form"), setup_default_alphabet())
+    "alphabet.csv", ("Letter", "Spoken Form"), setup_default_alphabet()
+)
 
 hex_alphabet = "A B C D E F".split(" ")
 hex_letters_string = "abcdef"
@@ -207,7 +208,6 @@ punctuation_words = {
     "amper": "&",
     "swirl": "@",
     "pound sign": "£",
-    # "daddy": "...",
 }
 symbol_key_words = {
     "grave": "`",
