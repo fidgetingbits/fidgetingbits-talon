@@ -180,6 +180,7 @@ class Actions:
             ctrl.mouse_click(button=button)
         if actions.tracking.controls_zoom_enabled():
             actions.tracking.zoom_cancel(True)
+        actions.user.grid_close()
 
     def mouse_show_cursor():
         """Shows the cursor"""
