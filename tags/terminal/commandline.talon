@@ -166,13 +166,17 @@ file copy latest <user.folder_paths>: user.paste("cp $(ls --sort changed --no-ic
 file (file|info|type): "file "
 
 file show: "cat "
-file show (<user.zsh_file_completion>|<user.text>):
-    file = zsh_file_completion or text
+file show (<user.zsh_file_completion>|<user.word>):
+    file = zsh_file_completion or word
     insert("cat {file}")
 file edit: insert("edit ")
 file edit <user.zsh_file_completion>: insert("edit {zsh_file_completion}")
 file edit here: insert("edit .\n")
 file (delete|remove): "rm -I "
+# TODO: It might be nice to automatically escape the file name in this case
+file (delete|remove) [<user.zsh_file_completion>]:
+    "rm -I "
+    insert("\"{zsh_file_completion}\"")
 file safe remove all: "rm -i -- *"
 file real remove: "/bin/rm -I "
 file disk image copy: user.insert_cursor("dd bs=4M if=[|] of=/dev/sdX conv=fsync oflag=direct status=progress")
