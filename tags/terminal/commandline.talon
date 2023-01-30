@@ -322,13 +322,13 @@ net route add: user.insert_cursor("ip route add [|] dev ")
 net route add tunnel: user.insert_cursor("ip route add [|] dev tun0")
 net route (remove|delete|drop): "ip route del"
 # XXX - We should switch these to use ss
-net stat all: "netstat --sctp -anutp\n"
-net [stat] (listen|listening) unix: "netstat --sctp -anutp\n"
-net [stat] (listen|listening) T C P: "netstat --tcp -nlp\n"
-net [stat] (listen|listening) U D P: "netstat --udp -nlp\n"
-net [stat] (listen|listening) S C T P: "netstat --sctp -nlp\n"
-net [stat] (listen|listening): "netstat -lnpt\n"
-net [stat] (listen|listening) all: "netstat --sctp -lnput\n"
+net stat all: "ss --sctp -anutp\n"
+net [stat] (listen|listening) unix: "ss --sctp -anutp\n"
+net [stat] (listen|listening) T C P: "ss --tcp -nlp\n"
+net [stat] (listen|listening) U D P: "ss --udp -nlp\n"
+net [stat] (listen|listening) S C T P: "ss --sctp -nlp\n"
+net [stat] (listen|listening): "ss -lnpt\n"
+net [stat] (listen|listening) all: "ss --sctp -lnput\n"
 net trace: "traceroute "
 net trace clip:
     insert("traceroute")
