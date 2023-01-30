@@ -8,12 +8,9 @@ mod.tag("ssh", desc="tag for ssh functionality")
 mod.list("ssh_hosts", desc="List for storing speakable ssh hosts")
 
 ctx = Context()
-
 ctx.matches = r"""
 tag: user.ssh
 """
-
-
 ctx.lists["user.ssh_hosts"] = {}
 
 
