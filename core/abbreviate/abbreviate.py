@@ -8,6 +8,8 @@ mod = Module()
 mod.list("abbreviation", desc="Common abbreviation")
 
 ctx = Context()
+
+abbreviations = {
     "A sink": "async",
     "B P F trace": "bpftrace",
     "B P F": "ebpf",
@@ -446,7 +448,6 @@ ctx = Context()
     "window": "win",
     "windows kernel": "ntoskrnl",
     "work in progress": "wip",
-abbreviations = {
 }
 
 ctx.lists["user.abbreviation"] = abbreviations
