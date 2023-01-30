@@ -1,4 +1,4 @@
-from talon import Context, Module, actions, fs
+from talon import Context, Module, actions, app, fs
 import pathlib
 import logging
 import pprint
@@ -12,6 +12,11 @@ ctx.matches = r"""
 tag: user.ssh
 """
 ctx.lists["user.ssh_hosts"] = {}
+
+
+def on_ready():
+    """Trigger one list update soon is talon is ready"""
+    ssh_config_change(None, None)
 
 
 def ssh_config_change(path, flags):
@@ -29,17 +34,15 @@ def ssh_config_change(path, flags):
 ssh_configs = []
 ssh_config = pathlib.Path.home() / ".ssh/config"
 if ssh_config.exists():
-    print(f"Found SSH Config: {ssh_config})")
     ssh_configs.append(ssh_config)
     fs.watch(ssh_config, ssh_config_change)
-    ssh_config_change(ssh_config, None)
 ssh_config_dir = pathlib.Path.home() / ".ssh/config.d"
 if ssh_config_dir.exists():
     ssh_configs.extend(ssh_config_dir.glob("*"))
     for path in ssh_config_dir.glob("*"):
         fs.watch(path, ssh_config_change)
-        ssh_config_change(ssh_config, None)
 # print(f"SSH Configs: {ssh_configs}")
+app.register("ready", on_ready)
 
 
 @mod.action_class
