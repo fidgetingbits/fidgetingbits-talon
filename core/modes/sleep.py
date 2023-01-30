@@ -9,15 +9,11 @@ time_last_pop = 0
 
 @mod.action_class
 class Actions:
-
-    # XXX - should go through and disable all of the currently activated modes,
-    # and then wake up should reactivate all of them
     def talon_sleep():
         """Put Talon to sleep"""
-        # XXX - why doesn't this show?
-        actions.user.notify("Talon sleeping")
         actions.speech.disable()
         actions.user.mouse_sleep()
+        actions.user.notify("Talon sleeping")
         # actions.user.talon_sleep_callback()
 
     def talon_wake():
