@@ -7,6 +7,8 @@ tag: user.vim_telescope
 # File Pickers
 (telescope | hunt) files:
     user.vim_command_mode_exterm(':exe ":Telescope find_files"\n')
+(telescope | hunt) hidden [files]:
+    user.vim_command_mode_exterm(':exe ":Telescope find_files hidden=true"\n')
 (telescope | hunt) git files:
     user.vim_command_mode_exterm(':exe ":Telescope git_files"\n')
 (telescope | hunt) [grep] this:
