@@ -91,9 +91,16 @@ linux_folder_paths = {
     "kitty": "~/.config/kitty/",
     "python sight packages": "/usr/lib/python3.10/site-packages",
     "dot config": "~/.config/",
+    "apache": "/etc/apache2/",
+    "apache sites": "/etc/apache2/sites-available/",
+    "apache sites enabled": "/etc/apache2/sites-enabled/",
+    "apache mods": "/etc/apache2/mods-available/",
+    "apache mods enabled": "/etc/apache2/mods-enabled/",
+    "var web": "/var/www/",
 }
 
 linux_file_paths = {
+    "apache conf": "/etc/apache2/apache2.conf",
     "G D B init": "~/.gdbinit",
     "known hosts": "~/.ssh/known_hosts",
     "password": "/etc/passwd",
