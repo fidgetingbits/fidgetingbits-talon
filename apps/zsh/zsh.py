@@ -159,12 +159,20 @@ ui.register("win_title", win_title)
 
 @mod.action_class
 class Actions:
-    def zsh_dump_completions():
-        """Dump add a pretty version of the completions to the log"""
-        logging.info("ZSH Folder Completions:")
-        logging.info(pprint.pformat(ctx.lists["user.zsh_folder_completion"]))
+    def zsh_dump_file_completions():
+        """Dump add a pretty version of the file completions to the log"""
         logging.info("ZSH File Completions:")
         logging.info(pprint.pformat(ctx.lists["user.zsh_file_completion"]))
+
+    def zsh_dump_folder_completions():
+        """Dump add a pretty version of the folder completions to the log"""
+        logging.info("ZSH Folder Completions:")
+        logging.info(pprint.pformat(ctx.lists["user.zsh_folder_completion"]))
+
+    def zsh_dump_completions():
+        """Dump add a pretty version of the completions to the log"""
+        actions.user.zsh_dump_folder_completions()
+        actions.user.zsh_dump_file_completions()
 
     def zsh_get_pid():
         """Return the current zsh pid"""

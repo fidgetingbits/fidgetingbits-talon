@@ -12,6 +12,9 @@ reload shell config: "source ~/.zshrc\n"
 #    insert(user.zsh_completion)
 zsh dump (completion|completions):
     user.zsh_dump_completions()
-
+zsh file dump (completion|completions):
+    user.zsh_file_dump_completions()
+zsh folder dump (completion|completions):
+    user.zsh_folder_dump_completions()
 zsh (dump|get) pid:
     insert("{user.zsh_get_pid()}")
