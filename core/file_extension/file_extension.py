@@ -82,6 +82,7 @@ _file_extensions_defaults = {
     "power shell": ".ps1",
     "pub": ".pub",
     "queue el": ".ql",
+    "R C": ".rc",
     "run": ".run",
     # "R S": ".rs",
     "rust": ".rs",
