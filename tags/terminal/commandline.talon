@@ -84,7 +84,7 @@ file name <user.zsh_path_completion>: "{user.zsh_path_completion}"
 file list (<user.zsh_path_completion>|<user.folder_paths>):
     path = zsh_path_completion or folder_paths
     "ls {path} \n"
-file list local <user.zsh_file_completion>: "ls {folder_paths} \n"
+file list local <user.zsh_file_completion>: "ls {zsh_file_completion} \n"
 file list global <user.folder_paths>: "ls {folder_paths} \n"
 file list bare exact: "ls --no-icons "
 file list bare: "ls -l --no-icons \n"
