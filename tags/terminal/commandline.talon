@@ -24,6 +24,7 @@ tag(): user.readline
 
 #tag(): user.buku
 tag(): user.yay
+tag(): user.ssh
 #tag(): user.apt
 #tag(): user.ghidra_server
 #tag(): user.nmcli
@@ -495,6 +496,10 @@ net man log: "journalctl -u NetworkManager --no-pager --lines 100\n"
 #(secure shell|tunnel) [<user.text>]:
 #    insert("ssh ")
 #    insert(text or "")
+tunnel {user.ssh_hosts}:
+    insert("ssh {ssh_hosts}\n")
+tunnel host {user.ssh_hosts}:
+    insert("ssh {ssh_hosts}")
 tunnel last:
     key(ctrl-r)
     sleep(500ms)
@@ -512,6 +517,10 @@ secure shall key gen: "ssh-keygen -t ed25519\n"
 (tunnel|secure) copy [<user.text>]:
     insert("scp -r ")
     insert(text or "")
+tunnel copy from {user.ssh_hosts}:
+    insert("scp -r {ssh_hosts}:")
+tunnel copy to {user.ssh_hosts}:
+    user.insert_between("scp -r ", " {ssh_hosts}:")
 show authorized keys: "vi ~/.ssh/authorized_keys\n"
 show pub keys: "cat ~/.ssh/*.pub\n"
 edit authorized keys: "vi ~/.ssh/authorized_keys\n"
