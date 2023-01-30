@@ -1,24 +1,33 @@
-control mouse: tracking.control1_toggle()
-zoom mouse: tracking.control_zoom_toggle()
+not tag: user.shotbox_showing
+-
+
+# Mouse control
+mouse control: tracking.control_toggle()
+mouse zoom: tracking.control_zoom_toggle()
+# XXX: I don't think this function works anymore
 camera overlay: tracking.control_debug_toggle()
-run calibration: tracking.calibrate()
-touch:
-    mouse_click(0)
-    # close the mouse grid if open
-    user.grid_close()
+mouse calibration: tracking.calibrate()
+
+# Basic Clicking
+# left click
+[mouse] click:
+    user.mouse_click(0, 1)
     # End any open drags
-    # Touch automatically ends left drags so this is for right drags specifically
+    # Left click automatically ends left drags so this is for right drags specifically
     user.mouse_drag_end()
+# right click
+[mouse] (ricky|right click):
+    user.mouse_click(1, 1)
+# middle click
+[mouse] mid click:
+    user.mouse_click(2, 1)
+# double click
+[mouse] double click:
+    user.mouse_click(0, 2)
+# triple click
+[mouse] triple click:
+    user.mouse_click(0, 3)
 
-righty:
-    mouse_click(1)
-    # close the mouse grid if open
-    user.grid_close()
-
-mid click:
-    mouse_click(2)
-    # close the mouse grid
-    user.grid_close()
 
 #see keys.py for modifiers.
 #defaults
@@ -27,38 +36,25 @@ mid click:
 #option = alt
 #shift
 #super = windows key
-<user.modifiers> touch:
+<user.modifiers> click:
     key("{modifiers}:down")
-    mouse_click(0)
+    user.mouse_click(0, 1)
     key("{modifiers}:up")
-    # close the mouse grid
-    user.grid_close()
-<user.modifiers> righty:
+<user.modifiers> (ricky|right click):
     key("{modifiers}:down")
-    mouse_click(1)
+    user.mouse_click(1, 1)
     key("{modifiers}:up")
-    # close the mouse grid
-    user.grid_close()
-(dub click | duke):
-    mouse_click()
-    mouse_click()
-    # close the mouse grid
-    user.grid_close()
-(trip click | trip lick):
-    mouse_click()
-    mouse_click()
-    mouse_click()
-    # close the mouse grid
-    user.grid_close()
+:
+# Dragging
 left drag | drag:
     user.mouse_drag(0)
-    # close the mouse grid
     user.grid_close()
 right drag | righty drag:
     user.mouse_drag(1)
-    # close the mouse grid
     user.grid_close()
 end drag | drag end: user.mouse_drag_end()
+
+# Mouse movement
 wheel down: user.mouse_scroll_down()
 wheel down here:
     user.mouse_move_center_active_window()
@@ -107,7 +103,6 @@ wheel tiny right: user.mouse_scroll_right(0.5)
 wheel tiny right here:
     user.mouse_move_center_active_window()
     user.mouse_scroll_right(0.5)
+
+# Convenience
 copy mouse position: user.copy_mouse_position()
-curse no:
-    # Command added 2021-12-13, can remove after 2022-06-01
-    app.notify("Please activate the user.mouse_cursor_commands_enable tag to enable this command")
