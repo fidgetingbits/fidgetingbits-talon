@@ -1,4 +1,13 @@
-from talon import Context, actions, clip
+import pprint
+import logging
+
+from talon import Context, Module, actions, clip
+
+mod = Module()
+mod.list("vim_visual_actions", desc="Vim visual mode actions")
+mod.list(
+    "vim_visual_counted_actions", desc="Vim visual mode actions that can be repeated"
+)
 
 ctx = Context()
 ctx.matches = r"""
@@ -7,12 +16,23 @@ win.title: /VIM MODE:V/
 """
 ctx.tags = ["user.vim_visual_mode"]
 
+# These override the ones in normal mode currently set in vim.py
+ctx.lists["user.vim_visual_actions"] = {
+    "opposite": "o",
+    "drop": "d",
+}
+
+ctx.lists["user.vim_visual_counted_actions"] = {
+    "dedent": "<",
+    "indent": ">",
+}
+
 
 @ctx.action_class("edit")
 class EditActions:
 
     # when we're extending a selection in the opposite direction (backwards) we
-    # need to a prefix an o beforehand so that it actually extends, rather than
+    # need to a prefix an  beforehand so that it actually extends, rather than
     # changing directions.
     def extend_line_up():
         actions.insert("ok^o")

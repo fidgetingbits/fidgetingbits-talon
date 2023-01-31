@@ -1,6 +1,12 @@
 tag: user.vim_visual_mode
 -
 
+# A more limited number of actions that differ from the ones that we can use in normal
+# and insert mode
+{user.vim_visual_actions}: key(vim_visual_actions)
+# TODO: This needs to be turned into an actual action so that we can deal with a
+# variable number
+{user.vim_visual_counted_actions}: key(vim_visual_counted_actions)
 swap (selected | highlighted):
     insert(":")
     # leave time for vim to populate '<,'>

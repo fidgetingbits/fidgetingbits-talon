@@ -2,6 +2,7 @@
 
 import logging
 import time
+import pprint
 
 from talon import Context, Module, actions, app, settings, ui
 
@@ -161,6 +162,7 @@ standard_counted_actions = {
     "open above": "O",
 }
 
+
 # Standard self.vim_counted_actions key() entries
 standard_counted_actions_control_keys = {
     "redo": "ctrl-r",
@@ -244,6 +246,8 @@ commands_with_motion = {
     # "comment outer": "gca",
     # "comment inner": "gci",
 }
+
+# TODO: That should get moved to the visual mode file now
 
 # only relevant when in visual mode. these will have some overlap with
 # commands  and commands_with_motion above. this is mostly because

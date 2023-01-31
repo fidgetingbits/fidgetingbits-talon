@@ -13,7 +13,8 @@ and not tag: user.vim_command_mode
 # Comment out plugins below that you don't use
 # Is the list below is only plugins that have grammars we use when outside of
 # terminal mode.
-tag(): user.vim_easymotion
+#tag(): user.vim_easymotion
+tag(): user.vim_leap
 tag(): user.vim_change_inside_surroundings
 tag(): user.vim_surround
 tag(): user.vim_ultisnips
@@ -39,13 +40,9 @@ tag(): user.vim_follows_md_links
 
 
 ###
-# `code/vim.py` actions - includes most motions and core commands
+# `vim.py` and `vim_visual_mode.py` actions - includes most motions and core commands
 ###
-# commands that can be triggered in visual or normal mode, and generally don't
-# have counting, etc
-# XXX - I still need to investigate whether or not a subset of these should be
-# exposed in terminal mode
-
+# See vim_insert_normal_mode.talon  and vim_visual_mode.talon for motion commands
 # NOTE: After about two years I got fed up of all of the misrecognitions for
 # these, so I decided to prefix everything with go. You may want to change them
 # if you don't have issues with lots of bad recognitions
@@ -53,18 +50,6 @@ go <user.vim_normal_counted_motion_keys>:
     user.vim_any_motion_mode_key("{vim_normal_counted_motion_keys}")
 go <user.vim_motions_all_adjust>:
     user.vim_any_motion_mode("{vim_motions_all_adjust}")
-
-<user.vim_normal_counted_motion_keys>:
-    user.vim_any_motion_mode_key("{vim_normal_counted_motion_keys}")
-<user.vim_normal_counted_action>:
-    user.vim_any_motion_mode("{vim_normal_counted_action}")
-<user.vim_normal_counted_actions_keys>:
-    user.vim_any_motion_mode_key("{vim_normal_counted_actions_keys}")
-<user.vim_counted_motion_command_with_ordinals>:
-    user.vim_any_motion_mode("{vim_counted_motion_command_with_ordinals}")
-
-<user.vim_normal_counted_motion_command>:
-    user.vim_any_motion_mode("{vim_normal_counted_motion_command}")
 
 ###
 # File editing and management
@@ -260,7 +245,11 @@ jammie <user.unmodified_key>:
     user.vim_normal_mode_np("ea")
     key("{unmodified_key}")
 
-chompie: user.vim_normal_mode_np("ex")
+(chompie|chomp here): user.vim_normal_mode_np("ex")
+chomp line: user.vim_normal_mode_np("$x")
+chomp line <number>$:
+    user.vim_command_mode(":{number}\n")
+    user.vim_normal_mode_np("$x")
 
 insert <user.text>: user.vim_insert_mode("{text}")
 
