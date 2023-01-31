@@ -1,7 +1,8 @@
 from urllib.parse import urlparse
 
-from talon import Context, actions
+from talon import Context, Module, actions, clip
 
+mod = Module()
 ctx = Context()
 ctx.matches = r"""
 tag: browser
@@ -18,6 +19,12 @@ def is_url(url):
         return False
 
 
+@mod.action_class
+class Actions:
+    def browsers_go_clip():
+        """Go to the URL in the clipboard"""
+
+
 @ctx.action_class("browser")
 class BrowserActions:
     def address():
@@ -28,3 +35,13 @@ class BrowserActions:
             for url in reversed(actions.win.title().split(" "))
         )
         return next((url for url in tokens if is_url(url)), "")
+
+
+@ctx.action_class("user")
+class UserActions:
+    def browsers_go_clip():
+        """Go to the URL in the clipboard"""
+        actions.browser.focus_address()
+        actions.sleep("50ms")
+        actions.insert(clip.text())
+        actions.key("enter")
