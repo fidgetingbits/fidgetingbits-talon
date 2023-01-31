@@ -565,7 +565,7 @@ mark global [(new | create)] <user.upper_letter>:
 session save: user.vim_command_mode_exterm(":mksession ")
 session force save: user.vim_command_mode_exterm(":mksession! ")
 # XXX - this path could be made into a setting
-session load: user.vim_command_mode_exterm(":source ~/.vim/sessions/")
+session load: user.vim_command_mode_exterm(":source ~/.config/nvim/sessions/")
 session show: user.vim_command_mode_exterm(":echo v:this_session\n")
 
 # XXX - this is quite slow pasting into a terminal, so might want to move
