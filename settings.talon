@@ -77,8 +77,8 @@ settings():
     # always turn on the mouse when we start talon
     user.mouse_enable_on_startup = 1
 
-    # enables zoom most by default
-    user.mouse_control_mouse_zoom = 0
+    # enables zoom mouse by default
+    user.mouse_control_mouse_zoom = 1
 
     # disable control mouse
     #user.mouse_control_mouse = 1
