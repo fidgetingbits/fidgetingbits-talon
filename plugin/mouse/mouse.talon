@@ -44,7 +44,7 @@ mouse calibration: tracking.calibrate()
     key("{modifiers}:down")
     user.mouse_click(1, 1)
     key("{modifiers}:up")
-:
+
 # Dragging
 left drag | drag:
     user.mouse_drag(0)
@@ -75,10 +75,12 @@ wheel tiny up: user.mouse_scroll_up(0.2)
 wheel tiny up here:
     user.mouse_move_center_active_window()
     user.mouse_scroll_up(0.2)
+# NOTE: can be repeated for faster scrolling
 wheel upper: user.mouse_scroll_up_continuous()
 wheel upper here:
     user.mouse_move_center_active_window()
     user.mouse_scroll_up_continuous()
+# NOTE: can be repeated to stop gaze scroll
 wheel gaze: user.mouse_gaze_scroll()
 wheel gaze here:
     user.mouse_move_center_active_window()
@@ -105,4 +107,15 @@ wheel tiny right here:
     user.mouse_scroll_right(0.5)
 
 # Convenience
-copy mouse position: user.copy_mouse_position()
+mouse copy position: user.copy_mouse_position()
+mouse log clicks: user.mouse_log_clicks()
+
+# Zoom mouse
+
+# disables zoom without clicking in case it fails
+cancel zoom: user.mouse_cancel_zoom_mouse()
+# relocate cursor to clicked location
+[mouse] zoom portal: user.mouse_zoom_move_cursor()
+
+# auto relocate cursor to clicked location
+[mouse] auto portal: user.mouse_zoom_auto_move_cursor()
