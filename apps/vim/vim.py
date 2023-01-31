@@ -45,6 +45,7 @@ plugin_tag_list = [
     "vim_fzf",
     "vim_grammarous",
     "vim_lightspeed",
+    "vim_leap",
     "vim_lsp",
     "vim_markdown",
     "vim_markdown_preview",
