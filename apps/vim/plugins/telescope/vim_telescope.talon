@@ -113,6 +113,10 @@ tag: user.vim_telescope
 (telescope | hunt) frequent:
     user.vim_command_mode_exterm(':exe ":Telescope frecency"\n')
 
+# text file heading picker
+(telescope | hunt) headings:
+    user.vim_command_mode_exterm(':exe ":Telescope heading"\n')
+
 # Convenience
 hunt (resume|again):
     user.vim_command_mode_exterm(':exe ":Telescope resume"\n')
