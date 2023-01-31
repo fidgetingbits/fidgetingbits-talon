@@ -91,3 +91,9 @@ class UserActions:
     def tab_search():
         actions.browser.focus_address()
         actions.key("%")
+
+    def page_find():
+        actions.key("ctrl-f")
+
+    def page_find_close():
+        actions.key("escape")
