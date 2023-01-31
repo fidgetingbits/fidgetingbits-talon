@@ -24,3 +24,9 @@ class Actions:
 
     def page_final():
         """Go to final page"""
+
+    def page_find():
+        """Find on page"""
+
+    def page_find_close():
+        """Close find on page"""
