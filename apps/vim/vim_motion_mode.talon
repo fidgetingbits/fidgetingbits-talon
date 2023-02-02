@@ -37,6 +37,7 @@ tag(): user.vim_copilot
 tag(): user.vim_markdown_preview
 tag(): user.vim_comment_nvim
 tag(): user.vim_follows_md_links
+tag(): user.vim_trouble
 
 
 ###
@@ -640,6 +641,8 @@ normalize new lines: user.vim_command_mode(":%s/\r//g\n")
     insert(":")
     sleep(100ms)
     insert("g/^$/d\n")
+drop line <number>:
+    user.vim_command_mode(":{number}d\n")
 
 # remove first byte from a line
 pinch: user.vim_normal_mode("0x")
