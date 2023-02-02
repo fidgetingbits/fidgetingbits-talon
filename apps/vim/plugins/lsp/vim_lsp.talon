@@ -3,11 +3,13 @@
 tag: user.vim_lsp
 -
 
-(code server | lisp) info: user.vim_command_mode(':exe ":LspInfo"\n')
+(code server | lisp) (info|show): user.vim_command_mode(':exe ":LspInfo"\n')
 (code server | lisp) start: user.vim_command_mode(':exe ":LspStart"\n')
 (code server | lisp) stop: user.vim_command_mode(":LspStop ")
 lisp dock sym:
     user.vim_command_mode(':exe ":lua vim.lsp.buf.document_symbol()"\n')
+
+# logging
 lisp log level trace:
     user.vim_command_mode(":exe \":lua vim.lsp.set_log_level('trace')\"\n")
 lisp log level debug:
@@ -25,6 +27,7 @@ lisp log file show:
 #user.vim_command_mode(':exe ":lua vim.lsp.buf.code_action()"\n')
 #user.vim_command_mode(':exe ":lua vim.lsp.buf.completion()"\n')
 
+# navigation
 #(jump|lisp) (declaration|deck): user.vim_command_mode(':exe ":lua vim.lsp.buf.declaration()"\n')
 (jump | lisp) implementation:
     user.vim_command_mode(':exe ":lua vim.lsp.buf.implementation()"\n')
@@ -32,10 +35,10 @@ lisp log file show:
     user.vim_command_mode(':exe ":lua vim.lsp.buf.definition()"\n')
 (jump | lisp) (highlight | light):
     user.vim_command_mode(':exe ":lua vim.lsp.buf.document_highlight()"\n')
-
 #user.vim_command_mode(':exe ":lua vim.lsp.buf.formatting()"\n')
-(jump | lisp) hover: user.vim_command_mode(':exe ":lua vim.lsp.buf.hover()"\n')
-peek (this | deaf): user.vim_command_mode(':exe ":lua vim.lsp.buf.hover()"\n')
+# TODO: Closing these is a little bit annoying because we don't have any context, we
+# need need to make a hook that somehow indicates the pop up is open
+(peek|hover) (this | deaf): user.vim_command_mode(':exe ":lua vim.lsp.buf.hover()"\n')
 #user.vim_command_mode(':exe ":lua vim.lsp.buf.implementation()"\n')
 (jump | lisp) in coming:
     user.vim_command_mode(':exe ":lua vim.lsp.buf.incoming_calls()"\n')
@@ -53,3 +56,10 @@ code rename:
 # Code linting and formatting
 file fix:
     user.vim_command_mode(':exe ":lua vim.lsp.buf.format()"\n')
+
+# diagnostics
+# also see plugins/trouble/ for a better interface
+toggle errors: user.vim_command_mode(':exe ":lua vim.diagnostic.show_line_diagnostics()"\n')
+
+trouble next: user.vim_command_mode(':exe ":lua vim.diagnostic.goto_next()"\n')
+trouble (prev|last): user.vim_command_mode(':exe ":lua vim.diagnostic.goto_prev()"\n')
