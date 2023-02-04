@@ -85,6 +85,7 @@ abbreviations = {
     "configurations": "configs",
     "connection": "conn",
     "constant": "const",
+    "contribute": "contrib",
     "constructor": "ctor",
     "context": "ctx",
     "control flow graph": "cfg",
