@@ -2,4 +2,4 @@ tag: user.vim_lsp
 win.title: /FILETYPE:\[lspinfo\]/
 -
 
-close: key('q')
+close: user.vim_normal_mode('q')
