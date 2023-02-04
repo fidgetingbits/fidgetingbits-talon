@@ -17,7 +17,7 @@ and not tag: user.vim_command_mode
 tag(): user.vim_leap
 tag(): user.vim_change_inside_surroundings
 tag(): user.vim_surround
-tag(): user.vim_ultisnips
+#tag(): user.vim_ultisnips
 tag(): user.vim_ale
 tag(): user.vim_cscope
 tag(): user.vim_fugitive
@@ -38,7 +38,7 @@ tag(): user.vim_markdown_preview
 tag(): user.vim_comment_nvim
 tag(): user.vim_follows_md_links
 tag(): user.vim_trouble
-
+tag(): user.vim_null_ls
 
 ###
 # `vim.py` and `vim_visual_mode.py` actions - includes most motions and core commands
@@ -57,6 +57,7 @@ go <user.vim_motions_all_adjust>:
 ###
 # These are prefix with `file` to match the `file save` action defined by talon
 sage: user.vim_command_mode(":w\n")
+force sage: user.vim_command_mode(":w!\n")
 file save as:
     key(escape)
     user.vim_command_mode(":w ")
