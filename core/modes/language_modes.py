@@ -118,6 +118,7 @@ language_extensions = {
     "typescriptreact": "tsx",
     # 'vba': 'vba',
     "vimscript": "vim vimrc",
+    "zsh": "zsh",
 }
 
 # Override speakable forms for language modes. If not present, a language mode's
@@ -188,7 +189,8 @@ class code_actions:
             return forced_context_language
         file_extension = actions.win.file_ext()
         file_name = actions.win.filename()
-
+        # print(f"file_name: {file_name}")
+        # print(f"file_extension: {file_extension}")
         # Favor full matches
         if file_name in special_file_map:
             return special_file_map[file_name]
