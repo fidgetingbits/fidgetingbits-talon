@@ -160,6 +160,7 @@ file (move|rename): "mv "
 file open: "xdg-open "
 file P D F: "evince "
 file touch: "touch "
+file create readme: "touch README.md\n"
 file copy: "cp -d "
 file recopy: "!cp\n"
 file copy latest <user.folder_paths>: user.paste("cp $(ls --sort changed --no-icons -d {folder_paths}/* | tail -n1) .")
