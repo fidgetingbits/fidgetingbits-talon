@@ -1,11 +1,16 @@
 tag: user.vim_insert_mode
 -
+tag(): user.vim_luasnip
+tag(): user.vim_nvim_cmp
 
-(dup | duplicate) line: user.vim_normal_mode_np("yyp")
+(dup | duplicate) line:
+    user.vim_normal_mode_np("yyp")
 
-yank line: user.vim_normal_mode_np("yy")
+yank line:
+    user.vim_normal_mode_np("yy")
 
-push: key('end')
+push:
+    key('end')
 
 push <user.unmodified_key>:
     key('end')
@@ -14,10 +19,3 @@ push <user.unmodified_key>:
 push it:
     key('end')
     edit.paste()
-
-# This is technically a neo-cmp specific command
-# they should probably also tie into something that uses pumvisible()
-close:
-    key('ctrl-e')
-accept:
-    key('ctrl-a')

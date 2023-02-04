@@ -1,5 +1,6 @@
 # defines placeholder actions and captures for ide-specific snippet functionality
 from talon import Context, Module, actions, imgui, registry
+import pprint
 
 ctx = Context()
 ctx.matches = r"""
@@ -45,6 +46,14 @@ class Actions:
 
     def snippet_create():
         """Triggers snippet creation"""
+
+    def snippet_reload():
+        """Reloads the snippets list"""
+
+    def snippet_dump():
+        """Dumps the snippets list"""
+        if "user.snippets" in registry.lists:
+            pprint.pprint(registry.lists["user.snippets"])
 
     def snippet_toggle():
         """Toggles UI for available snippets"""

@@ -53,6 +53,7 @@ plugin_tag_list = [
     "vim_markdown_toc",
     "vim_mason",
     "vim_mkdx",
+    "vim_null_ls",
     "vim_follows_md_links",
     "vim_lazy",
     "vim_nerdtree",
@@ -77,17 +78,23 @@ plugin_tag_list = [
     "vim_youcompleteme",
     "vim_zenmode",
     "vim_zoom",
+    "vim_trouble",
+    "vim_luasnip",
+    "vim_nvim_cmp",
     "nvim_lua",  # If you want to enable nvim-specific lua language commands
 ]
 for entry in plugin_tag_list:
     mod.tag(entry, f"tag to load {entry} vim plugin commands")
 
+# TODO: add code for creating all of the contexts and associated mode assertions by doing what
+# we do in language_modes.py
 mode_tag_list = [
     "vim_terminal_mode",
     "vim_command_mode",
     "vim_visual_mode",
     "vim_normal_mode",
     "vim_insert_mode",
+    "vim_select_mode",
 ]
 for entry in mode_tag_list:
     mod.tag(entry, f"tag to load {entry} specific commands")
