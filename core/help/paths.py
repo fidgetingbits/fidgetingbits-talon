@@ -15,25 +15,32 @@ arch_linux_paths = {
 }
 # paths that will work with pivot command
 linux_folder_paths = {
+    # common
     "var F S": "/var/fs/",
     "opt": "/opt/",
+    # ida
     "ida config": "~/.idapro/",
     "ida plugins": "~/.idapro/plugins/",
     "ida themes": "~/.idapro/themes/",
     "ida loaders": "~/.idapro/loaders/",
+    # systemd
     "user services": "~/.config/systemd/user/",
     "user timers": "~/.config/systemd/user/",
     "services": "/etc/systemd/system/",
+    # admin
     "you dev rules": "/etc/udev/rules.d/",
     "sue doers": "/etc/sudoers.d/",
+    # neovim
     "vim sessions": "~/.config/nvim/sessions/",
     "neovim": "~/.config/nvim/",
     "vim": "~/.config/nvim/",
     "neovim lua": "~/.config/nvim/lua/",
     "N vim": "~/.config/nvim/",
     "N vim config": "~/.config/nvim/lua",
+    "vim config": "~/.config/nvim/lua",
     "N vim lua": "~/.config/nvim/lua/",
     "neovim plugin": "~/.local/share/nvim/lazy/",
+    # Unsorted
     "temp": "/tmp/",
     "config": "/etc/",
     "it see": "/etc/",
@@ -60,8 +67,8 @@ linux_folder_paths = {
     "log": "/var/log/",
     "kernel trace": "/sys/kernel/tracing/",
     "K mem events": "/sys/kernel/tracing/events/kmem",
-    "custom snippets": "~/.vim/custom-snippets/",
-    "vim snippets": "~/.vim/plugged/vim-snippets/UltiSnips/",
+    "custom snippets": "~/.config/nvim/snippets/",
+    "vim snippets": "~/.local/share/nvim/lazy/friendly-snippets/snippets/",
     "talon": f"~/.talon/user/{TALON_REPO}/",
     "talon user": "~/.talon/user/",
     "talon completions": "~/.talon/cache/completions/",
