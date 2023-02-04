@@ -113,7 +113,7 @@ mouse log clicks: user.mouse_log_clicks()
 # Zoom mouse
 
 # disables zoom without clicking in case it fails
-cancel zoom: user.mouse_cancel_zoom_mouse()
+(zoom close|cancel zoom): user.mouse_cancel_zoom_mouse()
 # relocate cursor to clicked location
 [mouse] zoom portal: user.mouse_zoom_move_cursor()
 
