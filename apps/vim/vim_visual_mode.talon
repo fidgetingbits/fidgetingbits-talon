@@ -3,10 +3,12 @@ tag: user.vim_visual_mode
 
 # A more limited number of actions that differ from the ones that we can use in normal
 # and insert mode
-{user.vim_visual_actions}: key(vim_visual_actions)
+{user.vim_visual_actions}:
+    key(vim_visual_actions)
 # TODO: This needs to be turned into an actual action so that we can deal with a
 # variable number
-{user.vim_visual_counted_actions}: key(vim_visual_counted_actions)
+{user.vim_visual_counted_actions}:
+    key(vim_visual_counted_actions)
 swap (selected | highlighted):
     insert(":")
     # leave time for vim to populate '<,'>
@@ -63,16 +65,20 @@ search that:
     insert("=escape(@\",'/\\')")
     key("enter:2")
 
-(shift | indent) right: insert(">")
-(shift | indent) left: insert("<")
+(shift | indent) right:
+    insert(">")
+(shift | indent) left:
+    insert("<")
 
 (dup | duplicate) line:
     insert("Y")
     insert("p")
 
-yank line: insert("Y")
+yank line:
+    insert("Y")
 
-push: user.vim_normal_mode_np("$a")
+push:
+    user.vim_normal_mode_np("$a")
 
 # NOTE - We need a separate key() call because some unmodified keys have
 # special names, like backspace.
@@ -93,18 +99,33 @@ convert to hex:
 # Subtract hex
 # https://www.reddit.com/r/vim/comments/emtwgz/add_subtract_multiply_or_divide_a_value_to_each/
 # Only works on the last number in a line
-subtract that: insert(":s/\\d\\+$/\\=submatch(0)-")
+subtract that:
+    insert(":s/\\d\\+$/\\=submatch(0)-")
 
 subtract that clip:
     insert(":s/\\d\\+$/\\=submatch(0)-")
     edit.paste()
 
 # this should only be enabled within python
-sort by dick value: insert(":!sort -t ':' -k 2\n")
+sort by dick value:
+    insert(":!sort -t ':' -k 2\n")
 
 ##
 # treesitter
 ##
-node grow: key("g r n")
-node shrink: key("g r m")
-node scope: key("g r c")
+node grow:
+    key("g r n")
+node shrink:
+    key("g r m")
+node scope:
+    key("g r c")
+
+# These are from https://github.com/echasnovski/mini.nvim
+move up:
+    key("alt-k")
+move down:
+    key("alt-j")
+move left:
+    key("alt-h")
+move right:
+    key("alt-l")

@@ -18,6 +18,7 @@ ctx.tags = ["user.vim_visual_mode"]
 
 # These override the ones in normal mode currently set in vim.py
 ctx.lists["user.vim_visual_actions"] = {
+    "yank": "y",
     "opposite": "o",
     "drop": "d",
 }
