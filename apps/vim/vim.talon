@@ -156,20 +156,17 @@ file (edit | open) <user.paths>: user.vim_command_mode_exterm(":e {paths}\n")
 #
 # NOTE: Majority of more core movement verbs are in code/vim.py
 ###
-# XXX - line conflicts too much with nine,
-#[(go|jump)] [to] line <number>:
-# XXX - lately row is conflicting with numb
 go row <number>:
     user.vim_command_mode_exterm(":{number}\n")
 
-    # These are especially useful when in terminal mode and you want to jump to
-    # something in normal mode that is in the history. Doubley so if you use
-    # set relativenumber in terminal mode
+# These are especially useful when in terminal mode and you want to jump to
+# something in normal mode that is in the history. Doubley so if you use
+# set relativenumber in terminal mode
 [go] relative up [line] <number_small>:
-    user.vim_normal_mode_exterm("{number_small}k")
+    user.vim_any_motion_mode_exterm("{number_small}k")
 
 [go] relative down [line] <number_small>:
-    user.vim_normal_mode_exterm("{number_small}j")
+    user.vim_any_motion_mode_exterm("{number_small}j")
 
 push line <number>:
     user.vim_command_mode_exterm(":{number}\n")
