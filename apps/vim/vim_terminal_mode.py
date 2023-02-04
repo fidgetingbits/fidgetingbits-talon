@@ -127,7 +127,8 @@ fuzzy_shell_tags = {
 # update?
 regex_shell_tags = {
     r"^\w*@\w*": "terminal",
-    r"^\w*@\w*:.*[$#]": "terminal",  # this is redundant with above, but ideally I would rather have something like this
+    # this is redundant with above, but ideally I would rather have something like this
+    r"^\w*@\w*:.*[$#]": "terminal",
     ".*virsh start --console.*": "terminal",  # hacky match for libvirt containers
 }
 
