@@ -3,84 +3,122 @@
 # VIM uses find for line searching
 # XXX - is a good chance this conflicts with other grammars from certain
 # applications
-search: edit.find()
+search:
+    edit.find()
 
-next one: edit.find_next()
+next one:
+    edit.find_next()
 
-find <user.unmodified_key>: user.line_find_forward(unmodified_key)
+find <user.unmodified_key>:
+    user.line_find_forward(unmodified_key)
 
-find last <user.unmodified_key>: user.line_find_backward(unmodified_key)
+find last <user.unmodified_key>:
+    user.line_find_backward(unmodified_key)
 
-go (word left | back): edit.word_left()
+go (word left | back):
+    edit.word_left()
 
-go (word right | word): edit.word_right()
+go (word right | word):
+    edit.word_right()
 
-go left: edit.left()
+go left:
+    edit.left()
 
-go right: edit.right()
+go right:
+    edit.right()
 
-go (up | north): edit.up()
+go (up | north):
+    edit.up()
 
-go (down | south): edit.down()
+go (down | south):
+    edit.down()
 
-go (line start | head): edit.line_start()
+go (line start | head):
+    edit.line_start()
 
-go (line end | tail): edit.line_end()
+go (line end | tail):
+    edit.line_end()
 
-go way left: edit.line_start()
+go way left:
+    edit.line_start()
 
-go way right: edit.line_end()
+go way right:
+    edit.line_end()
 
-go way down: edit.file_end()
+go way down:
+    edit.file_end()
 
-go way up: edit.file_start()
+go way up:
+    edit.file_start()
 
-go bottom: edit.file_end()
+go bottom:
+    edit.file_end()
 
-go top: edit.file_start()
+go top:
+    edit.file_start()
 
-scroll: edit.page_down()
+scroll:
+    edit.page_down()
 
-(go page up | punk): edit.page_up()
+(go page up | punk):
+    edit.page_up()
 
 # selecting
-select line: edit.select_line()
+select line:
+    edit.select_line()
 
-select all: edit.select_all()
+(select | take) all:
+    edit.select_all()
 
-select left: edit.extend_left()
+select left:
+    edit.extend_left()
 
-select right: edit.extend_right()
+select right:
+    edit.extend_right()
 
-select (up | north): edit.extend_line_up()
+select (up | north):
+    edit.extend_line_up()
 
-select (down | south): edit.extend_line_down()
+select (down | south):
+    edit.extend_line_down()
 
-select word: edit.select_word()
+select word:
+    edit.select_word()
 
-select word left: edit.extend_word_left()
+select word left:
+    edit.extend_word_left()
 
-select word right: edit.extend_word_right()
+select word right:
+    edit.extend_word_right()
 
-select (way left | bend): edit.extend_line_start()
+select (way left | bend):
+    edit.extend_line_start()
 
-select (way right | lend): edit.extend_line_end()
+select (way right | lend):
+    edit.extend_line_end()
 
-select (way up | loft): edit.extend_file_start()
+select (way up | loft):
+    edit.extend_file_start()
 
-select (way down | gut): edit.extend_file_end()
+select (way down | gut):
+    edit.extend_file_end()
 
 # editing
-indent [more]: edit.indent_more()
+indent [more]:
+    edit.indent_more()
 
-de dent: edit.indent_less()
+de dent:
+    edit.indent_less()
 
 # deleting
-clear line: edit.delete_line()
+clear line:
+    edit.delete_line()
 
-clear left: key(backspace)
+clear left:
+    key(backspace)
 
-clear right: key(delete)
+clear right:
+    key(delete)
 
 clear up:
     edit.extend_line_up()
@@ -93,13 +131,17 @@ clear down:
 #clear word:
 #    edit.delete_word()
 
-(clear word left | clear back): user.delete_word_left()
+(clear word left | clear back):
+    user.delete_word_left()
 
-clear word [right]: user.delete_word_right()
+clear word [right]:
+    user.delete_word_right()
 
-(clear way left | clear bend): user.delete_line_beginning()
+(clear way left | clear bend):
+    user.delete_line_beginning()
 
-(clear way right | clear lend): user.delete_line_remaining()
+(clear way right | clear lend):
+    user.delete_line_remaining()
 
 clear way up:
     edit.extend_file_start()
@@ -113,7 +155,8 @@ clear way down:
 #    edit.select_all()
 #    edit.delete()
 
-copy that: edit.copy()
+copy that:
+    edit.copy()
 #copy commands
 copy all:
     edit.select_all()
@@ -136,9 +179,11 @@ copy word:
     edit.select_word()
     edit.copy()
 
-copy word left: user.copy_word_left()
+copy word left:
+    user.copy_word_left()
 
-copy word right: user.copy_word_right()
+copy word right:
+    user.copy_word_right()
 
 copy line:
     edit.select_line()
@@ -166,17 +211,23 @@ cut word:
     edit.select_word()
     edit.cut()
 
-cut word left: user.cut_word_left()
+cut word left:
+    user.cut_word_left()
 
-cut word right: user.cut_word_right()
+cut word right:
+    user.cut_word_right()
 
-cut line: user.cut_line()
+cut line:
+    user.cut_line()
 
-assign: " = "
+assign:
+    " = "
 (pace | paste) all:
     edit.select_all()
     edit.paste()
 
 # duplication
-clone that: edit.selection_clone()
-clone line: edit.line_clone()
+clone that:
+    edit.selection_clone()
+clone line:
+    edit.line_clone()
