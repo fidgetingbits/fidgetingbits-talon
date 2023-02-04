@@ -54,7 +54,7 @@ tag: user.vim_telescope
     user.vim_command_mode_exterm(':exe ":Telescope autocommands"\n')
 (telescope | hunt) spell:
     user.vim_command_mode_exterm(':exe ":Telescope spell_suggest"\n')
-(telescope | hunt) key (map|mappings):
+(telescope | hunt) key (map | mappings):
     user.vim_command_mode_exterm(':exe ":Telescope keymaps"\n')
 (telescope | hunt) file types:
     user.vim_command_mode_exterm(':exe ":Telescope filetypes"\n')
@@ -117,8 +117,14 @@ tag: user.vim_telescope
 (telescope | hunt) headings:
     user.vim_command_mode_exterm(':exe ":Telescope heading"\n')
 
+hunt snippets:
+    user.vim_command_mode_exterm(':exe ":Telescope snippets snippets"\n')
+
+hunt sessions:
+    user.vim_command_mode_exterm(':exe ":Telescope sessions_picker"\n')
+
 # Convenience
-hunt (resume|again):
+hunt (resume | again):
     user.vim_command_mode_exterm(':exe ":Telescope resume"\n')
 hunt pickers:
     user.vim_command_mode_exterm(':exe ":Telescope pickers"\n')
