@@ -71,8 +71,8 @@ def _zsh_cwd_watch_folders(path, flags):
                 ] = actions.user.create_spoken_forms_from_list(folder_list)
     except Exception as e:
         # If there's no folders in a directory this is expected
-        pass
         # print(f"zsh.py _zsh_cwd_watch_folders() failed to read {path}: {e}")
+        pass
 
 
 def _zsh_cwd_watch_files(path, flags):
@@ -89,8 +89,8 @@ def _zsh_cwd_watch_files(path, flags):
                 ] = actions.user.create_spoken_forms_from_list(file_list)
     except Exception as e:
         # If there's no files in a directory this is expected
-        pass
         # print(f"zsh.py _zsh_cwd_watch_files() failed to read {path}: {e}")
+        pass
 
 
 def _is_zsh_window(window):
