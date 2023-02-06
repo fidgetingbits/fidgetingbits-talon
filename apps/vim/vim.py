@@ -58,7 +58,6 @@ plugin_tag_list = [
     "vim_lazy",
     "vim_nerdtree",
     "vim_obsession",
-    "vim_ouroboros",
     "vim_plug",
     "vim_rooter",
     "vim_signature",
@@ -81,6 +80,7 @@ plugin_tag_list = [
     "vim_trouble",
     "vim_luasnip",
     "vim_nvim_cmp",
+    "vim_flip_ext",
     "nvim_lua",  # If you want to enable nvim-specific lua language commands
 ]
 for entry in plugin_tag_list:
@@ -1077,7 +1077,6 @@ class NeoVimRPC:
         return None
 
     def get_active_mode(self):
-
         mode = self.nvim.request("nvim_get_mode")
         return mode
 

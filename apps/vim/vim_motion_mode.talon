@@ -39,6 +39,7 @@ tag(): user.vim_comment_nvim
 tag(): user.vim_follows_md_links
 tag(): user.vim_trouble
 tag(): user.vim_null_ls
+tag(): user.vim_flip_ext
 
 ###
 # `vim.py` and `vim_visual_mode.py` actions - includes most motions and core commands
