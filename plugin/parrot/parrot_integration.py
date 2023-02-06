@@ -282,7 +282,7 @@ class PatternBuilder:
         if "<power" in thresholds:
             detection_calls.append(
                 lambda self, frame, threshold=thresholds["<power"]: frame.power
-                >= threshold
+                <= threshold
             )
         if "<ratio" in thresholds and len(sounds) > 1:
             detection_calls.append(
