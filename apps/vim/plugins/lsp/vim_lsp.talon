@@ -3,9 +3,12 @@
 tag: user.vim_lsp
 -
 
-(code server | lisp) (info|show): user.vim_command_mode(':exe ":LspInfo"\n')
-(code server | lisp) start: user.vim_command_mode(':exe ":LspStart"\n')
-(code server | lisp) stop: user.vim_command_mode(":LspStop ")
+(code server | lisp) (info | show):
+    user.vim_command_mode(':exe ":LspInfo"\n')
+(code server | lisp) start:
+    user.vim_command_mode(':exe ":LspStart"\n')
+(code server | lisp) stop:
+    user.vim_command_mode(":LspStop ")
 lisp dock sym:
     user.vim_command_mode(':exe ":lua vim.lsp.buf.document_symbol()"\n')
 
@@ -38,7 +41,8 @@ lisp log file show:
 #user.vim_command_mode(':exe ":lua vim.lsp.buf.formatting()"\n')
 # TODO: Closing these is a little bit annoying because we don't have any context, we
 # need need to make a hook that somehow indicates the pop up is open
-(peek|hover) (this | deaf): user.vim_command_mode(':exe ":lua vim.lsp.buf.hover()"\n')
+(peek | hover) (this | deaf):
+    user.vim_command_mode(':exe ":lua vim.lsp.buf.hover()"\n')
 #user.vim_command_mode(':exe ":lua vim.lsp.buf.implementation()"\n')
 (jump | lisp) in coming:
     user.vim_command_mode(':exe ":lua vim.lsp.buf.incoming_calls()"\n')
@@ -51,15 +55,22 @@ lisp log file show:
 #user.vim_command_mode(':exe ":lua vim.lsp.buf.workspace_symbol()"\n')
 
 # Code refactoring
-code rename:
-    user.vim_command_mode(':exe ":lua vim.lsp.buf.rename()"\n')
+(code rename | rename this):
+    #user.vim_command_mode(':exe ":lua vim.lsp.buf.rename()"\n')
+    user.vim_command_mode(":IncRename ")
 # Code linting and formatting
 file fix:
     user.vim_command_mode(':exe ":lua vim.lsp.buf.format()"\n')
 
 # diagnostics
 # also see plugins/trouble/ for a better interface
-toggle errors: user.vim_command_mode(':exe ":lua vim.diagnostic.show_line_diagnostics()"\n')
+toggle errors:
+    user.vim_command_mode(':exe ":lua vim.diagnostic.show_line_diagnostics()"\n')
 
-trouble next: user.vim_command_mode(':exe ":lua vim.diagnostic.goto_next()"\n')
-trouble (prev|last): user.vim_command_mode(':exe ":lua vim.diagnostic.goto_prev()"\n')
+# TODO: It would be nice for this to toggle if it's already open
+trouble show:
+    user.vim_command_mode(':exe ":lua vim.diagnostic.open_float()"\n')
+trouble next:
+    user.vim_command_mode(':exe ":lua vim.diagnostic.goto_next()"\n')
+trouble (prev | last):
+    user.vim_command_mode(':exe ":lua vim.diagnostic.goto_prev()"\n')
