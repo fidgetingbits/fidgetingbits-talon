@@ -40,6 +40,7 @@ linux_folder_paths = {
     "vim config": "~/.config/nvim/lua",
     "N vim lua": "~/.config/nvim/lua/",
     "neovim plugin": "~/.local/share/nvim/lazy/",
+    "vim plugin": "~/.local/share/nvim/lazy/",
     # Unsorted
     "temp": "/tmp/",
     "config": "/etc/",
