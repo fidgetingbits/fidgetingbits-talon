@@ -1,24 +1,13 @@
 # NOTE: If you want to use i3wm you must enable the tag settings.talon. i.e.: `tag(): user.i3wm`
 os: linux
 tag: user.i3wm
-port <number_small>: user.system_command("i3-msg workspace number {number_small}")
-(port flip | flipper): user.system_command("i3-msg workspace back_and_forth")
-port right: user.system_command("i3-msg workspace next")
-port left: user.system_command("i3-msg workspace prev")
->>>>>>> 23fb8606bfaac0ebe9b45c81e642ed50930c7ead
+-
 
 ##
 # Workspaces
 ##
-portal <number_small>:
-    user.system_command("i3-msg workspace number {number_small}")
-portal ten: user.system_command("i3-msg workspace number 10")
+portal <number_small>: user.system_command("i3-msg workspace number {number_small}")
 portal flip: user.system_command("i3-msg workspace back_and_forth")
-
-# XXX - This is because of buggy recognition of port flip all the time, the
-# alternative would be to rework the portal argument to not accept anything
-# outside of zero through ten or something
-#portal oh: skip()
 portal right: user.system_command("i3-msg workspace next")
 portal left: user.system_command("i3-msg workspace prev")
 
