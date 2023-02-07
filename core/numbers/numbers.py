@@ -180,7 +180,9 @@ for ten in tens:
 number_small_map = {n: i for i, n in enumerate(number_small_list)}
 
 mod.list("number_small", desc="List of small numbers")
+mod.list("single_digits", desc="List of single digits")
 ctx.lists["self.number_small"] = number_small_map.keys()
+ctx.lists["self.single_digits"] = digits_map.keys()
 
 
 # TODO: allow things like "double eight" for 88
@@ -198,6 +200,14 @@ def digit_string(m) -> str:
 def digits(m) -> int:
     """Parses a phrase representing a digit sequence, returning it as an integer."""
     return int(m.digit_string)
+
+
+# TODO: Re visit this, the idea being that I want to make the format letters formatter
+# also support me specifying single digit numbers
+# @ctx.capture("single_digits", rule="{user.single_digits}+")
+# def single_digits(m) -> str:
+#     """Parses a phrase representing a sequence single digits"""
+#     return parse_numbers(list(m))
 
 
 @mod.capture(rule=f"{number_word_leading} ([and] {number_word})*")
@@ -224,10 +234,11 @@ def number_signed(m):
 def number_small(m) -> int:
     return number_small_map[m.number_small]
 
-#@ctx.capture(
+
+# @ctx.capture(
 #    "number_small", rule=f"({alt_digits} | {alt_teens} | {alt_tens} [{alt_digits}])"
-#)
-#def number_small(m):
+# )
+# def number_small(m):
 #    return int(parse_number(list(m)))
 
 
