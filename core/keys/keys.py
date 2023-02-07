@@ -173,9 +173,9 @@ def hex_letters(m) -> str:
 ctx = Context()
 modifier_keys = {
     # If you find 'alt' is often misrecognized, try using 'alter'.
-    "alter": "alt",  #'alter': 'alt',
-    "control": "ctrl",  #'troll':   'ctrl',
-    "shift": "shift",  #'sky':     'shift',
+    "alter": "alt",  # 'alter': 'alt',
+    "control": "ctrl",  # 'troll':   'ctrl',
+    "shift": "shift",  # 'sky':     'shift',
     "super": "super",
 }
 if app.platform == "mac":
@@ -194,8 +194,8 @@ punctuation_words = {
     "grave": "`",
     # "comma": ",",
     "calm": ",",  # i found comma and commit would conflict too much
-    "period": ".",
-    "full stop": ".",
+    # "period": ".",
+    "dot": ".",
     "semicolon": ";",
     "colon": ":",
     "forward slash": "/",
@@ -209,6 +209,7 @@ punctuation_words = {
     "swirl": "@",
     "pound sign": "£",
 }
+
 symbol_key_words = {
     "grave": "`",
     "comma": ",",  # i found comma and commit would conflict too much
