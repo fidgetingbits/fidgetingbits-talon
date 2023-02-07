@@ -1,6 +1,11 @@
+# NOTE: If you want to use i3wm you must enable the tag settings.talon. i.e.: `tag(): user.i3wm`
 os: linux
 tag: user.i3wm
--
+port <number_small>: user.system_command("i3-msg workspace number {number_small}")
+(port flip | flipper): user.system_command("i3-msg workspace back_and_forth")
+port right: user.system_command("i3-msg workspace next")
+port left: user.system_command("i3-msg workspace prev")
+>>>>>>> 23fb8606bfaac0ebe9b45c81e642ed50930c7ead
 
 ##
 # Workspaces
@@ -25,7 +30,7 @@ portal left: user.system_command("i3-msg workspace prev")
 (win | window) up: user.system_command("i3-msg focus up")
 (win | window) down: user.system_command("i3-msg focus down")
 (win | window) kill: user.system_command("i3-msg kill")
-(win | window) stack: user.system_command("i3-msg layout stacking")
+(win | window) (stack|stacking): user.system_command("i3-msg layout stacking")
 (win | window) default: user.system_command("i3-msg layout toggle split")
 (win | window) tabbed: user.system_command("i3-msg layout tabbed")
 (win | window) flip:
@@ -75,8 +80,6 @@ vertical (shell | terminal):
 
 shuffle <number_small>:
     user.system_command("i3-msg move container to workspace number {number_small}")
-shuffle ten:
-    user.system_command("i3-msg move container to workspace number 10")
 shuffle (parent | all) <number_small>:
     user.system_command("i3-msg focus parent")
     user.system_command("i3-msg move container to workspace {number_small}")
@@ -91,10 +94,6 @@ shuffle down: user.system_command("i3-msg move down")
 follow <number_small>:
     user.system_command("i3-msg move container to workspace {number_small}")
     user.system_command("i3-msg workspace {number_small}")
-
-follow ten:
-    user.system_command("i3-msg move container to workspace 10")
-    user.system_command("i3-msg workspace 10")
 
 # multi-monitor commands
 # NOTE: these are flipped on purpose, because I have to trick the talon monitor
@@ -143,4 +142,4 @@ i three restart: user.system_command("i3-msg restart")
     user.system_command('i3-msg [con_mark="{word}"] focus')
 (win | window) focus alert: user.system_command("i3-msg [urgent=latest] focus")
 (win | window) show marks:
-    user.system_command_nb("bash -c \"notify-send.sh -- '$(python /home/aa/scripts/i3/i3-print-window-marks.py)'\"")
+    user.system_command_nb("bash -c \"notify-send.sh -- '$(python /home/aa/scripts/i3/i3-print-window-marks.py
