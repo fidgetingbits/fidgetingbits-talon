@@ -168,6 +168,10 @@ file copy latest <user.folder_paths>: user.paste("cp $(ls --sort changed --no-ic
 file (file|info|type): "file "
 
 file show: "cat "
+file show clip:
+    "cat "
+    edit.paste()
+
 file show (<user.zsh_file_completion>|<user.word>):
     file = zsh_file_completion or word
     insert("cat {file}")
