@@ -43,9 +43,12 @@ git clone clip:
 git clean: "git clean"
 git clean everything: "git clean -dfx"
 git clean FD: "git clean -fd"
+# TODO: The should use sentence to match conventional commit standard
 git commit message <user.text>: "git commit -m \"{text}\""
-git commit message {user.git_conventional_commits}: "git commit -m \"{git_conventional_commits}:\""
-git commit message {user.git_conventional_commits} <user.word>: "git commit -m \"{git_conventional_commits}({word}):\""
+git commit message {user.git_conventional_commits}:
+    user.insert_between("git commit -m \"{git_conventional_commits}: ", "\"")
+git commit message {user.git_conventional_commits} <user.word>:
+    user.insert_between("git commit -m \"{git_conventional_commits}({word}): ", "\"")
 git commit message: user.insert_between("git commit -m \"", "\"")
 git commit: "git commit\n"
 git commit amend: "git commit --amend "
