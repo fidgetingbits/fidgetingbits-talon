@@ -50,7 +50,8 @@ if hasattr(talon, "test_mode"):
             pieces = ["hi", "world", "$", ".cs", "1900"]
             params = list(
                 itertools.product(
-                    [None, ["world"], ["dot"]],  # Dot is from the expanded ".cs"
+                    # Dot is from the expanded ".cs"
+                    [None, ["world"], ["dot"]],
                     [0, 3],
                     [True, False],
                 )
