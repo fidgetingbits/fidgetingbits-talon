@@ -239,10 +239,12 @@ new (empty | unnamed) buffer: user.vim_command_mode_exterm(":enew\n")
     key("ctrl-w")
     key(s)
 
+river term: user.vim_command_mode_exterm(":split term://zsh\n")
 (split new vertical | pillar):
     user.vim_set_normal_mode_exterm()
     key("ctrl-w")
     key(v)
+pillar term: user.vim_command_mode_exterm(":vsplit term://zsh\n")
 
 new top left split: user.vim_command_mode_exterm(":to split\n")
 
