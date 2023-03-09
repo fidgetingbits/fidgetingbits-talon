@@ -196,7 +196,7 @@ python escape:
 # this assumes you list some directories with find or whatever, then you want
 # to pivot into one of them beasts on what was listed. you say the relative
 # number, in it will jump to that point copy the line and then jump you in
-pivot <number_small>:
+pivot line <number_small>:
     insert("cd ")
     user.vim_normal_mode_exterm("{number_small}k")
     key('0')
@@ -219,18 +219,18 @@ pivot pillar <number_small>:
     key('0')
     user.vim_command_mode(":vertical wincmd f\n")
 
-edit <number_small>:
+edit line <number_small>:
     user.vim_normal_mode_exterm("{number_small}k")
     key('0')
     insert("gf")
 
-river <number_small>:
+river line <number_small>:
     user.vim_normal_mode_exterm("{number_small}k")
     key('0')
     key('ctrl-w')
     key('f')
 
-pillar <number_small>:
+pillar line <number_small>:
     user.vim_normal_mode_exterm("{number_small}k")
     key('0')
     user.vim_command_mode(":vertical wincmd f\n")
