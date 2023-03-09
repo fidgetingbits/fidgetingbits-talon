@@ -16,7 +16,9 @@ folder fuzzy <user.text>:
 # zsh autosuggestions plugin
 keep:
     key(ctrl-g)
-partial:
+parrot(tut):
+    key(ctrl-g)
+(partial|keep one):
     key(ctrl-f)
 (keeper | run it):
     key(ctrl-o)
