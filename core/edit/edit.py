@@ -75,11 +75,11 @@ class Actions:
     def paste(text: str):
         """Pastes text and preserves clipboard"""
 
-        #        with clip.revert():
-        #            clip.set_text(text)
-        #            actions.edit.paste()
-        #            # sleep here so that clip.revert doesn't revert the clipboard too soon
-        #            actions.sleep("100ms")
+        # with clip.revert():
+        #     clip.set_text(text)
+        #     actions.edit.paste()
+        #     # sleep here so that clip.revert doesn't revert the clipboard too soon
+        #     actions.sleep("100ms")
 
         old = subprocess.check_output(["xsel", "-o", "-b"])
         clip.set_text(text)
