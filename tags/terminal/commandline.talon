@@ -48,7 +48,7 @@ tag(): user.nftables
 tag(): user.vboxmanage
 tag(): user.glab
 tag(): user.coredumpctl
-
+tag(): user.rust_apps
 # XXX - See generic_terminal.talon for some basics as well.
 tag(): user.generic_unix_shell
 
@@ -81,7 +81,7 @@ rerun last tunnel:
 kill all:
     key(ctrl-c)
 
-file name <user.zsh_path_completion>: "{user.zsh_path_completion}"
+(file|folder) name <user.zsh_path_completion>: "{user.zsh_path_completion}"
 file list (<user.zsh_path_completion>|<user.folder_paths>):
     path = zsh_path_completion or folder_paths
     "ls {path} \n"
@@ -90,6 +90,7 @@ file list global <user.folder_paths>: "ls {folder_paths} \n"
 file list bare exact: "ls --no-icons "
 file list bare: "ls -l --no-icons \n"
 file size: "ls -lh "
+file list bytes: "ls -lB "
 file list exact: "ls -l "
 file list long exact: "ls -al "
 file list with paths: 'ls --sort changed --no-icons -d - "$PWD"/*'
@@ -98,7 +99,7 @@ file list today: "find . -maxdepth 1 -newermt \"$(date +%D)\"\n"
 file list (last|latest) <number>: "exa --sort changed --no-icons | tail -n{number}\n"
 folder list latest: "exa -D --sort changed --no-icons | tail -n1\n"
 folder list (last|latest) <number>: "exa -D --sort changed --no-icons | tail -n{number}\n"
-folder list: "exa -D --no-icons\n"
+folder list: "exa -D --no-icons -l\n"
 file list (folders|directories): "ls -d */\n"
 file list (folders|directories) long: "ls -ld */\n"
 file list (runnable|executable): "find . -type f -executable\n"
@@ -157,10 +158,17 @@ file find excluding with depth:
 file find excluding:
     user.insert_cursor("find . -type d '!' -exec sh -c 'ls -1 \"{}\"|egrep -i -q \"^*.[|]$\"' ';' -print")
 file (move|rename): "mv "
+file move files: user.insert_between("find . -maxdepth 1 -type f -exec mv {} ", " \\;")
 file open: "xdg-open "
 file P D F: "evince "
 file touch: "touch "
-file (touch|create) readme: "touch README.md\n"
+file (touch|create) {user.common_files}: "touch {common_files}\n"
+# TODO: This should also include the names of files in the current folder
+file name (<user.zsh_file_completion>|{user.common_files}):
+    file = zsh_file_completion or common_files
+    insert("{file}")
+file global name {user.common_files}: "{common_files}"
+file local name <user.zsh_file_completion>: "{zsh_file_completion}"
 file copy: "cp -d "
 file recopy: "!cp\n"
 file copy latest <user.folder_paths>: user.paste("cp $(ls --sort changed --no-icons -d {folder_paths}/* | tail -n1) .")
@@ -183,9 +191,8 @@ file (delete|remove): "rm -I "
 file (delete|remove) [<user.zsh_file_completion>]:
     "rm -I "
     insert("\"{zsh_file_completion}\"")
-file safe remove all: "rm -i -- *"
-file real remove: "/bin/rm -I "
-file disk image copy: user.insert_cursor("dd bs=4M if=[|] of=/dev/sdX conv=fsync oflag=direct status=progress")
+file safe (delete|remove) all: "rm -i -- *"
+file real (delete|remove): "/bin/rm -I "
 (file|folder) deep remove: "rm -rIf "
 (file|folder) real deep remove: "/bin/rm -rIf "
 file diff: "diff "
@@ -194,7 +201,16 @@ file hash: "sha256sum "
 file hash <user.zsh_file_completion>: "sha256sum {zsh_file_completion}"
 file check sec: "checksec --file="
 file locate: "locate "
+run update paths: "sudo updatedb\n"
 file [full] path: "readlink -f "
+
+# dd
+file disk image copy:
+    user.insert_between("dd bs=4M if=", " of=/dev/sdX conv=fsync oflag=direct status=progress")
+file read <number> bytes:
+    user.insert_between("dd bs=1 count={number} if=", " of=")
+file read <number> bytes at offset <number>:
+    user.insert_between("dd bs=1 count={number_1} skip={number_2} if=", " of=")
 
 loop for file: insert("for FILE in $(exa --no-icons); do echo ${{FILE}}; done")
 
@@ -256,7 +272,7 @@ pivot (last|flip): "cd -\n"
 pivot latest: "cd $(exa --sort changed --no-icons | tail -n1)\n"
 
 
-folder remove: "rmdir "
+folder (remove|delete): "rmdir "
 folder (create|new): "mkdir -p  "
 
 # XXX - It would be nice to make the depth configurable
@@ -432,13 +448,31 @@ run d message samba: "sudo dmesg --color --reltime | rg CIFS\n"
 sis cuddle: "sysctl "
 sis cuddle set: "sysctl -w "
 
-# extraction
-file tar [ball] list: "tar -tf "
-file tar [ball] create: "tar -cvJf"
+file change attributes: "chattr "
+(file|folder) make immutable: "chattr +i "
+(file|folder) drop immutable: "chattr +i "
+file make append only: "chattr +a "
+file drop append only: "chattr -a "
+
+# tar extraction
+# TODO: Should add the version with zsh completion
+(file tar [ball]|tar file) list: "tar -tf "
+(file tar [ball]|tar file) (add|append): "tar -rf "
+(file tar [ball]|tar file) update: "tar -uf "
+(file tar [ball]|tar file) create: "tar -cvJf "
+(file tar [ball]|tar file) (delete|remove): "tar --delete -f "
+
 file [tar] [ball] extract: "tar -xvaf "
+
+# other file format extraction
 file [tar] [ball] extract deb: "ar x "
 # https://github.com/facebook/zstd
 file extract Z S T: "tar --use-compress-program=unzstd -xvf "
+file extract C P I O: "cpio -idmv "
+file unzip C P I O: user.insert_between("gzip -cd ", " | cpio -idmv")
+# Commonly found in boot partitions
+# TODO: This should be tweaked with a copy that uses fake root for device nodes
+file extract root F S: "mkdir rootfs 2>/dev/null; cd rootfs; gzip -cd ../rootfs.gz | cpio -idmv"
 #favor 7z because it supports newer decryption mechanisms
 #file unzip: "unzip "
 file B unzip: "bunzip2 "
@@ -455,7 +489,7 @@ module remove: "rmmod "
 
 run curl: "curl "
 run double you get: "wget "
-[file] download: "wget "
+(file|web) (download|get): "wget "
 [file] download clip:
     insert("wget ")
     edit.paste()
@@ -789,8 +823,17 @@ arm readelf: "/usr/arm-linux-gnueabi/bin/readelf "
 volume scan: "lvscan\n"
 
 file hex dump: "hexdump -C "
+file hex dump <number> bytes: "hexdump -C -n {number} "
+file hex dump <number> bytes at offset <number>: "hexdump -C -n {number_1} -s {number_2} "
 
 file bin walk: "binwalk -Me "
 file un squash: "unsquashfs "
 
 run I D: "id\n"
+
+###
+# ELF
+###
+
+file dependencies: "ldd "
+file patch interpreter: "patchelf --set-interpreter /usr/lib64/ld-linux-x86-64.so.2 "
