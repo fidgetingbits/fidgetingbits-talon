@@ -258,14 +258,14 @@ class EventLoop(threading.Thread):
         self.join()
 
 
-@singletons.singleton
-def event_loop():
-    x = EventLoop()
-    x.start()
-    try:
-        yield x
-    finally:
-        x.close()
+# @singletons.singleton
+# def event_loop():
+#     x = EventLoop()
+#     x.start()
+#     try:
+#         yield x
+#     finally:
+#         x.close()
 
 
 # singleton = event_loop.singleton
