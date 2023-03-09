@@ -31,15 +31,15 @@ settings():
 # rust-specific grammars
 
 ## for unsafe rust
-state unsafe: "unsafe "
+(state|put) unsafe: "unsafe "
 unsafe block: user.code_state_unsafe()
 
 ## rust centric struct and enum definitions
-state (struct | structure) <user.text>:
+(state|put) (struct | structure) <user.text>:
     insert("struct ")
     insert(user.formatted_text(text, "PUBLIC_CAMEL_CASE"))
 
-state enum <user.text>:
+(state|put) enum <user.text>:
     insert("enum ")
     insert(user.formatted_text(text, "PUBLIC_CAMEL_CASE"))
 
@@ -47,35 +47,35 @@ toggle use: user.code_toggle_libraries()
 
 ## Simple aliases
 borrow: "&"
-borrow mutable: "&mut "
-state (a sink | async | asynchronous): "async "
-state (pub | public): "pub "
-state (pub | public) crate: "pub(crate) "
-state (dyn | dynamic): "dyn "
-state constant: "const "
-state (funk | func | function): "fn "
-state (imp | implements): "impl "
-state let mute: "let mut "
-state let: "let "
-state (mute | mutable): "mut "
-state (mod | module): "mod "
-state ref (mute | mutable): "ref mut "
-state ref: "ref "
-state trait: "trait "
-state match: user.code_state_switch()
-state (some | sum): "Some"
-state static: "static "
+borrow (mutable|mute): "&mut "
+(state|put) (a sink | async | asynchronous): "async "
+(state|put) (pub | public): "pub "
+(state|put) (pub | public) crate: "pub(crate) "
+(state|put) (dyn | dynamic): "dyn "
+(state|put) constant: "const "
+(state|put) (funk | func | function): "fn "
+(state|put) (imp | implements): "impl "
+(state|put) let mute: "let mut "
+(state|put) let: "let "
+(state|put) (mute | mutable): "mut "
+(state|put) (mod | module): "mod "
+(state|put) ref (mute | mutable): "ref mut "
+(state|put) ref: "ref "
+(state|put) trait: "trait "
+(state|put) match: user.code_state_switch()
+(state|put) (some | sum): "Some"
+(state|put) static: "static "
 self taught: "self."
-state use: user.code_import()
+(state|put) use: user.code_import()
 
 use <user.code_libraries>:
     user.code_insert_library(code_libraries, "")
     key(; enter)
 
 ## specialist flow control
-state if let some: user.code_insert_if_let_some()
-state if let (ok | okay): user.code_insert_if_let_okay()
-state if let error: user.code_insert_if_let_error()
+(state|put) if let some: user.code_insert_if_let_some()
+(state|put) if let (ok | okay): user.code_insert_if_let_okay()
+(state|put) if let error: user.code_insert_if_let_error()
 
 ## rust centric synonyms
 is some: user.code_insert_is_not_null()
@@ -103,3 +103,6 @@ macro wrap {user.code_macros}:
 block dock comment: user.code_comment_documentation_block()
 inner dock comment: user.code_comment_documentation_inner()
 inner block dock comment: user.code_comment_documentation_block_inner()
+
+
+put returns: " -> "
