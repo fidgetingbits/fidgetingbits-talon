@@ -100,7 +100,7 @@ class UserActions:
         actions.user.paste("source ")
 
     def code_comment_line_prefix():
-        actions.auto_insert("#")
+        actions.auto_insert("# ")
 
     # XXX - redundant with snippets
     def code_state_if():
