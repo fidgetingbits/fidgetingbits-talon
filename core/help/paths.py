@@ -3,6 +3,7 @@
 from talon import Context, Module
 
 mod = Module()
+mod.list("common_files", desc="Common file names")
 mod.list("paths_public", desc="Common paths")
 mod.list("paths_private", desc="Common private paths")
 mod.list("folder_paths_public", desc="Common paths")
@@ -155,6 +156,7 @@ linux_file_paths = {
     "howdy config": "/usr/lib/security/howdy/config.ini",
     "et see keeper": "/etc/etckeeper/etckeeper.conf",
     "var log messages": "/var/log/messages",
+    "K all sims": "/proc/kallsyms",
 }
 
 # this is used for specific commands like pivot
@@ -170,6 +172,13 @@ ctx.lists["user.paths_public"] = {**linux_folder_paths, **linux_file_paths}
 # Arch Linux
 
 ctx.lists["user.paths_private"] = {}
+
+ctx.lists["user.common_files"] = {
+    "read me": "README.md",
+    "package build": "PKGBUILD",
+    "make file": "Makefile",
+    "git ignore": "..gitignore",
+}
 
 # XXX - add support for selecting
 windows_paths = {
