@@ -1,10 +1,6 @@
 tag: user.vim_copilot
 -
 
-([co] pilot | keep):
-    key("ctrl-j")
-parrot (tut):
-    key("ctrl-j")
 copilot disable:
     user.vim_command_mode(":Copilot disable\n")
 copilot enable:
