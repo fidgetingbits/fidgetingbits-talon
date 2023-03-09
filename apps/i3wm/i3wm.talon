@@ -131,4 +131,4 @@ i three restart: user.system_command("i3-msg restart")
     user.system_command('i3-msg [con_mark="{word}"] focus')
 (win | window) focus alert: user.system_command("i3-msg [urgent=latest] focus")
 (win | window) show marks:
-    user.system_command_nb("bash -c \"notify-send.sh -- '$(python /home/aa/scripts/i3/i3-print-window-marks.py
+    user.system_command_nb("bash -c \"notify-send.sh -- '$(python /home/aa/scripts/i3/i3-print-window-marks.py)'\"")
