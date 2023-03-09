@@ -54,6 +54,7 @@ tagList = [
     "vboxmanage",
     "glab",
     "coredumpctl",
+    "rust_apps",
 ]
 
 for entry in tagList:
