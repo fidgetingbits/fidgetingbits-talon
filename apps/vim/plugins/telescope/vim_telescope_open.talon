@@ -16,7 +16,7 @@ escape:
     key(ctrl-c)
 close:
     key(ctrl-c)
-quick fix [that]:
+quick (list|fix) [that]:
     key(ctrl-q)
 
 # telescope-hop

@@ -123,6 +123,8 @@ hunt snippets:
 hunt sessions:
     user.vim_command_mode_exterm(':exe ":Telescope sessions_picker"\n')
 
+hunt undo:
+    user.vim_command_mode_exterm(':exe ":Telescope undo"\n')
 # Convenience
 hunt (resume | again):
     user.vim_command_mode_exterm(':exe ":Telescope resume"\n')
