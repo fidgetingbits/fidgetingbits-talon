@@ -34,6 +34,7 @@ extension_lang_map = {
     ".ql": "codeql",
     ".r": "r",
     ".rb": "ruby",
+    ".rs": "rust",
     ".s": "assembly",
     ".sh": "bash",
     ".snippets": "snippets",
