@@ -35,18 +35,18 @@ global_ctx.lists["self.css_unit"] = {
 
 global_ctx.lists["self.css_at_rule"] = {
     # regular
-    "charset":    "charset",
-    "import":    "import",
-    "namespace":    "namespace",
+    "charset": "charset",
+    "import": "import",
+    "namespace": "namespace",
     # conditional group
-    "media":    "media",
-    "supports":    "supports",
+    "media": "media",
+    "supports": "supports",
     # other nested
-    "page":    "page",
-    "font face":    "font-face",
-    "keyframes":    "keyframes",
+    "page": "page",
+    "font face": "font-face",
+    "keyframes": "keyframes",
     # CSS Modules
-    "value":    "value",
+    "value": "value",
 }
 
 global_ctx.lists["self.css_global_value"] = ["initial", "inherit", "unset", "revert"]
