@@ -14,7 +14,7 @@ from .numbers.numbers import digits_map, scales, teens, tens
 mod = Module()
 
 
-DEFAULT_MINIMUM_TERM_LENGTH = 3
+DEFAULT_MINIMUM_TERM_LENGTH = 2
 EXPLODE_MAX_LEN = 3
 FANCY_REGULAR_EXPRESSION = r"[A-Z]?[a-z]+|[A-Z]+(?![a-z])|[0-9]+"
 FILE_EXTENSIONS_REGEX = "|".join(
@@ -204,15 +204,16 @@ def create_exploded_forms(spoken_forms: List[str]):
     new_spoken_forms = []
     for line in spoken_forms:
         exploded_form = []
-
-        # If we have a small line like "vm" or "usb" then explode into "V M" or "U S B"
+        # ex: "vm" or "usb" explodes into "V M" or "U S B"
         if (
             " " not in line
             and line.islower()
             and len(line) > 1
             and len(line) <= EXPLODE_MAX_LEN
         ):
+            new_spoken_forms.append(line)  # Keep a regular copy (ie: "nas")
             new_spoken_forms.append(" ".join(line.upper()))
+        # ex: "readme" explodes into "read me"
         else:
             for word in line.split(" "):
                 if word in packed_words.keys():
