@@ -37,12 +37,12 @@ file preview: user.vim_normal_mode_key("p")
 git commit [changes]:
     user.vim_normal_mode_keys("c c")
     user.vim_set_insert_mode()
-(fugitive | git) commit {user.git_conventional_commits}:
+(fugitive | git) commit [message] {user.git_conventional_commits}:
     user.vim_normal_mode_keys("c c")
     user.vim_set_insert_mode()
     sleep(0.1)
     insert("{user.git_conventional_commits}: ")
-(fugitive | git) commit {user.git_conventional_commits} <user.word>:
+(fugitive | git) commit [message] {user.git_conventional_commits} <user.word>:
     user.vim_normal_mode_keys("c c")
     user.vim_set_insert_mode()
     sleep(0.1)

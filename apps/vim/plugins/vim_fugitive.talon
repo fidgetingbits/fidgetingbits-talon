@@ -9,7 +9,7 @@ tag: user.vim_fugitive
 (fugitive | git) add everything: user.vim_command_mode(':exe ":G add -u"\n')
 (fugitive | git) blame: user.vim_command_mode(':exe ":Git blame"\n')
 (fugitive | git) browse: user.vim_command_mode(':exe ":G Browse"\n')
-(fugitive | git) commit:
+(fugitive | git) commit [message]:
     user.vim_command_mode(':exe ":G commit"\n')
     user.vim_set_insert_mode()
 (fugitive | git) (delete | remove): user.vim_command_mode(":GDelete")
