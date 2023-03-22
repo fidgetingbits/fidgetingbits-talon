@@ -130,7 +130,7 @@ info signal: "info signal\n"
 info process: "info proc\n"
 handle signal <user.signal>: "handle {signal} "
 signal <user.signal>: "signal {signal} "
-process list: "info os processes\n"
+[remote] process list: "info os processes\n"
 
 show follow (fork|forks) [mode]: "show follow-fork-mode\n"
 [set] follow (fork|forks) [mode] child: "set follow-fork-mode child\n"
