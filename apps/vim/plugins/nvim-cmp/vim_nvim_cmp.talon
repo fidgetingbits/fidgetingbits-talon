@@ -13,5 +13,5 @@ next:
     key('ctrl-n')
 prev:
     key('ctrl-p')
-pleat:
+(suggest|complete|pleat):
     key('ctrl-space')
