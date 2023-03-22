@@ -5,6 +5,10 @@ and not mode: user.presentation
     mode.disable("dictation")
     mode.enable("command")
     app.notify("Command Mode")
+^mixed mode:
+  mode.disable("sleep")
+  mode.enable("dictation")
+  mode.enable("command")
 ^dictation mode$:
     mode.disable("command")
     mode.enable("dictation")
