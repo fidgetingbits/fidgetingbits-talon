@@ -25,7 +25,7 @@ tag(): user.vim_fugitive_summary
 tag(): user.vim_grammarous
 #tag(): user.vim_markdown
 tag(): user.vim_markdown_toc
-tag(): user.vim_youcompleteme
+#tag(): user.vim_youcompleteme
 tag(): user.vim_easy_align
 tag(): user.vim_eunuch
 tag(): user.vim_rooter
