@@ -1,4 +1,4 @@
-# This file is a set of words that have common abbreviations, but in some cases
+# this file is a set of words that have common abbreviations, but in some cases
 # entries will also include acronyms or more technical vernacular, such as
 # 'brief pie -> py'
 
@@ -176,6 +176,7 @@ abbreviations = {
     "fingerprint": "fp",
     "for what": "fwiw",
     "format": "fmt",
+    "fortigate": "fgt",
     "framework": "fw",
     "frequency": "freq",
     "functions": "funcs",
@@ -295,6 +296,7 @@ abbreviations = {
     "performance": "perf",
     "performance": "perf",
     "physical": "phys",
+    "physical address": "paddr",
     "pick": "pic",
     "pico second": "ps",
     "pie": "py",
@@ -435,6 +437,7 @@ abbreviations = {
     "values": "vals",
     "variable": "var",
     "variables": "vars",
+    "vector": "vec",
     "verify": "vrfy",
     "version": "ver",
     "versus": "vs",
@@ -442,6 +445,7 @@ abbreviations = {
     "videos": "vids",
     "virtual machine": "vm",
     "virtual": "virt",
+    "virtual address": "vaddr",
     "visual studio": "msvc",
     "visual": "vis",
     "volume": "vol",
