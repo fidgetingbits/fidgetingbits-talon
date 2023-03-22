@@ -1,4 +1,4 @@
-user.rust_apps
+tag: user.rust_apps
 -
 
 cargo init:
@@ -9,6 +9,8 @@ cargo run:
     "cargo run\n"
 cargo add:
     "cargo add "
+cargo add {user.rust_crates}:
+    "cargo add {rust_crates}\n"
 cargo remove:
     "cargo remove "
 cargo install:

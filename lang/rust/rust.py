@@ -7,6 +7,7 @@ mod = Module()
 mod.list("code_type_modifier", desc="List of type modifiers for active language")
 mod.list("code_macros", desc="List of macros for active language")
 mod.list("code_trait", desc="List of traits for active language")
+mod.list("rust_crates", desc="List of common rust crates")
 
 
 @mod.action_class
@@ -220,6 +221,23 @@ ctx.lists["user.code_type_modifier"] = {
     "borrowed mute": "&mut ",
     "mutable borrowed": "&mut ",
     "mute borrowed": "&mut ",
+}
+
+ctx.lists["user.rust_crates"] = {
+    "native T L S": "native_tls",
+    "hyper": "hyper",
+    "tokyo": "tokio",
+    "log": "log",
+    "request": "reqwest",
+    "clap": "clap",
+    "cap stone": "capstone",
+    "key stone": "keystone_engine",  # official crate is buggy
+    "goblin": "goblin",
+    "simple log": "simplelog",
+    "random": "rand",
+    "walk dir": "walkdir",
+    "log": "log",
+    "open S S L": "openssl",
 }
 
 
