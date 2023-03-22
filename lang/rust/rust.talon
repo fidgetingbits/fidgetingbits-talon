@@ -106,3 +106,18 @@ inner block dock comment: user.code_comment_documentation_block_inner()
 
 
 put returns: " -> "
+# TODO: They should use a list
+put empty ok: "Ok(())"
+put empty error: "Err(())"
+put empty some: "Some(())"
+put doc [comment]: "///"
+put empty result: "Result::Ok(())"
+put arm: "=> "
+put right [inclusive] range: "..="
+put left [inclusive] range: "=.."
+put range: ".."
+put turbo fish: "::<>"
+put new vec: "Vec::new()"
+put new box: "Box::new()"
+put returns box error: "-> Result<(), Box<dyn std::error::Error>>"
+put result box error: "Result<(), Box<dyn std::error::Error>>"
