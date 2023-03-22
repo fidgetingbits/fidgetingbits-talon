@@ -25,9 +25,7 @@ portal left: user.system_command("i3-msg workspace prev")
 (win | window) flip:
     user.system_command("bash -c \"/home/aa/scripts/i3/i3-focus-last.py --switch\"")
 (win | window) focus <number_small>:
-    user.system_command("bash -c \"/home/aa/scripts/i3/i3-nth_window_in_workspace.py
-    $(i3-msg -t get_workspaces | jq -r '.[] | select(.focused==true).name')
-    {number_small-1}\"")
+    user.system_command("bash -c \"/home/aa/scripts/i3/i3-nth_window_in_workspace.py $(i3-msg -t get_workspaces | jq -r '.[] | select(.focused==true).name') {number_small-1}\"")
 (win | window) focus parent: user.system_command("i3-msg focus parent")
 (win | window) focus child: user.system_command("i3-msg focus child")
 
