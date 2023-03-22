@@ -207,6 +207,7 @@ file [full] path: "readlink -f "
 # dd
 file disk image copy:
     user.insert_between("dd bs=4M if=", " of=/dev/sdX conv=fsync oflag=direct status=progress")
+file list nc oflag=direct status=progress")
 file read <number> bytes:
     user.insert_between("dd bs=1 count={number} if=", " of=")
 file read <number> bytes at offset <number>:
@@ -364,6 +365,15 @@ net ping clip:
 net cat: "nc -vv "
 net connect <user.domains>: "nc -vv {domains} "
 net cat listener: "nc -v -l -p "
+net cat listen [on] <number>:
+    user.bind_nc_listener(number)
+    key(enter)
+net cat listen [on] <number> from file:
+    user.bind_nc_listener(number)
+    insert(" < ")
+net cat listen [on] <number> to file:
+    user.bind_nc_listener(number)
+    insert(" > ")
 net my I P: "dig +short myip.opendns.com @resolver1.opendns.com\n"
 net port <user.ports>: "{ports}"
 net dump: "tcpdump "
@@ -526,6 +536,8 @@ parameter:
 
 # bash convenience stuff
 history show: "history\n"
+history search: "history | rg -i"
+history search <user.text>: "history | rg -i {text}"
 (X args|extra) that: "| xargs "
 
 net man log: "journalctl -u NetworkManager --no-pager --lines 100\n"
@@ -575,7 +587,8 @@ tunnel (pop|terminate):
 # process management
 (process grep|pee grep): "pgrep "
 process list: "ps -ef\n"
-process find: "ps -ef | rg -i "
+process (rip|search|find): "ps -ef | rg -i "
+process (rip|search|find) <user.text>: "ps -ef | rg -i {text}"
 process tree: "pstree\n"
 process forest: "ps -aef --forest\n"
 process top: "htop\n"
@@ -586,6 +599,7 @@ process loop kill:
 process kill <number>: "kill -9 {number}"
 process kill job <number>: "kill -9 %{number}"
 process kill: "kill -9 "
+process sudo kill: "sudo kill -9 "
 process kill all: "killall "
 process kill all <user.word>: "killall {word}"
 
@@ -622,8 +636,9 @@ wallpaper set latest: "feh --bg-scale $(find ~/images/wallpaper/ -name $(exa --s
 ###
 # ELF file
 ###
-file elf header: "eu-readelf -h "
-file elf symbols: "eu-readelf -s "
+file elf [read] header: "eu-readelf -h "
+file elf [read] symbols: "eu-readelf -s "
+file elf [read] program headers: "eu-readelf -l "
 file elf dependencies: "eu-readelf -d "
 file elf debug info: user.insert_between("readelf -w", "| head -15")
 file strip: "strip --strip-all "
