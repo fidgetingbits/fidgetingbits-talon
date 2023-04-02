@@ -30,15 +30,15 @@ settings():
 ^static funky <user.text>$: user.code_private_static_function(text)
 
 # NOTE: migrated from generic, as they were only used here, though once cpp support is added, perhaps these should be migrated to a tag together with the commands below
-state include:
+(state|put) include:
     insert('#include ')
-state include system:
+(state|put) include system:
     user.insert_between("#include <", ">")
-[state] include local [<user.text>]:
+[(state|put)] include local [<user.text>]:
     user.insert('#include "{user.formatted_text(text or \'\', \'NOOP\')}.h"')
-state type deaf:
+(state|put) type deaf:
     insert('typedef ')
-state type deaf struct:
+(state|put) type deaf struct:
     insert('typedef struct')
     insert('{\n\n}')
     edit.up()
@@ -48,15 +48,15 @@ signal {user.c_signals}: "{c_signals}"
 error {user.c_errors}: "{c_errors}"
 
 # XXX - create a preprocessor tag for these, as they will match cpp, etc
-state define: "#define "
-state (undefine | undeaf): "#undef "
-state if (define | deaf): "#ifdef "
-state [short] if not (define|deaf): "#ifndef "
-[state] define <user.text>$:
+(state|put) define: "#define "
+(state|put) (undefine | undeaf): "#undef "
+(state|put) if (define | deaf): "#ifdef "
+(state|put) [short] if not (define|deaf): "#ifndef "
+[(state|put)] define <user.text>$:
     "#define {user.formatted_text(text, 'ALL_CAPS,SNAKE_CASE')}"
-[state] (undefine | undeaf) <user.text>$:
+[(state|put)] (undefine | undeaf) <user.text>$:
     "#undef {user.formatted_text(text, 'ALL_CAPS,SNAKE_CASE')}"
-[state] if (define | deaf) <user.text>$:
+[(state|put)] if (define | deaf) <user.text>$:
     "#ifdef {user.formatted_text(text, 'ALL_CAPS,SNAKE_CASE')}"
 
 #declare <user.c_variable>:
@@ -75,48 +75,48 @@ declare <user.c_variable> <user.letter>:
 cast to <user.c_cast>: "{c_cast}"
 basic cast to <user.c_basic_cast>: "{c_basic_cast}"
 standard cast to <user.c_stdint_cast>: "{c_stdint_cast}"
-[state] type <user.c_types>: "{c_types}"
-state <user.c_pointers>: "{c_pointers}"
-state <user.c_signed>: "{c_signed}"
+[(state|put)] type <user.c_types>: "{c_types}"
+(state|put) <user.c_pointers>: "{c_pointers}"
+(state|put) <user.c_signed>: "{c_signed}"
 basic <user.c_basic_types>: "{c_basic_types}"
 standard <user.c_stdint_types>: "{c_stdint_types}"
 
 # XXX - shouldn't this be generic now?
 toggle includes: user.code_toggle_libraries()
-[state] include <user.code_libraries>:
+[(state|put)] include <user.code_libraries>:
     user.code_insert_library("", code_libraries)
     key(end enter)
 
 cycle data type: user.cycle_c_datatype()
 show data type: user.current_c_datatype()
 
-state return <number>: "return {number};"
-state return negative <number>: "return -{number};"
-state return null: "return NULL;"
-state return false: "return false;"
-state return true: "return true;"
-state continue: "continue;"
-state break: "break;"
+(state|put) return <number>: "return {number};"
+(state|put) return negative <number>: "return -{number};"
+(state|put) return null: "return NULL;"
+(state|put) return false: "return false;"
+(state|put) return true: "return true;"
+(state|put) continue: "continue;"
+(state|put) break: "break;"
 
-state pre if: "#if "
-state pre if zero: "#if 0"
-state error: "#error "
-state pre else: "#else"
-state pre else if: "#elif "
-state pre end: "#endif"
-state pragma: "#pragma "
-state default: "default:\nbreak;"
-state pre if end:
+(state|put) pre if: "#if "
+(state|put) pre if zero: "#if 0"
+(state|put) error: "#error "
+(state|put) pre else: "#else"
+(state|put) pre else if: "#elif "
+(state|put) pre end: "#endif"
+(state|put) pragma: "#pragma "
+(state|put) default: "default:\nbreak;"
+(state|put) pre if end:
     insert("#if 0\n#endif")
     key(up)
-state long pre if defined:
+(state|put) long pre if defined:
     insert("#if defined()")
 
-state long pre if not defined:
+(state|put) long pre if not defined:
     insert("#if !defined()")
 
-state define new source: "#define _GNU_SOURCE"
-state go to label <user.text>:
+(state|put) define new source: "#define _GNU_SOURCE"
+(state|put) go to label <user.text>:
     user.code_private_variable_formatter(text)
     key(":")
 
