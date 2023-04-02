@@ -40,6 +40,8 @@ make unicode:
     user.disassembler_jump_back()
 (jump | go) [to] address:
     user.disassembler_jump_address()
+(jump | go) [to] clip:
+    user.disassembler_jump_clipboard()
 [(jump | go) to] next call:
     user.disassembler_next_call()
 [(jump | go) to] previous call:
