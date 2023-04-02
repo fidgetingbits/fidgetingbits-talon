@@ -136,8 +136,7 @@ class UserActions:
         actions.insert("goto continue")
 
     def code_try_catch():
-        actions.insert("pcall()")
-        actions.key("left")
+        actions.insert_between("pcall(", ")")
 
     ##
     # code_comment_line
@@ -218,7 +217,7 @@ class UserActions:
     # code_libraries
     ##
     def code_import():
-        actions.user.insert_cursor("local [|] = require('')")
+        actions.user.insert_between("local ", " = require('')")
 
     ##
     # code_libraries_gui
@@ -230,8 +229,7 @@ class UserActions:
     # code_operators_array
     ##
     def code_operator_subscript():
-        actions.insert("[]")
-        actions.key("left")
+        actions.insert_between("[", "]")
 
     ##
     # code_operators_assignment
