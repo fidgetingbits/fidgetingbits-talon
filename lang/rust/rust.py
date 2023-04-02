@@ -15,6 +15,9 @@ class Actions:
     def code_state_implements():
         """Inserts implements block, positioning the cursor appropriately"""
 
+    def code_insert_if_let_okay():
+        """Inserts if let ok block, positioning the cursor appropriately"""
+
     def code_insert_if_let_some():
         """Inserts if let some block, positioning the cursor appropriately"""
 
