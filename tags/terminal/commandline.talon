@@ -90,7 +90,7 @@ file list global <user.folder_paths>: "ls {folder_paths} \n"
 file list bare exact: "ls --no-icons "
 file list bare: "ls -l --no-icons \n"
 file size: "ls -lh "
-file list bytes: "ls -lB "
+file list (size|bytes): "ls -lB "
 file list exact: "ls -l "
 file list long exact: "ls -al "
 file list with paths: 'ls --sort changed --no-icons -d - "$PWD"/*'
@@ -125,6 +125,9 @@ file find folder:
 # case insensitive fuzzy find
 file fuzzy find:
     user.insert_cursor("find . -iname \"*[|]*\" 2>/dev/null")
+file fuzzy hash:
+    user.insert_cursor("find . -path \"*[|]*\" -exec sha256sum {{}} \\; 2>/dev/null")
+
 file fuzzy find depth <number>:
     user.insert_cursor("find . -maxdepth {number} -iname \"*[|]*\" 2>/dev/null")
 (file fuzzy find folder|folder fuzzy find):
@@ -207,7 +210,6 @@ file [full] path: "readlink -f "
 # dd
 file disk image copy:
     user.insert_between("dd bs=4M if=", " of=/dev/sdX conv=fsync oflag=direct status=progress")
-file list nc oflag=direct status=progress")
 file read <number> bytes:
     user.insert_between("dd bs=1 count={number} if=", " of=")
 file read <number> bytes at offset <number>:
@@ -288,7 +290,7 @@ file tree [depth] <number_small>: "tree -f -L {number_small}\n"
 
 folder pop: "popd\n"
 # pwd | tr -d \\n\\r | xclip -sel clipboard
-(folder yank path|folder path copy|folder copy): "pwd | tr -d \\\\n\\\\r | xclip -sel clipboard\n"
+(folder yank path|folder path copy|folder copy|folder yank): "pwd | tr -d \\\\n\\\\r | xclip -sel clipboard\n"
 
 # permissions
 file [change] mode: "chmod "
@@ -320,6 +322,7 @@ file rip clip:
 file rip exclude: "rg -i -g \\!"
 file rip around: "rg -B2 -A2 -i "
 file rip (exact|precise): "rg "
+file rip [git] conflicts: "rg --no-messages --no-line-number --no-filename -e '^<<<<<<< ' -e '^=======$' -e '>>>>>>>$'\n"
 now rip:
     edit.up()
     insert("| rg -i ")
@@ -852,3 +855,13 @@ run I D: "id\n"
 
 file dependencies: "ldd "
 file patch interpreter: "patchelf --set-interpreter /usr/lib64/ld-linux-x86-64.so.2 "
+
+###
+# cpu debugging
+###
+show cpu frequencies: "cat /sys/devices/system/cpu/cpu*/cpufreq/scaling_cur_freq\n"
+show cpu governors: "cat /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor\n"
+show cpu max frequencies: "cat /sys/devices/system/cpu/cpu*/cpufreq/cpuinfo_max_freq\n"
+show cpu min frequencies: "cat /sys/devices/system/cpu/cpu*/cpufreq/cpuinfo_min_freq\n"
+
+G D B version: "gdb --version\n"
