@@ -68,6 +68,7 @@ git fetch all: "git fetch --all\n"
 git garbage collect aggressive: "git gc --aggressive"
 # XXX - These are a little misleading for the simplicity of seeing. Maybe "fetch
 # pull.. ?"
+git fetch upstream: "git fetch upstream\n"
 git fetch <number>: "git fetch origin pull/{number}/head:"
 git fetch upstream <number>: "git fetch upstream pull/{number}/head:"
 #git fetch <user.text>: "git fetch {text}"
@@ -128,6 +129,8 @@ git push <user.text>: "git push {text} "
 git push tags: "git push --tags\n"
 git rebase: "git rebase "
 git rebase now: "git rebase\n"
+git rebase upstream: "git rebase upstream/main\n"
+git rebase upstream <user.text>: "git rebase upstream/{text}"
 # NOTE - we don't use abort in the command because it conflicts with
 # abort.talon
 git rebase cancel: "git rebase --abort\n"
