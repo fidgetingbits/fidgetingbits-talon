@@ -71,6 +71,9 @@ class Actions:
     def disassembler_jump_address():
         """Navigate to specified address"""
 
+    def disassembler_jump_clipboard():
+        """Navigate to address in clipboard"""
+
     def disassembler_next_call():
         """Navigate to next function call"""
 
