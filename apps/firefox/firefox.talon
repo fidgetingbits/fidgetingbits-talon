@@ -4,6 +4,7 @@ tag(): browser
 tag(): user.tabs
 tag(): user.pages
 #tag(): user.vimium
+
 tab search:
     browser.focus_address()
     insert("% ")
@@ -29,3 +30,6 @@ archive that:
     key(home)
     insert("https://web.archive.org/web/*/")
     key(end enter)
+
+(sidebar | panel) bookmarks: user.firefox_bookmarks_sidebar()
+(sidebar | panel) history: user.firefox_history_sidebar()

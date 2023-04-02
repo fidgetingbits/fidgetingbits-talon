@@ -4,6 +4,8 @@
 
 from talon import Context, Module
 
+from ..user_settings import get_list_from_csv
+
 mod = Module()
 mod.list("abbreviation", desc="Common abbreviation")
 
@@ -470,3 +472,14 @@ ctx.lists["user.abbreviation"] = abbreviations
 def abbreviation(m) -> str:
     "One abbreviation"
     return m.abbreviation
+
+
+# # This variable is also considered exported for the create_spoken_forms module
+# abbreviations_list = get_list_from_csv(
+#     "abbreviations.csv",
+#     headers=("Abbreviation", "Spoken Form"),
+#     default=abbreviations,
+# )
+#
+# ctx = Context()
+# ctx.lists["user.abbreviation"] = abbreviations_list
