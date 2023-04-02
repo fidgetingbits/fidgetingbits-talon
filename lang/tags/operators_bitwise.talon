@@ -7,8 +7,8 @@ tag: user.code_operators_bitwise
 
 # TODO: split these out into separate logical and bitwise operator commands
 
-(op | logical | bitwise) (ex | exclusive) or: user.code_operator_bitwise_exclusive_or()
-(op | logical | bitwise) (left shift | shift left):
+(op | put | logical | bitwise) (ex | exclusive) or: user.code_operator_bitwise_exclusive_or()
+(op | put | logical | bitwise) (left shift | shift left):
     user.code_operator_bitwise_left_shift()
-(op | logical | bitwise) (right shift | shift right):
+(op | put | logical | bitwise) (right shift | shift right):
     user.code_operator_bitwise_right_shift()
