@@ -91,6 +91,7 @@ mouse_guide = MouseGuide(500, 500)
 
 mod = Module()
 mod.list("mouse_cardinal", desc="cardinal directions for relative mouse movement")
+mod.tag("mouse_guide_enabled", desc="whether the mouse guide is enabled")
 
 
 def parse_cardinal(direction: str, distance: int) -> tuple[bool, int]:
