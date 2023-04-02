@@ -156,4 +156,6 @@ tag(): user.record_replay
 # Uncomment this to enable the curse yes/curse no commands (show hide mouse cursor). See issue #688.
 tag(): user.mouse_cursor_commands_enable
 #tag(): user.full_mouse_grid_enabled
+#tag(): user.mouse_guide_enabled
+#tag(): user.mouse_grid_enabled
 tag(): user.shotbox_enabled
