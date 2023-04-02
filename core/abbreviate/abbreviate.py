@@ -9,9 +9,8 @@ from ..user_settings import get_list_from_csv
 mod = Module()
 mod.list("abbreviation", desc="Common abbreviation")
 
-ctx = Context()
 
-abbreviations = {
+abbreviations_list = {
     "A sink": "async",
     "B P F trace": "bpftrace",
     "B P F": "ebpf",
@@ -465,8 +464,6 @@ abbreviations = {
     "work in progress": "wip",
 }
 
-ctx.lists["user.abbreviation"] = abbreviations
-
 
 @mod.capture(rule="brief {user.abbreviation}")
 def abbreviation(m) -> str:
@@ -474,12 +471,11 @@ def abbreviation(m) -> str:
     return m.abbreviation
 
 
-# # This variable is also considered exported for the create_spoken_forms module
+# This variable is also considered exported for the create_spoken_forms module
 # abbreviations_list = get_list_from_csv(
 #     "abbreviations.csv",
 #     headers=("Abbreviation", "Spoken Form"),
 #     default=abbreviations,
 # )
-#
-# ctx = Context()
-# ctx.lists["user.abbreviation"] = abbreviations_list
+ctx = Context()
+ctx.lists["user.abbreviation"] = abbreviations_list

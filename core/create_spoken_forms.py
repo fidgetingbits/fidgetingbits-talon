@@ -6,7 +6,7 @@ from typing import Any, Mapping, Optional, List
 
 from talon import Module, actions
 
-from .abbreviate.abbreviate import abbreviations
+from .abbreviate.abbreviate import abbreviations_list
 from .file_extension.file_extension import file_extensions
 from .keys.keys import symbol_key_words
 from .numbers.numbers import digits_map, scales, teens, tens
@@ -283,7 +283,7 @@ def create_abbreviated_forms(spoken_forms: List[str]):
     """Add abbreviated case forms"""
     new_spoken_forms = []
 
-    swapped_abbreviation_map = {v: k for k, v in abbreviations.items()}
+    swapped_abbreviation_map = {v: k for k, v in abbreviations_list.items()}
     for line in spoken_forms:
         unabbreviated_forms = []
         abbreviated_forms = []
