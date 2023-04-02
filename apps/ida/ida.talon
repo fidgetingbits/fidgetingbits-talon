@@ -248,3 +248,12 @@ jump refs:
     key(x)
 jump forward:
     key(ctrl-enter)
+
+copy [that]:
+    key(ctrl-c)
+rename:
+    key(n)
+rename clip:
+    key(n)
+    key(ctrl-v)
+    key(enter)

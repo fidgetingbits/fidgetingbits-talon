@@ -87,6 +87,15 @@ class UserActions:
     def disassembler_jump_address():
         actions.key("g")
 
+    def disassembler_jump_clipboard():
+        actions.key("g")
+        actions.sleep(0.05)
+        actions.edit.paste()
+        actions.sleep(0.05)
+        # Twice because of a menu blip
+        actions.key("enter")
+        actions.key("enter")
+
     def disassembler_next_call():
         actions.key("ctrl-alt-shift-6")
 
