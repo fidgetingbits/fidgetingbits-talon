@@ -14,6 +14,10 @@ paste register <user.key>: key(ctrl-r {key})
 # Command-line completion: help:cmdline-completion
 (match names | expand that): key(ctrl-a)
 
+# Show the history buffer: help:cmdline-history
+history: key(ctrl-f)
+
+
 literal: key(ctrl-v)
 
 # XXX - a the ctrl-r ctrl-<key> stuff
@@ -39,3 +43,10 @@ push that:
 # neovim lua stuff
 print nvim global: insert_between("print(vim.g.", ")")
 pretty print: user.insert_between("print(vim.inspect(", ")")
+
+# Move too motion mode
+module reload: user.insert_between("lua require('plenary.reload').reload_module('", "')")
+
+# This should be a vim specific see thing
+
+generate struct: user.insert_between('lua require("config/ida").ida_unknown_struct_members("void *", 0x00, ', '0xC0, 8)')
