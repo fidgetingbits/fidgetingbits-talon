@@ -1,5 +1,7 @@
 (shock | hawk): key(enter)
-parrot(side_click): key(enter)
+parrot(side_click):
+    app.notify("side_click")
+    key(enter)
 
 # XXX - block alone conflicts with vim key words
 add code block:
