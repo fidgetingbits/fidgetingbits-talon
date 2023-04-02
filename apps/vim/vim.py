@@ -1050,18 +1050,19 @@ class NeoVimRPC:
                 # need to set them to WARNING every time
                 loggers = logging.root.manager.loggerDict.keys()
                 for l in loggers:
-                    if l.startswith("pynvim"):
-                        # print(f"DEBUG: Resetting log level for {l}")
-                        nvim_logger = logging.getLogger(l)
-                        nvim_logger.setLevel(logging.WARNING)
-                loggers = [
-                    logging.getLogger(name) for name in logging.root.manager.loggerDict
-                ]
+                    # if l.startswith("pynvim"):
+                    # print(f"DEBUG: Resetting log level for {l}")
+                    nvim_logger = logging.getLogger(l)
+                    nvim_logger.setLevel(logging.ERROR)
+                # loggers = [
+                #     logging.getLogger(name) for name in logging.root.manager.loggerDict
+                # ]
 
                 # NOTE: This is used to avoid "Using selector: EpollSelector" spam
-                # .from pprint import pprint
+                from pprint import pprint
+
+                # pprint("Detected loggers:")
                 # pprint(loggers)
-                # print("Detected loggers:")
                 self.nvim = pynvim.attach("socket", path=self.rpc_path)
             except RuntimeError:
                 return
@@ -1176,19 +1177,31 @@ class VimRPC:
         v.nvrpc.nvim.command(f':exe "normal" "{cmd}"', async_=True)
 
 
+class NoEpollSelectorSpam(logging.Filter):
+    def filter(self, record):
+        return not record.getMessage().endswith("DEBUG Using selector: EpollSelector")
+
+
+logging.getLogger("asyncio").setLevel(logging.ERROR)
+# loggers = logging.root.manager.loggerDict.keys()
+# for l in loggers:
+#     logger.addFilter(NoEpollSelectorSpam())
+
+
 # XXX - this should be moved somewhere else
 class VimAPI:
     """Abstraction of calls that go through RPC or not."""
 
     def __init__(self):
         self.api = self._get_api()
+        self.nvrpc = None
 
     # socket
     def _get_api(self):
         """return a RPC or non-RPC API object"""
         # XXX - This is a hack but just trying to get rid of "DEBUG Using selector:
         # EpollSelector"
-        logging.getLogger("asyncio").setLevel(logging.WARNING)
+        # logging.getLogger("asyncio").setLevel(logging.WARNING)
         self.nvrpc = NeoVimRPC()
         if self.nvrpc.init_ok is True:
             return VimRPC(self.nvrpc)
@@ -1197,7 +1210,7 @@ class VimAPI:
 
     def __del__(self):
         """Clean up the RPC Connection"""
-        if self.nvrpc.init_ok is True:
+        if self.nvrpc and self.nvrpc.init_ok is True:
             self.nvrpc.nvim.close()
 
 
@@ -1265,6 +1278,10 @@ class VimMode:
         self.canceled_timeout = settings.get("user.vim_cancel_queued_commands_timeout")
         self.wait_mode_timeout = settings.get("user.vim_mode_change_timeout")
         self.debug_print("VimMode Initializing")
+
+    def __del__(self):
+        if self.nvrpc.init_ok is True:
+            self.nvrpc.nvim.close()
 
     def debug_print(self, s):
         # XXX - need to override the logger
