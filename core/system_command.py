@@ -8,6 +8,14 @@ mod = Module()
 
 @mod.action_class
 class Actions:
+    def bash_command_quiet(cmd: str):
+        """execute a command on the system using bash
+
+        This is useful if the command your executing is noisy,
+        like the i3-msg commands
+        """
+        os.system('bash -c "' + cmd + '" > /dev/null 2>&1')
+
     def system_command(cmd: str):
         """execute a command on the system"""
         os.system(cmd)
