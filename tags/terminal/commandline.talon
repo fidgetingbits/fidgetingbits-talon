@@ -97,6 +97,7 @@ file list with paths: 'ls --sort changed --no-icons -d - "$PWD"/*'
 file list latest: "exa --sort changed --no-icons | tail -n1\n"
 file list today: "find . -maxdepth 1 -newermt \"$(date +%D)\"\n"
 file list (last|latest) <number>: "exa --sort changed --no-icons | tail -n{number}\n"
+file list count: "ls -1 | wc -l\n"
 folder list latest: "exa -D --sort changed --no-icons | tail -n1\n"
 folder list (last|latest) <number>: "exa -D --sort changed --no-icons | tail -n{number}\n"
 folder list: "exa -D --no-icons -l\n"
@@ -273,6 +274,9 @@ pivot next:
 
 pivot (last|flip): "cd -\n"
 pivot latest: "cd $(exa --sort changed --no-icons | tail -n1)\n"
+
+# zoxide
+oxide <user.text>: "z {text}\n"
 
 
 folder (remove|delete): "rmdir "
@@ -607,6 +611,7 @@ process kill all: "killall "
 process kill all <user.word>: "killall {word}"
 
 system reboot [now]: "sudo reboot -h now"
+system shutdown [now]: "sudo shutdown -h now"
 
 # hardware
 system [list] memory: "lshw -short -C memory"
@@ -645,6 +650,9 @@ file elf [read] program headers: "eu-readelf -l "
 file elf dependencies: "eu-readelf -d "
 file elf debug info: user.insert_between("readelf -w", "| head -15")
 file strip: "strip --strip-all "
+file [elf] extract (debug|symbols): "objcopy --only-keep-debug "
+file elf read got: "eu-readelf -r "
+file elf read P L T: "objdump -d -s -j .plt -j .got.plt "
 
 
 ###
