@@ -73,9 +73,6 @@ put let <user.text>:
 self taught: "self."
 (state|put) use: user.code_import()
 
-put <user.code_containing_type> of <user.code_type>: 
-    insert("{code_containing_type}<{code_type}>")
-
 use <user.code_libraries>:
     user.code_insert_library(code_libraries, "")
     key(; enter)
