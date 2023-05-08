@@ -32,7 +32,7 @@ class Actions:
     def screenshot_window():
         """Takes a screenshot of the active window and saves it to the pictures folder"""
         win = ui.active_window()
-        actions.user.screenshot_rect(win.rect, win.app.name)
+        actions.user.screenshot_rect(win.rect, title=win.app.name)
 
     def screenshot_selection():
         """Triggers an application that is capable of taking a screenshot of a portion of the screen"""
@@ -70,7 +70,7 @@ class Actions:
         clipboard_rect(win.rect)
 
     def screenshot_rect(
-        rect: ui.Rect, screen_num: Optional[int] = None, title: str = ""
+        rect: ui.Rect, title: str = "", screen_num: Optional[int] = None
     ):
         """Allow other modules this screenshot a rectangle"""
         selected_screen = get_screen(screen_num)
