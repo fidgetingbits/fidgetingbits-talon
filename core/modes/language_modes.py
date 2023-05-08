@@ -161,22 +161,9 @@ for lang in language_extensions.keys():
     # "block comment" in visual mode
     c.matches = f"""
 
-    not app: vim
-    and tag: user.{lang}_forced
-
-    not app: vim
-    and tag: user.auto_lang
+    tag: user.{lang}_forced
+    tag: user.auto_lang
     and code.language: {lang}
-
-    app: vim
-    and tag: user.vim_insert_mode
-    and tag: user.{lang}_forced
-
-    app: vim
-    and tag: user.vim_insert_mode
-    and tag: user.auto_lang
-    and code.language: {lang}
-
     """
     c.tags = [f"user.{lang}"]
 
@@ -196,9 +183,11 @@ class code_actions:
         # print(f"file_extension: {file_extension}")
         # Favor full matches
         if file_name in special_file_map:
+            # print(f"special_file_map: {special_file_map[file_name]}")
             return special_file_map[file_name]
 
         if file_extension and file_extension in extension_lang_map:
+            # print(f"extension_lang_map: {extension_lang_map[file_extension]}")
             return extension_lang_map[file_extension]
 
 

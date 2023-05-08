@@ -43,6 +43,12 @@ deleted selected empty lines:
     sleep(50ms)
     insert("g/^$/d\\j")
 
+delete from selected:
+    insert(":")
+    # leave time for vim to populate '<,'>
+    sleep(50ms)
+    user.insert_between("g/", "/d\\j")
+
 prefix with <user.unmodified_key>:
     insert(":")
     # leave time for vim to populate '<,'>
