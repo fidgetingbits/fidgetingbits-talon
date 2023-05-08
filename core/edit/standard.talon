@@ -1,7 +1,7 @@
 (shock | hawk): key(enter)
-parrot(side_click):
-    app.notify("side_click")
-    key(enter)
+# parrot(side_click):
+#     app.notify("side_click")
+#     key(enter)
 
 # XXX - block alone conflicts with vim key words
 add code block:
@@ -18,7 +18,9 @@ cut that: edit.cut()
 paste that: edit.paste()
 pasty: edit.paste()
 paste match: edit.paste_match_style()
-file save: edit.save()
+disk: edit.save()
+(undo that | nope): edit.undo()
+(redo that|redo): edit.redo()
 
 #menu help: key(F1)
 #spotlight: key(super)

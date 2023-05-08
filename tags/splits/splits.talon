@@ -1,7 +1,7 @@
 tag: user.splits
 -
-split right: user.split_window_right()
-split left: user.split_window_left()
+(split right|sprit): user.split_window_right()
+(split left|spliff): user.split_window_left()
 split down: user.split_window_down()
 split up: user.split_window_up()
 split (vertically | vertical): user.split_window_vertically()

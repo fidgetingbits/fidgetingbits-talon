@@ -11,6 +11,7 @@ no mate [<user.number_string>]:
 numb <user.number_string> dot <user.number_string>:
     "{number_string_1}.{number_string_2}"
 negative <user.number_string>: "-{number_string}"
+numb page size: "4096"
 
 # Hexadecimal
 # XXX - should handle actual number string, atm cant hex eighty, only hex

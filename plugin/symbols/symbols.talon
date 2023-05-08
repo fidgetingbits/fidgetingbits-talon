@@ -1,9 +1,11 @@
 question [mark]: "?"
 score: "_"
 double dash: "--"
-triple quote: '"""'
-triple tick: "'''"
+half doc: '"""'
+(triple tick|ticky): "'''"
 gravy: "```"
+
+
 # NOTE: riddle conflict with a rizzle, middle, etc
 triple question: "???"
 sexy: "XXX"
@@ -11,13 +13,14 @@ triple bang: "!!!"
 (dot dot | dotdot): ".."
 (ellipses | dotty): "..."
 snipped code: "[SNIPPED]"
-(comma and | spamma): ", "
+(spam | spamma): ", "
 arrow: "->"
 dub arrow: "=>"
 new line: "\\n"
 carriage return: "\\r"
 line feed: "\\r\\n"
 end of file: "EOF"
+dashing: "-- "
 
 empty (string | quotes): user.insert_between('"', '"')
 empty escaped (string | quotes): user.insert_between('\\"', '\\"')
@@ -25,17 +28,18 @@ empty ticks: user.insert_between("'", "'")
 empty escaped ticks: user.insert_between("\\'", "\\'")
 empty round: user.insert_between("(", ")")
 empty (square | list): user.insert_between("[", "]")
-empty (bracket | braces): user.insert_between("{", "}")
+empty (bracket | braces | curly): user.insert_between("{", "}")
 empty percent: user.insert_between("%", "%")
 empty coals: user.insert_between(":", ":")
+empty (angles|diamond): user.insert_between("<", ">")
 
 [pair] (round): user.insert_between("(", ")")
 escaped round: user.insert_between("\\(", "\\)")
 escaped slashes: user.insert_between("\\/", "\\/")
-[pair] (brackets | braces): user.insert_between("{", "}")
+[pair] (brackets | braces | curly): user.insert_between("{", "}")
 [pair] (square | squares): user.insert_between("[", "]")
-[pair] angles: user.insert_between("<", ">")
-[pair] graves: user.insert_between("`", "`")
+[pair] (angles|diamond): user.insert_between("<", ">")
+[pair] (graves|skis): user.insert_between("`", "`")
 [pair] percents: user.insert_between("%", "%")
 [pair] ticks: user.insert_between("'", "'")
 [pair] quotes: user.insert_between('"', '"')
