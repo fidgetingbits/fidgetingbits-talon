@@ -1,17 +1,17 @@
 tag: user.find_and_replace
 -
-hunt this: user.find("")
-hunt this (pace | paste):
+hunt (lines|this): user.find("")
+hunt [lines|this] clip:
     user.find("")
     sleep(25ms)
     edit.paste()
-hunt this <user.text>: user.find(text)
-hunt all: user.find_everywhere("")
-hunt all (pace | paste):
+hunt [lines|this] <user.text>: user.find(text)
+hunt (all|code): user.find_everywhere("")
+hunt (all|code) clip:
     user.find_everywhere("")
     sleep(25ms)
     edit.paste()
-hunt all <user.text>: user.find_everywhere(text)
+hunt (all|code) <user.text>: user.find_everywhere(text)
 hunt case: user.find_toggle_match_by_case()
 hunt word: user.find_toggle_match_by_word()
 hunt expression: user.find_toggle_match_by_regex()
