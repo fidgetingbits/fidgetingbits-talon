@@ -8,10 +8,16 @@ mod = Module()
 
 @mod.action_class
 class Actions:
-    def pop():
-        """pop action overrideable by contexts"""
-        # print("noise.py - pop()")
-        actions.user.mouse()
+    # def custom_pop():
+    #     """pop action overrideable by contexts"""
+    #     print("noise.py - pop()")
+    #     # actions.user.mouse()
+    #     global pop_quick_action
+    #     if pop_quick_action is None:
+    #         actions.tracking.zoom(True)
+    #         # actions.user.pop()
+    #     else:
+    #         actions.user.pop_quick_action_run()
 
     def pop_quick_action_clear():
         """Clears the quick macro"""
@@ -85,6 +91,7 @@ pop_quick_action_history = []
 
 
 def on_pop(active):
+    print("noise.py - on_pop")
     global pop_quick_action
     if pop_quick_action is None:
         actions.user.pop()
