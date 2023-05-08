@@ -149,7 +149,8 @@ set history size: "set history size "
 set history size unlimited: "set history size unlimited\n"
 show history size: "show history size\n"
 
-info library: "info sharedlibrary\n"
+(list libraries|info library): "info sharedlibrary\n"
+
 info file: "info file\n"
 
 set remote file: "set remote exec-file "

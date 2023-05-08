@@ -13,6 +13,11 @@ sync symbol clip:
 
 sync comment: "cmt "
 sync patch: "patch "
-beauty trace: "bbt\n"
+beauty trace: "idb init\nbbt\n"
+# beauty trace: "bbt\n"
 lookup symbol: "bx "
 continue a cursor: "cc\n"
+
+sync D B list: "idblist\n"
+sync (mod|module) list: "modlist\n"
+sync (mod|module) info: "curmod\n"
