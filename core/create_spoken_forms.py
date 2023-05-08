@@ -4,7 +4,7 @@ from collections import defaultdict
 from dataclasses import dataclass
 from typing import Any, Mapping, Optional, List
 
-from talon import Module, actions
+from talon import Module, actions, app
 
 from .abbreviate.abbreviate import abbreviations_list
 from .file_extension.file_extension import file_extensions
@@ -13,7 +13,7 @@ from .numbers.numbers import digits_map, scales, teens, tens
 
 mod = Module()
 
-
+DEFAULT_MAXIMUM_LIST_LENGTH = 100
 DEFAULT_MINIMUM_TERM_LENGTH = 2
 EXPLODE_MAX_LEN = 3
 FANCY_REGULAR_EXPRESSION = r"[A-Z]?[a-z]+|[A-Z]+(?![a-z])|[0-9]+"
@@ -254,7 +254,7 @@ def create_extension_forms(spoken_forms: List[str]):
             new_spoken_forms.append(" ".join(dotted_extension_form))
         new_spoken_forms.append(" ".join(truncated_forms))
 
-    return list(dict.fromkeys(new_spoken_forms))
+    return set(dict.fromkeys(new_spoken_forms))
 
 
 def create_cased_forms(spoken_forms: List[str]):
@@ -276,7 +276,7 @@ def create_cased_forms(spoken_forms: List[str]):
         new_spoken_forms.append(" ".join(lower_forms))
         new_spoken_forms.append(" ".join(upper_forms))
 
-    return list(dict.fromkeys(new_spoken_forms))
+    return set(dict.fromkeys(new_spoken_forms))
 
 
 def create_abbreviated_forms(spoken_forms: List[str]):
@@ -297,7 +297,7 @@ def create_abbreviated_forms(spoken_forms: List[str]):
         new_spoken_forms.append(" ".join(abbreviated_forms))
         new_spoken_forms.append(" ".join(unabbreviated_forms))
 
-    return list(dict.fromkeys(new_spoken_forms))
+    return set(dict.fromkeys(new_spoken_forms))
 
 
 def create_spoken_number_forms(source: List[str]):
@@ -364,7 +364,7 @@ def create_spoken_number_forms(source: List[str]):
             spoken_forms.append(result)
 
     spoken_forms.append(" ".join(full_form_digit_wise))
-    return list(dict.fromkeys(spoken_forms))
+    return set(dict.fromkeys(spoken_forms))
 
 
 def create_spoken_forms_from_regex(source: str, pattern: re.Pattern):
@@ -474,7 +474,19 @@ class Actions:
         minimum_term_length: int = DEFAULT_MINIMUM_TERM_LENGTH,
         generate_subsequences: bool = True,
     ) -> dict[str, str]:
-        """Create spoken forms for all sources in a list, doing conflict resolution"""
+        """Create spoken forms for all sources in a list, doing conflict
+        resolution"""
+        # Limit the number of spoken forms to avoid performance issues. Imagine you
+        # enter a directory with thousands of files, and each file has a spoken form.
+        if len(sources) > DEFAULT_MAXIMUM_LIST_LENGTH:
+            from itertools import islice
+
+            def take(n, iterable):
+                """Return the first n items of the iterable as a list."""
+                return list(islice(iterable, n))
+
+            sources = take(DEFAULT_MAXIMUM_LIST_LENGTH, sources.diteritems())
+            app.notify(subtitle="Too many items to create spoken forms for.")
         return actions.user.create_spoken_forms_from_map(
             {source: source for source in sources},
             words_to_exclude,
