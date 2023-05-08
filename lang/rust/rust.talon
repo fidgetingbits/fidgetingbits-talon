@@ -32,22 +32,27 @@ settings():
 
 ## for unsafe rust
 (state|put) unsafe: "unsafe "
-unsafe block: user.code_state_unsafe()
+(put) unsafe block: user.code_state_unsafe()
 
 ## rust centric struct and enum definitions
-(state|put) (struct | structure) <user.text>:
+(state|put) (struct | structure) [<user.text>]:
     insert("struct ")
-    insert(user.formatted_text(text, "PUBLIC_CAMEL_CASE"))
+    insert(user.formatted_text(text or "", "PUBLIC_CAMEL_CASE"))
 
-(state|put) enum <user.text>:
+(state|put) enum [<user.text>]:
     insert("enum ")
-    insert(user.formatted_text(text, "PUBLIC_CAMEL_CASE"))
+    insert(user.formatted_text(text or "", "PUBLIC_CAMEL_CASE"))
 
 toggle use: user.code_toggle_libraries()
 
+put let <user.text>:
+    insert("let ")
+    insert(user.formatted_text(text or "", "SNAKE_CASE"))
+    insert(" = ")
+
 ## Simple aliases
-borrow: "&"
-borrow (mutable|mute): "&mut "
+[put] (borrowed|borrow): "&"
+[put] (borrowed|borrow) (mutable|mute): "&mut "
 (state|put) (a sink | async | asynchronous): "async "
 (state|put) (pub | public): "pub "
 (state|put) (pub | public) crate: "pub(crate) "
@@ -68,9 +73,15 @@ borrow (mutable|mute): "&mut "
 self taught: "self."
 (state|put) use: user.code_import()
 
+put <user.code_containing_type> of <user.code_type>: 
+    insert("{code_containing_type}<{code_type}>")
+
 use <user.code_libraries>:
     user.code_insert_library(code_libraries, "")
     key(; enter)
+use {user.rust_crates} prelude:
+    insert("use {rust_crates}::prelude::*;")
+    key(enter)
 
 ## specialist flow control
 (state|put) if let some: user.code_insert_if_let_some()
@@ -113,11 +124,41 @@ put empty some: "Some(())"
 put doc [comment]: "///"
 put empty result: "Result::Ok(())"
 put arm: "=> "
+put arm open: "=> {"
+put arm block: "=> {}"
 put right [inclusive] range: "..="
 put left [inclusive] range: "=.."
 put range: ".."
+put at range: "@ .."
 put turbo fish: "::<>"
+put at <text>: "{text} @ "
+put label range: user.insert_between("", "@ ..")
 put new vec: "Vec::new()"
 put new box: "Box::new()"
+put use: "use "
+put use block: user.insert_between("use {", "};")
+put use <user.rust_crates>: "use {rust_crates};"
+put tokyo main: #[tokio::main]
+put async: "async "
+put pub: "pub "
+put mod: "mod "
+# TODO: Make all derivable value something we can say and have automatically added
+put derive: user.insert_between("#[derive(", ")]")
+put derive debug: "#[derive(Debug)]"
+put derive clone: "#[derive(Clone)]"
+put derive copy: "#[derive(Copy)]"
+put derive default: "#[derive(Default)]"
+put derive display: "#[derive(Display)]"
+put derive error: "#[derive(Error)]"
+funk {user.formatted_functions}: 
+    insert(formatted_functions)
+    user.insert_between('("', '");')
+
+
 [put] returns box error: "-> Result<(), Box<dyn std::error::Error>>"
 put result box error: "Result<(), Box<dyn std::error::Error>>"
+
+put form {user.closed_format_strings}:
+    insert("{closed_format_strings}")
+put form inner  {user.inner_format_strings}:
+    insert(":{inner_format_strings}")

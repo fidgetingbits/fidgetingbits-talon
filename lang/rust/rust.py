@@ -8,6 +8,11 @@ mod.list("code_type_modifier", desc="List of type modifiers for active language"
 mod.list("code_macros", desc="List of macros for active language")
 mod.list("code_trait", desc="List of traits for active language")
 mod.list("rust_crates", desc="List of common rust crates")
+mod.list("closed_format_strings", desc="List of common closed rust format strings")
+mod.list("inner_format_strings", desc="List of common rust format strings")
+mod.list("rust_types", desc="List of common rust types")
+mod.list("code_containing_types", desc="List of common rust container types")
+mod.list("formatted_functions", desc="List of common rust formatted functions")
 
 
 @mod.action_class
@@ -55,6 +60,7 @@ class Actions:
 ctx = Context()
 ctx.matches = r"""
 tag: user.rust
+tag: user.rust_apps
 """
 
 scalar_types = {
@@ -82,6 +88,7 @@ compound_types = {
     "array": "[]",
 }
 
+
 standard_library_types = {
     "box": "Box",
     "vector": "Vec",
@@ -93,9 +100,29 @@ standard_library_types = {
     "see string slice": "&CStr",
     "option": "Option",
     "result": "Result",
+    "okay": "Ok",
+    "error": "Err",
     "hashmap": "HashMap",
     "hash set": "HashSet",
     "reference count": "Rc",
+    "path": "Path",
+    "path buf": "PathBuf",
+}
+
+# types that allow us say for example 'vector of you eight' to get Vec<u8>
+containing_types = {
+    "vector": "Vec",
+    "vec": "Vec",
+    "okay": "Ok",
+    "result": "Result",
+    "option": "Option",
+    "reference count": "Rc",
+    "arc": "Arc",
+    "cell": "Cell",
+    "ref cell": "RefCell",
+    "mutex": "Mutex",
+    "rw lock": "RwLock",
+    "box": "Box",
 }
 
 standard_sync_types = {
@@ -119,16 +146,28 @@ all_types = {
 
 standard_function_macros = {
     "panic": "panic!",
-    "format": "format!",
     "concatenate": "concat!",
-    "print": "print!",
-    "print line": "println!",
-    "error print line": "eprintln!",
     "to do": "todo!",
 }
 
+string_formatted_standard_function_macros = {
+    "format": "format!",
+    "print": "print!",
+    "print line": "println!",
+    "error print line": "eprintln!",
+}
+
+
 standard_array_macros = {
     "vector": "vec!",
+}
+
+common_implementations = {
+    "ok or": "ok_or",
+    "ok or else": "ok_or_else",
+    "unwrap": "unwrap",
+    "await": "await",
+    "some": "Some",
 }
 
 standard_block_macros = {
@@ -148,9 +187,13 @@ testing_macros = {
     "assert not equal": "assert_ne!",
 }
 
+all_string_formatted_functions_macros = {
+    **string_formatted_standard_function_macros,
+    **logging_macros,
+}
+
 all_function_macros = {
     **standard_function_macros,
-    **logging_macros,
     **testing_macros,
 }
 
@@ -195,11 +238,18 @@ all_traits = {
 
 
 # tag: libraries_gui
-ctx.lists["user.code_libraries"] = {
+
+standard_imports = {
     "eye oh": "std::io",
     "file system": "std::fs",
+    "path": "std::path",
     "envy": "std::env",
     "collections": "std::collections",
+}
+tokio_imports = {"tracing": "use tracing::{info};"}
+
+ctx.lists["user.code_libraries"] = {
+    **standard_imports,
 }
 
 # tag: functions_common
@@ -209,6 +259,18 @@ ctx.lists["user.code_common_function"] = {
     "iterator": "iter",
     "into iterator": "into_iter",
     "from iterator": "from_iter",
+    "as string": "as_str",
+    "to string": "to_string",
+    "to string lossy": "to_string_lossy",
+    "to stir": "to_str",
+    "as bytes": "as_bytes",
+    "to bytes": "to_bytes",
+    "as pointer": "as_ptr",
+    "as mutable pointer": "as_mut_ptr",
+    "as reference": "as_ref",
+    "as mute": "as_mut",
+    "is some": "is_some",
+    **common_implementations,
     **all_macros,
 }
 
@@ -241,18 +303,43 @@ ctx.lists["user.rust_crates"] = {
     "walk dir": "walkdir",
     "log": "log",
     "open S S L": "openssl",
+    "serde": "serde",
+    "serde JSON": "serde_json",
+    "thirty four": "thirtyfour",
+    "simple log": "simplelog",
+    "async recursion": "async_recursion",
+    "serde": "serde",
+    "serde json": "serde_json",
+    "ray on": "rayon",
 }
 
+ctx.lists["user.formatted_functions"] = {**all_string_formatted_functions_macros}
 
-@ctx.capture("user.code_type", rule="[{user.code_type_modifier}] {user.code_type}")
-def code_type(m) -> str:
-    """Returns a macro name"""
-    return "".join(m)
+
+ctx.lists["user.closed_format_strings"] = {
+    "hex": r"{:#x}",
+    "octal": r"{:#o}",
+    "binary": r"{:#b}",
+    "decimal": r"{:#}",
+    "float": r"{:.2}",
+    "debug": r"{:?}",
+}
+
+ctx.lists["user.inner_format_strings"] = {
+    "hex": r":#x",
+    "octal": r":#o",
+    "binary": r":#b",
+    "decimal": r":#",
+    "float": r":.2",
+    "debug": r":?",
+}
 
 
 ctx.lists["user.code_macros"] = all_macros
 
 ctx.lists["user.code_trait"] = all_traits
+
+ctx.lists["user.code_containing_types"] = {**containing_types}
 
 
 @ctx.action_class("user")

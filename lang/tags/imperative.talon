@@ -1,6 +1,6 @@
 tag: user.code_imperative
 -
-[put] block: user.code_block()
+put block: user.code_block()
 (state|put) if: user.code_state_if()
 (state|put) else if: user.code_state_else_if()
 (state|put) else: user.code_state_else()
