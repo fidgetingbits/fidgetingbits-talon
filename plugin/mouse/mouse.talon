@@ -10,11 +10,11 @@ mouse calibration: tracking.calibrate()
 
 # Basic Clicking
 # left click
-[mouse] click:
-    user.mouse_click(0, 1)
+#[mouse] click:
+#    user.mouse_click(0, 1)
     # End any open drags
     # Left click automatically ends left drags so this is for right drags specifically
-    user.mouse_drag_end()
+#    user.mouse_drag_end()
 # right click
 [mouse] (ricky|right click):
     user.mouse_click(1, 1)
@@ -46,7 +46,7 @@ mouse calibration: tracking.calibrate()
     key("{modifiers}:up")
 
 # Dragging
-left drag | drag:
+left drag:
     user.mouse_drag(0)
     user.grid_close()
 right drag | righty drag:
