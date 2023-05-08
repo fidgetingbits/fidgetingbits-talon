@@ -128,13 +128,13 @@ put left [inclusive] range: "=.."
 put range: ".."
 put at range: "@ .."
 put turbo fish: "::<>"
-put at <text>: "{text} @ "
+put at <user.text>: "{text} @ "
 put label range: user.insert_between("", "@ ..")
 put new vec: "Vec::new()"
 put new box: "Box::new()"
 put use: "use "
 put use block: user.insert_between("use {", "};")
-put use <user.rust_crates>: "use {rust_crates};"
+put use {user.rust_crates}: user.insert_between("use {rust_crates}::", ";")
 put tokyo main: #[tokio::main]
 put async: "async "
 put pub: "pub "
@@ -159,3 +159,18 @@ put form {user.closed_format_strings}:
     insert("{closed_format_strings}")
 put form inner  {user.inner_format_strings}:
     insert(":{inner_format_strings}")
+
+put [{user.code_type_modifier}] sliced <user.code_type>: 
+    insert(code_type_modifier or "")
+    insert("[{code_type}]")
+
+put [{user.code_type_modifier}] <number> element <user.code_type> array: 
+    insert(code_type_modifier or "")
+    insert("[{code_type}; {number}]")
+
+put [{user.code_type_modifier}] <user.code_type> array:
+    insert(code_type_modifier or "")
+    user.insert_between("[{code_type}; ", "]")
+
+put zero init <number> elements:
+    insert("[0; {number}]")
