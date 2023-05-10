@@ -36,6 +36,12 @@ cargo build package <user.text>:
     "cargo build --package {text}"
 cargo test:
     "cargo test\n"
+cargo test no capture:
+    "cargo test -- --nocapture\n"
+cargo test ignored:
+    "cargo test -- --ignored\n"
+cargo test ignored no capture:
+    "cargo test -- --ignored --nocapture\n"
 cargo check:
     "cargo check\n"
 cargo clean:
