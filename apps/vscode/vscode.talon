@@ -7,6 +7,9 @@ tag(): user.snippets
 tag(): user.splits
 tag(): user.tabs
 
+settings():
+    key_wait = 2
+
 window reload: user.vscode("workbench.action.reloadWindow")
 window close: user.vscode("workbench.action.closeWindow")
 #multiple_cursor.py support end
@@ -24,7 +27,9 @@ bar search: user.vscode("workbench.view.search")
 bar source: user.vscode("workbench.view.scm")
 bar test: user.vscode("workbench.view.testing.focus")
 bar switch: user.vscode("workbench.action.toggleSidebarVisibility")
-side dog: user.vscode("workbench.action.toggleSidebarVisibility")
+(left|side) dog: user.vscode("workbench.action.toggleSidebarVisibility")
+# Toggle Secondary Side Bar
+right dog: key(ctrl-alt-b) 
 
 # Splits
 cross: user.split_next()
@@ -80,10 +85,13 @@ hunt files clip:
 file copy name: user.vscode("fileutils.copyFileName")
 file copy path: user.vscode("copyFilePath")
 file copy local [path]: user.vscode("copyRelativeFilePath")
-file create sibling: user.vscode_and_wait("explorer.newFile")
+file copy relative: user.vscode("copyRelativeFilePath")
+file copy link: user.vscode("gitlens.copyRemoteFileUrlToClipboard")
+file (new|create sibling): user.vscode_and_wait("explorer.newFile")
 file create: user.vscode("workbench.action.files.newUntitledFile")
 file create relative: user.vscode("fileutils.newFile")
 file create root: user.vscode("fileutils.newFileAtRoot")
+file duplicate: user.vscode("fileutils.duplicateFile")
 file rename:
     user.vscode("fileutils.renameFile")
     sleep(150ms)
@@ -141,6 +149,9 @@ go recent [<user.text>]:
     insert(text or "")
     sleep(250ms)
 go edit: user.vscode("workbench.action.navigateToLastEditLocation")
+go remotes: user.vscode("gitlens.views.remotes.focus")
+go branches: user.vscode("gitlens.views.branches.focus")
+go commits: user.vscode("gitlens.views.commits.focus")
 
 
 # Bookmarks. Requires Bookmarks plugin
@@ -207,6 +218,36 @@ git sync: user.vscode("git.sync")
 git unstage: user.vscode("git.unstage")
 git unstage all: user.vscode("git.unstageAll")
 pull request: user.vscode("pr.create")
+
+# GitLens
+git branches: user.vscode("gitlens.views.branches.focus")
+git file history: user.vscode("gitlens.views.fileHistory.focus")
+# TODO: Probably change this, just taking from somebody else
+dock open: user.vscode("gitlens.openWorkingFile")
+git blame: user.vscode("gitlens.toggleFileBlameInDiffLeft")
+git blame toggle: user.vscode("gitlens.toggleLineBlame")
+# TODO: Make this use common branch names list
+git compare to master:
+    user.vscode("gitlens.diffWithRevisionFrom")
+    sleep(450ms)
+    insert('master')
+git compare to main:
+    user.vscode("gitlens.diffWithRevisionFrom")
+    sleep(450ms)
+    insert('main')
+git compare:
+    user.vscode("gitlens.diffWithRevisionFrom")
+(hunt commits|git commit search): user.vscode("gitlens.showCommitSearch")
+git commit details: user.vscode("gitlens.showQuickCommitFileDetails")
+git branch history: user.vscode("gitlens.showQuickRepoHistory")
+git file history: user.vscode("gitlens.showQuickFileHistory")
+git summary: user.vscode("gitlens.showQuickRepoStatus")
+# TODO: Need to check what these do
+git blame switch: user.vscode("gitlens.toggleLineBlame")
+git lens switch: user.vscode("gitlens.toggleCodeLens")
+git zen switch: user.vscode("gitlens.toggleZenMode")
+git review switch: user.vscode("gitlens.toggleReviewMode")
+
 # Use keyboard shortcuts because VSCode relies on when clause contexts to choose the appropriate
 # action: https://code.visualstudio.com/api/references/when-clause-contexts
 change next: key(alt-f5)
@@ -299,10 +340,17 @@ install local: user.vscode("workbench.extensions.action.installVSIX")
 preview markdown: user.vscode("markdown.showPreview")
 
 # copilot
+pilot jest: user.vscode("editor.action.inlineSuggest.trigger")
+pilot next: user.vscode("editor.action.inlineSuggest.showNext")
+pilot last: user.vscode("editor.action.inlineSuggest.showPrevious")
+pilot: user.vscode("editor.action.inlineSuggest.commit")
+pilot word: user.vscode("editor.action.inlineSuggest.acceptNextWord")
+pilot nope: user.vscode("editor.action.inlineSuggest.undo")
+pilot cancel: user.vscode("editor.action.inlineSuggest.hide")
 keep: key(tab)
 
 # pokey 
-<user.show_list> sesh [<user.text>] [halt]:
+sesh <user.show_list> [<user.text>] [halt]:
     user.vscode("workbench.action.openRecent")
     sleep(250ms)
     user.insert_formatted(text or "", "DASH_SEPARATED,ALL_LOWERCASE")
