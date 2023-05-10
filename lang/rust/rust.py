@@ -13,6 +13,7 @@ mod.list("inner_format_strings", desc="List of common rust format strings")
 mod.list("rust_types", desc="List of common rust types")
 mod.list("code_containing_types", desc="List of common rust container types")
 mod.list("formatted_functions", desc="List of common rust formatted functions")
+mod.list("rust_allocatable_types", desc="List of common rust allocatable types")
 
 
 @mod.action_class
@@ -101,13 +102,22 @@ standard_library_types = {
     "option": "Option",
     "result": "Result",
     "okay": "Ok",
-    "error": "Err",
+    "error": "Err",  # TODO: These aren't really types I guess
+    "big error": "Error",
     "hashmap": "HashMap",
     "hash set": "HashSet",
     "reference count": "Rc",
     "path": "Path",
     "path buf": "PathBuf",
 }
+
+# TODO: This needs to get integrated into other lists rather than duplication
+allocatable_types = {
+    "vector": "Vec",
+    "string": "String",
+    "path": "Path",
+}
+ctx.lists["user.rust_allocatable_types"] = allocatable_types
 
 # types that allow us say for example 'vector of you eight' to get Vec<u8>
 containing_types = {
@@ -124,6 +134,7 @@ containing_types = {
     "rw lock": "RwLock",
     "box": "Box",
 }
+
 
 standard_sync_types = {
     "arc": "Arc",
@@ -178,6 +189,7 @@ logging_macros = {
     "debug": "debug!",
     "info": "info!",
     "warning": "warn!",
+    "warn": "warn!",
     "error": "error!",
 }
 
@@ -186,6 +198,8 @@ testing_macros = {
     "assert equal": "assert_eq!",
     "assert not equal": "assert_ne!",
 }
+
+error_methods = {"raw os error": "raw_os_error"}
 
 all_string_formatted_functions_macros = {
     **string_formatted_standard_function_macros,
@@ -286,6 +300,8 @@ ctx.lists["user.code_type_modifier"] = {
     "borrowed mute": "&mut ",
     "mutable borrowed": "&mut ",
     "mute borrowed": "&mut ",
+    "dynamic": "dyn ",
+    "dine": "dyn ",
 }
 
 ctx.lists["user.rust_crates"] = {
@@ -311,6 +327,7 @@ ctx.lists["user.rust_crates"] = {
     "serde": "serde",
     "serde json": "serde_json",
     "ray on": "rayon",
+    "shaw two": "sha2",
 }
 
 ctx.lists["user.formatted_functions"] = {**all_string_formatted_functions_macros}

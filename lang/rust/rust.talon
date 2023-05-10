@@ -139,7 +139,7 @@ put tokyo main: #[tokio::main]
 put async: "async "
 put pub: "pub "
 put mod: "mod "
-# TODO: Make all derivable value something we can say and have automatically added
+# TODO: Make all derivable trait values something we can say and have automatically added
 put derive: user.insert_between("#[derive(", ")]")
 put derive debug: "#[derive(Debug)]"
 put derive clone: "#[derive(Clone)]"
@@ -151,9 +151,17 @@ funk {user.formatted_functions}:
     insert(formatted_functions)
     user.insert_between('("', '");')
 
+put test: "#[test]"
+put ignore: "#[ignore]"
+put ignored test: "#[test]\n#[ignore]"
+put config test: "#[cfg(test)]"
+# TODO: automatically create test module in functions, add things like expect panic
 
-[put] returns box error: "-> Result<(), Box<dyn std::error::Error>>"
-put result box error: "Result<(), Box<dyn std::error::Error>>"
+
+[put] returns box error: "-> Result<(), Box<dyn Error>>"
+put result box error: "Result<(), Box<dyn Error>>"
+
+put result of <user.code_type> and <user.code_type>: "Result<{code_type}, Box<dyn Error>>"
 
 put form {user.closed_format_strings}:
     insert("{closed_format_strings}")
@@ -174,3 +182,9 @@ put [{user.code_type_modifier}] <user.code_type> array:
 
 put zero init <number> elements:
     insert("[0; {number}]")
+
+put as <user.code_type>: "as {code_type}"
+
+put new {user.rust_allocatable_types}:
+    insert("{rust_allocatable_types}::new()")
+
