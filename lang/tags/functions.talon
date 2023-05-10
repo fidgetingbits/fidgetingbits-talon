@@ -17,7 +17,7 @@ tag: user.code_functions
 #   * pro static funky -> code_protected_static_function
 #   * pub static funky -> code_public_static_function
 #
-^{user.code_function_modifier}* function <user.text>$:
+put new [{user.code_function_modifier}] func <user.text>$:
     user.code_modified_function(code_function_modifier_list or 0, text)
 
 # TODO: The should have single versions that encapsulate the containing type style
@@ -34,6 +34,9 @@ returns <user.code_containing_type> of <user.code_type>:
 
 # for generic reference of types
 (type|put) <user.code_type>: insert(code_type)
+# TODO: It would be nice if this was nestable, so we could say something like:
+# put result of vector of you eight and box of dine error
+# and get: Result<Vec<u8>, Box<dyn Error>>
 put <user.code_containing_type> of <user.code_type>: 
     insert("{code_containing_type}<{code_type}>")
 
