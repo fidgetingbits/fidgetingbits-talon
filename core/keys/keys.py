@@ -241,7 +241,7 @@ symbol_key_words = {
     "langle": "<",
     "rangle": ">",
     "star": "*",
-    "hash": "#",
+    "pound": "#",  # I say hash too often will coding
     "percent": "%",
     # "cent": "%", # way too many conflicts lately
     # "caret": "^", # conflicts with go right
