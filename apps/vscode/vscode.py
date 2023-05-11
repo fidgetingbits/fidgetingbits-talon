@@ -273,6 +273,12 @@ class UserActions:
         else:
             actions.key("alt-0")
 
+    def tab_pin():
+        actions.user.vscode("workbench.action.pinEditor")
+
+    def tab_unpin():
+        actions.user.vscode("workbench.action.unpinEditor")
+
     # splits.py support begin
     def split_number(index: int):
         """Navigates to a the specified split"""

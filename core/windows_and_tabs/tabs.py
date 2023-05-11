@@ -25,3 +25,9 @@ class tab_actions:
 
     def tab_duplicate():
         """Duplicates the current tab."""
+
+    def tab_pin():
+        """Pin the current tab"""
+
+    def tab_unpin():
+        """Unpin the current tab"""
