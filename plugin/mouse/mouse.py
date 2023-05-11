@@ -511,20 +511,45 @@ if setting_mouse_enable_on_startup.get() >= 1:
     app.register("ready", mouse_wake)
 
 
-def on_pop(active):
-    # Only want the pop noise to click when we're using an eye tracker
-    is_using_eye_tracker = (
-        actions.tracking.control_zoom_enabled()
-        or actions.tracking.control_enabled()
-        or actions.tracking.control1_enabled()
-    )
+# def on_pop(active):
+#     # Only want the pop noise to click when we're using an eye tracker
+#     is_using_eye_tracker = (
+#         actions.tracking.control_zoom_enabled()
+#         or actions.tracking.control_enabled()
+#         or actions.tracking.control1_enabled()
+#     )
 
+#     if setting_mouse_enable_pop_stops_scroll.get() >= 1 and (gaze_job or scroll_job):
+#         # Allow pop to stop scroll
+#         stop_scroll()
+#     elif is_using_eye_tracker and not actions.tracking.control_zoom_enabled():
+#         print("Triggering non-zoom click")
+#         # if setting_mouse_enable_pop_click.get() >= 1:
+#     else:
+#         # Otherwise respect the mouse_enable_pop_click setting
+#         setting_val = setting_mouse_enable_pop_click.get()
+
+#         is_using_eye_tracker = (
+#             actions.tracking.control_zoom_enabled()
+#             or actions.tracking.control_enabled()
+#             or actions.tracking.control1_enabled()
+#         )
+#         should_click = (
+#             setting_val == 2 and not actions.tracking.control_zoom_enabled()
+#         ) or (
+#             setting_val == 1
+#             and is_using_eye_tracker
+#             and not actions.tracking.control_zoom_enabled()
+#         )
+#         if should_click:
+#             ctrl.mouse_click(button=0, hold=16000)
+
+
+@ctx.action("user.noise_trigger_pop")
+def on_pop():
     if setting_mouse_enable_pop_stops_scroll.get() >= 1 and (gaze_job or scroll_job):
         # Allow pop to stop scroll
         stop_scroll()
-    elif is_using_eye_tracker and not actions.tracking.control_zoom_enabled():
-        print("Triggering non-zoom click")
-        # if setting_mouse_enable_pop_click.get() >= 1:
     else:
         # Otherwise respect the mouse_enable_pop_click setting
         setting_val = setting_mouse_enable_pop_click.get()
