@@ -10,6 +10,8 @@ no mate [<user.number_string>]:
 # or just used dotted formatter adapted for numbers
 numb <user.number_string> dot <user.number_string>:
     "{number_string_1}.{number_string_2}"
+numb <user.number_string> dot <user.number_string> dot <user.number_string>:
+    "{number_string_1}.{number_string_2}.{number_string_3}"
 negative <user.number_string>: "-{number_string}"
 numb page size: "4096"
 
