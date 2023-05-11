@@ -78,7 +78,7 @@ settings():
     user.mouse_enable_on_startup = 1
 
     # enables zoom mouse by default
-    user.mouse_control_mouse_zoom = 1
+    user.mouse_control_mouse_zoom = 0
 
     # disable control mouse
     #user.mouse_control_mouse = 1
