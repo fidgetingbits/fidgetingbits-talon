@@ -876,3 +876,6 @@ show cpu max frequencies: "cat /sys/devices/system/cpu/cpu*/cpufreq/cpuinfo_max_
 show cpu min frequencies: "cat /sys/devices/system/cpu/cpu*/cpufreq/cpuinfo_min_freq\n"
 
 G D B version: "gdb --version\n"
+
+loop device list: "losetup -a\n"
+loop device detach: "losetup -d "
