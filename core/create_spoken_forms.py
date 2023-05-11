@@ -485,7 +485,7 @@ class Actions:
                 """Return the first n items of the iterable as a list."""
                 return list(islice(iterable, n))
 
-            sources = take(DEFAULT_MAXIMUM_LIST_LENGTH, sources.iteritems())
+            sources = take(DEFAULT_MAXIMUM_LIST_LENGTH, sources.items())
             app.notify(subtitle="Too many items to create spoken forms for.")
         return actions.user.create_spoken_forms_from_map(
             {source: source for source in sources},
