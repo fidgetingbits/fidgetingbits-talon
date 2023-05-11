@@ -31,6 +31,9 @@ bar switch: user.vscode("workbench.action.toggleSidebarVisibility")
 # Toggle Secondary Side Bar
 right dog: key(ctrl-alt-b) 
 
+view wider: user.vscode("workbench.action.increaseViewSize")
+view thinner: user.vscode("workbench.action.decreaseViewSize")
+
 # Splits
 cross: user.split_next()
 
@@ -252,6 +255,11 @@ git review switch: user.vscode("gitlens.toggleReviewMode")
 # action: https://code.visualstudio.com/api/references/when-clause-contexts
 change next: key(alt-f5)
 change last: key(shift-alt-f5)
+stage this: user.vscode("git.stageChange")
+# These are specific to being in the diff view only
+# change stage: key(ctrl-k ctrl-alt-s)
+# change unstage: key(ctrl-k ctrl-alt-n)
+# change revert: key(ctrl-k ctrl-alt-r)
 
 # Testing
 test run: user.vscode("testing.runAtCursor")
