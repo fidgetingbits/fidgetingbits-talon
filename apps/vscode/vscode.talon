@@ -224,7 +224,7 @@ pull request: user.vscode("pr.create")
 
 # GitLens
 git branches: user.vscode("gitlens.views.branches.focus")
-git file history: user.vscode("gitlens.views.fileHistory.focus")
+# git file history: user.vscode("gitlens.views.fileHistory.focus")
 # TODO: Probably change this, just taking from somebody else
 dock open: user.vscode("gitlens.openWorkingFile")
 git blame: user.vscode("gitlens.toggleFileBlameInDiffLeft")
@@ -319,10 +319,6 @@ restore: user.vscode("workbench.action.evenEditorWidths")
 select breadcrumb: user.vscode("breadcrumbs.focusAndSelect")
 # Use `alt-left` and `alt-right` to navigate the bread crumb
 
-replace here:
-    user.replace("")
-    key(cmd-alt-l)
-
 # this is specific to when the replace here prompt is open
 replace all:
     key(ctrl-alt-enter)
@@ -376,7 +372,6 @@ new sesh [<user.text>]:
     sleep(250ms)
     insert(text or "")
     sleep(250ms)
-go edit: user.vscode("workbench.action.navigateToLastEditLocation")
 
 <user.show_list> win [<user.text>]:
     user.vscode("workbench.action.switchWindow")
@@ -404,4 +399,7 @@ squeak:
     app.tab_close()
     
 clear line:
-    app.notify(subtitle="Stop saying clear")
+    app.notify("Stop saying clear")
+
+# rust-analyzer
+file open cargo: user.vscode("rust-analyzer.cargo.openCargoToml")
