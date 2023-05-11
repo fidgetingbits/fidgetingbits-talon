@@ -206,6 +206,32 @@ class UserActions:
     def split_window():
         actions.user.vscode("workbench.action.splitEditor")
 
+    def split_number(index: int):
+        """Navigates to a the specified split"""
+        if index < 9:
+            if is_mac:
+                actions.key(f"cmd-{index}")
+            else:
+                actions.key(f"ctrl-{index}")
+
+    def split_grow():
+        actions.user.vscode("workbench.action.increaseViewSize")
+
+    def split_shrink():
+        actions.user.vscode("workbench.action.decreaseViewSize")
+
+    def split_width_grow():
+        actions.user.vscode("workbench.action.increaseViewWidth")
+
+    def split_width_shrink():
+        actions.user.vscode("workbench.action.decreaseViewWidth")
+
+    def split_height_grow():
+        actions.user.vscode("workbench.action.increaseViewHeight")
+
+    def split_height_shrink():
+        actions.user.vscode("workbench.action.decreaseViewHeight")
+
     # splits.py support end
 
     # multiple_cursor.py support begin
@@ -278,17 +304,6 @@ class UserActions:
 
     def tab_unpin():
         actions.user.vscode("workbench.action.unpinEditor")
-
-    # splits.py support begin
-    def split_number(index: int):
-        """Navigates to a the specified split"""
-        if index < 9:
-            if is_mac:
-                actions.key(f"cmd-{index}")
-            else:
-                actions.key(f"ctrl-{index}")
-
-    # splits.py support end
 
     # find_and_replace.py support begin
 

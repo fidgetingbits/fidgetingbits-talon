@@ -50,3 +50,21 @@ class Actions:
 
     def split_number(index: int):
         """Navigates to a the specified split"""
+
+    def split_grow():
+        """Increases the current split size"""
+
+    def split_shrink():
+        """Decreases the current split size"""
+
+    def split_width_grow():
+        """Increases the current split width"""
+
+    def split_width_shrink():
+        """decreases the current split width"""
+
+    def split_height_grow():
+        """Increases the current split height"""
+
+    def split_height_shrink():
+        """decreases the current split height"""
