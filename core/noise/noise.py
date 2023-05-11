@@ -17,4 +17,4 @@ class Actions:
         """
 
 
-noise.register("pop", lambda _: actions.user.noise_trigger_pop())
+# noise.register("pop", lambda _: actions.user.noise_trigger_pop())

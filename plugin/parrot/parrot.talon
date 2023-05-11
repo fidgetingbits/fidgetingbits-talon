@@ -7,8 +7,8 @@
 #parrot(palate_click):
 #    app.notify("palate_click")
 
-#parrot(pop):
-#    app.notify("pop")
+parrot(pop):
+    user.noise_trigger_pop()
 #
 #    actions.tracking.zoom(True)
 # actions.user.custom_pop()
