@@ -1,13 +1,15 @@
-#parrot(tut):
-#    app.notify("tut")
+# parrot(tut):
+    # app.notify("tut")
 
-# parrot(side_click):
+parrot(side_click):
+    user.mouse_toggle_control_mouse()
 #    app.notify("side_click")
 
 #parrot(palate_click):
 #    app.notify("palate_click")
 
 parrot(pop):
+    # app.notify("pop")
     user.noise_trigger_pop()
 #
 #    actions.tracking.zoom(True)
