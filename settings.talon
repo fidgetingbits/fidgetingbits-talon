@@ -80,8 +80,7 @@ settings():
     # enables zoom mouse by default
     user.mouse_control_mouse_zoom = 0
 
-    # disable control mouse
-    #user.mouse_control_mouse = 1
+    user.mouse_control_mouse = 1
 
     #stop continuous scroll/gaze scroll with a pop
     user.mouse_enable_pop_stops_scroll = 1
