@@ -6,12 +6,35 @@ count from <number_small> (to | till | through) <number_small>:
 numb <user.number_string>: "{number_string}"
 no mate [<user.number_string>]:
     user.insert_formatted("8{number_string or ''}", "NOOP")
+
 # XXX - it would be nice to make dot <user.number_string> repeatable together
 # or just used dotted formatter adapted for numbers
-numb <user.number_string> dot <user.number_string>:
+
+# Useful version numbering commands
+# 7.0
+numb <user.number_string> (point|dot) <user.number_string>:
     "{number_string_1}.{number_string_2}"
-numb <user.number_string> dot <user.number_string> dot <user.number_string>:
+numb <user.number_string> (point|dot) X: "{number_string}.x"
+numb <user.number_string> (point|dot) X [(point|dot)] Y: "{number_string}.x.y"
+
+# 7.0-7
+numb <user.number_string> (point|dot) <user.number_string> dash <user.number_string>:
+    "{number_string_1}.{number_string_2}-{number_string_3}"
+# 7.0.0
+numb <user.number_string> (point|dot) <user.number_string> (point|dot) <user.number_string>:
     "{number_string_1}.{number_string_2}.{number_string_3}"
+# 7.0.0-7
+numb <user.number_string> (point|dot) <user.number_string> (point|dot) <user.number_string> dash <user.number_string>:
+    "{number_string_1}.{number_string_2}.{number_string_3}-{number_string_4}"
+# 2-4
+numb <user.number_string> dash <user.number_string>:
+    "{number_string_1}-{number_string_2}"
+# 2-4-6
+numb <user.number_string> dash <user.number_string> dash <user.number_string>:
+    "{number_string_1}-{number_string_2}-{number_string_3}"
+
+(point|dot) <user.number_string>: ".{number_string}"
+
 negative <user.number_string>: "-{number_string}"
 numb page size: "4096"
 
