@@ -14,6 +14,7 @@ mod.list("rust_types", desc="List of common rust types")
 mod.list("code_containing_types", desc="List of common rust container types")
 mod.list("formatted_functions", desc="List of common rust formatted functions")
 mod.list("rust_allocatable_types", desc="List of common rust allocatable types")
+mod.list("rust_std_modules", desc="List of common rust std modules")
 
 
 @mod.action_class
@@ -63,6 +64,13 @@ ctx.matches = r"""
 tag: user.rust
 tag: user.rust_apps
 """
+
+ctx.lists["user.rust_std_modules"] = {
+    "compare": "cmp",
+    "convert": "convert",
+    "format": "fmt",
+    "I O": "io",
+}
 
 scalar_types = {
     "eye eight": "i8",
@@ -159,6 +167,8 @@ standard_function_macros = {
     "panic": "panic!",
     "concatenate": "concat!",
     "to do": "todo!",
+    "write": "write!",
+    "write line": "writeln!",
 }
 
 string_formatted_standard_function_macros = {
@@ -253,18 +263,43 @@ all_traits = {
 
 # tag: libraries_gui
 
+# TODO: A lot of people refer to these as "stood" something, so we should possibly include a optional
+# "stood" prefix command disk for these
 standard_imports = {
+    "atomic": "std::sync::atomic",
     "eye oh": "std::io",
     "file system": "std::fs",
+    "F S": "std::fs",
     "path": "std::path",
     "envy": "std::env",
     "collections": "std::collections",
+    "process": "std::process",
+    "thread": "std::thread",
+    "sync": "std::sync",
+    "future": "std::future",
+    "pin": "std::pin",
+    "error": "std::error",
+    "error kind": "std::io::ErrorKind",
 }
-tokio_imports = {"tracing": "use tracing::{info};"}
+tokio_imports = {"tracing": "tracing::{info};"}
+common_imports = {
+    "glob": "glob::glob",
+    "serde json": "serde_json::json",
+    "serde": "serde::{Serialize, Deserialize}",
+    "log": "log::{debug, error, info, warn}",
+    "iterator tools": "itertools::Itertools",
+    "iter tools": "itertools::Itertools",
+    "lazy static": "lazy_static::lazy_static",
+    "perfect hash map": "phf::phf_map",
+    "follow redirects": "follow_redirects::ClientExt",
+}
 
 ctx.lists["user.code_libraries"] = {
     **standard_imports,
+    **tokio_imports,
+    **common_imports,
 }
+
 
 # tag: functions_common
 ctx.lists["user.code_common_function"] = {
@@ -272,8 +307,10 @@ ctx.lists["user.code_common_function"] = {
     "catch unwind": "catch_unwind",
     "iterator": "iter",
     "into iterator": "into_iter",
+    "into iter": "into_iter",
     "from iterator": "from_iter",
-    "as string": "as_str",
+    "from iter": "from_iter",
+    "as stir": "as_str",
     "to string": "to_string",
     "to string lossy": "to_string_lossy",
     "to stir": "to_str",
@@ -282,8 +319,31 @@ ctx.lists["user.code_common_function"] = {
     "as pointer": "as_ptr",
     "as mutable pointer": "as_mut_ptr",
     "as reference": "as_ref",
+    "as ref": "as_ref",
     "as mute": "as_mut",
     "is some": "is_some",
+    "is none": "is_none",
+    "is ok": "is_ok",
+    "is error": "is_err",
+    "is empty": "is_empty",
+    "to path buf": "to_path_buf",
+    "unwrap": "unwrap",
+    "unwrap or": "unwrap_or",
+    "unwrap or else": "unwrap_or_else",
+    "expect": "expect",
+    "to vec": "to_vec",
+    "to vector": "to_vec",
+    "trim": "trim",
+    "split white space": "split_whitespace",
+    "display": "display",
+    "or insert": "or_insert",
+    "or insert with": "or_insert_with",
+    "cloned": "cloned",
+    "clone": "clone",
+    "is digit": "is_digit",
+    "is alphanum": "is_alphanumeric",
+    "is ascii": "is_ascii",
+    "is ascii hex digit": "is_ascii_hex_digit",
     **common_implementations,
     **all_macros,
 }
@@ -308,13 +368,15 @@ ctx.lists["user.rust_crates"] = {
     "native T L S": "native_tls",
     "hyper": "hyper",
     "tokyo": "tokio",
+    "futures": "futures",
+    "async standard": "async_std",
+    "follow redirects": "follow_redirects",
     "log": "log",
     "request": "reqwest",
     "clap": "clap",
     "cap stone": "capstone",
     "key stone": "keystone_engine",  # official crate is buggy
     "goblin": "goblin",
-    "simple log": "simplelog",
     "random": "rand",
     "walk dir": "walkdir",
     "log": "log",
@@ -328,6 +390,10 @@ ctx.lists["user.rust_crates"] = {
     "serde json": "serde_json",
     "ray on": "rayon",
     "shaw two": "sha2",
+    "glob": "glob",
+    "iter tools": "itertools",
+    "lazy static": "lazy_static",
+    "which": "which",
 }
 
 ctx.lists["user.formatted_functions"] = {**all_string_formatted_functions_macros}

@@ -31,47 +31,68 @@ settings():
 # rust-specific grammars
 
 ## for unsafe rust
-(state|put) unsafe: "unsafe "
+put unsafe: "unsafe "
 (put) unsafe block: user.code_state_unsafe()
 
 ## rust centric struct and enum definitions
-(state|put) (struct | structure) [<user.text>]:
+put (struct | structure) [<user.text>]:
     insert("struct ")
     insert(user.formatted_text(text or "", "PUBLIC_CAMEL_CASE"))
 
-(state|put) enum [<user.text>]:
+put enum [<user.text>]:
     insert("enum ")
     insert(user.formatted_text(text or "", "PUBLIC_CAMEL_CASE"))
 
 toggle use: user.code_toggle_libraries()
+
+# TODO: It would be nice if there was a way to not let text match on certain words, because this conflict with
+# the let type command below
 
 put let <user.text>:
     insert("let ")
     insert(user.formatted_text(text or "", "SNAKE_CASE"))
     insert(" = ")
 
+put let mute <user.text>:
+    insert("let mut ")
+    insert(user.formatted_text(text or "", "SNAKE_CASE"))
+
+put let type <user.code_type> <user.text>:
+    insert("let ")
+    insert(user.formatted_text(text or "", "SNAKE_CASE"))
+    insert(": ")
+    insert(user.code_type())
+    insert(" = ")
+
 ## Simple aliases
 [put] (borrowed|borrow): "&"
 [put] (borrowed|borrow) (mutable|mute): "&mut "
-(state|put) (a sink | async | asynchronous): "async "
-(state|put) (pub | public): "pub "
-(state|put) (pub | public) crate: "pub(crate) "
-(state|put) (dyn | dynamic): "dyn "
-(state|put) constant: "const "
-(state|put) (funk | func | function): "fn "
-(state|put) (imp | implements): "impl "
-(state|put) let mute: "let mut "
-(state|put) let: "let "
-(state|put) (mute | mutable): "mut "
-(state|put) (mod | module): "mod "
-(state|put) ref (mute | mutable): "ref mut "
-(state|put) ref: "ref "
-(state|put) trait: "trait "
-(state|put) match: user.code_state_switch()
-(state|put) (some | sum): "Some"
-(state|put) static: "static "
+put (a sink | async | asynchronous): "async "
+put (pub | public): "pub "
+put (pub | public) crate: "pub(crate) "
+put (dyn | dynamic): "dyn "
+put type: "type "
+put (const|constant): "const "
+put (funk | func | function): "fn "
+put (imp | implements): "impl "
+put let mute: "let mut "
+put let: "let "
+put (mute | mutable): "mut "
+put (mod | module): "mod "
+put ref (mute | mutable): "ref mut "
+put ref: "ref "
+put trait: "trait "
+put match: user.code_state_switch()
+put (some | sum): "Some"
+put static: "static "
 self taught: "self."
-(state|put) use: user.code_import()
+put use: user.code_import()
+put a sync block: user.insert_between("async {" , "}")
+put match a sync block: user.insert_between("match async {" , "}.await {}")
+put await: ".await"
+
+put init defaults: "..Default::default()"
+
 
 use <user.code_libraries>:
     user.code_insert_library(code_libraries, "")
@@ -79,11 +100,12 @@ use <user.code_libraries>:
 use {user.rust_crates} prelude:
     insert("use {rust_crates}::prelude::*;")
     key(enter)
+use crate: user.insert_between("use crate::", ";")
 
 ## specialist flow control
-(state|put) if let some: user.code_insert_if_let_some()
-(state|put) if let (ok | okay): user.code_insert_if_let_okay()
-(state|put) if let error: user.code_insert_if_let_error()
+put if let some: user.code_insert_if_let_some()
+put if let (ok | okay): user.code_insert_if_let_okay()
+put if let error: user.code_insert_if_let_error()
 
 ## rust centric synonyms
 is some: user.code_insert_is_not_null()
@@ -127,7 +149,10 @@ put right [inclusive] range: "..="
 put left [inclusive] range: "=.."
 put range: ".."
 put at range: "@ .."
-put turbo fish: "::<>"
+[put] turbo fish: "::<>"
+turbo crate: "crate::"
+turbo stood: "std::"
+[put] turbo <user.word>: "{word}::"
 put at <user.text>: "{text} @ "
 put label range: user.insert_between("", "@ ..")
 put new vec: "Vec::new()"
@@ -139,6 +164,7 @@ put tokyo main: #[tokio::main]
 put async: "async "
 put pub: "pub "
 put mod: "mod "
+
 # TODO: Make all derivable trait values something we can say and have automatically added
 put derive: user.insert_between("#[derive(", ")]")
 put derive debug: "#[derive(Debug)]"
@@ -147,6 +173,7 @@ put derive copy: "#[derive(Copy)]"
 put derive default: "#[derive(Default)]"
 put derive display: "#[derive(Display)]"
 put derive error: "#[derive(Error)]"
+put default: "#[default]"
 funk {user.formatted_functions}: 
     insert(formatted_functions)
     user.insert_between('("', '");')
@@ -157,8 +184,21 @@ put ignored test: "#[test]\n#[ignore]"
 put config test: "#[cfg(test)]"
 # TODO: automatically create test module in functions, add things like expect panic
 
+put warn unused variables: "#![warn(unused_variables)]"
+put warn unused imports: "#![warn(unused_imports)]"
+put warn unused results: "#![warn(unused_results)]"
+put warn unused mut: "#![warn(unused_mut)]"
+put warn dead code: "#![warn(dead_code)]"
 
-[put] returns box error: "-> Result<(), Box<dyn Error>>"
+put allow unused variables: "#![allow(unused_variables)]"
+put allow unused imports: "#![allow(unused_imports)]"
+put allow unused results: "#![allow(unused_results)]"
+put allow unused mut: "#![allow(unused_mut)]"
+put allow dead code: "#![allow(dead_code)]"
+put allow unreachable code: "#![allow(unreachable_code)]"
+
+
+[put] returns [result] box error: "-> Result<(), Box<dyn Error>>"
 put result box error: "Result<(), Box<dyn Error>>"
 
 put result of <user.code_type> and <user.code_type>: "Result<{code_type}, Box<dyn Error>>"
@@ -188,3 +228,14 @@ put as <user.code_type>: "as {code_type}"
 put new {user.rust_allocatable_types}:
     insert("{rust_allocatable_types}::new()")
 
+
+put (stood|standard) {user.rust_std_modules}:
+    insert("std::{rust_std_modules}::")
+
+put (stood|standard) {user.rust_std_modules} <user.text>:
+    insert("std::{rust_std_modules}::")
+    insert(user.formatted_text(text or "", "PUBLIC_CAMEL_CASE"))
+
+put collect as <user.code_containing_type> of [<user.code_type>]:
+    type = user.code_type or ""
+    insert("collect::{code_containing_type}<{type}>()")
