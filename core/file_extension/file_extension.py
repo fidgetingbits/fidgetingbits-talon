@@ -122,6 +122,7 @@ _file_extensions_defaults = {
     "text": ".txt",
     "timer": ".timer",
     "tom L": ".toml",
+    "tommel": ".toml",
     "N map": ".nse",
     "N S E": ".nse",
     "neo vim": ".nvim",
