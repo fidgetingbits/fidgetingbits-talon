@@ -14,8 +14,6 @@ mod.setting(
 )
 mod.tag("stylua", desc="Tag for stylua linting commands")
 
-# XXX - this should be updatable with other modules like nse, neovim, base
-# off some tags
 ctx.lists["user.code_common_function"] = {
     "to number": "tonumber",
     "I pairs": "ipairs",
@@ -62,9 +60,6 @@ ctx.lists["user.code_common_function"] = {
     "O S execute": "os.execute",
 }
 
-# XXX - it would be nice to correlate what we import these library is as to the
-# function calls. Ex: if someone does `local j = require("json")` then when we
-# call in too json libraries, we would prefix it with `j.parse()`
 ctx.lists["user.code_libraries"] = {
     "bit": "bit",
     "I O": "io",
@@ -79,9 +74,6 @@ ctx.lists["user.code_libraries"] = {
     "H T T P": "http",
     "web": "http",
     "jason": "json",
-    # Nmap Scripting Engine
-    # XXX - They should go in its own extension for .nse files
-    "short port": "shortport",
 }
 
 
@@ -128,7 +120,7 @@ class UserActions:
         actions.insert("break ")
 
     # Assumes a ::continue:: label
-    def code_state_continue():
+    def code_next():
         actions.insert("goto continue")
 
     def code_try_catch():
@@ -245,7 +237,6 @@ class UserActions:
     def code_operator_multiplication():
         actions.insert(" * ")
 
-    # action(user.code_operator_exponent): " ** "
     def code_operator_division():
         actions.insert(" / ")
 

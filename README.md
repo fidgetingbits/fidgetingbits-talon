@@ -1,14 +1,14 @@
 <!-- vim-markdown-toc GFM -->
 
-* [fidgetingbits' Talon Repo](#fidgetingbits-talon-repo)
-    * [Interesting features](#interesting-features)
-    * [Other stuff](#other-stuff)
-    * [WARNING](#warning)
-    * [Dependencies](#dependencies)
-        * [Monkey Patching](#monkey-patching)
-    * [Hardware](#hardware)
-    * [Recommendations](#recommendations)
-    * [Pull requests](#pull-requests)
+- [fidgetingbits' Talon Repo](#fidgetingbits-talon-repo)
+  - [Interesting features](#interesting-features)
+  - [Other stuff](#other-stuff)
+  - [WARNING](#warning)
+  - [Dependencies](#dependencies)
+    - [Monkey Patching](#monkey-patching)
+  - [Hardware](#hardware)
+  - [Recommendations](#recommendations)
+  - [Pull requests](#pull-requests)
 
 <!-- vim-markdown-toc -->
 
@@ -36,13 +36,13 @@ Following in the steps of [Andreas
 Arvidsson](https://github.com/AndreasArvidsson/andreas-talon) the following is
 a list of interesting stuff in is repo that you might want take.
 
-1. *vim* The main feature I added that most people come to this repo for is vim support.
-See `apps/vim/` for more details.
+1. _vim_ The main feature I added that most people come to this repo for is vim support.
+   See `apps/vim/` for more details.
 
 ## Other stuff
 
-1. *run_talon.sh* A [script](https://gist.github.com/fidgetingbits/cfc1699da2e8a60533db6c4cfdf390c3) I use to run talon that auto-restarts on stalls. 
-2. *talon-python-command-server* - Talon file-based [RPC server](https://github.com/fidgetingbits/talon-python-command-server)
+1. _run_talon.sh_ A [script](https://gist.github.com/fidgetingbits/cfc1699da2e8a60533db6c4cfdf390c3) I use to run talon that auto-restarts on stalls.
+2. _talon-python-command-server_ - Talon file-based [RPC server](https://github.com/fidgetingbits/talon-python-command-server)
 
 ## WARNING
 
@@ -113,8 +113,9 @@ Foot pedal:
 - [Stinky board](https://web.archive.org/web/20160531205704/http://stinkyboard.com/)
 
 Mouse:
+
 - Primary: [Logitech G903 Lightspeed](https://www.logitechg.com/en-us/products/gaming-mice/g903-hero-wireless-gaming-mouse.910-005670.html)
-    - This is great if you need an ambidextrous backup mouse
+  - This is great if you need an ambidextrous backup mouse
 - Secondary: [Logitech Trackman Marble](https://www.logitech.com/assets/51557/bossa-trackman-marble.pdf)
 
 ## Recommendations

@@ -175,9 +175,15 @@ copy all:
 #     edit.extend_down()
 #     edit.copy()
 
-copy word:
-    edit.select_word()
-    edit.copy()
+# Cut
+cut that: edit.cut()
+cut all: user.cut_all()
+cut line: user.cut_line()
+cut line start: user.cut_line_start()
+cut line end: user.cut_line_end()
+cut word: user.cut_word()
+cut word left: user.cut_word_left()
+cut word right: user.cut_word_right()
 
 copy word left:
     user.copy_word_left()
@@ -225,6 +231,13 @@ assign:
 (pace | paste) all:
     edit.select_all()
     edit.paste()
+    key(enter)
+paste match: edit.paste_match_style()
+(pace | paste) all: user.paste_all()
+(pace | paste) line: user.paste_line()
+(pace | paste) line start: user.paste_line_start()
+(pace | paste) line end: user.paste_line_end()
+(pace | paste) word: user.paste_word()
 
 # duplication
 clone that:

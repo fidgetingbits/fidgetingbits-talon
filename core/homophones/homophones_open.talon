@@ -1,4 +1,4 @@
-mode: user.homophones
+tag: user.homophones_open
 -
 [phones] hide: user.homophones_hide()
 choose <number_small>:
