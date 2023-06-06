@@ -111,6 +111,7 @@ linux_folder_paths = {
     "apache mods": "/etc/apache2/mods-available/",
     "apache mods enabled": "/etc/apache2/mods-enabled/",
     "var web": "/var/www/",
+    "cargo config": "~/.cargo/config",
 }
 
 linux_file_paths = {
