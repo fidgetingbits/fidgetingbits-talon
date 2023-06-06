@@ -17,7 +17,7 @@ tag: user.code_functions
 #   * pro static funky -> code_protected_static_function
 #   * pub static funky -> code_public_static_function
 #
-put new [{user.code_function_modifier}] func <user.text>$:
+put new [{user.code_function_modifier}] (funk|function) <user.text>$:
     user.code_modified_function(code_function_modifier_list or 0, text)
 
 # TODO: The should have single versions that encapsulate the containing type style
@@ -27,18 +27,21 @@ is type <user.code_containing_type> of <user.code_type>:
     return_type = "{code_containing_type}<{code_type}>"
     user.code_insert_type_annotation(return_type)
 
-returns [type] <user.code_type>: user.code_insert_return_type(code_type)
-returns <user.code_containing_type> of <user.code_type>: 
+[put] returns [type] <user.code_type>: user.code_insert_return_type(code_type)
+[put] returns <user.code_containing_type> of <user.code_type>: 
     return_type = "{code_containing_type}<{code_type}>"
     user.code_insert_return_type(return_type)
 
 # for generic reference of types
-(type|put) <user.code_type>: insert(code_type)
+(type|put) [type] <user.code_type>: insert(code_type)
 # TODO: It would be nice if this was nestable, so we could say something like:
 # put result of vector of you eight and box of dine error
 # and get: Result<Vec<u8>, Box<dyn Error>>
-put <user.code_containing_type> of <user.code_type>: 
-    insert("{code_containing_type}<{code_type}>")
+put <user.code_containing_type> of [<user.code_type>]:
+    type = user.code_type or ""
+    insert("{code_containing_type}<{type}>")
+
+
 
 (type|put) {user.code_function_modifier} <user.code_type>: 
     user.code_modified_function(code_function_modifier_list or 0, text)
