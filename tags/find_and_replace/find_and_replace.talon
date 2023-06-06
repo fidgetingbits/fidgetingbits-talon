@@ -14,7 +14,7 @@ hunt (all|code) clip:
 hunt (all|code) <user.text>: user.find_everywhere(text)
 hunt case: user.find_toggle_match_by_case()
 hunt word: user.find_toggle_match_by_word()
-hunt expression: user.find_toggle_match_by_regex()
+hunt (regex|expression): user.find_toggle_match_by_regex()
 hunt next: user.find_next()
 hunt previous: user.find_previous()
 replace this [<user.text>]: user.replace(text or "")
