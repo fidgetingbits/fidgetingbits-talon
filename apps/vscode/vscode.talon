@@ -19,7 +19,7 @@ please [<user.text>]:
     insert(user.text or "")
 
 # Sidebar
-bar explore: user.vscode("workbench.view.explorer")
+bar (files|explore): user.vscode("workbench.view.explorer")
 bar extensions: user.vscode("workbench.view.extensions")
 bar outline: user.vscode("outline.focus")
 bar run: user.vscode("workbench.view.debug")
@@ -48,10 +48,16 @@ hunt all symbols [<user.text>]:
     sleep(50ms)
     insert(text or "")
 
+# If you open the search panel (via hunt code) this allows you to jump between the results
+search (first|next): user.vscode("search.action.focusNextSearchResult")
+search last: user.vscode("search.action.focusPreviousSearchResult")
+search clear: user.vscode("search.action.clearSearchResults")
+search editor: user.vscode("search.action.openInEditor")
+
 # Panels
 panel control: user.vscode("workbench.panel.repl.view.focus")
-panel output: user.vscode("workbench.panel.output.focus")
-panel (trouble|problems): user.vscode("workbench.panel.markers.view.focus")
+panel output: user.vscode("replaceworkbench.panel.output.focus")
+(panel trouble|trouble show): user.vscode("workbench.panel.markers.view.focus")
 (low dog|panel switch): user.vscode("workbench.action.togglePanel")
 low dog off: user.vscode("workbench.action.closePanel")
 
@@ -67,6 +73,7 @@ show settings workspace: user.vscode("workbench.action.openWorkspaceSettings")
 show settings workspace json: user.vscode("workbench.action.openWorkspaceSettingsFile")
 show shortcuts: user.vscode("workbench.action.openGlobalKeybindings")
 show shortcuts json: user.vscode("workbench.action.openGlobalKeybindingsFile")
+show key bindings: user.vscode("workbench.action.openDefaultKeybindingsFile")
 show snippets: user.vscode("workbench.action.openSnippets")
 
 # Display
@@ -85,6 +92,9 @@ hunt files clip:
     user.vscode("workbench.action.quickOpen")
     sleep(50ms)
     edit.paste()
+# TODO: Possible telescope replacement to do something like hunt in file:
+# https://marketplace.visualstudio.com/items?itemName=shibayu36.search-in-current-file
+# https://marketplace.visualstudio.com/items?itemName=jpcrs.binocular
 file copy name: user.vscode("fileutils.copyFileName")
 file copy path: user.vscode("copyFilePath")
 file copy local [path]: user.vscode("copyRelativeFilePath")
@@ -131,6 +141,7 @@ imports fix: user.vscode("editor.action.organizeImports")
 (trouble|problem) (next|show): user.vscode("editor.action.marker.nextInFiles")
 (trouble|problem) last: user.vscode("editor.action.marker.prevInFiles")
 (trouble|problem) fix: user.vscode("problems.action.showQuickFixes")
+trouble bar: user.vscode("workbench.actions.view.problems")
 trouble close: key(escape)
 rename that: user.vscode("editor.action.rename")
 refactor that: user.vscode("editor.action.refactor")
@@ -158,10 +169,10 @@ go commits: user.vscode("gitlens.views.commits.focus")
 
 
 # Bookmarks. Requires Bookmarks plugin
-go marks: user.vscode("workbench.view.extension.bookmarks")
-toggle mark: user.vscode("bookmarks.toggle")
-go next mark: user.vscode("bookmarks.jumpToNext")
-go last mark: user.vscode("bookmarks.jumpToPrevious")
+hunt marks: user.vscode("workbench.view.extension.bookmarks")
+(toggle mark|mark toggle): user.vscode("bookmarks.toggle")
+mark next: user.vscode("bookmarks.jumpToNext")
+mark last: user.vscode("bookmarks.jumpToPrevious")
 
 close other tabs: user.vscode("workbench.action.closeOtherEditors")
 close all tabs: user.vscode("workbench.action.closeAllEditors")
@@ -391,15 +402,12 @@ replace here:
 
 # vim muscle memory
 lights out: key(escape)
-search off: key(escape)
 matching: user.vscode("editor.action.jumpToBracket")
 squeak:     
     edit.save()
     sleep(150ms)
     app.tab_close()
     
-clear line:
-    app.notify("Stop saying clear")
 
 # rust-analyzer
 file open cargo: user.vscode("rust-analyzer.cargo.openCargoToml")
