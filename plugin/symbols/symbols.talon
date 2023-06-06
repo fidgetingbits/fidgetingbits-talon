@@ -30,7 +30,7 @@ empty round: user.insert_between("(", ")")
 empty (square | list): user.insert_between("[", "]")
 empty (bracket | braces | curly): user.insert_between("{", "}")
 empty percent: user.insert_between("%", "%")
-empty coals: user.insert_between(":", ":")
+empty (turbo|coals): user.insert_between(":", ":")
 empty (angles|diamond): user.insert_between("<", ">")
 
 [pair] (round): user.insert_between("(", ")")
@@ -46,6 +46,8 @@ escaped slashes: user.insert_between("\\/", "\\/")
 [pair] slashes: user.insert_between("/", "/")
 # NOTE: purposely no edit.left()
 [pair] ampers: "&&"
+# Because of turbo fish from rust: ::<>
+turbo: "::"
 
 angles that:
     text = edit.selected_text()
