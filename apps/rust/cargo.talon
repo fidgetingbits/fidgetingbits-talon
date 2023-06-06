@@ -7,6 +7,8 @@ cargo new:
     "cargo new "
 cargo run:
     "cargo run\n"
+cargo run help:
+    "cargo run -- --help\n"
 cargo run release:
     "cargo run --release\n"
 cargo add:
@@ -17,6 +19,8 @@ cargo remove:
     "cargo remove "
 cargo install:
     "cargo install "
+cargo instill <user.text>:
+    "cargo install {text}"
 cargo uninstall:
     "cargo uninstall "
 cargo run with args:
@@ -29,6 +33,8 @@ cargo build with output:
     "cargo -vv build\n"
 cargo build release:
     "cargo build --release\n"
+cargo build all release:
+    "cargo build --all --release\n"
 cargo build release with output:
     "cargo -vv build --release\n"
 cargo build (all|workspace):
@@ -60,5 +66,30 @@ cargo clean release:
     "cargo clean --release\n"
 cargo clean release package:
     "cargo clean --release --package "
-rustup:
+
+# These are command specific to cross, but to make it a little bit saner, I use cargo cross
+cargo cross:
+    "cross "
+
+cargo cross windows:
+    "cross build --target x86_64-pc-windows-gnu\n"
+cargo cross windows release:
+    "cross build --target x86_64-pc-windows-gnu --release\n"
+cargo cross mac:
+    "cross build --target x86_64-apple-darwin\n"
+cargo cross mac release:
+    "cross build --target x86_64-apple-darwin --release\n"
+cargo cross linux:
+    "cross build --target x86_64-unknown-linux-gnu\n"
+cargo cross linux release:
+    "cross build --target x86_64-unknown-linux-gnu --release\n"
+
+
+rust [up]:
     "rustup "
+
+rust [up] target add:
+    "rustup target add "
+
+rust [up] target add <user.rust_targets>:
+    "rustup target add {rust_targets}\n"
