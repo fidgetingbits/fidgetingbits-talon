@@ -178,6 +178,7 @@ funk {user.formatted_functions}:
     insert(formatted_functions)
     user.insert_between('("', '");')
 
+put used: "#[used]"
 put test: "#[test]"
 put ignore: "#[ignore]"
 put ignored test: "#[test]\n#[ignore]"

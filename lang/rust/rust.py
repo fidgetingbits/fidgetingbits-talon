@@ -15,6 +15,8 @@ mod.list("code_containing_types", desc="List of common rust container types")
 mod.list("formatted_functions", desc="List of common rust formatted functions")
 mod.list("rust_allocatable_types", desc="List of common rust allocatable types")
 mod.list("rust_std_modules", desc="List of common rust std modules")
+mod.list("rust_targets", desc="List of common rust compile targets")
+mod.list("rust_toolchains", desc="List of common rust toolchains")
 
 
 @mod.action_class
@@ -166,6 +168,7 @@ all_types = {
 standard_function_macros = {
     "panic": "panic!",
     "concatenate": "concat!",
+    "con cat": "concat!",
     "to do": "todo!",
     "write": "write!",
     "write line": "writeln!",
@@ -344,6 +347,7 @@ ctx.lists["user.code_common_function"] = {
     "is alphanum": "is_alphanumeric",
     "is ascii": "is_ascii",
     "is ascii hex digit": "is_ascii_hex_digit",
+    "in to": "into",
     **common_implementations,
     **all_macros,
 }
@@ -394,6 +398,27 @@ ctx.lists["user.rust_crates"] = {
     "iter tools": "itertools",
     "lazy static": "lazy_static",
     "which": "which",
+    "base sixty four": "base64",
+}
+
+ctx.lists["user.rust_toolchains"] = {
+    "stable": "stable",
+    "nightly": "nightly",
+    "beta": "beta",
+}
+
+# TODO: These are a little loose with the architecture's atm
+ctx.lists["user.rust_targets"] = {
+    "windows M S V C": "x86_64-pc-windows-msvc",
+    "windows G N U": "x86_64-pc-windows-gnu",
+    "mac O S": "x86_64-apple-darwin",
+    "mac O S arm": "aarch64-apple-darwin",
+    "linux": "x86_64-unknown-linux-gnu",
+    "linux muscle": "x86_64-unknown-linux-musl",
+    "linux arm sixty four": "aarch64-unknown-linux-gnu",
+    "linux muscle arm sixty four": "aarch64-unknown-linux-musl",
+    "linux arm": "armv7-unknown-linux-gnueabihf",
+    "linux muscle arm": "armv7-unknown-linux-musleabihf",
 }
 
 ctx.lists["user.formatted_functions"] = {**all_string_formatted_functions_macros}
