@@ -114,6 +114,7 @@ file list hidden: 'ls -ld .?*\n'
 # XXX - it would be nice if these were coloured like regular ls sometimes
 file list hidden files: 'find . -maxdepth 1 -not -type d -name ".*" -printf "%f\\n"\n'
 file list hidden folders: 'find . -maxdepth 1 -not -type f -name ".*" -printf "%f\\n"\n'
+file list sym links: 'find . -maxdepth 1 -type l -printf "%f\\n"\n'
 
 
 # find
@@ -301,9 +302,11 @@ folder pop: "popd\n"
 
 # permissions
 file [change] mode: "chmod "
-file make (exec|executable): "chmod +x "
+file (mark|make) (exec|executable): "chmod +x "
 file [change] ownership: "chown "
-file [change] deep ownership: "chown -R $UID:$GID "
+file [change] ownership me: "chown $UID:$GID "
+file [change] deep ownership: "chown -R "
+file [change] deep ownership me: "chown -R $UID:$GID "
 
 # file viewing
 less this:
@@ -442,6 +445,10 @@ so do sue: "sudo su\n"
 so do that:
     edit.line_start()
     insert("sudo ")
+    key(enter)
+time that:
+    edit.line_start()
+    insert("time ")
     key(enter)
 so do edit: "sudoedit "
 so do edit <user.paths>: "sudoedit {paths}\n"
@@ -877,5 +884,10 @@ show cpu min frequencies: "cat /sys/devices/system/cpu/cpu*/cpufreq/cpuinfo_min_
 
 G D B version: "gdb --version\n"
 
-loop device list: "losetup -a\n"
-loop device detach: "losetup -d "
+loop setup help: "losetup --help\n"
+loop setup attach: "losetup -f "
+loop setup part attach: "losetup -fP "
+loop setup list: "losetup -a\n"
+loop setup detach: "losetup -d "
+
+disk part list: "fdisk -l "
