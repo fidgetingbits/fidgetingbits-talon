@@ -31,6 +31,7 @@ tag(): user.ssh
 #tag(): user.taskwarrior
 #tag(): user.timewarrior
 tag(): user.make_commands
+tag(): user.just_commands
 #tag(): user.tmux
 tag(): user.git
 tag(): user.docker
@@ -181,6 +182,8 @@ file copy latest <user.folder_paths>: user.paste("cp $(ls --sort changed --no-ic
 file (file|info|type): "file "
 
 file show: "cat "
+file show max width: "cut -c-120 "
+file show max width <number>: "cut -c-{number} "
 file show clip:
     "cat "
     edit.paste()
@@ -236,6 +239,7 @@ trash list: "trash-list\n"
 trash restore: "trash-restore "
 trash empty: "trash-empty "
 file watch latest: "vlc $(exa --sort changed --no-icons | tail -n1)"
+file play audio: "vlc --play-and-exit --intf dummy --no-interact"
 
 echo param <user.text>:
     insert("echo ${")
@@ -375,18 +379,22 @@ net ping clip:
     insert("ping")
     edit.paste()
     key(enter)
+
 net cat: "nc -vv "
 net connect <user.domains>: "nc -vv {domains} "
 net cat listener: "nc -v -l -p "
 net cat listen [on] <number>:
     user.bind_nc_listener(number)
     key(enter)
-net cat listen [on] <number> from file:
+net cat listen [on] <number> pipe from file:
     user.bind_nc_listener(number)
     insert(" < ")
-net cat listen [on] <number> to file:
+#NOTE: saying `to file` next to the number will cause it to be interpreted as a number
+net cat listen [on] <number> pipe to file:
     user.bind_nc_listener(number)
     insert(" > ")
+net cat copy file to:
+    user.insert_between("nc -v ", "<")
 net my I P: "dig +short myip.opendns.com @resolver1.opendns.com\n"
 net port <user.ports>: "{ports}"
 net dump: "tcpdump "
@@ -503,8 +511,9 @@ file extract root F S: "mkdir rootfs 2>/dev/null; cd rootfs; gzip -cd ../rootfs.
 #favor 7z because it supports newer decryption mechanisms
 #file unzip: "unzip "
 file B unzip: "bunzip2 "
-file (unzip|seven extract): "7z x "
+file (gun zip|unzip|seven extract): "7z x "
 file (seven|zip) list: "7z l "
+file G zip: "gzip "
 file zip folder: "zip -rP changepassword output.zip "
 file create encrypted (zip|archive): "zip -P changepassword output.zip "
 
@@ -656,7 +665,7 @@ wallpaper set latest: "feh --bg-scale $(find ~/images/wallpaper/ -name $(exa --s
 ###
 file elf [read] header: "eu-readelf -h "
 file elf [read] symbols: "eu-readelf -s "
-file elf [read] program headers: "eu-readelf -l "
+file elf [read] (program headers|sections): "eu-readelf -l "
 file elf dependencies: "eu-readelf -d "
 file elf debug info: user.insert_between("readelf -w", "| head -15")
 file strip: "strip --strip-all "
@@ -881,6 +890,7 @@ show cpu frequencies: "cat /sys/devices/system/cpu/cpu*/cpufreq/scaling_cur_freq
 show cpu governors: "cat /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor\n"
 show cpu max frequencies: "cat /sys/devices/system/cpu/cpu*/cpufreq/cpuinfo_max_freq\n"
 show cpu min frequencies: "cat /sys/devices/system/cpu/cpu*/cpufreq/cpuinfo_min_freq\n"
+adjust all governors: "echo performance | sudo tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor\n"
 
 G D B version: "gdb --version\n"
 
@@ -891,3 +901,9 @@ loop setup list: "losetup -a\n"
 loop setup detach: "losetup -d "
 
 disk part list: "fdisk -l "
+
+# bash helpers
+print hex: "printf '0x%x\\n' "
+
+screen serial (ninety six|fortinet): "sudo screen /dev/ttyUSB0 9600\n"
+screen serial eleven: "sudo screen /dev/ttyUSB0 115200\n"
