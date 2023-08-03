@@ -85,16 +85,6 @@ class BrowserActions:
         # None were valid.
         return ""
 
-
-@ctx.action_class("user")
-class UserActions:
-    def browsers_go_clip():
-        """Go to the URL in the clipboard"""
-        actions.browser.focus_address()
-        actions.sleep("50ms")
-        actions.insert(clip.text())
-        actions.key("enter")
-
     def bookmark():
         actions.key("ctrl-d")
 
@@ -161,3 +151,13 @@ class UserActions:
 
     def toggle_dev_tools():
         actions.key("ctrl-shift-i")
+
+
+@ctx.action_class("user")
+class UserActions:
+    def browsers_go_clip():
+        """Go to the URL in the clipboard"""
+        actions.browser.focus_address()
+        actions.sleep("50ms")
+        actions.insert(clip.text())
+        actions.key("enter")
