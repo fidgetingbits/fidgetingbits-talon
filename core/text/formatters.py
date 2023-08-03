@@ -217,6 +217,7 @@ formatters_words = {
     "equaling": formatters_dict["EQUAL_SEPARATED"],
     "long arg": formatters_dict["LONG_ARG"],
     "packing": formatters_dict["DOUBLE_COLON_SEPARATED"],
+    "turbo": formatters_dict["DOUBLE_COLON_SEPARATED"],
     "padded": formatters_dict["SPACE_SURROUNDED_STRING"],
     "pointing": formatters_dict["C_POINTER_SEPARATED"],
     "slashing": formatters_dict["SLASH_SEPARATED"],
