@@ -639,7 +639,7 @@ def abbreviation(m) -> str:
 abbreviations_list = get_list_from_csv(
     "abbreviations.csv",
     headers=("Abbreviation", "Spoken Form"),
-    default=abbreviations,
+    default=abbreviations_list,
 )
 
 # Allows the abbreviated/short form to be used as spoken phrase. eg "brief app" -> app
