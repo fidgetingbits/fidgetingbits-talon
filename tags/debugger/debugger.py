@@ -45,6 +45,7 @@ def win_focus_hook(window):
 ui.register("win_title", win_title_hook)
 ui.register("win_focus", win_focus_hook)
 
+
 # This is more generic than debugger, I should move somewhere else. assembly.py maybe
 @mod.capture(rule="{self.registers}")
 def register(m) -> str:
@@ -55,7 +56,7 @@ def register(m) -> str:
 class Debugger:
     def __init__(self, mod):
         self.arch_index = 0
-        self.architectures = ["x86", "x64", "arm32", "arm64"]
+        self.architectures = ["x86", "x64", "arm", "aarch64"]
         for arch in self.architectures:
             mod.tag(arch, desc="Tag for enabling {arch} architecture")
         self.architecture = settings.get("user.debug_default_architecture")
