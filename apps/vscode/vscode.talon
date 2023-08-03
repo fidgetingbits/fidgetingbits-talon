@@ -356,13 +356,17 @@ preview markdown: user.vscode("markdown.showPreview")
 
 # copilot
 pilot jest: user.vscode("editor.action.inlineSuggest.trigger")
-pilot next: user.vscode("editor.action.inlineSuggest.showNext")
-pilot last: user.vscode("editor.action.inlineSuggest.showPrevious")
+previous|pilot next: user.vscode("editor.action.inlineSuggest.showNext")
+pilot (last): user.vscode("editor.action.inlineSuggest.showPrevious")
 pilot: user.vscode("editor.action.inlineSuggest.commit")
 pilot word: user.vscode("editor.action.inlineSuggest.acceptNextWord")
 pilot nope: user.vscode("editor.action.inlineSuggest.undo")
 pilot cancel: user.vscode("editor.action.inlineSuggest.hide")
-keep: key(tab)
+pilot generate: user.vscode("github.copilot.generate")
+pilot pan next: user.vscode("github.copilot.nextPanelSuggestion")
+pilot pan (previous|last): user.vscode("github.copilot.previousPanelSuggestion")
+pilot [pan] (accept|commit): user.vscode("github.copilot.acceptPanelSuggestion")
+[pilot] keep: key(tab)
 
 # pokey 
 sesh <user.show_list> [<user.text>] [halt]:
@@ -411,3 +415,11 @@ squeak:
 
 # rust-analyzer
 file open cargo: user.vscode("rust-analyzer.cargo.openCargoToml")
+
+# TODO: It would be good to close the panel on success with certain commits
+task build: user.vscode("workbench.action.tasks.build")
+
+(task build quiet|builder): 
+    user.vscode("workbench.action.tasks.build")
+    sleep(2s)
+    user.vscode("workbench.action.closePanel")
