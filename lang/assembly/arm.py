@@ -1,10 +1,10 @@
 from talon import Context, Module
 
 mod = Module()
-mod.tag("arm32", desc=r"Tag for enabling arm32 functionality")
+mod.tag("arm", desc=r"Tag for enabling arm assembly functionality")
 ctx = Context()
 ctx.matches = r"""
-tag: user.arm32
+tag: user.arm
 """
 
 registers = {
