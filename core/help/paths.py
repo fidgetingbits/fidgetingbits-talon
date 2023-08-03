@@ -92,8 +92,15 @@ linux_folder_paths = {
     "lib thirty two": "/lib32/",
     "lib three two": "/lib32/",
     "proc": "/proc/",
-    "proc": "/proc/",
     "proc pid": "/proc/<pid>/",
+    "proc pid limits": "/proc/<pid>/limits",
+    "proc pid status": "/proc/<pid>/status",
+    "proc pid maps": "/proc/<pid>/maps",
+    "proc pid mem": "/proc/<pid>/mem",
+    "proc pid self": "/proc/<pid>/self",
+    "proc pid X E": "/proc/<pid>/exe",
+    "proc pid C W D": "/proc/<pid>/cwd",
+    "proc pid F D": "/proc/<pid>/fd/",
     "root": "/root/",
     "packman cache": "/var/cache/pacman/pkg/",
     "yay cache": "~/.cache/yay/",
@@ -162,6 +169,10 @@ linux_file_paths = {
     "et see keeper": "/etc/etckeeper/etckeeper.conf",
     "var log messages": "/var/log/messages",
     "K all sims": "/proc/kallsyms",
+    "serial usb": "/dev/ttyUSB0",
+    "dev T T Y U S B": "/dev/ttyUSB0",
+    "dev T T Y A C M": "/dev/ttyACM0",
+    "dev T T Y S zero": "/dev/ttyS0",
 }
 
 # this is used for specific commands like pivot
