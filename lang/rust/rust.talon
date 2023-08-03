@@ -164,6 +164,7 @@ put tokyo main: #[tokio::main]
 put async: "async "
 put pub: "pub "
 put mod: "mod "
+put static ref: "static ref "
 
 # TODO: Make all derivable trait values something we can say and have automatically added
 put derive: user.insert_between("#[derive(", ")]")
@@ -177,26 +178,50 @@ put default: "#[default]"
 funk {user.formatted_functions}: 
     insert(formatted_functions)
     user.insert_between('("', '");')
+put A sink trait: "#[async_trait]"
 
 put used: "#[used]"
 put test: "#[test]"
 put ignore: "#[ignore]"
 put ignored test: "#[test]\n#[ignore]"
 put config test: "#[cfg(test)]"
+put config any: user.insert_between("#[cfg(any(", "))]")
+put config X sixty four: "#[cfg(target_arch = \"x86_64\")]"
+put config X thirty two: "#[cfg(target_arch = \"x86\")]"
+put config arm: "#[cfg(target_arch = \"arm\")]"
+put config arm sixty four: "#[cfg(target_arch = \"aarch64\")]"
+# TODO: It would be nice to automatically be able to specify multiple
+# architecture's and wrap it inside of any()
 # TODO: automatically create test module in functions, add things like expect panic
+put (rep|represent) C: "#[repr(C)]"
 
-put warn unused variables: "#![warn(unused_variables)]"
-put warn unused imports: "#![warn(unused_imports)]"
-put warn unused results: "#![warn(unused_results)]"
-put warn unused mut: "#![warn(unused_mut)]"
-put warn dead code: "#![warn(dead_code)]"
+put global warn unused variables: "#![warn(unused_variables)]"
+put global warn unused imports: "#![warn(unused_imports)]"
+put global warn unused results: "#![warn(unused_results)]"
+put global warn unused mut: "#![warn(unused_mut)]"
+put global warn dead code: "#![warn(dead_code)]"
 
-put allow unused variables: "#![allow(unused_variables)]"
-put allow unused imports: "#![allow(unused_imports)]"
-put allow unused results: "#![allow(unused_results)]"
-put allow unused mut: "#![allow(unused_mut)]"
-put allow dead code: "#![allow(dead_code)]"
-put allow unreachable code: "#![allow(unreachable_code)]"
+put warn unused variables: "#[warn(unused_variables)]"
+put warn unused imports: "#[warn(unused_imports)]"
+put warn unused results: "#[warn(unused_results)]"
+put warn unused mut: "#[warn(unused_mut)]"
+put warn dead code: "#[warn(dead_code)]"
+
+put global allow unused variables: "#![allow(unused_variables)]"
+put global allow unused imports: "#![allow(unused_imports)]"
+put global allow unused results: "#![allow(unused_results)]"
+put global allow unused mut: "#![allow(unused_mut)]"
+put global allow non camel [case] [types] : "#![allow(non_camel_case_types)]"
+put global allow dead code: "#![allow(dead_code)]"
+put global allow unreachable code: "#![allow(unreachable_code)]"
+
+put allow unused variables: "#[allow(unused_variables)]"
+put allow unused imports: "#[allow(unused_imports)]"
+put allow unused results: "#[allow(unused_results)]"
+put allow unused mut: "#[allow(unused_mut)]"
+put allow non camel [case] [types] : "#[allow(non_camel_case_types)]"
+put allow dead code: "#[allow(dead_code)]"
+put allow unreachable code: "#[allow(unreachable_code)]"
 
 
 [put] returns [result] box error: "-> Result<(), Box<dyn Error>>"

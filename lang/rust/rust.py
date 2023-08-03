@@ -91,6 +91,7 @@ scalar_types = {
     "float thirty two": "f32",
     "float sixty four": "f64",
     "boolean": "bool",
+    "bool": "bool",
     "character": "char",
 }
 
@@ -132,7 +133,7 @@ ctx.lists["user.rust_allocatable_types"] = allocatable_types
 # types that allow us say for example 'vector of you eight' to get Vec<u8>
 containing_types = {
     "vector": "Vec",
-    "vec": "Vec",
+    "veck": "Vec",
     "okay": "Ok",
     "result": "Result",
     "option": "Option",
@@ -170,8 +171,8 @@ standard_function_macros = {
     "concatenate": "concat!",
     "con cat": "concat!",
     "to do": "todo!",
-    "write": "write!",
-    "write line": "writeln!",
+    "debug": "dbg!",
+    "sys call": "syscall!",
 }
 
 string_formatted_standard_function_macros = {
@@ -179,6 +180,8 @@ string_formatted_standard_function_macros = {
     "print": "print!",
     "print line": "println!",
     "error print line": "eprintln!",
+    "write": "write!",
+    "write line": "writeln!",
 }
 
 
@@ -210,6 +213,11 @@ testing_macros = {
     "assert": "assert!",
     "assert equal": "assert_eq!",
     "assert not equal": "assert_ne!",
+}
+
+errno_values = {
+    "success": "ESUCCESS",  # 0
+    "permission denied": "EPERM",  # 1
 }
 
 error_methods = {"raw os error": "raw_os_error"}
@@ -282,7 +290,10 @@ standard_imports = {
     "future": "std::future",
     "pin": "std::pin",
     "error": "std::error",
+    "error error": "std::error::Error",
     "error kind": "std::io::ErrorKind",
+    "from stir": "std::str::FromStr",
+    "channel": "std::sync::mpsc",
 }
 tokio_imports = {"tracing": "tracing::{info};"}
 common_imports = {
@@ -295,6 +306,7 @@ common_imports = {
     "lazy static": "lazy_static::lazy_static",
     "perfect hash map": "phf::phf_map",
     "follow redirects": "follow_redirects::ClientExt",
+    "clap parser": "clap::{App, Arg, ArgMatches, Parser, SubCommand}",
 }
 
 ctx.lists["user.code_libraries"] = {
@@ -399,6 +411,7 @@ ctx.lists["user.rust_crates"] = {
     "lazy static": "lazy_static",
     "which": "which",
     "base sixty four": "base64",
+    "regex": "regex",
 }
 
 ctx.lists["user.rust_toolchains"] = {

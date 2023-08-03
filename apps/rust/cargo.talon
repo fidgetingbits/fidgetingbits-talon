@@ -3,6 +3,8 @@ tag: user.rust_apps
 
 cargo init:
     "cargo init "
+cargo init (library|lib):
+    "cargo init --lib "
 cargo new:
     "cargo new "
 cargo run:
@@ -19,13 +21,13 @@ cargo remove:
     "cargo remove "
 cargo install:
     "cargo install "
-cargo instill <user.text>:
+cargo install <user.text>:
     "cargo install {text}"
 cargo uninstall:
     "cargo uninstall "
 cargo run with args:
     "cargo run -- "
-cargo run release with arg:
+cargo run release with args:
     "cargo run --release -- "
 cargo build:
     "cargo build\n"
@@ -91,5 +93,5 @@ rust [up]:
 rust [up] target add:
     "rustup target add "
 
-rust [up] target add <user.rust_targets>:
+rust [up] target add {user.rust_targets}:
     "rustup target add {rust_targets}\n"
