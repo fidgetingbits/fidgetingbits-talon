@@ -8,8 +8,7 @@ from talon import resource
 #   knausj folder.
 SETTINGS_DIR = Path(__file__).parents[1] / "settings"
 # NOTE: This method requires this module to be in ~/.talon/user
-# TODO: Make this used by all things referencing "fidgetingbits-talon-private"
-PRIVATE_SETTINGS_DIR = Path(__file__).parents[2] / "fidgetingbits-talon-private" / "settings"
+PRIVATE_SETTINGS_DIR = Path(__file__).parents[2] / "private" / "settings"
 
 if not SETTINGS_DIR.is_dir():
     os.mkdir(SETTINGS_DIR)
@@ -19,9 +18,6 @@ def get_list_from_private_csv(
     filename: str, headers: tuple[str, str], default: dict[str, str] = {}
 ):
     """Retrieves list from CSV"""
-    if not PRIVATE_SETTINGS_DIR.is_dir():
-        print(f"WARNING: {PRIVATE_SETTINGS_DIR} doesn't exist. Set PRIVATE_SETTINGS_DIR global")
-        return {}
     path = PRIVATE_SETTINGS_DIR / filename
     return parse_csv(path, filename, headers, default)
 
