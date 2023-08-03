@@ -30,6 +30,7 @@ tagList = [
     "taskwarrior",
     "timewarrior",
     "make_commands",
+    "just_commands",
     "kubectl",
     "tmux",
     "docker",
