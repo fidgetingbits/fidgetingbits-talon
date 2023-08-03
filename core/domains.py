@@ -14,8 +14,9 @@ class Domain:
 
     def __init__(self):
         # assumes separate ~/.talon/user/private/ directory
+        # TODO: Have a setting that defines the private folder
         cwd = pathlib.Path(__file__).parent.parent.joinpath(
-            "../private/settings/domains_private.json"
+            "../fidgetingbits-talon-private/settings/domains_private.json"
         )
         self.domain_file = cwd.absolute()
         self.update_commands()

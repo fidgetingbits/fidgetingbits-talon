@@ -14,10 +14,10 @@ last_names_file = os.path.join(cwd, "last_names.csv")
 # These list should contain values you don't want to be published publicly.
 # see the read me about keeping them private
 private_first_names_file = pathlib.Path(__file__).parent.parent.joinpath(
-    "../../../private/misc/common_names/private_first_names.csv"
+    "../../../fidgetingbits-talon-private/misc/common_names/private_first_names.csv"
 )
 private_last_names_file = pathlib.Path(__file__).parent.parent.joinpath(
-    "../../../private/misc/common_names/private_last_names.csv"
+    "../../../fidgetingbits-talon-private/misc/common_names/private_last_names.csv"
 )
 
 
