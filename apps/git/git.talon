@@ -178,8 +178,13 @@ git show change clip:
 git show head: "git show -c HEAD\n"
 git change head to main:
     "git symbolic-ref refs/remotes/origin/HEAD refs/remotes/origin/main\n"
+get stash help: "git stash --help\n"
 git stash pop: "git stash pop\n"
 git stash: "git stash\n"
+git stash rebase: 
+    "git stash -m 'Talon auto stash'\n"
+    "git fetch && git rebase\n"
+    "git stash pop\n"
 git stash push: user.insert_between("git stash push -m '", "'")
 git stash apply: "git stash apply\n"
 git stash list: "git stash list\n"
@@ -191,7 +196,7 @@ git sub tree: "git subtree "
 git switch: "git switch "
 git switch branch: "git switch -c"
 git switch [<user.text>]:
-    "git switch {user.formatted_text(text or '', 'DASH_SEPARATED')}"
+    "git switch {user.formatted_text(text or '', 'DASH_SEPARATED')}'
 git switch master: "git switch master "
 git switch main: "git switch main "
 git switch develop: "git switch develop "
