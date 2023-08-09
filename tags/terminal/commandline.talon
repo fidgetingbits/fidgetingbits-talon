@@ -250,7 +250,7 @@ echo param <user.text>:
 
 # directory and files
 pivot: "cd "
-pivot first: "cd *\n"
+pivot (only|first): "cd *\n"
 pivot clip:
     insert("cd ")
     edit.paste()
@@ -280,7 +280,7 @@ pivot next:
     key(enter)
     # insert("ls\n")
 
-pivot (last|flip): "cd -\n"
+(pivot|folder) (last|flip): "cd -\n"
 pivot latest: "cd $(exa --sort changed --no-icons | tail -n1)\n"
 
 # zoxide
