@@ -1,7 +1,8 @@
 import os
 import subprocess
+import socket
 
-from talon import app, imgui, ui
+from talon import app, imgui, ui, scope
 
 
 def monkey_notify(body="", title="", subtitle="", *kwargs):
@@ -61,10 +62,23 @@ def install_monkey_notify():
 def install_monkey_patches():
     """Installs a number of monkey patches if the associated tools are found"""
 
-    print("Installing fidget monkey patches")
-    install_monkey_notify()
-    install_monkey_focus()
+    hostname = socket.gethostname()
+    if hostname in host_patches:
+        print(f"Installing fidget monkey patches for {hostname}")
+        for func in host_patches[hostname]:
+            func()
+    else:
+        print(f"WARNING: host: {hostname} not found in host_patches list. If you need monkey patch, modify monkey_patching.py")
+    #install_monkey_notify()
+    #install_monkey_focus()
     # install_monkey_show()
 
+
+# I have mutliple hosts and currently some aren't using i3 and notify-send now, so I
+# need to break out who gets what.
+
+host_patches = {
+    "oedo": [ install_monkey_focus, install_monkey_notify ]
+}
 
 install_monkey_patches()

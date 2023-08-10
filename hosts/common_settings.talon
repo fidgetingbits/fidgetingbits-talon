@@ -16,7 +16,7 @@ settings():
     user.help_max_contexts_per_page = 40
 
     # where to save screen shots
-    user.screenshot_folder = "/home/aa/images/screenshots/"
+    user.screenshot_folder = "~/images/screenshots/"
 
     # where to save replayed recordings for talon debugging
     user.saved_replay_recordings_directory = "~/talon/documents/conformer_problem_recordings/"
@@ -165,7 +165,6 @@ settings():
 # uncomment tag to enable mouse grid
 # tag(): user.mouse_grid_enabled
 
-tag(): user.i3wm
 tag(): user.noise_quick_actions
 tag(): user.record_replay
 
