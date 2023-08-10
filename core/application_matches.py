@@ -162,3 +162,8 @@ apps.microsoft_teams = """
 os: linux
 and app.name: Teams
 """
+
+apps.gnome_terminal = """
+os: linux
+and app.name: kgx
+"""
