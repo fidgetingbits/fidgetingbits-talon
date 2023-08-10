@@ -56,6 +56,7 @@ tagList = [
     "glab",
     "coredumpctl",
     "rust_apps",
+    "gpg",
 ]
 
 for entry in tagList:
