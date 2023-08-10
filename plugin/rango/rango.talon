@@ -7,10 +7,10 @@ click new <user.rango_target>:
 click (stash|hidden) <user.rango_target>:
   user.rango_command_with_target("openInBackgroundTab", rango_target)
 
-hint {user.rango_hint_styles}:
-  user.rango_command_without_target("setHintStyle", user.rango_hint_styles)
-hint weight {user.rango_hint_weights}:
-  user.rango_command_without_target("setHintWeight", user.rango_hint_weights)
+#hint {user.rango_hint_styles}:
+#  user.rango_command_without_target("setHintStyle", user.rango_hint_styles)
+#hint weight {user.rango_hint_weights}:
+#  user.rango_command_without_target("setHintWeight", user.rango_hint_weights)
 
 half up: user.rango_command_without_target("scrollUpPage", 0.5)
 half down: user.rango_command_without_target("scrollDownPage", 0.5)
