@@ -1,6 +1,9 @@
 tag: browser
 -
 
+settings:
+  user.rango_start_with_direct_clicking = 0
+
 # Open in a new tab
 click new <user.rango_target>:
   user.rango_command_with_target("openInNewTab", rango_target)
