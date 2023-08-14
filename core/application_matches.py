@@ -167,3 +167,10 @@ apps.gnome_terminal = """
 os: linux
 and app.name: kgx
 """
+
+apps.arandr = """
+os: linux
+and app.name: arandr
+os: linux
+and app.name: Arandr
+"""
