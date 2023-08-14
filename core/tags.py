@@ -53,10 +53,11 @@ tagList = [
     "vimium",
     "obs_studio_global",
     "vboxmanage",
-    "glab",
+    "glab", # gitlab cli
     "coredumpctl",
-    "rust_apps",
-    "gpg",
+    "rust_apps", # rust terminal commands (rustup, cargo, etc)
+    "gpg", # gpg terminal commands
+    "nix_cli", # nix terminal commands 
 ]
 
 for entry in tagList:

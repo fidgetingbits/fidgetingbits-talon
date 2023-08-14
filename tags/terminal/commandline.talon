@@ -51,6 +51,7 @@ tag(): user.glab
 tag(): user.coredumpctl
 tag(): user.rust_apps
 tag(): user.gpg
+tag(): user.nix_cli
 # XXX - See generic_terminal.talon for some basics as well.
 tag(): user.generic_unix_shell
 
