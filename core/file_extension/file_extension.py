@@ -72,7 +72,7 @@ _file_extensions_defaults = {
     "object": ".o",
     "net": ".net",
     "nse": ".nse",
-    ".nix": ".nix",
+    "nicks": ".nix",
     "org": ".org",
     "out": ".out",
     "patch": ".patch",
