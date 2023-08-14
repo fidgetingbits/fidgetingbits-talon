@@ -10,7 +10,7 @@ mod.list("folder_paths_public", desc="Common paths")
 mod.list("folder_paths_private", desc="Common private paths")
 ctx = Context()
 
-TALON_REPO = "fidget"
+TALON_REPO = "fidgetingbits-talon"
 arch_linux_paths = {
     "packman hooks": "/etc/pacman.d/hooks/",
 }
