@@ -162,6 +162,8 @@ settings():
     # -width windows are resized to stay full-height/width.
     #user.window_snap_screen = "size aware"
 
+    user.cursorless_settings_directory = "./fidgetingbits-talon/settings/cursorless-settings"
+
 # uncomment tag to enable mouse grid
 # tag(): user.mouse_grid_enabled
 
