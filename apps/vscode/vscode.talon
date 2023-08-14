@@ -412,9 +412,15 @@ squeak:
     sleep(150ms)
     app.tab_close()
     
+# Refresh the contents of a file
+file refresh: user.vscode("workbench.action.files.revert")
+file new window: user.vscode("workbench.action.files.showOpenedFileInNewWindow")
+file open: user.vscode("workbench.action.files.openFile")
+hunt recent: user.vscode("workbench.action.openRecent")
 
 # rust-analyzer
 file open cargo: user.vscode("rust-analyzer.cargo.openCargoToml")
+
 
 # TODO: It would be good to close the panel on success with certain commits
 task build: user.vscode("workbench.action.tasks.build")
