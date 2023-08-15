@@ -1,7 +1,10 @@
-#desk <number_small>: user.desktop(number_small)
-#desk next: user.desktop_next()
-#desk last: user.desktop_last()
-#desk show: user.desktop_show()
-#window move desk <number>: user.window_move_desktop(number)
-#window move desk left: user.window_move_desktop_left()
-#window move desk right: user.window_move_desktop_right()
+not tag: user.i3wm
+-
+
+portal <number_small>: user.desktop(number_small)
+portal next: user.desktop_next()
+portal last: user.desktop_last()
+portal show: user.desktop_show()
+shuffle <number>: user.window_move_desktop(number)
+shuffle left: user.window_move_desktop_left()
+shuffle right: user.window_move_desktop_right()
