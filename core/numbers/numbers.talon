@@ -33,6 +33,14 @@ numb <user.number_string> dash <user.number_string>:
 numb <user.number_string> dash <user.number_string> dash <user.number_string>:
     "{number_string_1}-{number_string_2}-{number_string_3}"
 
+# space separated numbers
+numb <user.number_string> and <user.number_string>:
+    "{number_string_1} {number_string_2}"
+numb <user.number_string> and <user.number_string> and <user.number_string>:
+    "{number_string_1} {number_string_2} {number_string_3}"
+numb <user.number_string> and <user.number_string> and <user.number_string> and <user.number_string>:
+    "{number_string_1} {number_string_2} {number_string_3} {number_string_4}"
+
 (point|dot) <user.number_string>: ".{number_string}"
 
 negative <user.number_string>: "-{number_string}"
