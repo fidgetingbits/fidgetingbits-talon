@@ -173,6 +173,11 @@ linux_file_paths = {
     "dev T T Y U S B": "/dev/ttyUSB0",
     "dev T T Y A C M": "/dev/ttyACM0",
     "dev T T Y S zero": "/dev/ttyS0",
+    "bin bash": "/bin/bash",
+    "bin S H": "/bin/sh",
+    "bin Z S H": "/bin/zsh",
+    "bin ash": "/bin/ash",
+    "user bin env": "/usr/bin/env",
 }
 
 # this is used for specific commands like pivot
