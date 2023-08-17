@@ -195,15 +195,13 @@ copy line:
     edit.select_line()
     edit.copy()
 
-assign:
-    " = "
-
 paste all: user.paste_all()
 paste line: user.paste_line()
 paste line start: user.paste_line_start()
 paste line end: user.paste_line_end()
 paste word: user.paste_word()
 (pasty|paste that): edit.paste()
+
 paste match: edit.paste_match_style()
 
 
