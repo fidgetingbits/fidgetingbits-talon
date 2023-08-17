@@ -50,14 +50,14 @@ portal left: user.bash_command_quiet("i3-msg workspace prev")
 (win | window) horizontal: user.bash_command_quiet("i3-msg split h")
 (win | window) vertical: user.bash_command_quiet("i3-msg split v")
 
-(win | window) [<number>] grow: user.i3wm_window_grow(number or 1)
-(win | window) [<number>] shrink: user.i3wm_window_shrink(number or 1)
+(win | window) grow [<number>]: user.i3wm_window_grow(number or 1)
+(win | window) shrink [<number>]: user.i3wm_window_shrink(number or 1)
 # NOTE: these commands often conflict with split versions, which is why they
 # don't have win version
-window [<number>] taller: user.i3wm_window_adjust_height_up(number or 50)
-window [<number>] shorter: user.i3wm_window_adjust_height_down(number or 50)
-window [<number>] (wider|fatter): user.i3wm_window_adjust_width_out(number or 50)
-window [<number>] (thinner|skinnier): user.i3wm_window_adjust_width_in(number or 50)
+window taller [<number>]: user.i3wm_window_adjust_height_up(number or 50)
+window shorter [<number>]: user.i3wm_window_adjust_height_down(number or 50)
+window (wider|fatter) [<number>]: user.i3wm_window_adjust_width_out(number or 50)
+window (thinner|skinnier) [<number>]: user.i3wm_window_adjust_width_in(number or 50)
 
 horizontal (shell | terminal):
     user.bash_command_quiet("i3-msg split h")
