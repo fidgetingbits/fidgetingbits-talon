@@ -195,43 +195,9 @@ copy line:
     edit.select_line()
     edit.copy()
 
-#cut commands
-cut all:
-    edit.select_all()
-    edit.cut()
-#to do: do we want these variants
-# cut left:
-#      edit.select_all()
-#      edit.cut()
-# cut right:
-#      edit.select_all()
-#      edit.cut()
-# cut up:
-#      edit.select_all()
-#     edit.cut()
-# cut down:
-#     edit.select_all()
-#     edit.cut()
-
-cut word:
-    edit.select_word()
-    edit.cut()
-
-cut word left:
-    user.cut_word_left()
-
-cut word right:
-    user.cut_word_right()
-
-cut line:
-    user.cut_line()
-
 assign:
     " = "
-(pace | paste) all:
-    edit.select_all()
-    edit.paste()
-    key(enter)
+
 paste match: edit.paste_match_style()
 (pace | paste) all: user.paste_all()
 (pace | paste) line: user.paste_line()
@@ -239,8 +205,56 @@ paste match: edit.paste_match_style()
 (pace | paste) line end: user.paste_line_end()
 (pace | paste) word: user.paste_word()
 
+pasty: edit.paste()
+paste that: edit.paste()
+paste match: edit.paste_match_style()
+
+
 # duplication
 clone that:
     edit.selection_clone()
 clone line:
     edit.line_clone()
+
+
+(shock | hawk | slap): key(enter)
+parrot(side_click):
+    app.notify("side_click")
+    key(enter)
+
+# XXX - block alone conflicts with vim key words
+add code block:
+    insert("{}")
+    key(left enter enter up tab)
+
+zoom in: edit.zoom_in()
+zoom out: edit.zoom_out()
+zoom reset: edit.zoom_reset()
+(page | scroll) up: key(pgup)
+(page | scroll) down: key(pgdown)
+copy that: edit.copy()
+cut that: edit.cut()
+file save: edit.save()
+
+(undo that | nope): edit.undo()
+(redo that | yes indeed): edit.redo()
+disk: edit.save()
+disk oliver: edit.save_all()
+
+# XXX - should be part of some networking thing
+link web: "https://"
+link insecure web: "http://"
+link file: "file://"
+link git: "git://"
+link secure shell: "ssh://"
+
+
+###
+# Chat
+###
+# XXX - these could be part of brief
+smiley: ":)"
+sad face: ":("
+big smiley: ":D"
+jiff smiley: ">\\o "
+padding: user.insert_between(" ", " ")
