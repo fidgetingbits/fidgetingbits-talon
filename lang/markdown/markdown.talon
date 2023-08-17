@@ -48,9 +48,6 @@ link:
     "[]()"
     key(left:3)
 
-    mode: command
-and tag: user.markdown
--
 
 code block:
     insert("```\n\n")
@@ -117,4 +114,8 @@ link clip: user.insert_cursor_paste("[[|]](", ")")
 # XXX - turn the word under the cursor into a link
 # link this:
 
-state task: "- [ ] "
+put task: "- [ ] "
+pour task:
+    edit.line_end()
+    edit.line_insert_down()
+    "- [ ] "
