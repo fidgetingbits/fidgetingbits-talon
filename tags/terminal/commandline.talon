@@ -52,6 +52,7 @@ tag(): user.coredumpctl
 tag(): user.rust_apps
 tag(): user.gpg
 tag(): user.nix_cli
+tag(): user.poetry
 # XXX - See generic_terminal.talon for some basics as well.
 tag(): user.generic_unix_shell
 
