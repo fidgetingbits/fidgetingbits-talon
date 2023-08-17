@@ -29,7 +29,13 @@ def parse_debugger_title(window):
         return
     index = window.title.find("ARCH:")
     arch = window.title[index + len("ARCH:") :].split(" ")[0]
-    ctx.tags = [f"user.{arch}"]
+
+    if arch in Debugger.architectures:
+        ctx.tags = [f"user.{arch}"]
+    else:
+        print(
+            f"WARNING: debugger.py - parse_debugger_title(): unknown architecture: {arch}"
+        )
 
 
 def win_title_hook(window):
@@ -54,9 +60,11 @@ def register(m) -> str:
 
 
 class Debugger:
+    architectures = ["x86", "x64", "arm", "aarch64"]
+
     def __init__(self, mod):
         self.arch_index = 0
-        self.architectures = ["x86", "x64", "arm", "aarch64"]
+
         for arch in self.architectures:
             mod.tag(arch, desc="Tag for enabling {arch} architecture")
         self.architecture = settings.get("user.debug_default_architecture")
