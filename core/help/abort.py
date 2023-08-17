@@ -14,7 +14,7 @@ def fn(d):
     words = d["parsed"]._unmapped
     if words[-1] in ABORT_WORDS and actions.speech.enabled():
         d["parsed"]._sequence = []
-        app.notify(subtitle=f"Command aborted due to one of {ABORT_WORDS}")
+        app.notify(f"Command aborted due to one of {ABORT_WORDS}")
 
 
 speech_system.register("pre:phrase", fn)

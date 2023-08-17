@@ -13,7 +13,7 @@ from .numbers.numbers import digits_map, scales, teens, tens
 
 mod = Module()
 
-DEFAULT_MAXIMUM_LIST_LENGTH = 100
+DEFAULT_MAXIMUM_LIST_LENGTH = 5000
 DEFAULT_MINIMUM_TERM_LENGTH = 2
 EXPLODE_MAX_LEN = 3
 FANCY_REGULAR_EXPRESSION = r"[A-Z]?[a-z]+|[A-Z]+(?![a-z])|[0-9]+"
@@ -485,8 +485,8 @@ class Actions:
                 """Return the first n items of the iterable as a list."""
                 return list(islice(iterable, n))
 
+            app.notify(f"Too many items to create spoken forms. Sources: {len(sources)}")
             sources = take(DEFAULT_MAXIMUM_LIST_LENGTH, sources)
-            app.notify(subtitle="Too many items to create spoken forms for.")
         return actions.user.create_spoken_forms_from_map(
             {source: source for source in sources},
             words_to_exclude,

@@ -314,11 +314,11 @@ class CLangState:
             self.datatype_index = 0
         self.datatype = self.datatypes[self.datatype_index]
         ctx.tags = [f"user.{self.datatype}"]
-        app.notify(subtitle=f"Cycled to C lang datatype: {self.datatype}")
+        app.notify(f"Cycled to C lang datatype: {self.datatype}")
 
     def current_datatype(self):
         """Display the current datatype"""
-        app.notify(subtitle=f"Current C lang datatype: {self.datatype}")
+        app.notify(f"Current C lang datatype: {self.datatype}")
 
 
 c_lang_state = CLangState(mod)
