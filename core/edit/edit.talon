@@ -198,15 +198,12 @@ copy line:
 assign:
     " = "
 
-paste match: edit.paste_match_style()
-(pace | paste) all: user.paste_all()
-(pace | paste) line: user.paste_line()
-(pace | paste) line start: user.paste_line_start()
-(pace | paste) line end: user.paste_line_end()
-(pace | paste) word: user.paste_word()
-
-pasty: edit.paste()
-paste that: edit.paste()
+paste all: user.paste_all()
+paste line: user.paste_line()
+paste line start: user.paste_line_start()
+paste line end: user.paste_line_end()
+paste word: user.paste_word()
+(pasty|paste that): edit.paste()
 paste match: edit.paste_match_style()
 
 
@@ -232,8 +229,6 @@ zoom out: edit.zoom_out()
 zoom reset: edit.zoom_reset()
 (page | scroll) up: key(pgup)
 (page | scroll) down: key(pgdown)
-copy that: edit.copy()
-cut that: edit.cut()
 file save: edit.save()
 
 (undo that | nope): edit.undo()

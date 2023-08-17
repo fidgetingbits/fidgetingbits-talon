@@ -86,7 +86,6 @@ put match: user.code_state_switch()
 put (some | sum): "Some"
 put static: "static "
 self taught: "self."
-put use: user.code_import()
 put a sync block: user.insert_between("async {" , "}")
 put match a sync block: user.insert_between("match async {" , "}.await {}")
 put await: ".await"
@@ -157,7 +156,8 @@ put at <user.text>: "{text} @ "
 put label range: user.insert_between("", "@ ..")
 put new vec: "Vec::new()"
 put new box: "Box::new()"
-put use: "use "
+put use: user.code_import()
+#put use: "use "
 put use block: user.insert_between("use {", "};")
 put use {user.rust_crates}: user.insert_between("use {rust_crates}::", ";")
 put tokyo main: #[tokio::main]
@@ -175,7 +175,7 @@ put derive default: "#[derive(Default)]"
 put derive display: "#[derive(Display)]"
 put derive error: "#[derive(Error)]"
 put default: "#[default]"
-funk {user.formatted_functions}: 
+funk {user.formatted_functions}:
     insert(formatted_functions)
     user.insert_between('("', '");')
 put A sink trait: "#[async_trait]"
@@ -234,11 +234,11 @@ put form {user.closed_format_strings}:
 put form inner  {user.inner_format_strings}:
     insert(":{inner_format_strings}")
 
-put [{user.code_type_modifier}] sliced <user.code_type>: 
+put [{user.code_type_modifier}] sliced <user.code_type>:
     insert(code_type_modifier or "")
     insert("[{code_type}]")
 
-put [{user.code_type_modifier}] <number> element <user.code_type> array: 
+put [{user.code_type_modifier}] <number> element <user.code_type> array:
     insert(code_type_modifier or "")
     insert("[{code_type}; {number}]")
 
