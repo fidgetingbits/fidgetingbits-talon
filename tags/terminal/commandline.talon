@@ -900,7 +900,7 @@ show cpu frequencies: "cat /sys/devices/system/cpu/cpu*/cpufreq/scaling_cur_freq
 show cpu governors: "cat /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor\n"
 show cpu max frequencies: "cat /sys/devices/system/cpu/cpu*/cpufreq/cpuinfo_max_freq\n"
 show cpu min frequencies: "cat /sys/devices/system/cpu/cpu*/cpufreq/cpuinfo_min_freq\n"
-adjust all governors: "echo performance | sudo tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor\n"
+set all governors: "echo performance | sudo tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor\n"
 
 G D B version: "gdb --version\n"
 
