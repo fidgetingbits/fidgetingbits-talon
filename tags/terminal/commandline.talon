@@ -55,10 +55,12 @@ tag(): user.nix_cli
 tag(): user.poetry
 # XXX - See generic_terminal.talon for some basics as well.
 tag(): user.generic_unix_shell
+tag(): user.unix_utilities
 
 
 # Shell commands
 
+# Also see unix_utilities.{py,talon} for run commands
 run last script:
     insert("./")
     key(up)
@@ -118,7 +120,8 @@ file list hidden: 'ls -ld .?*\n'
 # XXX - it would be nice if these were coloured like regular ls sometimes
 file list hidden files: 'find . -maxdepth 1 -not -type d -name ".*" -printf "%f\\n"\n'
 file list hidden folders: 'find . -maxdepth 1 -not -type f -name ".*" -printf "%f\\n"\n'
-file list sym links: 'find . -maxdepth 1 -type l -printf "%f\\n"\n'
+file list long [sym] links: 'find . -maxdepth 1 -type l -printf "%f\\n" | xargs ls -l \n'
+file list [sym] links: 'find . -maxdepth 1 -type l -printf "%f\\n"\n'
 
 
 # find
@@ -159,6 +162,10 @@ call file latest: "$(exa --sort changed --no-icons | tail -n1)\n"
 file edit latest: "edit $(exa --sort changed --no-icons | tail -n1)\n"
 file link: "ln -s "
 file link force: "ln -sf "
+file link force clip:
+    insert("ln -sf ")
+    edit.paste()
+    # key(enter)
 file hard link: "ln "
 file broken links:
     insert("find . -type l -exec sh -c 'file -b \"$1\" | grep -q ^broken' sh /{} \\; -print")
@@ -757,6 +764,7 @@ bat cache build: "bat cache --build\n"
 file P D F compress: "gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/ebook -dNOPAUSE -dQUIET -dBATCH -sOutputFile=output.pdf input.pdf"
 file P D F strip pages: "gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/ebook -dNOPAUSE -dQUIET -dBATCH -sOutputFile=output.pdf -dFirstPage=1 -dLastPage=1 input.pdf"
 file P D F scale: 'cpdf -scale-page "0.5 0.5" in.pdf -o out.pdf'
+file P D F cut pages: user.insert_between("qpdf input.pdf --pages . 1,", "3-r1 -- output.pdf")
 
 ###
 # Limits
