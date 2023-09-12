@@ -4,7 +4,7 @@ tag(): user.code_operators_math
 tag(): user.code_operators_bitwise
 
 # assignment
-[(op | put)] (equals | assign): user.code_operator_assignment()
+[(op | put)] assign: user.code_operator_assignment()
 
 # combined computation and assignment
 (op | put) (minus | subtract) equals: user.code_operator_subtraction_assignment()
