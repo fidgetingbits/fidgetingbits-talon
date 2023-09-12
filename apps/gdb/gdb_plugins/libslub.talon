@@ -1,6 +1,8 @@
 tag: user.libslub
 -
 
+K malloc <number>: "kmalloc-{number}"
+
 slab help: "sbhelp\n"
 
 # sbcache
