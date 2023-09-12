@@ -43,3 +43,7 @@ virtual snapshot create:
 # virt-clone
 
 virtual clone: "sudo virt-clone --original oldname --auto-clone --name newname"
+
+# guestfs-tools
+virtual sparsify: "sudo virt-sparsify "
+virtual sparsify in place: "sudo virt-sparsify --in-place "

@@ -174,3 +174,10 @@ and app.name: arandr
 os: linux
 and app.name: Arandr
 """
+
+apps.virtualbox = """
+os: linux
+and win.title:/Oracle VM VirtualBox Manager/
+os: linux
+and app.name: VirtualBox
+"""
