@@ -2,6 +2,7 @@ tag: user.pwndbg
 -
 
 pound bag: "pwndbg\n"
+pound bag reload: "reload\n"
 #hex dump: "hexdump "
 context: "context\n"
 show (process id | pid): "pid\n"
