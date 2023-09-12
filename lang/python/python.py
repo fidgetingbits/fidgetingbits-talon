@@ -70,6 +70,8 @@ ctx.lists["user.code_libraries"] = {
     "unit test": "unittest",
     "warnings": "warnings",
     "date time": "datetime",
+    "base sixty four": "base64",
+    "pie test": "pytest",
 }
 
 
@@ -107,6 +109,7 @@ ctx.lists["user.code_type"] = {
     "iterable": "Iterable",
     "vector": "Vector",
     "bytes": "bytes",
+    "byte array": "bytearray",
     "sequence": "Sequence",
     "callable": "Callable",
     "list": "List",
@@ -199,7 +202,14 @@ ctx.lists["user.python_exception"] = {
     for exception in exception_list
 }
 
-decorator_list = ["classmethod", "property", "staticmethod"]
+decorator_list = [
+    "classmethod",
+    "property",
+    "staticmethod",
+    "abstractmethod",
+    "wraps",
+    "abstractproperty",
+]
 mod.list("python_decorator", desc="python decorator")
 ctx.lists["user.python_decorator"] = {
     " ".join(re.findall("[A-Z][^A-Z]*", decorator)).lower(): decorator

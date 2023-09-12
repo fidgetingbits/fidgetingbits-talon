@@ -110,8 +110,7 @@ type {user.code_type}:
     insert("{code_type}")
 
 # decorators
-deck static [method]: insert("@staticmethod")
-deck class [method]: insert("@classmethod")
+(deck|put) {user.python_decorators}: insert("@{python_decorators}")
 
 dock string:
     user.code_comment_documentation()
