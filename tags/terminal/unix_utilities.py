@@ -22,6 +22,7 @@ default_unix_utilities = {
     "change owner": "chown",
     "curl": "curl",
     "cut": "cut",
+    "direnv": "dir envy",
     "disk free human": "df -h",
     "disk free": "df",
     "dig": "dig",
