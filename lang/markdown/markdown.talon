@@ -1,5 +1,6 @@
 tag: user.markdown
 -
+
 (level | heading | header) one:
     edit.line_start()
     "# "
@@ -38,81 +39,56 @@ list six:
     edit.line_start()
     "                    - "
 
-{user.markdown_code_block_language} block:
+code block {user.markdown_code_block_language}:
     "```{markdown_code_block_language}"
+    sleep(200ms)
     key(enter:2)
-    "```"
-    key(up)
-
-link:
-    "[]()"
-    key(left:3)
-
+    insert("```")
+    key(enter)
+    key(up:2)
 
 code block:
-    insert("```\n\n")
-    insert("```\n")
+    insert("```")
+    sleep(200ms)
+    key(enter:2)
+    insert("```")
+    key(enter)
     key(up:2)
 
-code block python:
-    insert("```python\n\n")
-    insert("```\n")
-    key(up:2)
+gravy {user.markdown_code_block_language}:
+    insert("```{markdown_code_block_language}")
 
-code block see:
-    insert("```cpp\n\n")
-    insert("```\n")
-    key(up:2)
-
-gravy see: insert("```cpp")
-
-code block bash:
-    insert("```bash\n\n")
-    insert("```\n")
-    key(up:2)
-
-code block clip:
-    insert("```\n\n")
-    insert("```\n")
+# NOTE: We purposefully pre insert the closing ``` so that we can avoid auto
+# tabbing from potentially pasted code
+# IMPORTANT: longer sleep to allow for pasting seems to be required on some systems
+code block {user.markdown_code_block_language} clip:
+    "```{markdown_code_block_language}"
+    sleep(200ms)
+    key(enter:2)
+    insert("```")
+    key(enter)
     key(up:2)
     edit.paste()
+    sleep(200ms)
+    key(down:2)
+    
+code block clip:
+    insert("```")
+    sleep(200ms)
+    key(enter:2)
+    insert("```")
+    key(enter)
+    key(up:2)
+    edit.paste()
+    sleep(200ms)
+    key(down:2)
     # XXX - would be nice if this had something like the ability to then find
     # the next set of ```
 
-paste as code:
-    insert("```\n\n")
-    insert("```\n")
-    key(up:2)
-    edit.paste()
-
-paste as bash code:
-    insert("```bash\n\n")
-    insert("```\n")
-    key(up:2)
-    edit.paste()
-
-paste as see code:
-    insert("```cpp\n\n")
-    insert("```\n")
-    key(up:2)
-    edit.paste()
-
-paste as python code:
-    insert("```python\n\n")
-    insert("```\n")
-    key(up:2)
-    edit.paste()
-
 link clip: user.insert_cursor_paste("[[|]](", ")")
-
-#link selected:
-#    edit.cut()
-#    key([)
-#    user.insert_cursor_paste("[[|]](", ")")
-#    edit.paste()
-
-# XXX - turn the word under the cursor into a link
-# link this:
+link:
+    "[]()"
+    key(left:3)
 
 put task: "- [ ] "
 pour task:
