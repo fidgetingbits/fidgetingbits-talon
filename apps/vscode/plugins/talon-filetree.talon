@@ -8,10 +8,10 @@ bar tree: user.vscode("workbench.view.extension.filetree")
 tree <user.letters>:
     user.run_rpc_command("talon-filetree.toggleDirectoryOrOpenFile", letters)
 tree parent <user.letters>:
-    user.run_rpc_command("talon-filetree.closeParent", letters)
-tree <user.letters> <number>:
+    .run_rpc_command("talon-filetree.closeParent", letters)
+tree [unfold] <user.letters> <number>:
     user.run_rpc_command("talon-filetree.expandDirectory", letters, number)
-tree collapse <user.letters>:
+tree (fold|collapse) <user.letters>:
     user.run_rpc_command("talon-filetree.expandDirectory", letters, 0)
 tree move <user.letters> to <user.letters>:
     user.run_rpc_command("talon-filetree.moveFile", letters_1, letters_2)
@@ -26,6 +26,11 @@ tree rename <user.letters>:
     user.run_rpc_command("talon-filetree.renameFile", letters)
 tree create <user.letters>:
     user.run_rpc_command("talon-filetree.createFile", letters)
+tree create folder <user.letters>:
+    user.run_rpc_command("talon-filetree.createFile", letters)
+    sleep(1)
+    insert("/")
+    key(left)
 tree delete <user.letters>:
     user.run_rpc_command("talon-filetree.deleteFile", letters)
 tree collapse root:
