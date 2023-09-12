@@ -6,6 +6,7 @@ address copy | url copy | copy address | copy url:
     browser.focus_address()
     sleep(50ms)
     edit.copy()
+go search: browser.focus_search()
 go home:
     browser.go_home()
 (go | page) forward:
