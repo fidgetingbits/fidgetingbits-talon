@@ -252,6 +252,8 @@ class Actions:
                 and application.exe.split(os.path.sep)[-1] == name
             ):
                 return application
+
+        # print(ui.apps(background=False))
         raise RuntimeError(f'App not running: "{name}"')
 
     def switch_last_focused():
