@@ -178,6 +178,7 @@ linux_file_paths = {
     "bin Z S H": "/bin/zsh",
     "bin ash": "/bin/ash",
     "user bin env": "/usr/bin/env",
+    "P trace scope": "/proc/sys/kernel/yama/ptrace_scope",
 }
 
 # this is used for specific commands like pivot
@@ -198,7 +199,9 @@ ctx.lists["user.common_files"] = {
     "read me": "README.md",
     "package build": "PKGBUILD",
     "make file": "Makefile",
-    "git ignore": "..gitignore",
+    "git ignore": ".gitignore",
+    "env R C": ".envrc",
+    "env": ".env",
 }
 
 # XXX - add support for selecting
