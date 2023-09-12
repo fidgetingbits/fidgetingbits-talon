@@ -10,6 +10,11 @@ tag(): user.tabs
 settings():
     key_wait = 2
 
+# Useful references:
+# maciejklimek: https://github.com/maciejklimek/knausj_talon/blob/b09e3331/apps/vscode/vscode.talon
+# pokey:
+# andreas:
+
 window reload: user.vscode("workbench.action.reloadWindow")
 window close: user.vscode("workbench.action.closeWindow")
 #multiple_cursor.py support end
@@ -62,7 +67,7 @@ panel output: user.vscode("replaceworkbench.panel.output.focus")
 low dog off: user.vscode("workbench.action.closePanel")
 
 (term show|panel terminal): user.vscode("workbench.action.terminal.focus")
-pan edit: user.vscode("workbench.action.focusActiveEditorGroup")
+(pan edit|editor): user.vscode("workbench.action.focusActiveEditorGroup")
 
 # Settings
 show settings: user.vscode("workbench.action.openGlobalSettings")
@@ -82,6 +87,11 @@ fullscreen switch: user.vscode("workbench.action.toggleFullScreen")
 theme switch: user.vscode("workbench.action.selectTheme")
 wrap switch: user.vscode("editor.action.toggleWordWrap")
 zen mode: user.vscode("workbench.action.toggleZenMode")
+
+# Groups
+focus group: user.vscode("workbench.action.toggleEditorWidths")
+close group: user.vscode("workbench.action.closeEditorsInGroup")
+(solo|one) group: user.vscode("workbench.action.closeEditorsInOtherGroups")
 
 # File Commands
 hunt files [<user.text>]:
@@ -352,7 +362,6 @@ cell run above: user.vscode("notebook.cell.executeCellsAbove")
 cell run: user.vscode("notebook.cell.execute")
 
 install local: user.vscode("workbench.extensions.action.installVSIX")
-preview markdown: user.vscode("markdown.showPreview")
 
 # copilot
 pilot jest: user.vscode("editor.action.inlineSuggest.trigger")
@@ -429,3 +438,11 @@ task build: user.vscode("workbench.action.tasks.build")
     user.vscode("workbench.action.tasks.build")
     sleep(2s)
     user.vscode("workbench.action.closePanel")
+
+copy command id:            user.copy_command_id()
+
+break <user.cursorless_target>:
+    user.cursorless_command("setSelectionBefore", cursorless_target)
+    user.vscode("hideSuggestWidget")
+    key("enter")
+
