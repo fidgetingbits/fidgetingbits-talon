@@ -1,6 +1,9 @@
 tag: browser
 -
 
+# Note these are additional commands for the Rango extension. The defaults
+# are also enabled in rango-talon folder.
+
 settings:
   user.rango_start_with_direct_clicking = 0
 
@@ -24,4 +27,10 @@ half right <user.rango_target>:
   user.rango_command_with_target("scrollRightAtElement", rango_target, 0.5)
 
 parrot(tut):
+
+# Github issue #189
+tabby close user.rango_target:
+  user.rango_command_with_target("activateTab", rango_target)
+  user.tab_close_wrapper()
   user.rango_command_without_target("toggleHints")
+
