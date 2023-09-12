@@ -113,6 +113,7 @@ _file_extensions_defaults = {
     "socket": ".socket",
     "S T P": ".stp",
     "talon": ".talon",
+    "talon list": ".talon-list",
     "tar": ".tar",
     "tar G Z": ".tar.gz",
     "tar G zip": ".tar.gz",
