@@ -73,7 +73,7 @@ class BrowserActions:
         actions.key("ctrl-shift-i")
 
     def focus_search():
-        actions.browser.focus_address()
+        actions.key("ctrl-k")
 
     def submit_form():
         actions.key("enter")
