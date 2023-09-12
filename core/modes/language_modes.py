@@ -214,3 +214,9 @@ class Actions:
     def code_clear_language_mode():
         """Clears the active language mode, and re-enables code.language: extension matching"""
         ctx.tags = ["user.auto_lang"]
+
+    def code_show_forced_language_mode():
+        """Unsets the active language for this context"""
+        print(
+            f"Forced languages: {[t[:len('_forced')] for t in ctx.tags if t.endswith('_forced')]}"
+        )
