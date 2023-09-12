@@ -92,7 +92,9 @@ shuffle screen left:
 shuffle screen right:
     user.bash_command_quiet("i3-msg move container to output left")
 
-[(win | window)] make scratch: user.bash_command_quiet("i3-msg move scratchpad")
+[(win | window)] unmake scratch: user.bash_command_quiet("i3-msg move scratchpad")
+# This should become configurable, since the dimensions are specific to my setup
+[(win | window)] make scratch: user.bash_command_quiet("i3-msg move scratchpad; i3-msg scratchpad show; i3-msg resize set 2270 2150; i3-msg move position center;")
 [(show | hide)] scratch: user.bash_command_quiet("i3-msg scratchpad show")
 next scratch:
     user.bash_command_quiet("i3-msg scratchpad show")
