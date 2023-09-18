@@ -15,6 +15,9 @@ settings():
 # pokey:
 # andreas:
 
+file open file: key(ctrl-o) # This is linux only maybe
+file open folder: key(ctrl-k ctrl-o) 
+
 window reload: user.vscode("workbench.action.reloadWindow")
 window close: user.vscode("workbench.action.closeWindow")
 #multiple_cursor.py support end
@@ -127,7 +130,8 @@ file clone:
 file delete:
     user.vscode("fileutils.removeFile")
     sleep(150ms)
-file open folder: user.vscode("revealFileInOS")
+# Opens folder of current file
+file open current folder: user.vscode("revealFileInOS")
 file reveal: user.vscode("workbench.files.action.showActiveFileInExplorer")
 disk:
     edit.save()
