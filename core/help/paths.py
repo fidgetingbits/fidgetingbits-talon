@@ -102,6 +102,7 @@ linux_folder_paths = {
     "proc pid C W D": "/proc/<pid>/cwd",
     "proc pid F D": "/proc/<pid>/fd/",
     "root": "/root/",
+    "boot": "/boot/",
     "packman cache": "/var/cache/pacman/pkg/",
     "yay cache": "~/.cache/yay/",
     "open snitch rules": "/etc/opensnitchd/rules/",
@@ -179,6 +180,7 @@ linux_file_paths = {
     "bin ash": "/bin/ash",
     "user bin env": "/usr/bin/env",
     "P trace scope": "/proc/sys/kernel/yama/ptrace_scope",
+    "kernel config": "/proc/config.gz",
 }
 
 # this is used for specific commands like pivot
