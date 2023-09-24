@@ -468,6 +468,8 @@ man page: "man "
 so do: "sudo "
 so do with (env|environment): "sudo -E "
 so do sue: "sudo su\n"
+so do tea: "sudo tee "
+so do tee append: "sudo tee -a "
 so do that:
     edit.line_start()
     insert("sudo ")
