@@ -7,7 +7,88 @@ ctx = Context()
 ctx.matches = r"""
 tag: user.python
 """
-ctx.lists["user.code_common_function"] = {
+
+# https://docs.python.org/3/library/functions.html
+builtin_functions = {
+    "abs": "abs",
+    "all": "all",
+    "any": "any",
+    "ascii": "ascii",
+    "bin": "bin",
+    "bool": "bool",
+    "breakpoint": "breakpoint",
+    "byte array": "bytearray",
+    "bytes": "bytes",
+    "callable": "callable",
+    "char": "chr",
+    "class method": "classmethod",
+    "compile": "compile",
+    "complex": "complex",
+    "delete attribute": "delattr",
+    "dict": "dict",
+    "dir": "dir",
+    "divmod": "divmod",
+    "enumerate": "enumerate",
+    "eval": "eval",
+    "exec": "exec",
+    "filter": "filter",
+    "float": "float",
+    "format": "format",
+    "frozen set": "frozenset",
+    "get attribute": "getattr",
+    "globals": "globals",
+    "has attribute": "hasattr",
+    "hash": "hash",
+    "help": "help",
+    "hex": "hex",
+    "I D": "id",
+    "input": "input",
+    "int": "int",
+    "is instance": "isinstance",
+    "is subclass": "issubclass",
+    "iter": "iter",
+    "len": "len",
+    "list": "list",
+    "locals": "locals",
+    "map": "map",
+    "max": "max",
+    "memory view": "memoryview",
+    "min": "min",
+    "next": "next",
+    "object": "object",
+    "octal": "oct",
+    "open": "open",
+    "ord": "ord",
+    "power": "pow",
+    "print": "print",
+    "property": "property",
+    "range": "range",
+    "rep er": "repr",
+    "reversed": "reversed",
+    "round": "round",
+    "set": "set",
+    "set attribute": "setattr",
+    "slice": "slice",
+    "sorted": "sorted",
+    "static method": "staticmethod",
+    "str": "str",
+    "sum": "sum",
+    "super": "super",
+    "tuple": "tuple",
+    "type": "type",
+    "vars": "vars",
+    "zip": "zip",
+    "import": "__import__",
+}
+# https://www.w3schools.com/python/python_ref_string.asp
+string_functions = {
+    "split lines": "splitlines",
+    "capitalize": "capitalize",
+    "is lower": "islower",
+    "is upper": "isupper",
+}
+
+common_functions = {
     "enumerate": "enumerate",
     "integer": "int",
     "length": "len",
@@ -29,6 +110,10 @@ ctx.lists["user.code_common_function"] = {
     "G D B execute": "gdb.execute",
     # pathlib
     "path": "pathlib.Path",
+}
+ctx.lists["user.code_common_function"] = {
+    **builtin_functions,
+    **common_functions,
 }
 
 ctx.lists["user.code_libraries"] = {
