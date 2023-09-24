@@ -80,7 +80,9 @@ shuffle up: user.bash_command_quiet("i3-msg move up")
 shuffle down: user.bash_command_quiet("i3-msg move down")
 
 # move a (win|window) to a workspace and follow it there
-follow <number_small>:
+# NOTE: Moved away from follow due to usage of follow in cursorless that would
+# sometimes talon would confuse. Example: follow <target> where a grey hat is on a number
+shuffle go <number_small>:
     user.bash_command_quiet("i3-msg move container to workspace {number_small}")
     user.bash_command_quiet("i3-msg workspace {number_small}")
 
