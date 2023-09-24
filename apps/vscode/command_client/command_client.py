@@ -194,6 +194,9 @@ def run_command(
 
     actions.sleep("25ms")
 
+    if "returnValue" not in decoded_contents:
+        print(decoded_contents)
+        raise Exception("No return value found")
     return decoded_contents["returnValue"]
 
 
