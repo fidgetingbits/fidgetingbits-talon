@@ -3,7 +3,7 @@ os: linux
 # XXX - this matches .gdb files atm
 #win.title: /gdb/
 tag: terminal
-tag: user.gdb
+and tag: user.gdb
 -
 tag(): user.debugger
 tag(): user.terminal_program
