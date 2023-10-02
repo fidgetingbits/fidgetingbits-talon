@@ -33,6 +33,34 @@ def command_server_or_client_fallback(command_id: str, wait: bool):
         )
 
 
+@mod.action_class
+class UserActions:
+    def grow_left(count: int):
+        """Grow a selection left by leveraging "Select By" extension"""
+        actions.user.vscode("selectby.swapActive")
+        actions.key(f"shift-left:{count}")
+        actions.user.vscode("selectby.swapActive")
+
+    def grow_right(count: int):
+        """Grow a selection right"""
+        for _ in range(count):
+            actions.edit.extend_right()
+
+    def shrink_right(count: int):
+        """Shrink a selection on the right side by moving the selection left"""
+        actions.key(f"shift-left:{count}")
+
+    def shrink_left(count: int):
+        """Shrink a selection on the left side by moving the selection right"""
+        actions.user.vscode("selectby.swapActive")
+        actions.key(f"shift-right:{count}")
+        actions.user.vscode("selectby.swapActive")
+
+    def swap_cursor_anchor():
+        """Swap the cursor and anchor point of the selection"""
+        actions.user.vscode("selectby.swapActive")
+
+
 @ctx.action_class("user")
 class VsCodeAction:
     def command_server_directory() -> str:

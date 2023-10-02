@@ -251,3 +251,9 @@ sad face: ":("
 big smiley: ":D"
 jiff smiley: ">\\o "
 padding: user.insert_between(" ", " ")
+
+grow [<number>] left: user.grow_left(number or 1)
+grow [<number>] right: user.grow_right(number or 1)
+shrink [<number>] left: user.shrink_left(number or 1)
+shrink [<number>] right: user.shrink_right(number or 1)
+curse swap: user.swap_cursor_anchor()
