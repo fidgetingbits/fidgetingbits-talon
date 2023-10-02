@@ -322,6 +322,7 @@ abbreviations_list = {
     "looks good to me": "lgtm",
     "lycanthrope": "lycan",
     "mail": "smtp",
+    "maintenance": "maint",
     "make": "mk",
     "management": "mgmt",
     "manager": "mgr",
