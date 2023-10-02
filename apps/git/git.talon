@@ -116,6 +116,10 @@ git log added files only: "git log --diff-filter=A --summary | grep create\n"
 git log removed files: "git log --diff-filter=D --summary\n"
 git log removed files only: "git log --diff-filter=D --summary | grep delete\n"
 
+git merge base: "git merge-base "
+git merge base main: "git merge-base main HEAD"
+git merge base master: "git merge-base master HEAD"
+
 git merge: "git merge "
 git merge <user.text>: "git merge {text}"
 git merge clip:
@@ -158,6 +162,11 @@ git reset soft head <number_small>: "git reset --soft HEAD~{number_small}"
 git reset hard: "git reset --hard "
 git reset hard head: "git reset --hard HEAD~1"
 git reset hard head <number_small>: "git reset --hard HEAD~{number_small}"
+
+# These two are useful for mass commit squashing
+git reset [merge] base main: "git reset --soft $(git merge-base main HEAD)"
+git reset [merge] base master: "git reset --soft $(git merge-base master HEAD)"
+
 git restore: "git restore "
 git restore staged: "git restore --staged "
 git restore source: "git restore --source="
@@ -194,7 +203,7 @@ git stash apply: "git stash apply\n"
 git stash list: "git stash list\n"
 git stash show: "git stash show"
 git status: "git status --untracked-files=no\n"
-git status (all | full): "git status\n"
+git status (all | full | everything): "git status\n"
 git status staged: "git status --short | grep '^[MARCD]'\n"
 git sub tree: "git subtree "
 git switch: "git switch "
