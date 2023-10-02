@@ -137,8 +137,11 @@ git push <user.text>: "git push {text} "
 git push tags: "git push --tags\n"
 git rebase: "git rebase "
 git rebase now: "git rebase\n"
-git rebase upstream: "git rebase upstream/main\n"
+git rebase upstream main: "git rebase upstream/main\n"
+git rebase upstream master: "git rebase upstream/master\n"
+git rebase upstream dev: "git rebase upstream/dev\n"
 git rebase upstream <user.text>: "git rebase upstream/{text}"
+git rebase upstream: "git rebase upstream "
 # NOTE - we don't use abort in the command because it conflicts with
 # abort.talon
 git rebase cancel: "git rebase --abort\n"
