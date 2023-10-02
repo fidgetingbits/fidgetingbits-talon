@@ -15,7 +15,8 @@ settings():
 # pokey:
 # andreas:
 
-file open file: key(ctrl-o) # This is linux only maybe
+# This is linux only maybe
+file open file: key(ctrl-o) 
 file open folder: key(ctrl-k ctrl-o) 
 
 window reload: user.vscode("workbench.action.reloadWindow")
@@ -97,11 +98,11 @@ close group: user.vscode("workbench.action.closeEditorsInGroup")
 (solo|one) group: user.vscode("workbench.action.closeEditorsInOtherGroups")
 
 # File Commands
-hunt files [<user.text>]:
+hunt (file|files) [<user.text>]:
     user.vscode("workbench.action.quickOpen")
     sleep(50ms)
     insert(text or "")
-hunt files clip:
+hunt (file|files) clip:
     user.vscode("workbench.action.quickOpen")
     sleep(50ms)
     edit.paste()
@@ -450,3 +451,4 @@ break <user.cursorless_target>:
     user.vscode("hideSuggestWidget")
     key("enter")
 
+punch it: key("ctrl-enter")
