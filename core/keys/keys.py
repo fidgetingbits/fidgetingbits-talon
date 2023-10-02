@@ -7,7 +7,7 @@ def setup_default_alphabet():
     """set up common default alphabet.
 
     no need to modify this here, change your alphabet using alphabet.csv"""
-    initial_default_alphabet = "air bat cap drum each fine gust harp sit jury crunch look made near odd pit quench red sun trap urge vest whale plex yank zip".split()
+    initial_default_alphabet = "air bat cap drum each fine gust harp sit jury kick look made near odd pit quench red sun trap urge vest whale plex yank zip".split()
     initial_letters_string = "abcdefghijklmnopqrstuvwxyz"
     initial_default_alphabet_dict = dict(
         zip(initial_default_alphabet, initial_letters_string)
@@ -196,6 +196,7 @@ punctuation_words = {
     "dot": ".",
     "semicolon": ";",
     "colon": ":",
+    "stack:": ":",
     "forward slash": "/",
     "question mark": "?",
     "banger": "!",  # two years later bang suddenly conflicts with yank lol
@@ -230,7 +231,7 @@ symbol_key_words = {
     "dollar": "$",
     "score": "_",
     "colon": ":",
-    # "coal": ":",
+    "stack": ":",
     "lub": "(",
     "rub": ")",
     # lace somehow clashes with everything lol
@@ -291,6 +292,7 @@ alternate_keys = {
     "delhi": "delete",
     "page up": "pageup",
     "page down": "pagedown",
+    "scrape": "escape",
 }
 # mac apparently doesn't have the menu key.
 if app.platform in ("windows", "linux"):
