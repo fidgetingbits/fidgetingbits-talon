@@ -204,6 +204,7 @@ ctx.lists["user.common_files"] = {
     "git ignore": ".gitignore",
     "env R C": ".envrc",
     "env": ".env",
+    "pre commit config": ".pre-commit-config.yaml",
 }
 
 # XXX - add support for selecting
