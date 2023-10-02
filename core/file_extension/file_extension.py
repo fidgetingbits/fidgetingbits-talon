@@ -103,6 +103,7 @@ _file_extensions_defaults = {
     "Q cow too": ".qcow2",
     "Q cow": ".qcow2",
     "rules": ".rules",
+    "scheme": ".scm",
     "service": ".service",
     "session": ".session",
     "S H": ".sh",

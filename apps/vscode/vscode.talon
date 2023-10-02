@@ -312,6 +312,8 @@ debug continue: user.vscode("workbench.action.debug.continue")
 debug restart: user.vscode("workbench.action.debug.restart")
 debug console: user.vscode("workbench.debug.action.toggleRepl")
 debug clean: user.vscode("workbench.debug.panel.action.clearReplAction")
+# Select specific run config
+debug run config: user.vscode("workbench.action.debug.selectandstart")
 
 # Terminal
 (term | terminal) external: user.vscode("workbench.action.terminal.openNativeConsole")

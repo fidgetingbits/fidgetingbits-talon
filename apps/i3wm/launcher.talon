@@ -8,7 +8,7 @@ launch code:
     sleep(500ms)
     insert("code\n")
 
-display manager:
+launch display manager:
     key(super-d)
     sleep(500ms)
     insert("arandr\n")

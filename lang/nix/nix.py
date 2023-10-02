@@ -133,6 +133,17 @@ builtin_functions = {
     "zipWithAttrs": "zip with attributes",
 }
 
+system_constants = {
+    "x86_64-linux": "X eighty six sixty four linux",
+    "x86_64-linux": "X sixty four linux",
+    "aarch64-linux": "A arch sixty four linux",
+    "aarch64-linux": "arch sixty four linux",
+    "x86_64-darwin": "X eighty six sixty four darwin",
+    "x86_64-darwin": "X sixty four darwin",
+    "aarch64-darwin": "A arch sixty four darwin",
+    "aarch64-darwin": "arch sixty four darwin",
+}
+
 ctx.lists["user.code_common_function"] = {
     **builtin_functions,
 }

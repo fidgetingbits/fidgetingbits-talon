@@ -37,6 +37,7 @@ extension_lang_map = {
     ".rb": "ruby",
     ".rs": "rust",
     ".s": "assembly",
+    ".scm": "treesitter", # NOTE: If you don't write treesitter queries, you may want this to be scheme
     ".sh": "bash",
     ".snippets": "snippets",
     ".sql": "sql",
@@ -112,6 +113,7 @@ language_extensions = {
     "ruby": "rb",
     "rust": "rs",
     "scala": "scala",
+    "treesitter": "scm",
     "scss": "scss",
     # 'snippets': 'snippets',
     "sql": "sql",
@@ -135,6 +137,7 @@ language_name_overrides = {
     "gdb": ["g d b"],
     "go": ["go", "go lang", "go language"],
     "r": ["are language"],
+    "scm": ["scheme", "s c m", "tree sitter"],
     "tex": ["tech", "lay tech", "latex"],
 }
 mod.list("language_mode", desc="Name of a programming language mode.")
