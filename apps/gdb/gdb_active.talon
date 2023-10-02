@@ -32,8 +32,8 @@ tag(): user.code_operators_pointer
 
 # linux kernel
 # XXX These should be based off a list in the title set by the gdb script
-#tag(): user.gdb_vmlinux
-#tag(): user.libslub
+tag(): user.gdb_vmlinux
+tag(): user.libslub
 
 tag(): user.retsync
 
@@ -79,7 +79,7 @@ symbol refresh: "sharedlibrary\n"
 add symbol file: "add-symbol-file "
 
 # execution
-source: "source \t\t"
+source file: "source \t\t"
 
 # displays
 # XXX - move thee invoke command into a python script
@@ -249,3 +249,20 @@ state end: "end"
 state break: "break"
 state set: "set"
 func stir equal: "$_streq()"
+attach <number>: "attach {number}\n"
+break list hidden: "maint info breakpoints\n"
+
+show configuration: "show configuration\n"
+info target: "info target\n"
+info source: "info source\n"
+info sources: "info sources\n"
+info program: "info program\n"
+
+rerun:
+    key(ctrl-r)
+rerun <user.text>:
+    key(ctrl-r)
+    insert(text)
+rerun last:
+    key(up)
+    key(enter)

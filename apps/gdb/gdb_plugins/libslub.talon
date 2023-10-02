@@ -45,6 +45,13 @@ slab cross cache help: "sbcrosscache -h\n"
 
 # sbmeta
 slab meta help: "sbmeta -h\n"
+slab meta: "sbmeta "
+slab meta verbose: "sbmeta -v "
+slab meta config: "sbmeta config "
+slab meta config help: "sbmeta config -h\n"
+slab meta add: "sbmeta add "
+slab meta [remove|delete]: "sbmeta del "
+slab meta list: "sbmeta list\n"
 
 # sbslabdb
 slab (D B | database) help: "sbslabdb -h\n"
