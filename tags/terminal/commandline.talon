@@ -84,6 +84,11 @@ rerun last tunnel:
     insert("ssh\n")
     key(enter)
 
+rerun force <user.text>:
+    key(ctrl-r)
+    insert(text)
+    key(enter:2)
+
 kill all:
     key(ctrl-c)
 
@@ -310,13 +315,13 @@ folder (create|new): "mkdir -p  "
 
 # XXX - It would be nice to make the depth configurable
 # tree
-file tree: "tree -f -L 2\n"
-file tree <user.folder_paths>: "tree -f -L 2 {folder_paths}\n"
-file tree more: "tree -f -L "
-file tree long: "tree -f -L 2 -p\n"
-file tree all: "tree -f -L 2 -a\n"
-file tree folders: "tree -f -L 2 -d\n"
-file tree [depth] <number_small>: "tree -f -L {number_small}\n"
+file tree: "fd . -d 2\n"
+file tree <user.folder_paths>: "fd . -d 2 '{folder_paths}'\n"
+file tree more: "fd . -d "
+file tree long: "fd . -d 2 -l\n"
+file tree all: "fd . -d 2 -I\n"
+file tree folders: "fd . -d 2 -t d\n"
+file tree [depth] <number_small>: "fd . -d {number_small}\n"
 
 folder pop: "popd\n"
 # pwd | tr -d \\n\\r | xclip -sel clipboard
@@ -928,3 +933,10 @@ print hex: "printf '0x%x\\n' "
 
 screen serial (ninety six|fortinet): "sudo screen /dev/ttyUSB0 9600\n"
 screen serial eleven: "sudo screen /dev/ttyUSB0 115200\n"
+
+# TODO: This should be moved to its own tag based thing probably
+pre commit run: "pre-commit run --all-files\n"
+pre commit auto update: "pre-commit autoupdate\n"
+pre commit install: "pre-commit install\n"
+pre commit uninstall: "pre-commit uninstall\n"
+pre commit generate config: "pre-commit sample-config > .pre-commit-config.yaml\n"
