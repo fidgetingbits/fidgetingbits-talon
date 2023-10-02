@@ -50,7 +50,7 @@ slab meta verbose: "sbmeta -v "
 slab meta config: "sbmeta config "
 slab meta config help: "sbmeta config -h\n"
 slab meta add: "sbmeta add "
-slab meta [remove|delete]: "sbmeta del "
+slab meta [remove | delete]: "sbmeta del "
 slab meta list: "sbmeta list\n"
 
 # sbslabdb

@@ -1,5 +1,5 @@
-import pprint
 import logging
+import pprint
 
 from talon import Context, Module, actions, clip
 
@@ -31,7 +31,6 @@ ctx.lists["user.vim_visual_counted_actions"] = {
 
 @ctx.action_class("edit")
 class EditActions:
-
     # when we're extending a selection in the opposite direction (backwards) we
     # need to a prefix an  beforehand so that it actually extends, rather than
     # changing directions.

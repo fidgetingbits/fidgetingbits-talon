@@ -50,8 +50,7 @@ tag(): user.vim_flip_ext
 # if you don't have issues with lots of bad recognitions
 go <user.vim_normal_counted_motion_keys>:
     user.vim_any_motion_mode_key("{vim_normal_counted_motion_keys}")
-go <user.vim_motions_all_adjust>:
-    user.vim_any_motion_mode("{vim_motions_all_adjust}")
+go <user.vim_motions_all_adjust>: user.vim_any_motion_mode("{vim_motions_all_adjust}")
 
 ###
 # File editing and management
@@ -105,8 +104,7 @@ file create this:
     key(f)
 open this file in vertical [split | window]:
     user.vim_command_mode(":vertical wincmd f\n")
-(pillar this [file] | file pillar jump):
-    user.vim_command_mode(":vertical wincmd f\n")
+(pillar this [file] | file pillar jump): user.vim_command_mode(":vertical wincmd f\n")
 
 ###
 # Navigation, movement and jumping
@@ -248,7 +246,7 @@ jammie <user.unmodified_key>:
     user.vim_normal_mode_np("ea")
     key("{unmodified_key}")
 
-(chompie|chomp here): user.vim_normal_mode_np("ex")
+(chompie | chomp here): user.vim_normal_mode_np("ex")
 chomp line: user.vim_normal_mode_np("$x")
 chomp line <number>$:
     user.vim_command_mode(":{number}\n")
@@ -308,7 +306,7 @@ macro (done | finish | stop): user.vim_any_motion_mode("q")
 [copy] register <user.unmodified_key> [in] to [register] <user.unmodified_key>:
     user.vim_command_mode(":let@{unmodified_key_2}=@{unmodified_key_1}\n")
 
-yank (into|to) [register] <user.unmodified_key>:
+yank (into | to) [register] <user.unmodified_key>:
     user.vim_any_motion_mode('"{unmodified_key}y')
 clear into [register] <user.unmodified_key>:
     user.vim_any_motion_mode('"{unmodified_key}d')
@@ -498,8 +496,7 @@ find (reversed | previous) <user.ordinals> <user.unmodified_key>:
 ###
 # Visual Text Selection
 ###
-make (ascending | number list | incrementing):
-    user.vim_normal_mode_key("g ctrl-a")
+make (ascending | number list | incrementing): user.vim_normal_mode_key("g ctrl-a")
 take line: user.vim_visual_mode("V")
 block take: user.vim_any_motion_mode_exterm_key("ctrl-v")
 
@@ -606,10 +603,8 @@ run bare make:
 run generates see tags:
     user.vim_normal_mode_np(":w\n")
     insert(":!rm tags && ctags --recurse --exclude=.git --exclude=.pc *\n")
-run lua:
-    user.vim_command_mode_exterm(":lua ")
-run [lua] buffer:
-    user.vim_command_mode_exterm(":luafile %")
+run lua: user.vim_command_mode_exterm(":lua ")
+run [lua] buffer: user.vim_command_mode_exterm(":luafile %")
 
 exec repeat:
     user.vim_normal_mode_np(":exec ")
@@ -643,8 +638,7 @@ normalize new lines: user.vim_command_mode(":%s/\r//g\n")
     insert(":")
     sleep(100ms)
     insert("g/^$/d\n")
-drop line <number>:
-    user.vim_command_mode(":{number}d\n")
+drop line <number>: user.vim_command_mode(":{number}d\n")
 
 # remove first byte from a line
 pinch: user.vim_normal_mode("0x")

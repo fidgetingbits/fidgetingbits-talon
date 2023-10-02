@@ -28,8 +28,7 @@ orwell me:
 #    edit.paste()
 #    key(enter)
 
-new scratch shell:
-    user.system_command_nb("/home/aa/scripts/workflow/scratch_shell.sh")
+new scratch shell: user.system_command_nb("/home/aa/scripts/workflow/scratch_shell.sh")
 
 pulse restart:
     key(super-enter)

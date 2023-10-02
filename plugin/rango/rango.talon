@@ -29,8 +29,7 @@ half right <user.rango_target>:
 parrot(tut):
 
 # Github issue #189
-tabby close user.rango_target:
+tabby close <user.rango_target>:
   user.rango_command_with_target("activateTab", rango_target)
   user.tab_close_wrapper()
   user.rango_command_without_target("toggleHints")
-

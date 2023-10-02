@@ -1,11 +1,11 @@
 {
-  "reportSelfClsParameterName": "none"
-  "executionEnvironments": [
-    {
-      "root": "."
-    }
-  ],
-  "extraPaths": [
-    "/home/aa/source/talon/releases/latest/resources/python/lib/python3.9/site-packages/talon/"
-  ]
+    "reportSelfClsParameterName": "none",
+    "executionEnvironments": [
+        {
+            "root": "."
+        }
+    ],
+    "extraPaths": [
+        "/home/aa/source/talon/releases/latest/resources/python/lib/python3.9/site-packages/talon/"
+    ]
 }

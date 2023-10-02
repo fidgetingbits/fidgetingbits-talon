@@ -34,5 +34,4 @@ archive that:
 (sidebar | panel) bookmarks: user.firefox_bookmarks_sidebar()
 (sidebar | panel) history: user.firefox_history_sidebar()
 
-
 side dog: key(f1)

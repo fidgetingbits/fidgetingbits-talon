@@ -2,7 +2,7 @@ import itertools
 import re
 from collections import defaultdict
 from dataclasses import dataclass
-from typing import Any, Mapping, Optional, List
+from typing import Any, List, Mapping, Optional
 
 from talon import Module, actions, app
 
@@ -485,7 +485,9 @@ class Actions:
                 """Return the first n items of the iterable as a list."""
                 return list(islice(iterable, n))
 
-            app.notify(f"Too many items to create spoken forms. Sources: {len(sources)}")
+            app.notify(
+                f"Too many items to create spoken forms. Sources: {len(sources)}"
+            )
             sources = take(DEFAULT_MAXIMUM_LIST_LENGTH, sources)
         return actions.user.create_spoken_forms_from_map(
             {source: source for source in sources},

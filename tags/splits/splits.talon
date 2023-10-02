@@ -21,7 +21,7 @@ split shorter: user.split_height_shrink()
 
 # split navigation
 # move to the next split moving right
-(split next|sprite): user.split_next()
+(split next | sprite): user.split_next()
 # moved to the next split moving left
-(split last|spliff): user.split_last()
+(split last | spliff): user.split_last()
 go split <number>: user.split_number(number)

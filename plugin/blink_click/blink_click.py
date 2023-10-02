@@ -214,7 +214,6 @@ class EyeMouseBlink:
         # print(frame.left.gaze.x, frame.right.gaze.x)
         # print("Present: ",frame.left.detected, frame.right.detected)#not reliable
         if not (pos.x <= 0 and pos.y <= 0):
-
             next(self.right_history)
             self.right_open = self.right_history.send(frame.right.detected)
             next(self.left_history)

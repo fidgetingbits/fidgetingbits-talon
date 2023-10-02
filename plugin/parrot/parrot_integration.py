@@ -1,13 +1,13 @@
-from copy import copy
-from dataclasses import dataclass
-from typing import Callable, Optional, Sequence
 import json
 import logging
 import time
+from copy import copy
+from dataclasses import dataclass
+from typing import Callable, Optional, Sequence
 
-from talon import Module, resource, events
+from talon import Module, events, resource
 from talon.debug import log_exception
-from talon.experimental.parrot import ParrotSystem, ParrotDelegate, ParrotFrame
+from talon.experimental.parrot import ParrotDelegate, ParrotFrame, ParrotSystem
 from talon_init import TALON_HOME
 
 PARROT_HOME = TALON_HOME / "parrot"

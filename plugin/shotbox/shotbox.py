@@ -22,15 +22,7 @@
 import json
 import pathlib
 
-from talon import (
-    Context,
-    Module,
-    actions,
-    canvas,
-    ctrl,
-    screen,
-    ui,
-)
+from talon import Context, Module, actions, canvas, ctrl, screen, ui
 from talon.skia import Paint, Rect
 from talon.types.point import Point2d
 from talon_init import TALON_HOME
@@ -199,7 +191,7 @@ class ShotBox:
                 self.selection_history = history
             except Exception:
                 pass
-            #print(self.selection_history)
+            # print(self.selection_history)
 
         self.screenshot_history_file.touch()
         with self.screenshot_history_file.open() as f:
@@ -210,7 +202,7 @@ class ShotBox:
                 self.screenshot_history = history
             except Exception:
                 pass
-            #print(self.screenshot_history)
+            # print(self.screenshot_history)
 
     def setup(self, *, rect: Rect = None, screen_num: int = None):
         """Initial overlay setup to get screen dimensions, etc"""
@@ -410,7 +402,6 @@ class ShotBox:
             (MID_DIST, MID_LENGTH, MID_COLOR),
             (LARGE_DIST, LARGE_LENGTH, LARGE_COLOR),
         ):
-
             half = tick_length // 2
             canvas.paint.color = color
             # top

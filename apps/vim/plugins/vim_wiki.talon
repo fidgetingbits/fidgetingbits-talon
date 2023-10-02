@@ -11,17 +11,14 @@ tag: user.vim_wiki
 ###
 
 # Main wiki commands
-go wiki:
-    user.vim_command_mode_exterm(':execute "normal \\<Plug>VimwikiIndex"\n')
-go work wiki:
-    user.vim_normal_mode(':VimwikiIndex 2"\n')
+go wiki: user.vim_command_mode_exterm(':execute "normal \\<Plug>VimwikiIndex"\n')
+go work wiki: user.vim_normal_mode(':VimwikiIndex 2"\n')
 
 go wiki tabbed:
     user.vim_command_mode_exterm(':execute "normal \\<Plug>VimwikiTabIndex"\n')
 go wiki <number_small>:
     user.vim_command_mode_exterm(':execute "normal <C-U>call vimwiki#diary#make_note({number_small})"\n')
-list wikis:
-    user.vim_command_mode_exterm(':execute "normal \\<Plug>VimwikiUISelect"\n')
+list wikis: user.vim_command_mode_exterm(':execute "normal \\<Plug>VimwikiUISelect"\n')
 # XXX
 # wiki rename <number_small>:
 #     user.vim_command_mode_exterm(':execute "normal <C-U>call vimwiki#diary#make_note({number_small})"\n')
@@ -29,10 +26,8 @@ list wikis:
 #     user.vim_command_mode_exterm(':execute "normal <C-U>call vimwiki#diary#make_note({number_small})"\n')
 
 # Diary Commands
-go diary:
-    user.vim_command_mode_exterm(':execute "normal \\<Plug>VimwikiDiaryIndex"\n')
-go work diary:
-    user.vim_normal_mode(':VimwikiDiaryIndex 2\n')
+go diary: user.vim_command_mode_exterm(':execute "normal \\<Plug>VimwikiDiaryIndex"\n')
+go work diary: user.vim_normal_mode(":VimwikiDiaryIndex 2\n")
 diary new:
     user.vim_command_mode_exterm(':execute "normal \\<Plug>VimwikiMakeDiaryNote"\n')
 diary new tab:

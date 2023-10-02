@@ -15,8 +15,7 @@ tag: user.vim_fugitive
 (fugitive | git) (delete | remove): user.vim_command_mode(":GDelete")
 
 # Diffing
-(fugitive | git) diff staged:
-    user.vim_command_mode(':exe ":G! diff --staged"\n')
+(fugitive | git) diff staged: user.vim_command_mode(':exe ":G! diff --staged"\n')
 (fugitive | git) diff: user.vim_command_mode(':exe ":Gdiffsplit"\n')
 (fugitive | git) [(vertical | pillar)] split diff:
     user.vim_command_mode(':exe ":Gvdiffsplit!"\n')

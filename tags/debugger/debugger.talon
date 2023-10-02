@@ -32,8 +32,7 @@ debug restart: user.debugger_restart()
 # Register
 (show | info) (reg | regs | registers): user.debugger_show_registers()
 # XXX -
-(show | get) register [{user.registers}]:
-    user.debugger_get_register(registers or "")
+(show | get) register [{user.registers}]: user.debugger_get_register(registers or "")
 register {user.registers}: user.debugger_register_variable(registers)
 set register {user.registers}: user.debugger_set_register(registers)
 
@@ -49,12 +48,10 @@ break [point] (clear | remove) <number_small>:
     user.debugger_clear_breakpoint_id(number_small)
 break [point] disable all: user.debugger_disable_all_breakpoints()
 break [point] disable: user.debugger_disable_breakpoint()
-break [point] disable <number_small>:
-    user.debugger_disable_breakpoint_id(number_small)
+break [point] disable <number_small>: user.debugger_disable_breakpoint_id(number_small)
 break [point] enable all: user.debugger_enable_all_breakpoints()
 break [point] enable: user.debugger_enable_breakpoint()
-break [point] enable <number_small>:
-    user.debugger_enable_breakpoint_id(number_small)
+break [point] enable <number_small>: user.debugger_enable_breakpoint_id(number_small)
 
 break [(set | add)] (indirect | star):
     user.debugger_add_sw_breakpoint()
@@ -105,10 +102,8 @@ hex dump [<number>] (Q | quad) words [from {user.registers}]:
     user.debugger_hexdump_qword(number or 0, registers or "")
 
 hex dump [<number>] [from] clip: user.debugger_hexdump_clip(number or 0)
-hex dump [<number>] bytes [from] clip:
-    user.debugger_hexdump_bytes_clip(number or 0)
-hex dump [<number>] words [from] clip:
-    user.debugger_hexdump_word_clip(number or 0)
+hex dump [<number>] bytes [from] clip: user.debugger_hexdump_bytes_clip(number or 0)
+hex dump [<number>] words [from] clip: user.debugger_hexdump_word_clip(number or 0)
 hex dump [<number>] (D | long) words [from] clip:
     user.debugger_hexdump_dword_clip(number or 0)
 hex dump [<number>] (Q | quad) words [from] clip:
@@ -122,8 +117,7 @@ dump [<number> byte] unicode [string] [from {user.registers}]:
     user.debugger_dump_unicode_string(number or 0, registers or "")
 dump [<number> byte] unicode [string] from clip:
     user.debugger_dump_unicode_string_clip(number or 0)
-dump pointers [from {user.registers}]:
-    user.debugger_dump_pointers(registers or "")
+dump pointers [from {user.registers}]: user.debugger_dump_pointers(registers or "")
 dump pointers from clip: user.debugger_dump_pointers_clip()
 
 # Convenience

@@ -257,3 +257,5 @@ grow [<number>] right: user.grow_right(number or 1)
 shrink [<number>] left: user.shrink_left(number or 1)
 shrink [<number>] right: user.shrink_right(number or 1)
 curse swap: user.swap_cursor_anchor()
+
+talon format test: key(")")

@@ -5,6 +5,6 @@ tag: user.code_object_oriented
     user.code_self()
     user.code_operator_object_accessor()
 
-(state|put) self: user.code_self()
+(state | put) self: user.code_self()
 
-(state|put) class: user.code_define_class()
+(state | put) class: user.code_define_class()

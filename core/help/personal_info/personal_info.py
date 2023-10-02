@@ -91,7 +91,6 @@ class Actions:
         record_data = pi.db[record]
         if type(record_data) == list:
             if len(record_data) > 1:
-
                 auto_index = settings.get("user.personal_info_auto_select")
                 personal_info_list = record_data
                 if auto_index <= len(record_data):

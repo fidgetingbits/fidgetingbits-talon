@@ -1,6 +1,7 @@
 # defines placeholder actions and captures for ide-specific snippet functionality
-from talon import Context, Module, actions, imgui, registry
 import pprint
+
+from talon import Context, Module, actions, imgui, registry
 
 ctx = Context()
 ctx.matches = r"""

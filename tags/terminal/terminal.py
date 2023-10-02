@@ -1,9 +1,10 @@
 # NOTE: If you use bindkeys -e setting in your shell (the default) also see
 # text/readline.py
 
-from talon import Module, Context, actions
+from talon import Context, Module, actions
 
 mod = Module()
+
 
 @mod.action_class
 class Actions:
@@ -32,12 +33,12 @@ class Actions:
         """kills the running command"""
 
 
-
 ctx = Context()
 ctx.matches = r"""
 os: linux
 tag: terminal
 """
+
 
 @ctx.action_class("edit")
 class EditActions:

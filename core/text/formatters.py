@@ -4,7 +4,7 @@ import re
 from random import randint
 from typing import List, Union
 
-from talon import Context, Module, actions, app, clip, imgui, ui, registry
+from talon import Context, Module, actions, app, clip, imgui, registry, ui
 from talon.grammar import Phrase
 
 ctx = Context()
@@ -158,7 +158,7 @@ formatters_dict = {
     "DOT_SEPARATED": words_with_joiner("."),
     "DOUBLE_COLON_SEPARATED": words_with_joiner("::"),
     "DOUBLE_QUOTED_STRING": (SEP, surround('"')),
-    "DOUBLE_UNDERSCORE": (NOSEP, first_vs_rest(lambda w: "__%s__" % w)),
+    "DOUBLE_UNDERSCORE": (NOSEP, first_vs_rest(lambda w: f"__{w}__")),
     "EQUAL_SEPARATED": words_with_joiner("="),
     "FIRST_THREE": (NOSEP, lambda i, word, _: word[0:3]),
     "FIRST_FOUR": (NOSEP, lambda i, word, _: word[0:4]),

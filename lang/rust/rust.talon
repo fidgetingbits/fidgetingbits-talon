@@ -65,14 +65,14 @@ put let type <user.code_type> <user.text>:
     insert(" = ")
 
 ## Simple aliases
-[put] (borrowed|borrow): "&"
-[put] (borrowed|borrow) (mutable|mute): "&mut "
+[put] (borrowed | borrow): "&"
+[put] (borrowed | borrow) (mutable | mute): "&mut "
 put (a sink | async | asynchronous): "async "
 put (pub | public): "pub "
 put (pub | public) crate: "pub(crate) "
 put (dyn | dynamic): "dyn "
 put type: "type "
-put (const|constant): "const "
+put (const | constant): "const "
 put (funk | func | function): "fn "
 put (imp | implements): "impl "
 put let mute: "let mut "
@@ -86,12 +86,11 @@ put match: user.code_state_switch()
 put (some | sum): "Some"
 put static: "static "
 self taught: "self."
-put a sync block: user.insert_between("async {" , "}")
-put match a sync block: user.insert_between("match async {" , "}.await {}")
+put a sync block: user.insert_between("async {", "}")
+put match a sync block: user.insert_between("match async {", "}.await {}")
 put await: ".await"
 
 put init defaults: "..Default::default()"
-
 
 use <user.code_libraries>:
     user.code_insert_library(code_libraries, "")
@@ -133,7 +132,6 @@ block dock comment: user.code_comment_documentation_block()
 inner dock comment: user.code_comment_documentation_inner()
 inner block dock comment: user.code_comment_documentation_block_inner()
 
-
 put returns: " -> "
 # TODO: They should use a list
 put empty ok: "Ok(())"
@@ -160,8 +158,8 @@ put use: user.code_import()
 #put use: "use "
 put use block: user.insert_between("use {", "};")
 put use {user.rust_crates}: user.insert_between("use {rust_crates}::", ";")
-put tokyo main: #[tokio::main]
-put async: "async "
+put tokyo main: "#[tokio::main]"
+put A sink: "async "
 put pub: "pub "
 put mod: "mod "
 put static ref: "static ref "
@@ -186,14 +184,14 @@ put ignore: "#[ignore]"
 put ignored test: "#[test]\n#[ignore]"
 put config test: "#[cfg(test)]"
 put config any: user.insert_between("#[cfg(any(", "))]")
-put config X sixty four: "#[cfg(target_arch = \"x86_64\")]"
-put config X thirty two: "#[cfg(target_arch = \"x86\")]"
-put config arm: "#[cfg(target_arch = \"arm\")]"
-put config arm sixty four: "#[cfg(target_arch = \"aarch64\")]"
+put config X sixty four: '#[cfg(target_arch = "x86_64")]'
+put config X thirty two: '#[cfg(target_arch = "x86")]'
+put config arm: '#[cfg(target_arch = "arm")]'
+put config arm sixty four: '#[cfg(target_arch = "aarch64")]'
 # TODO: It would be nice to automatically be able to specify multiple
 # architecture's and wrap it inside of any()
 # TODO: automatically create test module in functions, add things like expect panic
-put (rep|represent) C: "#[repr(C)]"
+put (rep | represent) C: "#[repr(C)]"
 
 put global warn unused variables: "#![warn(unused_variables)]"
 put global warn unused imports: "#![warn(unused_imports)]"
@@ -211,7 +209,7 @@ put global allow unused variables: "#![allow(unused_variables)]"
 put global allow unused imports: "#![allow(unused_imports)]"
 put global allow unused results: "#![allow(unused_results)]"
 put global allow unused mut: "#![allow(unused_mut)]"
-put global allow non camel [case] [types] : "#![allow(non_camel_case_types)]"
+put global allow non camel [case] [types]: "#![allow(non_camel_case_types)]"
 put global allow dead code: "#![allow(dead_code)]"
 put global allow unreachable code: "#![allow(unreachable_code)]"
 
@@ -219,20 +217,18 @@ put allow unused variables: "#[allow(unused_variables)]"
 put allow unused imports: "#[allow(unused_imports)]"
 put allow unused results: "#[allow(unused_results)]"
 put allow unused mut: "#[allow(unused_mut)]"
-put allow non camel [case] [types] : "#[allow(non_camel_case_types)]"
+put allow non camel [case] [types]: "#[allow(non_camel_case_types)]"
 put allow dead code: "#[allow(dead_code)]"
 put allow unreachable code: "#[allow(unreachable_code)]"
-
 
 [put] returns [result] box error: "-> Result<(), Box<dyn Error>>"
 put result box error: "Result<(), Box<dyn Error>>"
 
-put result of <user.code_type> and <user.code_type>: "Result<{code_type}, Box<dyn Error>>"
+put result of <user.code_type> and <user.code_type>:
+    "Result<{code_type}, Box<dyn Error>>"
 
-put form {user.closed_format_strings}:
-    insert("{closed_format_strings}")
-put form inner  {user.inner_format_strings}:
-    insert(":{inner_format_strings}")
+put form {user.closed_format_strings}: insert("{closed_format_strings}")
+put form inner {user.inner_format_strings}: insert(":{inner_format_strings}")
 
 put [{user.code_type_modifier}] sliced <user.code_type>:
     insert(code_type_modifier or "")
@@ -246,19 +242,15 @@ put [{user.code_type_modifier}] <user.code_type> array:
     insert(code_type_modifier or "")
     user.insert_between("[{code_type}; ", "]")
 
-put zero init <number> elements:
-    insert("[0; {number}]")
+put zero init <number> elements: insert("[0; {number}]")
 
 put as <user.code_type>: "as {code_type}"
 
-put new {user.rust_allocatable_types}:
-    insert("{rust_allocatable_types}::new()")
+put new {user.rust_allocatable_types}: insert("{rust_allocatable_types}::new()")
 
+put (stood | standard) {user.rust_std_modules}: insert("std::{rust_std_modules}::")
 
-put (stood|standard) {user.rust_std_modules}:
-    insert("std::{rust_std_modules}::")
-
-put (stood|standard) {user.rust_std_modules} <user.text>:
+put (stood | standard) {user.rust_std_modules} <user.text>:
     insert("std::{rust_std_modules}::")
     insert(user.formatted_text(text or "", "PUBLIC_CAMEL_CASE"))
 

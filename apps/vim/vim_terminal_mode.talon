@@ -3,17 +3,13 @@ win.title: /VIM MODE:t/
 
 tag(): user.vim_terminal
 
-normal [mode]:
-    key(ctrl-\ ctrl-n)
-pop (terminal | term):
-    key(ctrl-\ ctrl-n)
-poppy:
-    key(ctrl-\ ctrl-n)
+normal [mode]: key(ctrl-\ ctrl-n)
+pop (terminal | term): key(ctrl-\ ctrl-n)
+poppy: key(ctrl-\ ctrl-n)
 
 # pop terminal mode and scroll up once, from this point onward you can scroll
 # like normal
-scroll up:
-    key(ctrl-\ ctrl-n ctrl-b)
+scroll up: key(ctrl-\ ctrl-n ctrl-b)
 
 # this causes exclusive terminal windows to exit without requiring key press or
 # dropping to a new empty buffer
@@ -190,8 +186,7 @@ yank line command:
     # note that you can't use this from within command line itself, because the
     # terminal may not trigger depending on what the interactive command is. who
     # had actually needs to be global
-python escape:
-    key(ctrl-])
+python escape: key(ctrl-])
 
 # this assumes you list some directories with find or whatever, then you want
 # to pivot into one of them beasts on what was listed. you say the relative

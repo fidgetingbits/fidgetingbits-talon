@@ -27,7 +27,6 @@ def handle_hexdump_count(cmd, number, register, clip=False, copy=False):
 
 @ctx.action_class("user")
 class UserActions:
-
     ###
     # REGISTERS
     ###

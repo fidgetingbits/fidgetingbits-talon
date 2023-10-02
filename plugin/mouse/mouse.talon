@@ -12,22 +12,17 @@ mouse calibration: tracking.calibrate()
 # left click
 #[mouse] click:
 #    user.mouse_click(0, 1)
-    # End any open drags
-    # Left click automatically ends left drags so this is for right drags specifically
+# End any open drags
+# Left click automatically ends left drags so this is for right drags specifically
 #    user.mouse_drag_end()
 # right click
-[mouse] (ricky|right click):
-    user.mouse_click(1, 1)
+[mouse] (ricky | right click): user.mouse_click(1, 1)
 # middle click
-[mouse] mid click:
-    user.mouse_click(2, 1)
+[mouse] mid click: user.mouse_click(2, 1)
 # double click
-[mouse] double click:
-    user.mouse_click(0, 2)
+[mouse] double click: user.mouse_click(0, 2)
 # triple click
-[mouse] triple click:
-    user.mouse_click(0, 3)
-
+[mouse] triple click: user.mouse_click(0, 3)
 
 #see keys.py for modifiers.
 #defaults
@@ -40,7 +35,7 @@ mouse calibration: tracking.calibrate()
     key("{modifiers}:down")
     user.mouse_click(0, 1)
     key("{modifiers}:up")
-<user.modifiers> (ricky|right click):
+<user.modifiers> (ricky | right click):
     key("{modifiers}:down")
     user.mouse_click(1, 1)
     key("{modifiers}:up")
@@ -113,7 +108,7 @@ mouse log clicks: user.mouse_log_clicks()
 # Zoom mouse
 
 # disables zoom without clicking in case it fails
-(zoom close|cancel zoom): user.mouse_cancel_zoom_mouse()
+(zoom close | cancel zoom): user.mouse_cancel_zoom_mouse()
 # relocate cursor to clicked location
 [mouse] zoom portal: user.mouse_zoom_move_cursor()
 

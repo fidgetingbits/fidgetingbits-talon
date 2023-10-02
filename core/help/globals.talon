@@ -10,12 +10,9 @@ open alternate work space:
 (disconnect | stop) work (tunnel | vpn):
     user.system_command_nb("/home/aa/scripts/disconnect_work_vpn.sh")
 
-screen keyboard show:
-    user.system_command_nb("/home/aa/scripts/florence_show.sh")
-screen keyboard hide:
-    user.system_command_nb("/home/aa/scripts/florence_hide.sh")
-talon restart:
-    user.system_command_nb("/home/aa/scripts/talon/restart_talon.sh")
+screen keyboard show: user.system_command_nb("/home/aa/scripts/florence_show.sh")
+screen keyboard hide: user.system_command_nb("/home/aa/scripts/florence_hide.sh")
+talon restart: user.system_command_nb("/home/aa/scripts/talon/restart_talon.sh")
 talon kill: user.system_command_nb("/home/aa/scripts/talon/terminate_talon.sh")
 pauly restart: user.system_command_nb("/home/aa/.config/polybar/launch.sh")
 
@@ -36,7 +33,6 @@ blue tooth connect:
 
 blue tooth fix audio: user.system_command_nb("/usr/local/bin/a2dp-fix")
 
-keyboard flash now:
-    user.system_command_nb("/home/aa/scripts/flash_keyboard.sh")
+keyboard flash now: user.system_command_nb("/home/aa/scripts/flash_keyboard.sh")
 
 over: skip()

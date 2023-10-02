@@ -7,29 +7,16 @@ win.title: /FILETYPE:\[mason\]/
 # because of the way I trigger certain commands using pynvim. So to work around this I
 # still force all of these to use normal mode.
 
-all:
-    user.vim_normal_mode("1")
-L S P:
-    user.vim_normal_mode("2")
-dap:
-    user.vim_normal_mode("3")
-linter:
-    user.vim_normal_mode("4")
-formatter:
-    user.vim_normal_mode("5")
-install:
-    user.vim_normal_mode("i")
-uninstall:
-    user.vim_normal_mode("X")
-update:
-    user.vim_normal_mode("u")
-update all:
-    user.vim_normal_mode("U")
-check new:
-    user.vim_normal_mode("c")
-check new all:
-    user.vim_normal_mode("C")
-[mason] help:
-    user.vim_normal_mode("g?")
-[mason] close:
-    user.vim_normal_mode("q")
+all: user.vim_normal_mode("1")
+L S P: user.vim_normal_mode("2")
+dap: user.vim_normal_mode("3")
+linter: user.vim_normal_mode("4")
+formatter: user.vim_normal_mode("5")
+install: user.vim_normal_mode("i")
+uninstall: user.vim_normal_mode("X")
+update: user.vim_normal_mode("u")
+update all: user.vim_normal_mode("U")
+check new: user.vim_normal_mode("c")
+check new all: user.vim_normal_mode("C")
+[mason] help: user.vim_normal_mode("g?")
+[mason] close: user.vim_normal_mode("q")

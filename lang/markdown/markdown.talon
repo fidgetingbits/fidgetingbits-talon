@@ -55,8 +55,7 @@ code block:
     key(enter)
     key(up:2)
 
-gravy {user.markdown_code_block_language}:
-    insert("```{markdown_code_block_language}")
+gravy {user.markdown_code_block_language}: insert("```{markdown_code_block_language}")
 
 # NOTE: We purposefully pre insert the closing ``` so that we can avoid auto
 # tabbing from potentially pasted code
@@ -71,7 +70,7 @@ code block {user.markdown_code_block_language} clip:
     edit.paste()
     sleep(200ms)
     key(down:2)
-    
+
 code block clip:
     insert("```")
     sleep(200ms)

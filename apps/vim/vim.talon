@@ -147,16 +147,14 @@ file (edit | open) clip:
     user.vim_command_mode_exterm(":e ")
     edit.paste()
 file (edit | open) <user.paths>: user.vim_command_mode_exterm(":e {paths}\n")
-(reload [vim] config | config reload):
-    user.vim_command_mode_exterm(":so $MYVIMRC\n")
+(reload [vim] config | config reload): user.vim_command_mode_exterm(":so $MYVIMRC\n")
 
 ###
 # Navigation, movement and jumping
 #
 # NOTE: Majority of more core movement verbs are in code/vim.py
 ###
-go row <number>:
-    user.vim_command_mode_exterm(":{number}\n")
+go row <number>: user.vim_command_mode_exterm(":{number}\n")
 
 # These are especially useful when in terminal mode and you want to jump to
 # something in normal mode that is in the history. Doubley so if you use
@@ -254,11 +252,9 @@ new right below split: user.vim_command_mode_exterm(":rightb split\n")
 
 new (bot | bottom) right split: user.vim_command_mode_exterm(":bo split\n")
 
-new vertical top left split:
-    user.vim_command_mode_exterm(":vertical to split\n")
+new vertical top left split: user.vim_command_mode_exterm(":vertical to split\n")
 
-new vertical left above split:
-    user.vim_command_mode_exterm(":vertical lefta split\n")
+new vertical left above split: user.vim_command_mode_exterm(":vertical lefta split\n")
 
 new vertical right below split:
     user.vim_command_mode_exterm(":vertical rightb split\n")
@@ -288,10 +284,8 @@ split (close | kill):
 split reopen vertical: user.vim_command_mode_exterm(":vsplit#\n")
 split reopen [horizontal]: user.vim_command_mode_exterm(":split#\n")
 
-new (empty | unnamed) [horizontal] split:
-    user.vim_command_mode_exterm(":new\n")
-new (empty | unnamed) (vertical | v) split:
-    user.vim_command_mode_exterm(":vnew\n")
+new (empty | unnamed) [horizontal] split: user.vim_command_mode_exterm(":new\n")
+new (empty | unnamed) (vertical | v) split: user.vim_command_mode_exterm(":vnew\n")
 
 # navigating splits
 # XXX - we could leverage split.talon stuff here?
@@ -444,8 +438,7 @@ set split height: user.vim_set_command_mode_exterm(":vertical resize ")
 (split | window) (end diff | compare):
     user.vim_command_mode_exterm(":windo diffoff!\n")
 
-buffer (start diff | compare):
-    user.vim_command_mode_exterm(":bufdo diffthis\n")
+buffer (start diff | compare): user.vim_command_mode_exterm(":bufdo diffthis\n")
 
 buffer (end diff | compare): user.vim_command_mode_exterm(":bufdo diffoff!\n")
 
@@ -471,8 +464,7 @@ tabby list: user.vim_command_mode(":tabs\n")
 
 # XXX - overlaps with the user.tabs stuff
 [go] tabby (next | right): user.vim_command_mode_exterm(":tabnext\n")
-[go] tabby (left | prev | previous):
-    user.vim_command_mode_exterm(":tabprevious\n")
+[go] tabby (left | prev | previous): user.vim_command_mode_exterm(":tabprevious\n")
 [go] tabby first: user.vim_command_mode_exterm(":tabfirst\n")
 [go] tabby last: user.vim_command_mode_exterm(":tablast\n")
 [go] tabby flip: user.vim_normal_mode_exterm("g\t")
@@ -506,8 +498,7 @@ lights off: user.vim_command_mode_exterm(":noh\n")
     user.vim_command_mode_exterm(":set nonumber\n")
     user.vim_command_mode_exterm(":set relativenumber\n")
     # XXX - make a vimrc function to toggle
-(unset | set no | hide) line numbers:
-    user.vim_command_mode_exterm(":set nonu\n")
+(unset | set no | hide) line numbers: user.vim_command_mode_exterm(":set nonu\n")
 show [current] settings: user.vim_command_mode_exterm(":set\n")
 (unset paste | set no paste): user.vim_command_mode_exterm(":set nopaste\n")
 # very useful for reviewing code you don't want to accidintally edit if talon
@@ -550,10 +541,8 @@ mark global [(new | create)] <user.upper_letter>:
     key(`)
     key(upper_letter)
 
-(mark | marks) (del | delete | remove):
-    user.vim_command_mode_exterm(":delmarks ")
-(mark | marks) (del | delete | remove) all:
-    user.vim_command_mode_exterm(":delmarks! ")
+(mark | marks) (del | delete | remove): user.vim_command_mode_exterm(":delmarks ")
+(mark | marks) (del | delete | remove) all: user.vim_command_mode_exterm(":delmarks! ")
 (mark | marks) (list | show) [all]: user.vim_command_mode_exterm(":marks\n")
 (mark | marks) (list | show) specific: user.vim_command_mode_exterm(":marks ")
 
@@ -595,8 +584,7 @@ mode block: user.vim_set_visual_block_mode()
 
 # sort of quasi-modes - see vim_command_line.talon
 show history: user.vim_command_mode(":hist\n")
-command line (search | history) [mode]:
-    user.vim_any_motion_mode_exterm_key("q:")
+command line (search | history) [mode]: user.vim_any_motion_mode_exterm_key("q:")
 search command [mode]: user.vim_any_motion_mode_exterm_key("q/")
 
 ###

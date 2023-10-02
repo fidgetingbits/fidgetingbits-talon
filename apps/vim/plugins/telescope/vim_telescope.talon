@@ -13,8 +13,7 @@ tag: user.vim_telescope
     user.vim_command_mode_exterm(':exe ":Telescope git_files"\n')
 (telescope | hunt) [grep] this:
     user.vim_command_mode_exterm(':exe ":Telescope grep_string"\n')
-(telescope | hunt) code:
-    user.vim_command_mode_exterm(':exe ":Telescope live_grep"\n')
+(telescope | hunt) code: user.vim_command_mode_exterm(':exe ":Telescope live_grep"\n')
 (telescope | hunt) open grep:
     user.vim_command_mode_exterm(':exe ":Telescope live_grep grep_open_files=true"\n')
 
@@ -22,8 +21,7 @@ tag: user.vim_telescope
     user.vim_command_mode_exterm(':exe ":Telescope file_browser"\n')
 
 # Vim Pickers
-(telescope | hunt) buffers:
-    user.vim_command_mode_exterm(':exe ":Telescope buffers"\n')
+(telescope | hunt) buffers: user.vim_command_mode_exterm(':exe ":Telescope buffers"\n')
 (telescope | hunt) old files:
     user.vim_command_mode_exterm(':exe ":Telescope oldfiles"\n')
 (telescope | hunt) commands:
@@ -38,16 +36,14 @@ tag: user.vim_telescope
     user.vim_command_mode_exterm(':exe ":Telescope help_tags"\n')
 (telescope | hunt) man pages:
     user.vim_command_mode_exterm(':exe ":Telescope man_page"\n')
-(telescope | hunt) mark:
-    user.vim_command_mode_exterm(':exe ":Telescope mark"\n')
+(telescope | hunt) mark: user.vim_command_mode_exterm(':exe ":Telescope mark"\n')
 (telescope | hunt) color:
     user.vim_command_mode_exterm(':exe ":Telescope colorscheme"\n')
 (telescope | hunt) quick fix:
     user.vim_command_mode_exterm(':exe ":Telescope quickfix"\n')
 (telescope | hunt) locations:
     user.vim_command_mode_exterm(':exe ":Telescope locations"\n')
-(telescope | hunt) options:
-    user.vim_command_mode_exterm(':exe ":Telescope options"\n')
+(telescope | hunt) options: user.vim_command_mode_exterm(':exe ":Telescope options"\n')
 (telescope | hunt) registers:
     user.vim_command_mode_exterm(':exe ":Telescope registers"\n')
 (telescope | hunt) auto commands:
@@ -64,8 +60,7 @@ tag: user.vim_telescope
     user.vim_command_mode_exterm(':exe ":Telescope current_buffer_fuzzy_find"\n')
 (telescope | hunt) tags:
     user.vim_command_mode_exterm(':exe ":Telescope current_buffer_key_tags"\n')
-(telescope | hunt) reload:
-    user.vim_command_mode_exterm(':exe ":Telescope reloader"\n')
+(telescope | hunt) reload: user.vim_command_mode_exterm(':exe ":Telescope reloader"\n')
 
 # Neovim LSP Pickers
 (telescope | hunt) refs:
@@ -102,8 +97,7 @@ tag: user.vim_telescope
     user.vim_command_mode_exterm(':exe ":Telescope git_stash"\n')
 
 # Treesitter Picker
-(telescope | hunt) tree:
-    user.vim_command_mode_exterm(':exe ":Telescope treesitter"\n')
+(telescope | hunt) tree: user.vim_command_mode_exterm(':exe ":Telescope treesitter"\n')
 
 # tab picker
 (telescope | hunt) tabs:
@@ -117,16 +111,11 @@ tag: user.vim_telescope
 (telescope | hunt) headings:
     user.vim_command_mode_exterm(':exe ":Telescope heading"\n')
 
-hunt snippets:
-    user.vim_command_mode_exterm(':exe ":Telescope snippets snippets"\n')
+hunt snippets: user.vim_command_mode_exterm(':exe ":Telescope snippets snippets"\n')
 
-hunt sessions:
-    user.vim_command_mode_exterm(':exe ":Telescope sessions_picker"\n')
+hunt sessions: user.vim_command_mode_exterm(':exe ":Telescope sessions_picker"\n')
 
-hunt undo:
-    user.vim_command_mode_exterm(':exe ":Telescope undo"\n')
+hunt undo: user.vim_command_mode_exterm(':exe ":Telescope undo"\n')
 # Convenience
-hunt (resume | again):
-    user.vim_command_mode_exterm(':exe ":Telescope resume"\n')
-hunt pickers:
-    user.vim_command_mode_exterm(':exe ":Telescope pickers"\n')
+hunt (resume | again): user.vim_command_mode_exterm(':exe ":Telescope resume"\n')
+hunt pickers: user.vim_command_mode_exterm(':exe ":Telescope pickers"\n')

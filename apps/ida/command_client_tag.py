@@ -11,7 +11,8 @@ mod.tag(
 class Actions:
     def command_server_directory() -> str:
         """The dirctory which contains the files required for communication between the application and Talon.
-        This is the only function which absolutely must be implemented for any application using the command-client."""
+        This is the only function which absolutely must be implemented for any application using the command-client.
+        """
 
     def emit_pre_phrase_signal() -> bool:
         """The command client can touch a signal file at the start of a phrase. If your

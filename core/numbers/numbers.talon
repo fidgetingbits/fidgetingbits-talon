@@ -4,27 +4,26 @@ not tag: user.mouse_grid_showing
 count from <number_small> (to | till | through) <number_small>:
     user.count_numbers(number_small_1, number_small_2)
 numb <user.number_string>: "{number_string}"
-no mate [<user.number_string>]:
-    user.insert_formatted("8{number_string or ''}", "NOOP")
+no mate [<user.number_string>]: user.insert_formatted("8{number_string or ''}", "NOOP")
 
 # XXX - it would be nice to make dot <user.number_string> repeatable together
 # or just used dotted formatter adapted for numbers
 
 # Useful version numbering commands
 # 7.0
-numb <user.number_string> (point|dot) <user.number_string>:
+numb <user.number_string> (point | dot) <user.number_string>:
     "{number_string_1}.{number_string_2}"
-numb <user.number_string> (point|dot) X: "{number_string}.x"
-numb <user.number_string> (point|dot) X [(point|dot)] Y: "{number_string}.x.y"
+numb <user.number_string> (point | dot) X: "{number_string}.x"
+numb <user.number_string> (point | dot) X [(point | dot)] Y: "{number_string}.x.y"
 
 # 7.0-7
-numb <user.number_string> (point|dot) <user.number_string> dash <user.number_string>:
+numb <user.number_string> (point | dot) <user.number_string> dash <user.number_string>:
     "{number_string_1}.{number_string_2}-{number_string_3}"
 # 7.0.0
-numb <user.number_string> (point|dot) <user.number_string> (point|dot) <user.number_string>:
+numb <user.number_string> (point | dot) <user.number_string> (point | dot) <user.number_string>:
     "{number_string_1}.{number_string_2}.{number_string_3}"
 # 7.0.0-7
-numb <user.number_string> (point|dot) <user.number_string> (point|dot) <user.number_string> dash <user.number_string>:
+numb <user.number_string> (point | dot) <user.number_string> (point | dot) <user.number_string> dash <user.number_string>:
     "{number_string_1}.{number_string_2}.{number_string_3}-{number_string_4}"
 # 2-4
 numb <user.number_string> dash <user.number_string>:
@@ -41,7 +40,7 @@ numb <user.number_string> and <user.number_string> and <user.number_string>:
 numb <user.number_string> and <user.number_string> and <user.number_string> and <user.number_string>:
     "{number_string_1} {number_string_2} {number_string_3} {number_string_4}"
 
-(point|dot) <user.number_string>: ".{number_string}"
+(point | dot) <user.number_string>: ".{number_string}"
 
 negative <user.number_string>: "-{number_string}"
 numb page size: "4096"
@@ -60,7 +59,6 @@ hex long <user.hex_letters>: user.expand_to_int64_hex(hex_letters)
 hex code <user.hex_letters>$: user.escape_hex_string(hex_letters)
 hex convert <user.number_string>: user.convert_number_to_hex(number_string)
 (hex dump pointer | paste as pointer): user.convert_hex_dump_pointer()
-hex escape <user.number_string>:
-    user.convert_number_to_escaped_hex(number_string)
+hex escape <user.number_string>: user.convert_number_to_escaped_hex(number_string)
 (paste | clip) as hex: user.paste_clipboard_as_hex()
 (paste | clip) as deck: user.paste_clipboard_as_dec()

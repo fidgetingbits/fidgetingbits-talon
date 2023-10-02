@@ -1,7 +1,7 @@
 tag: user.vim_lazy
 -
 
-plugins (show|home): user.vim_normal_mode_exterm(":Lazy home\n")
+plugins (show | home): user.vim_normal_mode_exterm(":Lazy home\n")
 plugins update: user.vim_normal_mode_exterm(":Lazy update\n")
 plugins health: user.vim_normal_mode_exterm(":Lazy health\n")
 plugins sync: user.vim_normal_mode_exterm(":Lazy sync\n")

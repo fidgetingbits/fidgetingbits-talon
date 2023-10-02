@@ -7,12 +7,12 @@ When this file is reloaded, it will shut down any modules which depended on
 this event loop; and they must also be reloaded.
 """
 
-import socket
 import contextlib
+import logging
 import selectors
+import socket
 import threading
 import traceback
-import logging
 
 from . import singletons
 

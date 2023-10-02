@@ -1,10 +1,11 @@
-import os
-import socket
 import logging
-import selectors
-import pprint
+import os
 import pathlib
-from talon import Context, Module, ui, fs, actions
+import pprint
+import selectors
+import socket
+
+from talon import Context, Module, actions, fs, ui
 from talon_init import TALON_HOME
 
 from . import events

@@ -18,9 +18,9 @@ tag(): user.code_operators_bitwise
 #bitwise operators
 [(op | put)] bit [wise] and equals: user.code_operator_bitwise_and_assignment()
 [(op | put)] bit [wise] or equals: user.code_operator_bitwise_or_assignment()
-(op | put| logical | bitwise) (ex | exclusive) or equals:
+(op | put | logical | bitwise) (ex | exclusive) or equals:
     user.code_operator_bitwise_exclusive_or_assignment()
-[(op | put| logical | bitwise)] (left shift | shift left) equals:
+[(op | put | logical | bitwise)] (left shift | shift left) equals:
     user.code_operator_bitwise_left_shift_assignment()
-[(op | put| logical | bitwise)] (right shift | shift right) equals:
+[(op | put | logical | bitwise)] (right shift | shift right) equals:
     user.code_operator_bitwise_right_shift_assignment()

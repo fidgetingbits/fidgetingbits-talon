@@ -6,7 +6,8 @@ and tag: user.nix_cli
 nix edit package: "nix edit nixpkgs#"
 
 nix build: "nix build"
-nix build with paths: user.insert_between("nix build nixpkgs#", "--print-out-paths --no-link")
+nix build with paths:
+    user.insert_between("nix build nixpkgs#", "--print-out-paths --no-link")
 
 # Use public nix index database (updated weekly) to find package location
 nix remote index: "nix run github:mic92/nix-index-database "

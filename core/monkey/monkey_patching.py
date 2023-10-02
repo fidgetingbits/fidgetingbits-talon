@@ -1,8 +1,8 @@
 import os
-import subprocess
 import socket
+import subprocess
 
-from talon import app, imgui, ui, scope
+from talon import app, imgui, scope, ui
 
 
 def monkey_notify(body="", title="", subtitle="", *kwargs):
@@ -68,17 +68,17 @@ def install_monkey_patches():
         for func in host_patches[hostname]:
             func()
     else:
-        print(f"WARNING: host: {hostname} not found in host_patches list. If you need monkey patch, modify monkey_patching.py")
-    #install_monkey_notify()
-    #install_monkey_focus()
+        print(
+            f"WARNING: host: {hostname} not found in host_patches list. If you need monkey patch, modify monkey_patching.py"
+        )
+    # install_monkey_notify()
+    # install_monkey_focus()
     # install_monkey_show()
 
 
 # I have mutliple hosts and currently some aren't using i3 and notify-send now, so I
 # need to break out who gets what.
 
-host_patches = {
-    "oedo": [ install_monkey_focus, install_monkey_notify ]
-}
+host_patches = {"oedo": [install_monkey_focus, install_monkey_notify]}
 
 install_monkey_patches()

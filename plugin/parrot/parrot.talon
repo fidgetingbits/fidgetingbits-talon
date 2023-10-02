@@ -6,7 +6,7 @@ parrot(side_click):
 #    app.notify("side_click")
 
 toggle mouse:
-    user.mouse_toggle_control_mouse()  
+    user.mouse_toggle_control_mouse()
 
 #parrot(palate_click):
 #    app.notify("palate_click")

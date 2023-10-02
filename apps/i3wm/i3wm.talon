@@ -6,7 +6,8 @@ tag: user.i3wm
 ##
 # Workspaces
 ##
-portal <number_small>: user.bash_command_quiet("i3-msg workspace number {number_small}")
+portal <number_small>:
+    user.bash_command_quiet("i3-msg workspace number {number_small}")
 portal flip: user.bash_command_quiet("i3-msg workspace back_and_forth")
 portal right: user.bash_command_quiet("i3-msg workspace next")
 portal left: user.bash_command_quiet("i3-msg workspace prev")
@@ -16,10 +17,10 @@ portal left: user.bash_command_quiet("i3-msg workspace prev")
 ##
 (win | window) left: user.bash_command_quiet("i3-msg focus left")
 (win | window) right: user.bash_command_quiet("i3-msg focus right")
-(win | window) (north|up): user.bash_command_quiet("i3-msg focus up")
-(win | window) (south|down): user.bash_command_quiet("i3-msg focus down")
+(win | window) (north | up): user.bash_command_quiet("i3-msg focus up")
+(win | window) (south | down): user.bash_command_quiet("i3-msg focus down")
 (win | window) kill: user.bash_command_quiet("i3-msg kill")
-(win | window) (stack|stacking): user.bash_command_quiet("i3-msg layout stacking")
+(win | window) (stack | stacking): user.bash_command_quiet("i3-msg layout stacking")
 (win | window) default: user.bash_command_quiet("i3-msg layout toggle split")
 (win | window) tabbed: user.bash_command_quiet("i3-msg layout tabbed")
 (win | window) flip:
@@ -31,8 +32,7 @@ portal left: user.bash_command_quiet("i3-msg workspace prev")
 
 [(win | window)] full screen: user.bash_command_quiet("i3-msg fullscreen")
 [(win | window)] floating toggle: user.bash_command_quiet("i3-msg floating toggle")
-[(win | window)] floating focus:
-    user.bash_command_quiet("i3-msg focus mode_toggle")
+[(win | window)] floating focus: user.bash_command_quiet("i3-msg focus mode_toggle")
 (win | window) center: user.bash_command_quiet("i3-msg move position center")
 (win | window) move left: user.bash_command_quiet("i3-msg move left")
 (win | window) move <number> left:
@@ -41,8 +41,7 @@ portal left: user.bash_command_quiet("i3-msg workspace prev")
 (win | window) move <number> right:
     user.bash_command_quiet("i3-msg move right {number} px")
 (win | window) move up: user.bash_command_quiet("i3-msg move up")
-(win | window) move <number> up:
-    user.bash_command_quiet("i3-msg move up {number} px")
+(win | window) move <number> up: user.bash_command_quiet("i3-msg move up {number} px")
 (win | window) move down: user.bash_command_quiet("i3-msg move down")
 (win | window) move <number> down:
     user.bash_command_quiet("i3-msg move down {number} px")
@@ -56,8 +55,8 @@ portal left: user.bash_command_quiet("i3-msg workspace prev")
 # don't have win version
 window taller [<number>]: user.i3wm_window_adjust_height_up(number or 50)
 window shorter [<number>]: user.i3wm_window_adjust_height_down(number or 50)
-window (wider|fatter) [<number>]: user.i3wm_window_adjust_width_out(number or 50)
-window (thinner|skinnier) [<number>]: user.i3wm_window_adjust_width_in(number or 50)
+window (wider | fatter) [<number>]: user.i3wm_window_adjust_width_out(number or 50)
+window (thinner | skinnier) [<number>]: user.i3wm_window_adjust_width_in(number or 50)
 
 horizontal (shell | terminal):
     user.bash_command_quiet("i3-msg split h")
@@ -89,14 +88,13 @@ shuffle go <number_small>:
 # multi-monitor commands
 # NOTE: these are flipped on purpose, because I have to trick the talon monitor
 # orientation to ensure that eye tracking works on multiple monitors
-shuffle screen left:
-    user.bash_command_quiet("i3-msg move container to output right")
-shuffle screen right:
-    user.bash_command_quiet("i3-msg move container to output left")
+shuffle screen left: user.bash_command_quiet("i3-msg move container to output right")
+shuffle screen right: user.bash_command_quiet("i3-msg move container to output left")
 
 [(win | window)] unmake scratch: user.bash_command_quiet("i3-msg move scratchpad")
 # This should become configurable, since the dimensions are specific to my setup
-[(win | window)] make scratch: user.bash_command_quiet("i3-msg move scratchpad; i3-msg scratchpad show; i3-msg resize set 2270 2150; i3-msg move position center;")
+[(win | window)] make scratch:
+    user.bash_command_quiet("i3-msg move scratchpad; i3-msg scratchpad show; i3-msg resize set 2270 2150; i3-msg move position center;")
 [(show | hide)] scratch: user.bash_command_quiet("i3-msg scratchpad show")
 next scratch:
     user.bash_command_quiet("i3-msg scratchpad show")

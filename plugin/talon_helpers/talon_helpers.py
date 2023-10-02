@@ -5,16 +5,7 @@ import re
 from itertools import islice
 from typing import Union
 
-from talon import (
-    Module,
-    actions,
-    app,
-    clip,
-    registry,
-    scope,
-    speech_system,
-    ui,
-)
+from talon import Module, actions, app, clip, registry, scope, speech_system, ui
 from talon.grammar import Phrase
 
 pp = pprint.PrettyPrinter()

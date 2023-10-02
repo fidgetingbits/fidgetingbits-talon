@@ -57,7 +57,6 @@ tag(): user.poetry
 tag(): user.generic_unix_shell
 tag(): user.unix_utilities
 
-
 # Shell commands
 
 # Also see unix_utilities.{py,talon} for run commands
@@ -68,10 +67,8 @@ run last script:
 rerun <user.text>:
     key(ctrl-r)
     insert(text)
-rerun list:
-    key(ctrl-r)
-rerun last command:
-    key(! ! enter enter)
+rerun list: key(ctrl-r)
+rerun last command: key(! ! enter enter)
 # XXX - it would be good to have overrides for words that are harder to say,
 # like ssh, ex: see following tunnel word
 rerun last <user.word>:
@@ -89,11 +86,10 @@ rerun force <user.text>:
     insert(text)
     key(enter:2)
 
-kill all:
-    key(ctrl-c)
+kill all: key(ctrl-c)
 
-(file|folder) name <user.zsh_path_completion>: "{user.zsh_path_completion}"
-file list (<user.zsh_path_completion>|<user.folder_paths>):
+(file | folder) name <user.zsh_path_completion>: "{user.zsh_path_completion}"
+file list (<user.zsh_path_completion> | <user.folder_paths>):
     path = zsh_path_completion or folder_paths
     "ls {path} \n"
 file list local <user.zsh_file_completion>: "ls {zsh_file_completion} \n"
@@ -101,59 +97,56 @@ file list global <user.folder_paths>: "ls {folder_paths} \n"
 file list bare exact: "ls --no-icons "
 file list bare: "ls -l --no-icons \n"
 file size: "ls -lh "
-file list (size|bytes): "ls -lB "
+file list (size | bytes): "ls -lB "
 file list exact: "ls -l "
 file list long exact: "ls -al "
 file list with paths: 'ls --sort changed --no-icons -d - "$PWD"/*'
 file list latest: "exa --sort changed --no-icons | tail -n1\n"
-file list today: "find . -maxdepth 1 -newermt \"$(date +%D)\"\n"
-file list (last|latest) <number>: "exa --sort changed --no-icons | tail -n{number}\n"
+file list today: 'find . -maxdepth 1 -newermt "$(date +%D)"\n'
+file list (last | latest) <number>: "exa --sort changed --no-icons | tail -n{number}\n"
 file list count: "ls -1 | wc -l\n"
 folder list latest: "exa -D --sort changed --no-icons | tail -n1\n"
-folder list (last|latest) <number>: "exa -D --sort changed --no-icons | tail -n{number}\n"
+folder list (last | latest) <number>:
+    "exa -D --sort changed --no-icons | tail -n{number}\n"
 folder list: "exa -D --no-icons -l\n"
-file list (folders|directories): "ls -d */\n"
-file list (folders|directories) long: "ls -ld */\n"
-file list (runnable|executable): "find . -type f -executable\n"
+file list (folders | directories): "ls -d */\n"
+file list (folders | directories) long: "ls -ld */\n"
+file list (runnable | executable): "find . -type f -executable\n"
 file strings: "strings "
-file (tail|follow): "tail -f "
+file (tail | follow): "tail -f "
 file line count: "wc -l "
 file list <user.letter>: 'find . -maxdepth 1 -name "{letter}*" -ls\n'
 file fuzzy list <user.text>: 'find . -maxdepth 1 -name "*{text}*" -ls\n'
 file list {user.file_extension} files: "ls *{file_extension}\n"
-file list hidden: 'ls -ld .?*\n'
+file list hidden: "ls -ld .?*\n"
 # XXX - it would be nice if these were coloured like regular ls sometimes
 file list hidden files: 'find . -maxdepth 1 -not -type d -name ".*" -printf "%f\\n"\n'
-file list hidden folders: 'find . -maxdepth 1 -not -type f -name ".*" -printf "%f\\n"\n'
-file list long [sym] links: 'find . -maxdepth 1 -type l -printf "%f\\n" | xargs ls -l \n'
+file list hidden folders:
+    'find . -maxdepth 1 -not -type f -name ".*" -printf "%f\\n"\n'
+file list long [sym] links:
+    'find . -maxdepth 1 -type l -printf "%f\\n" | xargs ls -l \n'
 file list [sym] links: 'find . -maxdepth 1 -type l -printf "%f\\n"\n'
 
-
 # find
-file find:
-    user.insert_cursor("find . -name \"[|]\" 2>/dev/null")
-file find file:
-    user.insert_cursor("find . -type f -name \"[|]\" 2>/dev/null")
-file find folder:
-    user.insert_cursor("find . -type d -name \"[|]\" 2>/dev/null")
+file find: user.insert_cursor('find . -name "[|]" 2>/dev/null')
+file find file: user.insert_cursor('find . -type f -name "[|]" 2>/dev/null')
+file find folder: user.insert_cursor('find . -type d -name "[|]" 2>/dev/null')
 # case insensitive fuzzy find
-file fuzzy find:
-    user.insert_cursor("find . -iname \"*[|]*\" 2>/dev/null")
+file fuzzy find: user.insert_cursor('find . -iname "*[|]*" 2>/dev/null')
 file fuzzy hash:
-    user.insert_cursor("find . -path \"*[|]*\" -exec sha256sum {{}} \\; 2>/dev/null")
+    user.insert_cursor('find . -path "*[|]*" -exec sha256sum {{}} \\; 2>/dev/null')
 
 file fuzzy find depth <number>:
-    user.insert_cursor("find . -maxdepth {number} -iname \"*[|]*\" 2>/dev/null")
-(file fuzzy find folder|folder fuzzy find):
-    user.insert_cursor("find . -type d -iname \"*[|]*\" 2>/dev/null")
-(file fuzzy find folder|folder fuzzy find) depth <number>:
-    user.insert_cursor("find . -maxdepth {number} -type d -iname \"*[|]*\" 2>/dev/null")
-file fuzzy find today:
-    user.insert_cursor("find . -mtime -1 -name \"*[|]*\" 2>/dev/null")
+    user.insert_cursor('find . -maxdepth {number} -iname "*[|]*" 2>/dev/null')
+(file fuzzy find folder | folder fuzzy find):
+    user.insert_cursor('find . -type d -iname "*[|]*" 2>/dev/null')
+(file fuzzy find folder | folder fuzzy find) depth <number>:
+    user.insert_cursor('find . -maxdepth {number} -type d -iname "*[|]*" 2>/dev/null')
+file fuzzy find today: user.insert_cursor('find . -mtime -1 -name "*[|]*" 2>/dev/null')
 file fuzzy find at clip:
     insert("find ")
     edit.paste()
-    user.insert_cursor(" -iname \"*[|]*\" 2>/dev/null")
+    user.insert_cursor(' -iname "*[|]*" 2>/dev/null')
 
 file find all links: "find . -maxdepth 1 -type l  -ls\n"
 file find all folders: "find . -maxdepth 1 -type d  -ls\n"
@@ -178,23 +171,24 @@ file find excluding with depth:
     user.insert_cursor("find . -mindepth 2 -maxdepth 2 -type d '!' -exec sh -c 'ls -1 \"{}\"|egrep -i -q \"^*.[|]$\"' ';' -print")
 file find excluding:
     user.insert_cursor("find . -type d '!' -exec sh -c 'ls -1 \"{}\"|egrep -i -q \"^*.[|]$\"' ';' -print")
-file (move|rename): "mv "
+file (move | rename): "mv "
 file move files: user.insert_between("find . -maxdepth 1 -type f -exec mv {} ", " \\;")
 file open: "xdg-open "
 file P D F: "evince "
 file touch: "touch "
-file (touch|create) {user.common_files}: "touch {common_files}\n"
+file (touch | create) {user.common_files}: "touch {common_files}\n"
 # TODO: This should also include the names of files in the current folder
-file name (<user.zsh_file_completion>|{user.common_files}):
+file name (<user.zsh_file_completion> | {user.common_files}):
     file = zsh_file_completion or common_files
     insert("{file}")
 file global name {user.common_files}: "{common_files}"
 file local name <user.zsh_file_completion>: "{zsh_file_completion}"
 file copy: "cp -d "
 file recopy: "!cp\n"
-file copy latest <user.folder_paths>: user.paste("cp $(ls --sort changed --no-icons -d {folder_paths}/* | tail -n1) .")
-(file|folder) (deep copy|copy deep): "cp -dR "
-file (file|info|type): "file "
+file copy latest <user.folder_paths>:
+    user.paste("cp $(ls --sort changed --no-icons -d {folder_paths}/* | tail -n1) .")
+(file | folder) (deep copy | copy deep): "cp -dR "
+file (file | info | type): "file "
 
 file show: "cat "
 file show max width: "cut -c-120 "
@@ -203,7 +197,7 @@ file show clip:
     "cat "
     edit.paste()
 
-file show (<user.zsh_file_completion>|<user.word>):
+file show (<user.zsh_file_completion> | <user.word>):
     file = zsh_file_completion or word
     insert("cat {file}")
 file edit: insert("edit ")
@@ -216,15 +210,15 @@ file code new: "code -n "
 file code add folder: "code -a "
 file code here: "code .\n"
 
-file (delete|remove): "rm -I "
+file (delete | remove): "rm -I "
 # TODO: It might be nice to automatically escape the file name in this case
-file (delete|remove) [<user.zsh_file_completion>]:
+file (delete | remove) [<user.zsh_file_completion>]:
     "rm -I "
-    insert("\"{zsh_file_completion}\"")
-file safe (delete|remove) all: "rm -i -- *"
-file real (delete|remove): "/bin/rm -I "
-(file|folder) deep remove: "rm -rIf "
-(file|folder) real deep remove: "/bin/rm -rIf "
+    insert('"{zsh_file_completion}"')
+file safe (delete | remove) all: "rm -i -- *"
+file real (delete | remove): "/bin/rm -I "
+(file | folder) deep remove: "rm -rIf "
+(file | folder) real deep remove: "/bin/rm -rIf "
 file diff: "diff "
 
 file hash: "sha256sum "
@@ -241,8 +235,7 @@ file [full] path: "readlink -f "
 # dd
 file disk image copy:
     user.insert_between("dd bs=4M if=", " of=/dev/sdX conv=fsync oflag=direct status=progress")
-file read <number> bytes:
-    user.insert_between("dd bs=1 count={number} if=", " of=")
+file read <number> bytes: user.insert_between("dd bs=1 count={number} if=", " of=")
 file read <number> bytes at offset <number>:
     user.insert_between("dd bs=1 count={number_1} skip={number_2} if=", " of=")
 
@@ -250,7 +243,8 @@ loop for file: insert("for FILE in $(exa --no-icons); do echo ${{FILE}}; done")
 
 file tree permission: "tree -pufid "
 
-folder tree permissions: user.insert_cursor('FILE=[|]; until [ "$FILE" = "/" ]; do ls -lda $FILE; FILE=`dirname $FILE` done')
+folder tree permissions:
+    user.insert_cursor('FILE=[|]; until [ "$FILE" = "/" ]; do ls -lda $FILE; FILE=`dirname $FILE` done')
 
 # NOTE: these are deprecated in light of these zsh autocompletion
 #file edit read me: insert("edit README.md\n")
@@ -273,22 +267,21 @@ echo param <user.text>:
 
 # directory and files
 pivot: "cd "
-pivot (only|first): "cd *\n"
+pivot (only | first): "cd *\n"
 pivot clip:
     insert("cd ")
     edit.paste()
     key(enter)
 # NOTE: I don't auto ls here because zsh is setup to automatically do it for me
 # FIXME: This should get moved to a zsh specific file
-pivot (<user.zsh_path_completion>|<user.folder_paths>):
+pivot (<user.zsh_path_completion> | <user.folder_paths>):
     path = zsh_path_completion or folder_paths
     user.paste("cd {path}")
     key(enter)
 pivot global <user.folder_paths>:
     user.paste("cd {folder_paths}")
     key(enter)
-pivot local <user.zsh_path_completion>:
-    user.paste("cd {zsh_path_completion}\n")
+pivot local <user.zsh_path_completion>: user.paste("cd {zsh_path_completion}\n")
 # pivot up doesn't work with talon
 pivot back: "cd ../\n"
 pivot <number_small> back:
@@ -303,15 +296,14 @@ pivot next:
     key(enter)
     # insert("ls\n")
 
-(pivot|folder) (last|flip): "cd -\n"
+(pivot | folder) (last | flip): "cd -\n"
 pivot latest: "cd $(exa --sort changed --no-icons | tail -n1)\n"
 
 # zoxide
 oxide <user.text>: "z {text}\n"
 
-
-folder (remove|delete): "rmdir "
-folder (create|new): "mkdir -p  "
+folder (remove | delete): "rmdir "
+folder (create | new): "mkdir -p  "
 
 # XXX - It would be nice to make the depth configurable
 # tree
@@ -325,11 +317,12 @@ file tree [depth] <number_small>: "fd . -d {number_small}\n"
 
 folder pop: "popd\n"
 # pwd | tr -d \\n\\r | xclip -sel clipboard
-(folder yank path|folder path copy|folder copy|folder yank): "pwd | tr -d \\\\n\\\\r | xclip -sel clipboard\n"
+(folder yank path | folder path copy | folder copy | folder yank):
+    "pwd | tr -d \\\\n\\\\r | xclip -sel clipboard\n"
 
 # permissions
 file [change] mode: "chmod "
-file (mark|make) (exec|executable): "chmod +x "
+file (mark | make) (exec | executable): "chmod +x "
 file [change] ownership: "chown "
 file [change] ownership me: "chown $UID:$GID "
 file [change] deep ownership: "chown -R "
@@ -358,8 +351,9 @@ file rip clip:
     key(enter)
 file rip exclude: "rg -i -g \\!"
 file rip around: "rg -B2 -A2 -i "
-file rip (exact|precise): "rg "
-file rip [git] conflicts: "rg --no-messages --no-line-number --no-filename -e '^<<<<<<< ' -e '^=======$' -e '>>>>>>>$'\n"
+file rip (exact | precise): "rg "
+file rip [git] conflicts:
+    "rg --no-messages --no-line-number --no-filename -e '^<<<<<<< ' -e '^=======$' -e '>>>>>>>$'\n"
 now rip:
     edit.up()
     insert("| rg -i ")
@@ -373,25 +367,25 @@ now grep:
     insert("| grep -i ")
 
 # networking
-net (interfaces|I P|address) [show]: "ip addr\n"
+net (interfaces | I P | address) [show]: "ip addr\n"
 net flush: "ip addr flush dev "
 net show: "ip addr show "
-net [address] (set|add [ip]): "ip addr add "
-net [address] (remove|delete) [ip]: "ip addr del "
+net [address] (set | add [ip]): "ip addr add "
+net [address] (remove | delete) [ip]: "ip addr del "
 
-net (route|routes): "ip route\n"
-net (route|routes) six: "ip -6 route\n"
+net (route | routes): "ip route\n"
+net (route | routes) six: "ip -6 route\n"
 net route add: user.insert_cursor("ip route add [|] dev ")
 net route add tunnel: user.insert_cursor("ip route add [|] dev tun0")
-net route (remove|delete|drop): "ip route del"
+net route (remove | delete | drop): "ip route del"
 # XXX - We should switch these to use ss
 net stat all: "ss --sctp -anutp\n"
-net [stat] (listen|listening) unix: "ss --sctp -anutp\n"
-net [stat] (listen|listening) T C P: "ss --tcp -nlp\n"
-net [stat] (listen|listening) U D P: "ss --udp -nlp\n"
-net [stat] (listen|listening) S C T P: "ss --sctp -nlp\n"
-net [stat] (listen|listening): "ss -lnpt\n"
-net [stat] (listen|listening) all: "ss --sctp -lnput\n"
+net [stat] (listen | listening) unix: "ss --sctp -anutp\n"
+net [stat] (listen | listening) T C P: "ss --tcp -nlp\n"
+net [stat] (listen | listening) U D P: "ss --udp -nlp\n"
+net [stat] (listen | listening) S C T P: "ss --sctp -nlp\n"
+net [stat] (listen | listening): "ss -lnpt\n"
+net [stat] (listen | listening) all: "ss --sctp -lnput\n"
 net trace: "traceroute "
 net trace clip:
     insert("traceroute")
@@ -416,24 +410,22 @@ net cat listen [on] <number> pipe from file:
 net cat listen [on] <number> pipe to file:
     user.bind_nc_listener(number)
     insert(" > ")
-net cat copy file to:
-    user.insert_between("nc -v ", "<")
+net cat copy file to: user.insert_between("nc -v ", "<")
 net my I P: "dig +short myip.opendns.com @resolver1.opendns.com\n"
 net port <user.ports>: "{ports}"
 net dump: "tcpdump "
 
-net [dev|device] up: user.insert_cursor("ip link set dev [|] up")
-net [dev|device] down: user.insert_cursor("ip link set dev [|] down")
+net [dev | device] up: user.insert_cursor("ip link set dev [|] up")
+net [dev | device] down: user.insert_cursor("ip link set dev [|] down")
 
-net bridge (list|show): "brctl show\n"
-
+net bridge (list | show): "brctl show\n"
 
 show hosts file: "cat /etc/hosts\n"
 
-net (remote desktop|R D P):
+net (remote desktop | R D P):
     user.insert_cursor("xfreerdp /timeout:90000 /size:1280x800 /v:[|] /u: /p:")
 
-(generate see tags|tags generate): "ctags --recurse --exclude=.git --exclude=.pc *"
+(generate see tags | tags generate): "ctags --recurse --exclude=.git --exclude=.pc *"
 generate see scope database:
     insert('find . -name "*.c"')
     insert(' -o -name "*.cpp"')
@@ -442,7 +434,7 @@ generate see scope database:
     insert(' -o -name "*.py"')
     insert(' -o -name "*.s"')
     insert(' -o -name "*.asm"')
-    insert('> cscope.files\n')
+    insert("> cscope.files\n")
     insert("cscope -q -R -b -i cscope.files\n")
 
 file head: "head "
@@ -463,15 +455,15 @@ lazy edit <user.text>:
     insert("edit ")
     insert("$(find . -not -path '*/\\.git/*' -name \"*{text}*\")\n")
 
-find <user.text> inside (python|pie) files:
-    insert('$(find . -name \"*.py\") | xargs rg -i "{text}"\n')
+find <user.text> inside (python | pie) files:
+    insert('$(find . -name "*.py") | xargs rg -i "{text}"\n')
 
-find <user.text> inside (python|pie) files less:
-    insert('$(find . -name \"*.py\") | xargs rg -i "{text}\" | less\n')
+find <user.text> inside (python | pie) files less:
+    insert('$(find . -name "*.py") | xargs rg -i "{text}" | less\n')
 
 man page: "man "
 so do: "sudo "
-so do with (env|environment): "sudo -E "
+so do with (env | environment): "sudo -E "
 so do sue: "sudo su\n"
 so do tea: "sudo tee "
 so do tee append: "sudo tee -a "
@@ -491,36 +483,36 @@ run d message samba: "sudo dmesg --color --reltime | rg CIFS\n"
 
 # disk management
 # NOTE - talon doesn't like the word disk with on MD431-II
-(disk|drive) (usage|space): "df -h\n"
-(disk|drive) list: "lsblk\n"
-(disk|drive) file systems: "lsblk -f\n"
-(disk|drive) mounted: "mount\n"
-(disk|drive) mount: "mount "
-(disk|drive) mount list: "mount | rg '^/'\n"
-(disk|drive) mount list all: "mount\n"
-(disk|drive) unmount: "umount "
-(disk|drive) key dump: "sudo cryptsetup luksDump /dev/"
-(disk|drive) key add: "sudo cryptsetup luksAddKey --key-slot "
-(disk|drive) F stab: "cat /etc/fstab\n"
-(disk|drive) remount temp (exec|executable): "mount /tmp -o remount,exec"
+(disk | drive) (usage | space): "df -h\n"
+(disk | drive) list: "lsblk\n"
+(disk | drive) file systems: "lsblk -f\n"
+(disk | drive) mounted: "mount\n"
+(disk | drive) mount: "mount "
+(disk | drive) mount list: "mount | rg '^/'\n"
+(disk | drive) mount list all: "mount\n"
+(disk | drive) unmount: "umount "
+(disk | drive) key dump: "sudo cryptsetup luksDump /dev/"
+(disk | drive) key add: "sudo cryptsetup luksAddKey --key-slot "
+(disk | drive) F stab: "cat /etc/fstab\n"
+(disk | drive) remount temp (exec | executable): "mount /tmp -o remount,exec"
 
 # system configuration
 sis cuddle: "sysctl "
 sis cuddle set: "sysctl -w "
 
 file change attributes: "chattr "
-(file|folder) make immutable: "chattr +i "
-(file|folder) drop immutable: "chattr +i "
+(file | folder) make immutable: "chattr +i "
+(file | folder) drop immutable: "chattr +i "
 file make append only: "chattr +a "
 file drop append only: "chattr -a "
 
 # tar extraction
 # TODO: Should add the version with zsh completion
-(file tar [ball]|tar file) list: "tar -tf "
-(file tar [ball]|tar file) (add|append): "tar -rf "
-(file tar [ball]|tar file) update: "tar -uf "
-(file tar [ball]|tar file) create: "tar -cvJf "
-(file tar [ball]|tar file) (delete|remove): "tar --delete -f "
+(file tar [ball] | tar file) list: "tar -tf "
+(file tar [ball] | tar file) (add | append): "tar -rf "
+(file tar [ball] | tar file) update: "tar -uf "
+(file tar [ball] | tar file) create: "tar -cvJf "
+(file tar [ball] | tar file) (delete | remove): "tar --delete -f "
 
 file [tar] [ball] extract: "tar -xvaf "
 
@@ -532,15 +524,16 @@ file extract C P I O: "cpio -idmv "
 file unzip C P I O: user.insert_between("gzip -cd ", " | cpio -idmv")
 # Commonly found in boot partitions
 # TODO: This should be tweaked with a copy that uses fake root for device nodes
-file extract root F S: "mkdir rootfs 2>/dev/null; cd rootfs; gzip -cd ../rootfs.gz | cpio -idmv"
+file extract root F S:
+    "mkdir rootfs 2>/dev/null; cd rootfs; gzip -cd ../rootfs.gz | cpio -idmv"
 #favor 7z because it supports newer decryption mechanisms
 #file unzip: "unzip "
 file B unzip: "bunzip2 "
-file (gun zip|unzip|seven extract): "7z x "
-file (seven|zip) list: "7z l "
+file (gun zip | unzip | seven extract): "7z x "
+file (seven | zip) list: "7z l "
 file G zip: "gzip "
 file zip folder: "zip -rP changepassword output.zip "
-file create encrypted (zip|archive): "zip -P changepassword output.zip "
+file create encrypted (zip | archive): "zip -P changepassword output.zip "
 
 # kernel modules
 module list: "lsmod\n"
@@ -550,7 +543,7 @@ module remove: "rmmod "
 
 run curl: "curl "
 run double you get: "wget "
-(file|web) (download|get): "wget "
+(file | web) (download | get): "wget "
 [file] download clip:
     insert("wget ")
     edit.paste()
@@ -558,7 +551,7 @@ run double you get: "wget "
 [file] download ignore cert: "wget --no-check-certificate "
 
 # because talent doesn't seem to like me saying ./
-(run script|file run): "./"
+(run script | file run): "./"
 run script <user.word>: "./{word}"
 run again:
     insert("./")
@@ -584,12 +577,11 @@ parameter:
     insert("${}")
     edit.left()
 
-
 # bash convenience stuff
 history show: "history\n"
 history search: "history | rg -i"
 history search <user.text>: "history | rg -i {text}"
-(X args|extra) that: "| xargs "
+(X args | extra) that: "| xargs "
 
 net man log: "journalctl -u NetworkManager --no-pager --lines 100\n"
 
@@ -598,10 +590,8 @@ net man log: "journalctl -u NetworkManager --no-pager --lines 100\n"
 #(secure shell|tunnel) [<user.text>]:
 #    insert("ssh ")
 #    insert(text or "")
-tunnel {user.ssh_hosts}:
-    insert("ssh {ssh_hosts}\n")
-tunnel host {user.ssh_hosts}:
-    insert("ssh {ssh_hosts}")
+tunnel {user.ssh_hosts}: insert("ssh {ssh_hosts}\n")
+tunnel host {user.ssh_hosts}: insert("ssh {ssh_hosts}")
 tunnel last:
     key(ctrl-r)
     sleep(500ms)
@@ -616,30 +606,27 @@ tunnel copy last:
     key(enter)
 
 secure shall key gen: "ssh-keygen -t ed25519\n"
-(tunnel|secure) copy [<user.text>]:
+(tunnel | secure) copy [<user.text>]:
     insert("scp -r ")
     insert(text or "")
-tunnel copy from {user.ssh_hosts}:
-    insert("scp -r {ssh_hosts}:")
-tunnel copy to {user.ssh_hosts}:
-    user.insert_between("scp -r ", " {ssh_hosts}:")
+tunnel copy from {user.ssh_hosts}: insert("scp -r {ssh_hosts}:")
+tunnel copy to {user.ssh_hosts}: user.insert_between("scp -r ", " {ssh_hosts}:")
 show authorized keys: "vi ~/.ssh/authorized_keys\n"
 show pub keys: "cat ~/.ssh/*.pub\n"
 edit authorized keys: "vi ~/.ssh/authorized_keys\n"
 go secure shell config: "cd ~/.ssh\n"
 # talon suddenly loves the word termini
 #tunnel (terminate|termini):
-tunnel (pop|terminate):
-    key(enter ~ .)
+tunnel (pop | terminate): key(enter ~ .)
 
 # virtsh virtual console escape
-(virtual pop|console escape): key("ctrl-]")
+(virtual pop | console escape): key("ctrl-]")
 
 # process management
-(process grep|pee grep): "pgrep "
+(process grep | pee grep): "pgrep "
 process list: "ps -ef\n"
-process (rip|search|find): "ps -ef | rg -i "
-process (rip|search|find) <user.text>: "ps -ef | rg -i {text}"
+process (rip | search | find): "ps -ef | rg -i "
+process (rip | search | find) <user.text>: "ps -ef | rg -i {text}"
 process tree: "pstree\n"
 process forest: "ps -aef --forest\n"
 process top: "htop\n"
@@ -660,15 +647,15 @@ system shutdown [now]: "sudo shutdown -h now"
 # hardware
 system [list] memory: "lshw -short -C memory"
 system [list] processor: "lscpu\n"
-system [list] (P C I|pee) bus: "lspci\n"
-system [list] (yew bus|U S B): "lsusb\n"
+system [list] (P C I | pee) bus: "lspci\n"
+system [list] (yew bus | U S B): "lsusb\n"
 system release: "cat /etc/lsb-release\n"
 
 # debugging
 file debug: "gdb "
 file arm debug: "arm-none-eabi-gdb "
-run (debug script|debugger): "gdb -x debug.gdb\n"
-run arm (debug script|debugger): "arm-none-eabi-gdb -x debug.gdb\n"
+run (debug script | debugger): "gdb -x debug.gdb\n"
+run arm (debug script | debugger): "arm-none-eabi-gdb -x debug.gdb\n"
 run debug server: "gdbserver "
 run debug remote server: "gdbserver --multi :9999\n"
 run debug remote server [on] port <number>: "gdbserver --multi :{number}\n"
@@ -682,34 +669,32 @@ errors ignore: "2>/dev/null"
 file image: "feh "
 file image meta: "identify -verbose "
 wallpaper set: "feh --bg-scale "
-wallpaper set latest: "feh --bg-scale $(find ~/images/wallpaper/ -name $(exa --sort changed --no-icons ~/images/wallpaper/ | tail -n1))\n"
-
+wallpaper set latest:
+    "feh --bg-scale $(find ~/images/wallpaper/ -name $(exa --sort changed --no-icons ~/images/wallpaper/ | tail -n1))\n"
 
 ###
 # ELF file
 ###
 file elf [read] header: "eu-readelf -h "
 file elf [read] symbols: "eu-readelf -s "
-file elf [read] (program headers|sections): "eu-readelf -l "
+file elf [read] (program headers | sections): "eu-readelf -l "
 file elf dependencies: "eu-readelf -d "
 file elf debug info: user.insert_between("readelf -w", "| head -15")
 file strip: "strip --strip-all "
-file [elf] extract (debug|symbols): "objcopy --only-keep-debug "
+file [elf] extract (debug | symbols): "objcopy --only-keep-debug "
 file elf read got: "eu-readelf -r "
 file elf read P L T: "objdump -d -s -j .plt -j .got.plt "
-
 
 ###
 # Python
 ###
-(pie|python) new [virtual] (env|environment): "python -m venv env"
+(pie | python) new [virtual] (env | environment): "python -m venv env"
 python module: "python -m "
-python (activate|enter) [env|environment]: "source env/bin/activate\n"
-python (deactivate|leave) [env|environment]: "deactivate\n"
+python (activate | enter) [env | environment]: "source env/bin/activate\n"
+python (deactivate | leave) [env | environment]: "deactivate\n"
 
 python three eight env: "virtualenv -p python3.8 py38"
 python three nine env: "virtualenv -p python3.9 py39"
-
 
 ###
 # Screen recording
@@ -738,14 +723,13 @@ kernel trace show: "cat /sys/kernel/tracing/trace\n"
 kernel trace functions: "echo function > /sys/kernel/tracing/current_tracer\n"
 # XXX -we may want this to shut off tracing first?
 
-
 ###
 # Version stuff
 ###
-(cis|system) I D: "id\n"
-(cis|system) user: "whoami\n"
-(cis|system) (name|version|kernel): "uname -a\n"
-(cis|system) show release: "cat /etc/lsb-release\n"
+(cis | system) I D: "id\n"
+(cis | system) user: "whoami\n"
+(cis | system) (name | version | kernel): "uname -a\n"
+(cis | system) show release: "cat /etc/lsb-release\n"
 
 ###
 # Namespaces
@@ -753,8 +737,8 @@ kernel trace functions: "echo function > /sys/kernel/tracing/current_tracer\n"
 
 capability list: "capsh --print\n"
 
-(unshare|namespace) root: "unshare -U -r\n"
-(unshare|namespace) net: "unshare -n\n"
+(unshare | namespace) root: "unshare -U -r\n"
+(unshare | namespace) net: "unshare -n\n"
 
 ###
 # Environment variables
@@ -768,10 +752,13 @@ variable show: "echo $"
 # Custom utility stuff
 bat cache build: "bat cache --build\n"
 
-file P D F compress: "gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/ebook -dNOPAUSE -dQUIET -dBATCH -sOutputFile=output.pdf input.pdf"
-file P D F strip pages: "gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/ebook -dNOPAUSE -dQUIET -dBATCH -sOutputFile=output.pdf -dFirstPage=1 -dLastPage=1 input.pdf"
+file P D F compress:
+    "gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/ebook -dNOPAUSE -dQUIET -dBATCH -sOutputFile=output.pdf input.pdf"
+file P D F strip pages:
+    "gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/ebook -dNOPAUSE -dQUIET -dBATCH -sOutputFile=output.pdf -dFirstPage=1 -dLastPage=1 input.pdf"
 file P D F scale: 'cpdf -scale-page "0.5 0.5" in.pdf -o out.pdf'
-file P D F cut pages: user.insert_between("qpdf input.pdf --pages . 1,", "3-r1 -- output.pdf")
+file P D F cut pages:
+    user.insert_between("qpdf input.pdf --pages . 1,", "3-r1 -- output.pdf")
 
 ###
 # Limits
@@ -805,7 +792,7 @@ run pa hole: "pahole "
 # Development
 ###
 
-(generate compile commands|run bear make): "bear -- make"
+(generate compile commands | run bear make): "bear -- make"
 file build: "gcc "
 file build clip:
     insert("gcc ")
@@ -821,12 +808,11 @@ clipboard as Q R code: "xclip -o -s c | qrencode -o - | feh --force-aliasing -ZF
 you dev admin: "udevadm "
 you dev reload: "sudo udevadm control --reload-rules && sudo udevadm trigger"
 
-
 run wiggly: "weggli '{}'"
 
 bytes disassemble:
-  insert("rasm2 -d ''")
-  key(left)
+    insert("rasm2 -d ''")
+    key(left)
 
 module load N F tables: "unshare -U -r -n -- iptables -L \n"
 
@@ -882,12 +868,13 @@ X M L lint: "xmllint --format "
 ###
 cron tab list: "crontab -l\n"
 cron tab list user: "crontab -l -u "
-cron tab (delete|remove): "crontab -i -r "
+cron tab (delete | remove): "crontab -i -r "
 
 ###
 # cross-compiled tools
 ###
-arm L D D: user.insert_between("/usr/arm-linux-gnueabi/bin/readelf -d ", " | rg NEEDED")
+arm L D D:
+    user.insert_between("/usr/arm-linux-gnueabi/bin/readelf -d ", " | rg NEEDED")
 arm readelf: "/usr/arm-linux-gnueabi/bin/readelf "
 
 #
@@ -895,7 +882,8 @@ volume scan: "lvscan\n"
 
 file hex dump: "hexdump -C "
 file hex dump <number> bytes: "hexdump -C -n {number} "
-file hex dump <number> bytes at offset <number>: "hexdump -C -n {number_1} -s {number_2} "
+file hex dump <number> bytes at offset <number>:
+    "hexdump -C -n {number_1} -s {number_2} "
 
 file bin walk: "binwalk -Me "
 file un squash: "unsquashfs "
@@ -916,7 +904,8 @@ show cpu frequencies: "cat /sys/devices/system/cpu/cpu*/cpufreq/scaling_cur_freq
 show cpu governors: "cat /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor\n"
 show cpu max frequencies: "cat /sys/devices/system/cpu/cpu*/cpufreq/cpuinfo_max_freq\n"
 show cpu min frequencies: "cat /sys/devices/system/cpu/cpu*/cpufreq/cpuinfo_min_freq\n"
-set all governors: "echo performance | sudo tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor\n"
+set all governors:
+    "echo performance | sudo tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor\n"
 
 G D B version: "gdb --version\n"
 
@@ -931,7 +920,7 @@ disk part list: "fdisk -l "
 # bash helpers
 print hex: "printf '0x%x\\n' "
 
-screen serial (ninety six|fortinet): "sudo screen /dev/ttyUSB0 9600\n"
+screen serial (ninety six | fortinet): "sudo screen /dev/ttyUSB0 9600\n"
 screen serial eleven: "sudo screen /dev/ttyUSB0 115200\n"
 
 # TODO: This should be moved to its own tag based thing probably

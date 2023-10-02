@@ -1,7 +1,8 @@
-from talon import Context, Module, actions, app, fs
-import pathlib
 import logging
+import pathlib
 import pprint
+
+from talon import Context, Module, actions, app, fs
 
 mod = Module()
 mod.tag("ssh", desc="tag for ssh functionality")

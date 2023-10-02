@@ -1,8 +1,8 @@
 # see doc/vim.md
 
 import logging
-import time
 import pprint
+import time
 
 from talon import Context, Module, actions, app, settings, ui
 

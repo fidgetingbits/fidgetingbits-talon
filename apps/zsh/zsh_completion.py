@@ -1,9 +1,9 @@
 # a significant amount of this was taken from https://github.com/rexroni/rexroni_talon
 # but with a new command added for handling folders
-import os
-import socket
 import logging
+import os
 import selectors
+import socket
 
 from talon import Context, Module, ui
 
@@ -56,6 +56,7 @@ ctx.lists["user.zsh_completion"] = {}
 #    """Returns a shell command"""
 #    return m.shell_command
 #
+
 
 # @mod.capture(rule="{user.zsh_completion}")
 # def zsh_completion(m) -> str:

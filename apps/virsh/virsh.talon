@@ -22,8 +22,7 @@ virtual destroy: insert("sudo virsh destroy ")
 
 # Config
 virtual edit config: "sudo virsh edit "
-virtual dump network config:
-    insert("virsh -c qemu:///system net-dumpxml default")
+virtual dump network config: insert("virsh -c qemu:///system net-dumpxml default")
 
 # VM management
 virtual rename: "sudo virsh domrename old new"
@@ -31,8 +30,7 @@ virtual remove: "sudo virsh undefine "
 
 # Disk management
 virtual disk list: insert("sudo virsh domblklist ")
-virtual disk resize <number>:
-    user.insert_cursor("sudo qemu-img resize [|] +{number}G")
+virtual disk resize <number>: user.insert_cursor("sudo qemu-img resize [|] +{number}G")
 
 # Snapshots
 virtual snapshot create otto: insert("sudo virsh snapshot-create ")

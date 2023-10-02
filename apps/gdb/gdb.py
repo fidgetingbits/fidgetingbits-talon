@@ -1,5 +1,4 @@
 from talon import Context, Module, actions
-from talon import Context, Module, actions
 
 mod = Module()
 mod.tag("gdb", desc="tag for running the gdb debugger")

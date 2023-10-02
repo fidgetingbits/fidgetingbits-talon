@@ -5,8 +5,7 @@ and tag: user.systemd
 journal disk usage: "journalctl --disk-usage\n"
 journal (list | show) kernel:
     'journalctl -k --no-pager --no-hostname --since "1 hour ago"\n'
-journal (list | show):
-    'journalctl --no-pager --no-hostname --since "1 hour ago"\n'
+journal (list | show): 'journalctl --no-pager --no-hostname --since "1 hour ago"\n'
 journal errors: "journalctl --no-pager --no-hostname -p 3 -xb"
 journal vacuum time: "sudo journalctl --vacuum-time=1weeks\n"
 journal vacuum size: "sudo journalctl --vacuum-time=100M\n"

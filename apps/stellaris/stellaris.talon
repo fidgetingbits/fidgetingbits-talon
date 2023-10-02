@@ -42,8 +42,7 @@ outline: user.stellaris_outliner()
 
 # Top bar
 <user.stellaris_topbar>: user.stellaris_hover_topbar("{stellaris_topbar}")
-<user.stellaris_topbar> market:
-    user.stellaris_click_topbar("{stellaris_topbar}")
+<user.stellaris_topbar> market: user.stellaris_click_topbar("{stellaris_topbar}")
 
 alert: user.stellaris_hover_alert(1)
 alert <number_small>: user.stellaris_hover_alert(number_small)

@@ -37,8 +37,7 @@ docker [container] prune: insert("sudo docker container prune ")
 docker [container] list all: insert("sudo docker ps -a\n")
 docker [container] list: insert("sudo docker ps\n")
 docker [container] remove: insert("sudo docker rm ")
-docker [container] remove all:
-    insert("sudo docker rm $(sudo docker ps -a -q)\n")
+docker [container] remove all: insert("sudo docker rm $(sudo docker ps -a -q)\n")
 docker [container] remove and kill all:
     insert("sudo docker stop $(sudo docker ps -a -q)\n")
     insert("sudo docker rm $(sudo docker ps -a -q)\n")

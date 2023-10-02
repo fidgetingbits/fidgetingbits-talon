@@ -20,7 +20,7 @@ shrink ({user.points_of_compass} | {user.arrow_key}) [<number>]:
 shotbox [off]: user.shotbox_close()
 
 # XXX - Rename this command
-(grab|take [screen] shot): user.shotbox_screenshot()
+(grab | take [screen] shot): user.shotbox_screenshot()
 
 set ex <number>: user.shotbox_set_x(number)
 
@@ -41,7 +41,7 @@ grow {user.box_multipliers} [{user.box_dimensions}]:
 shrink {user.box_multipliers} [{user.box_dimensions}]:
     user.shotbox_shrink_multiply(box_multipliers, box_dimensions or "all")
 
-(undo|nope): user.shotbox_undo()
+(undo | nope): user.shotbox_undo()
 
 redo: user.shotbox_redo()
 

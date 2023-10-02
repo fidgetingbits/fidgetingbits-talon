@@ -39,6 +39,7 @@ class IDATalon:
 
 ida = IDATalon()
 
+
 # These ones are specific too an API exposed through the ida-talon plugin
 @ctx.action_class("user")
 class UserActions:

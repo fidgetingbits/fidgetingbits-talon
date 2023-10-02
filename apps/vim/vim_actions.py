@@ -22,4 +22,3 @@ class AppActions:
 
     def tab_previous():
         actions.user.vim_command_mode_exterm(":tabprevious\n")
-

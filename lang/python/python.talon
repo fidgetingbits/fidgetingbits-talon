@@ -52,8 +52,7 @@ state for in:
     edit.word_left()
     key(space)
     edit.left()
-half dock string:
-    key(":3)
+half dock string: key(":3)
 big dock string:
     key(":3)
     key(enter:2)
@@ -74,9 +73,9 @@ false: "False"
 self dot: "self,"
 
 index <user.word>: '["{word}"]'
-index (var|variable) <user.text>:
+index (var | variable) <user.text>:
     var = user.formatted_text(text, "snake")
-    insert('[{var}]')
+    insert("[{var}]")
 
 pie test: "pytest"
 # for things like None comparsion
@@ -96,24 +95,22 @@ raw string:
     var = user.formatted_text(text, "snake")
     insert("self.{var} = {var}")
 
-[state] raise {user.python_exception}: user.insert_between("raise {python_exception}(", ")")
+[state] raise {user.python_exception}:
+    user.insert_between("raise {python_exception}(", ")")
 [state] except {user.python_exception}: "except {python_exception}:"
-[state] except {user.python_exception} as: user.insert_cursor("except {python_exception} as [|]:")
+[state] except {user.python_exception} as:
+    user.insert_cursor("except {python_exception} as [|]:")
 
 # function # for annotating function parameters
-is type {user.code_type}:
-    insert(": {code_type}")
-returns [type] {user.code_type}:
-    insert(" -> {code_type}")
+is type {user.code_type}: insert(": {code_type}")
+returns [type] {user.code_type}: insert(" -> {code_type}")
 # for generic reference of types
-type {user.code_type}:
-    insert("{code_type}")
+type {user.code_type}: insert("{code_type}")
 
 # decorators
-(deck|put) {user.python_decorators}: insert("@{python_decorators}")
+(deck | put) {user.python_decorators}: insert("@{python_decorators}")
 
-dock string:
-    user.code_comment_documentation()
+dock string: user.code_comment_documentation()
 dock {user.python_docstring_fields}:
     insert("{python_docstring_fields}")
     edit.left()
@@ -128,9 +125,9 @@ import <user.code_libraries>:
 
 from import: user.insert_between("from ", " import ")
 from <user.code_libraries> import:
-    insert('from ')
+    insert("from ")
     user.code_insert_library(code_libraries, "")
-    insert(' import ')
+    insert(" import ")
 
 # XXX - it would be good to have a set of common overrides?
 funk bug:
@@ -140,11 +137,9 @@ funk pretty print:
     insert("pp.pprint()")
     key(left)
 
-assign to <user.text>:
-    user.assign_variable(text)
+assign to <user.text>: user.assign_variable(text)
 
-append to <user.text>:
-    user.append_variable(text)
+append to <user.text>: user.append_variable(text)
 
 pack little byte: user.insert_cursor('struct.pack("<B", [|])')
 pack big byte: user.insert_cursor('struct.pack(">B", [|])')

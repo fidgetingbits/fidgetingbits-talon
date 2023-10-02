@@ -41,16 +41,14 @@ wiki find links: user.vim_command_mode(":VimwikiBacklinks\n")
 wiki table: user.vim_command_mode(":VimwikiTable\n")
 wiki <number_small> by <number_small> table:
     user.vim_command_mode(":VimwikiTable {number_small_1} {number_small_2}\n")
-wiki <number_small> table:
-    user.vim_command_mode(":VimwikiTable {number_small}\n")
+wiki <number_small> table: user.vim_command_mode(":VimwikiTable {number_small}\n")
 wiki move call left: user.vim_command_mode(":VimwikiTableMoveColumnLeft\n")
 wiki move call right: user.vim_command_mode(":VimwikiTableMoveColumnRight\n")
 
 # TODO - change command to update wiki?
 wiki generate links: user.vim_command_mode(":VimwikiGenerateLinks")
 # TODO - change command to update diary?
-wiki generate diary links:
-    user.vim_command_mode(":VimwikiDiaryGenerateLinks\n")
+wiki generate diary links: user.vim_command_mode(":VimwikiDiaryGenerateLinks\n")
 # :VimwikiDiaryNextDay - redundant? See global diary next
 # :VimwikiDiaryPrevDay - redundant? See global diary last
 wiki talk: user.vim_command_mode(":VimwikiTOC\n")

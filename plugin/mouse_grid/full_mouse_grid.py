@@ -1,14 +1,6 @@
 import string
 
-from talon import (
-    Context,
-    Module,
-    actions,
-    canvas,
-    ctrl,
-    settings,
-    ui,
-)
+from talon import Context, Module, actions, canvas, ctrl, settings, ui
 from talon.skia import Paint, Rect
 from talon.types.point import Point2d
 from talon_plugins import eye_mouse, eye_zoom_mouse
@@ -192,7 +184,6 @@ class MouseGridDense:
         # print(f"click_type: {self.click_type}")
 
     def add_partial_input(self, letter: str):
-
         # this logic swaps around which superblock is selected.
         if letter.isdigit():
             # print("user inputted a number, switching superblock")
@@ -392,7 +383,6 @@ class MouseGridDense:
                 canvas.draw_rect(blockrect)
 
                 if skipped_superblock != num:
-
                     # attempt to change backround color on the superblock chosen
 
                     # canvas.paint.color = colors[(row + col) % len(colors)] + hx(self.bg_transparency)
@@ -495,7 +485,7 @@ class MouseGridDense:
                         )
 
         def draw_rulers():
-            for (x_pos, align) in [
+            for x_pos, align in [
                 (-3, canvas.paint.TextAlign.RIGHT),
                 (self.rect.width + 3, canvas.paint.TextAlign.LEFT),
             ]:

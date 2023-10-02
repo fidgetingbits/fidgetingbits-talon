@@ -3,14 +3,10 @@
 tag: user.vim_lsp
 -
 
-(code server | lisp) (info | show):
-    user.vim_command_mode(':exe ":LspInfo"\n')
-(code server | lisp) start:
-    user.vim_command_mode(':exe ":LspStart"\n')
-(code server | lisp) stop:
-    user.vim_command_mode(":LspStop ")
-lisp dock sym:
-    user.vim_command_mode(':exe ":lua vim.lsp.buf.document_symbol()"\n')
+(code server | lisp) (info | show): user.vim_command_mode(':exe ":LspInfo"\n')
+(code server | lisp) start: user.vim_command_mode(':exe ":LspStart"\n')
+(code server | lisp) stop: user.vim_command_mode(":LspStop ")
+lisp dock sym: user.vim_command_mode(':exe ":lua vim.lsp.buf.document_symbol()"\n')
 
 # logging
 lisp log level trace:
@@ -59,8 +55,7 @@ lisp log file show:
     #user.vim_command_mode(':exe ":lua vim.lsp.buf.rename()"\n')
     user.vim_command_mode(":IncRename ")
 # Code linting and formatting
-file fix:
-    user.vim_command_mode(':exe ":lua vim.lsp.buf.format()"\n')
+file fix: user.vim_command_mode(':exe ":lua vim.lsp.buf.format()"\n')
 
 # diagnostics
 # also see plugins/trouble/ for a better interface
@@ -68,9 +63,7 @@ toggle errors:
     user.vim_command_mode(':exe ":lua vim.diagnostic.show_line_diagnostics()"\n')
 
 # TODO: It would be nice for this to toggle if it's already open
-trouble show:
-    user.vim_command_mode(':exe ":lua vim.diagnostic.open_float()"\n')
-trouble next:
-    user.vim_command_mode(':exe ":lua vim.diagnostic.goto_next()"\n')
+trouble show: user.vim_command_mode(':exe ":lua vim.diagnostic.open_float()"\n')
+trouble next: user.vim_command_mode(':exe ":lua vim.diagnostic.goto_next()"\n')
 trouble (prev | last):
     user.vim_command_mode(':exe ":lua vim.diagnostic.goto_prev()"\n')

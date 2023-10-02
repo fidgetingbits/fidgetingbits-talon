@@ -37,7 +37,6 @@ def handle_hexdump_count(fmt, number, register, clip=False, copy=False):
 # like pwndbg or gef
 @ctx.action_class("user")
 class UserActions:
-
     ###
     # REGISTERS
     ###

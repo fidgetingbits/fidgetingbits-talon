@@ -2,7 +2,7 @@ window (new | open): app.window_open()
 window next: app.window_next()
 window last: app.window_previous()
 window close: app.window_close()
-(window|snap) hide: app.window_hide()
+(window | snap) hide: app.window_hide()
 focus <user.running_applications>: user.switcher_focus(running_applications)
 focus flip: user.switch_last_focused()
 [help] running list: user.switcher_toggle_running()
@@ -20,4 +20,4 @@ snap <user.running_applications> [screen] <number>:
     user.move_app_to_screen(running_applications, number)
 
 # This should become agnostic
-snap (in|out): key(super)
+snap (in | out): key(super)
