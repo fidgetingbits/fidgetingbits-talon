@@ -37,7 +37,7 @@ extension_lang_map = {
     ".rb": "ruby",
     ".rs": "rust",
     ".s": "assembly",
-    ".scm": "treesitter", # NOTE: If you don't write treesitter queries, you may want this to be scheme
+    ".scm": "treesitter",  # NOTE: If you don't write treesitter queries, you may want this to be scheme
     ".sh": "bash",
     ".snippets": "snippets",
     ".sql": "sql",
