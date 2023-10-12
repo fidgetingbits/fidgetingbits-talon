@@ -24,6 +24,8 @@ _file_extensions_defaults = {
     "config": ".config",
     "com": ".com",
     "C S V": ".csv",
+    "cursorless snippets": ".cursorless-snippets",
+    "curse snip": ".cursorless-snippets",
     "data": ".data",
     "database": ".db",
     "deb": ".deb",
