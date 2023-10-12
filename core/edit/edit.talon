@@ -212,7 +212,7 @@ clone line:
     edit.line_clone()
 
 
-(shock | hawk | slap): key(enter)
+slap: key(enter)
 parrot(side_click):
     app.notify("side_click")
     key(enter)
@@ -229,7 +229,7 @@ zoom reset: edit.zoom_reset()
 (page | scroll) down: key(pgdown)
 file save: edit.save()
 
-(undo that | nope): edit.undo()
+(undo that | nope | scratcher): edit.undo()
 (redo that | yes indeed): edit.redo()
 disk: edit.save()
 disk oliver: edit.save_all()
