@@ -314,6 +314,10 @@ file tree long: "fd . -d 2 -l\n"
 file tree all: "fd . -d 2 -I\n"
 file tree folders: "fd . -d 2 -t d\n"
 file tree [depth] <number_small>: "fd . -d {number_small}\n"
+file tree clip [depth <number_small>]:
+    "fd . -d {number_small or 2} "
+    edit.paste()
+    key(enter)
 
 folder pop: "popd\n"
 # pwd | tr -d \\n\\r | xclip -sel clipboard
@@ -373,8 +377,8 @@ net show: "ip addr show "
 net [address] (set | add [ip]): "ip addr add "
 net [address] (remove | delete) [ip]: "ip addr del "
 
-net (route | routes): "ip route\n"
-net (route | routes) six: "ip -6 route\n"
+net (route | routes) [list]: "ip route\n"
+net (route | routes) six [list]: "ip -6 route\n"
 net route add: user.insert_cursor("ip route add [|] dev ")
 net route add tunnel: user.insert_cursor("ip route add [|] dev tun0")
 net route (remove | delete | drop): "ip route del"
@@ -929,3 +933,14 @@ pre commit auto update: "pre-commit autoupdate\n"
 pre commit install: "pre-commit install\n"
 pre commit uninstall: "pre-commit uninstall\n"
 pre commit generate config: "pre-commit sample-config > .pre-commit-config.yaml\n"
+
+edit read me: "edit README.md\n"
+
+# TODO: Need to move to host specific interface names
+net add name server:
+    user.insert_between("echo 'nameserver ", "' | sudo /sbin/resolvconf -a net1")
+net (delete | deli) name server:
+    user.insert_between("echo 'nameserver ", "' | sudo /sbin/resolvconf -d net1")
+net resolve config: "/sbin/resolvconf "
+net resolve config help: "/sbin/resolvconf -h\n"
+net restart: "sudo systemctl restart NetworkManager\n"
