@@ -12,8 +12,18 @@ lock screen: key(super-l)
 notify show: key(super-v)
 notify close: key(esc)
 
-term me: 
+term me:
     key(super)
     insert("console")
     sleep(200ms)
     key(ctrl-enter)
+
+app select:
+    key(alt:down)
+    key(tab)
+
+app next:
+    key(tab)
+
+app choose:
+    key(alt:up)
