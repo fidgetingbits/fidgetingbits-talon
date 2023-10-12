@@ -19,6 +19,7 @@ git branch remove remote clip:
     "git push origin --delete "
     edit.paste()
 git branch remote: "git branch --remote\n"
+git branch (rename | move): "git branch -m "
 git branch <user.text>: "git branch {text}"
 git checkout: "git checkout "
 git checkout master: "git checkout master\n"
@@ -39,7 +40,8 @@ git checkout clip:
 git check ignore: "git check-ignore -v "
 git cherry pick: "git cherry-pick "
 git cherry pick continue: "git cherry-pick --continue "
-git cherry pick abort: "git cherry-pick --abort "
+# Don't use abort because it conflicts with abort.talon
+git cherry pick cancel: "git cherry-pick --abort "
 git cherry pick skip: "git cherry-pick --skip "
 git clone: "git clone "
 git clone clip:
