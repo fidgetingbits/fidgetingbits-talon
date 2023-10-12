@@ -108,7 +108,7 @@ returns [type] {user.code_type}: insert(" -> {code_type}")
 type {user.code_type}: insert("{code_type}")
 
 # decorators
-(deck | put) {user.python_decorators}: insert("@{python_decorators}")
+(deck | put) {user.python_decorator}: insert("@{python_decorator}")
 
 dock string: user.code_comment_documentation()
 dock {user.python_docstring_fields}:
