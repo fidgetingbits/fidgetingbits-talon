@@ -2,8 +2,7 @@
 os: linux
 # XXX - this matches .gdb files atm
 #win.title: /gdb/
-tag: terminal
-and tag: user.gdb
+tag: user.gdb
 -
 tag(): user.debugger
 tag(): user.terminal_program
@@ -266,3 +265,6 @@ rerun <user.text>:
 rerun last:
     key(up)
     key(enter)
+
+set debug enable on: "set debuginfod enable on\n"
+set debug enable off: "set debuginfod enable off\n"
