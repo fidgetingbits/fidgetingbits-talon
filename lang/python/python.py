@@ -157,6 +157,7 @@ ctx.lists["user.code_libraries"] = {
     "date time": "datetime",
     "base sixty four": "base64",
     "pie test": "pytest",
+    "inspect": "inspect",
 }
 
 
@@ -213,6 +214,7 @@ ctx.lists["user.code_keyword"] = {
     "false": "False",
     "yield": "yield ",
     "from": "from ",
+    "pass": "pass",
 }
 
 exception_list = [
