@@ -23,3 +23,7 @@ settings():
     user.code_private_variable_formatter = "CAMEL_CASE"
     user.code_protected_variable_formatter = "CAMEL_CASE"
     user.code_public_variable_formatter = "CAMEL_CASE"
+
+# TODO: Technically if you say tick string it will do something like `string` in
+# community, so probably need to come up with something else
+tick string: user.insert_between("''", "''")
