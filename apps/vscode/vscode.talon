@@ -140,6 +140,7 @@ disk:
     user.vscode("hideSuggestWidget")
 disk gentle: edit.save()
 disk ugly: user.vscode("workbench.action.files.saveWithoutFormatting")
+disk all: user.vscode("workbench.action.files.saveAll")
 
 # Language Features
 suggest show: user.vscode("editor.action.triggerSuggest")
@@ -384,7 +385,7 @@ pilot generate: user.vscode("github.copilot.generate")
 pilot pan next: user.vscode("github.copilot.nextPanelSuggestion")
 pilot pan (previous | last): user.vscode("github.copilot.previousPanelSuggestion")
 pilot [pan] (accept | commit): user.vscode("github.copilot.acceptPanelSuggestion")
-[pilot] keep: key(tab)
+[pilot] (keeper | keep): key(tab)
 
 # pokey
 sesh <user.show_list> [<user.text>] [halt]:
