@@ -9,4 +9,8 @@ press <user.function_key>: key(function_key)
 press control alt: key("ctrl-alt")
 num pad dash: key("keypad_minus")
 num pad plus: key("keypad_plus")
-#press <user.modifiers>: key(modifiers)
+
+# TODO: Would be nice to have an on-screen indicator of special keys pressed
+hold {user.modifier_key}: key("{modifier_key}:down")
+release {user.modifier_key}: key("{modifier_key}:up")
+release all keys: user.keys_release_all()

@@ -179,8 +179,8 @@ modifier_keys = {
 if app.platform == "mac":
     modifier_keys["command"] = "cmd"
     modifier_keys["option"] = "alt"
-ctx.lists["self.modifier_key"] = modifier_keys
-ctx.lists["self.letter"] = alphabet_list
+ctx.lists["user.modifier_key"] = modifier_keys
+ctx.lists["user.letter"] = alphabet_list
 
 # `punctuation_words` is for words you want available BOTH in dictation and as
 # key names in command mode.
@@ -293,6 +293,7 @@ alternate_keys = {
     "page up": "pageup",
     "page down": "pagedown",
     "scrape": "escape",
+    "super": "super",
 }
 # mac apparently doesn't have the menu key.
 if app.platform in ("windows", "linux"):
@@ -316,3 +317,8 @@ class Actions:
                 getattr(actions.edit, d)()
             else:
                 raise RuntimeError(f"invalid arrow key: {d}")
+
+    def keys_release_all():
+        """Cycles through every key and releases it"""
+        for _, k in modifier_keys.items():
+            actions.key(f"{k}:up")
