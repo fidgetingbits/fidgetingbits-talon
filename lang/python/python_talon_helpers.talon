@@ -1,7 +1,7 @@
 tag: user.python
 -
 # XXX - The should is be a snippet
-capture <user.text>:
+put capture <user.text>:
     insert("@mod.capture\ndef ")
     insert(user.formatted_text(text, "snake"))
     insert("(m) -> str:\n")
