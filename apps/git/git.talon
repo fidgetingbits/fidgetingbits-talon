@@ -61,6 +61,7 @@ git commit message {user.git_conventional_commits} <user.word>:
 git commit message: user.insert_between('git commit -m "', '"')
 git commit: "git commit\n"
 git commit amend: "git commit --amend "
+git commit amend no edit: "git commit --amend --no-edit\n"
 git commit no verify: "git commit -n"
 git commit existing: "git commit -a\n"
 
