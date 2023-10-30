@@ -84,8 +84,8 @@ code block clip:
     # XXX - would be nice if this had something like the ability to then find
     # the next set of ```
 
-link clip: user.insert_cursor_paste("[[|]](", ")")
-link:
+[put] link clip: user.insert_cursor_paste("[[|]](", ")")
+put link:
     "[]()"
     key(left:3)
 
@@ -94,3 +94,13 @@ pour task:
     edit.line_end()
     edit.line_insert_down()
     "- [ ] "
+
+put list path: user.insert_between("- `", "`: ")
+pour list path:
+    edit.line_end()
+    edit.line_insert_down()
+    user.insert_between("- `", "`: ")
+
+make list:
+    edit.line_start()
+    "- "
