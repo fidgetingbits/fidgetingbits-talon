@@ -456,3 +456,7 @@ break <user.cursorless_target>:
     key("enter")
 
 punch it: key("ctrl-enter")
+
+# andreas-talon
+tabby {self.letter} [{self.letter}]:
+    user.vscode("andreas.focusTab", "{letter_1}{letter_2 or ''}")

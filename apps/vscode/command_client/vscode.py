@@ -33,34 +33,6 @@ def command_server_or_client_fallback(command_id: str, wait: bool):
         )
 
 
-@mod.action_class
-class UserActions:
-    def grow_left(count: int):
-        """Grow a selection left by leveraging "Select By" extension"""
-        actions.user.vscode("selectby.swapActive")
-        actions.key(f"shift-left:{count}")
-        actions.user.vscode("selectby.swapActive")
-
-    def grow_right(count: int):
-        """Grow a selection right"""
-        for _ in range(count):
-            actions.edit.extend_right()
-
-    def shrink_right(count: int):
-        """Shrink a selection on the right side by moving the selection left"""
-        actions.key(f"shift-left:{count}")
-
-    def shrink_left(count: int):
-        """Shrink a selection on the left side by moving the selection right"""
-        actions.user.vscode("selectby.swapActive")
-        actions.key(f"shift-right:{count}")
-        actions.user.vscode("selectby.swapActive")
-
-    def swap_cursor_anchor():
-        """Swap the cursor and anchor point of the selection"""
-        actions.user.vscode("selectby.swapActive")
-
-
 @ctx.action_class("user")
 class VsCodeAction:
     def command_server_directory() -> str:
@@ -69,10 +41,28 @@ class VsCodeAction:
 
 @mod.action_class
 class Actions:
-    def vscode(command_id: str):
-        """Execute command via vscode command server, if available, or fallback
-        to command palette."""
-        command_server_or_client_fallback(command_id, False)
+    # def vscode(command_id: str):
+    #     """Execute command via vscode command server, if available, or fallback
+    #     to command palette."""
+    #     command_server_or_client_fallback(command_id, False)
+
+    def vscode(
+        command_id: str,
+        arg1: Any = NotSet,
+        arg2: Any = NotSet,
+        arg3: Any = NotSet,
+        arg4: Any = NotSet,
+        arg5: Any = NotSet,
+    ):
+        """Execute vscode command <command_id>"""
+        actions.user.run_rpc_command(
+            command_id,
+            arg1,
+            arg2,
+            arg3,
+            arg4,
+            arg5,
+        )
 
     def vscode_and_wait(command_id: str):
         """Execute command via vscode command server, if available, and wait
@@ -120,7 +110,7 @@ class Actions:
         arg4: Any = NotSet,
         arg5: Any = NotSet,
     ) -> Any:
-        """Execute command via vscode command server and return command output."""
+        """Execute vscode command <command_id> with return value"""
         return actions.user.run_rpc_command_get(
             command_id, arg1, arg2, arg3, arg4, arg5
         )
