@@ -196,8 +196,6 @@ formatters_dict = {
 }
 # This is the mapping from spoken phrases to formatters.
 formatters_words = {
-    "allcaps": formatters_dict["ALL_CAPS"],
-    "alldown": formatters_dict["ALL_LOWERCASE"],
     "briefing": formatters_dict["ALL_BRIEF"],
     "camel": formatters_dict["PRIVATE_CAMEL_CASE"],
     "arguing": formatters_dict["COMMA_SEPARATED"],
@@ -228,6 +226,7 @@ formatters_words = {
     "ticks": formatters_dict["SINGLE_QUOTED_STRING"],
     "title": formatters_dict["CAPITALIZE_ALL_WORDS"],
     "upper": formatters_dict["ALL_CAPS"],
+    "lower": formatters_dict["ALL_LOWERCASE"],
 }
 
 # This is the mapping for series of letters to formatters ex: abc to A B C
