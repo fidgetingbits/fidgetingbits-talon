@@ -68,10 +68,12 @@ git commit existing: "git commit -a\n"
 git commit again:
     key(ctrl-r)
     "git commit\n"
-git recommit modified:
-    'git status -s | grep -e '^MM' | cut -d" " -f2- | xargs git add\n'
+git re commit [modified | staged]:
+    'git status -s | grep -e "^MM" | cut -d" " -f2- | xargs git add\n'
     key(ctrl-r)
-    "git commit\n"
+    sleep(500ms)
+    "git commit -m\n"
+    key(enter)
 git diff (colour | color) words: "git diff --color-words "
 git diff: "git diff "
 git diff cached: "git diff --cached\n"
