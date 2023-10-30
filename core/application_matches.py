@@ -175,9 +175,12 @@ os: linux
 and app.name: Arandr
 """
 
-apps.virtualbox = """
+apps.virtualbox_manager = """
 os: linux
-and win.title:/Oracle VM VirtualBox Manager/
+and win.title:Oracle VM VirtualBox Manager
+"""
+
+apps.virtualbox = """
 os: linux
 and app.name: VirtualBox
 """
