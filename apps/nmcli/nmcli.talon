@@ -16,3 +16,5 @@ net man disconnect:
 net man edit:
     insert("nmcli con edit ")
     key(tab)
+net man (connections | connection) list: "nmcli connection show\n"
+net man (connections | connection) list active: "nmcli connection show --active\n"
