@@ -27,7 +27,7 @@ tag(): user.yay
 tag(): user.ssh
 #tag(): user.apt
 #tag(): user.ghidra_server
-#tag(): user.nmcli
+tag(): user.nmcli
 #tag(): user.taskwarrior
 #tag(): user.timewarrior
 tag(): user.make_commands
@@ -56,6 +56,8 @@ tag(): user.poetry
 # XXX - See generic_terminal.talon for some basics as well.
 tag(): user.generic_unix_shell
 tag(): user.unix_utilities
+tag(): user.aws_cli
+tag(): user.s3fs
 
 # Shell commands
 
@@ -114,7 +116,7 @@ file list (folders | directories) long: "ls -ld */\n"
 file list (runnable | executable): "find . -type f -executable\n"
 file strings: "strings "
 file (tail | follow): "tail -f "
-file line count: "wc -l "
+file (count lines | line count): "wc -l "
 file list <user.letter>: 'find . -maxdepth 1 -name "{letter}*" -ls\n'
 file fuzzy list <user.text>: 'find . -maxdepth 1 -name "*{text}*" -ls\n'
 file list {user.file_extension} files: "ls *{file_extension}\n"
@@ -151,6 +153,7 @@ file fuzzy find at clip:
 file find all links: "find . -maxdepth 1 -type l  -ls\n"
 file find all folders: "find . -maxdepth 1 -type d  -ls\n"
 file fine all files: "find . -maxdepth 1 -type f  -ls\n"
+file find all {user.file_extension}: 'find . -type f  -name "*{file_extension}"\n'
 
 # TODO - revisit the grammar for $() commands
 call file latest: "$(exa --sort changed --no-icons | tail -n1)\n"
@@ -229,6 +232,9 @@ file hash blake two: "b2sum "
 file hash <user.zsh_file_completion>: "sha256sum {zsh_file_completion}"
 file check sec: "checksec --file="
 file locate: "locate "
+file locate clip:
+    "locate "
+    edit.paste()
 run update paths: "sudo updatedb\n"
 file [full] path: "readlink -f "
 
@@ -297,7 +303,7 @@ pivot next:
     # insert("ls\n")
 
 (pivot | folder) (last | flip): "cd -\n"
-pivot latest: "cd $(exa --sort changed --no-icons | tail -n1)\n"
+pivot latest: "cd $(eza --sort changed | tail -n1)\n"
 
 # zoxide
 oxide <user.text>: "z {text}\n"
@@ -381,7 +387,7 @@ net (route | routes) [list]: "ip route\n"
 net (route | routes) six [list]: "ip -6 route\n"
 net route add: user.insert_cursor("ip route add [|] dev ")
 net route add tunnel: user.insert_cursor("ip route add [|] dev tun0")
-net route (remove | delete | drop): "ip route del"
+net route (remove | delete | drop): "ip route del "
 # XXX - We should switch these to use ss
 net stat all: "ss --sctp -anutp\n"
 net [stat] (listen | listening) unix: "ss --sctp -anutp\n"
@@ -493,8 +499,9 @@ run d message samba: "sudo dmesg --color --reltime | rg CIFS\n"
 (disk | drive) mounted: "mount\n"
 (disk | drive) mount: "mount "
 (disk | drive) mount list: "mount | rg '^/'\n"
+(disk | drive) mount list fuse: "mount | rg fuse\n"
 (disk | drive) mount list all: "mount\n"
-(disk | drive) unmount: "umount "
+(disk | drive) (unmount | U mount): "umount "
 (disk | drive) key dump: "sudo cryptsetup luksDump /dev/"
 (disk | drive) key add: "sudo cryptsetup luksAddKey --key-slot "
 (disk | drive) F stab: "cat /etc/fstab\n"
@@ -944,3 +951,12 @@ net (delete | deli) name server:
 net resolve config: "/sbin/resolvconf "
 net resolve config help: "/sbin/resolvconf -h\n"
 net restart: "sudo systemctl restart NetworkManager\n"
+
+# systemd-resolved specific
+[net] (name server | D N S) list: "resolvectl status\n"
+
+# https://www.cursorless.org/docs/contributing/#installing-a-local-build-of-the-cursorless-extension
+# Must be in the cursorless development folder
+cursorless install local: "pnpm -F cursorless-vscode install-local\n"
+cursorless install public: "pnpm -F cursorless-vscode uninstall-local\n"
+cursorless install P R: "pnpm -F cursorless-vscode install-from-pr "
