@@ -52,7 +52,7 @@ git clone clip:
 git clean: "git clean"
 git clean everything: "git clean -dfx"
 git clean FD: "git clean -fd"
-# TODO: The should use sentence to match conventional commit standard
+# TODO: should use sentence to match conventional commit standard
 git commit message <user.text>: 'git commit -m "{text}"'
 git commit message {user.git_conventional_commits}:
     user.insert_between('git commit -m "{git_conventional_commits}: ', '"')
@@ -63,8 +63,13 @@ git commit: "git commit\n"
 git commit amend: "git commit --amend "
 git commit no verify: "git commit -n"
 git commit existing: "git commit -a\n"
-# Useful if commit fails due to pre commit hook
+
+# Two useful commands when commit fails due to pre commit hook
 git commit again:
+    key(ctrl-r)
+    "git commit\n"
+git recommit modified:
+    'git status -s | grep -e '^MM' | cut -d" " -f2- | xargs git add\n'
     key(ctrl-r)
     "git commit\n"
 git diff (colour | color) words: "git diff --color-words "

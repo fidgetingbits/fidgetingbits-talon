@@ -9,3 +9,10 @@ also <user.cursorless_target>:
     prev_command = user.history_get(1)
     user.cursorless_command("setSelectionBefore", cursorless_target)
     user.engine_mimic(prev_command)
+
+<user.formatters> {user.cursorless_reformat_action} <user.cursorless_target>:
+    user.private_cursorless_reformat(cursorless_target, formatters)
+
+chomp <user.cursorless_target>:
+    user.cursorless_command("setSelectionAfter", cursorless_target)
+    edit.delete()
