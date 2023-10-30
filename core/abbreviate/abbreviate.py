@@ -586,6 +586,7 @@ abbreviations_list = {
     "time to live": "ttl",
     "token": "tok",
     "transaction": "txn",
+    "tunnel": "tun",
     "typescript": "ts",
     "ultimate": "ulti",
     "unique id": "uuid",
