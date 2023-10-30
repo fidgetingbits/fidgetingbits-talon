@@ -59,6 +59,8 @@ tagList = [
     "gpg",  # gpg terminal commands
     "nix_cli",  # nix terminal commands
     "poetry",
+    "aws_cli",  # amazon aws cli commands
+    "s3fs",  # amazon aws s3 bucket mounting
 ]
 
 for entry in tagList:
