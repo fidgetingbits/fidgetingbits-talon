@@ -6,6 +6,7 @@ and tag: user.markdown
 
 # built-in
 file preview: user.vscode("markdown.showPreview")
+file split preview: user.vscode("markdown.showPreviewToSide")
 
 # markdown-all-in-one
 # Actions: https://github.com/yzhang-gh/vscode-markdown/blob/master/package.json
