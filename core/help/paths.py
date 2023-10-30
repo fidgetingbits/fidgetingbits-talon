@@ -86,6 +86,7 @@ linux_folder_paths = {
     "network manager": "/etc/NetworkManager/",
     "network manager dispatcher": "/etc/NetworkManager/dispatcher.d/",
     "network manager config": "/etc/NetworkManager/conf.d/",
+    "systemd network": "/etc/systemd/network/",
     # ubuntu-esque stuff
     "lib linux": "/lib/x86_64-linux-gnu/",
     "lib sixty four": "/lib64/",
@@ -181,6 +182,7 @@ linux_file_paths = {
     "user bin env": "/usr/bin/env",
     "P trace scope": "/proc/sys/kernel/yama/ptrace_scope",
     "kernel config": "/proc/config.gz",
+    "A W S credentials": "~/.aws/credentials",
 }
 
 # this is used for specific commands like pivot
