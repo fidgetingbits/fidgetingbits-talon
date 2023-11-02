@@ -39,6 +39,7 @@ list six:
     edit.line_start()
     "                    - "
 
+lang {user.markdown_code_block_language}: "{user.markdown_code_block_language}"
 code block {user.markdown_code_block_language}:
     "```{markdown_code_block_language}"
     sleep(200ms)
@@ -47,7 +48,7 @@ code block {user.markdown_code_block_language}:
     key(enter)
     key(up:2)
 
-code block:
+empty code block:
     insert("```")
     sleep(200ms)
     key(enter:2)
@@ -94,6 +95,10 @@ pour task:
     edit.line_end()
     edit.line_insert_down()
     "- [ ] "
+drink task:
+    edit.line_start()
+    edit.line_insert_up()
+    "- [ ] "
 
 put list path: user.insert_between("- `", "`: ")
 pour list path:
@@ -104,3 +109,4 @@ pour list path:
 make list:
     edit.line_start()
     "- "
+m
