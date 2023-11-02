@@ -240,6 +240,9 @@ link insecure web: "http://"
 link file: "file://"
 link git: "git://"
 link secure shell: "ssh://"
+link bucket: "s3://"
+link F T P: "ftp://"
+
 
 
 ###
