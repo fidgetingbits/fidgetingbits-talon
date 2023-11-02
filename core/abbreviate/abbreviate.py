@@ -97,6 +97,7 @@ abbreviations_list = {
     "communication": "comm",
     "communications": "comms",
     "compare": "cmp",
+    "compatible": "compat",
     "condition": "cond",
     "condition": "cond",
     "conference": "conf",
