@@ -21,6 +21,7 @@ carriage return: "\\r"
 line feed: "\\r\\n"
 end of file: "EOF"
 dashing: "-- "
+prompt: "❯"
 
 empty (string | quotes): user.insert_between('"', '"')
 empty escaped (string | quotes): user.insert_between('\\"', '\\"')
