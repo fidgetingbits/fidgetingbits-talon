@@ -2,7 +2,7 @@ from talon import Context
 
 ctx = Context()
 ctx.matches = r"""
-tag: user.pkgbuild
+code.language: pkgbuild
 """
 
 ctx.lists["user.pkgbuild_variables"] = {}

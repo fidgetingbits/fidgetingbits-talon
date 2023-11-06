@@ -253,8 +253,6 @@ break list hidden: "maint info breakpoints\n"
 
 show configuration: "show configuration\n"
 info target: "info target\n"
-info source: "info source\n"
-info sources: "info sources\n"
 info program: "info program\n"
 
 rerun:

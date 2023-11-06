@@ -1,4 +1,4 @@
-tag: user.docker
+code.language: docker
 win.title: /Dockerfile/
 -
 # XXX - The win title thing above should get fixed because sometimes I probably

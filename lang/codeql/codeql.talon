@@ -1,4 +1,4 @@
-user: user.codeql
+code.language: codeql
 -
 
 tag(): user.code_comment_line

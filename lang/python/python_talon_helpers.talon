@@ -1,4 +1,4 @@
-tag: user.python
+code.language: python
 -
 # XXX - The should is be a snippet
 put capture <user.text>:

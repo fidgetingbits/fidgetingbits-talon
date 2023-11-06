@@ -1,4 +1,4 @@
 # This is for editing Cargo.toml files
-tag: user.toml
+code.language: toml
 title: /Cargo.toml/
 -

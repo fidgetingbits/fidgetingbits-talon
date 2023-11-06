@@ -51,8 +51,6 @@ bar terminal: user.vscode("workbench.action.terminal.focus")
 bar next: user.vscode("workbench.action.focusNextPart")
 bar last: user.vscode("workbench.action.focusPreviousPart")
 
-bar [focus] tabs: user.vscode("andreas.tabs.focus")
-
 view wider: user.vscode("workbench.action.increaseViewSize")
 view thinner: user.vscode("workbench.action.decreaseViewSize")
 

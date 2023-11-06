@@ -4,54 +4,54 @@ from talon import Context, Module, actions
 # here which have a supported language mode; that's why there are so many
 # commented out entries. TODO: make this a csv file?
 language_extensions = {
-    ".asm": "assembly",
-    ".bat": "batch",
-    ".bt": "bpftrace",
-    ".c": "c",
-    ".cmake": "cmake",
-    ".codeql": "ql",
-    ".cpp": "cplusplus",
-    ".cs": "csharp",
-    ".elm": "elm",
-    ".gdb": "gdb",
-    ".go": "go",
-    ".h": "c",
-    ".hpp": "cplusplus",
-    ".ini": "ini",
-    ".java": "java",
-    ".js": "javascript",
-    ".jsx": "javascript",
-    ".json": "json",
-    ".json5": "json",
-    ".lua": "lua",
-    ".php": "php",
-    ".md": "markdown",
-    ".nix": "nix",
-    ".nse": "lua",
-    ".pl": "perl",
-    ".ps1": "powershell",
-    ".ps": "postscript",
-    ".py": "python",
-    ".ql": "codeql",
-    ".r": "r",
-    ".rb": "ruby",
-    ".rs": "rust",
-    ".s": "assembly",
-    ".scm": "treesitter",  # NOTE: If you don't write treesitter queries, you may want this to be scheme
-    ".sh": "bash",
-    ".snippets": "snippets",
-    ".sql": "sql",
-    ".talon": "talon",
-    ".task": "taskwarrior",
-    ".toml": "toml",
-    ".ts": "typescript",
-    ".tsx": "typescript",
-    ".vba": "vba",
-    ".vim": "vimscript",
-    ".vimrc": "vimscript",
-    ".yaml": "yaml",
-    ".yml": "yaml",
-    ".zsh": "zsh",
+    "assembly": "asm",
+    "batch": "bat",
+    "bpftrace": "bt",
+    "c": "c",
+    "cmake": "cmake",
+    "ql": "codeql",
+    "cplusplus": "cpp",
+    "csharp": "cs",
+    "elm": "elm",
+    "gdb": "gdb",
+    "go": "go",
+    "c": "h",
+    "cplusplus": "hpp",
+    "ini": "ini",
+    "java": "java",
+    "javascript": "js",
+    "javascript": "jsx",
+    "json": "json",
+    "json": "json5",
+    "lua": "lua",
+    "php": "php",
+    "markdown": "md",
+    "nix": "nix",
+    "lua": "nse",
+    "perl": "pl",
+    "powershell": "ps1",
+    "postscript": "ps",
+    "python": "py",
+    "codeql": "ql",
+    "r": "r",
+    "ruby": "rb",
+    "rust": "rs",
+    "assembly": "s",
+    "treesitter": "scm",  # NOTE: If you don't write treesitter queries, you may want this to be scheme
+    "bash": "sh",
+    "snippets": "snippets",
+    "sql": "sql",
+    "talon": "talon",
+    "taskwarrior": "task",
+    "toml": "toml",
+    "typescript": "ts",
+    "typescript": "tsx",
+    "vba": "vba",
+    "vimscript": "vim",
+    "vimscript": "vimrc",
+    "yaml": "yaml",
+    "yaml": "yml",
+    "zsh": "zsh",
 }
 
 # This list can be indirectly updated by other modules when they know at some
@@ -64,8 +64,7 @@ language_extensions = {
 forced_context_language = None
 
 
-# Files that don't have specific extensions bit that are known to be associated
-# with specific languages. Ex: CMakeLists.txt is cmake
+# Files without specific extensions but are associated with languages
 special_file_map = {
     "CMakeLists.txt": "cmake",
     "Makefile": "make",
@@ -86,7 +85,7 @@ language_name_overrides = {
     "css": ["c s s"],
     "gdb": ["g d b"],
     "go": ["go", "go lang", "go language"],
-    "r": ["are language"],
+    "r": ["are lang", "are language"],
     "scm": ["scheme", "s c m", "tree sitter"],
     "tex": ["tech", "lay tech", "latex"],
 }
@@ -120,6 +119,8 @@ language_ids = set(language_extensions.keys())
 
 forced_language = ""
 
+import hexdump
+
 
 @ctx.action_class("code")
 class CodeActions:
@@ -129,8 +130,7 @@ class CodeActions:
             return special_file_map[file_name]
 
         file_extension = actions.win.file_ext()
-        if file_extension and file_extension in extension_lang_map:
-            return extension_lang_map.get(file_extension, "")
+        return extension_lang_map.get(file_extension, "")
 
 
 @ctx_forced.action_class("code")

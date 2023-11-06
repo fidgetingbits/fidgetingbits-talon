@@ -1,4 +1,4 @@
-tag: user.nix
+code.language: user.nix
 -
 tag(): user.code_imperative
 

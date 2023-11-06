@@ -3,7 +3,7 @@ from talon import Context, Module, actions, settings
 mod = Module()
 ctx = Context()
 ctx.matches = r"""
-tag: user.nix
+code.language: nix
 """
 
 # As of 22.05: https://nixos.org/manual/nix/stable/language/builtin-constants

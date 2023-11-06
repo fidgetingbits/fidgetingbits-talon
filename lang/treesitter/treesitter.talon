@@ -1,4 +1,4 @@
-tag: user.treesitter
+code.language: treesitter
 -
 # tag(): user.code_comment_line
 

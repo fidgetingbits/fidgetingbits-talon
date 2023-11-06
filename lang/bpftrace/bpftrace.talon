@@ -1,4 +1,4 @@
-tag: user.bpftrace
+code.language: bpftrace
 -
 tag(): user.code_imperative
 

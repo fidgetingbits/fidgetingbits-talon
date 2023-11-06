@@ -2,7 +2,7 @@ from talon import Context, Module, actions
 
 ctx = Context()
 ctx.matches = r"""
-tag: user.bpftrace
+code.language: bpftrace
 """
 
 mod = Module()

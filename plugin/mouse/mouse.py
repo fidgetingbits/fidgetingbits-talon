@@ -477,6 +477,7 @@ class Actions:
             print(
                 f"mouse.py - zoom_mouse.on_pop() {actions.tracking.control_zoom_enabled()}"
             )
+
     def hiss_scroll_up():
         """Change mouse hiss scroll direction to up"""
         global hiss_scroll_up
@@ -570,30 +571,31 @@ def on_pop():
         # Otherwise respect the mouse_enable_pop_click setting
         setting_val = setting_mouse_enable_pop_click.get()
 
-            is_using_eye_tracker = (
-                actions.tracking.control_zoom_enabled()
-                or actions.tracking.control_enabled()
-                or actions.tracking.control1_enabled()
-            )
-            should_click = (
-                setting_val == 2 and not actions.tracking.control_zoom_enabled()
-            ) or (
-                setting_val == 1
-                and is_using_eye_tracker
-                and not actions.tracking.control_zoom_enabled()
-            )
-            if should_click:
-                ctrl.mouse_click(button=0, hold=16000)
+        is_using_eye_tracker = (
+            actions.tracking.control_zoom_enabled()
+            or actions.tracking.control_enabled()
+            or actions.tracking.control1_enabled()
+        )
+        should_click = (
+            setting_val == 2 and not actions.tracking.control_zoom_enabled()
+        ) or (
+            setting_val == 1
+            and is_using_eye_tracker
+            and not actions.tracking.control_zoom_enabled()
+        )
+        if should_click:
+            ctrl.mouse_click(button=0, hold=16000)
 
-    def noise_trigger_hiss(active: bool):
-        if setting_mouse_enable_hiss_scroll.get():
-            if active:
-                if hiss_scroll_up:
-                    actions.user.mouse_scroll_up_continuous()
-                else:
-                    actions.user.mouse_scroll_down_continuous()
+
+def noise_trigger_hiss(active: bool):
+    if setting_mouse_enable_hiss_scroll.get():
+        if active:
+            if hiss_scroll_up:
+                actions.user.mouse_scroll_up_continuous()
             else:
-                actions.user.mouse_scroll_stop()
+                actions.user.mouse_scroll_down_continuous()
+        else:
+            actions.user.mouse_scroll_stop()
 
 
 def mouse_scroll(amount):
