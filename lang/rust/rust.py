@@ -62,9 +62,9 @@ class Actions:
 
 
 ctx = Context()
+# NOTE: This used to have user.rust_apps, but deleted during community merge. Re-add it if stuff breaks
 ctx.matches = r"""
-tag: user.rust
-tag: user.rust_apps
+code.language: rust
 """
 
 ctx.lists["user.rust_std_modules"] = {

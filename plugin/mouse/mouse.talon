@@ -114,3 +114,6 @@ mouse log clicks: user.mouse_log_clicks()
 
 # auto relocate cursor to clicked location
 [mouse] auto portal: user.mouse_zoom_auto_move_cursor()
+
+mouse hiss up: user.hiss_scroll_up()
+mouse hiss down: user.hiss_scroll_down()

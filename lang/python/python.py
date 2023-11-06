@@ -5,7 +5,7 @@ from talon import Context, Module, actions, clip, settings
 mod = Module()
 ctx = Context()
 ctx.matches = r"""
-tag: user.python
+code.language: python
 """
 
 # https://docs.python.org/3/library/functions.html

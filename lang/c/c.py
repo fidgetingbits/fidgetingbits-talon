@@ -20,7 +20,7 @@ mod.list("c_errors", desc="Common C errors")
 
 ctx = Context()
 ctx.matches = r"""
-tag: user.c
+code.language: c
 """
 
 basic_ctx = Context()

@@ -149,6 +149,8 @@ _file_extensions_defaults = {
     "C A": ".ca",
     "C X": ".cx",
     "T W": ".tw",
+    "java": ".java",
+    "class": ".class",
 }
 
 file_extensions = get_list_from_csv(
