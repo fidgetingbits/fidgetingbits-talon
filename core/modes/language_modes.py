@@ -127,10 +127,10 @@ class CodeActions:
         file_name = actions.win.filename()
         if file_name in special_file_map:
             return special_file_map[file_name]
-        
+
         file_extension = actions.win.file_ext()
         if file_extension and file_extension in extension_lang_map:
-        return extension_lang_map.get(file_extension, "")
+            return extension_lang_map.get(file_extension, "")
 
 
 @ctx_forced.action_class("code")
