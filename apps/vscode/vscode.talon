@@ -26,7 +26,9 @@ please [<user.text>]:
     user.vscode("workbench.action.showCommands")
     insert(user.text or "")
 
+#
 # Sidebar
+#
 bar (files | explore): user.vscode("workbench.view.explorer")
 bar extensions: user.vscode("workbench.view.extensions")
 bar outline: user.vscode("outline.focus")
@@ -35,15 +37,33 @@ bar search: user.vscode("workbench.view.search")
 bar source: user.vscode("workbench.view.scm")
 bar test: user.vscode("workbench.view.testing.focus")
 bar switch: user.vscode("workbench.action.toggleSidebarVisibility")
+bar [focus] tabs: user.vscode("andreas.tabs.focus")
+bar terminal: user.vscode("workbench.action.terminal.focus")
 (left | side) dog: user.vscode("workbench.action.toggleSidebarVisibility")
 # Toggle Secondary Side Bar
-right dog: key(ctrl-alt-b)
+# right dog: key(ctrl-alt-b)
+
+# NOTE: If you're in the code panel, The highlight order is as follows:
+# 1. Bottom bar (repo, branch, etc) - No context switch: Name starts west vscode.talon
+# 2. Side bar view selector (file view, search, cursorless) - Name starts with ● vscode.talon
+# 3. Side bar item (interact with currently viewed side bar contents) - Name contains focused view name
+# FIXME: It would be nice to have commands tied to the current view
+bar next: user.vscode("workbench.action.focusNextPart")
+bar last: user.vscode("workbench.action.focusPreviousPart")
+
+bar [focus] tabs: user.vscode("andreas.tabs.focus")
 
 view wider: user.vscode("workbench.action.increaseViewSize")
 view thinner: user.vscode("workbench.action.decreaseViewSize")
 
+#
 # Splits
+#
 cross: user.split_next()
+
+#
+# Search
+#
 
 # Symbol search
 hunt symbols [<user.text>]:
@@ -62,7 +82,9 @@ search last: user.vscode("search.action.focusPreviousSearchResult")
 search clear: user.vscode("search.action.clearSearchResults")
 search editor: user.vscode("search.action.openInEditor")
 
+#
 # Panels
+#
 panel control: user.vscode("workbench.panel.repl.view.focus")
 panel output: user.vscode("replaceworkbench.panel.output.focus")
 (panel trouble | trouble show): user.vscode("workbench.panel.markers.view.focus")
@@ -72,7 +94,9 @@ low dog off: user.vscode("workbench.action.closePanel")
 (term show | panel terminal): user.vscode("workbench.action.terminal.focus")
 (pan edit | editor): user.vscode("workbench.action.focusActiveEditorGroup")
 
+#
 # Settings
+#
 show settings: user.vscode("workbench.action.openGlobalSettings")
 show settings json: user.vscode("workbench.action.openSettingsJson")
 show settings folder: user.vscode("workbench.action.openFolderSettings")
@@ -84,14 +108,18 @@ show shortcuts json: user.vscode("workbench.action.openGlobalKeybindingsFile")
 show key bindings: user.vscode("workbench.action.openDefaultKeybindingsFile")
 show snippets: user.vscode("workbench.action.openSnippets")
 
+#
 # Display
+#
 centered switch: user.vscode("workbench.action.toggleCenteredLayout")
 fullscreen switch: user.vscode("workbench.action.toggleFullScreen")
 theme switch: user.vscode("workbench.action.selectTheme")
 wrap switch: user.vscode("editor.action.toggleWordWrap")
 zen mode: user.vscode("workbench.action.toggleZenMode")
 
+#
 # Groups
+#
 focus group: user.vscode("workbench.action.toggleEditorWidths")
 close group: user.vscode("workbench.action.closeEditorsInGroup")
 (solo | one) group: user.vscode("workbench.action.closeEditorsInOtherGroups")
@@ -141,7 +169,9 @@ disk gentle: edit.save()
 disk ugly: user.vscode("workbench.action.files.saveWithoutFormatting")
 disk all: user.vscode("workbench.action.files.saveAll")
 
-# Language Features
+#
+# Programming Language Features
+#
 suggest show: user.vscode("editor.action.triggerSuggest")
 hint show: user.vscode("editor.action.triggerParameterHints")
 (def | definition) show: user.vscode("editor.action.revealDefinition")
@@ -165,7 +195,9 @@ language switch: user.vscode("workbench.action.editor.changeLanguageMode")
 # refactor rename: user.vscode("editor.action.rename")
 # refactor this: user.vscode("editor.action.refactor")
 
-#code navigation
+#
+# Code Navigation
+#
 (go declaration | follow): user.vscode("editor.action.revealDefinition")
 (jump | go) back: user.vscode("workbench.action.navigateBack")
 go forward: user.vscode("workbench.action.navigateForward")
@@ -182,7 +214,9 @@ go remotes: user.vscode("gitlens.views.remotes.focus")
 go branches: user.vscode("gitlens.views.branches.focus")
 go commits: user.vscode("gitlens.views.commits.focus")
 
+#
 # Bookmarks. Requires Bookmarks plugin
+#
 hunt marks: user.vscode("workbench.view.extension.bookmarks")
 (toggle mark | mark toggle): user.vscode("bookmarks.toggle")
 mark next: user.vscode("bookmarks.jumpToNext")
@@ -193,7 +227,9 @@ close all tabs: user.vscode("workbench.action.closeAllEditors")
 close tabs way right: user.vscode("workbench.action.closeEditorsToTheRight")
 close tabs way left: user.vscode("workbench.action.closeEditorsToTheLeft")
 
+#
 # Folding
+#
 fold that: user.vscode("editor.fold")
 unfold that: user.vscode("editor.unfold")
 fold those: user.vscode("editor.foldAllMarkerRegions")
@@ -209,7 +245,9 @@ fold five: user.vscode("editor.foldLevel5")
 fold six: user.vscode("editor.foldLevel6")
 fold seven: user.vscode("editor.foldLevel7")
 
+#
 # Git / Github (not using verb-noun-adjective pattern, mirroring (term|terminal) commands.)
+#
 git branch: user.vscode("git.branchFrom")
 git branch this: user.vscode("git.branch")
 git checkout [<user.text>]:
@@ -241,6 +279,10 @@ git stash: user.vscode("git.stash")
 git stash pop: user.vscode("git.stashPop")
 (git status | bar git): user.vscode("workbench.scm.focus")
 git stage: user.vscode("git.stage")
+git stage and close:
+    user.vscode("git.stage")
+    sleep(150ms)
+    user.vscode("workbench.action.closeActiveEditor")
 git stage all: user.vscode("git.stageAll")
 git sync: user.vscode("git.sync")
 git unstage: user.vscode("git.unstage")
@@ -289,7 +331,27 @@ stage this: user.vscode("git.stageChange")
 # change unstage: key(ctrl-k ctrl-alt-n)
 # change revert: key(ctrl-k ctrl-alt-r)
 
+#
+# Merge Conflicts
+#
+[merge] reject all [theirs]: user.vscode("merge-conflict.accept.all-current")
+[merge] accept all [ours]: user.vscode("merge-conflict.accept.all-incoming")
+[merge] accept both all: user.vscode("merge-conflict.accept.all-both")
+[merge] accept (ours | current): user.vscode("merge-conflict.accept.current")
+[merge] reject [(theirs | incoming)]:
+    user.vscode("merge-conflict.accept.current")
+    user.vscode("merge-conflict.next")
+[merge] accept (theirs | incoming): user.vscode("merge-conflict.accept.incoming")
+# FIXME: Add a cursorless variation for selecting stuff
+[merge] accept (selection | that): user.vscode("merge-conflict.accept.selection")
+[merge] accept both: user.vscode("merge-conflict.accept.both")
+[merge] next: user.vscode("merge-conflict.next")
+[merge] last: user.vscode("merge-conflict.previous")
+[merge] compare: user.vscode("merge-conflict.compare")
+
+#
 # Testing
+#
 test run: user.vscode("testing.runAtCursor")
 test run file: user.vscode("testing.runCurrentFile")
 test run all: user.vscode("testing.runAll")
@@ -304,7 +366,9 @@ test debug last: user.vscode("testing.debugLastRun")
 
 test cancel: user.vscode("testing.cancelRun")
 
+#
 # Debugging
+#
 break point: user.vscode("editor.debug.action.toggleBreakpoint")
 [debug] step over: user.vscode("workbench.action.debug.stepOver")
 debug step into: user.vscode("workbench.action.debug.stepInto")
@@ -319,7 +383,9 @@ debug clean: user.vscode("workbench.debug.panel.action.clearReplAction")
 # Select specific run config
 debug run config: user.vscode("workbench.action.debug.selectandstart")
 
+#
 # Terminal
+#
 (term | terminal) external: user.vscode("workbench.action.terminal.openNativeConsole")
 (term | terminal) new: user.vscode("workbench.action.terminal.new")
 (term | terminal) next: user.vscode("workbench.action.terminal.focusNext")
@@ -364,7 +430,9 @@ curse undo: user.vscode("cursorUndo")
 select word: user.vscode("editor.action.addSelectionToNextFindMatch")
 skip word: user.vscode("editor.action.moveSelectionToNextFindMatch")
 
-# jupyter
+#
+# Jupyter
+#
 cell next: user.vscode("notebook.focusNextEditor")
 cell last: user.vscode("notebook.focusPreviousEditor")
 cell run above: user.vscode("notebook.cell.executeCellsAbove")
@@ -372,7 +440,9 @@ cell run: user.vscode("notebook.cell.execute")
 
 install local: user.vscode("workbench.extensions.action.installVSIX")
 
-# copilot
+#
+# Copilot
+#
 pilot jest: user.vscode("editor.action.inlineSuggest.trigger")
 previous | pilot next: user.vscode("editor.action.inlineSuggest.showNext")
 pilot (last): user.vscode("editor.action.inlineSuggest.showPrevious")
@@ -459,3 +529,8 @@ punch it: key("ctrl-enter")
 # andreas-talon
 tabby {self.letter} [{self.letter}]:
     user.vscode("andreas.focusTab", "{letter_1}{letter_2 or ''}")
+
+tabby close {self.letter} [{self.letter}]:
+    user.vscode("andreas.focusTab", "{letter_1}{letter_2 or ''}")
+    sleep(150ms)
+    user.vscode("workbench.action.closeActiveEditor")

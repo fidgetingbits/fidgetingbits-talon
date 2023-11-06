@@ -48,25 +48,25 @@ tag(): user.tabs
 # enabled
 #tag(): user.vim_fern
 #tag(): user.vim_fern_mapping_fzf
-tag(): user.vim_floaterm
+# tag(): user.vim_floaterm
 #tag(): user.vim_fzf
 tag(): user.vim_telescope
-tag(): user.vim_mkdx
-tag(): user.vim_nerdtree
-tag(): user.vim_obsession
+# tag(): user.vim_mkdx
+# tag(): user.vim_nerdtree
+# tag(): user.vim_obsession
 #tag(): user.vim_plug
 #tag(): user.vim_lightspeed
-tag(): user.vim_signature
+# tag(): user.vim_signature
 tag(): user.vim_taboo
 tag(): user.vim_tabular
 #tag(): user.vim_taskwiki
 tag(): user.vim_test
-tag(): user.vim_unicode
-tag(): user.vim_wiki
-tag(): user.vim_you_are_here
-tag(): user.vim_zoom
-tag(): user.vim_zenmode
-tag(): user.vim_codeql
+# tag(): user.vim_unicode
+# tag(): user.vim_wiki
+# tag(): user.vim_you_are_here
+# tag(): user.vim_zoom
+# tag(): user.vim_zenmode
+# tag(): user.vim_codeql
 tag(): user.vim_mason
 tag(): user.vim_lazy
 
