@@ -144,10 +144,14 @@ class WinActions:
         else:
             result = title.split(" - ")[0]
 
-        if "." in result:
-            return result
-
-        return ""
+        # Handle the win.title ${dirty}${activeEditorShort} case, which is the
+        # default
+        # FIXME: This could fail if for instance ${activeEditorShort} isn't the
+        # first or second entry. We could possibly query the format string from
+        # vscode, or at least some talon extension if it existed.
+        if result.startswith("●"):
+            result = result[2:]
+        return result
 
 
 @mod.action_class
@@ -396,6 +400,9 @@ class UserActions:
         actions.sleep("100ms")
         actions.key("esc")
 
+    def insert_snippet(body: str):
+        actions.user.run_rpc_command("editor.action.insertSnippet", {"snippet": body})
+
 
 @mod.action_class
 class UserActions:
@@ -423,6 +430,3 @@ class UserActions:
     def swap_cursor_anchor():
         """Swap the cursor and anchor point of the selection"""
         actions.user.vscode("selectby.swapActive")
-
-    def insert_snippet(body: str):
-        actions.user.run_rpc_command("editor.action.insertSnippet", {"snippet": body})
