@@ -163,6 +163,8 @@ settings():
     #user.window_snap_screen = "size aware"
 
     user.cursorless_settings_directory = "./fidgetingbits-talon/settings/cursorless-settings"
+    # More explicit filename prefix for vscode, to improve accuracy of title matching
+    user.vscode_title_filename_prefix = "filename:"
 
 # uncomment tag to enable mouse grid
 # tag(): user.mouse_grid_enabled

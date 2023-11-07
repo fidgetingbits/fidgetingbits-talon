@@ -1,4 +1,4 @@
-from talon import Context, Module, actions, app
+from talon import Context, Module, actions, app, settings
 
 is_mac = app.platform == "mac"
 
@@ -49,6 +49,13 @@ mac_ctx.matches = r"""
 os: mac
 app: vscode
 """
+
+mod.setting(
+    "vscode_title_filename_prefix",
+    type=str,
+    default=None,
+    desc="A custom prefix in front of file name in vscode window title.",
+)
 
 
 @ctx.action_class("app")
@@ -135,22 +142,18 @@ class EditActions:
 class WinActions:
     def filename():
         title = actions.win.title()
-        # this doesn't seem to be necessary on VSCode for Mac
-        # if title == "":
-        #    title = ui.active_window().doc
 
-        if is_mac:
-            result = title.split(" — ")[0]
-        else:
-            result = title.split(" - ")[0]
+        separator = " — " if is_mac else " - "
+        prefix = settings.get("user.vscode_title_filename_prefix")
+        if prefix and prefix in title:
+            # If there is a custom prefix, use that
+            return title.split(prefix)[1].split(separator)[0]
 
-        # Handle the win.title ${dirty}${activeEditorShort} case, which is the
-        # default
-        # FIXME: This could fail if for instance ${activeEditorShort} isn't the
-        # first or second entry. We could possibly query the format string from
-        # vscode, or at least some talon extension if it existed.
-        if result.startswith("●"):
-            result = result[2:]
+        # If there isn't a custom prefix, assume the default vscode title format
+        # which starts with "${dirty}${activeEditorShort}${separator}". To get
+        # rid of dirty, and other prefixed content, assumes splitting on a
+        # space is enough.
+        result = title.split(separator)[0].split(" ")[-1]
         return result
 
 
