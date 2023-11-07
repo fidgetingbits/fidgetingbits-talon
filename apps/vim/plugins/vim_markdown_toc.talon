@@ -1,5 +1,5 @@
 tag: user.vim_markdown_toc
-and tag: user.markdown
+and code.language: markdown
 -
 
 generate git hub (table of contents | talk): user.vim_normal_mode(":GenTocGFM\n")

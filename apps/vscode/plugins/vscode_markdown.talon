@@ -1,5 +1,5 @@
 app: vscode
-and tag: user.markdown
+and code.language: markdown
 -
 
 # This includes built-in markdown settings, as well as the markdown-all-in-one extension

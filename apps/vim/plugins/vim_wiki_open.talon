@@ -2,7 +2,7 @@
 # XXX - detect the actual wiki rather than markdown
 # See https://github.com/vimwiki/vimwiki/
 tag: user.vim_wiki
-and tag: user.markdown
+and code.language: markdown
 -
 
 ###

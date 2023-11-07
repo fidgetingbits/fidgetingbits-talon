@@ -3,7 +3,7 @@
 tag: browser
 browser.host: /gitlab\.com/
 -
-tag(): user.markdown
+# tag(): user.markdown
 
 # global shortcuts
 show shortcuts: key(?)

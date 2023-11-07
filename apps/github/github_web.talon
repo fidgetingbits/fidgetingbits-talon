@@ -2,7 +2,7 @@
 tag: browser
 browser.host: github.com
 -
-tag(): user.markdown
+# tag(): user.markdown
 
 # site wide shortcuts
 focus search: key(s)
