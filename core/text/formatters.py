@@ -181,11 +181,11 @@ formatters_dict = {
     "ALL_CAPS": (SEP, every_word(lambda w: w.upper())),
     "ALL_LOWERCASE": (SEP, every_word(lambda w: w.lower())),
     "ALL_BRIEF": (SEP, every_word(brief)),
-    "CAPITALIZE_ALL_WORDS": (
+    "CAPITALIZE_FIRST_WORD": (
         SEP,
         first_vs_rest(lambda w: title_case()(0, w, True)),
     ),
-    "CAPITALIZE_FIRST_WORD": (SEP, title_case()),
+    "CAPITALIZE_ALL_WORDS": (SEP, title_case()),
     "C_POINTER_SEPARATED": words_with_joiner("->"),
     "COMMA_SEPARATED": words_with_joiner(", "),
     "DASH_SEPARATED": words_with_joiner("-"),
