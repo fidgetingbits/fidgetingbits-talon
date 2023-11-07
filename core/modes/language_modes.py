@@ -119,8 +119,6 @@ language_ids = set(language_extensions.keys())
 
 forced_language = ""
 
-import hexdump
-
 
 @ctx.action_class("code")
 class CodeActions:
