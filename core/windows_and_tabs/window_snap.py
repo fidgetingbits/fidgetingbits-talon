@@ -189,7 +189,6 @@ def _move_to_screen(
 
 def _snap_window_helper(window, pos):
     screen = window.screen.visible_rect
-
     _set_window_pos(
         window,
         x=screen.x + (screen.width * pos.left),
@@ -277,7 +276,6 @@ _snap_positions = {
 def window_snap_position(m) -> RelativeScreenPos:
     return _snap_positions[m.window_snap_positions]
 
-
 ctx = Context()
 ctx.lists["user.window_snap_positions"] = _snap_positions.keys()
 
@@ -290,7 +288,10 @@ class Actions:
 
     def snap_window_to_position(position_name: str) -> None:
         """Move the active window to a specifically named position on its current screen, using a key from `_snap_positions`."""
-        actions.user.snap_window(_snap_positions[position_name])
+        if position_name == "full" or position_name == "fullscreen":
+            actions.user.window_maximize()
+        else:
+            actions.user.snap_window(_snap_positions[position_name])
 
     def move_window_next_screen() -> None:
         """Move the active window to a specific screen."""

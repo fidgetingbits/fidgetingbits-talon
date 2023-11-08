@@ -10,7 +10,7 @@ running close: user.switcher_hide_running()
 launch <user.launch_applications>: user.switcher_launch(launch_applications)
 
 # top, bottom, left, right, center, full
-snap <user.window_snap_position>: user.snap_window(window_snap_position)
+snap {user.window_snap_positions}: user.snap_window_to_position(window_snap_positions)
 snap next [screen]: user.move_window_next_screen()
 snap last [screen]: user.move_window_previous_screen()
 snap screen <number>: user.move_window_to_screen(number)

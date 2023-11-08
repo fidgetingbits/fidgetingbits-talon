@@ -9,6 +9,13 @@ os: linux
 """
 
 
+@mod.action_class
+class Actions:
+    def window_maximize():
+        """Use the window manager defined maximize function"""
+        # We default to gnome
+        actions.key("alt-f10")
+
 @ctx.action_class("app")
 class AppActions:
     # app.preferences()
