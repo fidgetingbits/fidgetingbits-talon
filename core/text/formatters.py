@@ -232,8 +232,8 @@ formatters_dict = {
 # Mapping from spoken phrases to formatter names
 code_formatter_names = {
     "arguing": "COMMA_SEPARATED",
-    "all cap": "ALL_CAPS",
-    "all down": "ALL_LOWERCASE",
+    "upper": "ALL_CAPS",
+    "lower": "ALL_LOWERCASE",
     "camel": "PRIVATE_CAMEL_CASE",
     "dotted": "DOT_SEPARATED",
     "dunder": "DOUBLE_UNDERSCORE",
@@ -262,13 +262,10 @@ prose_formatter_names = {
     "speak": "NOOP",
     "sentence": "CAPITALIZE_FIRST_WORD",
     "title": "CAPITALIZE_ALL_WORDS",
-    "spongebob": "SPONGEBOB",
+    "sponge bob": "SPONGEBOB",
     "quoted": "DOUBLE_QUOTED_STRING",
     "ticks": "SINGLE_QUOTED_STRING",
-    "upper": "ALL_CAPS",
-    "lower": "ALL_LOWERCASE",
 }
-
 
 # # This is the mapping from spoken phrases to formatters.
 # formatters_words = {
