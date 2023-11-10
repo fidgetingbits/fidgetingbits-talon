@@ -1,4 +1,4 @@
-code.language: user.nix
+code.language: nix
 -
 tag(): user.code_imperative
 
@@ -11,6 +11,7 @@ tag(): user.code_functions_common
 tag(): user.code_keywords
 tag(): user.code_libraries
 tag(): user.code_libraries_gui
+tag(): user.code_operators_assignment
 tag(): user.code_operators_array
 tag(): user.code_operators_assignment
 tag(): user.code_operators_lambda
@@ -24,6 +25,8 @@ settings():
     user.code_protected_variable_formatter = "CAMEL_CASE"
     user.code_public_variable_formatter = "CAMEL_CASE"
 
-# TODO: Technically if you say tick string it will do something like `string` in
-# community, so probably need to come up with something else
-tick string: user.insert_between("''", "''")
+tickle: user.insert_between("''", "''")
+
+put trace: user.insert_between('renameMe1 = builtins.trace "', '" true;')
+put trace <user.text>:
+    user.insert_between("renameMe1", ' = builtins.trace "{text}" true;')
