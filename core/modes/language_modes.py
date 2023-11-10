@@ -39,7 +39,7 @@ language_extensions = {
     "assembly": "s",
     "treesitter": "scm",  # NOTE: If you don't write treesitter queries, you may want this to be scheme
     "bash": "sh",
-    "snippets": "snippets",
+    "snippet": "snippet",
     "sql": "sql",
     "talon": "talon",
     "taskwarrior": "task",
