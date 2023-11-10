@@ -120,7 +120,6 @@ linux_folder_paths = {
     "apache mods": "/etc/apache2/mods-available/",
     "apache mods enabled": "/etc/apache2/mods-enabled/",
     "var web": "/var/www/",
-    "cargo config": "~/.cargo/config",
 }
 
 linux_file_paths = {
@@ -183,6 +182,8 @@ linux_file_paths = {
     "P trace scope": "/proc/sys/kernel/yama/ptrace_scope",
     "kernel config": "/proc/config.gz",
     "A W S credentials": "~/.aws/credentials",
+    "cargo config": "~/.cargo/config",
+    "authorized keys": "~/.ssh/authorized_keys",
 }
 
 # this is used for specific commands like pivot
