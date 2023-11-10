@@ -65,6 +65,10 @@ git commit amend no edit: "git commit --amend --no-edit\n"
 git commit no verify: "git commit -n"
 git commit existing: "git commit -a\n"
 
+# git commit automation convenience
+git commit all {user.git_conventional_commits}:
+    "git add -u\n"
+    user.insert_between('git commit -m "{git_conventional_commits}: ', '"')
 # Two useful commands when commit fails due to pre commit hook
 git commit again:
     key(ctrl-r)
@@ -75,6 +79,7 @@ git re commit [modified | staged]:
     sleep(500ms)
     "git commit -m\n"
     key(enter)
+
 git diff (colour | color) words: "git diff --color-words "
 git diff: "git diff "
 git diff cached: "git diff --cached\n"
