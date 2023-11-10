@@ -344,9 +344,9 @@ stage this: user.vscode("git.stageChange")
 # FIXME: Add a cursorless variation for selecting stuff
 [merge] accept (selection | that): user.vscode("merge-conflict.accept.selection")
 [merge] accept both: user.vscode("merge-conflict.accept.both")
-[merge] next: user.vscode("merge-conflict.next")
-[merge] last: user.vscode("merge-conflict.previous")
-[merge] compare: user.vscode("merge-conflict.compare")
+(merge | conflict) next: user.vscode("merge-conflict.next")
+(merge | conflict) last: user.vscode("merge-conflict.previous")
+merge compare: user.vscode("merge-conflict.compare")
 
 #
 # Testing
@@ -508,9 +508,20 @@ hunt recent: user.vscode("workbench.action.openRecent")
 # rust-analyzer
 file open cargo: user.vscode("rust-analyzer.cargo.openCargoToml")
 
+#
+# Tasks
+#
+
 # TODO: It would be good to close the panel on success with certain commits
 task build: user.vscode("workbench.action.tasks.build")
-
+task run <user.text>:
+    user.vscode("workbench.action.tasks.runTask")
+    sleep(50ms)
+    insert(text)
+(task run go | runner) <user.text>:
+    user.vscode("workbench.action.tasks.runTask")
+    sleep(50ms)
+    insert("{text}\n")
 (task build quiet | builder):
     user.vscode("workbench.action.tasks.build")
     sleep(2s)
@@ -540,3 +551,13 @@ tabby close {self.letter} [{self.letter}]:
 
 # remote-ssh
 tunnel open: user.vscode("opensshremotes.openEmptyWindow")
+
+#
+# Snippets
+#
+
+next: user.vscode_and_wait("jumpToNextSnippetPlaceholder")
+snip last: user.vscode("jumpToPrevSnippetPlaceholder")
+skip:
+    key("backspace")
+    user.vscode("jumpToNextSnippetPlaceholder")
