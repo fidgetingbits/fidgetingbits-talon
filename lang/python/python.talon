@@ -84,12 +84,9 @@ state is: " is "
 state is none: " is None"
 state as string: '.decode("utf-8")'
 state as bytes: '.encode("utf-8")'
-form string:
-    insert('f""')
-    edit.left()
-raw string:
-    insert('r""')
-    edit.left()
+[put] F string: user.insert_between('f"', '"')
+[put] F [string] arg: user.insert_between('f"{', '}"')
+raw string: user.insert_between('r"', '"')
 
 ^init <user.text>$:
     var = user.formatted_text(text, "snake")
