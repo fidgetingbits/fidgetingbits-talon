@@ -110,6 +110,7 @@ _file_extensions_defaults = {
     "session": ".session",
     "S H": ".sh",
     "shell": ".sh",
+    "snippet": ".snippet",
     "snippets": ".snippets",
     "S O": ".so",
     "so": ".so",
