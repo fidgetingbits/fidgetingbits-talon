@@ -1,8 +1,9 @@
 # NOTE: these are command line commands, not shell-specific bindings
 # see shell.talon for shell-specific keybindings
 os: linux
-mode: user.terminal
-mode: command
+and mode: user.terminal
+os: linux
+and mode: command
 and tag: terminal
 -
 
@@ -153,7 +154,9 @@ file fuzzy find at clip:
 file find all links: "find . -maxdepth 1 -type l  -ls\n"
 file find all folders: "find . -maxdepth 1 -type d  -ls\n"
 file fine all files: "find . -maxdepth 1 -type f  -ls\n"
-file find all {user.file_extension}: 'find . -type f  -name "*{file_extension}"\n'
+
+file find (all | type) {user.file_extension}:
+    'find . -type f  -name "*{file_extension}"\n'
 
 # TODO - revisit the grammar for $() commands
 call file latest: "$(exa --sort changed --no-icons | tail -n1)\n"
@@ -960,3 +963,5 @@ net restart: "sudo systemctl restart NetworkManager\n"
 cursorless install local: "pnpm -F cursorless-vscode install-local\n"
 cursorless install public: "pnpm -F cursorless-vscode uninstall-local\n"
 cursorless install P R: "pnpm -F cursorless-vscode install-from-pr "
+
+user add group: "sudo usermod -aG "
