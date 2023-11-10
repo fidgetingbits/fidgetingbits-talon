@@ -285,6 +285,7 @@ git stage all: user.vscode("git.stageAll")
 git sync: user.vscode("git.sync")
 git unstage: user.vscode("git.unstage")
 git unstage all: user.vscode("git.unstageAll")
+git discard file: user.vscode("git.clean")
 pull request: user.vscode("pr.create")
 
 # GitLens
@@ -522,6 +523,10 @@ break <user.cursorless_target>:
     user.vscode("hideSuggestWidget")
     key("enter")
 
+{user.search_engine} hunt <user.cursorless_target>$:
+    user.cursorless_command("copyToClipboard", cursorless_target)
+    user.search_with_search_engine(search_engine, clip.text())
+
 punch it: key("ctrl-enter")
 
 # andreas-talon
@@ -532,3 +537,6 @@ tabby close {self.letter} [{self.letter}]:
     user.vscode("andreas.focusTab", "{letter_1}{letter_2 or ''}")
     sleep(150ms)
     user.vscode("workbench.action.closeActiveEditor")
+
+# remote-ssh
+tunnel open: user.vscode("opensshremotes.openEmptyWindow")

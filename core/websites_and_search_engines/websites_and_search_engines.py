@@ -41,6 +41,7 @@ _search_engine_defaults = {
     "map": "https://maps.google.com/maps?q=%s",
     "scholar": "https://scholar.google.com/scholar?q=%s",
     "wiki": "https://en.wikipedia.org/w/index.php?search=%s",
+    "duck": "https://duckduckgo.com/?q=%s",
 }
 
 ctx = Context()
