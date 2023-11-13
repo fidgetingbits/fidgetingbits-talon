@@ -166,6 +166,10 @@ settings():
     # More explicit filename prefix for vscode, to improve accuracy of title matching
     user.vscode_title_filename_prefix = "filename:"
 
+    # Uncomment the below line to add a directory (relative to the Talon user dir) with additional .snippet files
+    # Changing this setting requires a restart of Talon
+    # user.snippets_dir = "snippets"
+
 # uncomment tag to enable mouse grid
 # tag(): user.mouse_grid_enabled
 
