@@ -257,10 +257,65 @@ git commit [<user.text>]:
     sleep(100ms)
     user.insert_formatted(text or "", "CAPITALIZE_FIRST_WORD")
 git commit {user.git_conventional_commits}:
+    user.vscode("git.commitStaged")
     sleep(100ms)
     insert("{user.git_conventional_commits}: ")
 git commit undo: user.vscode("git.undoCommit")
 git commit amend: user.vscode("git.commitStagedAmend")
+
+#To focus on the commit message box in the source control side tab
+# FIXME: The actual underlying focusing should become of function, since I use it elsewhere
+git quick commit:
+    user.vscode("workbench.view.scm")
+    sleep(50ms)
+    user.vscode("workbench.scm.focus")
+    sleep(50ms)
+    user.vscode("list.focusFirst")
+    sleep(50ms)
+    user.vscode("list.focusDown")
+    sleep(50ms)
+    key(tab)
+
+git quick commit {user.git_conventional_commits}:
+    user.vscode("workbench.view.scm")
+    sleep(50ms)
+    user.vscode("workbench.scm.focus")
+    sleep(50ms)
+    user.vscode("list.focusFirst")
+    sleep(50ms)
+    user.vscode("list.focusDown")
+    sleep(50ms)
+    key(tab)
+    sleep(100ms)
+    insert("{user.git_conventional_commits}: ")
+
+# To focus the second commit message box in the source control assuming you use
+# multiple repos (ex: public and private talon)
+# FIXME: It would be nice if you could just specify the number...
+git quick commit other:
+    user.vscode("workbench.view.scm")
+    sleep(50ms)
+    user.vscode("workbench.scm.focus")
+    sleep(50ms)
+    user.vscode("list.focusLast")
+    sleep(50ms)
+    user.vscode("list.focusUp")
+    sleep(50ms)
+    key(tab)
+
+git quick commit other {user.git_conventional_commits}:
+    user.vscode("workbench.view.scm")
+    sleep(50ms)
+    user.vscode("workbench.scm.focus")
+    sleep(50ms)
+    user.vscode("list.focusLast")
+    sleep(50ms)
+    user.vscode("list.focusUp")
+    sleep(50ms)
+    key(tab)
+    sleep(100ms)
+    insert("{user.git_conventional_commits}: ")
+
 git diff: user.vscode("git.openChange")
 git fetch: user.vscode("git.fetch")
 git fetch all: user.vscode("git.fetchAll")
