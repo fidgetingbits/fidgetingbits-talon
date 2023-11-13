@@ -5,7 +5,7 @@ and code.language: markdown
 # This includes built-in markdown settings, as well as the markdown-all-in-one extension
 
 # built-in
-file preview: user.vscode("markdown.showPreview")
+[file] preview: user.vscode("markdown.showPreview")
 file split preview: user.vscode("markdown.showPreviewToSide")
 
 # markdown-all-in-one
