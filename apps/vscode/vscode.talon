@@ -329,7 +329,7 @@ git push first:
     user.vscode("git.push")
     sleep(150ms)
     key(enter)
-git push second:
+git push second:f
     user.vscode("git.push")
     sleep(150ms)
     key(down)
@@ -490,6 +490,9 @@ join lines: user.vscode("editor.action.joinLines")
 full screen: user.vscode("workbench.action.toggleFullScreen")
 
 curse undo: user.vscode("cursorUndo")
+curse redo: user.vscode("cursorRedo")
+# Reduce cursors back to one without moving back to where we were
+curse one: user.vscode("removeSecondaryCursors")
 
 select word: user.vscode("editor.action.addSelectionToNextFindMatch")
 skip word: user.vscode("editor.action.moveSelectionToNextFindMatch")
