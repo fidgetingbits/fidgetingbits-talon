@@ -184,6 +184,7 @@ linux_file_paths = {
     "A W S credentials": "~/.aws/credentials",
     "cargo config": "~/.cargo/config",
     "authorized keys": "~/.ssh/authorized_keys",
+    "S S H D config": "/etc/ssh/sshd_config",
 }
 
 # this is used for specific commands like pivot
