@@ -51,7 +51,7 @@ git clone clip:
 # Leave \n out for confirmation since the operation is destructive
 git clean: "git clean"
 git clean everything: "git clean -dfx"
-git clean FD: "git clean -fd"
+git clean untracked: "git clean -fd"
 # TODO: should use sentence to match conventional commit standard
 git commit message <user.>: 'git commit -m "{}"'
 git commit message {user.git_conventional_commits}:
@@ -136,6 +136,7 @@ git log removed files only: "git log --diff-filter=D --summary | grep delete\n"
 git merge base: "git merge-base "
 git merge base main: "git merge-base main HEAD"
 git merge base master: "git merge-base master HEAD"
+git merge cancel: "git merge --abort\n"
 
 git merge pull request: user.insert_between("git pull origin pull/", "/head:")
 git merge pull request <number>: "git pull origin pull/{number}/head:"
