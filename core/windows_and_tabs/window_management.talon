@@ -9,6 +9,18 @@ focus flip: user.switch_last_focused()
 running close: user.switcher_hide_running()
 launch <user.launch_applications>: user.switcher_launch(launch_applications)
 
+# FIXME: These are gnome specific tests
+run command: key(alt-f2)
+run command <user.text>:
+    key(alt-f2)
+    sleep(100ms)
+    insert(text)
+launch: key(super)
+launch <user.text>:
+    key(super)
+    sleep(100ms)
+    insert(text)
+
 # top, bottom, left, right, center, full
 snap {user.window_snap_positions}: user.snap_window_to_position(window_snap_positions)
 snap next [screen]: user.move_window_next_screen()
