@@ -20,14 +20,14 @@ git branch remove remote clip:
     edit.paste()
 git branch remote: "git branch --remote\n"
 git branch (rename | move): "git branch -m "
-git branch <user.>: "git branch {}"
+git branch <user.text>: "git branch {text}"
 git checkout: "git checkout "
 git checkout master: "git checkout master\n"
 git checkout file master: "git checkout master --"
 git checkout (main | men): "git checkout main\n"
 git checkout upstream (main | men): "git checkout upstream/main\n"
 git checkout dev: "git checkout dev\n"
-git checkout <user.>: "git checkout {}"
+git checkout <user.text>: "git checkout {text}"
 git checkout <number_small> before clip:
     insert("git checkout ")
     edit.paste()
@@ -53,7 +53,7 @@ git clean: "git clean"
 git clean everything: "git clean -dfx"
 git clean untracked: "git clean -fd"
 # TODO: should use sentence to match conventional commit standard
-git commit message <user.>: 'git commit -m "{}"'
+git commit message <user.text>: 'git commit -m "{text}"'
 git commit message {user.git_conventional_commits}:
     user.insert_between('git commit -m "{git_conventional_commits}: ', '"')
 git commit message {user.git_conventional_commits} <user.word>:
@@ -96,7 +96,7 @@ git garbage collect aggressive: "git gc --aggressive"
 git fetch upstream: "git fetch upstream\n"
 git fetch (pull | P R) <number>: "git fetch origin pull/{number}/head:"
 git fetch upstream (pull | P R) <number>: "git fetch upstream pull/{number}/head:"
-#git fetch <user.>: "git fetch {}"
+#git fetch <user.text>: "git fetch {text}"
 git filter branch: "git filter-branch --subdirectory-filter"
 git ignore changes: "git update-index --assume-unchanged "
 git in it: "git init\n"
@@ -144,7 +144,7 @@ git merge upstream pull request: user.insert_between("git pull upstream pull/", 
 git merge upstream pull request <number>: "git pull upstream pull/{number}/head:"
 
 git merge: "git merge "
-git merge <user.>: "git merge {}"
+git merge <user.text>: "git merge {text}"
 git merge clip:
     insert("git merge ")
     edit.paste()
@@ -156,18 +156,18 @@ git pull: "git pull"
 git pull origin: "git pull origin "
 git pull rebase: "git pull --rebase "
 git pull fast forward: "git pull --ff-only\n"
-git pull <user.>: "git pull {} "
+git pull <user.text>: "git pull {} "
 git push: "git push\n"
 git push origin: "git push origin "
 git push up stream origin: "git push -u origin "
-git push <user.>: "git push {} "
+git push <user.text>: "git push {} "
 git push tags: "git push --tags\n"
 git rebase: "git rebase "
 git rebase now: "git rebase\n"
 git rebase upstream main: "git rebase upstream/main\n"
 git rebase upstream master: "git rebase upstream/master\n"
 git rebase upstream dev: "git rebase upstream/dev\n"
-git rebase upstream <user.>: "git rebase upstream/{}"
+git rebase upstream <user.text>: "git rebase upstream/{text}"
 git rebase upstream: "git rebase upstream "
 # NOTE - we don't use abort in the command because it conflicts with
 # abort.talon
@@ -235,14 +235,14 @@ git status staged: "git status --short | grep '^[MARCD]'\n"
 git sub tree: "git subtree "
 git switch: "git switch "
 git switch branch: "git switch -c"
-git switch [<user.>]:
-    "git switch {user.formatted_text(or '', 'DASH_SEPARATED')}"
+git switch [<user.text>]:
+    "git switch {user.formatted_text(text or '', 'DASH_SEPARATED')}"
 git switch master: "git switch master "
 git switch main: "git switch main "
 git switch develop: "git switch develop "
 git switch detached: "git switch --detach "
-git (switch create | new branch) [<user.>]:
-    "git switch -c {user.formatted_text(or '', 'DASH_SEPARATED')}"
+git (switch create | new branch) [<user.text>]:
+    "git switch -c {user.formatted_text(text or '', 'DASH_SEPARATED')}"
 git switch orphan: "git switch --orphan "
 git switch clip:
     insert("git switch ")

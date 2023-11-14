@@ -329,7 +329,7 @@ git push first:
     user.vscode("git.push")
     sleep(150ms)
     key(enter)
-git push second:f
+git push second:
     user.vscode("git.push")
     sleep(150ms)
     key(down)
