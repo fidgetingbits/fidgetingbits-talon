@@ -152,7 +152,7 @@ ctx.lists["user.code_libraries"] = {}
 
 
 @mod.capture(rule="{self.nix_functions}")
-def lua_functions(m) -> str:
+def nix_functions(m) -> str:
     "Returns a string"
     return m.nix_functions
 

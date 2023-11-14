@@ -34,3 +34,8 @@ nix flake check: "nix flake check\n"
 nix flake update: "nix flake update\n"
 
 nix develop [flake]: "nix develop\n"
+
+nix eval: "nix-instantiate --eval "
+nix instantiate: "nix-instantiate -A "
+
+run nix repl: "nix repl\n"
