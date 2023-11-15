@@ -11,3 +11,17 @@ mod.tag("gnome-shell", desc="tag for loading gnome-shell related files")
 ctx.matches = """
 tag: user.gnome-shell
 """
+
+@ctx.action_class("app")
+class AppActions:
+
+    def window_open():
+        actions.key("ctrl-shift-n")
+
+    def window_close():
+        actions.key("ctrl-shift-w")
+
+@ctx.action_class("user")
+class UserActions:
+    def tabs_show():
+        actions.key("ctrl-shift-o")

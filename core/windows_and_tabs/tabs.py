@@ -31,3 +31,6 @@ class tab_actions:
 
     def tab_unpin():
         """Unpin the current tab"""
+
+    def tabs_show():
+        """Show all tabs"""
