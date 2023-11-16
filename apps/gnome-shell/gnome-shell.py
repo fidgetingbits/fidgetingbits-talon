@@ -3,7 +3,7 @@ from typing import Optional, Union
 
 from talon import Context, Module, actions, app, settings
 
-# mod = Module()
+mod = Module()
 ctx = Context()
 
 mod.tag("gnome-shell", desc="tag for loading gnome-shell related files")
