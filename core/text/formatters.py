@@ -242,7 +242,7 @@ code_formatter_names = {
     "dashing": "DASH_SEPARATED",
     "packing": "DOUBLE_COLON_SEPARATED",
     "padded": "SPACE_SURROUNDED_STRING",
-    "slasher": "SLASH_SEPARATED",
+    "slashing": "SLASH_SEPARATED",
     "snake": "SNAKE_CASE",
     "pathing": "FOLDER_SEPARATED",
     "root pathing": "ROOT_FOLDER_SEPARATED",
@@ -259,48 +259,13 @@ code_formatter_names = {
 prose_formatter_names = {
     "briefing": "ALL_BRIEF",
     "say": "NOOP",
-    "speak": "NOOP",
+    "speak": "CAPITALIZE_FIRST_WORD",
     "sentence": "CAPITALIZE_FIRST_WORD",
     "title": "CAPITALIZE_ALL_WORDS",
     "sponge bob": "SPONGEBOB",
     "quoted": "DOUBLE_QUOTED_STRING",
     "ticks": "SINGLE_QUOTED_STRING",
 }
-
-# # This is the mapping from spoken phrases to formatters.
-# formatters_words = {
-#     "briefing": formatters_dict["ALL_BRIEF"],
-#     "camel": formatters_dict["PRIVATE_CAMEL_CASE"],
-#     "arguing": formatters_dict["COMMA_SEPARATED"],
-#     "dotted": formatters_dict["DOT_SEPARATED"],
-#     "dunder": formatters_dict["DOUBLE_UNDERSCORE"],
-#     "scoring": formatters_dict["SCORE_SEPARATED"],
-#     "pathing": formatters_dict["FOLDER_SEPARATED"],
-#     "root pathing": formatters_dict["ROOT_FOLDER_SEPARATED"],
-#     "piping": formatters_dict["PIPE_SEPARATED"],
-#     # This is good in addition to pathing, for when we are on linux and writing
-#     # windows code, etc.
-#     "windows pathing": formatters_dict["WINDOWS_FOLDER_SEPARATED"],
-#     "windows root pathing": formatters_dict["WINDOWS_ROOT_FOLDER_SEPARATED"],
-#     "hammer": formatters_dict["PUBLIC_CAMEL_CASE"],
-#     "proud": formatters_dict["PUBLIC_CAMEL_CASE"],
-#     "dashing": formatters_dict["DASH_SEPARATED"],
-#     "equaling": formatters_dict["EQUAL_SEPARATED"],
-#     "long arg": formatters_dict["LONG_ARG"],
-#     "packing": formatters_dict["DOUBLE_COLON_SEPARATED"],
-#     "turbo": formatters_dict["DOUBLE_COLON_SEPARATED"],
-#     "padded": formatters_dict["SPACE_SURROUNDED_STRING"],
-#     "pointing": formatters_dict["C_POINTER_SEPARATED"],
-#     "slashing": formatters_dict["SLASH_SEPARATED"],
-#     "smashing": formatters_dict["NO_SPACES"],
-#     "snake": formatters_dict["SNAKE_CASE"],
-#     "sponge bob": formatters_dict["SPONGEBOB"],
-#     "quoted": formatters_dict["DOUBLE_QUOTED_STRING"],
-#     "ticks": formatters_dict["SINGLE_QUOTED_STRING"],
-#     "title": formatters_dict["CAPITALIZE_ALL_WORDS"],
-#     "upper": formatters_dict["ALL_CAPS"],
-#     "lower": formatters_dict["ALL_LOWERCASE"],
-# }
 
 # This is the mapping for series of letters to formatters ex: abc to A B C
 formatters_keys = {
