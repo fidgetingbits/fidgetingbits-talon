@@ -17,15 +17,16 @@ class EditActions:
     def cut():
         actions.key("ctrl-x")
         # XXX - is not generic (ex: ctrl-u on command line)
-        # action(edit.delete_line):
-        #    edit.select_line()
-        #    edit.delete()
+
+    def delete_line():
+        actions.edit.select_line()
+        actions.edit.delete()
         # action(edit.delete_paragraph):
         # action(edit.delete_sentence):
 
     def delete_word():
-        actions.actions.edit.select_word()
-        actions.actions.edit.delete()
+        actions.edit.select_word()
+        actions.edit.delete()
 
     def extend_down():
         actions.key("shift-down")
@@ -154,11 +155,6 @@ class EditActions:
         actions.key("end shift-home")
         # action(edit.select_lines(a: int, b: int)):
 
-    def select_none():
-        actions.key("right")
-        # action(edit.select_paragraph):
-        # action(edit.select_sentence):
-
     def undo():
         actions.key("ctrl-z")
 
@@ -176,25 +172,3 @@ class EditActions:
 
     def zoom_reset():
         actions.key("ctrl-0")
-
-
-@ctx.action_class("user")
-class UserActions:
-    def delete_word_right():
-        actions.edit.extend_word_right()
-        actions.edit.delete()
-        # XXX - only relevant for editors that have highlighting
-
-    def delete_word_left():
-        actions.edit.extend_word_left()
-        actions.edit.delete()
-
-    def delete_line_beginning():
-        actions.edit.extend_line_start()
-        actions.edit.delete()
-
-    def delete_line_remaining():
-        actions.edit.extend_line_beginning()
-        actions.edit.delete()
-        # action(edit.extend_again):
-        # action(edit.extend_column):

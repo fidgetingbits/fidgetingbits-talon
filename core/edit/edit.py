@@ -10,6 +10,29 @@ END_OF_WORD_SYMBOLS = ".!?;:—_/\\|@#$%^&*()[]{}<>=+-~`"
 
 @ctx.action_class("edit")
 class EditActions:
+    # actions that should be set no matter what context we are in
+    # for generic os-specific see apps/linux/edit.talon
+    # for more application-specific see apps/linux/shell_edit_emacs.talon,
+    # apps/linux/vim/editing.talon, etc
+
+    def delete():
+        actions.key("backspace")
+
+    def down():
+        actions.key("down")
+
+    def up():
+        actions.key("up")
+
+    def left():
+        actions.key("left")
+
+    def right():
+        actions.key("right")
+
+    def select_none():
+        actions.key("right")
+
     def selected_text() -> str:
         with clip.capture() as s:
             actions.edit.copy()
@@ -223,3 +246,26 @@ class Actions:
         """Delete to end of current line"""
         actions.user.select_line_end()
         actions.edit.delete()
+
+    def delete_word_right():
+        """Delete to end of current word"""
+        actions.edit.extend_word_right()
+        actions.edit.delete()
+        # XXX - only relevant for editors that have highlighting
+
+    def delete_word_left():
+        """Delete to start of current word"""
+        actions.edit.extend_word_left()
+        actions.edit.delete()
+
+    def delete_line_beginning():
+        """Delete to beginning of current line"""
+        actions.edit.extend_line_start()
+        actions.edit.delete()
+
+    def delete_line_remaining():
+        """Delete to end of current line"""
+        actions.edit.extend_line_beginning()
+        actions.edit.delete()
+        # action(edit.extend_again):
+        # action(edit.extend_column):

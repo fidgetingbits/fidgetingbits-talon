@@ -14,9 +14,6 @@ class EditActions:
     def cut():
         actions.key("cmd-x")
 
-    def delete():
-        actions.key("backspace")
-
     def delete_line():
         actions.edit.select_line()
         actions.edit.delete()
@@ -26,11 +23,6 @@ class EditActions:
     def delete_word():
         actions.edit.select_word()
         actions.edit.delete()
-
-    def down():
-        actions.key("down")
-        # action(edit.extend_again):
-        # action(edit.extend_column):
 
     def extend_down():
         actions.key("shift-down")
@@ -108,9 +100,6 @@ class EditActions:
         # action(edit.jump_column(n: int)
         # action(edit.jump_line(n: int)
 
-    def left():
-        actions.key("left")
-
     def line_down():
         actions.key("down home")
 
@@ -149,9 +138,6 @@ class EditActions:
     def redo():
         actions.key("cmd-shift-z")
 
-    def right():
-        actions.key("right")
-
     def save():
         actions.key("cmd-s")
 
@@ -167,16 +153,8 @@ class EditActions:
         actions.key("cmd-right cmd-shift-left")
         # action(edit.select_lines(a: int, b: int)):
 
-    def select_none():
-        actions.key("right")
-        # action(edit.select_paragraph):
-        # action(edit.select_sentence):
-
     def undo():
         actions.key("cmd-z")
-
-    def up():
-        actions.key("up")
 
     def word_left():
         actions.key("alt-left")
