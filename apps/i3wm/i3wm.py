@@ -169,3 +169,9 @@ class Actions:
     def notify(text: str):
         """Show notification"""
         app.notify(subtitle=text)
+
+
+@ctx.action_class("user")
+class UserActions:
+    def window_maximize():
+        actions.user.i3wm_fullscreen()

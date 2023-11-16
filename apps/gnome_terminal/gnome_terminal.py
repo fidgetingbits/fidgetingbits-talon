@@ -20,14 +20,17 @@ app: gnome_terminal
 
 # --- Implement actions ---
 @ctx.action_class("user")
-class user_actions:
+class UserActions:
     # user.tabs
     def tab_jump(number):
         actions.key(f"alt-{number}")
 
+    def tabs_show():
+        actions.key("ctrl-shift-o")
+
 
 @ctx.action_class("app")
-class app_actions:
+class AppActions:
     # app.tabs
     def tab_open():
         actions.key("ctrl-shift-t")

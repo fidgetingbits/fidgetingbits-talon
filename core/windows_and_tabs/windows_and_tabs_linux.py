@@ -9,14 +9,6 @@ os: linux
 """
 
 
-@mod.action_class
-class Actions:
-    def window_maximize():
-        """Use the window manager defined maximize function"""
-        # We default to gnome
-        # FIXME: This should actually be in the higher level one since it's a mod?
-        actions.key("alt-f10")
-
 @ctx.action_class("app")
 class AppActions:
     # app.preferences()

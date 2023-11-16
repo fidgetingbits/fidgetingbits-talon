@@ -1,6 +1,13 @@
-from talon import Context, actions, ui
+from talon import Context, Module, actions, ui
 
+mod = Module()
 ctx = Context()
+
+
+@mod.action_class
+class Actions:
+    def window_maximize():
+        """Use the window manager defined maximize function"""
 
 
 @ctx.action_class("app")
