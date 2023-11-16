@@ -1,9 +1,8 @@
 # NOTE: these are command line commands, not shell-specific bindings
 # see shell.talon for shell-specific keybindings
 os: linux
-and mode: user.terminal
-os: linux
-and mode: command
+and tag: terminal
+os: mac
 and tag: terminal
 -
 
@@ -24,11 +23,8 @@ tag(): user.readline
 ###
 
 #tag(): user.buku
-tag(): user.yay
 tag(): user.ssh
-#tag(): user.apt
 #tag(): user.ghidra_server
-tag(): user.nmcli
 #tag(): user.taskwarrior
 #tag(): user.timewarrior
 tag(): user.make_commands
@@ -36,20 +32,12 @@ tag(): user.just_commands
 #tag(): user.tmux
 tag(): user.git
 tag(): user.docker
-tag(): user.service_manager
-tag(): user.package_manager
-tag(): user.timer_manager
-tag(): user.systemd
-tag(): user.pulse_audio
 tag(): user.virsh
-tag(): user.iptables
-tag(): user.nftables
 #tag(): user.npm
 #tag(): user.meson
 #tag(): user.kubectl
 tag(): user.vboxmanage
 tag(): user.glab
-tag(): user.coredumpctl
 tag(): user.rust_apps
 tag(): user.gpg
 tag(): user.nix_cli
@@ -227,12 +215,6 @@ file real (delete | remove): "/bin/rm -I "
 (file | folder) real deep remove: "/bin/rm -rIf "
 file diff: "diff "
 
-file hash: "sha256sum "
-file hash five twelve: "sha512sum "
-file hash M D five: "md5sum "
-file hash shaw one: "sha1sum "
-file hash blake two: "b2sum "
-file hash <user.zsh_file_completion>: "sha256sum {zsh_file_completion}"
 file check sec: "checksec --file="
 file locate: "locate "
 file locate clip:
@@ -250,8 +232,6 @@ file read <number> bytes at offset <number>:
 
 loop for file: insert("for FILE in $(exa --no-icons); do echo ${{FILE}}; done")
 
-file tree permission: "tree -pufid "
-
 folder tree permissions:
     user.insert_cursor('FILE=[|]; until [ "$FILE" = "/" ]; do ls -lda $FILE; FILE=`dirname $FILE` done')
 
@@ -261,9 +241,6 @@ folder tree permissions:
 file [disk] usage all: "du -sh *\n"
 #file [disk] usage: "du -sh "
 
-trash list: "trash-list\n"
-trash restore: "trash-restore "
-trash empty: "trash-empty "
 file watch latest: "vlc $(exa --sort changed --no-icons | tail -n1)"
 file play audio: "vlc --play-and-exit --intf dummy --no-interact"
 
@@ -380,25 +357,7 @@ now grep:
     insert("| grep -i ")
 
 # networking
-net (interfaces | I P | address) [show]: "ip addr\n"
-net flush: "ip addr flush dev "
-net show: "ip addr show "
-net [address] (set | add [ip]): "ip addr add "
-net [address] (remove | delete) [ip]: "ip addr del "
 
-net (route | routes) [list]: "ip route\n"
-net (route | routes) six [list]: "ip -6 route\n"
-net route add: user.insert_cursor("ip route add [|] dev ")
-net route add tunnel: user.insert_cursor("ip route add [|] dev tun0")
-net route (remove | delete | drop): "ip route del "
-# XXX - We should switch these to use ss
-net stat all: "ss --sctp -anutp\n"
-net [stat] (listen | listening) unix: "ss --sctp -anutp\n"
-net [stat] (listen | listening) T C P: "ss --tcp -nlp\n"
-net [stat] (listen | listening) U D P: "ss --udp -nlp\n"
-net [stat] (listen | listening) S C T P: "ss --sctp -nlp\n"
-net [stat] (listen | listening): "ss -lnpt\n"
-net [stat] (listen | listening) all: "ss --sctp -lnput\n"
 net trace: "traceroute "
 net trace clip:
     insert("traceroute")
@@ -428,9 +387,6 @@ net my I P: "dig +short myip.opendns.com @resolver1.opendns.com\n"
 net port <user.ports>: "{ports}"
 net dump: "tcpdump "
 
-net [dev | device] up: user.insert_cursor("ip link set dev [|] up")
-net [dev | device] down: user.insert_cursor("ip link set dev [|] down")
-
 net bridge (list | show): "brctl show\n"
 
 show hosts file: "cat /etc/hosts\n"
@@ -453,9 +409,6 @@ generate see scope database:
 file head: "head "
 file head <number_small>: "head -n {number_small} "
 folder show: "pwd\n"
-
-file trace: "strace -f "
-file trace log: "strace -o trace.log -f "
 
 lazy edit:
     insert("edit ")
@@ -505,20 +458,13 @@ run d message samba: "sudo dmesg --color --reltime | rg CIFS\n"
 (disk | drive) mount list fuse: "mount | rg fuse\n"
 (disk | drive) mount list all: "mount\n"
 (disk | drive) (unmount | U mount): "umount "
-(disk | drive) key dump: "sudo cryptsetup luksDump /dev/"
-(disk | drive) key add: "sudo cryptsetup luksAddKey --key-slot "
+
 (disk | drive) F stab: "cat /etc/fstab\n"
 (disk | drive) remount temp (exec | executable): "mount /tmp -o remount,exec"
 
 # system configuration
 sis cuddle: "sysctl "
 sis cuddle set: "sysctl -w "
-
-file change attributes: "chattr "
-(file | folder) make immutable: "chattr +i "
-(file | folder) drop immutable: "chattr +i "
-file make append only: "chattr +a "
-file drop append only: "chattr -a "
 
 # tar extraction
 # TODO: Should add the version with zsh completion
@@ -549,12 +495,6 @@ file G zip: "gzip "
 file zip folder: "zip -rP changepassword output.zip "
 file create encrypted (zip | archive): "zip -P changepassword output.zip "
 
-# kernel modules
-module list: "lsmod\n"
-module search: "lsmod |rg -i"
-module probe: "modprobe "
-module remove: "rmmod "
-
 run curl: "curl "
 run double you get: "wget "
 (file | web) (download | get): "wget "
@@ -564,7 +504,6 @@ run double you get: "wget "
     key(enter)
 [file] download ignore cert: "wget --no-check-certificate "
 
-# because talent doesn't seem to like me saying ./
 (run script | file run): "./"
 run script <user.word>: "./{word}"
 run again:
@@ -597,8 +536,6 @@ history search: "history | rg -i"
 history search <user.text>: "history | rg -i {text}"
 (X args | extra) that: "| xargs "
 
-net man log: "journalctl -u NetworkManager --no-pager --lines 100\n"
-
 # ssh
 # XXX - make texts actually query a series of names from the %h config
 #(secure shell|tunnel) [<user.text>]:
@@ -619,14 +556,14 @@ tunnel copy last:
     key(enter)
     key(enter)
 
-secure shall key gen: "ssh-keygen -t ed25519\n"
+(secure shell | tunnel) key gen: "ssh-keygen -t ed25519\n"
 (tunnel | secure) copy [<user.text>]:
     insert("scp -r ")
     insert(text or "")
 tunnel copy from {user.ssh_hosts}: insert("scp -r {ssh_hosts}:")
 tunnel copy to {user.ssh_hosts}: user.insert_between("scp -r ", " {ssh_hosts}:")
-show authorized keys: "vi ~/.ssh/authorized_keys\n"
-show pub keys: "cat ~/.ssh/*.pub\n"
+[tunnel] show authorized keys: "vi ~/.ssh/authorized_keys\n"
+[tunnel] show pub keys: "cat ~/.ssh/*.pub\n"
 edit authorized keys: "vi ~/.ssh/authorized_keys\n"
 go secure shell config: "cd ~/.ssh\n"
 # talon suddenly loves the word termini
@@ -641,7 +578,6 @@ tunnel (pop | terminate): key(enter ~ .)
 process list: "ps -ef\n"
 process (rip | search | find): "ps -ef | rg -i "
 process (rip | search | find) <user.text>: "ps -ef | rg -i {text}"
-process tree: "pstree\n"
 process forest: "ps -aef --forest\n"
 process top: "htop\n"
 process fuzzy kill: "pkill "
@@ -658,13 +594,6 @@ process kill all <user.word>: "killall {word}"
 system reboot [now]: "sudo reboot -h now"
 system shutdown [now]: "sudo shutdown -h now"
 
-# hardware
-system [list] memory: "lshw -short -C memory"
-system [list] processor: "lscpu\n"
-system [list] (P C I | pee) bus: "lspci\n"
-system [list] (yew bus | U S B): "lsusb\n"
-system release: "cat /etc/lsb-release\n"
-
 # debugging
 file debug: "gdb "
 file arm debug: "arm-none-eabi-gdb "
@@ -676,15 +605,6 @@ run debug remote server [on] port <number>: "gdbserver --multi :{number}\n"
 
 errors redirect: "2>&1 "
 errors ignore: "2>/dev/null"
-
-###
-# images
-###
-file image: "feh "
-file image meta: "identify -verbose "
-wallpaper set: "feh --bg-scale "
-wallpaper set latest:
-    "feh --bg-scale $(find ~/images/wallpaper/ -name $(exa --sort changed --no-icons ~/images/wallpaper/ | tail -n1))\n"
 
 ###
 # ELF file
@@ -711,48 +631,12 @@ python three eight env: "virtualenv -p python3.8 py38"
 python three nine env: "virtualenv -p python3.9 py39"
 
 ###
-# Screen recording
-###
-screen record: insert("recordmydesktop")
-
-###
-# X11 stuff
-###
-screen dimensions: "xdpyinfo | grep dimensions\n"
-screen resolution: "xdpyinfo | awk '/dimensions/{{print $2}}'\n"
-
-###
-# Arch Linux
-# https://wiki.archlinux.org/index.php/Arch_Build_System#Retrieve_PKGBUILD_source_using_Git
-###
-arch source check out: "asp checkout "
-arch source export: "asp export "
-
-###
-# Kernel Tracing
-###
-kernel trace on: "echo 1 > /sys/kernel/tracing/tracing_on\n"
-kernel trace off: "echo 0 > /sys/kernel/tracing/tracing_on\n"
-kernel trace show: "cat /sys/kernel/tracing/trace\n"
-kernel trace functions: "echo function > /sys/kernel/tracing/current_tracer\n"
-# XXX -we may want this to shut off tracing first?
-
-###
 # Version stuff
 ###
 (cis | system) I D: "id\n"
 (cis | system) user: "whoami\n"
 (cis | system) (name | version | kernel): "uname -a\n"
 (cis | system) show release: "cat /etc/lsb-release\n"
-
-###
-# Namespaces
-###
-
-capability list: "capsh --print\n"
-
-(unshare | namespace) root: "unshare -U -r\n"
-(unshare | namespace) net: "unshare -n\n"
 
 ###
 # Environment variables
@@ -791,16 +675,7 @@ file sort column [<user.number_string>]:
     insert("sort -k ")
     insert(number_string or "")
 
-run B P F trace:
-    user.insert_cursor("sudo BPFTRACE_PERF_RB_PAGES=256 bpftrace [|].bt | tee trace.log")
-
 code Q L resolve: "codeql resolve languages\n"
-
-###
-# Kernel
-###
-kernel generate tags: "python scripts/clang-tools/gen_compile_commands.py"
-run pa hole: "pahole "
 
 ###
 # Development
@@ -812,15 +687,6 @@ file build clip:
     insert("gcc ")
     edit.paste()
     insert(" -o ")
-
-clipboard as Q R code: "xclip -o -s c | qrencode -o - | feh --force-aliasing -ZF -"
-
-###
-# udev
-###
-
-you dev admin: "udevadm "
-you dev reload: "sudo udevadm control --reload-rules && sudo udevadm trigger"
 
 run wiggly: "weggli '{}'"
 
@@ -841,21 +707,6 @@ file swap many see: 'find . -name "*.[ch]" | xargs sed -i -e s///g'
 file swap many pie: 'find . -name "*.py" | xargs sed -i -e s///g'
 
 ###
-# keyctl
-###
-
-key cuttle version: "keyctl --version\n"
-key cuttle list user: "keyctl list @u\n"
-key cuttle list process: "keyctl list @p\n"
-key cuttle list session: "keyctl list @s\n"
-key cuttle clear session: "keyctl clear @s\n"
-
-###
-# dpkg
-###
-deb install: "dpkg -i"
-
-###
 # screen/tmux
 ###
 
@@ -863,12 +714,6 @@ mux list: "screen -list\n"
 mux attach now: "screen -x\n"
 mux next [window]: key(ctrl-a n)
 mux prev [window]: key(ctrl-a p)
-
-###
-# Monitors
-###
-display list: "polybar --list-monitors\n"
-camera list: "v4l2-ctl --list-devices\n"
 
 udev reload: "sudo udevadm control --reload-rules && sudo udevadm trigger"
 
@@ -881,7 +726,6 @@ X M L lint: "xmllint --format "
 # crontab
 ###
 cron tab list: "crontab -l\n"
-cron tab list user: "crontab -l -u "
 cron tab (delete | remove): "crontab -i -r "
 
 ###
@@ -890,9 +734,6 @@ cron tab (delete | remove): "crontab -i -r "
 arm L D D:
     user.insert_between("/usr/arm-linux-gnueabi/bin/readelf -d ", " | rg NEEDED")
 arm readelf: "/usr/arm-linux-gnueabi/bin/readelf "
-
-#
-volume scan: "lvscan\n"
 
 file hex dump: "hexdump -C "
 file hex dump <number> bytes: "hexdump -C -n {number} "
@@ -904,30 +745,9 @@ file un squash: "unsquashfs "
 
 run I D: "id\n"
 
-###
-# ELF
-###
-
 file dependencies: "ldd "
-file patch interpreter: "patchelf --set-interpreter /usr/lib64/ld-linux-x86-64.so.2 "
-
-###
-# cpu debugging
-###
-show cpu frequencies: "cat /sys/devices/system/cpu/cpu*/cpufreq/scaling_cur_freq\n"
-show cpu governors: "cat /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor\n"
-show cpu max frequencies: "cat /sys/devices/system/cpu/cpu*/cpufreq/cpuinfo_max_freq\n"
-show cpu min frequencies: "cat /sys/devices/system/cpu/cpu*/cpufreq/cpuinfo_min_freq\n"
-set all governors:
-    "echo performance | sudo tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor\n"
 
 G D B version: "gdb --version\n"
-
-loop setup help: "losetup --help\n"
-loop setup attach: "losetup -f "
-loop setup part attach: "losetup -fP "
-loop setup list: "losetup -a\n"
-loop setup detach: "losetup -d "
 
 disk part list: "fdisk -l "
 
@@ -945,23 +765,5 @@ pre commit uninstall: "pre-commit uninstall\n"
 pre commit generate config: "pre-commit sample-config > .pre-commit-config.yaml\n"
 
 edit read me: "edit README.md\n"
-
-# TODO: Need to move to host specific interface names
-net add name server:
-    user.insert_between("echo 'nameserver ", "' | sudo /sbin/resolvconf -a net1")
-net (delete | deli) name server:
-    user.insert_between("echo 'nameserver ", "' | sudo /sbin/resolvconf -d net1")
-net resolve config: "/sbin/resolvconf "
-net resolve config help: "/sbin/resolvconf -h\n"
-net restart: "sudo systemctl restart NetworkManager\n"
-
-# systemd-resolved specific
-[net] (name server | D N S) list: "resolvectl status\n"
-
-# https://www.cursorless.org/docs/contributing/#installing-a-local-build-of-the-cursorless-extension
-# Must be in the cursorless development folder
-cursorless install local: "pnpm -F cursorless-vscode install-local\n"
-cursorless install public: "pnpm -F cursorless-vscode uninstall-local\n"
-cursorless install P R: "pnpm -F cursorless-vscode install-from-pr "
 
 user add group: "sudo usermod -aG "
