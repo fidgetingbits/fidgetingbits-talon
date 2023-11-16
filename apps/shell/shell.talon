@@ -1,5 +1,7 @@
 os: linux
-tag: terminal
+and tag: terminal
+os: mac
+and tag: terminal
 -
 tag(): user.zsh
 
