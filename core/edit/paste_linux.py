@@ -1,5 +1,7 @@
 # Note: This isn't inside of edit_linux.py because of some terminal quirks, but this one does apply to everything
-from talon import Context, actions, clip, subprocess
+import subprocess
+
+from talon import Context, actions, clip
 
 ctx = Context()
 ctx.matches = r"""
