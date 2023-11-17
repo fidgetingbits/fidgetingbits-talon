@@ -767,3 +767,4 @@ pre commit generate config: "pre-commit sample-config > .pre-commit-config.yaml\
 edit read me: "edit README.md\n"
 
 user add group: "sudo usermod -aG "
+run talon event log: 'echo "events.tail()"|~/.talon/bin/repl\n'
