@@ -112,4 +112,5 @@ clear till <user.navigation_target>:
 
 # XXX - I don't know where to put this for now, but we don't want it to mess with
 # the one that vim already uses
-push: key(end)
+# push: key(end)
+push: edit.line_end()
