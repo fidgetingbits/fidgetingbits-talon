@@ -10,7 +10,7 @@ Originally from dweil/talon_community - modified for newapi by jcaw.
 import logging
 from typing import Optional
 
-from talon import Context, Module, actions, ui
+from talon import Context, Module, actions, app, ui
 
 mod = Module()
 mod.list(
@@ -288,7 +288,8 @@ class Actions:
 
     def snap_window_to_position(position_name: str) -> None:
         """Move the active window to a specifically named position on its current screen, using a key from `_snap_positions`."""
-        if position_name == "full" or position_name == "fullscreen":
+        # Because mac doesn't seem to have an actual normal full screen, we use the positional logic
+        if app.platform != "mac" and (position_name == "full" or position_name == "fullscreen"):
             actions.user.window_maximize()
         else:
             actions.user.snap_window(_snap_positions[position_name])
