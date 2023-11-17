@@ -43,17 +43,3 @@ class Actions:
 
     def line_find_backward(key: str):
         """Finds the previous character in the line"""
-
-    def delete_word_right():
-        """Delete word to the right or remainder of current word"""
-
-    def delete_word_left():
-        """Delete word to the left or remainder of current word"""
-
-    def delete_line_beginning():
-        """Delete from the cursor until the start of the line"""
-
-    def delete_line_remaining():
-        """Delete from the cursor until the end of the line"""
-        actions.edit.jump_line(line)
-        actions.edit.line_clone()

@@ -241,11 +241,6 @@ class Actions:
         actions.user.select_line_end()
         actions.edit.delete()
 
-
-# For whatever reason these fail to work right away if they're part of the
-# module, but work as a user context
-@ctx.action_class("user")
-class UserAction:
     def delete_word_right():
         """Delete to end of current word"""
         actions.edit.extend_word_right()
