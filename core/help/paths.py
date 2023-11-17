@@ -1,6 +1,4 @@
-# XXX - this should have os awarenss
-
-from talon import Context, Module
+from talon import Context, Module, app
 
 mod = Module()
 mod.list("common_files", desc="Common file names")
@@ -11,11 +9,9 @@ mod.list("folder_paths_private", desc="Common private paths")
 ctx = Context()
 
 TALON_REPO = "fidgetingbits-talon"
-arch_linux_paths = {
-    "packman hooks": "/etc/pacman.d/hooks/",
-}
+
 # paths that will work with pivot command
-linux_folder_paths = {
+unix_folder_paths = {
     # common
     "var F S": "/var/fs/",
     "opt": "/opt/",
@@ -120,9 +116,17 @@ linux_folder_paths = {
     "apache mods": "/etc/apache2/mods-available/",
     "apache mods enabled": "/etc/apache2/mods-enabled/",
     "var web": "/var/www/",
+    "code extensions": "~/.vscode/extensions/",
 }
 
-linux_file_paths = {
+mac_folder_paths = {}
+linux_folder_paths = {}
+arch_linux_folder_paths = {
+    "packman hooks": "/etc/pacman.d/hooks/",
+}
+windows_folder_paths = {}
+
+unix_file_paths = {
     "apache conf": "/etc/apache2/apache2.conf",
     "G D B init": "~/.gdbinit",
     "known hosts": "~/.ssh/known_hosts",
@@ -187,19 +191,50 @@ linux_file_paths = {
     "S S H D config": "/etc/ssh/sshd_config",
 }
 
-# this is used for specific commands like pivot
-ctx.lists["user.folder_paths_public"] = {
-    **linux_folder_paths,
-}
-ctx.lists["user.folder_paths_private"] = {}
+mac_file_paths = {}
+linux_file_paths = {}
+arch_linux_file_paths = {}
+windows_file_paths = {}
 
+
+# XXX - add support for selecting
+windows_paths = {
+    "desktop": "%USERPROFILE%\\Desktop\\",
+    "profile": "%USERPROFILE%\\",
+    "root": "%SYSTEMROOT%\\",
+    "windows": "%SYSTEMROOT%\\",
+    "system": "%SYSTEMROOT%\\System32\\",
+    "drivers": "%SYSTEMROOT%\\System32\\Drivers\\",
+    "programs": "%PROGRAMFILES%\\",
+}
+
+if app.platform == "mac":
+    folder_paths = {**unix_folder_paths, **mac_folder_paths}
+    file_paths = {**unix_file_paths, **mac_file_paths}
+elif app.platform == "windows":
+    # FIXME: This should probably have something like wsl awareness
+    folder_paths = {**windows_paths}
+elif app.platform == "linux":
+    folder_paths = {**unix_folder_paths, **linux_folder_paths}
+    file_paths = {**unix_file_paths, **linux_file_paths, **arch_linux_file_paths}
+else:
+    folder_paths = {**unix_folder_paths}
+    file_paths = {**unix_file_paths}
+
+all_paths = {**folder_paths, **file_paths}
+
+
+# TODO: To add something just for files
+
+# this is used for specific commands like pivot
+ctx.lists["user.folder_paths_public"] = folder_paths
 # this is used for any path based commands that don't care of about files or
 # folder difference
-ctx.lists["user.paths_public"] = {**linux_folder_paths, **linux_file_paths}
-
-# Arch Linux
+ctx.lists["user.paths_public"] = all_paths
 
 ctx.lists["user.paths_private"] = {}
+ctx.lists["user.folder_paths_private"] = {}
+
 
 ctx.lists["user.common_files"] = {
     "read me": "README.md",
@@ -209,17 +244,6 @@ ctx.lists["user.common_files"] = {
     "env R C": ".envrc",
     "env": ".env",
     "pre commit config": ".pre-commit-config.yaml",
-}
-
-# XXX - add support for selecting
-windows_paths = {
-    "desktop": "%USERPROFILE%\\Desktop",
-    "profile": "%USERPROFILE%",
-    "root": "%SYSTEMROOT%",
-    "windows": "%SYSTEMROOT%",
-    "system": "%SYSTEMROOT%\\System32",
-    "drivers": "%SYSTEMROOT%\\System32\\Drivers",
-    "programs": "%PROGRAMFILES%",
 }
 
 
