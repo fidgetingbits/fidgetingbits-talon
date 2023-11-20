@@ -35,3 +35,13 @@ archive that:
 (sidebar | panel) history: user.firefox_history_sidebar()
 
 side dog: key(f1)
+
+# Automate tabbing through accepting an untrusted certificate
+accept certificate:
+    key(tab:2)
+    key(enter)
+    key(pgdown)
+    # There seems to be a purposeful delay for this item to be clickable
+    sleep(2s)
+    key(tab:2)
+    key(enter)
