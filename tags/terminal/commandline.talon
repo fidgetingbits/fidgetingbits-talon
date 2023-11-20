@@ -556,7 +556,8 @@ tunnel copy last:
     key(enter)
     key(enter)
 
-(secure shell | tunnel) key gen: "ssh-keygen -t ed25519\n"
+(S S H | secure shell | tunnel) key (gen | generate):
+    "ssh-keygen -o -a 256 -t ed25519\n"
 (tunnel | secure) copy [<user.text>]:
     insert("scp -r ")
     insert(text or "")
