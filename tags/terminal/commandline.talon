@@ -769,3 +769,4 @@ edit read me: "edit README.md\n"
 
 user add group: "sudo usermod -aG "
 run talon event log: 'echo "events.tail()"|~/.talon/bin/repl\n'
+run tail talon log: "tail -f ~/.talon/talon.log\n"
