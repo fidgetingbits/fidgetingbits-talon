@@ -88,10 +88,6 @@ class UserActions:
     def tab_final():
         actions.key("alt-9")
 
-    def tab_search():
-        actions.browser.focus_address()
-        actions.key("%")
-
     def page_find():
         actions.key("ctrl-f")
 

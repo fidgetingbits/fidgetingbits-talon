@@ -44,6 +44,10 @@ class UserActions:
         actions.sleep("180ms")
         actions.app.tab_close()
 
+    def tab_search():
+        actions.browser.focus_address()
+        actions.key("%")
+
 
 @ctx.action_class("browser")
 class BrowserActions:

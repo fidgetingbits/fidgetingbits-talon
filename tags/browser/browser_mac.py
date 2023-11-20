@@ -91,3 +91,9 @@ class BrowserActions:
 
     def toggle_dev_tools():
         actions.key("cmd-alt-i")
+
+    def page_find():
+        actions.key("cmd-f")
+
+    def page_find_close():
+        actions.key("escape")
