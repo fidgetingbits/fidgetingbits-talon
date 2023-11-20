@@ -75,8 +75,8 @@ shuffle flip:
     user.bash_command_quiet("i3-msg move container to workspace back_and_forth")
 shuffle left: user.bash_command_quiet("i3-msg move left")
 shuffle right: user.bash_command_quiet("i3-msg move right")
-shuffle up: user.bash_command_quiet("i3-msg move up")
-shuffle down: user.bash_command_quiet("i3-msg move down")
+shuffle (up | north): user.bash_command_quiet("i3-msg move up")
+shuffle (down | south): user.bash_command_quiet("i3-msg move down")
 
 # move a (win|window) to a workspace and follow it there
 # NOTE: Moved away from follow due to usage of follow in cursorless that would
