@@ -190,6 +190,7 @@ unix_file_paths = {
     "authorized keys": "~/.ssh/authorized_keys",
     "S S H D config": "/etc/ssh/sshd_config",
     "talon log": "~/.talon/talon.log/",
+    "S S M T P config": "/etc/ssmtp/ssmtp.conf",
 }
 
 mac_file_paths = {}
