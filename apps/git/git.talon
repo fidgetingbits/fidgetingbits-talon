@@ -140,7 +140,8 @@ git merge cancel: "git merge --abort\n"
 
 git merge pull request: user.insert_between("git pull origin pull/", "/head:")
 git merge pull request <number>: "git pull origin pull/{number}/head:"
-git merge upstream pull request: user.insert_between("git pull upstream pull/", "/head:")
+git merge upstream pull request:
+    user.insert_between("git pull upstream pull/", "/head:")
 git merge upstream pull request <number>: "git pull upstream pull/{number}/head:"
 
 git merge: "git merge "
@@ -196,11 +197,13 @@ git restore source: "git restore --source="
 get remote set origin: "git remote set-url origin "
 git remote: "git remote "
 git remote add: "git remote add "
+git remote add origin: "git remote add origin "
+git remote add upstream: "git remote add upstream "
 git remote list: "git remote -v\n"
 git remote set url: "git remote set-url "
 git remote add upstream: "git remote add upstream "
 git remote remove: "git remote remove "
-git [remote] show origin: "git remote show origin\n"
+git [remote] show [remote] origin: "git remote show origin\n"
 git revert: "git revert "
 git revert clip:
     insert("git revert ")
