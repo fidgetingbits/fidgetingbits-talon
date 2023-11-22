@@ -310,6 +310,9 @@ class UserActions:
     def tab_unpin():
         actions.user.vscode("workbench.action.unpinEditor")
 
+    def tab_last():
+        actions.key("ctrl-tab")
+
     # find_and_replace.py support begin
 
     def find(text: str):

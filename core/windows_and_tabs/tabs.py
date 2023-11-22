@@ -34,3 +34,6 @@ class tab_actions:
 
     def tabs_show():
         """Show all tabs"""
+
+    def tab_last():
+        """Go to the most recently focused tab"""

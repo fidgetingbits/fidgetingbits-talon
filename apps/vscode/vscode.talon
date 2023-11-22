@@ -169,6 +169,13 @@ disk ugly: user.vscode("workbench.action.files.saveWithoutFormatting")
 disk all: user.vscode("workbench.action.files.saveAll")
 
 #
+# Workspaces
+#
+
+workspace save: user.vscode("workbench.action.saveWorkspaceAs")
+workspace remove folder: user.vscode("workbench.action.removeRootFolder")
+
+#
 # Programming Language Features
 #
 suggest show: user.vscode("editor.action.triggerSuggest")
