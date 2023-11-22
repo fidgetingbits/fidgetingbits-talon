@@ -184,3 +184,8 @@ apps.virtualbox = """
 os: linux
 and app.name: VirtualBox
 """
+
+apps.openvpn_connect = """
+os: mac
+and app.bundle: org.openvpn.client.app
+"""
