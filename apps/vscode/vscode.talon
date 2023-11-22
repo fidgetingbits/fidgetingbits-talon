@@ -173,7 +173,11 @@ disk all: user.vscode("workbench.action.files.saveAll")
 #
 
 workspace save: user.vscode("workbench.action.saveWorkspaceAs")
+workspace open: user.vscode("workbench.action.openWorkspace")
+workspace close: user.vscode("workbench.action.closeWorkspace")
+workspace add folder: user.vscode("workbench.action.addRootFolder")
 workspace remove folder: user.vscode("workbench.action.removeRootFolder")
+workspace configure trust: user.vscode("workbench.trust.manage")
 
 #
 # Programming Language Features
