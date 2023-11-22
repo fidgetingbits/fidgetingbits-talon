@@ -306,8 +306,11 @@ class Actions:
 
     def switch_last_focused():
         """Focus the last use application"""
+        global last_focused_app
         if last_focused_app is not None:
-            last_focused_app.focus()
+            new_app = last_focused_app
+            last_focused_app = ui.active_app()
+            new_app.focus()
 
     def switcher_focus(name: str):
         """Focus a new application by name"""
