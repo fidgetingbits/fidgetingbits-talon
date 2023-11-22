@@ -164,6 +164,8 @@ disk:
     edit.save()
     sleep(150ms)
     user.vscode("hideSuggestWidget")
+# TODO: This could probably be an edit command
+disk as: user.vscode("workbench.action.files.saveAs")
 disk gentle: edit.save()
 disk ugly: user.vscode("workbench.action.files.saveWithoutFormatting")
 disk all: user.vscode("workbench.action.files.saveAll")
