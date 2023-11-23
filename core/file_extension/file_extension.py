@@ -6,6 +6,8 @@ mod = Module()
 mod.list("file_extension", desc="A file extension, such as .py")
 
 _file_extensions_defaults = {
+    "seven zip:": ".7z",
+    "ask": ".asc",
     "bee tea": ".bt",
     "build": ".build",
     "back": ".bak",
