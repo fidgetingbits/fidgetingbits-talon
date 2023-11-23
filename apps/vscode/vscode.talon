@@ -160,6 +160,9 @@ file delete:
 # Opens folder of current file
 file open current folder: user.vscode("revealFileInOS")
 file reveal: user.vscode("workbench.files.action.showActiveFileInExplorer")
+folder open: user.vscode("workbench.action.files.openFolder")
+
+# Saving
 disk:
     edit.save()
     sleep(150ms)
