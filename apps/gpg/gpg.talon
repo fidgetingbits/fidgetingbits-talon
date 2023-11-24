@@ -21,9 +21,10 @@ G P G search global [keys]: "gpg --search-keys "
 G P G export [key]: "gpg --export -a "
 G P G import [key]: "gpg --import "
 
-file encrypt with key: user.insert_between("gpg -v -e -r ", " file\n")
+file encrypt with key:
+    user.insert_between("gpg -v --trust-model always -e -r ", " file\n")
 file encrypt with clip:
-    insert("gpg -v -e -r ")
+    insert("gpg -v --trust-model always -e -r ")
     edit.paste()
     insert(" ")
 file decrypt: "gpg <file>\n"
