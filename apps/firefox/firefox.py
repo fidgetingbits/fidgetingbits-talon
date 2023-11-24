@@ -1,4 +1,4 @@
-from talon import Context, Module, actions, app, edit
+from talon import Context, Module, actions, app
 
 ctx = Context()
 mod = Module()
@@ -51,11 +51,10 @@ class UserActions:
     def tab_jump_name(name: str):
         actions.user.tab_search()
         actions.sleep("500ms")
-        edit.paste(name)
+        actions.edit.paste(name)
         actions.sleep("200ms")
         actions.key("tab")
         actions.key("enter")
-
 
 
 @ctx.action_class("browser")
