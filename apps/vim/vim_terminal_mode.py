@@ -121,7 +121,7 @@ fuzzy_shell_tags = {
     # Match on stuff like fzf running in floating term
     # "term://": "user.readline",
     "root@": "terminal",  # hacky match for docker containers
-    "python:": "user.python",
+    # "python:": "user.python", # Doesn't work because of the switch back to language modes
 }
 # XXX - should I pre compile these so we don't do it on every single window
 # update?
@@ -143,8 +143,9 @@ shell_tags = {
     "gef": ["user.gdb", "user.gef"],
     "htop": "user.htop",
     "taskwarrior-tui": "user.taskwarrior_tui",
-    "~/.talon/bin/repl": ["user.talon_repl", "user.python"],
-    "python": "user.python",
+    "~/.talon/bin/repl": "user.talon_repl",
+    # "~/.talon/bin/repl": ["user.talon_repl", "user.python"], # Doesn't work because of the switch back to language modes
+    # "python": "user.python", # Doesn't work because of the switch back to language modes
 }
 # ...
 
