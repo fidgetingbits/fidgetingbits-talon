@@ -200,7 +200,15 @@ paste line: user.paste_line()
 paste line start: user.paste_line_start()
 paste line end: user.paste_line_end()
 paste word: user.paste_word()
+
 (pasty|paste that): edit.paste()
+
+# This should just be some sort of function with arg to specify the symbol
+paste in quotes:
+    key(")
+    sleep(0.1)
+    edit.paste()
+    key(")
 
 paste match: edit.paste_match_style()
 
