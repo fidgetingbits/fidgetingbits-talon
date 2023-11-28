@@ -168,7 +168,10 @@ show substitute path: "show substitute-path\n"
 show list size: "show listsize\n"
 set list size <number_small>: "set listsize {number_small}\n"
 
-set remote target: "target extended-remote :9999\n"
+#set remote target: "target extended-remote :9999\n"
+[set] target remote default: "target remote :1234\n"
+[set] target remote <number>: "target remote :{number}\n"
+[set] target remote: "target remote "
 
 print size of:
     insert("p/x sizeof()")
