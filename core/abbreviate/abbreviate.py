@@ -559,6 +559,7 @@ abbreviations_list = {
     "symbols": "syms",
     "synchronize": "sync",
     "synchronous": "sync",
+    "synology": "syno",
     "sys cuttle": "sysctl",
     "system call": "syscall",
     "system cuddle": "systemctl",
