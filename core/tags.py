@@ -3,15 +3,15 @@ from talon import Module
 mod = Module()
 
 tagList = [
-    "disassembler",
-    "gdb",
-    "libptmalloc",
-    "libdlmalloc",
-    "libheap",
-    "libslub",
-    "gdb_vmlinux",
+    "disassembler",  # generic disassember commands
+    "gdb",  # linux debugger
+    "libptmalloc",  # gdb plugin for ptmalloc
+    "libdlmalloc",  # gdb plugin for dlmalloc
+    "libheap",  # gdb plugin for ptmalloc
+    "libslub",  # gdb plugin for linux kernel slub allocator
+    "gdb_vmlinux",  # tag for gdb commands that help with linux kernel debugging
     "git",  # commandline tag for git commands
-    "ida",
+    "ida",  # ida decompiler commands
     "tabs",
     "generic_windows_shell",
     "generic_unix_shell",
@@ -19,14 +19,14 @@ tagList = [
     "taskwarrior",  # commandline tag for taskwarrior commands
     "tmux",
     "windbg",
-    "yay",
-    "meson",
+    "yay",  # arch linux package manager
+    "meson",  # meson build system
     "ninja",
-    "apt",
-    "buku",
-    "ghidra_server",
-    "nmcli",
-    "nftables",
+    "apt",  # debian/ubuntu package manager
+    "buku",  # terminal bookmark manager
+    "ghidra_server",  # ghidra decompiler server commands
+    "nmcli",  # Linux network manager command line interface
+    "nftables",  # Linux firewall command line interface
     "taskwarrior",
     "timewarrior",
     "make_commands",
@@ -52,15 +52,16 @@ tagList = [
     "taskwarrior_tui",
     "vimium",
     "obs_studio_global",
-    "vboxmanage",
+    "vboxmanage",  # virtualbox cli
     "glab",  # gitlab cli
-    "coredumpctl",
+    "coredumpctl",  # systemd core dump manager
     "rust_apps",  # rust terminal commands (rustup, cargo, etc)
     "gpg",  # gpg terminal commands
     "nix_cli",  # nix terminal commands
-    "poetry",
+    "poetry",  # python package management commands
     "aws_cli",  # amazon aws cli commands
     "s3fs",  # amazon aws s3 bucket mounting
+    "direnv",  # direnv commands
 ]
 
 for entry in tagList:

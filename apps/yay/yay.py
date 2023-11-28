@@ -2,9 +2,7 @@ from talon import Context, actions
 
 ctx = Context()
 ctx.matches = r"""
-os: linux
-tag: terminal
-and tag: user.packager_yay
+tag: user.packager_yay
 """
 
 

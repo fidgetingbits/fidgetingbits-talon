@@ -1,4 +1,3 @@
-os: linux
 tag: user.packager_apt
 -
 apt: "apt "

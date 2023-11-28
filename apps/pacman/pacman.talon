@@ -1,4 +1,3 @@
-os: linux
 tag: user.packager_pacman
 -
 pacman search <user.text>: "pacman -sS {text}"

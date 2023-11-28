@@ -3,24 +3,24 @@ from talon import Context, Module, actions, imgui, ui
 mod = Module()
 ctx = Context()
 ctx.matches = r"""
-os: linux
-tag: terminal
-and tag: user.package_manager
+tag: user.package_manager
 """
 
 mod.mode("packager_picker_open")
 
 mod.tag("package_manager", desc="linux package manager")
 packager_list = [
+    {"tag": "packager_brew", "desc": "Mac homebrew packager"},
     {"tag": "packager_yay", "desc": "Arch Linux YAY packager"},
-    {"tag": "packager_pacman", "desc": "Arch Linux YAY packager"},
+    {"tag": "packager_pacman", "desc": "Arch Linux core packager"},
     {"tag": "packager_pamac", "desc": "Manjaro Linux packager"},
     {"tag": "packager_apt", "desc": "Debian/Ubuntu Linux packager"},
     {"tag": "packager_snap", "desc": "Snap packager"},
     {"tag": "packager_zypper", "desc": "SuSE packager"},
-    {"tag": "packager_dnf", "desc": "Fedora DNF packager"},
-    {"tag": "packager_yum", "desc": "Fedora YUM packager"},
+    {"tag": "packager_dnf", "desc": "Fedora/Redhat DNF packager"},
+    {"tag": "packager_yum", "desc": "Fedora/Redhat YUM packager"},
     {"tag": "packager_npm", "desc": "Node package manager"},
+    {"tag": "packager_nix", "desc": "Nix package manager"},
 ]
 
 for packager in packager_list:

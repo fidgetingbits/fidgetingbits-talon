@@ -4,7 +4,6 @@ mod = Module()
 ctx = Context()
 
 ctx.matches = r"""
-os: linux
 tag: user.packager_apt
 """
 
