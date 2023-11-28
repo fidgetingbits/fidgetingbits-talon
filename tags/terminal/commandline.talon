@@ -47,6 +47,7 @@ tag(): user.generic_unix_shell
 tag(): user.unix_utilities
 tag(): user.aws_cli
 tag(): user.s3fs
+tag(): user.direnv
 
 # Shell commands
 
@@ -590,7 +591,7 @@ process fuzzy kill <user.text>: "pkill {text}"
 process loop kill:
     user.insert_cursor("for PID in $(ps -ef | grep [|] | grep -v grep | awk '{{print $2}}'); do kill -9 $PID 2>/dev/null; done")
 process kill <number>: "kill -9 {number}"
-process kill job <number>: "kill -9 %{number}"
+[process] kill job <number>: "kill -9 %{number}"
 process kill: "kill -9 "
 process sudo kill: "sudo kill -9 "
 process kill all: "killall "
@@ -601,7 +602,9 @@ system shutdown [now]: "sudo shutdown -h now"
 
 # debugging
 file debug: "gdb "
+file debug with command: "gdb -ex "
 file arm debug: "arm-none-eabi-gdb "
+file arm sixty forty bug: "aarch64-linux-gnu-gdb "
 run (debug script | debugger): "gdb -x debug.gdb\n"
 run arm (debug script | debugger): "arm-none-eabi-gdb -x debug.gdb\n"
 run debug server: "gdbserver "
@@ -774,3 +777,12 @@ edit read me: "edit README.md\n"
 user add group: "sudo usermod -aG "
 run talon event log: 'echo "events.tail()"|~/.talon/bin/repl\n'
 run tail talon log: "tail -f ~/.talon/talon.log\n"
+
+D N S cache list: "sudo systemd-resolve --statistics\n"
+D N S cache flush: "sudo systemd-resolve --flush-caches\n"
+
+[file] R P M extract: user.insert_between("rpm2cpio ./", " | cpio -idmv")
+# If errors about bad numbers above, try some combo of decompression
+[file] R P M decompress extract:
+    user.insert_between("rpm2cpio ./", "| 7z e -si | cpio -idmv")
+pipe to C P I O: "| cpio -idmv"
