@@ -17,5 +17,10 @@ chomp <user.cursorless_target>:
     user.cursorless_command("setSelectionAfter", cursorless_target)
     edit.delete()
 
+bully <user.cursorless_target>:
+    user.cursorless_command("setSelectionAfter", cursorless_target)
+    key(space)
+    user.cursorless_command("setSelectionBefore", cursorless_target)
+    key(space)
 # Allow unambiguous commands
 then: skip()
