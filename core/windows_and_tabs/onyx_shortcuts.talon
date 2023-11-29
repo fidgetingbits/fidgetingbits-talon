@@ -1,3 +1,3 @@
 hostname: onyx
 -
-hacker: user.switcher_focus("console")
+hacker: user.switcher_focus("terminal")
