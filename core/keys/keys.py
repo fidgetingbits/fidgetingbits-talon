@@ -162,6 +162,12 @@ def letters(m) -> str:
     return "".join(m.letter_list)
 
 
+@mod.capture(rule="{self.number_key}+")
+def number_keys(m) -> str:
+    "Multiple number keys"
+    return "".join(m.number_key_list)
+
+
 @mod.capture(rule="{self.hex_letter}+")
 def hex_letters(m) -> str:
     "Multiple letter keys"

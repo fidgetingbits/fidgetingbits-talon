@@ -329,12 +329,13 @@ def format_text(m) -> str:
     return out
 
 
-@mod.capture(rule="<self.formatters_letters> <user.letters>")
+@mod.capture(rule="<self.formatters_letters> (<user.letters>|<user.number_keys>)")
 def format_letters(m) -> str:
     "Formats the keys and returns a string"
     formatters = m[0]
-    letters = m[1]
-    out = format_phrase_letters(" ".join(list(letters)), formatters)
+    items = m[1]
+    print(items)
+    out = format_phrase_letters(" ".join(list(items)), formatters)
     return out
 
 
