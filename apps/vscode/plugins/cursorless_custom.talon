@@ -16,3 +16,6 @@ also <user.cursorless_target>:
 chomp <user.cursorless_target>:
     user.cursorless_command("setSelectionAfter", cursorless_target)
     edit.delete()
+
+# Allow unambiguous commands
+then: skip()
