@@ -1,10 +1,18 @@
 from talon import Context, actions
 
+# This is a more restricted context to prevent certain actual editing commands
 ctx = Context()
 ctx.matches = r"""
 os: linux
 not tag: user.readline
 and not tag: terminal
+"""
+
+# This is a less restricted context to allow certain more general commands like zoom
+# FIXME: This is still broken if you are inside vi in the terminal, so should probably be a terminal override.
+zoom_ctx = Context()
+zoom_ctx.matches = r"""
+os: linux
 """
 
 
@@ -164,6 +172,8 @@ class EditActions:
     def word_right():
         actions.key("ctrl-right")
 
+@zoom_ctx.action_class("edit")
+class EditActions:
     def zoom_in():
         actions.key("ctrl-+")
 
@@ -172,3 +182,4 @@ class EditActions:
 
     def zoom_reset():
         actions.key("ctrl-0")
+
