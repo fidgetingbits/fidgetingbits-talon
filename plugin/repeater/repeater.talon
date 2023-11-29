@@ -1,4 +1,6 @@
 # -1 because we are repeating, so the initial command counts as one
+# NOTE: If you say a command too soon at first talon startup and the first thing talon hears is twice,
+# it will throw an IndexError.
 repeat <user.ordinals>: core.repeat_command(ordinals - 1)
 <user.ordinals_small>: core.repeat_command(ordinals_small - 1)
 parrot(palate_click):
