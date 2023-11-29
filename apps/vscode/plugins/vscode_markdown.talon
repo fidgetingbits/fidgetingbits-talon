@@ -12,5 +12,8 @@ file split preview: user.vscode("markdown.showPreviewToSide")
 # Actions: https://github.com/yzhang-gh/vscode-markdown/blob/master/package.json
 # NOTE: Also see cursorless actions_custom.csv
 
-generate talk: user.vscode("markdown.extension.toc.create")
+generate talk:
+    edit.file_start()
+    user.vscode("markdown.extension.toc.create")
+    key(enter)
 toggle item: user.vscode("markdown.extension.checkTaskList")
