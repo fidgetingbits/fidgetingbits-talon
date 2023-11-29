@@ -48,6 +48,7 @@ numb page size: "4096"
 # Hexadecimal
 # XXX - should handle actual number string, atm cant hex eighty, only hex
 # eighth zero
+hex <user.number_string>: "0x{number_string}"
 hex numb <user.hex_letters>$: "0x{hex_letters}"
 negative hex <user.hex_letters>: "-0x{hex_letters}"
 # "hex short four one" produces 0x4141
