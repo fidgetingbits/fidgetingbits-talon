@@ -254,7 +254,9 @@ echo param <user.text>:
 
 # directory and files
 pivot: "cd "
-pivot (only | first): "cd *\n"
+pivot (only | first):
+    edit.delete_line()
+    "cd *\n"
 pivot clip:
     insert("cd ")
     edit.paste()
@@ -262,21 +264,31 @@ pivot clip:
 # NOTE: I don't auto ls here because zsh is setup to automatically do it for me
 # FIXME: This should get moved to a zsh specific file
 pivot (<user.zsh_path_completion> | <user.folder_paths>):
+    edit.delete_line()
     path = zsh_path_completion or folder_paths
     user.paste("cd {path}")
     key(enter)
 pivot global <user.folder_paths>:
+    edit.delete_line()
     user.paste("cd {folder_paths}")
     key(enter)
-pivot local <user.zsh_path_completion>: user.paste("cd {zsh_path_completion}\n")
+pivot local <user.zsh_path_completion>:
+    edit.delete_line()
+    user.paste("cd {zsh_path_completion}\n")
 # pivot up doesn't work with talon
-pivot back: "cd ../\n"
+pivot back:
+    edit.delete_line()
+    "cd ../\n"
 pivot <number_small> back:
+    edit.delete_line()
     insert("cd ")
     insert(user.path_traverse(number_small))
     key(enter)
-pivot home: "cd\n"
+pivot home:
+    edit.delete_line()
+    "cd\n"
 pivot next:
+    edit.delete_line()
     insert("cd ")
     key(tab)
     sleep(100ms)
@@ -645,6 +657,7 @@ python three nine env: "virtualenv -p python3.9 py39"
 (cis | system) user: "whoami\n"
 (cis | system) (name | version | kernel): "uname -a\n"
 (cis | system) show release: "cat /etc/lsb-release\n"
+system info: "hostnamectl\n"
 
 ###
 # Environment variables
