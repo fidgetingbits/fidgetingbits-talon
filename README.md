@@ -1,6 +1,8 @@
-<!-- vim-markdown-toc GFM -->
-
-- [fidgetingbits' Talon Repo](#fidgetingbits-talon-repo)
+- [fidgetingbits Talon Repo](#fidgetingbits-talon-repo)
+- [My Setup](#my-setup)
+  - [Arch Linux](#arch-linux)
+  - [NixOS](#nixos)
+  - [Mac](#mac)
   - [Interesting features](#interesting-features)
   - [Other stuff](#other-stuff)
   - [WARNING](#warning)
@@ -10,25 +12,31 @@
   - [Recommendations](#recommendations)
   - [Pull requests](#pull-requests)
 
-<!-- vim-markdown-toc -->
-
-# fidgetingbits' Talon Repo
+# fidgetingbits Talon Repo
 
 Please read the WARNING section before you use this repo, as using some of
 the stuff I have may break your talon experience as I only test this repo on my
 own environment, and you should avoid reporting these problems to aegis or
 talon, without first validating that a repo like
-[knausj_talon](https://github.com/knausj85/knausj_talon) works properly first.
+[community](https://github.com/talonhub/community) works properly first.
 
-This repo is meant to be used on Linux and is only tested on Arch Linux. It
-requires some non-standard python libraries in the talon virtual environment.
+This repo is fairly thoroughly tested on both Linux (i3wm and Gnome) and Mac
+(Sonoma). Linux functionality has only been tested on Arch Linux and NixOS.
 
-I use the beta version of Talon so may result in errors related to
-functionality if you aren't using it. I recommend paying for beta on
+I use the beta version of Talon so this may result in errors related to
+functionality if you aren't using it. I highly recommend paying for beta on
 [patreon](https://www.patreon.com/join/lunixbochs?) if you can.
 
 In general I try to keep merging the core features from knausj_talon repo, but
 sometimes it might be months behind.
+
+# My Setup
+
+## Arch Linux
+
+## NixOS
+
+## Mac
 
 ## Interesting features
 
