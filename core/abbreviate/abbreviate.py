@@ -632,6 +632,7 @@ abbreviations_list = {
     "windows kernel": "ntoskrnl",
     "windows kernel": "ntoskrnl",
     "work in progress": "wip",
+    "break": "brk",
 }
 
 
