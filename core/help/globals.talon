@@ -36,3 +36,8 @@ blue tooth fix audio: user.system_command_nb("/usr/local/bin/a2dp-fix")
 keyboard flash now: user.system_command_nb("/home/aa/scripts/flash_keyboard.sh")
 
 over: skip()
+
+customize ({user.talon_settings_csv} | <user.file_paths_string>):
+    user.edit_text_file(talon_settings_csv or file_paths_string)
+    sleep(500ms)
+    edit.file_end()

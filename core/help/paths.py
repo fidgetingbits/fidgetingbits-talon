@@ -2,10 +2,14 @@ from talon import Context, Module, app
 
 mod = Module()
 mod.list("common_files", desc="Common file names")
-mod.list("paths_public", desc="Common paths")
+mod.list("paths_public", desc="Common public paths")
 mod.list("paths_private", desc="Common private paths")
-mod.list("folder_paths_public", desc="Common paths")
-mod.list("folder_paths_private", desc="Common private paths")
+mod.list("folder_paths", desc="Common folders")
+mod.list("folder_paths_public", desc="Common public folders")
+mod.list("folder_paths_private", desc="Common private folders")
+mod.list("file_paths_public", desc="Common public files")
+mod.list("file_paths_private", desc="Common private files")
+mod.list("file_paths", desc="Common files")
 ctx = Context()
 
 TALON_REPO = "fidgetingbits-talon"
@@ -226,16 +230,17 @@ else:
 all_paths = {**folder_paths, **file_paths}
 
 
-# TODO: To add something just for files
-
 # this is used for specific commands like pivot
 ctx.lists["user.folder_paths_public"] = folder_paths
+ctx.lists["user.file_paths_public"] = file_paths
+
 # this is used for any path based commands that don't care of about files or
 # folder difference
 ctx.lists["user.paths_public"] = all_paths
 
 ctx.lists["user.paths_private"] = {}
 ctx.lists["user.folder_paths_private"] = {}
+ctx.lists["user.file_paths_private"] = {}
 
 
 ctx.lists["user.common_files"] = {
@@ -277,6 +282,24 @@ def paths_private(m) -> str:
 def folder_paths(m) -> str:
     "One public or private path that represents a folder"
     return m
+
+
+@mod.capture(rule="{user.file_paths_public}|{user.file_paths_private}")
+def file_paths(m) -> str:
+    "One public or private path that represents a file"
+    return m
+
+
+@mod.capture(rule="{user.file_paths_private}|{user.file_paths_public}")
+def file_paths_string(m) -> str:
+    "One public or private path that represents a file"
+    return str(m)
+
+
+@mod.capture(rule="{user.paths_public}|{user.paths_private}")
+def folder_paths_string(m) -> str:
+    "One public or private path that represents a file or folder"
+    return str(m)
 
 
 @mod.capture(rule="<user.paths_public>|<user.paths_private>")
