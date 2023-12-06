@@ -1,17 +1,8 @@
-# work auto-commands
-(start working | open active work space | load active work session):
-    user.system_command_nb("/home/aa/scripts/workflow/work_workspace.sh")
-
-open alternate work space:
-    user.system_command_nb("/home/aa/scripts/workflow/work_workspace.sh")
-
 (connect | start) work (tunnel | vpn):
     user.system_command_nb("/home/aa/scripts/connect_work_vpn.sh")
 (disconnect | stop) work (tunnel | vpn):
     user.system_command_nb("/home/aa/scripts/disconnect_work_vpn.sh")
 
-screen keyboard show: user.system_command_nb("/home/aa/scripts/florence_show.sh")
-screen keyboard hide: user.system_command_nb("/home/aa/scripts/florence_hide.sh")
 talon restart: user.system_command_nb("/home/aa/scripts/talon/restart_talon.sh")
 talon kill: user.system_command_nb("/home/aa/scripts/talon/terminate_talon.sh")
 pauly restart: user.system_command_nb("/home/aa/.config/polybar/launch.sh")
