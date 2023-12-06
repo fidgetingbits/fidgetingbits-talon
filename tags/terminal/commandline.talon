@@ -799,3 +799,5 @@ D N S cache flush: "sudo systemd-resolve --flush-caches\n"
 [file] R P M decompress extract:
     user.insert_between("rpm2cpio ./", "| 7z e -si | cpio -idmv")
 pipe to C P I O: "| cpio -idmv"
+
+mime type list: "handlr list\n"
