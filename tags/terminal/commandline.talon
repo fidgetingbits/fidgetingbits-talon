@@ -95,6 +95,11 @@ file list long exact: "ls -al "
 file list with paths: 'ls --sort changed --no-icons -d - "$PWD"/*'
 file list latest: "exa --sort changed --no-icons | tail -n1\n"
 file list today: 'find . -maxdepth 1 -newermt "$(date +%D)"\n'
+
+# I can't always rely on -newermt, since an old file might get extracted from from an archive, in the timestamp is
+# actually quite old. This allows me to give it the actual local birthdate of the file
+file list <number> minutes:
+    'find . -maxdepth 1 -type f -exec bash -c \'cur=$(date "+%s"); birth=$(stat -c %W "{{}}"); delta=$((cur - (60*{number}))); if [ $birth -ge $delta ]; then echo "{{}}"; fi\' \;\n'
 file list (last | latest) <number>: "exa --sort changed --no-icons | tail -n{number}\n"
 file list count: "ls -1 | wc -l\n"
 folder list latest: "exa -D --sort changed --no-icons | tail -n1\n"
