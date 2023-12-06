@@ -19,36 +19,31 @@ settings():
     user.code_protected_variable_formatter = "SNAKE_CASE"
     user.code_public_variable_formatter = "SNAKE_CASE"
 
-call interpreter: "#!/bin/sh\n"
-(new sub | state) command: "$()"
-(new | state) expression: "$(())"
-# XXX
-parameter:
-    insert("${}")
-    edit.left()
+# NOTE: If using cursorless/snippets also check those out for general building blocks
 
-    # XXX - check how other talon files invoke variable names
-state [empty] (variable | var):
-    insert("${}")
-    key(left)
+put command: "$()"
+put expression: "$(())"
 
-    # XXX - check how other talon files invoke variable names
-state (variable | var) <user.text>$:
-    insert("${}")
-    edit.left()
+put [empty] (variable | var): user.insert_between("${", "}")
+
+put [big] (variable | var) <user.text>$:
+    user.insert_between("${", "}")
     snake_text = user.formatted_text(text, "snake")
     upper_text = user.formatted_text(snake_text, "upper")
     insert(upper_text)
 
-state echo: "echo "
+put small (variable | var) <user.text>$:
+    user.insert_between("${", "}")
+    snake_text = user.formatted_text(text, "snake")
+    insert(upper_text)
 
-# XXX will overlap somewhat with core shell commands use terminals, show me one
-# to combine somehow
+put echo: "echo "
+
 copy file: insert("cp ")
 
 recursive copy file: insert("cp -R ")
 
-state redirect out: "1>&2"
-state redirect error: "2>&1"
-state error to null: "2>/dev/null"
-state keypress: "read -r -n 1 -s\n"
+put out to error: "1>&2"
+put error to out: "2>&1"
+put error to null: "2>/dev/null"
+put read key press: "read -r -n 1 -s\n"
