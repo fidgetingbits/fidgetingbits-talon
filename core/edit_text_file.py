@@ -6,10 +6,15 @@ from talon import Context, Module, app
 # path to community/knausj root directory
 REPO_DIR = os.path.dirname(os.path.dirname(__file__))
 SETTINGS_DIR = os.path.join(REPO_DIR, "settings")
+CURSORLESS_SETTINGS_DIR = os.path.join(SETTINGS_DIR, "cursorless-settings")
+CURSORLESS_SETTINGS_EXPERIMENTAL_DIR = os.path.join(
+    CURSORLESS_SETTINGS_DIR, "experimental"
+)
 
 mod = Module()
 ctx = Context()
 
+# FIXME: These to just use this speakable API and be automated
 mod.list("talon_settings_csv", desc="Absolute paths to talon user settings csv files.")
 _csvs = {
     name: os.path.join(SETTINGS_DIR, file_name)
@@ -27,6 +32,36 @@ _csvs = {
     }.items()
 }
 _csvs["homophones"] = os.path.join(REPO_DIR, "core", "homophones", "homophones.csv")
+_csvs.update(
+    {
+        name: os.path.join(CURSORLESS_SETTINGS_DIR, file_name)
+        for name, file_name in {
+            "actions": "actions.csv",
+            "hats": "hat_styles.csv",
+            "scopes": "modifier_scope_types.csv",
+            "modifiers": "modifiers.csv",
+            "delimiters": "paired_delimiters.csv",
+            "positions": "positions.csv",
+            "visualizer": "scope_visualizer.csv",
+            "marks": "special_marks.csv",
+            "connectives": "target_connectives.csv",
+        }.items()
+    }
+)
+_csvs.update(
+    {
+        name: os.path.join(CURSORLESS_SETTINGS_EXPERIMENTAL_DIR, file_name)
+        for name, file_name in {
+            "custom actions": "actions_custom.csv",
+            "insert snippet": "insertion_snippets.csv",
+            "misc": "miscellaneous.csv",
+            "rapper snippet": "wrapper_snippets.csv",
+            "experimental actions": "experimental_actions.csv",
+            "insert snipped single": "insertion_snippets_single_phrase.csv",
+            "regex scopes": "regex_scope_types.csv",
+        }.items()
+    }
+)
 ctx.lists["self.talon_settings_csv"] = _csvs
 
 
