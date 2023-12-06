@@ -1,7 +1,8 @@
 import os
+import pprint
 import subprocess
 
-from talon import Context, Module, app
+from talon import Context, Module, actions, app
 
 # path to community/knausj root directory
 REPO_DIR = os.path.dirname(os.path.dirname(__file__))
@@ -16,53 +17,21 @@ ctx = Context()
 
 # FIXME: These to just use this speakable API and be automated
 mod.list("talon_settings_csv", desc="Absolute paths to talon user settings csv files.")
-_csvs = {
-    name: os.path.join(SETTINGS_DIR, file_name)
-    for name, file_name in {
-        "abbreviations": "abbreviations.csv",
-        "additional words": "additional_words.csv",
-        "alphabet": "alphabet.csv",
-        "directories": "directories.csv",
-        "file extensions": "file_extensions.csv",
-        "search engines": "search_engines.csv",
-        "system paths": "system_paths.csv",
-        "unix utilities": "unix_utilities.csv",
-        "websites": "websites.csv",
-        "words to replace": "words_to_replace.csv",
-    }.items()
-}
-_csvs["homophones"] = os.path.join(REPO_DIR, "core", "homophones", "homophones.csv")
-_csvs.update(
-    {
-        name: os.path.join(CURSORLESS_SETTINGS_DIR, file_name)
-        for name, file_name in {
-            "actions": "actions.csv",
-            "hats": "hat_styles.csv",
-            "scopes": "modifier_scope_types.csv",
-            "modifiers": "modifiers.csv",
-            "delimiters": "paired_delimiters.csv",
-            "positions": "positions.csv",
-            "visualizer": "scope_visualizer.csv",
-            "marks": "special_marks.csv",
-            "connectives": "target_connectives.csv",
-        }.items()
-    }
+settings_folders = [
+    SETTINGS_DIR,
+    CURSORLESS_SETTINGS_DIR,
+    CURSORLESS_SETTINGS_EXPERIMENTAL_DIR,
+]
+speakable = {}
+for folder in settings_folders:
+    for file_name in os.listdir(folder):
+        if file_name.endswith(".csv"):
+            name = file_name[:-4]
+            speakable[name] = os.path.join(folder, file_name)
+# pprint.pprint(actions.user.create_spoken_forms_from_map(speakable))
+ctx.lists["self.talon_settings_csv"] = actions.user.create_spoken_forms_from_map(
+    speakable
 )
-_csvs.update(
-    {
-        name: os.path.join(CURSORLESS_SETTINGS_EXPERIMENTAL_DIR, file_name)
-        for name, file_name in {
-            "custom actions": "actions_custom.csv",
-            "insert snippet": "insertion_snippets.csv",
-            "misc": "miscellaneous.csv",
-            "rapper snippet": "wrapper_snippets.csv",
-            "experimental actions": "experimental_actions.csv",
-            "insert snipped single": "insertion_snippets_single_phrase.csv",
-            "regex scopes": "regex_scope_types.csv",
-        }.items()
-    }
-)
-ctx.lists["self.talon_settings_csv"] = _csvs
 
 
 @mod.action_class
