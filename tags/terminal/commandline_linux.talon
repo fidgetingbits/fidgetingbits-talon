@@ -200,3 +200,6 @@ net resolve config help: "/sbin/resolvconf -h\n"
 net restart: "sudo systemctl restart NetworkManager\n"
 # systemd-resolved specific
 [net] (name server | D N S) list: "resolvectl status\n"
+
+(folder yank path | folder path copy | folder copy | folder yank):
+    "pwd | tr -d \\\\n\\\\r | xclip -sel clipboard\n"
