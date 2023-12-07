@@ -17,6 +17,13 @@ class UserActions:
     def firefox_history_sidebar():
         actions.key("cmd-shift-h")
 
+@ctx.action_class("app")
+class AppActions:
+    def tab_next():
+        actions.key("cmd-alt-right")
+
+    def tab_previous():
+        actions.key("cmd-alt-left")
 
 @ctx.action_class("browser")
 class BrowserActions:
