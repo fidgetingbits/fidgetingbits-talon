@@ -343,6 +343,13 @@ class Actions:
                 raise RuntimeError(f"Can't focus window: {window.title}")
             actions.sleep(0.1)
 
+    def switcher_focus_or_launch(path: str):
+        """Focus on an application, or launch it if it's not running"""
+        try:
+            actions.user.switcher_focus(path)
+        except RuntimeError:
+            actions.user.switcher_launch(path)
+
     def switcher_launch(path: str):
         """Launch a new application by path (all OSes), or AppUserModel_ID path on Windows"""
         if app.platform == "mac":
