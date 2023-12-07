@@ -327,8 +327,6 @@ file deep tree: "eza --tree --git-ignore\n"
 
 folder pop: "popd\n"
 # pwd | tr -d \\n\\r | xclip -sel clipboard
-(folder yank path | folder path copy | folder copy | folder yank):
-    "pwd | tr -d \\\\n\\\\r | xclip -sel clipboard\n"
 
 # permissions
 file [change] mode: "chmod "
