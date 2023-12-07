@@ -1,4 +1,4 @@
-tag: user.bash
+code.language: bash
 -
 tag(): user.code_imperative
 
