@@ -245,12 +245,16 @@ ctx.lists["user.file_paths_private"] = {}
 
 ctx.lists["user.common_files"] = {
     "read me": "README.md",
+    "trouble": "TROUBLESHOOTING.md",
     "package build": "PKGBUILD",
-    "make file": "Makefile",
+    "make": "Makefile",
+    "just": "justfile",
     "git ignore": ".gitignore",
     "env R C": ".envrc",
     "env": ".env",
     "pre commit config": ".pre-commit-config.yaml",
+    "flake": "flake.nix",
+    "flake lock": "flake.lock",
 }
 
 
