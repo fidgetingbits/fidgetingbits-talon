@@ -1,3 +1,6 @@
+os: linux
+tag: user.i3wm
+-
 launch pulse audio control:
     key(super-d)
     sleep(500ms)

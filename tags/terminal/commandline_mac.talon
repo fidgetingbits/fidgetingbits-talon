@@ -9,3 +9,6 @@ restart launch services:
 
 (folder yank path | folder path copy | folder copy | folder yank):
     "pwd | tr -d \\\\n\\\\r | pbcopy\n"
+
+file list user temp:
+    "ls $(getconf DARWIN_USER_TEMP_DIR)\n"
