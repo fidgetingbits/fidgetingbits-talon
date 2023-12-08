@@ -806,3 +806,6 @@ pipe to C P I O: "| cpio -idmv"
 mime type list: "handlr list\n"
 
 file json: "jq . "
+
+file show row <number>: "sed -n '{number}p' "
+file chunk row <number>: "sed -i '{number}d' "
