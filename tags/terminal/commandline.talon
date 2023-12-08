@@ -804,3 +804,5 @@ D N S cache flush: "sudo systemd-resolve --flush-caches\n"
 pipe to C P I O: "| cpio -idmv"
 
 mime type list: "handlr list\n"
+
+file json: "jq . "
