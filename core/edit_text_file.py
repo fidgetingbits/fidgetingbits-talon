@@ -1,6 +1,8 @@
 import os
 import pprint
 import subprocess
+import typing
+from pathlib import Path
 
 from talon import Context, Module, actions, app
 
@@ -36,7 +38,7 @@ ctx.lists["self.talon_settings_csv"] = actions.user.create_spoken_forms_from_map
 
 @mod.action_class
 class ModuleActions:
-    def edit_text_file(path: str):
+    def edit_text_file(path: typing.Optional[str]):
         """Tries to open a file in the user's preferred text editor."""
 
 
@@ -62,7 +64,9 @@ class WinActions:
 class MacActions:
     def edit_text_file(path):
         # -t means try to open in a text editor.
-        open_with_subprocess(path, ["/usr/bin/open", "-t", path])
+        open_with_subprocess(
+            path, ["/usr/bin/open", "-t", Path(path).expanduser().resolve()]
+        )
 
 
 @linuxctx.action_class("self")
@@ -71,7 +75,9 @@ class LinuxActions:
         # we use xdg-open for this even though it might not open a text
         # editor. we could use $EDITOR, but that might be something that
         # requires a terminal (eg nano, vi).
-        open_with_subprocess(path, ["/usr/bin/xdg-open", path])
+        open_with_subprocess(
+            path, ["/usr/bin/xdg-open", Path(path).expanduser().absolute()]
+        )
 
 
 # Helper for linux and mac.
