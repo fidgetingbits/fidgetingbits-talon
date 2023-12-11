@@ -255,6 +255,8 @@ ctx.lists["user.common_files"] = {
     "pre commit config": ".pre-commit-config.yaml",
     "flake": "flake.nix",
     "flake lock": "flake.lock",
+    "docker": "Dockerfile",
+    "docker compose": "docker-compose.yml",
 }
 
 
