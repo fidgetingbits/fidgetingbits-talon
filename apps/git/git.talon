@@ -174,7 +174,9 @@ git rebase upstream: "git rebase upstream "
 # NOTE - we don't use abort in the command because it conflicts with
 # abort.talon
 git rebase cancel: "git rebase --abort\n"
-git rebase continue: "git rebase --continue\n"
+# GIT_EDITOR=true will keep the existing commit message
+git rebase continue: "GIT_EDITOR=true git rebase --continue\n"
+git rebase continue edit: "git rebase --continue\n"
 git rebase skip: "git rebase --skip"
 git remove: "git rm "
 git remove cached: "git rm --cached"
