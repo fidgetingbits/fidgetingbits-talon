@@ -14,6 +14,7 @@ packager_list = [
     {"tag": "packager_yay", "desc": "Arch Linux YAY packager"},
     {"tag": "packager_pacman", "desc": "Arch Linux core packager"},
     {"tag": "packager_pamac", "desc": "Manjaro Linux packager"},
+    {"tag": "packager_apk", "desc": "Alpine Linux packager"},
     {"tag": "packager_apt", "desc": "Debian/Ubuntu Linux packager"},
     {"tag": "packager_snap", "desc": "Snap packager"},
     {"tag": "packager_zypper", "desc": "SuSE packager"},
