@@ -90,5 +90,11 @@ class UserActions:
     def page_find():
         actions.key("ctrl-f")
 
+    def page_find_next():
+        actions.key("ctrl-g")
+
+    def page_find_previous():
+        actions.key("ctrl-shift-g")
+
     def page_find_close():
         actions.key("escape")

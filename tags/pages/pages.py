@@ -28,5 +28,11 @@ class Actions:
     def page_find():
         """Find on page"""
 
+    def page_find_next():
+        """Jump to next found result on page"""
+
+    def page_find_previous():
+        """Jump to previous found result on page"""
+
     def page_find_close():
         """Close find on page"""
