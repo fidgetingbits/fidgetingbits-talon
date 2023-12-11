@@ -5,9 +5,7 @@ tag: user.docker
 docker build:
     insert("sudo docker build .")
     key("enter")
-docker build (tag | tagged):
-    insert('sudo docker build -t "" .')
-    key("left:3")
+docker build (tag | tagged): user.insert_between('sudo docker build -t ", " .')
 docker pull: "sudo docker pull "
 docker kill: "sudo docker kill "
 docker kill all: "sudo docker stop $(sudo docker ps -a -q)\n"
