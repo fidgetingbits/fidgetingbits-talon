@@ -24,17 +24,19 @@ settings_folders = [
     CURSORLESS_SETTINGS_DIR,
     CURSORLESS_SETTINGS_EXPERIMENTAL_DIR,
 ]
-speakable = {}
-for folder in settings_folders:
-    for file_name in os.listdir(folder):
-        if file_name.endswith(".csv"):
-            name = file_name[:-4]
-            speakable[name] = os.path.join(folder, file_name)
-# pprint.pprint(actions.user.create_spoken_forms_from_map(speakable))
-ctx.lists["self.talon_settings_csv"] = actions.user.create_spoken_forms_from_map(
-    speakable
-)
 
+def on_ready():
+    speakable = {}
+    for folder in settings_folders:
+        for file_name in os.listdir(folder):
+            if file_name.endswith(".csv"):
+                name = file_name[:-4]
+                speakable[name] = os.path.join(folder, file_name)
+    # pprint.pprint(actions.user.create_spoken_forms_from_map(speakable))
+    ctx.lists["self.talon_settings_csv"] = actions.user.create_spoken_forms_from_map(
+        speakable
+    )
+app.register("ready", on_ready)
 
 @mod.action_class
 class ModuleActions:
