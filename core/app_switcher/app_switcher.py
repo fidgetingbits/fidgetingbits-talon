@@ -32,6 +32,8 @@ mac_application_directories = [
     "/Applications/Utilities",
     "/System/Applications",
     "/System/Applications/Utilities",
+    "~/Applications",
+    "~/.nix-profile/Applications",
 ]
 
 linux_application_directories = [
@@ -410,6 +412,7 @@ def update_launch_list():
     launch = {}
     if app.platform == "mac":
         for base in mac_application_directories:
+            base = os.path.expanduser(base)
             if os.path.isdir(base):
                 for name in os.listdir(base):
                     path = os.path.join(base, name)
