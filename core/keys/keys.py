@@ -201,8 +201,7 @@ punctuation_words = {
     # "period": ".",
     "dot": ".",
     "semicolon": ";",
-    "colon": ":",
-    "stack:": ":",
+    "stack": ":",
     "forward slash": "/",
     "question mark": "?",
     "banger": "!",  # two years later bang suddenly conflicts with yank lol
@@ -236,7 +235,6 @@ symbol_key_words = {
     "banger": "!",
     "dollar": "$",
     "score": "_",
-    "colon": ":",
     "stack": ":",
     "lub": "(",
     "rub": ")",
