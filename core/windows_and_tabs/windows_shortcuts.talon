@@ -9,3 +9,6 @@ tweaker [<phrase>]$:
 
 hail nix [<phrase>]$:
     user.vscode_open_workspace("nix-config (workspace)", phrase or "")
+
+mad hatter [<phrase>]$:
+    user.vscode_open_workspace("fidgetingbits-cursorless (workspace)", phrase or "")
