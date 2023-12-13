@@ -32,6 +32,7 @@ tag(): user.just_commands
 #tag(): user.tmux
 tag(): user.git
 tag(): user.docker
+tag(): user.podman
 tag(): user.virsh
 #tag(): user.npm
 #tag(): user.meson
