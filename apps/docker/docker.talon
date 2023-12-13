@@ -23,7 +23,7 @@ docker inspect: "docker inspect "
 docker enter: "~/bin/docker-enter "
 docker (terminal | shell):
     insert("docker ps\n")
-    user.insert_cursor("docker exec -it [|] /bin/bash")
+    user.insert_cursor("docker exec -it [|] /bin/sh")
 
 # images
 docker (image | images) list: insert("docker images\n")
