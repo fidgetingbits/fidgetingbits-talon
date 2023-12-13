@@ -15,6 +15,7 @@ mod.setting(
 mod.tag("stylua", desc="Tag for stylua linting commands")
 
 ctx.lists["user.code_common_function"] = {
+    "error": "error",
     "to number": "tonumber",
     "I pairs": "ipairs",
     "print": "print",
@@ -23,6 +24,7 @@ ctx.lists["user.code_common_function"] = {
     "assert": "assert",
     "get meta table": "getmetatable",
     "set meta table": "setmetatable",
+    "collect garbage": "collectgarbage",
     # io
     "I O write": "io.write",
     "I O read": "io.read",
@@ -58,6 +60,8 @@ ctx.lists["user.code_common_function"] = {
     "O S remove": "os.remove",
     "O S getenv": "os.getenv",
     "O S execute": "os.execute",
+    # struct
+    "unpack": "struct.unpack",
 }
 
 ctx.lists["user.code_libraries"] = {
@@ -74,6 +78,7 @@ ctx.lists["user.code_libraries"] = {
     "H T T P": "http",
     "web": "http",
     "jason": "json",
+    "struct": "struct",
 }
 
 
@@ -271,8 +276,8 @@ class UserActions:
     # code_operators_bitwise
     ###
 
-    # NOTE: < 5.3 assumes Lua BitOp usage
-    #       > 5.2 assumes native bitwise operators
+    # NOTE: >= 5.3 assumes native bitwise operators
+    #       <= 5.2 assumes Lua BitOp usage
     # TODO: Possibly add settings to define which library to use, as 5.2
     # includes bit32. Neovim uses luajit, which uses Lua BitOp
     def code_operator_bitwise_and():

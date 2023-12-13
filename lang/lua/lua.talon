@@ -20,25 +20,25 @@ tag(): user.code_operators_pointer
 # Use this tag if you use the stylua linter
 tag(): user.stylua
 # Add neovim specific lua language commands
-tag(): user.nvim_lua
+# tag(): user.nvim_lua
 settings():
     user.code_private_function_formatter = "SNAKE_CASE"
     user.code_public_function_formatter = "SNAKE_CASE"
     user.code_private_variable_formatter = "SNAKE_CASE"
     user.code_public_variable_formatter = "SNAKE_CASE"
 
-state local: "local"
-state end: "end"
-state then: "then"
-state repeat: "repeat"
-state until: "until"
-state return (null | nil): "return nil"
-state return true: "return true"
-state return false: "return false"
-state return table: user.insert_between("return {", "}")
-state append string: " .. "
+put local: "local"
+put end: "end"
+put then: "then"
+put repeat: "repeat"
+put until: "until"
+put return (null | nil): "return nil"
+put return true: "return true"
+put return false: "return false"
+put return table: user.insert_between("return {", "}")
+put append string: " .. "
 
-state label <user.text>:
+put label <user.text>:
     insert("::")
     user.insert_formatted(text, "snake")
     insert("::")
@@ -47,9 +47,9 @@ require <user.code_libraries>:
     user.code_insert_library("", code_libraries)
     key(end enter)
 
-state (variable | var) [<user.text>] [over]: user.code_public_variable_formatter(text)
+put (variable | var) [<user.text>] [over]: user.code_public_variable_formatter(text)
 
-state local (variable | var) [<user.text>] [over]:
+put local (variable | var) [<user.text>] [over]:
     insert("local ")
     user.code_private_variable_formatter(text)
 
@@ -67,4 +67,4 @@ index (var | variable) <user.text>:
     var = user.formatted_text(text, "snake")
     insert("[{var}]")
 
-state return dick: user.insert_between("return {", "}")
+put return dick: user.insert_between("return {", "}")
