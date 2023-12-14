@@ -54,13 +54,6 @@ put local (variable | var) [<user.text>] [over]:
     insert("local ")
     user.code_private_variable_formatter(text)
 
-# for built in object methods, ex: foo:gsub()
-method <user.text>:
-    insert(":")
-    user.code_public_function_formatter(text)
-    insert("()")
-    edit.left()
-
 self dot: "self."
 
 index <user.word>: '["{word}"]'
@@ -69,3 +62,7 @@ index (var | variable) <user.text>:
     insert("[{var}]")
 
 put return dick: user.insert_between("return {", "}")
+
+# FIXME: May be better for a generic meth style thing eventually
+put form string: user.insert_between('(" %"):format(', ")")
+append: ".."

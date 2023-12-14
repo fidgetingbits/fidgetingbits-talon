@@ -4,6 +4,8 @@ ctx = Context()
 mod = Module()
 
 mod.list("code_common_function", desc="List of common functions for active language")
+mod.list("code_common_method", desc="List of common object methods for active language")
+
 
 # global
 function_list = []
@@ -13,6 +15,12 @@ function_list = []
 def code_common_function(m) -> str:
     """Returns a function name"""
     return m.code_common_function
+
+
+@mod.capture(rule="{user.code_common_method}")
+def code_common_method(m) -> str:
+    """Returns a method name"""
+    return m.code_common_method
 
 
 mod.tag("code_functions_common", desc="Tag for enabling support for common functions")
@@ -47,6 +55,10 @@ class Actions:
 
     def code_insert_function(text: str, selection: str):
         """Inserts a function and positions the cursor appropriately"""
+
+    def code_insert_method(text: str, selection: str):
+        """Inserts a method call and positions the cursor appropriately"""
+        actions.user.code_insert_function(f".{text}", selection)
 
     def code_insert_terminated_function(text: str, selection: str):
         """Inserts a terminated function call with no arguments"""

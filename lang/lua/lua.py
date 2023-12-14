@@ -1,3 +1,5 @@
+import typing
+
 from talon import Context, Module, actions, settings
 
 mod = Module()
@@ -16,6 +18,21 @@ mod.tag("stylua", desc="Adds stylua linting commands")
 mod.tag("lua_nvim", desc="Adds nvim-specific lua language commands")
 mod.tag("lua_redis", desc="Adds redis-specific lua language commands")
 
+type_methods = {
+    # string
+    "format": "string.format",
+    "string G find": "string.gfind",
+    "string find": "string.strfind",
+    "string len": "string.strlen",
+    "string upper": "string.strupper",
+    "string lower": "string.strlower",
+    "string sub": "string.strsub",
+    "string G sub": "string.gsub",
+    "string match": "string.match",
+    "string G match": "string.gmatch",
+}
+ctx.lists["user.code_common_method"] = {**type_methods}
+
 ctx.lists["user.code_common_function"] = {
     "error": "error",
     "to number": "tonumber",
@@ -31,17 +48,6 @@ ctx.lists["user.code_common_function"] = {
     "I O write": "io.write",
     "I O read": "io.read",
     "I O open": "io.open",
-    # string
-    "format": "string.format",
-    "string G find": "string.gfind",
-    "string find": "string.strfind",
-    "string len": "string.strlen",
-    "string upper": "string.strupper",
-    "string lower": "string.strlower",
-    "string sub": "string.strsub",
-    "string G sub": "string.gsub",
-    "string match": "string.match",
-    "string G match": "string.gmatch",
     # table
     "table unpack": "table.unpack",
     "table insert": "table.insert",
@@ -64,6 +70,7 @@ ctx.lists["user.code_common_function"] = {
     "O S execute": "os.execute",
     # struct
     "unpack": "struct.unpack",
+    **type_methods,
 }
 
 ctx.lists["user.code_libraries"] = {
@@ -208,6 +215,18 @@ class UserActions:
         actions.user.paste(text)
         actions.edit.left()
 
+    def code_insert_method(text: str, selection: str):
+        # We don't want the extra calls if methods have something like string.format. This happens because we sometimes
+        # have lists with functions that can also serve as methods
+        text = text.split(".")[-1]
+        if selection:
+            text = text + f"({selection})"
+        else:
+            text = text + "()"
+
+        actions.user.paste(f":{text}")
+        actions.edit.left()
+
     ##
     # code_libraries
     ##
@@ -311,5 +330,3 @@ class UserActions:
             actions.insert(" >> ")
         else:
             actions.insert(" bit.rshift() ")
-
-    # non-tag related actions
