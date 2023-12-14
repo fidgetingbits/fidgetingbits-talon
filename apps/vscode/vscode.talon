@@ -644,4 +644,9 @@ next: user.vscode_and_wait("jumpToNextSnippetPlaceholder")
 snip last: user.vscode("jumpToPrevSnippetPlaceholder")
 skip:
     key("backspace")
-    user.vscode("jumpToNextSnippetPlaceholder")
+    uservscode("jumpToNextSnippetPlaceholder")
+
+# Pedal
+deck(pedal_left): key("pageup")
+deck(pedal_right): key("pagedown")
+deck(pedal_middle): edit.save()
