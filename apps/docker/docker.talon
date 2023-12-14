@@ -1,79 +1,76 @@
 tag: user.docker
+tag: user.podman
 -
 
-# NOTE: Keep this file in sync with docker_sudo.talon
-# Due to cases were you use podman, and it is aliased to docker, you won't want to be adding sudo, as it may result in
-# podman not actually running.
-#
-# The alternative approach would be to implement every command in python, and
-# check the tag to see if the user wants sudo prefix, but that seems annoying atm
-
-#docker: "docker "
-docker build:
-    insert("docker build .")
-    key("enter")
-docker build (tag | tagged): user.insert_between('docker build -t ", " .')
-docker pull: "docker pull "
-docker kill: "docker kill "
-docker kill all: "docker stop $(docker ps -a -q)\n"
-docker run: "docker run -d "
-docker run interactive: "docker run -it --rm "
-docker (log | logs): "docker logs "
-docker inspect: "docker inspect "
-docker enter: "~/bin/docker-enter "
+docker build: user.docker("build .\n")
+docker build (tag | tagged):
+    user.docker("build -t ")
+    user.insert_between("", " .")
+docker pull: user.docker("pull ")
+docker kill:
+    user.docker("ps\n")
+    user.docker("kill ")
+docker kill all:
+    user.docker("stop $(")
+    user.docker("ps -a -q)\n")
+docker run: user.docker("run -d ")
+docker run interactive: user.docker("run -it --rm ")
+docker (log | logs): user.docker("logs ")
+docker inspect: user.docker("inspect ")
 docker (terminal | shell):
-    insert("docker ps\n")
-    user.insert_cursor("docker exec -it [|] /bin/sh")
+    user.docker("ps\n")
+    user.docker("exec -it ")
+    user.insert_between("", " /bin/sh")
 
 # images
-docker (image | images) list: insert("docker images\n")
-docker image prune: insert("docker image prune\n")
-docker image prune label: insert("docker image prune --filter label=")
-docker image remove: insert("docker image rm ")
+docker (image | images) list: user.docker("images\n")
+docker image prune: user.docker("image prune\n")
+docker image prune label: user.docker("image prune --filter label=")
+docker image remove: user.docker("image rm ")
 docker image inspect:
-    insert("docker images\n")
-    insert("docker image inspect ")
-docker image build: insert("docker image build ")
-docker image label: insert("docker images -f label=")
-docker image label <user.text>: insert("docker images -f label={text}\n")
+    user.docker("images\n")
+    user.docker("image inspect ")
+docker image build: user.docker("image build ")
+docker image label: user.docker("images -f label=")
+docker image label <user.text>: user.docker("images -f label={text}\n")
 
 # containers
-docker [container] prune: insert("docker container prune ")
-docker [container] list all: insert("docker ps -a\n")
-docker [container] list: insert("docker ps\n")
-docker [container] remove: insert("docker rm ")
-docker [container] remove all: insert("docker rm $(docker ps -a -q)\n")
+docker [container] prune: user.docker("container prune ")
+docker [container] list all: user.docker("ps -a\n")
+docker [container] list: user.docker("ps\n")
+docker [container] remove: user.docker("rm ")
+docker [container] remove all: user.docker("rm $(docker ps -a -q)\n")
 docker [container] remove and kill all:
-    insert("docker stop $(docker ps -a -q)\n")
-    insert("docker rm $(docker ps -a -q)\n")
+    user.docker("stop $(docker ps -a -q)\n")
+    user.docker("rm $(docker ps -a -q)\n")
 
-docker [container] stop: "docker stop "
-docker [container] copy: insert("docker cp ")
+docker [container] stop: user.docker("stop ")
+docker [container] copy: user.docker("cp ")
 docker [container] inspect:
-    insert("docker ps\n")
-    insert("docker inspect ")
+    user.docker("ps\n")
+    user.docker("inspect ")
 docker [container] attach:
-    insert("docker ps\n")
-    insert("docker attach ")
+    user.docker("ps\n")
+    user.docker("attach ")
 
 # volumes
-docker volume list: insert("docker volume ls\n")
-docker volume create: insert("docker volume create ")
-docker volume inspect: insert("docker volume inspect ")
-docker volume remove: insert("docker volume rm ")
+docker volume list: user.docker("volume ls\n")
+docker volume create: user.docker("volume create ")
+docker volume inspect: user.docker("volume inspect ")
+docker volume remove: user.docker("volume rm ")
 
 # system
-docker system prune: insert("docker system prune")
-docker system prune all: insert("docker system prune -a")
+docker system prune: user.docker("system prune")
+docker system prune all: user.docker("system prune -a")
 
 ## docker Compose
-docker compose up: "docker-compose up\n"
-docker compose start: "docker-compose start\n"
-docker compose stop: "docker-compose stop\n"
-docker compose build: "docker-compose build\n"
-docker compose kill: "docker-compose kill\n"
+docker compose up: user.docker_compose("up\n")
+docker compose start: user.docker_compose("start\n")
+docker compose stop: user.docker_compose("stop\n")
+docker compose build: user.docker_compose("build\n")
+docker compose kill: user.docker_compose("kill\n")
 
 # docker visualization (requires dockviz)
-docker image tree: "dockviz images -t\n"
-docker image incremental tree: "dockviz images -t -i\n"
-docker image labeled tree: "dockviz images -t -l\n"
+docker image tree: user.docker_viz("images -t\n")
+docker image incremental tree: user.docker_viz("images -t -i\n")
+docker image labeled tree: user.docker_viz("images -t -l\n")

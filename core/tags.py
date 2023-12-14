@@ -39,8 +39,6 @@ tagList = [
     "pulse_audio",
     "virsh",
     "iptables",
-    "docker",
-    "docker_sudo",  # Same docker commands, but needing sudo
     "podman",
     # allows programs running inside of a terminal (ex: gdb) to share
     # common terminal commands like ctrl+c, but without actually
