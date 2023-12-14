@@ -81,7 +81,6 @@ plugin_tag_list = [
     "vim_luasnip",
     "vim_nvim_cmp",
     "vim_flip_ext",
-    "nvim_lua",  # If you want to enable nvim-specific lua language commands
 ]
 for entry in plugin_tag_list:
     mod.tag(entry, f"tag to load {entry} vim plugin commands")

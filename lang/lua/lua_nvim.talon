@@ -1,4 +1,4 @@
-tag: user.nvim_lua
+tag: user.lua_nvim
 -
 vim option: "vim.o."
 vim global: "vim.g."

@@ -12,7 +12,9 @@ mod.setting(
     default=5.1,
     desc="The default lua version to use. Dictates certain operators",
 )
-mod.tag("stylua", desc="Tag for stylua linting commands")
+mod.tag("stylua", desc="Adds stylua linting commands")
+mod.tag("lua_nvim", desc="Adds nvim-specific lua language commands")
+mod.tag("lua_redis", desc="Adds redis-specific lua language commands")
 
 ctx.lists["user.code_common_function"] = {
     "error": "error",

@@ -20,7 +20,8 @@ tag(): user.code_operators_pointer
 # Use this tag if you use the stylua linter
 tag(): user.stylua
 # Add neovim specific lua language commands
-# tag(): user.nvim_lua
+# tag(): user.lua_nvim
+tag(): user.lua_redis
 settings():
     user.code_private_function_formatter = "SNAKE_CASE"
     user.code_public_function_formatter = "SNAKE_CASE"

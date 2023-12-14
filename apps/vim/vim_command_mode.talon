@@ -7,7 +7,7 @@ win.title: /VIM MODE:c/
 -
 tag(): user.vim_command_mode
 # We assume that the user may want to use lua in the commandline, so we include some
-tag(): user.nvim_lua
+tag(): user.lua_nvim
 
 paste register <user.key>: key(ctrl-r {key})
 
