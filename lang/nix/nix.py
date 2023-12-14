@@ -178,6 +178,18 @@ class UserActions:
     def code_comment_line_prefix():
         actions.insert("# ")
 
+    def code_comment_block():
+        actions.insert(
+            f"{actions.user.code_comment_block_prefix()}\n\n{actions.user.code_comment_block_suffix()}"
+        )
+        actions.edit.up()
+
+    def code_comment_block_prefix():
+        actions.auto_insert("/*")
+
+    def code_comment_block_suffix():
+        actions.auto_insert("*/")
+
     ##
     # code_data_bool
     ##

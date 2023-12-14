@@ -150,7 +150,9 @@ class UserActions:
     # code_comment_block
     ##
     def code_comment_block():
-        actions.insert("--[[\n\n--]]")
+        actions.insert(
+            f"{actions.user.code_comment_block_prefix()}\n\n{actions.user.code_comment_block_suffix()}"
+        )
         actions.edit.up()
 
     def code_comment_block_prefix():
