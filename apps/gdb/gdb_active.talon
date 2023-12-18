@@ -28,11 +28,12 @@ tag(): user.code_operators_pointer
 #tag(): user.libptmalloc
 #tag(): user.libdlmalloc
 #tag(): user.libheap
+tag(): user.muslheap
 
 # linux kernel
 # XXX These should be based off a list in the title set by the gdb script
-tag(): user.gdb_vmlinux
-tag(): user.libslub
+# tag(): user.gdb_vmlinux
+# tag(): user.libslub
 
 tag(): user.retsync
 
@@ -234,7 +235,7 @@ set title pone:
 cast to <user.c_cast>: "{c_cast}"
 basic cast to <user.c_basic_cast>: "{c_basic_cast}"
 standard cast to <user.c_stdint_cast>: "{c_stdint_cast}"
-[state] type <user.c_types>: "{c_types}"
+[put] type <user.c_types>: "{c_types}"
 <user.c_pointers>: "{c_pointers}"
 <user.c_signed>: "{c_signed}"
 basic <user.c_basic_types>: "{c_basic_types}"
@@ -245,11 +246,11 @@ define macro: "macro define "
 
 # XXX - this needs to be ingrated as a language, and we need to break out using
 # debugger from the language parts
-state python continue: 'python gdb.execute("continue")\n'
-state commands: "commands"
-state end: "end"
-state break: "break"
-state set: "set"
+put python continue: 'python gdb.execute("continue")\n'
+put commands: "commands"
+put end: "end"
+put break: "break"
+put set: "set"
 func stir equal: "$_streq()"
 attach <number>: "attach {number}\n"
 break list hidden: "maint info breakpoints\n"

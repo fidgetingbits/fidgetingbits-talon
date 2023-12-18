@@ -8,6 +8,7 @@ mod.tag("retsync", desc="retsync gdb/ida plugin")
 mod.tag("libptmalloc", desc="libptmalloc gdb plugin")
 mod.tag("libdlmalloc", desc="libdlmalloc gdb plugin")
 mod.tag("libheap", desc="libheap gdb plugin")
+mod.tag("muslheap", desc="muslheap gdb plugin")
 
 ctx = Context()
 
@@ -50,7 +51,7 @@ class UserActions:
     def debugger_register_variable(register: str):
         actions.auto_insert(f"${register}")
 
-    def debugger_set_register(register):
+    def debugger_set_register(register: str):
         actions.insert(f"set ${register}=")
 
     # Breakpoints
@@ -63,8 +64,8 @@ class UserActions:
     def debugger_show_registers():
         actions.auto_insert("info registers\n")
 
-    def debugger_get_register():
-        actions.auto_insert("r ")
+    def debugger_get_register(register: str):
+        actions.auto_insert(f"r {register}")
 
     # XXX -
     def debugger_add_hw_breakpoint():
@@ -118,18 +119,18 @@ class UserActions:
     def debugger_exit_force():
         actions.auto_insert("quit\ny\n")
 
-    def debugger_disassemble_here():
-        actions.insert("x/10i $pc\n")
+    def debugger_disassemble_here(lines: int):
+        actions.insert(f"x/{lines}i $pc\n")
         # Type inspection
 
-    def debugger_disassemble():
-        actions.insert("x/10i ")
+    def debugger_disassemble(lines: int):
+        actions.insert(f"x/{lines}i ")
         # Type inspection
 
     # XXX - Technically this should just be part of generic_debugger.talon
     # since it will follow the same pattern for all debuggers?
-    def debugger_disassemble_clipboard():
-        actions.insert("x/10i ")
+    def debugger_disassemble_clipboard(lines: int):
+        actions.insert(f"x/{lines}i ")
         actions.edit.paste()
         actions.key("enter")
 

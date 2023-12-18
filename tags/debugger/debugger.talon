@@ -72,9 +72,10 @@ break add clip:
 
 # Memory Inspection
 (stack | back) trace: user.debugger_backtrace()
-(disassemble | dizzy): user.debugger_disassemble()
-(disassemble | dizzy) here: user.debugger_disassemble_here()
-(disassemble | dizzy) clip: user.debugger_disassemble_clipboard()
+(disassemble | dizzy) [<number>]: user.debugger_disassemble(number or 10)
+(disassemble | dizzy) [<number>] here: user.debugger_disassemble_here(number or 10)
+(disassemble | dizzy) [<number>] clip:
+    user.debugger_disassemble_clipboard(number or 10)
 jump to address: user.debugger_goto_address()
 jump to clipboard: user.debugger_goto_clipboard()
 jump to highlighted: user.debugger_goto_highlighted()

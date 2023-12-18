@@ -76,11 +76,14 @@ class UserActions:
     def debugger_show_registers():
         actions.key("r enter")
 
-    def debugger_get_register():
-        actions.insert("r @")
+    def debugger_get_register(register: str):
+        actions.insert(f"r @{register}")
 
-    def debugger_set_register():
-        actions.user.insert_between("set $@", "=")
+    def debugger_set_register(register: str):
+        if len(register) != 0:
+            actions.insert(f"set $@{register}=")
+        else:
+            actions.user.insert_between(f"set $@{register}", "=")
         # Breakpoints
 
     def debugger_show_breakpoints():
@@ -135,24 +138,26 @@ class UserActions:
     def debugger_backtrace():
         actions.key("k enter")
 
-    def debugger_disassemble():
-        actions.key("u space")
+    def debugger_disassemble(lines: int):
+        actions.user.insert_between("u ", f" {lines}")
 
-    def debugger_disassemble_here():
-        actions.key("u enter")
-
-    def debugger_disassemble_clipboard():
-        actions.key("u space")
-        actions.edit.paste()
+    def debugger_disassemble_here(lines: int):
+        actions.insert(f"u @pc {lines}")
         actions.key("enter")
 
-    def debugger_dump_ascii_string():
+    def debugger_disassemble_clipboard(lines: int):
+        actions.key("u ")
+        actions.edit.paste()
+        actions.insert(f" {lines}")
+        actions.key("enter")
+
+    def debugger_dump_ascii_string(number: int, register: str):
         actions.insert("da ")
 
-    def debugger_dump_unicode_string():
+    def debugger_dump_unicode_string(number: int, register: str):
         actions.insert("du ")
 
-    def debugger_dump_pointers():
+    def debugger_dump_pointers(register: str):
         actions.insert("dps ")
 
     def debugger_list_modules():

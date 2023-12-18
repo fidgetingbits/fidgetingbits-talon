@@ -202,13 +202,13 @@ class Actions:
     def debugger_enable_all_breakpoints():
         """Enable all breakpoints in the debugger"""
 
-    def debugger_disassemble():
+    def debugger_disassemble(lines: int):
         """Preps the disassemble command in the debugger"""
 
-    def debugger_disassemble_here():
+    def debugger_disassemble_here(lines: int):
         """Disassembles instructions at the current instruction pointer"""
 
-    def debugger_disassemble_clipboard():
+    def debugger_disassemble_clipboard(lines: int):
         """Disassemble instructions at an address in the clipboard"""
 
     def debugger_goto_address():
