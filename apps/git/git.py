@@ -15,7 +15,7 @@ ctx.lists["self.git_conventional_commits"] = {
     "feet": "feat",
     "fix": "fix",
     "documentation": "docs",
-    "dock": "docs",
+    "docks": "docs",
     "style": "style",
     "refactor": "refactor",
     "performance": "perf",
