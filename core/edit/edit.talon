@@ -246,6 +246,8 @@ disk oliver: edit.save_all()
 link web: "https://"
 link insecure web: "http://"
 link file: "file://"
+link file <user.folder_paths>: "file://{folder_paths}"
+
 link git: "git://"
 link secure shell: "ssh://"
 link bucket: "s3://"
@@ -269,4 +271,5 @@ shrink [<number>] left: user.shrink_left(number or 1)
 shrink [<number>] right: user.shrink_right(number or 1)
 curse swap: user.swap_cursor_anchor()
 
+# This syntax breaks the talon formatter
 talon format test: key(")")
