@@ -228,6 +228,9 @@ set title G D B:
 set title pone:
     insert('shell echo -n -e "\\033]0;pwndbg\\007"\n')
 
+set title jeff:
+    insert('shell echo -n -e "\\033]0;gef\\007"\n')
+
 # typecasting
 # maybe we should make these generic across gdb and C
 # XXX - we should make these expressible to gdb
