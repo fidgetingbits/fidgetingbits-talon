@@ -42,6 +42,10 @@ unix_folder_paths = {
     "N vim lua": "~/.config/nvim/lua/",
     "neovim plugin": "~/.local/share/nvim/lazy/",
     "vim plugin": "~/.local/share/nvim/lazy/",
+    # nix
+    "nix profile": "~/.nix-profile/",
+    "nix store": "/nix/store/",
+    "nix running": "/run/current-system/sw/",
     # Unsorted
     "temp": "/tmp/",
     "config": "/etc/",
@@ -150,9 +154,9 @@ unix_file_paths = {
     "journal config": "/etc/systemd/journald.conf",
     "lib virt config": "/etc/libvirt/libvirtd.conf",
     "tunnel config": "~/.ssh/config",
-    "shell config": "~/.zshrc",
-    "zish config": "~/.zshrc",
-    "zish R C": "~/.zshrc",
+    "shell config": "~/.config/zsh/.zshrc",
+    "zish config": "~/.config/zsh/.zshrc",
+    "zish R C": "~/.config/zsh/.zshrc",
     "bash config": "~/.bashrc",
     "bash R C": "~/.bashrc",
     "git config": ".git/config",

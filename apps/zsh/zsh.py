@@ -22,6 +22,7 @@ mod.tag("zsh", desc="Tag for enabling zsh shell support")
 plugin_tag_list = [
     "zsh_cd_gitroot",
     "zsh_folder_completion",
+    "zsh_zhooks",
 ]
 
 for entry in plugin_tag_list:
