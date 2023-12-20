@@ -524,13 +524,12 @@ file zip folder: "zip -rP changepassword output.zip "
 file create encrypted (zip | archive): "zip -P changepassword output.zip "
 
 run curl: "curl "
-run double you get: "wget "
 (file | web) (download | get): "wget "
-[file] download clip:
+(file | web) (download | get) clip:
     insert("wget ")
     edit.paste()
     key(enter)
-[file] download ignore cert: "wget --no-check-certificate "
+(file | web) (download | get) ignore cert: "wget --no-check-certificate "
 
 (run script | file run): "./"
 run script <user.word>: "./{word}"
