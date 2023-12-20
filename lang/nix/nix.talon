@@ -31,3 +31,6 @@ tickle: user.insert_between("''", "''")
 put trace: user.insert_between('renameMe1 = builtins.trace "', '" true;')
 put trace <user.text>:
     user.insert_between("renameMe1", ' = builtins.trace "{text}" true;')
+
+[put] dummy hash: "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA="
+set hash dummy: 'hash = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";'
