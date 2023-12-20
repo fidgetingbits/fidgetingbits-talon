@@ -215,13 +215,13 @@ git show clip:
     insert("git show ")
     edit.paste()
     key(enter)
-git show (code|change): "git show -c"
-git show (code|change) clip:
+git show (code | change): "git show -c"
+git show (code | change) clip:
     insert("git show -c")
     edit.paste()
     key(enter)
-git show head: "git show -c HEAD\n"
-git show head minus <number>: "git show -c HEAD~{number}\n"
+git show (head | last): "git show -c HEAD\n"
+git show (head | last) [minus] <number>: "git show -c HEAD~{number}\n"
 git change head to main:
     "git symbolic-ref refs/remotes/origin/HEAD refs/remotes/origin/main\n"
 get stash help: "git stash --help\n"
