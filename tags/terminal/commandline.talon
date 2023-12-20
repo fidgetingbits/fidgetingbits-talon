@@ -87,26 +87,27 @@ file list (<user.zsh_path_completion> | <user.folder_paths>):
     "ls {path} \n"
 file list local <user.zsh_file_completion>: "ls {zsh_file_completion} \n"
 file list global <user.folder_paths>: "ls {folder_paths} \n"
-file list bare exact: "ls --no-icons "
-file list bare: "ls -l --no-icons \n"
+file list bare exact: "ls "
+file list bare: "ls -l \n"
 file size: "ls -lh "
 file list (size | bytes): "ls -lB "
 file list exact: "ls -l "
 file list long exact: "ls -al "
-file list with paths: 'ls --sort changed --no-icons -d - "$PWD"/*'
-file list latest: "exa --sort changed --no-icons | tail -n1\n"
+file list with paths: 'ls --sort changed -d - "$PWD"/*'
+file list latest: "eza --sort changed | tail -n1\n"
 file list today: 'find . -maxdepth 1 -newermt "$(date +%D)"\n'
 
 # I can't always rely on -newermt, since an old file might get extracted from from an archive, in the timestamp is
 # actually quite old. This allows me to give it the actual local birthdate of the file
-file list <number> minutes:
+file list [last] <number> minutes:
     'find . -maxdepth 1 -type f -exec bash -c \'cur=$(date "+%s"); birth=$(stat -c %W "{{}}"); delta=$((cur - (60*{number}))); if [ $birth -ge $delta ]; then echo "{{}}"; fi\' \;\n'
-file list (last | latest) <number>: "exa --sort changed --no-icons | tail -n{number}\n"
+file move [last] <number> minutes:
+    'find . -maxdepth 1 -type f -exec bash -c \'cur=$(date "+%s"); birth=$(stat -c %W "{{}}"); delta=$((cur - (60*{number}))); if [ $birth -ge $delta ]; then echo "{{}}"; fi\' \; | xargs mv -t '
+file list (last | latest) <number>: "eza --sort changed | tail -n{number}\n"
 file list count: "ls -1 | wc -l\n"
-folder list latest: "exa -D --sort changed --no-icons | tail -n1\n"
-folder list (last | latest) <number>:
-    "exa -D --sort changed --no-icons | tail -n{number}\n"
-folder list: "exa -D --no-icons -l\n"
+folder list latest: "eza -D --sort changed | tail -n1\n"
+folder list (last | latest) <number>: "eza -D --sort changed | tail -n{number}\n"
+folder list: "eza -D -l\n"
 file list (folders | directories): "ls -d */\n"
 file list (folders | directories) long: "ls -ld */\n"
 file list (runnable | executable): "find . -type f -executable\n"
@@ -154,11 +155,11 @@ file find (all | type) {user.file_extension}:
     'find . -type f  -name "*{file_extension}"\n'
 
 # TODO - revisit the grammar for $() commands
-call file latest: "$(exa --sort changed --no-icons | tail -n1)\n"
-[sub] file latest: "$(exa --sort changed --no-icons | tail -n1) "
+call file latest: "$(eza --sort changed | tail -n1)\n"
+[sub] file latest: "$(eza --sort changed | tail -n1) "
 
 # TODO - somehow make this scriptable to print anything
-file edit latest: "edit $(exa --sort changed --no-icons | tail -n1)\n"
+file edit latest: "edit $(eza --sort changed | tail -n1)\n"
 file link: "ln -s "
 file link force: "ln -sf "
 file link force clip:
@@ -187,7 +188,7 @@ file local name <user.zsh_file_completion>: "{zsh_file_completion}"
 file copy: "cp -d "
 file recopy: "!cp\n"
 file copy latest <user.folder_paths>:
-    user.paste("cp $(ls --sort changed --no-icons -d {folder_paths}/* | tail -n1) .")
+    user.paste("cp $(ls --sort changed -d {folder_paths}/* | tail -n1) .")
 (file | folder) (deep copy | copy deep): "cp -dR "
 file (file | info | type): "file "
 
@@ -237,7 +238,7 @@ file read <number> bytes: user.insert_between("dd bs=1 count={number} if=", " of
 file read <number> bytes at offset <number>:
     user.insert_between("dd bs=1 count={number_1} skip={number_2} if=", " of=")
 
-loop for file: insert("for FILE in $(exa --no-icons); do echo ${{FILE}}; done")
+loop for file: insert("for FILE in $(eza); do echo ${{FILE}}; done")
 
 folder tree permissions:
     user.insert_cursor('FILE=[|]; until [ "$FILE" = "/" ]; do ls -lda $FILE; FILE=`dirname $FILE` done')
@@ -248,7 +249,7 @@ folder tree permissions:
 file [disk] usage all: "du -sh *\n"
 #file [disk] usage: "du -sh "
 
-file watch latest: "vlc $(exa --sort changed --no-icons | tail -n1)"
+file watch latest: "vlc $(eza --sort changed | tail -n1)"
 file play audio: "vlc --play-and-exit --intf dummy --no-interact"
 
 echo param <user.text>:
