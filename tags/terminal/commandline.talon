@@ -332,10 +332,16 @@ folder pop: "popd\n"
 # permissions
 file [change] mode: "chmod "
 file (mark | make) (exec | executable): "chmod +x "
-file [change] ownership: "chown "
-file [change] ownership me: "chown $UID:$GID "
-file [change] deep ownership: "chown -R "
-file [change] deep ownership me: "chown -R $UID:$GID "
+[file] change owner: "chown "
+[file] change owner me: "chown $UID:$GID "
+[file] change deep owner: "chown -R "
+[file] change deep owner me: "chown -R $UID:$GID "
+sudo [file] change owner: "sudo chown "
+sudo [file] change owner me:
+    user.insert_between("sudo bash -c 'chown $SUDO_UID:$SUDO_GID ", "'")
+sudo [file] change deep owner: "sudo chown -R "
+sudo [file] change deep owner me:
+    user.insert_between("sudo bash -c 'chown -R $SUDO_UID:$SUDO_GID ", "'")
 
 # file viewing
 less this:
