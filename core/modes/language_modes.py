@@ -125,6 +125,7 @@ forced_language = ""
 class CodeActions:
     def language():
         file_name = actions.win.filename()
+        # print(file_name)
         if file_name in special_file_map:
             return special_file_map[file_name]
 

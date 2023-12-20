@@ -2,7 +2,7 @@ from talon import Context, actions
 
 ctx = Context()
 ctx.matches = r"""
-tag: user.gdb
+code.language: gdb
 """
 
 ctx.lists["user.code_common_function"] = {"print": "printf"}

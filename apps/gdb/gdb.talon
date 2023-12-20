@@ -1,9 +1,7 @@
-
-os: linux
-# XXX - this matches .gdb files atm
-#win.title: /gdb/
 tag: user.gdb
 -
+# See lang/gdbscript.talon for the language specific commands. Generally anything that could be added during
+# scripting that's not automatically run should be put there
 tag(): user.debugger
 tag(): user.terminal_program
 tag(): user.readline
@@ -56,15 +54,7 @@ list clip:
     key(enter)
 list (base|P C): "list $pc\n"
 
-print: "p "
-print (var|variable) <user.text>:
-    insert("p ")
-    insert(user.formatted_text(text, "snake"))
 
-(print hex|funk print): "p/x "
-print hex (var|variable) <user.text>:
-    insert("p/x ")
-    insert(user.formatted_text(text, "snake"))
 print hex {user.registers}:
     insert("p/x ${user.registers}\n")
 
@@ -76,7 +66,6 @@ print casted struck:
 
 # symbols
 symbol refresh: "sharedlibrary\n"
-add symbol file: "add-symbol-file "
 
 # execution
 source file: "source \t\t"
@@ -85,7 +74,6 @@ source file: "source \t\t"
 # XXX - move thee invoke command into a python script
 (list|show|info) display: "info display\n"
 display (assembly line|program counter|P C)$: "display /i $pc\n"
-display source: "display "
 enable display <number_small>: "enable display {number_small}\n"
 disable display <number_small>: "disable display {number_small}\n"
 undisplay: "undisplay\n"
@@ -98,7 +86,6 @@ undisplay: "undisplay\n"
 (list|show|info) locals: "info local\n"
 (list|show|info) variables: "info variables\n"
 (list|show|info) (args|arguments): "info args\n"
-
 
 
 # threads
@@ -157,13 +144,10 @@ show history size: "show history size\n"
 
 info file: "info file\n"
 
-set remote file: "set remote exec-file "
 
 set system root: "set sysroot "
 show system root: "show sysroot\n"
 
-set substitute path: "set substitute-path "
-unset substitute path: "unset substitute-path "
 show substitute path: "show substitute-path\n"
 
 show list size: "show listsize\n"
@@ -174,22 +158,12 @@ set list size <number_small>: "set listsize {number_small}\n"
 [set] target remote <number>: "target remote :{number}\n"
 [set] target remote: "target remote "
 
-print size of:
-    insert("p/x sizeof()")
-    edit.left()
-
-print (struct|structure) size:
-    insert("p/x sizeof(struct )")
-    edit.left()
-
 print (struct|structure) size clip:
     insert("p/x sizeof(")
     edit.paste()
     key(")")
     key(enter)
 
-print type:
-    insert("ptype ")
 unset print elements:
     insert("set print elements 0\n")
 
@@ -200,13 +174,6 @@ watch list: "info watch\n"
 watch read: "rwatch *"
 
 file show: "info line\n"
-assign:"="
-
-set var [<user.word>]:
-    insert("set $")
-    # XXX - this should be formatter for the language...
-    insert(word or "")
-    # XXX - we should support a second word for the assignment
 
 # XXX - this should use default for matter
 get var <user.word>: "${word}"
@@ -218,34 +185,7 @@ save address clip:
     edit.paste()
     key(enter)
 
-# Useful to set tags if you didn't user script file
-set title:
-    user.insert_cursor('shell echo -n -e "\\033]0;[|]\\007"')
-
-set title G D B:
-    insert('shell echo -n -e "\\033]0;gdb\\007"\n')
-
-set title pone:
-    insert('shell echo -n -e "\\033]0;pwndbg\\007"\n')
-
-set title jeff:
-    insert('shell echo -n -e "\\033]0;gef\\007"\n')
-
-# typecasting
-# maybe we should make these generic across gdb and C
-# XXX - we should make these expressible to gdb
-# Ex. (int *)
-cast to <user.c_cast>: "{c_cast}"
-basic cast to <user.c_basic_cast>: "{c_basic_cast}"
-standard cast to <user.c_stdint_cast>: "{c_stdint_cast}"
-[put] type <user.c_types>: "{c_types}"
-<user.c_pointers>: "{c_pointers}"
-<user.c_signed>: "{c_signed}"
-basic <user.c_basic_types>: "{c_basic_types}"
-standard <user.c_stdint_types>: "{c_stdint_types}"
-
 define offset of: "macro define offsetof(t, f) &((t *) 0)->f\n"
-define macro: "macro define "
 
 # XXX - this needs to be ingrated as a language, and we need to break out using
 # debugger from the language parts
