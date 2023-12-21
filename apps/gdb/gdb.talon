@@ -54,15 +54,8 @@ list clip:
     key(enter)
 list (base|P C): "list $pc\n"
 
-
-print hex {user.registers}:
-    insert("p/x ${user.registers}\n")
-
-print string: "x/s "
-print (bits|binary): "p/t "
-
 print casted struck:
-    user.insert_cursor("p/x *(struct [|] *)")
+    user.insert_between("p/x *(struct", "*)")
 
 # symbols
 symbol refresh: "sharedlibrary\n"
@@ -113,14 +106,9 @@ resume [from] (inf|inferior) <number_small>$:
     insert("inferior {number_small}\n")
     insert("c\n")
 
-# arguments
-set args: "set args "
-
 info source: "info source\n"
 info signal: "info signal\n"
 info process: "info proc\n"
-handle signal <user.signal>: "handle {signal} "
-signal <user.signal>: "signal {signal} "
 [remote] process list: "info os processes\n"
 
 show follow (fork|forks) [mode]: "show follow-fork-mode\n"
@@ -131,9 +119,6 @@ show detach on fork: "show detach-on-fork\n"
 set detach on fork: "set detach-on-fork on\n"
 unset detach on fork: "set detach-on-fork off\n"
 
-set logging on: "set logging on"
-set logging off: "set logging off"
-set logging file: "set logging file "
 show logging: "show logging\n"
 
 set history size: "set history size "
@@ -145,7 +130,6 @@ show history size: "show history size\n"
 info file: "info file\n"
 
 
-set system root: "set sysroot "
 show system root: "show sysroot\n"
 
 show substitute path: "show substitute-path\n"
@@ -190,11 +174,6 @@ define offset of: "macro define offsetof(t, f) &((t *) 0)->f\n"
 # XXX - this needs to be ingrated as a language, and we need to break out using
 # debugger from the language parts
 put python continue: 'python gdb.execute("continue")\n'
-put commands: "commands"
-put end: "end"
-put break: "break"
-put set: "set"
-func stir equal: "$_streq()"
 attach <number>: "attach {number}\n"
 break list hidden: "maint info breakpoints\n"
 

@@ -18,16 +18,28 @@ tag(): user.code_operators_array
 tag(): user.code_operators_assignment
 tag(): user.code_operators_math
 
+# general
+put set: "set"
+func stir equal: "$_streq()"
+set system root: "set sysroot "
+
+# breakpoints
+put commands: "commands"
+put end: "end"
+put break: "break"
+
 # printing
 print: "p "
+print string: "x/s "
+print (bits | binary): "p/t "
 print (var | variable) <user.text>:
     insert("p ")
     insert(user.formatted_text(text, "snake"))
-
 (print hex | funk print): "p/x "
 print hex (var | variable) <user.text>:
     insert("p/x ")
     insert(user.formatted_text(text, "snake"))
+print hex {user.registers}: insert("p/x ${user.registers}\n")
 
 # displays
 display source: "display "
@@ -58,7 +70,7 @@ print (struct | structure) size: user.insert_between("p/x sizeof(struct ", ")")
 print type: insert("ptype ")
 
 # variables
-set var [<user.word>]:
+set var [<user.wmord>]:
     insert("set $")
     # XXX - this should be formatter for the language...
     insert(word or "")
@@ -89,3 +101,8 @@ standard <user.c_stdint_types>: "{c_stdint_types}"
 
 # macros
 define macro: "macro define "
+
+# logging
+set logging on: "set logging on"
+set logging off: "set logging off"
+set logging file: "set logging file "
