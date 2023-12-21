@@ -14,6 +14,7 @@ triple bang: "!!!"
 tickle: "''"
 snipped code: "[SNIPPED]"
 (spam | spamma): ", "
+stacked: ": "
 arrow: "->"
 dub arrow: "=>"
 new line: "\\n"
@@ -74,7 +75,6 @@ quote that:
 (globby | glob line):
     insert("s///g")
     key(left:3)
-
 (grave | back tick) that:
     text = edit.selected_text()
     user.paste("`{text}`")

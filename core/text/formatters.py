@@ -190,6 +190,7 @@ formatters_dict = {
     "COMMA_SEPARATED": words_with_joiner(", "),
     "DASH_SEPARATED": words_with_joiner("-"),
     "DOT_SEPARATED": words_with_joiner("."),
+    "COLON_SEPARATED": words_with_joiner(":"),
     "DOUBLE_COLON_SEPARATED": words_with_joiner("::"),
     "DOUBLE_QUOTED_STRING": (SEP, surround('"')),
     "DOUBLE_UNDERSCORE": (NOSEP, first_vs_rest(lambda w: f"__{w}__")),
@@ -254,6 +255,7 @@ code_formatter_names = {
     "pointing": "C_POINTER_SEPARATED",
     "equaling": "EQUAL_SEPARATED",
     "smashing": "NO_SPACES",
+    "stacking": "COLON_SEPARATED",
     "turbo": "DOUBLE_COLON_SEPARATED",
 }
 prose_formatter_names = {
