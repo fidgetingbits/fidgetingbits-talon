@@ -158,7 +158,7 @@ class UserActions:
         actions.insert("set $=")
         actions.edit.left()
 
-    # XXX - This might be able to use insert_between to let us get right on the
+    # XXX - This might be able to use insert_cursor to let us get right on the
     # variable name
     def debugger_set_variable():
         actions.insert("set $=")
