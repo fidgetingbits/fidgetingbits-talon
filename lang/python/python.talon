@@ -96,7 +96,7 @@ raw string: user.insert_between('r"', '"')
     user.insert_between("raise {python_exception}(", ")")
 [state] except {user.python_exception}: "except {python_exception}:"
 [state] except {user.python_exception} as:
-    user.insert_cursor("except {python_exception} as [|]:")
+    user.insert_between("except {python_exception} as ", ":")
 
 # function # for annotating function parameters
 is type {user.code_type}: insert(": {code_type}")
@@ -138,14 +138,14 @@ assign to <user.text>: user.assign_variable(text)
 
 append to <user.text>: user.append_variable(text)
 
-pack little byte: user.insert_cursor('struct.pack("<B", [|])')
-pack big byte: user.insert_cursor('struct.pack(">B", [|])')
-pack little word: user.insert_cursor('struct.pack("<H", [|])')
-pack big word: user.insert_cursor('struct.pack(">H", [|])')
-pack little int: user.insert_cursor('struct.pack("<I", [|])')
-pack big int: user.insert_cursor('struct.pack(">I", [|])')
-pack little long: user.insert_cursor('struct.pack("<Q"", [|])')
-pack big long: user.insert_cursor('struct.pack(">Q"", [|])')
+pack little byte: user.insert_between('struct.pack("<B", ", ")')
+pack big byte: user.insert_between('struct.pack(">B", ", ")')
+pack little word: user.insert_between('struct.pack("<H", ", ")')
+pack big word: user.insert_between('struct.pack(">H", ", ")')
+pack little int: user.insert_between('struct.pack("<I", ", ")')
+pack big int: user.insert_between('struct.pack(">I", ", ")')
+pack little long: user.insert_between('struct.pack("<Q"", ", ")')
+pack big long: user.insert_between('struct.pack(">Q"", ", ")')
 
 state arg <number>: "sys.argv[{number}]"
 state arg count: "len(sys.argv)"

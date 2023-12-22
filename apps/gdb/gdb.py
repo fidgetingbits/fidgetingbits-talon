@@ -117,6 +117,7 @@ class UserActions:
         actions.auto_insert("quit\n")
 
     def debugger_exit_force():
+        actions.key("ctrl-c")
         actions.auto_insert("quit\ny\n")
 
     def debugger_disassemble_here(lines: int):
@@ -157,7 +158,7 @@ class UserActions:
         actions.insert("set $=")
         actions.edit.left()
 
-    # XXX - This might be able to use insert_cursor to let us get right on the
+    # XXX - This might be able to use insert_between to let us get right on the
     # variable name
     def debugger_set_variable():
         actions.insert("set $=")

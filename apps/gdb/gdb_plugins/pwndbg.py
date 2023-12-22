@@ -22,7 +22,7 @@ def handle_hexdump_count(cmd, number, register, clip=False, copy=False):
         actions.edit.paste()
         actions.auto_insert(f" {count}\n")
     else:
-        actions.user.insert_cursor(f"[|] {count}")
+        actions.user.insert_between(f"", " {count}")
 
 
 @ctx.action_class("user")

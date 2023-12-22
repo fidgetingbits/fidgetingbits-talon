@@ -85,7 +85,6 @@ code block clip:
     # XXX - would be nice if this had something like the ability to then find
     # the next set of ```
 
-[put] link clip: user.insert_cursor_paste("[[|]](", ")")
 put link:
     "[]()"
     key(left:3)

@@ -70,7 +70,7 @@ print (struct | structure) size: user.insert_between("p/x sizeof(struct ", ")")
 print type: insert("ptype ")
 
 # variables
-set var [<user.wmord>]:
+set var [<user.word>]:
     insert("set $")
     # XXX - this should be formatter for the language...
     insert(word or "")

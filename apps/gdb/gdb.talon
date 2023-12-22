@@ -93,7 +93,7 @@ thread local storage: "p/x *(tcbhead_t*) $fs_base\n"
 thread stack guard: "p/x (*(tcbhead_t*) $fs_base)->stack_guard"
 thread pointer guard: "p/x (*(tcbhead_t*) $fs_base)->pointer_guard"
 
-frame info <number_small>: "frame info {number_small}\n"
+info frame <number_small>: "info frame {number_small}\n"
 
 # inferiors
 info inferiors: "info inferiors\n"

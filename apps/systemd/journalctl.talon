@@ -18,5 +18,5 @@ journal docker: "journalctl -u docker --no-pager --lines 100\n"
 journal secure shell: "journalctl -u sshd --no-pager --lines 100\n"
 journal V P N: "journalctl -u openvpn-client --no-pager --lines 100\n"
 journal network time: "journalctl -u ntpd --no-pager --lines 100\n"
-journal grep: user.insert_cursor("journalctl -u [|] --no-pager --lines 100 -g")
-journal service: user.insert_cursor("journalctl -u [|] --no-pager --lines 100")
+journal grep: user.insert_between("journalctl -u ", " --no-pager --lines 100 -g")
+journal service: user.insert_between("journalctl -u ", " --no-pager --lines 100")

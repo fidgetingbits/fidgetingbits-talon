@@ -266,7 +266,7 @@ git tag list: "git --no-pager tag\n"
 git tag list specific:
     insert('git tag -l ""')
     edit.left()
-git tag add: user.insert_cursor('git tag -a v[|] -m ""')
+git tag add: user.insert_between('git tag -a v", " -m ""')
 git tag remove: "git tag -d "
 git tag remove remote: "git push origin --delete "
 

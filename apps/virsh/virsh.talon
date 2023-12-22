@@ -30,13 +30,14 @@ virtual remove: "sudo virsh undefine "
 
 # Disk management
 virtual disk list: insert("sudo virsh domblklist ")
-virtual disk resize <number>: user.insert_cursor("sudo qemu-img resize [|] +{number}G")
+virtual disk resize <number>:
+    user.insert_between("sudo qemu-img resize ", " +{number}G")
 
 # Snapshots
 virtual snapshot create otto: insert("sudo virsh snapshot-create ")
 virtual snapshot list: insert("sudo virsh snapshot-list ")
 virtual snapshot create:
-    user.insert_cursor("sudo virsh snapshot-create-as [|] --name <name_here>")
+    user.insert_between("sudo virsh snapshot-create-as ", " --name <name_here>")
 
 # virt-clone
 

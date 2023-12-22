@@ -576,10 +576,10 @@ prefix <user.vim_select_motion> with <user.unmodified_key>:
 ###
 run python script:
     user.vim_normal_mode_np(":w\n")
-    user.insert_cursor(":exec '!python3 [|]'")
+    user.insert_between(":exec '!python3 ", "'")
 run sandbox script:
     user.vim_normal_mode_np(":w\n")
-    user.insert_cursor(":exec '!env/bin/python3 [|]'")
+    user.insert_between(":exec '!env/bin/python3 ", "'")
 
 # Change how these get displayed in splits?
 (run make | file build):

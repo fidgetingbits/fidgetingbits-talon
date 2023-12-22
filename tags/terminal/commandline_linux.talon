@@ -37,8 +37,8 @@ net [address] (remove | delete) [ip]: "ip addr del "
 
 net (route | routes) [list]: "ip route\n"
 net (route | routes) six [list]: "ip -6 route\n"
-net route add: user.insert_cursor("ip route add [|] dev ")
-net route add tunnel: user.insert_cursor("ip route add [|] dev tun0")
+net route add: user.insert_between("ip route add ", " dev ")
+net route add tunnel: user.insert_between("ip route add ", " dev tun0")
 net route (remove | delete | drop): "ip route del "
 # XXX - We should switch these to use ss
 net stat all: "ss --sctp -anutp\n"
@@ -49,8 +49,8 @@ net [stat] (listen | listening) S C T P: "ss --sctp -nlp\n"
 net [stat] (listen | listening): "ss -lnpt\n"
 net [stat] (listen | listening) all: "ss --sctp -lnput\n"
 
-net [dev | device] up: user.insert_cursor("ip link set dev [|] up")
-net [dev | device] down: user.insert_cursor("ip link set dev [|] down")
+net [dev | device] up: user.insert_between("ip link set dev ", " up")
+net [dev | device] down: user.insert_between("ip link set dev ", " down")
 
 file trace: "strace -f "
 file trace log: "strace -o trace.log -f "
@@ -133,7 +133,7 @@ kernel generate tags: "python scripts/clang-tools/gen_compile_commands.py"
 run pa hole: "pahole "
 
 run B P F trace:
-    user.insert_cursor("sudo BPFTRACE_PERF_RB_PAGES=256 bpftrace [|].bt | tee trace.log")
+    user.insert_between("sudo BPFTRACE_PERF_RB_PAGES=256 bpftrace ", ".bt | tee trace.log")
 
 clipboard as Q R code: "xclip -o -s c | qrencode -o - | feh --force-aliasing -ZF -"
 

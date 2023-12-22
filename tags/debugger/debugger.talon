@@ -25,7 +25,7 @@ continue: user.debugger_continue()
 debug start: user.debugger_start()
 debug stop: user.debugger_stop()
 debug (exit | quit): user.debugger_exit()
-debug force exit: user.debugger_exit_force()
+(quitter | debug force exit): user.debugger_exit_force()
 debug detach: user.debugger_detach()
 debug restart: user.debugger_restart()
 

@@ -123,7 +123,7 @@ show data type: user.current_c_datatype()
 dock fun:
     user.paste("/**\n* \n*/")
     key(up end)
-dock var: user.insert_cursor("/**< [|].*/")
+dock var: user.insert_between("/**< ", ".*/")
 dock brief: insert("@brief ")
 dock return: insert("@return")
 dock param: insert("@param ")

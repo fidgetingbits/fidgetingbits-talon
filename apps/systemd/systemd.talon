@@ -26,6 +26,6 @@ system timer user list: "systemctl --user list-timers --no-pager\n"
 system timer user all: "systemctl --user --all list-timers --no-pager\n"
 system timer list: "systemctl list-timers --no-pager\n"
 system timer all: "systemctl --all list-timers --no-pager\n"
-system timer log: user.insert_cursor("journalctl -u [|].timer")
+system timer log: user.insert_between("journalctl -u ", ".timer")
 
 system cuttle: "systemctl "

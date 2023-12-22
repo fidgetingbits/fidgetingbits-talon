@@ -243,7 +243,7 @@ class Actions:
             return
         if settings.get("user.replay_paste_name_on_save") != 0:
             clip.set_text(file_name)
-            actions.user.insert_cursor_paste('"[|]":', "")
+            actions.user.insert_between_paste('"", "":', "")
 
     def replay_save_last_played():
         """Insert some info from the last self.count recordings"""
@@ -253,7 +253,7 @@ class Actions:
             return
         if settings.get("user.replay_paste_name_on_save") != 0:
             clip.set_text(file_name)
-            actions.user.insert_cursor_paste('"[|]":', "")
+            actions.user.insert_between_paste('"", "":', "")
 
     def replay_save_last():
         """Save the last recording to a preconfigured directory"""

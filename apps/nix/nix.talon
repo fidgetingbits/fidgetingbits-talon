@@ -24,7 +24,8 @@ nix build: "nix-build "
 nix build standard: "nix-build '<nixpkgs>' -A "
 nix build with paths:
     user.insert_between("nix build nixpkgs#", "--print-out-paths --no-link")
-nix build local package: "nix-build -E 'with import <nixpkgs> {}; pkgs.callPackage ./default.nix {}'"
+nix build local package:
+    "nix-build -E 'with import <nixpkgs> {{}}; pkgs.callPackage ./default.nix {{}}'"
 
 # Flakes Commands
 nix build flake: "nix build"
@@ -38,14 +39,15 @@ nix develop [flake]: "nix develop\n"
 
 nix eval: "nix-instantiate --eval "
 nix strict eval: "nix-instantiate --eval --strict "
-nix eval local package: nix-instantiate "--eval -E 'with import <nixpkgs> {}; pkgs.callPackage ./default.nix {}'"
-nix strict eval local package: nix-instantiate "--eval --strict -E 'with import <nixpkgs> {}; pkgs.callPackage ./default.nix {}'"
+nix eval local package:
+    "nix-instantiate --eval -E 'with import <nixpkgs> {{}}; pkgs.callPackage ./default.nix {{}}'"
+nix strict eval local package:
+    "nix-instantiate --eval --strict -E 'with import <nixpkgs> {{}}; pkgs.callPackage ./default.nix {{}}'"
 nix instantiate: "nix-instantiate -A "
 
 run nix repl: "nix repl\n"
 
 nix tree: "nix-tree\n"
-
 
 # Garbage Collection
 nix collect [garbage]: "nix-collect-garbage\n"

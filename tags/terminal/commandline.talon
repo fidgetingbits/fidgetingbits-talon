@@ -127,25 +127,26 @@ file list long [sym] links:
 file list [sym] links: 'find . -maxdepth 1 -type l -printf "%f\\n"\n'
 
 # find
-file find: user.insert_cursor('find . -name "[|]" 2>/dev/null')
-file find file: user.insert_cursor('find . -type f -name "[|]" 2>/dev/null')
-file find folder: user.insert_cursor('find . -type d -name "[|]" 2>/dev/null')
+file find: user.insert_between('find . -name "", "" 2>/dev/null')
+file find file: user.insert_between('find . -type f -name "", "" 2>/dev/null')
+file find folder: user.insert_between('find . -type d -name "", "" 2>/dev/null')
 # case insensitive fuzzy find
-file fuzzy find: user.insert_cursor('find . -iname "*[|]*" 2>/dev/null')
+file fuzzy find: user.insert_between('find . -iname "*", "*" 2>/dev/null')
 file fuzzy hash:
-    user.insert_cursor('find . -path "*[|]*" -exec sha256sum {{}} \\; 2>/dev/null')
+    user.insert_between('find . -path "*", "*" -exec sha256sum {{}} \\; 2>/dev/null')
 
 file fuzzy find depth <number>:
-    user.insert_cursor('find . -maxdepth {number} -iname "*[|]*" 2>/dev/null')
+    user.insert_between('find . -maxdepth {number} -iname "*", "*" 2>/dev/null')
 (file fuzzy find folder | folder fuzzy find):
-    user.insert_cursor('find . -type d -iname "*[|]*" 2>/dev/null')
+    user.insert_between('find . -type d -iname "*", "*" 2>/dev/null')
 (file fuzzy find folder | folder fuzzy find) depth <number>:
-    user.insert_cursor('find . -maxdepth {number} -type d -iname "*[|]*" 2>/dev/null')
-file fuzzy find today: user.insert_cursor('find . -mtime -1 -name "*[|]*" 2>/dev/null')
+    user.insert_between('find . -maxdepth {number} -type d -iname "*", "*" 2>/dev/null')
+file fuzzy find today:
+    user.insert_between('find . -mtime -1 -name "*", "*" 2>/dev/null')
 file fuzzy find at clip:
     insert("find ")
     edit.paste()
-    user.insert_cursor(' -iname "*[|]*" 2>/dev/null')
+    user.insert_between(' -iname "*", "*" 2>/dev/null')
 
 file find all links: "find . -maxdepth 1 -type l  -ls\n"
 file find all folders: "find . -maxdepth 1 -type d  -ls\n"
@@ -170,9 +171,9 @@ file hard link: "ln "
 file broken links:
     insert("find . -type l -exec sh -c 'file -b \"$1\" | grep -q ^broken' sh /{} \\; -print")
 file find excluding with depth:
-    user.insert_cursor("find . -mindepth 2 -maxdepth 2 -type d '!' -exec sh -c 'ls -1 \"{}\"|egrep -i -q \"^*.[|]$\"' ';' -print")
+    user.insert_between("find . -mindepth 2 -maxdepth 2 -type d '!' -exec sh -c 'ls -1 \"{}\"|egrep -i -q \"^*.", "$\"' ';' -print")
 file find excluding:
-    user.insert_cursor("find . -type d '!' -exec sh -c 'ls -1 \"{}\"|egrep -i -q \"^*.[|]$\"' ';' -print")
+    user.insert_between("find . -type d '!' -exec sh -c 'ls -1 \"{}\"|egrep -i -q \"^*.", "$\"' ';' -print")
 file (move | rename): "mv "
 file move files: user.insert_between("find . -maxdepth 1 -type f -exec mv {} ", " \\;")
 file open: "xdg-open "
@@ -241,7 +242,7 @@ file read <number> bytes at offset <number>:
 loop for file: insert("for FILE in $(eza); do echo ${{FILE}}; done")
 
 folder tree permissions:
-    user.insert_cursor('FILE=[|]; until [ "$FILE" = "/" ]; do ls -lda $FILE; FILE=`dirname $FILE` done')
+    user.insert_between('FILE=", "; until [ "$FILE" = "/" ]; do ls -lda $FILE; FILE=`dirname $FILE` done')
 
 # NOTE: these are deprecated in light of these zsh autocompletion
 #file edit read me: insert("edit README.md\n")
@@ -420,7 +421,7 @@ net bridge (list | show): "brctl show\n"
 show hosts file: "cat /etc/hosts\n"
 
 net (remote desktop | R D P):
-    user.insert_cursor("xfreerdp /timeout:90000 /size:1280x800 /v:[|] /u: /p:")
+    user.insert_between("xfreerdp /timeout:90000 /size:1280x800 /v:", " /u: /p:")
 
 (generate see tags | tags generate): "ctags --recurse --exclude=.git --exclude=.pc *"
 generate see scope database:
@@ -611,7 +612,7 @@ process top: "htop\n"
 process fuzzy kill: "pkill "
 process fuzzy kill <user.text>: "pkill {text}"
 process loop kill:
-    user.insert_cursor("for PID in $(ps -ef | grep [|] | grep -v grep | awk '{{print $2}}'); do kill -9 $PID 2>/dev/null; done")
+    user.insert_between("for PID in $(ps -ef | grep ", " | grep -v grep | awk '{{print $2}}'); do kill -9 $PID 2>/dev/null; done")
 process kill <number>: "kill -9 {number}"
 [process] kill job <number>: "kill -9 %{number}"
 process kill: "kill -9 "

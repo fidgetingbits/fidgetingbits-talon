@@ -523,28 +523,6 @@ class UserActions:
 
 @mod.action_class
 class module_actions:
-    # TODO this could go somewhere else
-    def insert_cursor(text: str):
-        """Insert a string. Leave the cursor wherever [|] is in the text"""
-        if "[|]" in text:
-            end_pos = text.find("[|]")
-            s = text.replace("[|]", "")
-            actions.insert(s)
-            actions.key(f"left:{len(s) - end_pos}")
-        else:
-            actions.insert(text)
-
-    def insert_cursor_paste(text1: str, text2: str):
-        """Insert a string, . Leave the cursor after text1"""
-        if "[|]" in text1:
-            end_pos = text1.find("[|]")
-            text1 = text1.replace("[|]", "")
-        else:
-            end_pos = len(text1)
-        s = text1 + clip.get() + text2
-        actions.insert(s)
-        actions.key(f"left:{len(s) - end_pos}")
-
     # Non overrides
     def assign_variable(text: str):
         """Assign to a variable"""

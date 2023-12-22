@@ -27,7 +27,7 @@ literal: key(ctrl-v)
 # XXX - should be made part of a generic regex grammar
 state non greedy: "\\{{-}}"
 state greedy: ".*"
-state escaped or: user.insert_cursor("\\([|]\\|\\)")
+state escaped or: user.insert_between("\\(", "\\|\\)")
 
 push: key('end')
 push <user.unmodified_key>:
