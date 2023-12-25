@@ -3,20 +3,30 @@ from talon import Context, Module
 mod = Module()
 ctx = Context()
 ctx.matches = r"""
-os: linux
 tag: terminal
 and tag: user.service_manager
 """
 
 mod.tag("service_manager", desc="generic service manager support")
+mod.tag("launchctl", desc="darwin service management")
 mod.tag("systemd", desc="systemd service management")
 mod.tag("upstart", desc="ubuntu upstart service management")
+
+# FIXME: Automatically update service list based on the service manager and use
+# the spoken form API
+mod.list("service_names", desc="List of services")
 
 
 @mod.action_class
 class Actions:
     def service():
         """Run the default service manager"""
+
+    def service_list():
+        """List services"""
+
+    def service_find():
+        """Find a service"""
 
     def service_status():
         """Show the service status"""

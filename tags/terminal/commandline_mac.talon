@@ -2,6 +2,8 @@ os: mac
 and mode: command
 and tag: terminal
 -
+tag(): user.service_manager
+tag(): user.launchctl
 
 host name set: "scutil --set HostName "
 restart launch services:
