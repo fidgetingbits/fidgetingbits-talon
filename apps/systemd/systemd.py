@@ -13,6 +13,12 @@ class UserActions:
     def service():
         actions.user.insert_between("systemctl --no-pager ", ".service")
 
+    def service_list():
+        actions.insert("systemctl list-units --type=service --no-pager\n")
+
+    def service_find():
+        actions.insert("systemctl list-units --type=service --no-pager | grep ")
+
     def service_stop():
         actions.user.insert_between("systemctl --no-pager stop ", ".service")
 

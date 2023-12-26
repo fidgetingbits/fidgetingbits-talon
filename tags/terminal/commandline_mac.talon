@@ -14,3 +14,13 @@ restart launch services:
 
 file list user temp:
     "ls $(getconf DARWIN_USER_TEMP_DIR)\n"
+
+echo user temp:
+    "echo $(getconf DARWIN_USER_TEMP_DIR)\n"
+
+log show:
+    "sudo log show\n"
+
+# show the logs from today
+log show service {user.service_names} events:
+     'sudo log show --predicate \'eventMessage contains "{service_names}"\' --info --start "$(date -u \"+%Y-%m-%d 00:00:00\")"\n'
