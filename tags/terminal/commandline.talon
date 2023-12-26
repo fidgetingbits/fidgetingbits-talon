@@ -100,9 +100,9 @@ file list today: 'find . -maxdepth 1 -newermt "$(date +%D)"\n'
 # I can't always rely on -newermt, since an old file might get extracted from from an archive, in the timestamp is
 # actually quite old. This allows me to give it the actual local birthdate of the file
 file list [last] <number> minutes:
-    'find . -maxdepth 1 -type f -exec bash -c \'cur=$(date "+%s"); birth=$(stat -c %W "{{}}"); delta=$((cur - (60*{number}))); if [ $birth -ge $delta ]; then echo "{{}}"; fi\' \;\n'
+    'find . -maxdepth 1 -type f -exec bash -c \'cur=$(date "+%s"); birth=$(stat -c %W "{{}}"); delta=$((cur - (60*{number}))); if [ $birth -ge $delta ]; then echo "{{}}"; fi\' \\;\n'
 file move [last] <number> minutes:
-    'find . -maxdepth 1 -type f -exec bash -c \'cur=$(date "+%s"); birth=$(stat -c %W "{{}}"); delta=$((cur - (60*{number}))); if [ $birth -ge $delta ]; then echo "{{}}"; fi\' \; | xargs mv -t '
+    'find . -maxdepth 1 -type f -exec bash -c \'cur=$(date "+%s"); birth=$(stat -c %W "{{}}"); delta=$((cur - (60*{number}))); if [ $birth -ge $delta ]; then echo "{{}}"; fi\' \\; | xargs mv -t '
 file list (last | latest) <number>: "eza --sort changed | tail -n{number}\n"
 file list count: "ls -1 | wc -l\n"
 folder list latest: "eza -D --sort changed | tail -n1\n"
@@ -131,7 +131,7 @@ file find: user.insert_between('find . -name "", "" 2>/dev/null')
 file find file: user.insert_between('find . -type f -name "", "" 2>/dev/null')
 file find folder: user.insert_between('find . -type d -name "", "" 2>/dev/null')
 # case insensitive fuzzy find
-file fuzzy find: user.insert_between('find . -iname "*", "*" 2>/dev/null')
+file fuzzy find: user.insert_between('find . -iname "*"', '"*" 2>/dev/null')
 file fuzzy hash:
     user.insert_between('find . -path "*", "*" -exec sha256sum {{}} \\; 2>/dev/null')
 
