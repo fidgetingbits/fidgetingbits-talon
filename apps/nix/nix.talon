@@ -54,3 +54,5 @@ nix collect [garbage]: "nix-collect-garbage\n"
 nix collect help: "nix-collect-garbage --help\n"
 nix collect profiles: "nix-collect-garbage --delete-older-than 7d"
 nix collect all profiles: "nix-collect-garbage -d"
+
+nix list generations: "nix-env --list-generations\n"

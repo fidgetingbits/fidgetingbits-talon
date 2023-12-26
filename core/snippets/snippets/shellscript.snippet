@@ -1,0 +1,17 @@
+language: shellscript
+---
+
+name: nixShellShebang
+phrase: nix shebang
+insertionScope: statement
+-
+#! /usr/bin/env bash
+
+if [ -z "$INSIDE_NIX_RANDOMSTRING" ] && command -v nix-shell &> /dev/null; then
+  # Install dependencies with nix
+  INSIDE_NIX_RANDOMSTRING=1 nix shell \
+      nixpkgs#<dependency> \
+      --command "$0" "$@"
+  exit $?
+fi
+---
