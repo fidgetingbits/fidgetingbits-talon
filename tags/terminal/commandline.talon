@@ -49,6 +49,7 @@ tag(): user.unix_utilities
 tag(): user.aws_cli
 tag(): user.s3fs
 tag(): user.direnv
+tag(): user.ykman
 
 # Shell commands
 

@@ -62,6 +62,7 @@ tagList = [
     "aws_cli",  # amazon aws cli commands
     "s3fs",  # amazon aws s3 bucket mounting
     "direnv",  # direnv commands
+    "ykman",  # yubikey manager commands
 ]
 
 for entry in tagList:
