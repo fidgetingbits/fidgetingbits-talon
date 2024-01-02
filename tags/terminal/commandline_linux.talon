@@ -15,6 +15,7 @@ tag(): user.yay
 #tag(): user.aptb
 tag(): user.nmcli
 tag(): user.package_manager
+tag(): user.tracing_strace
 
 file hash: "sha256sum "
 file hash five twelve: "sha512sum "
@@ -52,8 +53,7 @@ net [stat] (listen | listening) all: "ss --sctp -lnput\n"
 net [dev | device] up: user.insert_between("ip link set dev ", " up")
 net [dev | device] down: user.insert_between("ip link set dev ", " down")
 
-file trace: "strace -f "
-file trace log: "strace -o trace.log -f "
+
 
 (disk | drive) key dump: "sudo cryptsetup luksDump /dev/"
 (disk | drive) key add: "sudo cryptsetup luksAddKey --key-slot "
