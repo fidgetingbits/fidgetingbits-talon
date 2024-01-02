@@ -830,3 +830,6 @@ file json: "jq . "
 
 file show row <number>: "sed -n '{number}p' "
 file chunk row <number>: "sed -i '{number}d' "
+
+(run|file) which: "which "
+(run|file) where: "type -a "
