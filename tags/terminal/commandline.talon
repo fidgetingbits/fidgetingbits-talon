@@ -1,9 +1,9 @@
 # NOTE: these are command line commands, not shell-specific bindings
 # see shell.talon for shell-specific keybindings
-os: linux
-and tag: terminal
-os: mac
-and tag: terminal
+    os: linux
+    and tag: terminal
+    os: mac
+    and tag: terminal
 -
 
 ###
@@ -254,12 +254,25 @@ file [disk] usage all: "du -sh *\n"
 file watch latest: "vlc $(eza --sort changed | tail -n1)"
 file play audio: "vlc --play-and-exit --intf dummy --no-interact"
 
-echo param <user.text>:
+echo [param] ({user.environment_variables}|<user.text>):
     insert("echo ${")
-    snake = user.formatted_text(text, "snake")
+    snake = user.formatted_text(environment_variables or text, "snake")
     upper = user.formatted_text(snake, "upper")
     insert(upper)
     insert("}")
+    key(enter)
+
+# FIXME: Maybe tweak these to use an action, since lots of dupe
+# Split a variable into a list based on specified symbol (or ':')
+echo split [<user.symbol_key>] ({user.environment_variables}|<user.text>):
+    insert("echo ${")
+    snake = user.formatted_text(environment_variables or text, "snake")
+    upper = user.formatted_text(snake, "upper")
+    insert(upper)
+    insert("} | tr '")
+    insert(symbol_key or ":")
+    insert("' '\\n'")
+    key(enter)
 
 # directory and files
 pivot: "cd "
@@ -674,11 +687,10 @@ system info: "hostnamectl\n"
 ###
 # Environment variables
 ###
-environment list: "env\n"
-environment search: "env|rg "
-environment fuzzy: "env|rg -i "
-# XXX - add support for saying words and making them too upper
-variable show: "echo $"
+[environment|variable] list: "env\n"
+[environment|variable] search: "env|rg "
+[environment|variable] fuzzy: "env|rg -i "
+[environment|variable] show: "echo $"
 
 # Custom utility stuff
 bat cache build: "bat cache --build\n"

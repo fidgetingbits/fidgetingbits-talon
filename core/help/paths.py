@@ -46,6 +46,9 @@ unix_folder_paths = {
     "nix profile": "~/.nix-profile/",
     "nix store": "/nix/store/",
     "nix running": "/run/current-system/sw/",
+    "nix profile bin": "~/.nix-profile/bin/",
+    "nix running bin": "/run/current-system/sw/bin/",
+    "nix global bin": "/nix/var/nix/profiles/default/bin",
     # Unsorted
     "temp": "/tmp/",
     "config": "/etc/",

@@ -1,7 +1,42 @@
 from talon import Context, Module, actions
 
-ctx = Context()
 mod = Module()
+
+unix_ctx = Context()
+unix_ctx.matches = r"""
+os: linux
+and tag: terminal
+os: mac
+and tag: terminal
+"""
+
+linux_environment_variables = {}
+mac_environment_variables = {}
+common_environment_variables = {
+    "home": "HOME",
+    "temp": "TMPDIR",
+    "path": "PATH",
+    "shell": "SHELL",
+    "user": "USER",
+    "username": "USERNAME",
+    "host": "HOSTNAME",
+    "editor": "EDITOR",
+    "visual": "VISUAL",
+    "term": "TERM",
+    "working directory": "PWD",
+    # nix
+    "nix path": "NIX_PATH",
+    "nix profiles": "NIX_PROFILES",
+    # git
+    "git editor": "GIT_EDITOR",
+}
+unix_ctx.lists["user.environment_variables"] = {
+    **linux_environment_variables,
+    **mac_environment_variables,
+    **common_environment_variables,
+}
+
+ctx = Context()
 ctx.matches = r"""
 tag: user.generic_unix_shell
 """

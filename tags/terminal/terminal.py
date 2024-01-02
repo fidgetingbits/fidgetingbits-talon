@@ -4,6 +4,7 @@
 from talon import Context, Module, actions
 
 mod = Module()
+mod.list("environment_variables", "Common environment variables")
 
 
 @mod.action_class

@@ -1,7 +1,15 @@
 from talon import Context, Module, actions
 
-ctx = Context()
 mod = Module()
+
+windows_ctx = Context()
+windows_ctx.matches = r"""
+os: windows
+and tag: terminal
+"""
+windows_ctx.lists["user.environment_variables"] = {}
+
+ctx = Context()
 ctx.matches = r"""
 tag: user.generic_windows_shell
 """
