@@ -321,4 +321,4 @@ git commit highlighted:
     edit.copy()
     insert("git add ")
     edit.paste()
-    insert("\ngit commitit tag\n")
+    insert("\ngit commit\n")
