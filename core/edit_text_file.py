@@ -25,6 +25,7 @@ settings_folders = [
     CURSORLESS_SETTINGS_EXPERIMENTAL_DIR,
 ]
 
+
 def on_ready():
     speakable = {}
     for folder in settings_folders:
@@ -36,7 +37,10 @@ def on_ready():
     ctx.lists["self.talon_settings_csv"] = actions.user.create_spoken_forms_from_map(
         speakable
     )
+
+
 app.register("ready", on_ready)
+
 
 @mod.action_class
 class ModuleActions:
