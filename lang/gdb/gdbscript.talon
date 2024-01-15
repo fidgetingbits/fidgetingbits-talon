@@ -1,9 +1,11 @@
 code.language: gdb
-not tag: user.gdb
+and not tag: user.gdb
+
 tag: user.gdb
-not code.language: gdb
+and not code.language: gdb
+
 code.language: gdb
-tag: user.gdb
+and tag: user.gdb
 -
 # For commands to run well actually in the debugger, see gdb.talon
 tag(): user.code_imperative
