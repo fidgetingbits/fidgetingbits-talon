@@ -107,8 +107,11 @@ git list ignored: "git ls-files . --ignored --exclude-standard --others\n"
 git list untracked: "git ls-files . --ignored --exclude-standard --others\n"
 git show hook folder: "git rev-parse --git-path hooks\n"
 git log all: "git log\n"
+git log all pretty: "git log --pretty=oneline\n"
 git log all changes: "git log -c\n"
 git log: "git log -5\n"
+git log pretty: "git log -5 --pretty=oneline\n"
+git log find upstream P R: user.insert_between('git log --pretty=oneline --grep="#', '" upstream/main')
 git log diff: "git log -p -5\n"
 git log reverse: "git log -5 --reverse\n"
 git log <number>: "git log -{number}\n"
@@ -119,7 +122,7 @@ git log [changes | code]: "git log -c "
 git log clip:
     insert("git log -1 -c ")
     edit.paste()
-    key(enter)
+
 
 # diff-filter
 #--diff-filter=[(A|C|D|M|R|T|U|X|B)…​[*]]
