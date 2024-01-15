@@ -10,7 +10,7 @@ app show: key(super-a)
 power off: key(ctrl-alt-delete)
 lock screen: key(super-l)
 notify show: key(super-v)
-notify close: key(esc)
+(dismiss|notify close): key(esc)
 
 term me:
     key(super)

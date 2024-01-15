@@ -163,15 +163,15 @@ class Actions:
         """resizes the selected window by the specified number of key movements"""
         actions.user.system_command_nb(f"i3-msg 'resize shrink width {size}px'")
 
-    # Other people often use actions.user.notify() so we need to supply
-    # something... here I just rely on my monkey patch, to redirected
-    # through to dunst
-    def notify(text: str):
-        """Show notification"""
-        app.notify(subtitle=text)
-
 
 @ctx.action_class("user")
 class UserActions:
     def window_maximize():
         actions.user.i3wm_fullscreen()
+
+        # Other people often use actions.user.notify() so we need to supply
+
+    # something... here I just rely on my monkey patch, to redirected
+    # through to dunst
+    def notify(text: str):
+        app.notify(subtitle=text)
