@@ -14,10 +14,6 @@ settings():
 # pokey:
 # andreas:
 
-# This is linux only maybe
-file open file: key(ctrl-o)
-file open folder: key(ctrl-k ctrl-o)
-
 window reload: user.vscode("workbench.action.reloadWindow")
 window close: user.vscode("workbench.action.closeWindow")
 #multiple_cursor.py support end
@@ -496,8 +492,7 @@ restore: user.vscode("workbench.action.evenEditorWidths")
 select breadcrumb: user.vscode("breadcrumbs.focusAndSelect")
 # Use `alt-left` and `alt-right` to navigate the bread crumb
 
-# this is specific to when the replace here prompt is open
-replace all: key(ctrl-alt-enter)
+
 
 hover show: user.vscode("editor.action.showHover")
 
@@ -622,7 +617,6 @@ break <user.cursorless_target>:
     user.cursorless_command("copyToClipboard", cursorless_target)
     user.search_with_search_engine(search_engine, clip.text())
 
-punch it: key("ctrl-enter")
 
 # andreas-talon
 tabby {self.letter} [{self.letter}]:
