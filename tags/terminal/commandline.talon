@@ -195,6 +195,8 @@ file copy latest <user.folder_paths>:
 file (file | info | type): "file "
 
 file show: "cat "
+# assuming you are using bat
+file show plain: "cat -p "
 file show max width: "cut -c-120 "
 file show max width <number>: "cut -c-{number} "
 file show clip:
