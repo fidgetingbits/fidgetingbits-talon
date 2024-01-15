@@ -29,6 +29,15 @@ setting_window_snap_screen = mod.setting(
 """,
 )
 
+# On some laptops with a tobii attached to the bottom, there's no way to prevent partial overlap
+# this just tries to compensate for that.
+setting_window_snap_margin_bottom = mod.setting(
+    "window_snap_margin_bottom",
+    type=int,
+    default=0,
+    desc="""Margin in pixels to leave at the bottom of the screen when snapping windows.""",
+)
+
 
 def _set_window_pos(window, x, y, width, height):
     """Helper to set the window position."""
@@ -189,12 +198,14 @@ def _move_to_screen(
 
 def _snap_window_helper(window, pos):
     screen = window.screen.visible_rect
+    bottom_margin = setting_window_snap_margin_bottom.get()
+    screen_height = screen.height - bottom_margin
     _set_window_pos(
         window,
         x=screen.x + (screen.width * pos.left),
-        y=screen.y + (screen.height * pos.top),
+        y=screen.y + (screen_height * pos.top),
         width=screen.width * (pos.right - pos.left),
-        height=screen.height * (pos.bottom - pos.top),
+        height=screen_height * (pos.bottom - pos.top),
     )
 
 
@@ -276,6 +287,7 @@ _snap_positions = {
 def window_snap_position(m) -> RelativeScreenPos:
     return _snap_positions[m.window_snap_positions]
 
+
 ctx = Context()
 ctx.lists["user.window_snap_positions"] = _snap_positions.keys()
 
@@ -289,7 +301,9 @@ class Actions:
     def snap_window_to_position(position_name: str) -> None:
         """Move the active window to a specifically named position on its current screen, using a key from `_snap_positions`."""
         # Because mac doesn't seem to have an actual normal full screen, we use the positional logic
-        if app.platform != "mac" and (position_name == "full" or position_name == "fullscreen"):
+        if app.platform != "mac" and (
+            position_name == "full" or position_name == "fullscreen"
+        ):
             actions.user.window_maximize()
         else:
             actions.user.snap_window(_snap_positions[position_name])
