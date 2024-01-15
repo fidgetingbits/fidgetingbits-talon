@@ -2,6 +2,10 @@ tag: terminal
 and tag: user.nix_cli
 -
 
+# TODO:
+# - This should be tied to nix3 tag, and the other to non-flake
+# - Need to breakup the old commands
+
 # Special words
 nix packages: "'<nixpkgs>'"
 
@@ -28,14 +32,16 @@ nix build local package:
     "nix-build -E 'with import <nixpkgs> {{}}; pkgs.callPackage ./default.nix {{}}'"
 
 # Flakes Commands
-nix build flake: "nix build"
+nix build flake: "nix build "
+nix build flake now: "nix build .\n"
+nix build log: "nix build -L "
 nix build flake with paths:
     user.insert_between("nix build nixpkgs#", "--print-out-paths --no-link")
 
 nix flake check: "nix flake check\n"
 nix flake update: "nix flake update\n"
 
-nix develop [flake]: "nix develop\n"
+nix (dev|develop) [flake]: "nix develop\n"
 
 nix eval: "nix-instantiate --eval "
 nix strict eval: "nix-instantiate --eval --strict "
@@ -56,3 +62,9 @@ nix collect profiles: "nix-collect-garbage --delete-older-than 7d"
 nix collect all profiles: "nix-collect-garbage -d"
 
 nix list generations: "nix-env --list-generations\n"
+
+nix show (drive|derivation): "nix derivation show "
+nix show (drive|derivation) clip:
+    insert("nix derivation show")
+    edit.paste()
+    key(enter)
