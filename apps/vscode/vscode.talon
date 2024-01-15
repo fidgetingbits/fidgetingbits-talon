@@ -495,7 +495,20 @@ restore: user.vscode("workbench.action.evenEditorWidths")
 select breadcrumb: user.vscode("breadcrumbs.focusAndSelect")
 # Use `alt-left` and `alt-right` to navigate the bread crumb
 
-
+# Toast notifications
+toast: user.vscode("notifications.focusToasts")
+# Accepts whatever the default highlighted button is
+toast yes: user.vscode("notification.acceptPrimaryAction")
+toast next: user.vscode("notification.focusNextToast")
+toast prev: user.vscode("notification.focusPreviousToast")
+toast first: user.vscode("notification.focusFirstToast")
+toast last: user.vscode("notification.focusLastToast")
+toast show: user.vscode("notification.showList")
+toast close: user.vscode("notification.hideList")
+toast clear: user.vscode("notification.clear")
+toast clear all: user.vscode("notification.clearAll")
+toast shrink: user.vscode("notification.collapse")
+toast grow: user.vscode("notification.expand")
 
 hover show: user.vscode("editor.action.showHover")
 
