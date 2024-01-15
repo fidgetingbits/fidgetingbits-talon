@@ -177,7 +177,6 @@ file find excluding:
     user.insert_between("find . -type d '!' -exec sh -c 'ls -1 \"{}\"|egrep -i -q \"^*.", "$\"' ';' -print")
 file (move | rename): "mv "
 file move files: user.insert_between("find . -maxdepth 1 -type f -exec mv {} ", " \\;")
-file open: "xdg-open "
 file P D F: "evince "
 file touch: "touch "
 file (touch | create) {user.common_files}: "touch {common_files}\n"
@@ -432,7 +431,6 @@ net my I P: "dig +short myip.opendns.com @resolver1.opendns.com\n"
 net port <user.ports>: "{ports}"
 net dump: "tcpdump "
 
-net bridge (list | show): "brctl show\n"
 
 show hosts file: "cat /etc/hosts\n"
 
@@ -507,9 +505,7 @@ run d message samba: "sudo dmesg --color --reltime | rg CIFS\n"
 (disk | drive) F stab: "cat /etc/fstab\n"
 (disk | drive) remount temp (exec | executable): "mount /tmp -o remount,exec"
 
-# system configuration
-sis cuddle: "sysctl "
-sis cuddle set: "sysctl -w "
+
 
 # tar extraction
 # TODO: Should add the version with zsh completion
@@ -683,8 +679,7 @@ python three nine env: "virtualenv -p python3.9 py39"
 (cis | system) I D: "id\n"
 (cis | system) user: "whoami\n"
 (cis | system) (name | version | kernel): "uname -a\n"
-(cis | system) show release: "cat /etc/lsb-release\n"
-system info: "hostnamectl\n"
+
 
 ###
 # Environment variables
@@ -762,7 +757,6 @@ mux attach now: "screen -x\n"
 mux next [window]: key(ctrl-a n)
 mux prev [window]: key(ctrl-a p)
 
-udev reload: "sudo udevadm control --reload-rules && sudo udevadm trigger"
 
 ###
 # XML
@@ -816,9 +810,6 @@ edit read me: "edit README.md\n"
 user add group: "sudo usermod -aG "
 run talon event log: 'echo "events.tail()"|~/.talon/bin/repl\n'
 run tail talon log: "tail -f ~/.talon/talon.log\n"
-
-D N S cache list: "sudo systemd-resolve --statistics\n"
-D N S cache flush: "sudo systemd-resolve --flush-caches\n"
 
 [file] R P M extract: user.insert_between("rpm2cpio ./", " | cpio -idmv")
 # If errors about bad numbers above, try some combo of decompression

@@ -5,6 +5,8 @@ tag(): user.service_manager
 tag(): user.launchctl
 tag(): user.tracing_dtruss
 
+file open: "open "
+
 host name set: "scutil --set HostName "
 restart launch services:
     "sudo /System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user\n"

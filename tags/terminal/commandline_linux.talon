@@ -17,6 +17,8 @@ tag(): user.nmcli
 tag(): user.package_manager
 tag(): user.tracing_strace
 
+file open: "xdg-open "
+
 file hash: "sha256sum "
 file hash five twelve: "sha512sum "
 file hash M D five: "md5sum "
@@ -29,6 +31,8 @@ file tree permission: "tree -pufid "
 trash list: "trash-list\n"
 trash restore: "trash-restore "
 trash empty: "trash-empty "
+
+net bridge (list | show): "brctl show\n"
 
 net (interfaces | I P | address) [show]: "ip addr\n"
 net flush: "ip addr flush dev "
@@ -80,6 +84,10 @@ system [list] processor: "lscpu\n"
 system [list] (P C I | pee) bus: "lspci\n"
 system [list] (yew bus | U S B): "lsusb\n"
 system release: "cat /etc/lsb-release\n"
+
+# system configuration
+sis cuddle: "sysctl "
+sis cuddle set: "sysctl -w "
 
 ###
 # images
@@ -203,3 +211,12 @@ net restart: "sudo systemctl restart NetworkManager\n"
 
 (folder yank path | folder path copy | folder copy | folder yank):
     "pwd | tr -d \\\\n\\\\r | xclip -sel clipboard\n"
+
+# Versioning Stuff
+(cis | system) show release: "cat /etc/lsb-release\n"
+system info: "hostnamectl\n"
+
+udev reload: "sudo udevadm control --reload-rules && sudo udevadm trigger"
+
+D N S cache list: "sudo systemd-resolve --statistics\n"
+D N S cache flush: "sudo systemd-resolve --flush-caches\n"
