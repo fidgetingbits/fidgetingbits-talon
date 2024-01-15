@@ -18,9 +18,39 @@ file list user temp:
 echo user temp:
     "echo $(getconf DARWIN_USER_TEMP_DIR)\n"
 
+# FIXME: This should move to log_manager
 log show:
     "sudo log show\n"
 
-# show the logs from today
+log show help:
+    "sudo log show --help\n"
+
+log help:
+    "sudo log --help\n"
+
+log watch:
+    "sudo log stream\n"
+
+# These assume MacOS date, but it doesn't work for GNU date used by nix-darwin
+# log show last hour:
+#     "sudo log show --info --start \"$(date -u \"+%Y-%m-%d %H:%M:%S\" -v -1H)\"\n"
+# log show last minute:
+#     "sudo log show --info --start \"$(date -u \"+%Y-%m-%d %H:%M:%S\" -v -1M)\"\n"
+# GNU version
+log show last hour:
+    "sudo log show --info --start \"$(date -u \"+%Y-%m-%d %H:%M:%S\" -d \"1 hour ago\")\"\n"
+log show last minute:
+    "sudo log show --info --start \"$(date -u \"+%Y-%m-%d %H:%M:%S\" -d \"1 minute ago\")\"\n"
+
+log show today:
+    "sudo log show --info --start \"$(date -u \"+%Y-%m-%d 00:00:00\")\"\n"
+log show service events:
+    user.insert_between("sudo log show --predicate 'eventMessage contains \"", "}\"' --info --start \"$(date -u \"+%Y-%m-%d 00:00:00\")\"\n")
 log show service {user.service_names} events:
      'sudo log show --predicate \'eventMessage contains "{service_names}"\' --info --start "$(date -u \"+%Y-%m-%d 00:00:00\")"\n'
+
+U S B list:
+    "system_profiler SPUSBDataType\n"
+
+launch log monitor:
+    "open -a Console.app\n"
