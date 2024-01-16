@@ -3,11 +3,11 @@ import os
 import time
 from dataclasses import dataclass
 from pathlib import Path
-from tempfile import gettempdir
 from typing import Any
 from uuid import uuid4
 
-from talon import Context, Module, actions, speech_system
+from talon import Context, Module, actions, app, speech_system
+from talon_init import TALON_HOME
 
 # How old a request file needs to be before we declare it stale and are willing
 # to remove it
@@ -213,7 +213,27 @@ def get_communication_dir_path():
     if hasattr(os, "getuid"):
         suffix = f"-{os.getuid()}"
 
-    return Path(gettempdir()) / f"{actions.user.command_server_directory()}{suffix}"
+    # See https://github.com/talonhub/community/issues/966 for why we do OS-specific temp dirs
+    if app.platform == "linux":
+        # Favor XDG_RUNTIME_DIR as it is a ramdisk and won't be overridden like TMPDIR
+        if "XDG_RUNTIME_DIR" in os.environ:
+            return (
+                Path(os.environ["XDG_RUNTIME_DIR"])
+                / f"{actions.user.command_server_directory()}{suffix}"
+            )
+        else:
+            return Path("/tmp") / f"{actions.user.command_server_directory()}{suffix}"
+    elif app.platform == "mac":
+        try:
+            temp_dir = (
+                Path(os.popen("getconf DARWIN_USER_TEMP_DIR").read().strip())
+                / f"{actions.user.command_server_directory()}{suffix}"
+            )
+            return temp_dir
+        except Exception:
+            return Path("/tmp") / f"{actions.user.command_server_directory()}{suffix}"
+    elif app.platform == "windows":
+        return Path(TALON_HOME / f"{actions.user.command_server_directory()}")
 
 
 def robust_unlink(path: Path):
