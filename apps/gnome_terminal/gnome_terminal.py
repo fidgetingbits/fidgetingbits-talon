@@ -48,9 +48,6 @@ class AppActions:
     def window_open():
         actions.key("ctrl-shift-n")
 
-    def window_close():
-        actions.key("ctrl-shift-q")
-
 
 # global (overwrite linux/edit.py)
 @ctx.action_class("edit")
