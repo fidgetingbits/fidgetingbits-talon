@@ -34,6 +34,7 @@ tag(): user.git
 tag(): user.docker
 tag(): user.podman
 tag(): user.virsh
+tag(): user.yarn
 #tag(): user.npm
 #tag(): user.meson
 #tag(): user.kubectl
@@ -214,6 +215,7 @@ file code: "code "
 file code new: "code -n "
 file code add folder: "code -a "
 file code here: "code .\n"
+code install extension: "code --install-extension "
 
 file (delete | remove): "rm -I "
 # TODO: It might be nice to automatically escape the file name in this case
