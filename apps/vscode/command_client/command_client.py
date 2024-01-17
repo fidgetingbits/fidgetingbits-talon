@@ -200,20 +200,17 @@ def run_command(
     return decoded_contents["returnValue"]
 
 
-def get_communication_dir_path():
-    """Returns directory that is used by command-server for communication
+# Global to avoid the look up dance every command
+command_server_directory = None
 
-    Returns:
-        Path: The path to the communication dir
-    """
-    suffix = ""
 
+# NB: See https://github.com/talonhub/community/issues/966 for why we do OS-specific temp dirs
+def get_platform_specific_communication_dir_path():
     # NB: We don't suffix on Windows, because the temp dir is user-specific
     # anyways
+    suffix = ""
     if hasattr(os, "getuid"):
         suffix = f"-{os.getuid()}"
-
-    # See https://github.com/talonhub/community/issues/966 for why we do OS-specific temp dirs
     if app.platform == "linux":
         # Favor XDG_RUNTIME_DIR as it is a ramdisk and won't be overridden like TMPDIR
         if "XDG_RUNTIME_DIR" in os.environ:
@@ -225,6 +222,7 @@ def get_communication_dir_path():
             return Path("/tmp") / f"{actions.user.command_server_directory()}{suffix}"
     elif app.platform == "mac":
         try:
+            # Favor DARWIN_USER_TEMP_DIR as it user-specific and won't be overridden like TMPDIR
             temp_dir = (
                 Path(os.popen("getconf DARWIN_USER_TEMP_DIR").read().strip())
                 / f"{actions.user.command_server_directory()}{suffix}"
@@ -233,7 +231,20 @@ def get_communication_dir_path():
         except Exception:
             return Path("/tmp") / f"{actions.user.command_server_directory()}{suffix}"
     elif app.platform == "windows":
+        # subprocess.run(["attrib","+H","myfile.txt"],check=True)
         return Path(TALON_HOME / f"{actions.user.command_server_directory()}")
+
+
+def get_communication_dir_path():
+    """Returns directory that is used by command-server for communication
+
+    Returns:
+        Path: The path to the communication dir
+    """
+    global command_server_directory
+    if command_server_directory is None:
+        command_server_directory = get_platform_specific_communication_dir_path()
+    return command_server_directory
 
 
 def robust_unlink(path: Path):
