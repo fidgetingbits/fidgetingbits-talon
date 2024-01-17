@@ -201,7 +201,7 @@ class Actions:
 
     def mouse_wake():
         """Enable control mouse, zoom mouse, and disables cursor"""
-        app.notify(subtitle="Waking mouse")
+        actions.user.notify("Waking mouse")
         mouse_wake()
 
     def mouse_calibrate():
@@ -219,9 +219,9 @@ class Actions:
     def mouse_toggle_control_mouse():
         """Toggles control mouse"""
         if not actions.tracking.control_enabled():
-            app.notify(subtitle="Control mouse: ON")
+            actions.user.notify("Control mouse: ON")
         else:
-            app.notify(subtitle="Control mouse: OFF")
+            actions.user.notify("Control mouse: OFF")
         actions.tracking.control_toggle(not actions.tracking.control_enabled())
 
     def mouse_toggle_zoom_mouse():
@@ -234,7 +234,7 @@ class Actions:
             s += "ENABLED"
         else:
             s += "DISABLED"
-        app.notify(subtitle=s)
+        actions.user.notify(s)
 
     def mouse_cancel_zoom_mouse():
         """Cancel zoom mouse if pending"""
@@ -344,7 +344,7 @@ class Actions:
     #            s += "ENABLED"
     #        else:
     #            s += "DISABLED"
-    #        app.notify(subtitle=s)
+    #        actions.user.notify(s)
 
     def mouse_drag(button: int):
         """Press and hold/release a specific mouse button for dragging"""

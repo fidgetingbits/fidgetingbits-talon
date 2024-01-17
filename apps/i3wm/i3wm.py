@@ -169,9 +169,5 @@ class UserActions:
     def window_maximize():
         actions.user.i3wm_fullscreen()
 
-        # Other people often use actions.user.notify() so we need to supply
-
-    # something... here I just rely on my monkey patch, to redirected
-    # through to dunst
     def notify(text: str):
         app.notify(subtitle=text)

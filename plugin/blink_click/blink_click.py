@@ -36,7 +36,7 @@ class EyeMouseSleepTracker:
         if platform == "darwin":
             cmd = "pmset displaysleepnow"
         elif platform == "linux":
-            app.notify(subtitle="would sleep screen")
+            actions.user.notify("would sleep screen")
             # cmd = "xset dpms force standby"
             cmd = ""
         else:
@@ -55,7 +55,7 @@ class EyeMouseSleepTracker:
 
     def wake(self):
         self.sleeping = False
-        app.notify(subtitle="waking from eye sleep state")
+        actions.user.notify("waking from eye sleep state")
         if self.settings["sleep_mode"]:
             actions.speech.enable()
         if self.settings["suspend_screen"]:
@@ -63,7 +63,7 @@ class EyeMouseSleepTracker:
 
     def suspend(self):
         self.sleeping = True
-        app.notify(subtitle="entering eye sleep state")
+        actions.user.notify("entering eye sleep state")
         if self.settings["sleep_mode"]:
             actions.speech.disable()
         if self.settings["suspend_screen"]:
@@ -281,7 +281,7 @@ class EyeMouseBlink:
                             # ctrl.mouse_click(
                             #    pos=(self.target_x, self.target_y), hold=32000
                             # )
-                            # app.notify(subtitle="blink click")
+                            # actions.user.notify("blink click")
                             pass
                         # ctrl.mouse_click(pos=(self.target_x, self.target_y), hold=32000)
                         self.second = False
@@ -313,7 +313,7 @@ class Actions:
         else:
             tracker.unregister("gaze", blink.on_gaze)
             blink.enabled = False
-        app.notify(subtitle=f"blink click: {blink.enabled}")
+        actions.user.notify(f"blink click: {blink.enabled}")
 
     def mouse_toggle_eye_mouse_sleep_tracker():
         """Turn on an off eye mouse sleep tracker"""
@@ -324,7 +324,7 @@ class Actions:
         else:
             tracker.unregister("gaze", sleep_tracker.on_gaze)
             sleep_tracker.enabled = False
-        app.notify(subtitle=f"eye sleep tracker: {sleep_tracker.enabled}")
+        actions.user.notify(f"eye sleep tracker: {sleep_tracker.enabled}")
 
 
 # menu.toggle('Blink Click + Wink Scroll', weight=2, cb=toggle_blink_click)

@@ -1,6 +1,6 @@
 # XXX - execute until line number/cursor
 
-from talon import Context, Module, app, settings, ui
+from talon import Context, Module, app, settings, ui, actions
 
 mod = Module()
 mod.tag("debugger", desc="Tag for enabling generic debugger commands")
@@ -76,11 +76,11 @@ class Debugger:
             self.arch_index = 0
         self.architecture = self.architectures[self.arch_index]
         ctx.tags = [f"user.{self.architecture}"]
-        app.notify(subtitle=f"Debug architecture: {self.architecture}")
+        actions.user.notify(f"Debug architecture: {self.architecture}")
 
     def current_architecture(self):
         """Display the current architecture"""
-        app.notify(subtitle=f"Debug architecture: {self.architecture}")
+        actions.user.notify(f"Debug architecture: {self.architecture}")
 
 
 debugger = Debugger(mod)

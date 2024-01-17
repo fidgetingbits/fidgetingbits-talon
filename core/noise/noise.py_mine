@@ -26,7 +26,7 @@ class Actions:
         if pop_quick_action:
             pop_quick_action_last = pop_quick_action
             pop_quick_action = None
-            app.notify(subtitle="pop quick action cleared")
+            actions.user.notify("pop quick action cleared")
 
     # XXX - it would be nice to have some sort of indicator for this
     # similar to talon_hud stuff
@@ -34,14 +34,14 @@ class Actions:
         """Sets the quick macro"""
         global pop_quick_action
         pop_quick_action = actions.core.last_command()
-        app.notify(subtitle=f"pop quick action set\n{pop_quick_action}")
+        actions.user.notify(f"pop quick action set\n{pop_quick_action}")
 
     def pop_quick_action_set_last():
         """Sets the quick macro to the previously set action"""
         global pop_quick_action
         global pop_quick_action_last
         pop_quick_action = pop_quick_action_last
-        app.notify(subtitle=f"pop quick action set\n{pop_quick_action}")
+        actions.user.notify(f"pop quick action set\n{pop_quick_action}")
 
     def pop_quick_action_run():
         """Runs the quick macro"""
@@ -63,14 +63,14 @@ class Actions:
         """Sets the quick macro"""
         global hiss_quick_action
         hiss_quick_action = actions.core.last_command()
-        app.notify(subtitle=f"hiss quick action set\n{pop_quick_action}")
+        actions.user.notify(f"hiss quick action set\n{pop_quick_action}")
 
     def hiss_quick_action_set_last():
         """Sets the quick macro to the previously set action"""
         global hiss_quick_action
         global hiss_quick_action_last
         hiss_quick_action = hiss_quick_action_last
-        app.notify(subtitle=f"hiss quick action set\n{pop_quick_action}")
+        actions.user.notify(f"hiss quick action set\n{pop_quick_action}")
 
     def hiss_quick_action_run():
         """Runs the quick macro"""
@@ -116,13 +116,13 @@ def on_hiss(active):
 #     noise.register("pop", on_pop)
 #     # noise.register("hiss", on_hiss)
 # except talon.lib.cubeb.CubebError as e:
-#     app.notify("Failed to register pop. Is possible audio error")
+#     actions.user.notify("Failed to register pop. Is possible audio error")
 #     print("Failed to register pop. Is possible audio error")
 #     print(e)
 #
 # try:
 #     noise.register("hiss", on_hiss)
 # except talon.lib.cubeb.CubebError as e:
-#     app.notify("Failed to register hiss. Is possible audio error")
+#     actions.user.notify("Failed to register hiss. Is possible audio error")
 #     print("Failed to register hiss. Is possible audio error")
 #     print(e)

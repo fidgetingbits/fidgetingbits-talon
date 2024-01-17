@@ -220,7 +220,7 @@ class Actions:
         error = "homophones.py index {} is out of range (1-{})".format(
             number, len(active_word_list)
         )
-        app.notify(subtitle=error)
+        actions.user.notify(error)
         raise error
 
     def homophones_get(word: str) -> [str] or None:

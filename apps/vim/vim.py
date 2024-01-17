@@ -1154,12 +1154,12 @@ class VimRPC:
             # I sometimes get this for things like needing a w! for write...
             except pynvim.api.common.NvimError as e:
                 print("NvimError START")
-                app.notify(subtitle=e)
+                actions.user.notify(e)
                 self.nvrpc.nvim.err_write(str(e))
                 print(e)
                 print("NvimError END")
             except Exception as e:
-                app.notify(subtitle="Unknown Neovim API error. See talon log")
+                actions.user.notify("Unknown Neovim API error. See talon log")
                 print("NvimError START")
                 print(e)
                 print("NvimError END")
