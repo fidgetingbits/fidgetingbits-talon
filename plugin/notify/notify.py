@@ -42,6 +42,14 @@ class Actions:
                 except subprocess.CalledProcessError:
                     has_notify_send = False
         if has_notify_send:
-            subprocess.Popen(["notify-send", "Talon", f'"{text}", "-i", "{icon_path}"'])
+            subprocess.Popen(
+                [
+                    "notify-send",
+                    "-i",
+                    icon_path,
+                    "Talon",
+                    text,
+                ]
+            )
         else:
             app.notify(text)
