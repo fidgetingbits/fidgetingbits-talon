@@ -28,6 +28,15 @@ class UserActions:
     def tabs_show():
         actions.key("ctrl-shift-o")
 
+    def page_find():
+        actions.key("ctrl-shift-f")
+
+    def page_find_next():
+        actions.key("ctrl-shift-g")
+
+    def page_find_previous():
+        actions.key("ctrl-shift-h")
+
 
 @ctx.action_class("app")
 class AppActions:
