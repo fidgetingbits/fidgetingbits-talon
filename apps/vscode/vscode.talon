@@ -540,12 +540,22 @@ sesh <user.show_list> [<user.text>] [halt]:
     sleep(250ms)
     user.insert_formatted(text or "", "DASH_SEPARATED,ALL_LOWERCASE")
     sleep(250ms)
-<user.teleport> sesh [<user.text>] [halt]:
+
+<user.teleport> sesh <user.text> [halt]:
     user.vscode("workbench.action.openRecent")
     sleep(250ms)
-    user.insert_formatted(text or "", "DASH_SEPARATED,ALL_LOWERCASE")
+    # NB: I had workspace to avoid some file name conflicts, eg cursorless_todo.md
+    user.insert_formatted("{text}", "DASH_SEPARATED,ALL_LOWERCASE")
+    insert(" workspace")
     key(enter)
     sleep(250ms)
+
+<user.teleport> sesh [halt]:
+    user.vscode("workbench.action.openRecent")
+    sleep(250ms)
+    key(enter)
+    sleep(250ms)
+
 new sesh [<user.text>]:
     user.vscode("workbench.action.newWindow")
     sleep(3s)
