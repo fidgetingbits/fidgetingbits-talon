@@ -133,7 +133,7 @@ file find: user.insert_between('find . -name "", "" 2>/dev/null')
 file find file: user.insert_between('find . -type f -name "", "" 2>/dev/null')
 file find folder: user.insert_between('find . -type d -name "", "" 2>/dev/null')
 # case insensitive fuzzy find
-file fuzzy find: user.insert_between('find . -iname "*"', '"*" 2>/dev/null')
+file fuzzy find: user.insert_between('find . -iname "*', '*" 2>/dev/null')
 file fuzzy hash:
     user.insert_between('find . -path "*", "*" -exec sha256sum {{}} \\; 2>/dev/null')
 
