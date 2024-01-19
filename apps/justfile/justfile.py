@@ -5,10 +5,10 @@ from talon import Context, Module, actions, app, settings
 
 mod = Module()
 mod.setting(
-    "justfile_auto_populate",
+    "justfile_auto_completion",
     type=bool,
     default=False,
-    desc="Whether or not try to find a justfile auto populate commands.",
+    desc="Whether or not automatically complete just commands with justfile contents",
 )
 
 ctx = Context()
@@ -21,7 +21,7 @@ ctx.lists["user.justfile_commands"] = {}
 
 
 def on_ready():
-    if settings.get("user.justfile_auto_populate"):
+    if settings.get("user.justfile_auto_completion"):
         actions.user.zsh_register_watch_file_callback(
             "justfile_commands", update_justfile_commands
         )
@@ -67,7 +67,7 @@ class Actions:
         """Dump add a pretty version of the folder completions to the log"""
         print("Just Command Completions:")
         print(pprint.pformat(ctx.lists["user.justfile_commands"]))
-        print("Enabled: ", settings.get("user.justfile_auto_populate"))
+        print("Enabled: ", settings.get("user.justfile_auto_completion"))
 
 
 app.register("ready", on_ready)
