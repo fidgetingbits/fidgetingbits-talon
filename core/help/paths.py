@@ -82,7 +82,6 @@ unix_folder_paths = {
     "public snippets": "~/.local/share/nvim/lazy/friendly-snippets/snippets/",
     "talon": f"~/.talon/user/{TALON_REPO}/",
     "talon user": "~/.talon/user/",
-    "talon completions": "~/.talon/cache/completions/",
     "back": "../",
     "tunnel": "~/.ssh/",
     "tunnel config": "~/.ssh/config.d/",
@@ -128,6 +127,7 @@ unix_folder_paths = {
     "apache mods enabled": "/etc/apache2/mods-enabled/",
     "var web": "/var/www/",
     "code extensions": "~/.vscode/extensions/",
+    "talon completions": "$XDG_RUNTIME_DIR/talon/cache/completions/",
 }
 
 mac_folder_paths = {}
@@ -264,6 +264,8 @@ ctx.lists["user.common_files"] = {
     "flake lock": "flake.lock",
     "docker": "Dockerfile",
     "docker compose": "docker-compose.yml",
+    "package json": "package.json",
+    "yarn lock": "yarn.lock",
 }
 
 
