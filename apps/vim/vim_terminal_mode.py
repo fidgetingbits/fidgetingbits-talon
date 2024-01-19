@@ -1,7 +1,7 @@
 import re
 from timeit import default_timer as timer
 
-from talon import Context, Module, actions, app, ui
+from talon import Context, Module, actions, app, settings, ui
 
 mod = Module()
 ctx = Context()
@@ -65,7 +65,9 @@ def parse_vim_term_title(window):
         #        print(start)
         #        print(end)
         #        print(f"parse_vim_term_title - not vim: {end - start}")
+
         return
+
     last_window = window
     last_title = current_title
 
@@ -73,7 +75,10 @@ def parse_vim_term_title(window):
     # VIM MODE:t RPC:/tmp/nvimlVeccr/0  TERM:gdb (term://~//161917:/usr/bin/zsh) zsh
     index = current_title.find("TERM:")
     shell_command = current_title[index + len("TERM:") :]
+    cwd = None
     if ":" in shell_command:
+        # FIXME: This will break if there's a : or ( in the path
+        cwd = shell_command.split(":")[1].split("(")[0]
         shell_command = shell_command.split(":")[0]
     if shell_command.startswith("sudo"):
         # Handle something like:
@@ -86,7 +91,11 @@ def parse_vim_term_title(window):
     #    print(end)
     #    print(f"parse_vim_term_title - pass to populate: {end - start}")
 
-    populate_shell_tags(shell_command, window.title)
+    tags = populate_shell_tags(shell_command, window.title)
+    # if tags is not None and "terminal" in tags:
+    #     # Parse folder from the window title
+    #     cwd = window.title.split("TERM:")[1].split(":")[1].split("(term")[0]
+
     populate_language_modes(shell_command)
 
 
@@ -155,6 +164,8 @@ def populate_shell_tags(shell_command, window_title):
     :returns: TODO
 
     """
+
+    tags = []
     if shell_command in shell_tags:
         # XXX - make a better way of marking stuff in noisy event log,
         # ins this writes to our file/terminal
@@ -163,10 +174,12 @@ def populate_shell_tags(shell_command, window_title):
         # print(ctx.tags)
         if isinstance(shell_tags[shell_command], list):
             start = timer()
-            ctx.tags = shell_tags[shell_command]
+            tags = shell_tags[shell_command]
+            ctx.tags = tags
         else:
             start = timer()
-            ctx.tags = [shell_tags[shell_command]]
+            tags = [shell_tags[shell_command]]
+            ctx.tags = tags
         end = timer()
         print(f"populate_shell_tags: {end - start}")
 
@@ -180,19 +193,25 @@ def populate_shell_tags(shell_command, window_title):
             # print(f"shell_command: {shell_command}")
             if shell_command.startswith(tag):
                 # print("found python")
-                ctx.tags = [fuzzy_shell_tags[tag]]
+                tags = [fuzzy_shell_tags[tag]]
+                ctx.tags = tags
                 found_fuzzy = True
                 break
-
+        if found_fuzzy:
+            return tags
         for expression in regex_shell_tags:
             m = re.match(expression, shell_command)
             if m is not None:
-                ctx.tags = [regex_shell_tags[expression]]
+                tags = [regex_shell_tags[expression]]
+                ctx.tags = tags
                 break
             m = re.match(expression, window_title)
             if m is not None:
-                ctx.tags = [regex_shell_tags[expression]]
+                tags = [regex_shell_tags[expression]]
+                ctx.tags = tags
                 break
+
+    return tags
 
 
 #        if not found_fuzzy:
