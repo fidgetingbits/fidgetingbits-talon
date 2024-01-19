@@ -460,7 +460,7 @@ class Actions:
         generate_subsequences: bool = True,
     ) -> list[str]:
         """Create spoken forms for a given source"""
-
+        source = source.strip()
         spoken_forms_without_symbols = create_spoken_forms_from_regex(
             source, REGEX_NO_SYMBOLS
         )
@@ -510,7 +510,7 @@ class Actions:
             )
             sources = take(DEFAULT_MAXIMUM_LIST_LENGTH, sources)
         return actions.user.create_spoken_forms_from_map(
-            {source: source for source in sources},
+            {source: source.strip() for source in sources},
             words_to_exclude,
             minimum_term_length,
             generate_subsequences,
