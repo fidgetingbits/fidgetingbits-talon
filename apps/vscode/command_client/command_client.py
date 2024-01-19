@@ -211,25 +211,8 @@ def get_platform_specific_communication_dir_path():
     suffix = ""
     if hasattr(os, "getuid"):
         suffix = f"-{os.getuid()}"
-    if app.platform == "linux":
-        # Favor XDG_RUNTIME_DIR as it is a ramdisk and won't be overridden like TMPDIR
-        if "XDG_RUNTIME_DIR" in os.environ:
-            return (
-                Path(os.environ["XDG_RUNTIME_DIR"])
-                / f"{actions.user.command_server_directory()}{suffix}"
-            )
-        else:
-            return Path("/tmp") / f"{actions.user.command_server_directory()}{suffix}"
-    elif app.platform == "mac":
-        try:
-            # Favor DARWIN_USER_TEMP_DIR as it user-specific and won't be overridden like TMPDIR
-            temp_dir = (
-                Path(os.popen("getconf DARWIN_USER_TEMP_DIR").read().strip())
-                / f"{actions.user.command_server_directory()}{suffix}"
-            )
-            return temp_dir
-        except Exception:
-            return Path("/tmp") / f"{actions.user.command_server_directory()}{suffix}"
+    if app.platform == "linux" or app.platform == "mac":
+        return Path("/tmp") / f"{actions.user.command_server_directory()}{suffix}"
     elif app.platform == "windows":
         # subprocess.run(["attrib","+H","myfile.txt"],check=True)
         return Path(TALON_HOME / f"{actions.user.command_server_directory()}")
