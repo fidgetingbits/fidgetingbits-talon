@@ -1,14 +1,52 @@
+import pprint
 from pathlib import Path
 
-from talon import Context, Module, actions, settings
+from talon import Context, Module, actions, app, settings
 
 mod = Module()
 mod.setting(
     "justfile_auto_populate",
     type=bool,
     default=False,
-    desc="Whether or not try to find a justfile in a git project and auto populate commands.",
+    desc="Whether or not try to find a justfile auto populate commands.",
 )
+
+ctx = Context()
+ctx.matches = r"""
+tag: user.just_commands
+"""
+
+mod.list("justfile_commands", desc="justfile command completions")
+ctx.lists["user.justfile_commands"] = {}
+
+
+def on_ready():
+    if settings.get("user.justfile_auto_populate"):
+        actions.user.zsh_register_watch_file_callback(
+            "justfile_commands", update_justfile_commands
+        )
+        print("Registered justfile watch callback")
+
+
+def update_justfile_commands(cwd, flags):
+    """Update the available justfile commands based off of a change of working directory"""
+    print(f"watch_justfile_commands called, with {cwd}")
+
+    try:
+        path = actions.user.zsh_completion_base_dir()
+
+        with open(f"{path}/{cwd}", "r") as f:
+            commands = f.read().splitlines()
+            if len(commands) == 0:
+                print("No justfile commands found")
+                ctx.lists["user.justfile_commands"] = {}
+            else:
+                ctx.lists[
+                    "user.justfile_commands"
+                ] = actions.user.create_spoken_forms_from_list(commands)
+            print(f"Updated justfile_commands with {len(commands)} entries")
+    except Exception as e:
+        pass
 
 
 # FIXME: Apparently this isn't perfect, but I don't want to import git
@@ -25,14 +63,11 @@ def find_justfile(path):
 
 @mod.action_class
 class Actions:
-    def justfile_populate_commands(cwd: str):
-        """Populate commands from justfile"""
-        if not settings.get("user.justfile_auto_populate"):
-            print("disabled")
-            return
+    def just_dump_completions():
+        """Dump add a pretty version of the folder completions to the log"""
+        print("Just Command Completions:")
+        print(pprint.pformat(ctx.lists["user.justfile_commands"]))
+        print("Enabled: ", settings.get("user.justfile_auto_populate"))
 
-        justfile = find_justfile(cwd)
-        if not justfile:
-            print("No justfile found")
-            return
-        print("Found justfile, populating commands")
+
+app.register("ready", on_ready)
