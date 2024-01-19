@@ -31,12 +31,13 @@ nix build with paths:
 nix build local package:
     "nix-build -E 'with import <nixpkgs> {{}}; pkgs.callPackage ./default.nix {{}}'"
 
-# Flakes Commands
-nix build flake: "nix build "
-nix build flake now: "nix build .\n"
-nix build log: "nix build -L "
-nix build flake with paths:
+# Flake build commands
+nix three build: "nix build "
+nix three build now: "nix build .\n"
+nix three build log: "nix build -L "
+nix three build with paths:
     user.insert_between("nix build nixpkgs#", "--print-out-paths --no-link")
+nix three build debug: " nix build --verbose --debug --print-build-logs\n"
 
 nix flake check: "nix flake check\n"
 nix flake update: "nix flake update\n"
@@ -68,3 +69,7 @@ nix show (drive|derivation) clip:
     insert("nix derivation show")
     edit.paste()
     key(enter)
+
+nix profile install: "nix profile install nixpkgs#"
+nix profile remove: "nix profile remove "
+nix profile list: "nix profile list"
