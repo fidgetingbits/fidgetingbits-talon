@@ -181,11 +181,11 @@ def populate_shell_tags(shell_command, window_title):
             tags = [shell_tags[shell_command]]
             ctx.tags = tags
         end = timer()
-        print(f"populate_shell_tags: {end - start}")
+        # print(f"populate_shell_tags: {end - start}")
 
         # actions.insert('marker end')
 
-        print(f"populate_shell_tags(): set {ctx.tags}")
+        # print(f"populate_shell_tags(): set {ctx.tags}")
     else:
         # print(f"trying fuzzy: {window_title}")
         found_fuzzy = False
