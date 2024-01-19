@@ -15,7 +15,10 @@ mod = Module()
 
 DEFAULT_MAXIMUM_LIST_LENGTH = 5000
 DEFAULT_MINIMUM_TERM_LENGTH = 2
+# For expanding 'usb' or 'USB' into 'U S B'
 EXPLODE_MAX_LEN = 3
+# For expanding any uppercase word into individual letters, ie: UART.md into U A R T dot M D
+UPPERCASE_EXPLODE_MAX_LEN = 5
 FANCY_REGULAR_EXPRESSION = r"[A-Z]?[a-z]+|[A-Z]+(?![a-z])|[0-9]+"
 FILE_EXTENSIONS_REGEX = "|".join(
     re.escape(file_extension.strip()) + "$"
@@ -232,7 +235,9 @@ def create_extension_forms(spoken_forms: List[str]):
     for line in spoken_forms:
         have_file_extension = False
         file_extension_forms = []
-        dotted_extension_form = []
+        dotted_extension_long_form = []
+        dotted_extension_short_form = []
+
         truncated_forms = []
         for substring in line.split(" "):
             # NOTE: If we ever run in to file extensions in the middle of file name, the
@@ -240,18 +245,29 @@ def create_extension_forms(spoken_forms: List[str]):
 
             if substring in file_extensions_map.keys():
                 file_extension_forms.append(file_extensions_map[substring])
-                dotted_extension_form.append(REVERSE_PRONUNCIATION_MAP["."])
-                dotted_extension_form.append(file_extensions_map[substring])
+                dotted_extension_long_form.append(REVERSE_PRONUNCIATION_MAP["."])
+                dotted_extension_long_form.append(file_extensions_map[substring])
+
+                # Add stuff like .md as dot M D . 4 includes the .
+                if len(substring) <= 4:
+                    dotted_extension_short_form.append(REVERSE_PRONUNCIATION_MAP["."])
+                    # [1:] to strip the '.'
+                    dotted_extension_short_form.append(" ".join(substring[1:].upper()))
+                    # print(dotted_extension_short_form)
+
+                # print(dotted_extension_long_form)
                 have_file_extension = True
                 # purposefully down update truncated
             else:
                 file_extension_forms.append(substring)
-                dotted_extension_form.append(substring)
+                dotted_extension_long_form.append(substring)
+                dotted_extension_short_form.append(substring)
                 truncated_forms.append(substring)
         # print(file_extension_forms)
         if have_file_extension:
             new_spoken_forms.append(" ".join(file_extension_forms))
-            new_spoken_forms.append(" ".join(dotted_extension_form))
+            new_spoken_forms.append(" ".join(dotted_extension_long_form))
+            new_spoken_forms.append(" ".join(dotted_extension_short_form))
         new_spoken_forms.append(" ".join(truncated_forms))
 
     return set(dict.fromkeys(new_spoken_forms))
@@ -268,7 +284,11 @@ def create_cased_forms(spoken_forms: List[str]):
         for substring in line.split(" "):
             if substring.isupper():
                 lower_forms.append(substring.lower())
-                upper_forms.append(" ".join(substring))
+                # Limit how many uppercase letters we'll expand, otherwise
+                # we get unmanageable numbers of spoken forms. Instead
+                # CONTRIBUTING.md becomes C O N T R dot md
+                upper_forms.append(" ".join(substring[:UPPERCASE_EXPLODE_MAX_LEN]))
+
             else:
                 lower_forms.append(substring)
                 upper_forms.append(substring)
@@ -408,7 +428,7 @@ def generate_string_subsequences(
     # 4. strings in words_to_exclude.
     term_sequence = source.split(" ")
     terms = {
-        # WARNING: This .lower() version creates unwanted duplication of broken up
+        # WARNING: This .lower() version creates unwanted modification of broken up
         # uppercase words, eg 'R E A D M E' -> 'r e a d m e'. Everything else should be
         # lower case already
         # term.lower().strip()
