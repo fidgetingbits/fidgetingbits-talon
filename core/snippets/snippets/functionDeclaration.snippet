@@ -40,3 +40,12 @@ function $1($2)
     $0
 end
 ---
+
+language: bash | zsh
+
+$1.insertionFormatter: SNAKE_CASE
+-
+function $1() {
+    $0
+}
+---

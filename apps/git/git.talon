@@ -247,8 +247,8 @@ git status staged: "git status --short | grep '^[MARCD]'\n"
 git sub tree: "git subtree "
 git switch: "git switch "
 git switch branch: "git switch -c"
-git switch [<user.text>]:
-    "git switch {user.formatted_text(text or '', 'DASH_SEPARATED')}"
+# git switch [<user.text>]:
+#     "git switch {user.formatted_text(text or '', 'DASH_SEPARATED')}"
 git switch master: "git switch master "
 git switch main: "git switch main "
 git switch develop: "git switch develop "
