@@ -833,4 +833,4 @@ folder sync: "rsync -avz "
 folder sync here: "rsync -avz . "
 
 (cert|certificate) show: "openssl x509 -in "
-(cert|certificate) show expiry: "openssl x509 -enddate -noout -in \n"
+(cert|certificate) show expiry: "openssl x509 -enddate -noout -in "
