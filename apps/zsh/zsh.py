@@ -131,7 +131,7 @@ def _setup_watches(window):
     global zsh_folder_path
     if window == ui.active_window() and _is_zsh_window(window):
         pid = _get_zsh_pid(window.title)
-        print(f"zsh.py _setup_watches() detected zsh pid {pid}")
+        # print(f"zsh.py _setup_watches() detected zsh pid {pid}")
         global current_zsh_pid
         if pid != current_zsh_pid:
             # print(f"zsh.py win_title() detected zsh pid {pid} != {current_zsh_pid}")
@@ -141,7 +141,7 @@ def _setup_watches(window):
                 )
                 fs.unwatch(f"{zsh_file_path}.{current_zsh_pid}", _zsh_cwd_watch_files)
                 for entry in extra_callbacks:
-                    print(f"unwatching {entry['watch_file']}")
+                    # print(f"unwatching {entry['watch_file']}")
                     fs.unwatch(
                         f'{entry["watch_file"]}..{current_zsh_pid}', entry["callback"]
                     )
@@ -160,12 +160,12 @@ def _setup_watches(window):
             if os.path.exists(file_path):
                 fs.watch(file_path, _zsh_cwd_watch_files)
 
-            print(f"Setting watch for {len(extra_callbacks)} extra callbacks")
+            # print(f"Setting watch for {len(extra_callbacks)} extra callbacks")
             for entry in extra_callbacks:
                 watch_path = f'{entry["watch_file"]}.{pid}'
                 # print(f"calling callback for {watch_path}")
                 entry["callback"](watch_path, None)
-                print(f"Setting watch on {watch_path}")
+                # print(f"Setting watch on {watch_path}")
                 fs.watch(watch_path, entry["callback"])
     else:
         if current_zsh_pid is not None:
@@ -216,11 +216,10 @@ class Actions:
         global extra_callbacks
         for entry in extra_callbacks:
             if entry["watch_file"] == watch_file:
-                # FIXME: Does this work to update the list?
                 entry["callback"] = callback
                 return
         extra_callbacks.append({"watch_file": watch_file, "callback": callback})
-        print("new callback registered")
+        # print("new callback registered")
 
     def zsh_completion_base_dir():
         """Return the base directory for zsh completions"""

@@ -25,12 +25,12 @@ def on_ready():
         actions.user.zsh_register_watch_file_callback(
             "justfile_commands", update_justfile_commands
         )
-        print("Registered justfile watch callback")
+        # print("Registered justfile watch callback")
 
 
 def update_justfile_commands(cwd, flags):
     """Update the available justfile commands based off of a change of working directory"""
-    print(f"watch_justfile_commands called, with {cwd}")
+    # print(f"watch_justfile_commands called, with {cwd}")
 
     try:
         path = actions.user.zsh_completion_base_dir()
@@ -38,33 +38,21 @@ def update_justfile_commands(cwd, flags):
         with open(f"{path}/{cwd}", "r") as f:
             commands = f.read().splitlines()
             if len(commands) == 0:
-                print("No justfile commands found")
+                # print("No justfile commands found")
                 ctx.lists["user.justfile_commands"] = {}
             else:
                 ctx.lists[
                     "user.justfile_commands"
                 ] = actions.user.create_spoken_forms_from_list(commands)
-            print(f"Updated justfile_commands with {len(commands)} entries")
+            # print(f"Updated justfile_commands with {len(commands)} entries")
     except Exception as e:
         pass
-
-
-# FIXME: Apparently this isn't perfect, but I don't want to import git
-def find_justfile(path):
-    "Find repository root from the path's parents"
-
-    for path in [Path(path)] + list(Path(path).parents):
-        justfile = path / Path("justfile").resolve()
-        print(f"Testing {justfile}")
-        if justfile.is_file():
-            return justfile
-    return None
 
 
 @mod.action_class
 class Actions:
     def just_dump_completions():
-        """Dump add a pretty version of the folder completions to the log"""
+        """Dump add a pretty version of the justfile completions to the log"""
         print("Just Command Completions:")
         print(pprint.pformat(ctx.lists["user.justfile_commands"]))
         print("Enabled: ", settings.get("user.justfile_auto_completion"))
