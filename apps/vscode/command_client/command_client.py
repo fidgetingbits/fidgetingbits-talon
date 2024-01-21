@@ -215,7 +215,7 @@ def get_platform_specific_communication_dir_path():
         # subprocess.run(["attrib","+H","myfile.txt"],check=True)
         return Path(
             home_dir
-            / f"\\AppData\\Roaming\\talon\\{actions.user.command_server_directory()}"
+            / f"\\AppData\\Roaming\\talon\\.comms\\{actions.user.command_server_directory()}"
         )
 
 
