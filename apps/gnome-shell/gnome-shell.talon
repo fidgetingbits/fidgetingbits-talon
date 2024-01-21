@@ -4,7 +4,7 @@ and tag: user.gnome-shell
 -
 
 launch command: key(alt-f2)
-launch app: key(super)
+launch [app]: key(super)
 app show: key(super-a)
 
 power off: key(ctrl-alt-delete)
@@ -27,3 +27,4 @@ app next:
 
 app choose:
     key(alt:up)
+
