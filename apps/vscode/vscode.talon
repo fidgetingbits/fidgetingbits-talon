@@ -654,3 +654,11 @@ skip:
 deck(pedal_left): key("pageup")
 deck(pedal_right): key("pagedown")
 deck(pedal_middle): edit.save()
+
+
+# direnv extensionl
+envy allow: user.vscode("direnv.loadEnvrc")
+envy open: user.vscode("direnv.open")
+envy create: user.vscode("direnv.create")
+envy reload: user.vscode("direnv.reload")
+envy reset: user.vscode("direnv.reset")
