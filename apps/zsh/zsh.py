@@ -129,16 +129,16 @@ old_callback_count = 0
 
 
 def _setup_watches(window):
-    print("_setup_watches")
+    # print("_setup_watches")
     global zsh_folder_path
     if window == ui.active_window() and _is_zsh_window(window):
         pid = _get_zsh_pid(window.title)
-        print(f"zsh.py _setup_watches() detected zsh pid {pid}")
+        # print(f"zsh.py _setup_watches() detected zsh pid {pid}")
         global current_zsh_pid
         if pid != current_zsh_pid:
-            print(
-                f"zsh.py _setup_watches() detected zsh pid {pid} != {current_zsh_pid}"
-            )
+            # print(
+            #     f"zsh.py _setup_watches() detected zsh pid {pid} != {current_zsh_pid}"
+            # )
             if current_zsh_pid is not None:
                 fs.unwatch(
                     f"{zsh_folder_path}.{current_zsh_pid}", _zsh_cwd_watch_folders
@@ -164,14 +164,14 @@ def _setup_watches(window):
             if os.path.exists(file_path):
                 fs.watch(file_path, _zsh_cwd_watch_files)
 
-            print(f"Setting watch for {len(extra_callbacks)} extra callbacks")
+            # print(f"Setting watch for {len(extra_callbacks)} extra callbacks")
             global old_callback_count
             old_callback_count = len(extra_callbacks)
             for entry in extra_callbacks:
                 watch_path = f'{entry["watch_file"]}.{pid}'
                 # print(f"calling callback for {watch_path}")
                 entry["callback"](watch_path, None)
-                print(f"Setting watch on {watch_path}")
+                # print(f"Setting watch on {watch_path}")
                 fs.watch(watch_path, entry["callback"])
         elif len(extra_callbacks) != old_callback_count:
             # Sometimes the callbacks get added after the first pid detection
@@ -184,11 +184,11 @@ def _setup_watches(window):
                 watch_path = f'{entry["watch_file"]}.{pid}'
                 # print(f"calling callback for {watch_path}")
                 entry["callback"](watch_path, None)
-                print(f"Setting watch on {watch_path}")
+                # print(f"Setting watch on {watch_path}")
                 fs.watch(watch_path, entry["callback"])
-            print(
-                f"zsh.py _setup_watches() detected zsh pid {pid} == {current_zsh_pid}"
-            )
+            # print(
+            #     f"zsh.py _setup_watches() detected zsh pid {pid} == {current_zsh_pid}"
+            # )
             pass
     else:
         if current_zsh_pid is not None:
