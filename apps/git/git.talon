@@ -22,12 +22,9 @@ git branch remote: "git branch --remote\n"
 git branch (rename | move): "git branch -m "
 git branch <user.text>: "git branch {text}"
 git checkout: "git checkout "
-git checkout master: "git checkout master\n"
-git checkout file master: "git checkout master --"
-git checkout (main | men): "git checkout main\n"
+git checkout {user.git_branches}: "git checkout {git_branches}\n"
+git checkout file {user.git_branches}: "git checkout {git_branches} -- "
 git checkout upstream (main | men): "git checkout upstream/main\n"
-git checkout dev: "git checkout dev\n"
-git checkout <user.text>: "git checkout {text}"
 git checkout <number_small> before clip:
     insert("git checkout ")
     edit.paste()
@@ -84,7 +81,7 @@ git diff (colour | color) words: "git diff --color-words "
 git diff: "git diff "
 git diff cached: "git diff --cached\n"
 git diff staged: "git diff --staged\n"
-git diff main: "git diff main\n"
+git diff {user.git_branches}: "git diff {git_branches}}\n"
 git diff tool: "git difftool -d\n"
 git diff tool cached: "git difftool --cached -d\n"
 git diff names only: "git diff --name-only "
@@ -102,7 +99,7 @@ git ignore changes: "git update-index --assume-unchanged "
 git in it: "git init\n"
 git list files: "git ls-files\n"
 git list modified: "git ls-files -m\n"
-git list tracked: "git ls-files -r main --name-only\n"
+git list tracked {user.git_branches}: "git ls-files -r git_branches --name-only\n"
 git list ignored: "git ls-files . --ignored --exclude-standard --others\n"
 git list untracked: "git ls-files . --ignored --exclude-standard --others\n"
 git show hook folder: "git rev-parse --git-path hooks\n"
@@ -139,8 +136,8 @@ git log removed files: "git log --diff-filter=D --summary\n"
 git log removed files only: "git log --diff-filter=D --summary | grep delete\n"
 
 git merge base: "git merge-base "
-git merge base main: "git merge-base main HEAD"
-git merge base master: "git merge-base master HEAD"
+git merge base {user.git_branches}: "git merge-base {git_branches} HEAD"
+
 git merge cancel: "git merge --abort\n"
 
 git merge pull request: user.insert_between("git pull origin pull/", "/head:")
@@ -171,6 +168,7 @@ git push <user.text>: "git push {} "
 git push tags: "git push --tags\n"
 git rebase: "git rebase "
 git rebase now: "git rebase\n"
+# FIXME: add auto population of upstream branches
 git rebase upstream main: "git rebase upstream/main\n"
 git rebase upstream master: "git rebase upstream/master\n"
 git rebase upstream dev: "git rebase upstream/dev\n"
@@ -196,8 +194,8 @@ git reset hard head: "git reset --hard HEAD~1"
 git reset hard head <number_small>: "git reset --hard HEAD~{number_small}"
 
 # These two are useful for mass commit squashing
-git reset [merge] base main: "git reset --soft $(git merge-base main HEAD)"
-git reset [merge] base master: "git reset --soft $(git merge-base master HEAD)"
+git reset [merge] base {user.git_branches}: "git reset --soft $(git merge-base {git_branches} HEAD)"
+
 
 git restore: "git restore "
 git restore staged: "git restore --staged "
@@ -246,12 +244,7 @@ git status (all | full | everything): "git status\n"
 git status staged: "git status --short | grep '^[MARCD]'\n"
 git sub tree: "git subtree "
 git switch: "git switch "
-git switch branch: "git switch -c"
-# git switch [<user.text>]:
-#     "git switch {user.formatted_text(text or '', 'DASH_SEPARATED')}"
-git switch master: "git switch master "
-git switch main: "git switch main "
-git switch develop: "git switch develop "
+git switch {user.git_branches}: "git switch {git_branches}"
 git switch detached: "git switch --detach "
 git (switch create | new branch) [<user.text>]:
     "git switch -c {user.formatted_text(text or '', 'DASH_SEPARATED')}"
@@ -326,3 +319,6 @@ git commit highlighted:
     insert("git add ")
     edit.paste()
     insert("\ngit commit\n")
+
+git dump completions:
+    user.git_dump_completions()

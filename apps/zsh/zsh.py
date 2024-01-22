@@ -125,16 +125,20 @@ def _get_zsh_pid(title):
 
 
 extra_callbacks = []
+old_callback_count = 0
 
 
 def _setup_watches(window):
+    print("_setup_watches")
     global zsh_folder_path
     if window == ui.active_window() and _is_zsh_window(window):
         pid = _get_zsh_pid(window.title)
-        # print(f"zsh.py _setup_watches() detected zsh pid {pid}")
+        print(f"zsh.py _setup_watches() detected zsh pid {pid}")
         global current_zsh_pid
         if pid != current_zsh_pid:
-            # print(f"zsh.py win_title() detected zsh pid {pid} != {current_zsh_pid}")
+            print(
+                f"zsh.py _setup_watches() detected zsh pid {pid} != {current_zsh_pid}"
+            )
             if current_zsh_pid is not None:
                 fs.unwatch(
                     f"{zsh_folder_path}.{current_zsh_pid}", _zsh_cwd_watch_folders
@@ -160,13 +164,32 @@ def _setup_watches(window):
             if os.path.exists(file_path):
                 fs.watch(file_path, _zsh_cwd_watch_files)
 
-            # print(f"Setting watch for {len(extra_callbacks)} extra callbacks")
+            print(f"Setting watch for {len(extra_callbacks)} extra callbacks")
+            global old_callback_count
+            old_callback_count = len(extra_callbacks)
             for entry in extra_callbacks:
                 watch_path = f'{entry["watch_file"]}.{pid}'
                 # print(f"calling callback for {watch_path}")
                 entry["callback"](watch_path, None)
-                # print(f"Setting watch on {watch_path}")
+                print(f"Setting watch on {watch_path}")
                 fs.watch(watch_path, entry["callback"])
+        elif len(extra_callbacks) != old_callback_count:
+            # Sometimes the callbacks get added after the first pid detection
+            for entry in extra_callbacks:
+                # print(f"unwatching {entry['watch_file']}")
+                fs.unwatch(
+                    f'{entry["watch_file"]}..{current_zsh_pid}', entry["callback"]
+                )
+            for entry in extra_callbacks:
+                watch_path = f'{entry["watch_file"]}.{pid}'
+                # print(f"calling callback for {watch_path}")
+                entry["callback"](watch_path, None)
+                print(f"Setting watch on {watch_path}")
+                fs.watch(watch_path, entry["callback"])
+            print(
+                f"zsh.py _setup_watches() detected zsh pid {pid} == {current_zsh_pid}"
+            )
+            pass
     else:
         if current_zsh_pid is not None:
             fs.unwatch("{zsh_folder_path}.{current_zsh_pid}", _zsh_cwd_watch_folders)
@@ -186,8 +209,12 @@ def win_title(window):
     _setup_watches(window)
 
 
-ui.register("win_focus", win_title)
-ui.register("win_title", win_title)
+def on_ready():
+    ui.register("win_focus", win_title)
+    ui.register("win_title", win_title)
+
+
+app.register("ready", on_ready)
 
 
 @mod.action_class
@@ -224,3 +251,19 @@ class Actions:
     def zsh_completion_base_dir():
         """Return the base directory for zsh completions"""
         return completion_base
+
+    def update_completion_list(
+        completion_list: dict,
+        path: str,
+    ):
+        """Update the completion list based off of a change of working directory"""
+        try:
+            with open(f"{ actions.user.zsh_completion_base_dir()}/{path}", "r") as f:
+                commands = f.read().splitlines()
+                completion_list.clear()
+                if len(commands) != 0:
+                    completion_list.update(
+                        actions.user.create_spoken_forms_from_list(commands)
+                    )
+        except Exception as e:
+            pass
