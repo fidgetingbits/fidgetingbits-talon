@@ -5,6 +5,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 from uuid import uuid4
+from tempfile import gettempdir
 
 from talon import Context, Module, actions, app, speech_system
 from talon_init import TALON_HOME
@@ -202,6 +203,22 @@ def run_command(
 
 # Global to avoid the look up dance every command
 command_server_directory = None
+
+
+def get_communication_dir_path_old():
+    """Returns directory that is used by command-server for communication
+
+    Returns:
+        Path: The path to the communication dir
+    """
+    suffix = ""
+
+    # NB: We don't suffix on Windows, because the temp dir is user-specific
+    # anyways
+    if hasattr(os, "getuid"):
+        suffix = f"-{os.getuid()}"
+
+    return Path(gettempdir()) / f"{actions.user.command_server_directory()}{suffix}"
 
 
 # NB: See https://github.com/talonhub/community/issues/966 for why we do OS-specific temp dirs
