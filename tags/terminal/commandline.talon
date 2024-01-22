@@ -691,6 +691,9 @@ python three nine env: "virtualenv -p python3.9 py39"
 [environment|variable] fuzzy: "env|rg -i "
 [environment|variable] show: "echo $"
 
+set var {user.environment_variables}: "export {environment_variables}="
+put var {user.environment_variables}: "${{{environment_variables}}}"
+
 # Custom utility stuff
 bat cache build: "bat cache --build\n"
 
@@ -836,3 +839,6 @@ folder sync here: "rsync -avz . "
 (cert|certificate) show expiry: "openssl x509 -enddate -noout -in "
 
 code here: "code .\n"
+
+re run <number>: "!{number}\n"
+re run last: "!!\n"
