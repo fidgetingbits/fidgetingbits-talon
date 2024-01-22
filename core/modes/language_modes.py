@@ -126,8 +126,6 @@ class CodeActions:
             return special_file_map[file_name]
 
         file_extension = actions.win.file_ext()
-        print(extension_lang_map.get(file_extension, ""))
-        print(extension_lang_map)
         return extension_lang_map.get(file_extension, "")
 
 
