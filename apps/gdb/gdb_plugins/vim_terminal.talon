@@ -79,7 +79,7 @@ bring hex <number>:
 # copy and paste the Nth hex value from the specified relative line
 # note for numbers like 70 actual individual digits really fast is more
 # accurate
-bring hex <number> <user.ordinals>$:
+bring <user.ordinals> hex <number>$:
     user.vim_normal_mode_exterm("{number}k0")
     # set the search pattern for 'n' usage
     insert("/\\c0x\n")
