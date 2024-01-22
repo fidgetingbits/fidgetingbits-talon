@@ -8,20 +8,18 @@ language_extensions = {
     "bash": "sh",
     "batch": "bat",
     "bpftrace": "bt",
-    "c": "c",
+    "c": "c h",
     "cmake": "cmake",
     "ql": "codeql",
-    "cplusplus": "cpp",
+    "cplusplus": "cpp hpp",
     "csharp": "cs",
     "elm": "elm",
     "gdb": "gdb",
     "go": "go",
-    "c": "h",
-    "cplusplus": "hpp",
     "ini": "ini",
     "java": "java",
     "javascript": "js",
-    "javascript": "jsx",
+    "javascriptreact": "jsx",
     "json": "json",
     # "json": "json5",
     "lua": "lua",
@@ -37,7 +35,7 @@ language_extensions = {
     "r": "r",
     "ruby": "rb",
     "rust": "rs",
-    "assembly": "s",
+    "assembly": "s asm",
     "treesitter": "scm",  # NOTE: If you don't write treesitter queries, you may want this to be scheme
     "bash": "sh",
     "snippet": "snippet",
@@ -46,12 +44,10 @@ language_extensions = {
     "taskwarrior": "task",
     "toml": "toml",
     "typescript": "ts",
-    "typescript": "tsx",
+    "typescriptreact": "tsx",
     "vba": "vba",
-    "vimscript": "vim",
-    "vimscript": "vimrc",
-    "yaml": "yaml",
-    "yaml": "yml",
+    "vimscript": "vim vimrc",
+    "yaml": "yaml yml",
     "zsh": "zsh",
 }
 
@@ -130,6 +126,8 @@ class CodeActions:
             return special_file_map[file_name]
 
         file_extension = actions.win.file_ext()
+        print(extension_lang_map.get(file_extension, ""))
+        print(extension_lang_map)
         return extension_lang_map.get(file_extension, "")
 
 
