@@ -5,13 +5,21 @@ and tag: user.git
 git add patch: "git add . -p\n"
 git add: "git add "
 git add force: "git add -f "
-git add (all | changed | everything): "git add -u\n"
+git add (all | changed | everything):
+    edit.delete_line()
+    insert("git add -u\n")
 git bisect: "git bisect "
 git blame: "git blame "
 git branch: "git branch "
-git branch list [all]: "git branch -a\n"
-git branch list remote: "git branch -r\n"
-git branch list local: "git branch\n"
+git branch list [all]:
+    edit.delete_line()
+    insert("git branch -a\n")
+git branch list remote:
+    edit.delete_line()
+    insert("git branch -r\n")
+git branch list local:
+    edit.delete_line()
+    insert("git branch\n")
 git branch (remove | delete): "git branch -d "
 git branch force (remove | delete): "git branch -D "
 git branch remove remote: "git push origin --delete "
@@ -22,15 +30,22 @@ git branch remote: "git branch --remote\n"
 git branch (rename | move): "git branch -m "
 git branch <user.text>: "git branch {text}"
 git checkout: "git checkout "
-git checkout {user.git_branches}: "git checkout {git_branches}\n"
-git checkout file {user.git_branches}: "git checkout {git_branches} -- "
-git checkout upstream (main | men): "git checkout upstream/main\n"
+git checkout {user.git_branches}:
+    edit.paste()
+    insert("git checkout {git_branches}\n")
+git checkout file {user.git_branches}:
+    edit.paste()
+    insert("git checkout {git_branches} -- ")
+git checkout upstream (main | men):
+    edit.delete_line()
+    insert("git checkout upstream/main\n")
 git checkout <number_small> before clip:
     insert("git checkout ")
     edit.paste()
     key("^:{number_small}")
     key(enter)
 git checkout clip:
+    edit.delete_line()
     insert("git checkout ")
     edit.paste()
     key(enter)
@@ -42,11 +57,13 @@ git cherry pick cancel: "git cherry-pick --abort "
 git cherry pick skip: "git cherry-pick --skip "
 git clone: "git clone "
 git clone clip:
+    edit.delete_line()
     insert("git clone ")
     edit.paste()
     key(enter)
 git clone depth <number>: "git clone --depth {number} "
 git clone depth <number> clip:
+    edit.delete_line()
     insert("git clone --depth {number} ")
     edit.paste()
     key(enter)
@@ -55,15 +72,23 @@ git clean: "git clean"
 git clean everything: "git clean -dfx"
 git clean untracked: "git clean -fd"
 git commit message <user.text>:
-    "git commit -m {user.formatted_text(text or '', 'DASH_SEPARATED')}"
+    edit.delete_line()
+    insert("git commit -m {user.formatted_text(text or '', 'DASH_SEPARATED')}")
 git commit message {user.git_conventional_commits}:
-    user.insert_between('git commit -m "{git_conventional_commits}: ', '"')
+    edit.delete_line()
+    insert(user.insert_between('git commit -m "{git_conventional_commits}: ', '"'))
 git commit message {user.git_conventional_commits} <user.word>:
-    user.insert_between('git commit -m "{git_conventional_commits}({word}): ', '"')
-git commit message {user.git_conventional_commits} <user.text>::
-git commit -m "{git_conventional_commits}: {user.formatted_text(text or '', 'DASH_SEPARATED')}"
-git commit message: user.insert_between('git commit -m "', '"')
-git commit: "git commit\n"
+    edit.delete_line()
+    insert(user.insert_between('git commit -m "{git_conventional_commits}({word}): ', '"'))
+git commit message {user.git_conventional_commits} <user.text>:
+    edit.delete_line()
+    insert("git commit -m {git_conventional_commits} {user.formatted_text(text or '', 'DASH_SEPARATED')}")
+git commit message:
+    edit.delete_line()
+    user.insert_between('git commit -m "', '"')
+git commit:
+    edit.delete_line()
+    insert("git commit\n")
 git commit amend: "git commit --amend "
 git commit amend no edit: "git commit --amend --no-edit\n"
 git commit no verify: "git commit -n"
@@ -88,7 +113,7 @@ git diff (colour | color) words: "git diff --color-words "
 git diff: "git diff "
 git diff cached: "git diff --cached\n"
 git diff staged: "git diff --staged\n"
-git diff {user.git_branches}: "git diff {git_branches}}\n"
+git diff {user.git_branches}: "git diff {git_branches}  \n"
 git diff tool: "git difftool -d\n"
 git diff tool cached: "git difftool --cached -d\n"
 git diff names only: "git diff --name-only "

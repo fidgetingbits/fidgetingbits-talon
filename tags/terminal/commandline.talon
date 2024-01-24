@@ -283,6 +283,7 @@ pivot (only | first):
     edit.delete_line()
     "cd *\n"
 pivot clip:
+    edit.delete_line()
     insert("cd ")
     edit.paste()
     key(enter)
@@ -321,10 +322,14 @@ pivot next:
     # insert("ls\n")
 
 (pivot | folder) (last | flip): "cd -\n"
-pivot latest: "cd $(eza --sort changed | tail -n1)\n"
+pivot latest:
+    edit.delete_line()
+    insert("cd $(eza --sort changed | tail -n1)\n")
 
 # zoxide
-oxide <user.text>: "z {text}\n"
+oxide <user.text>:
+    edit.delete_line()
+    insert("z {text}\n")
 
 folder (remove | delete): "rmdir "
 folder (create | new): "mkdir -p  "
