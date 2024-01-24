@@ -399,8 +399,11 @@ git review switch: user.vscode("gitlens.toggleReviewMode")
 
 # Use keyboard shortcuts because VSCode relies on when clause contexts to choose the appropriate
 # action: https://code.visualstudio.com/api/references/when-clause-contexts
-change next: key(alt-f5)
-change last: key(shift-alt-f5)
+change next: user.vscode("workbench.action.editor.nextChange")
+change last: user.vscode("workbench.action.editor.previousChange")
+diff next: user.vscode("workbench.action.compareEditor.nextChange")
+diff last: user.vscode("workbench.action.compareEditor.previousChange")
+
 stage this: user.vscode("git.stageChange")
 # These are specific to being in the diff view only
 # change stage: key(ctrl-k ctrl-alt-s)
