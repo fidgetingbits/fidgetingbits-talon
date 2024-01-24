@@ -29,6 +29,11 @@ settings():
     user.code_public_variable_formatter = "SNAKE_CASE"
 
 put local: "local"
+put local table: user.insert_between("local ", "= {}")
+put local table <user.text>:
+    insert("local ")
+    user.insert_formatted(text, "snake")
+    insert(" = {}")
 put end: "end"
 put then: "then"
 put repeat: "repeat"
