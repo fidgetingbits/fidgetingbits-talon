@@ -151,7 +151,7 @@ bring <user.ordinals> hex <number>$:
     key(enter)
 
 # relative
-(hexdump | matrix) [relative] down [line] <number> <user.ordinals>$:
+(hexdump | matrix) [relative] <user.ordinals> down [line] <number>$:
     user.vim_normal_mode_exterm("{number+1}j")
     insert("^")
     user.vim_command_mode(":call search(\"0x\", 'c', line('.'))\n")
@@ -166,7 +166,7 @@ bring <user.ordinals> hex <number>$:
     key(enter)
 
 # for use with relative number lines
-(hexdump | matrix) [relative] up [line] <number> <user.ordinals>$:
+(hexdump | matrix) [relative] <user.ordinals> up [line] <number>$:
     user.vim_normal_mode_exterm("{number+1}k")
     insert("^")
     user.vim_command_mode(":call search(\"0x\", 'c', line('.'))\n")

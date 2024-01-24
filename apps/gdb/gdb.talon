@@ -192,3 +192,6 @@ rerun last:
 
 set debug enable on: "set debuginfod enable on\n"
 set debug enable off: "set debuginfod enable off\n"
+
+enable pretty printers: "enable pretty-printer\n"
+disable pretty printers: "disable pretty-printer\n"
