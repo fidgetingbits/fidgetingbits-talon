@@ -439,8 +439,8 @@ show hosts file: "cat /etc/hosts\n"
 net (remote desktop | R D P):
     user.insert_between("xfreerdp /timeout:90000 /size:1280x800 /v:", " /u: /p:")
 
-(generate see tags | tags generate): "ctags --recurse --exclude=.git --exclude=.pc *"
-generate see scope database:
+run see tags: "ctags --recurse --exclude=.git --exclude=.pc *"
+run see scope database:
     insert('find . -name "*.c"')
     insert(' -o -name "*.cpp"')
     insert(' -o -name "*.h"')
