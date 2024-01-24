@@ -45,16 +45,23 @@ git clone clip:
     insert("git clone ")
     edit.paste()
     key(enter)
+git clone depth <number>: "git clone --depth {number} "
+git clone depth <number> clip:
+    insert("git clone --depth {number} ")
+    edit.paste()
+    key(enter)
 # Leave \n out for confirmation since the operation is destructive
 git clean: "git clean"
 git clean everything: "git clean -dfx"
 git clean untracked: "git clean -fd"
-# TODO: should use sentence to match conventional commit standard
-git commit message <user.text>: 'git commit -m "{text}"'
+git commit message <user.text>:
+    "git commit -m {user.formatted_text(text or '', 'DASH_SEPARATED')}"
 git commit message {user.git_conventional_commits}:
     user.insert_between('git commit -m "{git_conventional_commits}: ', '"')
 git commit message {user.git_conventional_commits} <user.word>:
     user.insert_between('git commit -m "{git_conventional_commits}({word}): ', '"')
+git commit message {user.git_conventional_commits} <user.text>::
+git commit -m "{git_conventional_commits}: {user.formatted_text(text or '', 'DASH_SEPARATED')}"
 git commit message: user.insert_between('git commit -m "', '"')
 git commit: "git commit\n"
 git commit amend: "git commit --amend "
@@ -108,6 +115,8 @@ git log all pretty: "git log --pretty=oneline\n"
 git log all changes: "git log -c\n"
 git log: "git log -5\n"
 git log pretty: "git log -5 --pretty=oneline\n"
+git log graph: "git log -5 --graph --pretty=oneline\n"
+git log graph all: "git log --graph --pretty=oneline\n"
 git log find upstream P R: user.insert_between('git log --pretty=oneline --grep="#', '" upstream/main')
 git log diff: "git log -p -5\n"
 git log reverse: "git log -5 --reverse\n"
