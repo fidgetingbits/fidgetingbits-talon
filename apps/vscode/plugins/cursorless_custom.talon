@@ -13,14 +13,27 @@ also <user.cursorless_target>:
 <user.formatters> {user.cursorless_reformat_action} <user.cursorless_target>:
     user.private_cursorless_reformat(cursorless_target, formatters)
 
+# chomp air: abcd -> abc
 chomp <user.cursorless_target>:
     user.cursorless_command("setSelectionAfter", cursorless_target)
     edit.delete()
 
+# bully air: <foo>a</foo> -> <foo> a </foo>
 bully <user.cursorless_target>:
     user.cursorless_command("setSelectionAfter", cursorless_target)
     key(space)
     user.cursorless_command("setSelectionBefore", cursorless_target)
     key(space)
+
+# tug air: <foo>a -> <foo> a
+tug <user.cursorless_target>:
+    user.cursorless_command("setSelectionBefore", cursorless_target)
+    key(space)
+
+# bump air: a</foo> -> a </foo>
+bump <user.cursorless_target>:
+    user.cursorless_command("setSelectionAfter", cursorless_target)
+    key(space)
+
 # Allow unambiguous commands
 then: skip()
