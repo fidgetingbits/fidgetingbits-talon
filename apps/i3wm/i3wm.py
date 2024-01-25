@@ -168,6 +168,3 @@ class Actions:
 class UserActions:
     def window_maximize():
         actions.user.i3wm_fullscreen()
-
-    def notify(text: str):
-        app.notify(subtitle=text)
