@@ -79,6 +79,6 @@ def install_monkey_patches():
 # I have mutliple hosts and currently some aren't using i3 and notify-send now, so I
 # need to break out who gets what.
 
-host_patches = {"oedo": [install_monkey_focus, install_monkey_notify]}
+host_patches = {"oedo": [install_monkey_focus]}
 
 install_monkey_patches()
