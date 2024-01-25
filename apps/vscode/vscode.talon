@@ -176,9 +176,16 @@ disk all: user.vscode("workbench.action.files.saveAll")
 workspace save: user.vscode("workbench.action.saveWorkspaceAs")
 workspace open: user.vscode("workbench.action.openWorkspace")
 workspace close: user.vscode("workbench.action.closeWorkspace")
-workspace add folder: user.vscode("workbench.action.addRootFolder")
+workspace folder newr: user.vscode("workbench.action.addRootFolder")
 workspace remove folder: user.vscode("workbench.action.removeRootFolder")
 workspace configure trust: user.vscode("workbench.trust.manage")
+
+#
+# File Management
+#
+folder root new: user.vscode("workbench.action.addRootFolder")
+folder [relative] new: user.vscode("explorer.newFolder")
+folder collapse: user.vscode("workbench.files.action.collapseExplorerFolders")
 
 #
 # Programming Language Features

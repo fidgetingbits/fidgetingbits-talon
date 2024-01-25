@@ -21,8 +21,8 @@ tree move <user.letters> [to] root:
 # e.g. to create very distinct commands that are easier for talon to differentiate
 tree open <user.letters>: user.run_rpc_command("talon-filetree.openFile", letters)
 tree rename <user.letters>: user.run_rpc_command("talon-filetree.renameFile", letters)
-tree create <user.letters>: user.run_rpc_command("talon-filetree.createFile", letters)
-tree create folder <user.letters>:
+tree [file] new <user.letters>: user.run_rpc_command("talon-filetree.createFile", letters)
+tree folder new <user.letters>:
     user.run_rpc_command("talon-filetree.createFile", letters)
     sleep(1)
     insert("/")
