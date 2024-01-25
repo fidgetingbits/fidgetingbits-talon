@@ -134,8 +134,10 @@ def bpftrace_types(m) -> str:
         return " ".join(list(m))
 
 
-@mod.capture(rule="[<user.c_signed>] <user.c_types> [<self.c_pointers>+]")
-def c_cast(m) -> str:
+@mod.capture(
+    rule="[<user.bpftrace_signed>] <user.bpftrace_types> [<self.bpftrace_pointers>+]"
+)
+def bpftrace_cast(m) -> str:
     "Returns a string"
     return "(" + " ".join(list(m)) + ")"
 
