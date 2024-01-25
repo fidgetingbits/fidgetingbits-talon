@@ -16,6 +16,8 @@ mod.list("c_stdint_signed", desc="Common stdint C datatype signed modifiers")
 mod.list("c_stdint_types", desc="A list of stdint.h C datatypes")
 mod.list("c_signals", desc="Common C signals")
 mod.list("c_errors", desc="Common C errors")
+mod.list("c_protections", desc="C protection flags")
+mod.list("c_return_values", desc="C return values")
 
 ctx = Context()
 ctx.matches = r"""
@@ -276,6 +278,20 @@ ctx.lists["user.c_errors"] = {
     "child": "ECHILD",
 }
 
+ctx.lists["user.c_return_values"] = {
+    "exit failure": "EXIT_FAILURE",
+    "exit success": "EXIT_SUCCESS",
+    "map failed": "MAP_FAILED",
+    "success": "SUCCESS",
+}
+
+ctx.lists["user.c_protections"] = {
+    "read": "PROT_READ",
+    "write": "PROT_WRITE",
+    "exec": "PROT_EXEC",
+    "none": "PROT_NONE",
+}
+
 
 class CLangState:
     def __init__(self, mod):
@@ -391,6 +407,11 @@ def c_variable(m) -> str:
         return m.c_signed + " ".join(list(m[1:]))
     else:
         return " ".join(list(m))
+
+
+@mod.capture(rule="{user.c_protections}+")
+def c_protections(m) -> str:
+    return " | ".join(m.c_protections_list)
 
 
 @ctx.action_class("user")

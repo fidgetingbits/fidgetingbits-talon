@@ -23,19 +23,19 @@ settings():
     user.code_private_variable_formatter = "SNAKE_CASE"
     user.code_protected_variable_formatter = "SNAKE_CASE"
     user.code_public_variable_formatter = "SNAKE_CASE"
-    # whether or not to use uint8_t style datatypes
+    # Whether or not to use uint8_t style datatypes
     #    user.use_stdint_datatypes = 1
 
 ^funky <user.text>$: user.code_default_function(text)
 ^static funky <user.text>$: user.code_private_static_function(text)
 
 # NOTE: migrated from generic, as they were only used here, though once cpp support is added, perhaps these should be migrated to a tag together with the commands below
-(state | put) include: insert("#include ")
-(state | put) include system: user.insert_between("#include <", ">")
-[(state | put)] include local [<user.text>]:
+put include: insert("#include ")
+put include system: user.insert_between("#include <", ">")
+[put] include local [<user.text>]:
     user.insert("#include \"{user.formatted_text(text or '', 'NOOP')}.h\"")
-(state | put) type deaf: insert("typedef ")
-(state | put) type deaf struct:
+put type deaf: insert("typedef ")
+put type deaf struct:
     insert("typedef struct")
     insert("{\n\n}")
     edit.up()
@@ -44,16 +44,19 @@ settings():
 signal {user.c_signals}: "{c_signals}"
 error {user.c_errors}: "{c_errors}"
 
+prot <user.c_protections>: "{c_protections}"
+ret {user.c_return_values}: "{c_return_values}"
+
 # XXX - create a preprocessor tag for these, as they will match cpp, etc
-(state | put) define: "#define "
-(state | put) (undefine | undeaf): "#undef "
-(state | put) if (define | deaf): "#ifdef "
-(state | put) [short] if not (define | deaf): "#ifndef "
-[(state | put)] define <user.text>$:
+put define: "#define "
+put (undefine | undeaf): "#undef "
+put if (define | deaf): "#ifdef "
+put [short] if not (define | deaf): "#ifndef "
+[put] define <user.text>$:
     "#define {user.formatted_text(text, 'ALL_CAPS,SNAKE_CASE')}"
-[(state | put)] (undefine | undeaf) <user.text>$:
+[put] (undefine | undeaf) <user.text>$:
     "#undef {user.formatted_text(text, 'ALL_CAPS,SNAKE_CASE')}"
-[(state | put)] if (define | deaf) <user.text>$:
+[put] if (define | deaf) <user.text>$:
     "#ifdef {user.formatted_text(text, 'ALL_CAPS,SNAKE_CASE')}"
 
 #declare <user.c_variable>:
@@ -71,46 +74,46 @@ declare <user.c_variable> <user.letter>: insert("{c_variable} {letter} ")
 cast to <user.c_cast>: "{c_cast}"
 basic cast to <user.c_basic_cast>: "{c_basic_cast}"
 standard cast to <user.c_stdint_cast>: "{c_stdint_cast}"
-[(state | put)] type <user.c_types>: "{c_types}"
-(state | put) <user.c_pointers>: "{c_pointers}"
-(state | put) <user.c_signed>: "{c_signed}"
+[put] type <user.c_types>: "{c_types}"
+put <user.c_pointers>: "{c_pointers}"
+put <user.c_signed>: "{c_signed}"
 basic <user.c_basic_types>: "{c_basic_types}"
 standard <user.c_stdint_types>: "{c_stdint_types}"
 
 # XXX - shouldn't this be generic now?
 toggle includes: user.code_toggle_libraries()
-[(state | put)] include <user.code_libraries>:
+[put] include <user.code_libraries>:
     user.code_insert_library("", code_libraries)
     key(end enter)
 
 cycle data type: user.cycle_c_datatype()
 show data type: user.current_c_datatype()
 
-(state | put) return <number>: "return {number};"
-(state | put) return negative <number>: "return -{number};"
-(state | put) return null: "return NULL;"
-(state | put) return false: "return false;"
-(state | put) return true: "return true;"
-(state | put) continue: "continue;"
-(state | put) break: "break;"
+put return <number>: "return {number};"
+put return negative <number>: "return -{number};"
+put return null: "return NULL;"
+put return false: "return false;"
+put return true: "return true;"
+put continue: "continue;"
+put break: "break;"
 
-(state | put) pre if: "#if "
-(state | put) pre if zero: "#if 0"
-(state | put) error: "#error "
-(state | put) pre else: "#else"
-(state | put) pre else if: "#elif "
-(state | put) pre end: "#endif"
-(state | put) pragma: "#pragma "
-(state | put) default: "default:\nbreak;"
-(state | put) pre if end:
+put pre if: "#if "
+put pre if zero: "#if 0"
+put error: "#error "
+put pre else: "#else"
+put pre else if: "#elif "
+put pre end: "#endif"
+put pragma: "#pragma "
+put default: "default:\nbreak;"
+put pre if end:
     insert("#if 0\n#endif")
     key(up)
-(state | put) long pre if defined: insert("#if defined()")
+put long pre if defined: insert("#if defined()")
 
-(state | put) long pre if not defined: insert("#if !defined()")
+put long pre if not defined: insert("#if !defined()")
 
-(state | put) define new source: "#define _GNU_SOURCE"
-(state | put) go to label <user.text>:
+put define new source: "#define _GNU_SOURCE"
+put go to label <user.text>:
     user.code_private_variable_formatter(text)
     key(":")
 
