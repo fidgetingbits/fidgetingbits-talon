@@ -69,3 +69,7 @@ label set: key(l)
 go to workflow: insert("gf")
 timestamps toggle: key(shift-t)
 fullscreen toggle: key(shift-f)
+
+# search field shortcuts
+# FIXME: make this use an array of languages
+git lang nix: "language:nix"
