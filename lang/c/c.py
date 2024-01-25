@@ -17,16 +17,11 @@ mod.list("c_stdint_types", desc="A list of stdint.h C datatypes")
 mod.list("c_signals", desc="Common C signals")
 mod.list("c_errors", desc="Common C errors")
 
-
 ctx = Context()
 ctx.matches = r"""
 code.language: c
 """
 
-basic_ctx = Context()
-basic_ctx.matches = r"""
-tag: user.c_basic_datatypes
-"""
 
 common_types = {
     "enumerate": "enum",
@@ -66,15 +61,8 @@ basic_signed = {
     "un signed": "unsigned",
 }
 basic_types = {**basic_types_ints, **common_types}
-basic_ctx.lists["user.c_types"] = basic_types
-basic_ctx.lists["user.c_signed"] = basic_signed
 ctx.lists["user.c_basic_signed"] = basic_signed
 
-
-stdint_ctx = Context()
-stdint_ctx.matches = r"""
-tag: user.c_stdint_datatypes
-"""
 stdint_types_ints = {
     "short": "int16_t",
     "integer": "int32_t",
@@ -93,9 +81,12 @@ stdint_signed = {
 
 stdint_types = {**stdint_types_ints, **common_types}
 
-stdint_ctx.lists["user.c_types"] = stdint_types
-stdint_ctx.lists["user.c_signed"] = stdint_signed
 ctx.lists["user.c_stdint_signed"] = stdint_signed
+
+type_lists = {
+    "c_basic_datatypes": [basic_types, basic_signed],
+    "c_stdint_datatypes": [stdint_types, stdint_signed],
+}
 
 
 ctx.lists["self.c_pointers"] = {
@@ -301,10 +292,9 @@ class CLangState:
             index += 1
         self.datatype_index = index
 
-        for datatype in self.datatypes:
-            mod.tag(datatype, desc="Tag for enabling {datatype} datatype")
         self.datatype = self.datatypes[self.datatype_index]
-        ctx.tags = [f"user.{self.datatype}"]
+        ctx.lists["user.c_types"] = type_lists[self.datatype][0]
+        ctx.lists["user.c_signed"] = type_lists[self.datatype][1]
 
     def cycle_datatype(self):
         """Switch between supported datatypes"""
@@ -313,7 +303,8 @@ class CLangState:
         if self.datatype_index == len(self.datatypes):
             self.datatype_index = 0
         self.datatype = self.datatypes[self.datatype_index]
-        ctx.tags = [f"user.{self.datatype}"]
+        ctx.lists["user.c_types"] = type_lists[self.datatype][0]
+        ctx.lists["user.c_signed"] = type_lists[self.datatype][1]
         app.notify(f"Cycled to C lang datatype: {self.datatype}")
 
     def current_datatype(self):
@@ -322,11 +313,6 @@ class CLangState:
 
 
 c_lang_state = CLangState(mod)
-mod.list("c_pointers", desc="Common C pointers")
-mod.list("c_signed", desc="Common C datatype signed modifiers")
-mod.list("c_types", desc="Common C types")
-mod.list("stdint_types", desc="Common stdint C types")
-mod.list("stdint_signed", desc="Common stdint C datatype signed modifiers")
 
 
 @mod.capture(rule="{self.c_pointers}")

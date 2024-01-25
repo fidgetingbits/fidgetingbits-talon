@@ -3,7 +3,7 @@ code.language: c
 tag(): user.code_imperative
 
 tag(): user.code_comment_line
-tag(): user.code_comment_block_c_like
+
 tag(): user.code_data_bool
 tag(): user.code_data_null
 tag(): user.code_functions
@@ -23,7 +23,7 @@ settings():
     user.code_private_variable_formatter = "SNAKE_CASE"
     user.code_protected_variable_formatter = "SNAKE_CASE"
     user.code_public_variable_formatter = "SNAKE_CASE"
-    # whether or not to use uint_8 style datatypes
+    # whether or not to use uint8_t style datatypes
     #    user.use_stdint_datatypes = 1
 
 ^funky <user.text>$: user.code_default_function(text)
