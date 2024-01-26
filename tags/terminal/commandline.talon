@@ -1,9 +1,9 @@
 # NOTE: these are command line commands, not shell-specific bindings
 # see shell.talon for shell-specific keybindings
-    os: linux
-    and tag: terminal
-    os: mac
-    and tag: terminal
+os: linux
+and tag: terminal
+os: mac
+and tag: terminal
 -
 
 ###
