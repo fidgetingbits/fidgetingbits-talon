@@ -34,3 +34,7 @@ put trace <user.text>:
 
 [put] dummy hash: "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA="
 set hash dummy: 'hash = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";'
+
+put {user.nix_builtin_keywords}: "{nix_builtin_keywords}"
+funk {user.nix_builtins_functions}: "{nix_builtins_functions}"
+funk <user.nix_pkg_functions>: "{nix_pkg_functions}"

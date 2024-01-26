@@ -6,6 +6,12 @@ ctx.matches = r"""
 code.language: nix
 """
 
+mod.list("nix_builtin_keywords", desc="List of Nix builtin keywords")
+mod.list("nix_builtins_functions", desc="List of Nix builtins functions")
+mod.list("nix_lib_functions", desc="List of Nix library functions")
+mod.list("nix_pkgs_functions", desc="List of Nix nixpkgs functions")
+
+
 # As of 22.05: https://nixos.org/manual/nix/stable/language/builtin-constants
 builtin_constants = {
     "builtins": "builtins",
@@ -22,6 +28,7 @@ builtin_constants = {
 
 # As of 22.05: https://nixos.org/manual/nix/stable/language/builtins
 # TODO: Certain names should also be simplified (ex: generate -> gen)
+# FIXME: A lot of these are preferred to be called through lib, so should move.
 builtin_functions = {
     "derivation": "derivation",
     "abort": "abort",
@@ -134,14 +141,29 @@ builtin_functions = {
 }
 
 system_constants = {
-    "x86_64-linux": "X eighty six sixty four linux",
     "x86_64-linux": "X sixty four linux",
-    "aarch64-linux": "A arch sixty four linux",
     "aarch64-linux": "arch sixty four linux",
-    "x86_64-darwin": "X eighty six sixty four darwin",
     "x86_64-darwin": "X sixty four darwin",
-    "aarch64-darwin": "A arch sixty four darwin",
     "aarch64-darwin": "arch sixty four darwin",
+}
+
+lib_functions = {
+}
+
+pkgs_functions = {
+}
+
+ctx.lists["user.nix_builtin_keywords"] = {
+    **builtin_constants,
+    **system_constants
+}
+
+ctx.lists["user.nix_builtins_functions"] = {
+    **builtin_functions,
+}
+
+ctx.lists["user.nix_lib_functions"] = {
+    **lib_functions
 }
 
 ctx.lists["user.code_common_function"] = {
@@ -151,10 +173,10 @@ ctx.lists["user.code_common_function"] = {
 ctx.lists["user.code_libraries"] = {}
 
 
-@mod.capture(rule="{self.nix_functions}")
-def nix_functions(m) -> str:
+@mod.capture(rule="{self.nix_builtins_functions}")
+def nix_builtins_functions(m) -> str:
     "Returns a string"
-    return m.nix_functions
+    return f"builtins.{m.nix_functions}"
 
 
 @ctx.action_class("user")
