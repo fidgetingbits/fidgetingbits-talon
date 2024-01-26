@@ -138,6 +138,7 @@ arch_linux_folder_paths = {
 windows_folder_paths = {}
 
 unix_file_paths = {
+    "muscle lib": "/lib/ld-musl-x86_64.so.1",
     "apache conf": "/etc/apache2/apache2.conf",
     "G D B init": "~/.gdbinit",
     "known hosts": "~/.ssh/known_hosts",
