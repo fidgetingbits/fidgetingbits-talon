@@ -93,7 +93,9 @@ type_lists = {
 
 ctx.lists["self.c_pointers"] = {
     "pointer": "*",
+    "star": "*",
     "pointer to pointer": "**",
+    "stars": "**",
 }
 
 
@@ -352,10 +354,14 @@ def c_keywords(m) -> str:
 @mod.capture(rule="[<user.c_signed>] {user.c_types} [<self.c_pointers>+]")
 def c_types(m) -> str:
     "Returns a string"
-    if hasattr(m, "c_signed") and len(m.c_signed) == 1:
-        return m.c_signed + " ".join(list(m[1:]))
+    if hasattr(m, "c_pointers"):
+        pointers = f' {"".join(m[2:])}'
     else:
-        return " ".join(list(m))
+        pointers = ""
+    if hasattr(m, "c_signed") and len(m.c_signed) == 1:
+        return f"{m.c_signed}{m[1]}{pointers}"
+    else:
+        return " ".join(list(m[:2]) + pointers)
 
 
 @mod.capture(rule="{self.c_basic_types}")
