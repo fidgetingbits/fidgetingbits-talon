@@ -59,15 +59,9 @@ put [short] if not (define | deaf): "#ifndef "
 [put] if (define | deaf) <user.text>$:
     "#ifdef {user.formatted_text(text, 'ALL_CAPS,SNAKE_CASE')}"
 
-#declare <user.c_variable>:
 
-# Declare variables or structs etc.
-# Ex: int * myList
-#declare <user.c_variable> <phrase>:
-#    insert("{c_variable} ")
-#    insert(user.formatted_text(phrase, "PRIVATE_CAMEL_CASE,NO_SPACES"))
-
-declare <user.c_variable> <user.letter>: insert("{c_variable} {letter} ")
+set <user.c_variable>: user.insert_between("{c_variable} = ", ";")
+declare <user.c_variable>: "{c_variable}"
 
 # XXX - we should make these expressible to gdb
 # Ex. (int *)
@@ -78,7 +72,9 @@ standard cast to <user.c_stdint_cast>: "{c_stdint_cast}"
 put <user.c_pointers>: "{c_pointers}"
 put <user.c_signed>: "{c_signed}"
 basic <user.c_basic_types>: "{c_basic_types}"
+basic <user.c_basic_signed>: "{c_basic_signed}"
 standard <user.c_stdint_types>: "{c_stdint_types}"
+standard <user.c_stdint_signed>: "{c_stdint_signed}"
 
 # XXX - shouldn't this be generic now?
 toggle includes: user.code_toggle_libraries()

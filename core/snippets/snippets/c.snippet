@@ -1,0 +1,45 @@
+language: c
+---
+
+name: mainWithArgs
+phrase: main with args
+insertionScope: statement
+-
+#include <stdio.h>
+#include <stdlib.h>
+#include <getopt.h>
+
+void
+usage(char * name)
+{
+    printf(" -h This help menu\n");
+
+}
+
+int
+main(int argc, char *argv[])
+{
+    int32_t c;
+
+    while (( c = getopt(argc, argv, "$0h?")) != -1) {
+        switch (c) {
+        case 'h':
+        case '?':
+            usage(argv[0]);
+            exit(EXIT_SUCCESS);
+            break;
+        default:
+            break;
+        }
+    }
+    return 0;
+}
+---
+
+name: waitForInput
+phrase: wait for input
+insertionScope: statement
+-
+printf("Press any key to continue...\n");
+getchar();
+---

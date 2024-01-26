@@ -49,6 +49,7 @@ common_types = {
     "boolean": "bool",
     "clock": "clock_t",
     "pointer": "intptr_t",
+    "signed": "signed",
 }
 
 basic_types_ints = {
@@ -143,6 +144,7 @@ ctx.lists["user.code_libraries"] = {
     "standard I O": "stdio.h",
     "standard lib": "stdlib.h",
     "standard library": "stdlib.h",
+    "standard bool": "stdbool.h",
     "string": "string.h",
     "event F D": "sys/eventfd.h",
     "sys event F D": "sys/eventfd.h",
@@ -361,7 +363,7 @@ def c_types(m) -> str:
     if hasattr(m, "c_signed") and len(m.c_signed) == 1:
         return f"{m.c_signed}{m[1]}{pointers}"
     else:
-        return " ".join(list(m[:2]) + pointers)
+        return " ".join(list(m[:2])) + pointers
 
 
 @mod.capture(rule="{self.c_basic_types}")
@@ -406,13 +408,10 @@ def c_stdint_cast(m) -> str:
     return "(" + "".join(list(m)) + ")"
 
 
-@mod.capture(rule="[<user.c_signed>] <user.c_types> [<self.c_pointers>]")
+@mod.capture(rule="<self.c_types> <user.text>")
 def c_variable(m) -> str:
-    "Returns a string"
-    if hasattr(m, "c_signed") and len(m.c_signed) == 1:
-        return m.c_signed + " ".join(list(m[1:]))
-    else:
-        return " ".join(list(m))
+    "Returns a typed variable declaration"
+    return f'{m.c_types} {actions.user.formatted_text(m.text, "SNAKE_CASE")}'
 
 
 @mod.capture(rule="{user.c_protections}+")
@@ -608,18 +607,12 @@ class UserActions:
 
     # code_functions
     def code_insert_function(text: str, selection: str):
-        if selection:
-            text = text + f"({selection})"
-        else:
-            text = text + "()"
-        actions.user.paste(text)
+        text += f"({selection or ''})"
+        actions.insert(text)
         actions.edit.left()
 
     def code_insert_terminated_function(text: str, selection: str):
-        if selection:
-            text = text + f"({selection})"
-        else:
-            text = text + "();"
+        text += f"({selection or ''});"
         actions.user.paste(text)
 
     # TODO - it would be nice that you integrate that types from c_basic_cast
@@ -631,7 +624,6 @@ class UserActions:
                 text, settings.get("user.code_private_function_formatter")
             )
         )
-
         actions.user.code_insert_function(result, None)
 
     def code_private_static_function(text: str):

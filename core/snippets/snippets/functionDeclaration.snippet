@@ -15,9 +15,18 @@ function $1($2) {
 }
 ---
 
-language: java | c
+language: java
 
 $1.insertionFormatter: PRIVATE_CAMEL_CASE
+-
+void $1($2) {
+    $0
+}
+---
+
+language: c
+
+$1.insertionFormatter: SNAKE_CASE
 -
 void $1($2) {
     $0
