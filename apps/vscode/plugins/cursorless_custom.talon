@@ -37,3 +37,7 @@ bump <user.cursorless_target>:
 
 # Allow unambiguous commands
 then: skip()
+
+trouble fix <user.cursorless_target>:
+    user.cursorless_command("setSelectionBefore", cursorless_target)
+    user.vscode("editor.action.quickFix")
