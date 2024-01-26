@@ -34,8 +34,8 @@ put include: insert("#include ")
 put include system: user.insert_between("#include <", ">")
 [put] include local [<user.text>]:
     user.insert("#include \"{user.formatted_text(text or '', 'NOOP')}.h\"")
-put type deaf: insert("typedef ")
-put type deaf struct:
+[put] type deaf: insert("typedef ")
+[put] type deaf struck:
     insert("typedef struct")
     insert("{\n\n}")
     edit.up()
