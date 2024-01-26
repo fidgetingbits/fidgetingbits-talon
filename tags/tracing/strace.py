@@ -33,9 +33,9 @@ class Actions:
         """Trace command with log"""
         actions.insert("strace -f -o strace.log ")
 
-    def trace_program_with_filter(filter: str):
+    def trace_program_with_filter():
         """Trace command with filter"""
-        actions.user.insert_between(f"strace -e 'trace={filter}", "'")
+        actions.user.insert_between("strace -e 'trace=", "'")
 
     def trace_program_with_path():
         """Trace command with path"""
