@@ -685,3 +685,8 @@ envy open: user.vscode("direnv.open")
 envy create: user.vscode("direnv.create")
 envy reload: user.vscode("direnv.reload")
 envy reset: user.vscode("direnv.reset")
+
+# alternate files
+<user.teleport> alter: user.vscode("alternate.alternateFile")
+make alter: user.vscode("alternate.createAlternateFile")
+split alter: user.vscode("alternate.alternateFileInSplit")
