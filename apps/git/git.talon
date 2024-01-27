@@ -11,6 +11,7 @@ git add (all | changed | everything):
 git bisect: "git bisect "
 git blame: "git blame "
 git branch: "git branch "
+git branch help: "git branch --help\n"
 git branch list [all]:
     edit.delete_line()
     insert("git branch -a\n")
@@ -21,7 +22,7 @@ git branch list local:
     edit.delete_line()
     insert("git branch\n")
 git branch (remove | delete): "git branch -d "
-git branch force (remove | delete): "git branch -D "
+git branch (remove | delete) force: "git branch -D "
 git branch remove remote: "git push origin --delete "
 git branch remove remote clip:
     "git push origin --delete "
