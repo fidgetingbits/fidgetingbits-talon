@@ -14,6 +14,16 @@ ctx = Context()
 
 TALON_REPO = "fidgetingbits-talon"
 
+nix_folder_paths = {
+    # nix
+    "nix profile": "~/.nix-profile/",
+    "nix store": "/nix/store/",
+    "nix running": "/run/current-system/sw/",
+    "nix profile bin": "~/.nix-profile/bin/",
+    "nix running bin": "/run/current-system/sw/bin/",
+    "nix global bin": "/nix/var/nix/profiles/default/bin",
+}
+
 # paths that will work with pivot command
 unix_folder_paths = {
     # common
@@ -42,13 +52,6 @@ unix_folder_paths = {
     "N vim lua": "~/.config/nvim/lua/",
     "neovim plugin": "~/.local/share/nvim/lazy/",
     "vim plugin": "~/.local/share/nvim/lazy/",
-    # nix
-    "nix profile": "~/.nix-profile/",
-    "nix store": "/nix/store/",
-    "nix running": "/run/current-system/sw/",
-    "nix profile bin": "~/.nix-profile/bin/",
-    "nix running bin": "/run/current-system/sw/bin/",
-    "nix global bin": "/nix/var/nix/profiles/default/bin",
     # Unsorted
     "temp": "/tmp/",
     "config": "/etc/",
@@ -223,16 +226,16 @@ windows_paths = {
 }
 
 if app.platform == "mac":
-    folder_paths = {**unix_folder_paths, **mac_folder_paths}
+    folder_paths = {**unix_folder_paths, **nix_folder_paths, **mac_folder_paths}
     file_paths = {**unix_file_paths, **mac_file_paths}
 elif app.platform == "windows":
     # FIXME: This should probably have something like wsl awareness
     folder_paths = {**windows_paths}
 elif app.platform == "linux":
-    folder_paths = {**unix_folder_paths, **linux_folder_paths}
+    folder_paths = {**unix_folder_paths, **nix_folder_paths, **linux_folder_paths}
     file_paths = {**unix_file_paths, **linux_file_paths, **arch_linux_file_paths}
 else:
-    folder_paths = {**unix_folder_paths}
+    folder_paths = {**unix_folder_paths, **nix_folder_paths}
     file_paths = {**unix_file_paths}
 
 all_paths = {**folder_paths, **file_paths}
