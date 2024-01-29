@@ -5,6 +5,8 @@ ctx.matches = r"""
 tag: user.tracing_strace
 """
 
+# FIXME: Maybe make -f a setting
+
 ctx.lists["user.tracing_filters"] = {
     "file": "%file",
     "process": "%process",
@@ -35,8 +37,8 @@ class Actions:
 
     def trace_program_with_filter(filter: str):
         """Trace command with filter"""
-        actions.user.insert_between("strace -e 'trace={filter}", "'")
+        actions.user.insert_between(f"strace -f -e 'trace={filter}", "' ")
 
     def trace_program_with_path():
         """Trace command with path"""
-        actions.user.insert_between('strace --trace-path="', '"')
+        actions.user.insert_between('strace -f --trace-path="', '"')
