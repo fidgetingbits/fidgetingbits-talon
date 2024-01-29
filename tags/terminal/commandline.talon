@@ -180,7 +180,7 @@ file (move | rename): "mv "
 file move files: user.insert_between("find . -maxdepth 1 -type f -exec mv {} ", " \\;")
 file P D F: "evince "
 file touch: "touch "
-file (touch | create) {user.common_files}: "touch {common_files}\n"
+[file] (touch | create) {user.common_files}: "touch {common_files}\n"
 # TODO: This should also include the names of files in the current folder
 file name (<user.zsh_file_completion> | {user.common_files}):
     file = zsh_file_completion or common_files
@@ -691,10 +691,10 @@ python three nine env: "virtualenv -p python3.9 py39"
 ###
 # Environment variables
 ###
-[environment|variable] list: "env\n"
-[environment|variable] search: "env|rg "
-[environment|variable] fuzzy: "env|rg -i "
-[environment|variable] show: "echo $"
+(environment|variable) list: "env\n"
+(environment|variable) search: "env|rg "
+(environment|variable) fuzzy: "env|rg -i "
+(environment|variable) show: "echo $"
 
 set var {user.environment_variables}: "export {environment_variables}="
 put var {user.environment_variables}: "${{{environment_variables}}}"
