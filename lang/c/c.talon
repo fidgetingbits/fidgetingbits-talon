@@ -1,9 +1,7 @@
 code.language: c
 -
 tag(): user.code_imperative
-
 tag(): user.code_comment_line
-
 tag(): user.code_data_bool
 tag(): user.code_data_null
 tag(): user.code_functions
@@ -58,7 +56,20 @@ put [short] if not (define | deaf): "#ifndef "
     "#undef {user.formatted_text(text, 'ALL_CAPS,SNAKE_CASE')}"
 [put] if (define | deaf) <user.text>$:
     "#ifdef {user.formatted_text(text, 'ALL_CAPS,SNAKE_CASE')}"
-
+put pre if: "#if "
+put pre if zero: "#if 0"
+put error: "#error "
+put pre else: "#else"
+put pre else if: "#elif "
+put pre end: "#endif"
+put pragma: "#pragma "
+put default: "default:\nbreak;"
+put pre if end:
+    insert("#if 0\n#endif")
+    key(up)
+put long pre if defined: insert("#if defined()")
+put long pre if not defined: insert("#if !defined()")
+put define new source: "#define _GNU_SOURCE"
 
 set <user.c_variable>: user.insert_between("{c_variable} = ", ";")
 declare <user.c_variable>: "{c_variable}"
@@ -93,22 +104,6 @@ put return true: "return true;"
 put continue: "continue;"
 put break: "break;"
 
-put pre if: "#if "
-put pre if zero: "#if 0"
-put error: "#error "
-put pre else: "#else"
-put pre else if: "#elif "
-put pre end: "#endif"
-put pragma: "#pragma "
-put default: "default:\nbreak;"
-put pre if end:
-    insert("#if 0\n#endif")
-    key(up)
-put long pre if defined: insert("#if defined()")
-
-put long pre if not defined: insert("#if !defined()")
-
-put define new source: "#define _GNU_SOURCE"
 put go to label <user.text>:
     user.code_private_variable_formatter(text)
     key(":")
