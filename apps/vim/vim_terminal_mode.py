@@ -1,4 +1,5 @@
 import re
+import time
 from timeit import default_timer as timer
 
 from talon import Context, Module, actions, app, settings, ui
@@ -24,16 +25,26 @@ class EditActions:
     def select_all():
         actions.user.vim_normal_mode_exterm("ggVG")
 
+    def select_line(n: int = None):
+        if n is not None:
+            app.notify(
+                "vim_terminal_mode.py: select_line() with argument not implemented"
+            )
+            return
+        actions.user.vim_normal_mode_exterm("V")
+        time.sleep(1)
+
     def paste():
         actions.key("ctrl-shift-v")
 
 
-@mod.action_class
-class Actions:
-    def vim_set_normal_mode():
-        """set normal mode"""
-        v = VimMode()
-        v.set_normal_mode(auto=False)
+# @mod.action_class
+# class Actions:
+#     # FIXME: This needs to import VimMode() from vim.py I guess?
+#     def vim_set_normal_mode():
+#         """set normal mode"""
+#         v = VimMode()
+#         v.set_normal_mode(auto=False)
 
 
 def parse_vim_term_title(window):

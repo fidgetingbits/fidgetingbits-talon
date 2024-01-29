@@ -74,7 +74,7 @@ class Actions:
         selected_text = actions.edit.selected_text()
         actions.user.switcher_focus_app(editor_app)
         # Wait additional time for talon context to update.
-        actions.sleep("200ms")
+        actions.sleep("1s")
         actions.app.tab_open()
         if selected_text != "":
             actions.user.paste(selected_text)
@@ -92,6 +92,10 @@ class Actions:
         """Paste last submitted draft"""
         if last_draft:
             actions.user.paste(last_draft)
+
+    def draft_app_submit(text: str):
+        """Submit drafted text ot editor"""
+        actions.user.paste(text)
 
 
 def get_editor_app() -> ui.App:
@@ -120,7 +124,7 @@ def close_editor(submit_draft: bool):
     actions.edit.delete()
     actions.app.tab_close()
     actions.user.switcher_focus_window(original_window)
-    actions.sleep("300ms")
+    actions.sleep("1s")
     if submit_draft:
         last_draft = selected_text
-        actions.user.paste(selected_text)
+        actions.user.draft_app_submit(selected_text)
