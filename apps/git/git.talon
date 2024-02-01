@@ -53,8 +53,7 @@ git checkout clip:
 git check ignore: "git check-ignore -v "
 git cherry pick: "git cherry-pick "
 git cherry pick continue: "git cherry-pick --continue "
-# Don't use abort because it conflicts with abort.talon
-git cherry pick cancel: "git cherry-pick --abort "
+git cherry pick (cancel|quit): "git cherry-pick --quit "
 git cherry pick skip: "git cherry-pick --skip "
 git clone: "git clone "
 git clone clip:
@@ -173,7 +172,7 @@ git log removed files only: "git log --diff-filter=D --summary | grep delete\n"
 git merge base: "git merge-base "
 git merge base {user.git_branches}: "git merge-base {git_branches} HEAD"
 
-git merge cancel: "git merge --abort\n"
+git merge (cancel|quit): "git merge --quit\n"
 
 git merge pull request: user.insert_between("git pull origin pull/", "/head:")
 git merge pull request <number>: "git pull origin pull/{number}/head:"
@@ -182,7 +181,9 @@ git merge upstream pull request:
 git merge upstream pull request <number>: "git pull upstream pull/{number}/head:"
 
 git merge: "git merge "
-git merge <user.text>: "git merge {text}"
+git merge {user.git_branches}: "git merge {git_branches}"
+git merge ours: "git merge -X ours "
+git merge theirs: "git merge -X theirs "
 git merge clip:
     insert("git merge ")
     edit.paste()
@@ -211,7 +212,7 @@ git rebase upstream <user.text>: "git rebase upstream/{text}"
 git rebase upstream: "git rebase upstream "
 # NOTE - we don't use abort in the command because it conflicts with
 # abort.talon
-git rebase cancel: "git rebase --abort\n"
+git rebase (cancel|quit): "git rebase --quit\n"
 # GIT_EDITOR=true will keep the existing commit message
 git rebase continue: "GIT_EDITOR=true git rebase --continue\n"
 git rebase continue edit: "git rebase --continue\n"
