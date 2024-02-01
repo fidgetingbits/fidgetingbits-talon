@@ -37,3 +37,22 @@ insertionScope: statement
     };
 }
 ---
+
+name: nixvimKeymap
+phrase: vim key map
+insertionScope: statement
+-
+      {
+        mode = [ "$1" ];
+        key = "$2";
+        action = "$3";
+        options = { noremap = true; };
+      }
+---
+
+name: nixHomeManagerFile
+phrase: nix keep file
+insertionScope: statement
+-
+home.file."$0/.keep".text = "# Managed by Home Manager";
+---
