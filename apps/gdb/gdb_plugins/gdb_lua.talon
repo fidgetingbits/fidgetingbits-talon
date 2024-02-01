@@ -9,14 +9,14 @@ lua table clip:
     edit.paste()
 
 lua raw table:
-    insert("disable pretty-printer")
+    insert("disable pretty-printer\n")
     insert("p/x *(Table *)")
 lua raw table clipboard:
-    insert("disable pretty-printer")
+    insert("disable pretty-printer\n")
     insert("p/x *(Table *)")
     edit.paste()
     key(enter)
-    insert("enable pretty-printer")
+    insert("enable pretty-printer\n")
 
 lua value: "p/x *(TValue *)"
 lua value clip:
@@ -25,14 +25,14 @@ lua value clip:
     key(enter)
 
 lua raw value:
-    insert("disable pretty-printer")
+    insert("disable pretty-printer\n")
     insert("p/x *(TValue *)")
 lua raw value clip:
-    insert("disable pretty-printer")
+    insert("disable pretty-printer\n")
     insert("p/x *(TValue *)")
     edit.paste()
     key(enter)
-    insert("enable pretty-printer")
+    insert("enable pretty-printer\n")
 
 lua string: "p/x *(TString *)"
 lua string clip:
@@ -41,14 +41,14 @@ lua string clip:
     key(enter)
 
 lua raw string:
-    insert("disable pretty-printer")
+    insert("disable pretty-printer\n")
     insert("p/x *(TString *)")
 lua raw string clip:
-    insert("disable pretty-printer")
+    insert("disable pretty-printer\n")
     insert("p/x *(TString *)")
     edit.paste()
     key(enter)
-    insert("enable pretty-printer")
+    insert("enable pretty-printer\n")
 
 lua L closure: "p/x *(LClosure *)"
 lua L closure clip:
@@ -56,14 +56,14 @@ lua L closure clip:
     edit.paste()
 
 lua L raw closure:
-    insert("disable pretty-printer")
+    insert("disable pretty-printer\n")
     insert("p/x *(LClosure *)")
 lua L raw closure clip:
-    insert("disable pretty-printer")
+    insert("disable pretty-printer\n")
     insert("p/x *(LClosure *)")
     edit.paste()
     key(enter)
-    insert("enable pretty-printer")
+    insert("enable pretty-printer\n")
 
 
 lua C closure: "p/x *(CClosure *)"
@@ -73,14 +73,14 @@ lua C closure clip:
     key(enter)
 
 lua C raw closure:
-    insert("disable pretty-printer")
+    insert("disable pretty-printer\n")
     insert("p/x *(CClosure *)")
 lua C raw closure clip:
-    insert("disable pretty-printer")
+    insert("disable pretty-printer\n")
     insert("p/x *(CClosure *)")
     edit.paste()
     key(enter)
-    insert("enable pretty-printer")
+    insert("enable pretty-printer\n")
 
 lua state: "p/x *(lua_State *)"
 lua state clip:
