@@ -36,8 +36,10 @@ put trace <user.text>:
 set hash dummy: 'hash = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";'
 
 put {user.nix_builtin_keywords}: "{nix_builtin_keywords}"
-funk {user.nix_builtins_functions}: "{nix_builtins_functions}"
-funk <user.nix_pkg_functions>: "{nix_pkg_functions}"
+# Useful for `with lib;` style statements
+funk raw <user.nix_raw_functions>: "{nix_raw_functions}"
+# Will prefix function, eg: `lib.listToAttrs`
+funk <user.nix_functions>: "{nix_functions}"
 
 set list: user.insert_between(" = [ ", " ];")
 set map: user.insert_between(" = { ", " };")

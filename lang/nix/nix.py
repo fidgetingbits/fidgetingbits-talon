@@ -15,156 +15,154 @@ mod.list("nix_pkgs_functions", desc="List of Nix nixpkgs functions")
 # As of 22.05: https://nixos.org/manual/nix/stable/language/builtin-constants
 builtin_constants = {
     "builtins": "builtins",
-    "currentSystem": "current system",
-    "currentTime": "current time",
+    "current system": "currentSystem",
+    "current time": "currentTime",
     "false": "false",
-    "langVersion": "language version",
-    "nixPath": "nix path",
-    "nixVersion": "nix version",
+    "language version": "langVersion",
+    "nix path": "nixPath",
+    "nix version": "nixVersion",
     "null": "null",
-    "storeDir": "store directory",
+    "store directory": "storeDir",
     "true": "true",
 }
 
 # As of 22.05: https://nixos.org/manual/nix/stable/language/builtins
 # TODO: Certain names should also be simplified (ex: generate -> gen)
 # FIXME: A lot of these are preferred to be called through lib, so should move.
+# Can use noogle.dev to quickly check which are aliased through lib.
 builtin_functions = {
     "derivation": "derivation",
     "abort": "abort",
     "add": "add",
     "all": "all",
     "any": "any",
-    "attrNames": "attribute names",
-    "attrValues": "attribute values",
-    "baseNameOf": "base name of",
-    "builtins": "builtins",
-    "catAttrs": "cat attributes",
-    "compareVersions": "compare versions",
-    "concatLists": "concat lists",
-    "concatMap": "concat map",
-    "concatStringsSep": "concat strings sep",
-    "concatStringsSepMap": "concat strings sep map",
-    "deepSeq": "deep sequence",
+    "attribute names": "attrNames",
+    "attribute values": "attrValues",
+    "base name of": "baseNameOf",
+    "cat attributes": "catAttrs",
+    "compare versions": "compareVersions",
+    "concat lists": "concatLists",
+    "concat map": "concatMap",
+    "concat strings sep": "concatStringsSep",
+    "concat strings sep map": "concatStringsSepMap",
+    "deep sequence": "deepSeq",
     "default": "default",
-    "derivationStrict": "derivation strict",
-    "dirOf": "directory of",
+    "derivation strict": "derivationStrict",
+    "directory of": "dirOf",
     "div": "div",
-    "elem": "element",
-    "elemAt": "element at",
-    "elemAtOrDefault": "element at or default",
-    "elemOrDefault": "element or default",
-    "elemPrefix": "element prefix",
-    "elemSuffix": "element suffix",
-    "elemToPath": "element to path",
-    "fetchFromGitHub": "fetch from github",
-    "fetchFromGitLab": "fetch from gitlab",
-    "fetchTarball": "fetch tarball",
+    "element": "elem",
+    "element at": "elemAt",
+    "element at or default": "elemAtOrDefault",
+    "element or default": "elemOrDefault",
+    "element prefix": "elemPrefix",
+    "element suffix": "elemSuffix",
+    "element to path": "elemToPath",
+    "fetch from github": "fetchFromGitHub",
+    "fetch from gitlab": "fetchFromGitLab",
+    "fetch tarball": "fetchTarball",
     "filter": "filter",
-    "filterSource": "filter source",
-    "foldl": "fold left",
-    "foldr": "fold right",
-    "fromJSON": "from json",
-    "functionArgs": "function arguments",
-    "functionArgsNames": "function argument names",
-    "functionArgsPos": "function argument positions",
-    "functionArgsStr": "function argument strings",
-    "genList": "generate list",
-    "genListLength": "generate list length",
-    "getAttr": "get attribute",
-    "getEnv": "get environment",
-    "getEnvOrDefault": "get environment or default",
-    "getFlake": "get flake",
-    "getRevision": "get revision",
-    "getTarball": "get tarball",
-    "getTarballOld": "get tarball old",
-    "gettimeofday": "get time of day",
-    "hasAttr": "has attribute",
-    "hashFile": "hash file",
-    "hashString": "hash string",
+    "filter source": "filterSource",
+    "fold left": "foldl",
+    "fold right": "foldr",
+    "from json": "fromJSON",
+    "function arguments": "functionArgs",
+    "function argument names": "functionArgsNames",
+    "function argument positions": "functionArgsPos",
+    "function argument strings": "functionArgsStr",
+    "generate list": "genList",
+    "generate list length": "genListLength",
+    "get attribute": "getAttr",
+    "get environment": "getEnv",
+    "get environment or default": "getEnvOrDefault",
+    "get flake": "getFlake",
+    "get revision": "getRevision",
+    "get tarball": "getTarball",
+    "get tarball old": "getTarballOld",
+    "get time of day": "gettimeofday",
+    "has attribute": "hasAttr",
+    "hash file": "hashFile",
+    "hash string": "hashString",
     "head": "head",
     "import": "import",
-    "intersectAttrs": "intersect attributes",
-    "isAttrs": "is attributes",
-    "isBool": "is boolean",
-    "isFloat": "is float",
-    "isFunction": "is function",
-    "isInt": "is integer",
-    "isList": "is list",
-    "isNull": "is null",
-    "isString": "is string",
+    "intersect attributes": "intersectAttrs",
+    "is attributes": "isAttrs",
+    "is boolean": "isBool",
+    "is float": "isFloat",
+    "is function": "isFunction",
+    "is integer": "isInt",
+    "is list": "isList",
+    "is null": "isNull",
+    "is string": "isString",
     "length": "length",
-    "lessThan": "less than",
-    "listToAttrs": "list to attributes",
+    "less than": "lessThan",
+    "list to attributes": "listToAttrs",
     "map": "map",
     "match": "match",
-    "mul": "multiply",
-    "parseDrvName": "parse derivation name",
-    "pathExists": "path exists",
-    "pathLength": "path length",
+    "multiply": "mul",
+    "parse derivation name": "parseDrvName",
+    "path exists": "pathExists",
+    "path length": "pathLength",
     "placeholder": "placeholder",
-    "readDir": "read directory",
-    "readFile": "read file",
-    "removeAttrs": "remove attributes",
-    "replaceStrings": "replace strings",
-    "replaceStringsAll": "replace strings all",
-    "seq": "sequence",
+    "read directory": "readDir",
+    "read file": "readFile",
+    "remove attributes": "removeAttrs",
+    "replace strings": "replaceStrings",
+    "replace strings all": "replaceStringsAll",
+    "sequence": "seq",
     "sha1": "sha1",
     "sha256": "sha256",
-    "sha256All": "sha256 all",
+    "sha256 all": "sha256All",
     "sort": "sort",
     "split": "split",
-    "splitVersion": "split version",
-    "storeDir": "store directory",
-    "stringLength": "string length",
-    "sub": "subtract",
+    "split version": "splitVersion",
+    "store directory": "storeDir",
+    "string length": "stringLength",
+    "subtract": "sub",
     "substring": "substring",
     "tail": "tail",
-    "toFile": "to file",
-    "toJSON": "to json",
-    "toPath": "to path",
-    "toString": "to string",
+    "to file": "toFile",
+    "to json": "toJSON",
+    "to path": "toPath",
+    "to string": "toString",
     "trace": "trace",
-    "tryEval": "try evaluate",
-    "typeOf": "type of",
-    "unsafeDiscardStringContext": "unsafe discard string context",
-    "unsafeGetAttrPos": "unsafe get attribute position",
-    "unsafeHead": "unsafe head",
-    "unsafeTail": "unsafe tail",
-    "updateSource": "update source",
+    "try evaluate": "tryEval",
+    "type of": "typeOf",
+    "unsafe discard string context": "unsafeDiscardStringContext",
+    "unsafe get attribute position": "unsafeGetAttrPos",
+    "unsafe head": "unsafeHead",
+    "unsafe tail": "unsafeTail",
+    "update source": "updateSource",
     "validate": "validate",
-    "writeFile": "write file",
+    "write file": "writeFile",
     "zip": "zip",
-    "zipAttrs": "zip attributes",
-    "zipWith": "zip with",
-    "zipWithAttrs": "zip with attributes",
+    "zip attributes": "zipAttrs",
+    "zip with": "zipWith",
+    "zip with attributes": "zipWithAttrs",
 }
+
+# FIXME: One of many dicts to change to having variable dictation, ex: (list to addrs|list to attributes)
+lib_functions = {
+    "list to adders": "listToAttrs",
+    "adder by path": "attrByPath",
+}
+
+pkgs_functions = {}
 
 system_constants = {
-    "x86_64-linux": "X sixty four linux",
-    "aarch64-linux": "arch sixty four linux",
-    "x86_64-darwin": "X sixty four darwin",
-    "aarch64-darwin": "arch sixty four darwin",
+    "X sixty four linux": "x86_64-linux",
+    "arch sixty four linux": "aarch64-linux",
+    "X sixty four darwin": "x86_64-darwin",
+    "arch sixty four darwin": "aarch64-darwin",
 }
 
-lib_functions = {
-}
 
-pkgs_functions = {
-}
-
-ctx.lists["user.nix_builtin_keywords"] = {
-    **builtin_constants,
-    **system_constants
-}
+ctx.lists["user.nix_builtin_keywords"] = {**builtin_constants, **system_constants}
 
 ctx.lists["user.nix_builtins_functions"] = {
     **builtin_functions,
 }
 
-ctx.lists["user.nix_lib_functions"] = {
-    **lib_functions
-}
+ctx.lists["user.nix_lib_functions"] = {**lib_functions}
 
 ctx.lists["user.code_common_function"] = {
     **builtin_functions,
@@ -176,7 +174,26 @@ ctx.lists["user.code_libraries"] = {}
 @mod.capture(rule="{self.nix_builtins_functions}")
 def nix_builtins_functions(m) -> str:
     "Returns a string"
-    return f"builtins.{m.nix_functions}"
+    return f"builtins.{m.nix_builtins_functions}"
+
+
+@mod.capture(rule="{self.nix_lib_functions}")
+def nix_lib_functions(m) -> str:
+    "Returns a string"
+    return f"lib.{m.nix_lib_functions}"
+
+
+@mod.capture(rule="(<self.nix_builtins_functions>|<self.nix_lib_functions>)")
+def nix_functions(m) -> str:
+    "Returns a string"
+    return m
+
+
+# This is useful for `with lib` or `with builtins` statements
+@mod.capture(rule="({self.nix_builtins_functions}|{self.nix_lib_functions})")
+def nix_raw_functions(m) -> str:
+    "Returns a string"
+    return m
 
 
 @ctx.action_class("user")
