@@ -21,3 +21,13 @@ need viva:
     sleep(50ms)
     user.tab_jump(3)
     # user.tab_jump_name("Viva")
+
+(need secrets|secret):
+    user.switcher_focus_or_launch("firefox")
+    sleep(50ms)
+    user.tab_jump(4)
+
+(need slack|slacker):
+    user.switcher_focus_or_launch("firefox")
+    sleep(50ms)
+    user.tab_jump(5)
