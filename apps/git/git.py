@@ -81,7 +81,7 @@ class Actions:
 # It won't work for all, but for ones with just basic unmodified lists it should be fine.
 def update_git_branches(file, flags):
     """Update the available git branches based off of a change of working directory"""
-    print("calling update_git_branches")
+    # print("calling update_git_branches")
     # actions.user.update_completion_list(ctx.lists["user.git_branches"], path)
     try:
         path = actions.user.zsh_completion_base_dir()

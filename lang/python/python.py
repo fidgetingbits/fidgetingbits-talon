@@ -296,6 +296,7 @@ decorator_list = [
     "abstractmethod",
     "wraps",
     "abstractproperty",
+    "dataclass",
 ]
 mod.list("python_decorator", desc="python decorator")
 ctx.lists["user.python_decorator"] = {
