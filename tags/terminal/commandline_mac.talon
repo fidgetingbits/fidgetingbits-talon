@@ -56,3 +56,6 @@ U S B list:
 
 launch log monitor:
     "open -a Console.app\n"
+
+# NOTE: MacOS sed requires a `-i ''` prefix, which differs from GNU sed
+file swap in place: user.insert_between("sed -i '' -i 's/", "/g' ")
