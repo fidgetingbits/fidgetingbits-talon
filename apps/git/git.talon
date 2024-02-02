@@ -234,6 +234,8 @@ git reset [merge] base {user.git_branches}: "git reset --soft $(git merge-base {
 
 
 git restore: "git restore "
+# Purposefully no \n because it is destructive
+git restore all: "git restore --source=HEAD :/"
 git restore staged: "git restore --staged "
 get restore staged all: "git restore --staged :/\n"
 git restore source: "git restore --source="
