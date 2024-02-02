@@ -45,3 +45,19 @@ insertionScope: class | statement
 class $2Actions:
     $0
 ---
+
+name: pythonDataClass
+phrase: data class
+insertionScope: class | statement
+-
+@dataclass
+class $1:
+    $0
+---
+
+name: pythonImportDataClass
+phrase: import data class
+insertionScope: statement
+-
+from dataclasses import dataclass
+---
