@@ -10,6 +10,14 @@ mod.list("nix_builtin_keywords", desc="List of Nix builtin keywords")
 mod.list("nix_builtins_functions", desc="List of Nix builtins functions")
 mod.list("nix_lib_functions", desc="List of Nix library functions")
 mod.list("nix_pkgs_functions", desc="List of Nix nixpkgs functions")
+mod.list("nix_types", desc="List of Nix option types")
+mod.list("nix_libs", desc="List of Nix libraries")
+
+nix_libs = {
+    "lib": "lib",
+    "builtins": "builtins",
+    "packages": "pkgs",
+}
 
 
 # As of 22.05: https://nixos.org/manual/nix/stable/language/builtin-constants
@@ -144,9 +152,34 @@ builtin_functions = {
 lib_functions = {
     "list to adders": "listToAttrs",
     "adder by path": "attrByPath",
+
+    "make default": "mkDefault",
+    "make option": "mkOption",
+    "make option default": "mkOptionDefault",
+    "make option type": "mkOptionType",
+
 }
 
-pkgs_functions = {}
+stdenv_functions = {
+    "make derivation": "mkDerivation",
+}
+
+# Incomplete, but the most common
+pkgs_functions = {
+    "fetch from github": "fetchFromGitHub",
+    "fetch from gitlab": "fetchFromGitLab",
+    "fetch tarball": "fetchTarball",
+    "fetch zip": "fetchzip",
+    "fetch from url": "fetchurl",
+    "fetch from svn": "fetchsvn",
+    "fetch url": "fetchurl",
+    "fetch git": "fetchgit",
+    "fetch debian patch": "fetchDebianPatch",
+    "fetch yarn deps": "fetchYarnDeps",
+    "fetch patch": "fetchpatch",
+    "fetch docker": "fetchdocker",
+
+}
 
 system_constants = {
     "X sixty four linux": "x86_64-linux",
@@ -164,11 +197,83 @@ ctx.lists["user.nix_builtins_functions"] = {
 
 ctx.lists["user.nix_lib_functions"] = {**lib_functions}
 
+ctx.lists["user.nix_pkgs_functions"] = {**pkgs_functions}
+
 ctx.lists["user.code_common_function"] = {
     **builtin_functions,
 }
 
 ctx.lists["user.code_libraries"] = {}
+
+ctx.lists["user.nix_libs"] = nix_libs
+
+# https://nixos.org/manual/nixos/stable/#sec-option-types
+option_types = {
+    # Basic types
+    "bool": "bool",
+    "bool by or": "boolByOr",
+    "path": "path",
+    "path in store": "pathInStore",
+    "package": "package",
+    # FIXME: This contains actual values like enum [ "left" "right" ], so may need special case
+    "enum": "enum ",
+    "anything": "anything",
+    "raw": "raw",
+    "option type": "optionType",
+    # attrs omitted because it's deprecated
+    "packages": "pkgs",
+
+    # Numeric types
+    "integer": "int",
+    # FIXME: Maybe tweak these names D word is meh
+    "signed byte": "ints.s8",
+    "signed word": "ints.s16",
+    "signed D word": "ints.s32",
+    "unsigned": "ints.unsigned",
+    "unsigned byte": "ints.u8",
+    "unsigned word": "ints.u16",
+    "unsigned D word": "ints.u32",
+    "int between": "ints.between ",
+    "int positive": "ints.positive",
+    "port": "ints.port",
+    "float": "float",
+    "numb": "number",
+    "numb between": "numbers.between",
+    "non negative": "numbers.nonNegative",
+    "numb positive": "numbers.positive",
+
+    # String types
+    "string": "str",
+    # FIXME: This has arguements too
+    "separated string": "separatedString",
+    "lines": "lines",
+    "commas": "commas",
+    "env vars": "envVar",
+    "stir matching": "strMatching",
+
+    # Submodule types
+    "submodule": "submodule",
+    "submodule with": "submoduleWith",
+    "deferred module": "deferredModule",
+
+    # Composed types
+    "list of": "listOf",
+    "attrs of": "attrs of",
+    "lazy attrs of": "lazyAttrsOf",
+    "null or": "nullOr",
+    "unique": "uniq",
+    "unique message": "unique { }",
+    "either": "either",
+    "one of": "oneOf",
+    "coerced to": "coercedTo",
+}
+ctx.lists["user.nix_types"] = option_types
+
+
+@mod.capture(rule="{self.nix_types}")
+def nix_types(m) -> str:
+    "Returns an option typed prefixed with 'lib.types.'"
+    return f"lib.types.{m.nix_types}"
 
 
 @mod.capture(rule="{self.nix_builtins_functions}")
@@ -182,15 +287,20 @@ def nix_lib_functions(m) -> str:
     "Returns a string"
     return f"lib.{m.nix_lib_functions}"
 
+@mod.capture(rule="{self.nix_pkgs_functions}")
+def nix_pkgs_functions(m) -> str:
+    "Returns a string"
+    return f"pkgs.{m.nix_pkgs_functions}"
 
-@mod.capture(rule="(<self.nix_builtins_functions>|<self.nix_lib_functions>)")
+
+@mod.capture(rule="(<self.nix_builtins_functions>|<self.nix_lib_functions><self.nix_pkgs_functions>)")
 def nix_functions(m) -> str:
     "Returns a string"
     return m
 
 
 # This is useful for `with lib` or `with builtins` statements
-@mod.capture(rule="({self.nix_builtins_functions}|{self.nix_lib_functions})")
+@mod.capture(rule="({self.nix_builtins_functions}|{self.nix_lib_functions}|{self.nix_pkgs_functions})")
 def nix_raw_functions(m) -> str:
     "Returns a string"
     return m

@@ -41,5 +41,12 @@ funk raw <user.nix_raw_functions>: "{nix_raw_functions}"
 # Will prefix function, eg: `lib.listToAttrs`
 funk <user.nix_functions>: "{nix_functions}"
 
-set list: user.insert_between(" = [ ", " ];")
+set (array|list): user.insert_between(" = [ ", " ];")
 set map: user.insert_between(" = { ", " };")
+set (array|list) with {user.nix_libs}:
+    user.insert_between("= with {nix_libs}; [ ", " ];")
+
+type raw {user.nix_types}: "{nix_types}"
+# Will prefix type, eg: `types`
+# FIXME: Might be nice to have an option if it prefixes lib.types or types
+type <user.nix_types>: "{nix_types}"
