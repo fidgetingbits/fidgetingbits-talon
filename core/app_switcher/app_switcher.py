@@ -66,7 +66,7 @@ words_to_exclude = [
     "nine",
     "readme",
     "studio",
-    "terminal",
+    # "terminal", # Using this conflicts with stuff like Gnome-terminal becoming terminal
     "visual",
     "windows",
 ]
@@ -204,7 +204,7 @@ if app.platform == "linux":
                                     items[name_key] = "/usr/bin/" + re.sub(
                                         args_pattern, "", exec_key
                                     )
-                        except:
+                        except Exception:
                             print(
                                 "get_linux_apps: skipped parsing application file ",
                                 entry.name,
@@ -248,8 +248,16 @@ def update_running_list():
     # print(str(running_application_dict))
     # todo: should the overrides remove the other spoken forms for an application?
     for override in overrides:
-        if overrides[override] in running_application_dict:
-            running[override] = overrides[override]
+        if isinstance(overrides[override], list):
+            for override_value in overrides[override]:
+                if override_value in running_application_dict:
+                    running[override] = override_value
+                    # We just favor the first match if there are multiple
+                    break
+        else:
+            if overrides[override] in running_application_dict:
+                print(f"Adding {override} running[{override}]")
+                running[override] = overrides[override]
 
     lists = {
         "self.running": running,
@@ -260,7 +268,14 @@ def update_running_list():
 
 
 def update_overrides(name, flags):
-    """Updates the overrides list"""
+    """Updates the overrides list
+
+    This function allows duplicate entries in the override list. For instance, assume a user has
+    one system that uses terminal kgx that they override to "terminal", but another system that
+    uses Gnome-terminal, which they also want to override to "terminal". This function will allow
+    both entries to exist in the overrides list. In the event of both applications are used, the
+    first match is favored.
+    """
     global overrides
     overrides = {}
 
@@ -271,7 +286,15 @@ def update_overrides(name, flags):
                 line = line.rstrip()
                 line = line.split(",")
                 if len(line) == 2:
-                    overrides[line[0].lower()] = line[1].strip()
+                    key = line[0].lower()
+                    value = line[1].strip()
+                    if key not in overrides:
+                        overrides[key] = value
+                        break
+                    if isinstance(overrides[key], list):
+                        overrides[key].append(value)
+                    else:
+                        overrides[key] = [overrides[key]]
 
         update_running_list()
 
@@ -367,7 +390,7 @@ class Actions:
             try:
                 current_path = Path(path)
                 is_valid_path = current_path.is_file()
-            except:
+            except Exception:
                 is_valid_path = False
             if is_valid_path:
                 ui.launch(path=path)
