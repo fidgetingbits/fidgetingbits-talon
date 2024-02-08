@@ -220,3 +220,6 @@ udev reload: "sudo udevadm control --reload-rules && sudo udevadm trigger"
 
 D N S cache list: "sudo systemd-resolve --statistics\n"
 D N S cache flush: "sudo systemd-resolve --flush-caches\n"
+
+# Useful for something like /proc/<pid>/environ
+file show zero delimited: "xargs -0 -L1 -a"
