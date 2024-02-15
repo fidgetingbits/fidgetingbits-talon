@@ -61,3 +61,65 @@ insertionScope: statement
 -
 from dataclasses import dataclass
 ---
+
+name: pythonDictString
+phrase: dick string
+insertionScope: statement
+-
+    "$1": "$2",
+---
+
+name: pythonFormattedDictString
+phrase: form dick string
+insertionScope: statement
+-
+    "$1": f"$2",
+---
+
+name: pythonPrintSuccess
+phrase: print success
+insertionScope: statement
+-
+    print(f"[+] $1\n")
+---
+
+name: pythonPrintSuccess
+phrase: failure
+insertionScope: statement
+-
+    print(f"[-] $1\n")
+---
+
+name: pythonArgParser
+phrase: parse args
+insertionScope: statement
+-
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--$1', dest='$2', action='$3', default=$4, help='$5')
+    args = parser.parse_args()
+$0
+---
+
+name: pythonAddParseArg
+phrase: parts add arg
+insertionScope: statement
+-
+parser.add_argument('--$1', dest='$2', action='$3', default=$4, help='$5')
+$0
+---
+
+name: pythonDocParam
+phrase: doxy param
+insertionScope: statement
+-
+# :param $1: $2
+# :ptype $3: $4
+$0
+---
+
+name: pythonToString
+phrase: to string
+insertionScope: statement
+-
+.decode("utf-8")
+---

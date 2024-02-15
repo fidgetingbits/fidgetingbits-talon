@@ -43,6 +43,20 @@ printf("Press any key to continue...\n");
 getchar();
 ---
 
+name: cPrintSuccess
+phrase: print success
+insertionScope: statement
+-
+printf("[+] $1\n"$2);
+---
+
+name: cPrintFailure
+phrase: print failure
+insertionScope: statement
+-
+printf("[!] $1\n"$2);
+---
+
 name: exitFailure
 phrase: exit failure
 insertionScope: statement
@@ -76,4 +90,87 @@ phrase: print string
 insertionScope: statement
 -
 printf("$0\n");
+---
+
+name: cDoxygenCommentBlock
+phrase: doxy block
+insertionScope: statement
+-
+/**
+ * @brief $1
+ *
+ * @param $2
+ */
+---
+
+name: cDoxygenCommentVariable
+phrase: doxy variable
+insertionScope: statement
+-
+/**< $0 */
+---
+
+name: cDoxygenCommentParameter
+phrase: doxy parameter
+insertionScope: statement
+-
+* @param $0
+---
+
+name: cDoxygenCommentInputParameter
+phrase: doxy input
+insertionScope: statement
+-
+* @param[in] $0
+---
+
+name: cDoxygenCommentOutputParameter
+phrase: doxy output
+insertionScope: statement
+-
+* @param[out] $0
+---
+
+name: cEnterNamespace
+phrase: enter namespace
+insertionScope: statement
+-
+#define _GNU_SOURCE
+#include <sched.h>
+
+void
+unshare_setup(uid_t uid, gid_t gid)
+{
+	int temp;
+	char edit[0x100];
+
+	unshare(CLONE_NEWNS|CLONE_NEWUSER);
+
+	temp = open("/proc/self/setgroups", O_WRONLY);
+	write(temp, "deny", strlen("deny"));
+	close(temp);
+
+	temp = open("/proc/self/uid_map", O_WRONLY);
+	snprintf(edit, sizeof(edit), "0 %d 1", uid);
+	write(temp, edit, strlen(edit));
+	close(temp);
+
+	temp = open("/proc/self/gid_map", O_WRONLY);
+	snprintf(edit, sizeof(edit), "0 %d 1", gid);
+	write(temp, edit, strlen(edit));
+	close(temp);
+
+	return;
+}
+---
+
+name: cCommonNftHeaders
+phrase: N F T headers
+insertionScope: statement
+-
+#include <libnftnl/chain.h>
+#include <libnftnl/expr.h>
+#include <libnftnl/rule.h>
+#include <libnftnl/table.h>
+#include <libnftnl/set.h>
 ---

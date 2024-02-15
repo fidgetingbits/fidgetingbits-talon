@@ -1,0 +1,23 @@
+language: gdb
+---
+
+name: gdbBreakWithCommand
+phrase: break with command
+insertionScope: statement
+-
+break $1
+commands
+  $2
+end
+$0
+---
+
+name: gdbBreakCommands
+phrase: break commands
+insertionScope: statement
+-
+commands
+  $1
+end
+$0
+---
