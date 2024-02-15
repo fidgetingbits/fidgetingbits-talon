@@ -152,12 +152,10 @@ builtin_functions = {
 lib_functions = {
     "list to adders": "listToAttrs",
     "adder by path": "attrByPath",
-
     "make default": "mkDefault",
     "make option": "mkOption",
     "make option default": "mkOptionDefault",
     "make option type": "mkOptionType",
-
 }
 
 stdenv_functions = {
@@ -178,7 +176,6 @@ pkgs_functions = {
     "fetch yarn deps": "fetchYarnDeps",
     "fetch patch": "fetchpatch",
     "fetch docker": "fetchdocker",
-
 }
 
 system_constants = {
@@ -222,7 +219,6 @@ option_types = {
     "option type": "optionType",
     # attrs omitted because it's deprecated
     "packages": "pkgs",
-
     # Numeric types
     "integer": "int",
     # FIXME: Maybe tweak these names D word is meh
@@ -241,7 +237,6 @@ option_types = {
     "numb between": "numbers.between",
     "non negative": "numbers.nonNegative",
     "numb positive": "numbers.positive",
-
     # String types
     "string": "str",
     # FIXME: This has arguements too
@@ -250,12 +245,10 @@ option_types = {
     "commas": "commas",
     "env vars": "envVar",
     "stir matching": "strMatching",
-
     # Submodule types
     "submodule": "submodule",
     "submodule with": "submoduleWith",
     "deferred module": "deferredModule",
-
     # Composed types
     "list of": "listOf",
     "attrs of": "attrs of",
@@ -287,20 +280,25 @@ def nix_lib_functions(m) -> str:
     "Returns a string"
     return f"lib.{m.nix_lib_functions}"
 
+
 @mod.capture(rule="{self.nix_pkgs_functions}")
 def nix_pkgs_functions(m) -> str:
     "Returns a string"
     return f"pkgs.{m.nix_pkgs_functions}"
 
 
-@mod.capture(rule="(<self.nix_builtins_functions>|<self.nix_lib_functions><self.nix_pkgs_functions>)")
+@mod.capture(
+    rule="(<self.nix_builtins_functions>|<self.nix_lib_functions><self.nix_pkgs_functions>)"
+)
 def nix_functions(m) -> str:
     "Returns a string"
     return m
 
 
 # This is useful for `with lib` or `with builtins` statements
-@mod.capture(rule="({self.nix_builtins_functions}|{self.nix_lib_functions}|{self.nix_pkgs_functions})")
+@mod.capture(
+    rule="({self.nix_builtins_functions}|{self.nix_lib_functions}|{self.nix_pkgs_functions})"
+)
 def nix_raw_functions(m) -> str:
     "Returns a string"
     return m
