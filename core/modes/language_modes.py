@@ -20,10 +20,8 @@ language_extensions = {
     "java": "java",
     "javascript": "js",
     "javascriptreact": "jsx",
-    "json": "json",
-    # "json": "json5",
-    "lua": "lua",
-    # "lua": "nse", # FIXME: Need a way to associate multiple extensions with a single language
+    "json": "json json5",
+    "lua": "lua nse",
     "php": "php",
     "markdown": "md",
     "nix": "nix",
@@ -35,9 +33,7 @@ language_extensions = {
     "r": "r",
     "ruby": "rb",
     "rust": "rs",
-    "assembly": "s asm",
     "treesitter": "scm",  # NOTE: If you don't write treesitter queries, you may want this to be scheme
-    "bash": "sh",
     "snippet": "snippet",
     "sql": "sql",
     "talon": "talon",
