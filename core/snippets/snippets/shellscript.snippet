@@ -15,3 +15,75 @@ if [ -z "$INSIDE_NIX_RANDOMSTRING" ] && command -v nix-shell &> /dev/null; then
   exit $?
 fi
 ---
+
+name: shellIfNodeExists
+phrase: if node exists
+insertionScope: statement
+-
+if [ -e "$1" ]; then
+    $0
+fi
+---
+
+name: shellIfNodeNotExists
+phrase: if node not exists
+insertionScope: statement
+-
+if [ ! -e "$1" ]; then
+    $0
+fi
+---
+
+name: shellIfFileExists
+phrase: if file exists
+insertionScope: statement
+-
+if [ -f "$1" ]; then
+    $0
+fi
+---
+
+name: shellIfFileNotExists
+phrase: if file not exists
+insertionScope: statement
+-
+if [ ! -f "$1" ]; then
+    $0
+fi
+---
+
+name: shellIfDirExists
+phrase: if dir exists
+insertionScope: statement
+-
+if [ -d "$1" ]; then
+    $0
+fi
+---
+
+name: shellIfDirNotExists
+phrase: if dir not exists
+insertionScope: statement
+-
+if [ ! -d "$1" ]; then
+    $0
+fi
+---
+
+name: shellIfVarSet
+phrase: if var set
+insertionScope: statement
+-
+if [ -n "$1" ]; then
+    $0
+fi
+---
+
+name: shellIfVarNotSet
+phrase: if var not set
+insertionScope: statement
+-
+if [ -z "$1" ]; then
+    $0
+fi
+---
