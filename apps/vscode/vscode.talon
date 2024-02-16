@@ -486,6 +486,12 @@ term dog: user.vscode_and_wait("workbench.action.terminal.toggleTerminal")
 (term | terminal) scroll down: user.vscode("workbench.action.terminal.scrollDown")
 (term | terminal) <number_small>: user.vscode_terminal(number_small)
 
+#
+# Lower Panel
+#
+# Some duplication with above, but I don't always work on it as a terminal
+low zoom: user.vscode("workbench.action.toggleMaximizedPanel")
+
 #TODO: should this be added to linecommands?
 copy line down: user.vscode("editor.action.copyLinesDownAction")
 copy line up: user.vscode("editor.action.copyLinesUpAction")
