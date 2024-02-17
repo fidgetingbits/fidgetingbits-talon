@@ -247,6 +247,7 @@ git remote add upstream: "git remote add upstream "
 git remote list: "git remote -v\n"
 git remote set url: "git remote set-url "
 git remote remove: "git remote remove "
+git remote rename: "git remote rename "
 git [remote] show [remote] origin: "git remote show origin\n"
 git revert: "git revert "
 git revert clip:
