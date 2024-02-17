@@ -14,7 +14,9 @@ notify show: key(super-v)
 
 term me:
     key(super)
-    insert("console")
+    terminal = user.terminal_default_app()
+    sleep(200ms)
+    insert(terminal)
     sleep(200ms)
     key(ctrl-enter)
 

@@ -1,10 +1,16 @@
 # NOTE: If you use bindkeys -e setting in your shell (the default) also see
 # text/readline.py
 
-from talon import Context, Module, actions
+from talon import Context, Module, actions, settings
 
 mod = Module()
 mod.list("environment_variables", "Common environment variables")
+mod.setting(
+    "terminal_app",
+    type=str,
+    default="alacritty",
+    desc="The terminal app to spawn in various places",
+)
 
 
 @mod.action_class
@@ -32,6 +38,10 @@ class Actions:
 
     def terminal_kill_all():
         """kills the running command"""
+
+    def terminal_default_app() -> str:
+        """Returns the default terminal app"""
+        return settings.get("user.terminal_app")
 
 
 linux_ctx = Context()
