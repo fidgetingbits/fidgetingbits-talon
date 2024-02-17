@@ -3,38 +3,42 @@ app: signal
 tag(): user.messaging
 # TODO: finish adding messaging actions
 
-show shortcuts: key("ctrl-/")
+[show] shortcuts: key("ctrl-/")
 
-# Note that the order below matches Keyboard Shortcuts listings
 
 # Navigation
-(next | nav | navigate) [by] (sec | section): key("ctrl-t")
-(prev | previous) (chat | conversation): key("alt-down")
-next (chat | conversation): key("alt-up")
-(prev | previous) unread: key("alt-shift-down")
-next unread: key("alt-shift-up")
+sec next: key("ctrl-t")
+sec last: key("ctrl-f6")
+unread last: key("alt-shift-up")
+unread next: key("alt-shift-down")
 [open] (pref | preferences): key("ctrl-,")
 open conversation menu: key("ctrl-shift-l")
 search: key("ctrl-f")
 search chat: key("ctrl-shift-f")
-focus (chat | composer): key("ctrl-shift-t")
 open media: key("ctrl-shift-m")
 open emoji: key("ctrl-shift-j")
 open sticker: key("ctrl-shift-s")
 record [voice] message: key("ctrl-shift-v")
-archive chat: key("ctrl-shift-a")
-unarchive chat: key("ctrl-shift-u")
-(first | top) message: key("ctrl-up")
-(last | bottom) message: key("ctrl-down")
+message top: key("ctrl-up")
+message: key("ctrl-down")
+
+# Chat section
+chat last: key("alt-up")
+chat next: key("alt-down")
+chat focus: key("ctrl-shift-t")
 close chat: key("ctrl-shift-c")
+chat archive: key("ctrl-shift-a")
+chat unarchive: key("ctrl-shift-u")
+focus last: key("ctrl-j")
 
 # Messages
 send it: key("enter")
 message details: key("ctrl-d")
-reply [message]: key("ctrl-shift-r")
-react [message]: key("ctrl-shift-e")
+[message] reply: key("ctrl-shift-r")
+[message] react: key("ctrl-shift-e")
 save attachment: key("ctrl-s")
-delete [message]: key("ctrl-shift-d")
+[message] delete: key("ctrl-shift-d")
+
 
 # Composer
 send message: key("ctrl-enter")
