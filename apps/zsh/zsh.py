@@ -3,7 +3,7 @@ import os
 import pathlib
 import pprint
 
-from talon import Context, Module, actions, app, fs, ui
+from talon import Context, Module, actions, app, fs, settings, ui
 from talon_init import TALON_HOME
 
 ctx = Context()
@@ -14,6 +14,12 @@ tag: user.zsh
 """
 
 mod.tag("zsh", desc="Tag for enabling zsh shell support")
+mod.setting(
+    "zsh_auto_completion",
+    type=bool,
+    default=False,
+    desc="Whether or not to enable autocompletion for zsh",
+)
 
 plugin_tag_list = [
     "zsh_cd_gitroot",
@@ -214,7 +220,9 @@ def on_ready():
     ui.register("win_title", win_title)
 
 
-app.register("ready", on_ready)
+if settings.get("user.zsh_auto_completion"):
+    print("Setting up position autocompletion watches")
+    app.register("ready", on_ready)
 
 
 @mod.action_class
