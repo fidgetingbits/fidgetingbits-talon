@@ -630,6 +630,7 @@ process forest: "ps -aef --forest\n"
 process top: "htop\n"
 process fuzzy kill: "pkill "
 process fuzzy kill <user.text>: "pkill {text}"
+process fuzzy kill pid: user.insert_between("pgrep ", " | xargs kill -9")
 process loop kill:
     user.insert_between("for PID in $(ps -ef | grep ", " | grep -v grep | awk '{{print $2}}'); do kill -9 $PID 2>/dev/null; done")
 process kill <number>: "kill -9 {number}"
