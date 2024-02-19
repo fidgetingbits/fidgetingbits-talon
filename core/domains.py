@@ -2,6 +2,7 @@ import json
 import pathlib
 
 from talon import Context, Module, fs
+from talon_init import TALON_HOME
 
 mod = Module()
 mod.list("domains", desc="Commonly used domains")
@@ -14,9 +15,7 @@ class Domain:
 
     def __init__(self):
         # assumes separate ~/.talon/user/private/ directory
-        cwd = pathlib.Path(__file__).parent.parent.joinpath(
-            "../private/settings/domains_private.json"
-        )
+        cwd = pathlib.Path(TALON_HOME, "user/private/settings/domains_private.json")
         self.domain_file = cwd.absolute()
         self.update_commands()
         fs.watch(self.domain_file, self.__on_fs_change)

@@ -2,6 +2,7 @@ import os
 import pathlib
 
 from talon import Context, Module
+from talon_init import TALON_HOME
 
 mod = Module()
 mod.list("first_names", desc="Common first names")
@@ -13,11 +14,11 @@ last_names_file = os.path.join(cwd, "last_names.csv")
 
 # These list should contain values you don't want to be published publicly.
 # see the read me about keeping them private
-private_first_names_file = pathlib.Path(__file__).parent.parent.joinpath(
-    "../../../private/misc/common_names/private_first_names.csv"
+private_first_names_file = pathlib.Path(
+    TALON_HOME, "user/private/misc/common_names/private_first_names.csv"
 )
-private_last_names_file = pathlib.Path(__file__).parent.parent.joinpath(
-    "../../../private/misc/common_names/private_last_names.csv"
+private_last_names_file = pathlib.Path(
+    TALON_HOME, "user/private/misc/common_names/private_last_names.csv"
 )
 
 

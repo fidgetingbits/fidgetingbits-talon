@@ -1,7 +1,9 @@
 import json
 import os
+import pathlib
 
 from talon import Context, Module, actions, app, fs, imgui, settings, ui
+from talon_init import TALON_HOME
 
 mod = Module()
 mod.mode("personal_info")
@@ -50,9 +52,9 @@ class PersonalInfo:
     command_key_map = {}
 
     def __init__(self):
-        cwd = os.path.dirname(os.path.realpath(__file__))
-        self.personal_info_file = os.path.join(
-            cwd, "../../../../private/misc/personal_info/personal_info.json"
+        # FIXME: make this path configurable
+        self.personal_info_file = pathlib.Path(
+            TALON_HOME, "user/private/misc/personal_info/personal_info.json"
         )
         self.update_commands()
         fs.watch(self.personal_info_file, self.__on_fs_change)
@@ -89,7 +91,7 @@ class Actions:
         global pi
         global personal_info_list
         record_data = pi.db[record]
-        if type(record_data) == list:
+        if isinstance(record_data, list):
             if len(record_data) > 1:
                 auto_index = settings.get("user.personal_info_auto_select")
                 personal_info_list = record_data
@@ -106,7 +108,7 @@ class Actions:
         global pi
         global personal_info_list
         record_data = pi.db[record]
-        if type(record_data) == list:
+        if isinstance(record_data, list):
             if index - 1 > len(record_data):
                 index = 0
             record_data = record_data[index - 1]
