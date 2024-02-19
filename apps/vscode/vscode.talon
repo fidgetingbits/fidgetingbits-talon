@@ -240,7 +240,7 @@ hunt marks: user.vscode("workbench.view.extension.bookmarks")
 mark next: user.vscode("bookmarks.jumpToNext")
 mark last: user.vscode("bookmarks.jumpToPrevious")
 
-close other tabs: user.vscode("workbench.action.closeOtherEditors")
+(close other tabs|tabby scorch): user.vscode("workbench.action.closeOtherEditors")
 close all tabs: user.vscode("workbench.action.closeAllEditors")
 close tabs way right: user.vscode("workbench.action.closeEditorsToTheRight")
 close tabs way left: user.vscode("workbench.action.closeEditorsToTheLeft")
