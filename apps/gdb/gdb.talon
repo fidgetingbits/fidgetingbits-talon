@@ -1,4 +1,4 @@
-tag: user.gdb
+app: gdb
 -
 # See lang/gdbscript.talon for the language specific commands. Generally anything that could be added during
 # scripting that's not automatically run should be put there
@@ -195,3 +195,13 @@ set debug enable off: "set debuginfod enable off\n"
 
 enable pretty printers: "enable pretty-printer\n"
 disable pretty printers: "disable pretty-printer\n"
+
+
+run again:
+    # FIXME: Probably use an action for force quit
+    insert("quit\n")
+    sleep(0.1)
+    insert("y\n")
+    # back to console
+    key(up)
+    key(enter)

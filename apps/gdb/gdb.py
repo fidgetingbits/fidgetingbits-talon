@@ -13,7 +13,7 @@ mod.tag("muslheap", desc="muslheap gdb plugin")
 ctx = Context()
 
 ctx.matches = r"""
-tag: user.gdb
+app: gdb
 """
 
 
