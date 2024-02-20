@@ -4,7 +4,7 @@ tag(): user.zsh_cd_gitroot
 tag(): user.zsh_folder_completion
 tag(): user.zsh_zhooks
 # Only enable terminal commands if we're actually inside a shell app (zsh)
-tag(): terminal
+# tag(): terminal
 
 # XXX - should be generic shell command
 # zsh commands
