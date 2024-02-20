@@ -240,6 +240,8 @@ git restore all: "git restore --source=HEAD :/"
 git restore staged: "git restore --staged "
 get restore staged all: "git restore --staged :/\n"
 git restore source: "git restore --source="
+# This allows you to remove file(s) from HEAD^ and then git commit --amend
+git restore commited file:  "git restore -s@^ -S -- "
 get remote set origin: "git remote set-url origin "
 git remote: "git remote "
 git remote add: "git remote add "
