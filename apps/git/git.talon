@@ -71,18 +71,19 @@ git clone depth <number> clip:
 git clean: "git clean"
 git clean everything: "git clean -dfx"
 git clean untracked: "git clean -fd"
+
 git commit message <user.text>:
     edit.delete_line()
-    insert("git commit -m {user.formatted_text(text or '', 'DASH_SEPARATED')}")
+    insert("git commit -m "{text or ''}")
 git commit message {user.git_conventional_commits}:
     edit.delete_line()
-    insert(user.insert_between('git commit -m "{git_conventional_commits}: ', '"'))
-git commit message {user.git_conventional_commits} <user.word>:
-    edit.delete_line()
-    insert(user.insert_between('git commit -m "{git_conventional_commits}({word}): ', '"'))
+    user.insert_between('git commit -m "{git_conventional_commits}: ', '"')
+# git commit message {user.git_conventional_commits} <user.word>:
+#     edit.delete_line()
+#     insert(user.insert_between('git commit -m "{git_conventional_commits}({word}): ', '"'))
 git commit message {user.git_conventional_commits} <user.text>:
     edit.delete_line()
-    insert("git commit -m {git_conventional_commits} {user.formatted_text(text or '', 'DASH_SEPARATED')}")
+    user.insert_between('git commit -m "{git_conventional_commits}: {text}', '"')
 git commit message:
     edit.delete_line()
     user.insert_between('git commit -m "', '"')
