@@ -1,4 +1,4 @@
-tag: user.gdb
+app: gdb
 -
 
 # for using https://github.com/xjdrew/lua-gdb
@@ -7,11 +7,12 @@ lua table: "p/x *(Table *)"
 lua table clip:
     insert("p/x *(Table *)")
     edit.paste()
+    key(enter)
 
 lua raw table:
     insert("disable pretty-printer\n")
     insert("p/x *(Table *)")
-lua raw table clipboard:
+lua raw table clip:
     insert("disable pretty-printer\n")
     insert("p/x *(Table *)")
     edit.paste()
@@ -91,3 +92,17 @@ lua coroutines: "luacoroutines\n"
 lua stack: "luastack "
 lua trace back: "luatraceback "
 lua get local: "luagetlocal "
+
+print type table: "ptype Table\n"
+print table: "p/x *(Table *)"
+print table clip:
+    insert("p/x *(Table *)")
+    edit.paste()
+    key(enter)
+
+print type value: "ptype TValue\n"
+print value: "p/x *(TValue *)"
+print value clip:
+    insert("p/x *(TValue *)")
+    edit.paste()
+    key(enter)
