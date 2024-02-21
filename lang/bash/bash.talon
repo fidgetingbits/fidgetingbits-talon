@@ -21,18 +21,18 @@ settings():
 
 # NOTE: If using cursorless/snippets also check those out for general building blocks
 
-put command: "$()"
-put expression: "$(())"
+[put] command: "$()"
+[put] expression: "$(())"
 
-put [empty] (variable | var): user.insert_between("${", "}")
+[put] [empty] (variable | var): user.insert_between("${", "}")
 
-put [big] (variable | var) <user.text>$:
+[put] [big] (variable | var) <user.text>$:
     user.insert_between("${", "}")
     snake_text = user.formatted_text(text, "snake")
     upper_text = user.formatted_text(snake_text, "upper")
     insert(upper_text)
 
-put small (variable | var) <user.text>$:
+[put] small (variable | var) <user.text>$:
     user.insert_between("${", "}")
     snake_text = user.formatted_text(text, "snake")
     insert(upper_text)
@@ -43,7 +43,7 @@ copy file: insert("cp ")
 
 recursive copy file: insert("cp -R ")
 
-put out to error: "1>&2"
-put error to out: "2>&1"
-put error to null: "2>/dev/null"
-put read key press: "read -r -n 1 -s\n"
+[put] out to error: "1>&2"
+[put] error to out: "2>&1"
+[put] error to null: "2>/dev/null"
+[put] read key press: "read -r -n 1 -s\n"
