@@ -197,7 +197,7 @@ enable pretty printers: "enable pretty-printer\n"
 disable pretty printers: "disable pretty-printer\n"
 
 
-run again:
+groundhog:
     # FIXME: Probably use an action for force quit
     insert("quit\n")
     sleep(0.1)
