@@ -1,5 +1,8 @@
 app: gdb
 -
+
+tag(): user.gdb
+
 # See lang/gdbscript.talon for the language specific commands. Generally anything that could be added during
 # scripting that's not automatically run should be put there
 tag(): user.debugger

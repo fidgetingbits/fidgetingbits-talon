@@ -3,7 +3,7 @@ and tag: terminal
 os: mac
 and tag: terminal
 -
-tag(): user.zsh
+# tag(): user.zsh
 
 cancel [that]: key(ctrl-c)
 # fzf keybindings
