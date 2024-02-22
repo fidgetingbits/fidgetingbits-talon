@@ -56,3 +56,33 @@ insertionScope: statement
 -
 home.file."$0/.keep".text = "# Managed by Home Manager";
 ---
+
+name: nixIfDarwin
+phrase: if darwin
+insertionScope: statement
+-
+if pkgs.stdenv.isDarwin then
+  $1
+else
+  $2;
+---
+
+name: nixFullModule
+phrase: full module
+insertionScope: statement
+-
+{ config, lib, pkgs, ... }:
+
+{
+  imports = [
+    $0
+  ];
+  options = {
+    $1
+  };
+  config = {
+    $2
+  };
+
+}
+---
