@@ -74,7 +74,7 @@ git clean untracked: "git clean -fd"
 
 git commit message <user.text>:
     edit.delete_line()
-    insert("git commit -m "{text or ''}")
+    insert("git commit -m \"{text or ''}")
 git commit message {user.git_conventional_commits}:
     edit.delete_line()
     user.insert_between('git commit -m "{git_conventional_commits}: ', '"')
