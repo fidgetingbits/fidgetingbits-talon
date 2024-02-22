@@ -9,6 +9,7 @@ ctx.lists["user.ports"] = {
     "T L S": "443",
     "remote desktop": "3389",
     "redis": "6379",
+    "sync thing": "8384",
 }
 
 
