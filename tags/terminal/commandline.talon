@@ -626,14 +626,14 @@ errors ignore: "2>/dev/null"
 ###
 # ELF file
 ###
-file elf [read] header: "eu-readelf -h "
-file elf [read] symbols: "eu-readelf -s "
-file elf [read] (program headers | sections): "eu-readelf -l "
-file elf dependencies: "eu-readelf -d "
+file elf [read] header: "readelf -h "
+file [elf] [read] symbols: "readelf -s "
+file elf [read] (program headers | sections): "readelf -l "
+file elf dependencies: "readelf -d "
 file elf debug info: user.insert_between("readelf -w", "| head -15")
 file strip: "strip --strip-all "
 file [elf] extract (debug | symbols): "objcopy --only-keep-debug "
-file elf read got: "eu-readelf -r "
+file elf read got: "readelf -r "
 file elf read P L T: "objdump -d -s -j .plt -j .got.plt "
 
 ###
