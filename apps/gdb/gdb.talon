@@ -58,7 +58,7 @@ list clip:
 list (base|P C): "list $pc\n"
 
 print casted struck:
-    user.insert_between("p/x *(struct", "*)")
+    user.insert_between("p/x *(struct", "*) ")
 
 # symbols
 symbol refresh: "sharedlibrary\n"
