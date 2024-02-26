@@ -98,6 +98,7 @@ file list long exact: "ls -al "
 file list with paths: 'ls --sort changed -d - "$PWD"/*'
 file list latest: "eza --sort changed | tail -n1\n"
 file list today: 'find . -maxdepth 1 -newermt "$(date +%D)"\n'
+file list deep: "fd .\n"
 
 # I can't always rely on -newermt, since an old file might get extracted from from an archive, in the timestamp is
 # actually quite old. This allows me to give it the actual local birthdate of the file
