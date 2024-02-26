@@ -23,22 +23,21 @@ tunnel copy last:
     key(enter)
     key(enter)
 
-# 8384
 
 tunnel local proxy <number> {user.ssh_hosts}: user.insert_between("ssh -L {number}", ":localhost:{number} {ssh_hosts}")
 tunnel local proxy {user.ports} {user.ssh_hosts}: user.insert_between("ssh -L {ports}", ":localhost:{ports} {ssh_hosts}")
 
 (S S H | secure shell | tunnel) key (gen | generate):
     "ssh-keygen -o -a 256 -t ed25519\n"
+tunnel key fingerprint:
+    user.insert_between("ssh-keygen -lf ~/.ssh/", ".pub\n")
 (tunnel | secure) copy [<user.text>]:
     insert("scp -r ")
     insert(text or "")
 tunnel copy from {user.ssh_hosts}: insert("scp -r {ssh_hosts}:")
 tunnel copy to {user.ssh_hosts}: user.insert_between("scp -r ", " {ssh_hosts}:")
-[tunnel] show authorized keys: "vi ~/.ssh/authorized_keys\n"
+[tunnel] show authorized keys: "cat ~/.ssh/authorized_keys\n"
 [tunnel] show pub keys: "cat ~/.ssh/*.pub\n"
-edit authorized keys: "vi ~/.ssh/authorized_keys\n"
+edit authorized keys: "edit ~/.ssh/authorized_keys\n"
 go secure shell config: "cd ~/.ssh\n"
-# talon suddenly loves the word termini
-#tunnel (terminate|termini):
 tunnel (pop | terminate): key(enter ~ .)
