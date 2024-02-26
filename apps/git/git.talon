@@ -226,9 +226,11 @@ git reset: "git reset "
 git reset soft: "git reset --soft "
 git reset soft head: "git reset --soft HEAD~1"
 git reset soft head <number_small>: "git reset --soft HEAD~{number_small}"
-git reset hard: "git reset --hard "
-git reset hard head: "git reset --hard HEAD~1"
-git reset hard head <number_small>: "git reset --hard HEAD~{number_small}"
+# git reset hard: "git reset --hard "
+git reset hard: "git stash -u "
+# FIXME: See about a way to do something stash-equivalent so we don't really just lose everything
+# git reset hard head: "git reset --hard HEAD~1"
+ #git reset hard head <number_small>: "git reset --hard HEAD~{number_small}"
 
 # These two are useful for mass commit squashing
 git reset [merge] base {user.git_branches}: "git reset --soft $(git merge-base {git_branches} HEAD)"
