@@ -81,6 +81,9 @@ class Actions:
 # It won't work for all, but for ones with just basic unmodified lists it should be fine.
 def update_git_branches(file, flags):
     """Update the available git branches based off of a change of working directory"""
+    # Checking here allows it to be enabled after the fact
+    if not settings.get("user.git_branch_auto_completion"):
+        return
     # print("calling update_git_branches")
     # actions.user.update_completion_list(ctx.lists["user.git_branches"], path)
     try:
@@ -90,18 +93,15 @@ def update_git_branches(file, flags):
             if len(commands) == 0:
                 ctx.lists["user.git_branches"] = {}
             else:
-                ctx.lists[
-                    "user.git_branches"
-                ] = actions.user.create_spoken_forms_from_list(commands)
+                ctx.lists["user.git_branches"] = (
+                    actions.user.create_spoken_forms_from_list(commands)
+                )
     except Exception:
         pass
 
 
 def on_ready():
-    if settings.get("user.git_branch_auto_completion"):
-        actions.user.zsh_register_watch_file_callback(
-            "git_branches", update_git_branches
-        )
+    actions.user.zsh_register_watch_file_callback("git_branches", update_git_branches)
 
 
 app.register("ready", on_ready)

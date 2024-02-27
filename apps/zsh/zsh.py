@@ -81,9 +81,9 @@ def _zsh_cwd_watch_folders(path, flags):
             if len(folder_list) == 0:
                 ctx.lists["user.zsh_folder_completion"] = {}
             else:
-                ctx.lists[
-                    "user.zsh_folder_completion"
-                ] = actions.user.create_spoken_forms_from_list(folder_list)
+                ctx.lists["user.zsh_folder_completion"] = (
+                    actions.user.create_spoken_forms_from_list(folder_list)
+                )
                 # print(f"Updating zsh_folder_completion with {len(folder_list)} entries")
     except Exception:
         # If there's no folders in a directory this is expected
@@ -104,9 +104,9 @@ def _zsh_cwd_watch_files(cwd, flags):
                 # print(
                 #     f"Updating zsh_file_completion with {len(file_list)} file entries"
                 # )
-                ctx.lists[
-                    "user.zsh_file_completion"
-                ] = actions.user.create_spoken_forms_from_list(file_list)
+                ctx.lists["user.zsh_file_completion"] = (
+                    actions.user.create_spoken_forms_from_list(file_list)
+                )
     except Exception:
         # If there's no files in a directory this is expected
         # print(f"zsh.py _zsh_cwd_watch_files() failed to read {path}: {e}")
@@ -135,6 +135,9 @@ old_callback_count = 0
 
 
 def _setup_watches(window):
+    # Checking here lets us enable it after the fact
+    if not settings.get("user.zsh_auto_completion"):
+        return
     # print("_setup_watches")
     global zsh_folder_path
     if window == ui.active_window() and _is_zsh_window(window):
@@ -220,21 +223,23 @@ def on_ready():
     ui.register("win_title", win_title)
 
 
-if settings.get("user.zsh_auto_completion"):
-    print("Setting up position autocompletion watches")
-    app.register("ready", on_ready)
+app.register("ready", on_ready)
 
 
 @mod.action_class
 class Actions:
     def zsh_dump_file_completions():
         """Dump add a pretty version of the file completions to the log"""
-        logging.info("ZSH File Completions:")
+        logging.info(
+            f'ZSH File Completions (Enabled {settings.get("user.zsh_auto_completion")}):'
+        )
         logging.info(pprint.pformat(ctx.lists["user.zsh_file_completion"]))
 
     def zsh_dump_folder_completions():
         """Dump add a pretty version of the folder completions to the log"""
-        logging.info("ZSH Folder Completions:")
+        logging.info(
+            f'ZSH Folder Completions (Enabled {settings.get("user.zsh_auto_completion")}):'
+        )
         logging.info(pprint.pformat(ctx.lists["user.zsh_folder_completion"]))
 
     def zsh_dump_completions():
@@ -254,7 +259,7 @@ class Actions:
                 entry["callback"] = callback
                 return
         extra_callbacks.append({"watch_file": watch_file, "callback": callback})
-        # print("new callback registered")
+        print("new callback registered")
 
     def zsh_completion_base_dir():
         """Return the base directory for zsh completions"""

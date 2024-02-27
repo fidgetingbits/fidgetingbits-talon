@@ -169,6 +169,9 @@ settings():
     # Uncomment the below line to add a directory (relative to the Talon user dir) with additional .snippet files
     # Changing this setting requires a restart of Talon
     # user.snippets_dir = "snippets"
+    user.zsh_auto_completion = true
+    user.justfile_auto_completion = true
+    user.git_branch_auto_completion = true
 
 # uncomment tag to enable mouse grid
 # tag(): user.mouse_grid_enabled
