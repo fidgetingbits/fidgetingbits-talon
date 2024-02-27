@@ -128,7 +128,7 @@ set history size: "set history size "
 set history size unlimited: "set history size unlimited\n"
 show history size: "show history size\n"
 
-(list libraries|info library): "info sharedlibrary\n"
+(list libraries|info [shared] library|lib list): "info sharedlibrary\n"
 
 info file: "info file\n"
 
