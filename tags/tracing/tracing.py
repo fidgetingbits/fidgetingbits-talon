@@ -1,4 +1,4 @@
-from talon import Context, Module, actions
+from talon import Module
 
 mod = Module()
 mod.tag("tracing_dtruss", desc="Tag for enabling generic tracing commands")

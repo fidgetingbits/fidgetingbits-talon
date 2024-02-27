@@ -61,7 +61,7 @@ class module_actions:
 
     def debug_grammar_list():
         """dump out the largest registry lists for a given context"""
-        print(f"NFA:")
+        print("NFA:")
         d = {}
         for key, item in speech_system.grammar.list_nfas.items():
             d[key] = len(item[0])

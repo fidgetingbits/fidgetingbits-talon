@@ -1,6 +1,6 @@
 # XXX - execute until line number/cursor
 
-from talon import Context, Module, app, settings, ui, actions
+from talon import Context, Module, actions, settings, ui
 
 mod = Module()
 mod.tag("debugger", desc="Tag for enabling generic debugger commands")

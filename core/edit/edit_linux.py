@@ -172,6 +172,7 @@ class EditActions:
     def word_right():
         actions.key("ctrl-right")
 
+
 @zoom_ctx.action_class("edit")
 class EditActions:
     def zoom_in():
@@ -182,4 +183,3 @@ class EditActions:
 
     def zoom_reset():
         actions.key("ctrl-0")
-

@@ -22,7 +22,7 @@ def handle_hexdump_count(cmd, number, register, clip=False, copy=False):
         actions.edit.paste()
         actions.auto_insert(f" {count}\n")
     else:
-        actions.user.insert_between(f"", " {count}")
+        actions.user.insert_between("", " {count}")
 
 
 @ctx.action_class("user")
@@ -81,7 +81,7 @@ class UserActions:
         handle_hexdump_count("dq", number, register)
 
     def debugger_dump_pointers(register: str):
-        actions.auto_insert(f"dps ")
+        actions.auto_insert("dps ")
         if register:
             actions.auto_insert(f"${register}\n")
 

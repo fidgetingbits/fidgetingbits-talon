@@ -4,7 +4,7 @@ import re
 from random import randint
 from typing import List, Union
 
-from talon import Context, Module, actions, app, clip, imgui, registry, ui
+from talon import Context, Module, actions, app, registry
 from talon.grammar import Phrase
 
 ctx = Context()

@@ -2,7 +2,7 @@ import logging
 import pathlib
 import pprint
 
-from talon import Context, Module, actions, app, fs
+from talon import Context, Module, actions
 
 mod = Module()
 mod.tag("ssh", desc="tag for ssh functionality")

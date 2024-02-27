@@ -5,10 +5,8 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 from uuid import uuid4
-from tempfile import gettempdir
 
 from talon import Context, Module, actions, app, speech_system
-from talon_init import TALON_HOME
 
 # How old a request file needs to be before we declare it stale and are willing
 # to remove it

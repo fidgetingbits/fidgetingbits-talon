@@ -1,4 +1,4 @@
-from talon import Context, Module, actions, settings
+from talon import Context, Module, actions
 
 mod = Module()
 
@@ -64,7 +64,7 @@ class UserActions:
         handle_hexdump_count("dq", number, register)
 
     def debugger_dump_pointers(register: str):
-        actions.auto_insert(f"dps ")
+        actions.auto_insert("dps ")
         if register:
             actions.auto_insert(f"${register}\n")
 

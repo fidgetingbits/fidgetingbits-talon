@@ -6,4 +6,3 @@ settings():
     user.terminal_app = "terminal"
 
 tag(): user.gnome-shell
-

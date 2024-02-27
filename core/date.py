@@ -1,7 +1,7 @@
 # This follows yyyy-mm-dd format
 
 import datetime
-from datetime import date, datetime, timedelta
+from datetime import date, timedelta
 
 from talon import Module
 

@@ -222,7 +222,7 @@ def number(m) -> int:
     return int(m.number_string)
 
 
-@ctx.capture("number_signed", rule=f"[negative|minus] <number>")
+@ctx.capture("number_signed", rule="[negative|minus] <number>")
 def number_signed(m):
     number = m[-1]
     return -number if (m[0] in ["negative", "minus"]) else number

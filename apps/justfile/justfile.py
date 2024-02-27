@@ -1,5 +1,4 @@
 import pprint
-from pathlib import Path
 
 from talon import Context, Module, actions, app, settings
 
@@ -45,7 +44,7 @@ def update_justfile_commands(cwd, flags):
                     "user.justfile_commands"
                 ] = actions.user.create_spoken_forms_from_list(commands)
             # print(f"Updated justfile_commands with {len(commands)} entries")
-    except Exception as e:
+    except Exception:
         pass
 
 

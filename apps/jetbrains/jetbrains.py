@@ -64,12 +64,12 @@ def _get_nonce(port, file_prefix):
     try:
         with open(os.path.join(tempfile.gettempdir(), file_name)) as fh:
             return fh.read()
-    except FileNotFoundError as e:
+    except FileNotFoundError:
         try:
             home = str(Path.home())
             with open(os.path.join(home, file_name)) as fh:
                 return fh.read()
-        except FileNotFoundError as eb:
+        except FileNotFoundError:
             print(f"Could not find {file_name} in tmp or home")
             return None
     except OSError as e:
@@ -295,7 +295,7 @@ class UserActions:
         # if it's a single line, select the entire thing including the ending new-line5
         if line_start == line_end:
             actions.user.idea(f"goto {line_start} 0")
-            actions.user.idea("action EditorSelectLine"),
+            (actions.user.idea("action EditorSelectLine"),)
         else:
             actions.user.idea(f"range {line_start} {line_end}")
 

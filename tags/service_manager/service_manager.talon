@@ -23,4 +23,3 @@ service help: user.service_help()
 service kill: user.service_kill()
 service kill {user.service_names}: user.service_kill_by_name(service_names)
 service is enabled: user.service_is_enabled()
-

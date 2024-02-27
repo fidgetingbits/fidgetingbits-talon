@@ -1,4 +1,4 @@
-from talon import Context, actions, app, mac, ui
+from talon import Context, actions, mac, ui
 from talon.mac import applescript
 
 ctx = Context()
@@ -42,9 +42,7 @@ class BrowserActions:
                     tell application id "{bundle}"
                         if not (exists (window 1)) then return ""
                         return the URL of the active tab of the front window
-                    end tell""".format(
-                        bundle=actions.app.bundle()
-                    )
+                    end tell""".format(bundle=actions.app.bundle())
                 )
             except mac.applescript.ApplescriptErr:
                 return actions.next()
@@ -97,5 +95,3 @@ class BrowserActions:
 
     def toggle_dev_tools():
         actions.key("cmd-alt-i")
-
-

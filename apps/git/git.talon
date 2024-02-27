@@ -120,6 +120,11 @@ git diff tool cached: "git difftool --cached -d\n"
 git diff names only: "git diff --name-only "
 git fetch: "git fetch\n"
 git fetch and rebase: "git fetch && git rebase\n"
+# XXX - Make this a script that checks if there are changes to stash
+git update:
+    insert.update("git stash\n")
+    insert.update("git fetch && git rebase")
+    insert.update("git stash pop\n")
 git fetch prune: "git fetch --prune\n"
 git fetch all: "git fetch --all\n"
 git garbage collect aggressive: "git gc --aggressive"

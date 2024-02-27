@@ -1,7 +1,7 @@
 import subprocess
 from typing import Optional, Union
 
-from talon import Context, Module, actions, app, settings
+from talon import Context, Module, actions, settings
 
 mod = Module()
 ctx = Context()

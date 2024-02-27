@@ -29,4 +29,3 @@ app next:
 
 app choose:
     key(alt:up)
-

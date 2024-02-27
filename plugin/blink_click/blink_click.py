@@ -3,7 +3,7 @@ from os import system
 from sys import platform
 from time import sleep, time
 
-from talon import Module, actions, app, ctrl, settings, ui
+from talon import Module, actions, ctrl, settings, ui
 from talon.types import Point2d
 from talon_plugins.eye_mouse import tracker
 
@@ -161,7 +161,7 @@ class EyeMouseBlink:
             import winsound
 
             winsound.Beep(freq, dur)
-        except Exception as e:
+        except Exception:
             pass
 
     def estimate_focus(self, eye_history, magic):

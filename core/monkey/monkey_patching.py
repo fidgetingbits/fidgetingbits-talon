@@ -2,7 +2,7 @@ import os
 import socket
 import subprocess
 
-from talon import app, imgui, scope, ui
+from talon import app, imgui, ui
 
 
 def monkey_notify(body="", title="", subtitle="", *kwargs):

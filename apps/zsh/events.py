@@ -14,8 +14,6 @@ import socket
 import threading
 import traceback
 
-from . import singletons
-
 
 class EventConsumer:
     def startup(self, ctx):
@@ -147,11 +145,11 @@ class EventLoop(threading.Thread):
     def evict_on_fail(self, consumer):
         try:
             yield
-        except Exception as e:
+        except Exception:
             logging.error("failure in consumer code:\n" + traceback.format_exc())
             try:
                 consumer.shutdown()
-            except Exception as e:
+            except Exception:
                 logging.error(
                     "failure in shutdown after failure in consumer code:\n"
                     + traceback.format_exc()
@@ -173,7 +171,7 @@ class EventLoop(threading.Thread):
                             consumer = self.stoppables.pop()
                             try:
                                 consumer.shutdown()
-                            except Exception as e:
+                            except Exception:
                                 logging.error(
                                     "failure in shutdown:\n" + traceback.format_exc()
                                 )

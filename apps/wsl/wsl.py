@@ -14,7 +14,7 @@ ctx = Context()
 # note: this context match is intentionally made more complex so that it is more specific
 # than the context defined in apps/win/windows_terminal/windows_terminal.py (and thereby
 # takes precedence).
-ctx.matches = rf"""
+ctx.matches = r"""
 app: windows_terminal
 and tag: user.wsl
 tag: user.wsl

@@ -7,8 +7,6 @@ if hasattr(talon, "test_mode"):
 
     from talon import actions
 
-    import core.create_spoken_forms
-
     def test_excludes_words():
         result = actions.user.create_spoken_forms("hi world", ["world"], 0, True)
 

@@ -1,5 +1,4 @@
 import json
-import os
 import pathlib
 
 from talon import Context, Module, actions, app, fs, imgui, settings, ui

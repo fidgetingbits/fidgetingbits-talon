@@ -1,5 +1,6 @@
 import pathlib
 import subprocess
+
 from talon import Module, actions, app, settings
 
 mod = Module()

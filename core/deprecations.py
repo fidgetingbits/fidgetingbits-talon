@@ -86,7 +86,7 @@ def calculate_rule_info():
         filename = current_command[0].target.filename
         rule = " ".join(current_command[1]._unmapped)
         return f'\nTriggered from "{rule}" ({filename}:{start_line})'
-    except Exception as e:
+    except Exception:
         return ""
 
 

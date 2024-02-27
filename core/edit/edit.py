@@ -1,5 +1,3 @@
-import subprocess
-
 from talon import Context, Module, actions, clip
 
 ctx = Context()

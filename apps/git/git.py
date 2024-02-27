@@ -93,7 +93,7 @@ def update_git_branches(file, flags):
                 ctx.lists[
                     "user.git_branches"
                 ] = actions.user.create_spoken_forms_from_list(commands)
-    except Exception as e:
+    except Exception:
         pass
 
 

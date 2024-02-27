@@ -31,7 +31,7 @@ ctx.matches = r"""
 app: visual_studio
 """
 
-from talon import Context, actions
+from talon import Context
 
 ctx = Context()
 ctx.matches = r"""
