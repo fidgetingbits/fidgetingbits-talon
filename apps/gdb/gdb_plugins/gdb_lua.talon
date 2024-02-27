@@ -11,14 +11,11 @@ lua table clip:
     key(enter)
 
 lua raw table:
-    insert("disable pretty-printer\n")
-    insert("p/x *(Table *) ")
+    insert("p/rx *(Table *) ")
 lua raw table clip:
-    insert("disable pretty-printer\n")
-    insert("p/x *(Table *) ")
+    insert("p/rx *(Table *) ")
     edit.paste()
     key(enter)
-    insert("enable pretty-printer\n")
 
 lua value: "p/x *(TValue *) "
 lua value clip:
@@ -27,14 +24,11 @@ lua value clip:
     key(enter)
 
 lua raw value:
-    insert("disable pretty-printer\n")
-    insert("p/x *(TValue *) ")
+    insert("p/rx *(TValue *) ")
 lua raw value clip:
-    insert("disable pretty-printer\n")
-    insert("p/x *(TValue *) ")
+    insert("p/rx *(TValue *) ")
     edit.paste()
     key(enter)
-    insert("enable pretty-printer\n")
 
 lua string: "p/x *(TString *) "
 lua string clip:
@@ -43,14 +37,11 @@ lua string clip:
     key(enter)
 
 lua raw string:
-    insert("disable pretty-printer\n")
-    insert("p/x *(TString *) ")
+    insert("p/rx *(TString *) ")
 lua raw string clip:
-    insert("disable pretty-printer\n")
-    insert("p/x *(TString *) ")
+    insert("p/rx *(TString *) ")
     edit.paste()
     key(enter)
-    insert("enable pretty-printer\n")
 
 lua L closure: "p/x *(LClosure *) "
 lua L closure clip:
@@ -58,14 +49,11 @@ lua L closure clip:
     edit.paste()
 
 lua L raw closure:
-    insert("disable pretty-printer\n")
-    insert("p/x *(LClosure *) ")
+    insert("p/rx *(LClosure *) ")
 lua L raw closure clip:
-    insert("disable pretty-printer\n")
-    insert("p/x *(LClosure *) ")
+    insert("p/rx *(LClosure *) ")
     edit.paste()
     key(enter)
-    insert("enable pretty-printer\n")
 
 
 lua C closure: "p/x *(CClosure *) "
@@ -75,14 +63,11 @@ lua C closure clip:
     key(enter)
 
 lua C raw closure:
-    insert("disable pretty-printer\n")
-    insert("p/x *(CClosure *) ")
+    insert("p/rx *(CClosure *) ")
 lua C raw closure clip:
-    insert("disable pretty-printer\n")
-    insert("p/x *(CClosure *) ")
+    insert("p/rx *(CClosure *) ")
     edit.paste()
     key(enter)
-    insert("enable pretty-printer\n")
 
 lua state: "p/x *(lua_State *) "
 lua state clip:
