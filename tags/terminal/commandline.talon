@@ -588,6 +588,8 @@ history search <user.text>: "history | rg -i {text}"
 # virtsh virtual console escape
 (virtual pop | console escape): key("ctrl-]")
 
+deja <user.text>: "!{text}\t"
+
 # process management
 (process grep | pee grep): "pgrep "
 process list: "ps -ef\n"
