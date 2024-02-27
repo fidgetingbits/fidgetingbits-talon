@@ -1,12 +1,10 @@
 app: gdb
 -
 
-# for using https://github.com/xjdrew/lua-gdb
-
+# FIXME: Make all these structs/commands generic with lists
 lua table: "p/x *(Table *) "
 lua table clip:
     insert("p/x *(Table *) ")
-    sleep(0.1)
     edit.paste()
     key(enter)
 
@@ -74,11 +72,12 @@ lua state clip:
     insert("p/x *(lua_State *) ")
     edit.paste()
 
+print type table: "ptype Table\n"
+print type value: "ptype TValue\n"
+
+
+# Specific to https://github.com/xjdrew/lua-gdb
 lua coroutines: "luacoroutines\n"
 lua stack: "luastack "
 lua trace back: "luatraceback "
 lua get local: "luagetlocal "
-
-print type table: "ptype Table\n"
-
-print type value: "ptype TValue\n"

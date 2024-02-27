@@ -3,6 +3,7 @@ tag: user.muslheap
 
 tag(): user.heap_analysis
 
+source muscle heap: "source musl-heap.py"
 chunk info: "mchunkinfo "
 chunk info clip:
     insert("mchunkinfo ")
