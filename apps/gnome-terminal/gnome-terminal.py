@@ -1,3 +1,5 @@
+import time
+
 from talon import Context, Module, actions
 
 # App definition
@@ -69,6 +71,11 @@ class EditActions:
 
     def paste():
         actions.key("ctrl-shift-v")
+        # FIXME: on oedo the paste is super slow for some reason, so without this
+        # talon starts inserting before the paste is actually done
+        # Should make this type of thing configurable in a setting
+        # if I'm gonna have to keep it
+        time.sleep(0.5)
 
     def copy():
         actions.key("ctrl-shift-c")
