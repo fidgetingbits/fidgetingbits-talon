@@ -46,6 +46,18 @@ class $2Actions:
     $0
 ---
 
+name: talonPythonFile
+phrase: talon file
+insertionScope: statement
+-
+from talon import Context, Module, actions
+
+mod = Module()
+ctx = Context()
+
+$0
+---
+
 name: pythonDataClass
 phrase: data class
 insertionScope: class | statement
