@@ -20,6 +20,8 @@ tag(): user.code_operators_assignment
 tag(): user.code_operators_bitwise
 tag(): user.code_operators_math
 
+tag(): user.code_format_strings_interpolated
+
 settings():
     user.code_private_function_formatter = "SNAKE_CASE"
     user.code_protected_function_formatter = "SNAKE_CASE"

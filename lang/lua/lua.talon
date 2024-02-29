@@ -16,6 +16,7 @@ tag(): user.code_operators_assignment
 tag(): user.code_operators_bitwise
 tag(): user.code_operators_math
 tag(): user.code_operators_pointer
+tag(): user.code_format_strings
 
 # Use this tag if you use the stylua linter
 tag(): user.stylua
