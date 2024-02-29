@@ -20,7 +20,7 @@ mod.tag(
     desc="Tag for enabling commands for inserting non-interpolated format string specifiers",
 )
 mod.tag(
-    "code_format_string_interpolated_",
+    "code_format_string_interpolated",
     desc="Tag for enabling commands for inserting interpolated format string specifiers",
 )
 mod.list("code_format_specifiers", desc="List of common formats specifiers: e.g. %lx")
