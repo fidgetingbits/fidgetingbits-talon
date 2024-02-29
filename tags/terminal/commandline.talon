@@ -306,6 +306,12 @@ pivot local <user.zsh_path_completion>:
 pivot back:
     edit.delete_line()
     "cd ../\n"
+pivot real:
+    edit.delete_line()
+    "cd -P .\n"
+pivot real back:
+    edit.delete_line()
+    "cd -P ..\n"
 pivot <number_small> back:
     edit.delete_line()
     insert("cd ")
