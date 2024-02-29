@@ -158,8 +158,11 @@ class UserActions:
         actions.insert("set $=")
         actions.edit.left()
 
-    # XXX - This might be able to use insert_cursor to let us get right on the
-    # variable name
-    def debugger_set_variable():
-        actions.insert("set $=")
-        actions.edit.paste()
+
+@mod.action_class
+class Actions:
+    def gdb_print_typed_pointer(addr: str, type: str, raw: bool) -> None:
+        """Print the pointer value with the given type"""
+        mod = "rx" if raw else "x"
+        # NOTE: Keep the space, to allow easier clearing backwards
+        actions.insert(f"p/{mod} *({type} *) {addr}")

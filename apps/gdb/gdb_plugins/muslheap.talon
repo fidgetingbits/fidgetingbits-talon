@@ -3,6 +3,38 @@ tag: user.muslheap
 
 tag(): user.heap_analysis
 
+M map threshold: "0x01ffec"
+
+# FIXME: Might be cleaner to make this all a capture now that it's got 3 ways.
+muscle {user.mallocng_structs}:
+    edit.delete_line()
+    user.gdb_print_typed_pointer("", mallocng_structs, false)
+
+muscle raw {user.mallocng_structs}:
+    edit.delete_line()
+    user.gdb_print_typed_pointer("", mallocng_structs, true)
+
+muscle {user.mallocng_structs} {user.registers}:
+    edit.delete_line()
+    register = "${registers}"
+    user.gdb_print_typed_pointer(register, mallocng_structs, false)
+
+muscle raw {user.mallocng_structs} {user.registers}:
+    edit.delete_line()
+    register = "${registers}"
+    user.gdb_print_typed_pointer(register, mallocng_structs, true)
+
+
+muscle {user.mallocng_structs} clip:
+    edit.delete_line()
+    user.gdb_print_typed_pointer(clip.text(), mallocng_structs, false)
+    key(enter)
+
+muscle raw {user.mallocng_structs} clip:
+    edit.delete_line()
+    user.gdb_print_typed_pointer(clip.text(), mallocng_structs, true)
+    key(enter)
+
 source muscle heap: "source musl-heap.py"
 chunk info: "mchunkinfo "
 chunk info clip:
@@ -18,24 +50,8 @@ magic: "mmagic\n"
 heap info: "mheapinfo\n"
 
 muscle debug path: "target:/usr/lib/debug/lib/ld-musl-x86_64.so.1.debug"
-print meta: "p/x *(struct meta *) "
-print meta clip:
-    insert("p/x *(struct meta *) ")
-    edit.paste()
-    key(enter)
-print meta {user.registers}:
-    "i r ${registers}\n"
-    "p/x *(struct meta *) ${registers}\n"
+
 
 print malloc context:
     "p/x &__malloc_context\n"
     "p/x __malloc_context\n"
-
-# NB: Using mgroup via my own symbol file rather than real struct group,
-# due to gdb failing to find it because of duplication
-print group:
-    "p/x *(struct mgroup *) "
-print group clip:
-    insert("p/x *(struct mgroup *) ")
-    edit.paste()
-    key(enter)

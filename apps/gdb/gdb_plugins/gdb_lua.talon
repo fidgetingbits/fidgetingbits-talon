@@ -1,83 +1,50 @@
 app: gdb
 -
 
-# FIXME: Make all these structs/commands generic with lists
-lua table: "p/x *(Table *) "
-lua table clip:
-    insert("p/x *(Table *) ")
-    edit.paste()
+lua {user.lua_structs}:
+    edit.delete_line()
+    user.gdb_print_typed_pointer("", lua_structs, false)
+
+lua raw {user.lua_structs}:
+    edit.delete_line()
+    user.gdb_print_typed_pointer("", lua_structs, true)
+
+lua {user.lua_structs} {user.registers}:
+    edit.delete_line()
+    register = "${registers}"
+    user.gdb_print_typed_pointer(register, lua_structs, false)
+
+lua raw {user.lua_structs} {user.registers}:
+    edit.delete_line()
+    register = "${registers}"
+    user.gdb_print_typed_pointer(register, lua_structs, true)
+
+lua {user.lua_structs} clip:
+    edit.delete_line()
+    user.gdb_print_typed_pointer(clip.text(), lua_structs, false)
     key(enter)
 
-lua raw table:
-    insert("p/rx *(Table *) ")
-lua raw table clip:
-    insert("p/rx *(Table *) ")
-    edit.paste()
+lua raw {user.lua_structs} clip:
+    edit.delete_line()
+    user.gdb_print_typed_pointer(clip.text(), lua_structs, true)
     key(enter)
-
-lua value: "p/x *(TValue *) "
-lua value clip:
-    insert("p/x *(TValue *) ")
-    edit.paste()
-    key(enter)
-
-lua raw value:
-    insert("p/rx *(TValue *) ")
-lua raw value clip:
-    insert("p/rx *(TValue *) ")
-    edit.paste()
-    key(enter)
-
-lua string: "p/x *(TString *) "
-lua string clip:
-    insert("p/x *(TString *) ")
-    edit.paste()
-    key(enter)
-
-lua raw string:
-    insert("p/rx *(TString *) ")
-lua raw string clip:
-    insert("p/rx *(TString *) ")
-    edit.paste()
-    key(enter)
-
-lua L closure: "p/x *(LClosure *) "
-lua L closure clip:
-    insert("p/x *(LClosure *) ")
-    edit.paste()
-
-lua L raw closure:
-    insert("p/rx *(LClosure *) ")
-lua L raw closure clip:
-    insert("p/rx *(LClosure *) ")
-    edit.paste()
-    key(enter)
-
-
-lua C closure: "p/x *(CClosure *) "
-lua C closure clip:
-    insert("p/x *(CClosure *) ")
-    edit.paste()
-    key(enter)
-
-lua C raw closure:
-    insert("p/rx *(CClosure *) ")
-lua C raw closure clip:
-    insert("p/rx *(CClosure *) ")
-    edit.paste()
-    key(enter)
-
-lua state: "p/x *(lua_State *) "
-lua state clip:
-    insert("p/x *(lua_State *) ")
-    edit.paste()
-
-print type table: "ptype Table\n"
-print type value: "ptype TValue\n"
-
+print type {user.lua_structs}:
+    edit.delete_line()
+    "ptype {lua_structs}\n"
 
 # Specific to https://github.com/xjdrew/lua-gdb
 lua coroutines: "luacoroutines\n"
 lua stack: "luastack "
 lua trace back: "luatraceback "
 lua get local: "luagetlocal "
+
+dump table array clip:
+    edit.delete_line()
+    insert(f"p/x ")
+    edit.paste()
+    key(enter)
+
+    insert("p/x (*(Table *)$$0)->array\n")
+    insert("p/x (*(Table *)$$1)->sizearray\n")
+    # FIXME: This requires pwndbg for now
+    insert("hexdump $$1 $$0\n")
