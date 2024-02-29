@@ -93,9 +93,9 @@ def update_git_branches(file, flags):
             if len(commands) == 0:
                 ctx.lists["user.git_branches"] = {}
             else:
-                ctx.lists["user.git_branches"] = (
-                    actions.user.create_spoken_forms_from_list(commands)
-                )
+                ctx.lists[
+                    "user.git_branches"
+                ] = actions.user.create_spoken_forms_from_list(commands)
     except Exception:
         pass
 

@@ -41,9 +41,9 @@ def update_justfile_commands(cwd, flags):
                 # print("No justfile commands found")
                 ctx.lists["user.justfile_commands"] = {}
             else:
-                ctx.lists["user.justfile_commands"] = (
-                    actions.user.create_spoken_forms_from_list(commands)
-                )
+                ctx.lists[
+                    "user.justfile_commands"
+                ] = actions.user.create_spoken_forms_from_list(commands)
             # print(f"Updated justfile_commands with {len(commands)} entries")
     except Exception:
         pass

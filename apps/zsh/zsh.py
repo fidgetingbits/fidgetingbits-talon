@@ -81,9 +81,9 @@ def _zsh_cwd_watch_folders(path, flags):
             if len(folder_list) == 0:
                 ctx.lists["user.zsh_folder_completion"] = {}
             else:
-                ctx.lists["user.zsh_folder_completion"] = (
-                    actions.user.create_spoken_forms_from_list(folder_list)
-                )
+                ctx.lists[
+                    "user.zsh_folder_completion"
+                ] = actions.user.create_spoken_forms_from_list(folder_list)
                 # print(f"Updating zsh_folder_completion with {len(folder_list)} entries")
     except Exception:
         # If there's no folders in a directory this is expected
@@ -104,9 +104,9 @@ def _zsh_cwd_watch_files(cwd, flags):
                 # print(
                 #     f"Updating zsh_file_completion with {len(file_list)} file entries"
                 # )
-                ctx.lists["user.zsh_file_completion"] = (
-                    actions.user.create_spoken_forms_from_list(file_list)
-                )
+                ctx.lists[
+                    "user.zsh_file_completion"
+                ] = actions.user.create_spoken_forms_from_list(file_list)
     except Exception:
         # If there's no files in a directory this is expected
         # print(f"zsh.py _zsh_cwd_watch_files() failed to read {path}: {e}")
