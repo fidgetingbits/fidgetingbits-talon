@@ -1,6 +1,6 @@
 hostname: orby
 -
-hacker: user.switcher_focus_or_launch("terminal")
+hacker: user.switcher_focus_or_launch("wezterm")
 
 # The following items assume you to have pinned a certain number of tabs to the browser, such that they will always
 # remain the same order
