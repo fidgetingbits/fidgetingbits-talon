@@ -3,7 +3,7 @@ tag: user.muslheap
 
 tag(): user.heap_analysis
 
-M map threshold: "0x01ffec"
+M map threshold: "0x1ffec"
 
 # FIXME: Might be cleaner to make this all a capture now that it's got 3 ways.
 muscle {user.mallocng_structs}:

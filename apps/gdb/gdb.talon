@@ -201,10 +201,10 @@ disable pretty printers: "disable pretty-printer\n"
 
 
 groundhog:
-    # FIXME: Probably use an action for force quit
+    # This allows it to work the same on pwndbg or gdb
+    insert("set confirm off\n")
     insert("quit\n")
     sleep(0.1)
-    insert("y\n")
     # back to console
     key(up)
     key(enter)
