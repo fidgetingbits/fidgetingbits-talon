@@ -18,3 +18,25 @@ function dump_table(o)
  end
 end
 ---
+
+name: luaNewTable
+phrase: table
+insertionScope: statement
+-
+local $1 = {}
+$0
+---
+
+name: luaNewIndexedTable
+phrase: index table
+insertionScope: statement
+-
+$0[i] = {}
+---
+
+name: luaNewDoubleIndexedTable
+phrase: dub index table
+insertionScope: statement
+-
+$0[i][j] = {}
+---

@@ -1,4 +1,4 @@
-language: shellscript
+language: bash
 ---
 
 name: nixShellShebang
@@ -96,4 +96,24 @@ RED='\033[0;31m'
 GREEN='\033[0;32m'
 YELLOW='\033[0;33m'
 NC='\033[0m' # No Color
+---
+
+name: shellLoopOverArray
+phrase: array loop
+insertionScope: statement
+-
+$1=($2
+)
+for i in "${$1[@]}"; do
+    $0
+done
+---
+
+name: shellFindLoop
+phrase: find loop
+insertionScope: statement
+-
+find "$1" $2 -print0 | while IFS= read -r -d '' $3; do
+    $0
+done
 ---
