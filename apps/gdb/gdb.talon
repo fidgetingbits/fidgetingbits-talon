@@ -202,6 +202,8 @@ disable pretty printers: "disable pretty-printer\n"
 
 groundhog:
     # This allows it to work the same on pwndbg or gdb
+    key(ctrl-c)
+    sleep(0.1)
     insert("set confirm off\n")
     insert("quit\n")
     sleep(0.1)
