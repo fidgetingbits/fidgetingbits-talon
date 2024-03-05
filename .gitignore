@@ -12,3 +12,6 @@ __pycache__
 .vscode/settings.json
 *_
 .DS_Store
+
+# Linter
+.talonfmt.*
