@@ -335,7 +335,8 @@ git stash [push] [<user.git_arguments>] message [<user.prose>]:
 # change repository or index state).
 # XXX - revisit as I'm just favouring my old stuff for now
 #git status$: "git status\n"
-#git add patch$: "git add --patch\n"
+git add patch$: "git add --patch"
+# git add patch all: "git add --patch\n"
 #git show head$: "git show HEAD\n"
 #git diff: "git diff\n"
 #git diff (cached | cashed)$: "git diff --cached\n"
