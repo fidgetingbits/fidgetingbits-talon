@@ -103,7 +103,10 @@ show shortcuts json: user.vscode("workbench.action.openGlobalKeybindingsFile")
 show key bindings: user.vscode("workbench.action.openDefaultKeybindingsFile")
 show snippets: user.vscode("workbench.action.openSnippets")
 
-#
+# VSCode Snippets
+snip (last | previous): user.vscode("jumpToPrevSnippetPlaceholder")
+snip next: user.vscode("jumpToNextSnippetPlaceholder")
+
 # Display
 #
 centered switch: user.vscode("workbench.action.toggleCenteredLayout")

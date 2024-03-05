@@ -11,6 +11,8 @@ os: linux
 and app.name: Gnome-terminal
 os: linux
 and app.name: kgx
+os: linux
+and app.name: Mate-terminal
 """
 
 # Context matching

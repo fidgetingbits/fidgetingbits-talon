@@ -1,4 +1,4 @@
-not tag: user.mouse_grid_showing
+not tag: user.prefixed_numbers
 -
 # Decimal
 count from <number_small> (to | till | through) <number_small>:

@@ -49,3 +49,6 @@ class AppActions:
 class UserActions:
     def window_maximize():
         actions.key("")
+
+    def switcher_focus_last():
+        actions.key("cmd-tab")

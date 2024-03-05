@@ -47,6 +47,8 @@ code block {user.markdown_code_block_language}:
     insert("```")
     key(enter)
     key(up:2)
+{user.markdown_code_block_language} block:
+    user.insert_snippet("```{markdown_code_block_language}\n$0\n```")
 
 empty code block:
     insert("```")

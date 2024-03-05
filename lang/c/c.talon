@@ -1,6 +1,8 @@
 code.language: c
 -
 tag(): user.code_imperative
+
+tag(): user.code_block_c_like
 tag(): user.code_comment_line
 tag(): user.code_data_bool
 tag(): user.code_data_null
@@ -74,6 +76,35 @@ put define new source: "#define _GNU_SOURCE"
 
 set <user.c_variable>: user.insert_between("{c_variable} = ", ";")
 declare <user.c_variable>: "{c_variable}"
+# XXX - preprocessor instead of pre?
+state pre if: "#if "
+state error: "#error "
+state pre else if: "#elif "
+state pre end: "#endif "
+state pragma: "#pragma "
+state default: "default:\nbreak;"
+
+#control flow
+#best used with a push like command
+#the below example may not work in editors that automatically add the closing brace
+#if so uncomment the two lines and comment out the rest accordingly
+push braces:
+    edit.line_end()
+    #insert("{")
+    #key(enter)
+    insert("{}")
+    edit.left()
+    key(enter)
+    key(enter)
+    edit.up()
+
+# Declare variables or structs etc.
+# Ex. * int myList
+<user.c_variable> <phrase>:
+    insert("{c_variable} ")
+    insert(user.formatted_text(phrase, "PRIVATE_CAMEL_CASE,NO_SPACES"))
+
+<user.c_variable> <user.letter>: insert("{c_variable} {letter} ")
 
 # XXX - we should make these expressible to gdb
 # Ex. (int *)

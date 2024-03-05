@@ -2,7 +2,7 @@
 import re
 from typing import Callable, Optional
 
-from talon import Context, Module, actions, grammar, ui
+from talon import Context, Module, actions, grammar, settings, ui
 
 mod = Module()
 
@@ -264,9 +264,7 @@ def auto_capitalize(text, state=None):
     return output, (
         "sentence start"
         if charge or sentence_end
-        else "after newline"
-        if newline
-        else None
+        else "after newline" if newline else None
     )
 
 
@@ -389,7 +387,7 @@ class Actions:
     def dictation_insert(text: str, auto_cap: bool = True) -> str:
         """Inserts dictated text, formatted appropriately."""
         add_space_after = False
-        if setting_context_sensitive_dictation.get():
+        if settings.get("user.context_sensitive_dictation"):
             # Peek left if we might need leading space or auto-capitalization;
             # peek right if we might need trailing space. NB. We peek right
             # BEFORE insertion to avoid breaking the undo-chain between the

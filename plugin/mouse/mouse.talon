@@ -36,6 +36,8 @@ mouse calibration: tracking.calibrate()
     user.mouse_click(0, 1)
     key("{modifiers}:up")
 <user.modifiers> (ricky | right click):
+    # close zoom if open
+    user.zoom_close()
     key("{modifiers}:down")
     user.mouse_click(1, 1)
     key("{modifiers}:up")
@@ -45,6 +47,8 @@ left drag:
     user.mouse_drag(0)
     user.grid_close()
 right drag | righty drag:
+    # close zoom if open
+    user.zoom_close()
     user.mouse_drag(1)
     user.grid_close()
 end drag | drag end: user.mouse_drag_end()
@@ -115,5 +119,6 @@ mouse log clicks: user.mouse_log_clicks()
 # auto relocate cursor to clicked location
 [mouse] auto portal: user.mouse_zoom_auto_move_cursor()
 
+# To scroll with a hiss sound, set mouse_enable_hiss_scroll to true in settings.talon
 mouse hiss up: user.hiss_scroll_up()
 mouse hiss down: user.hiss_scroll_down()

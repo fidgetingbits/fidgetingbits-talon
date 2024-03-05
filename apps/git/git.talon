@@ -329,7 +329,7 @@ git tag remove remote: "git push origin --delete "
 git stash [push] [<user.git_arguments>] message [<user.prose>]:
     args = git_arguments or ""
     message = prose or ""
-    user.insert_between("git stash push{args} --message '{message}", "'")
+    user.insert_between('git stash push{args} --message "{message}', '"')
 
 # Optimistic execution for frequently used commands that are harmless (don't
 # change repository or index state).

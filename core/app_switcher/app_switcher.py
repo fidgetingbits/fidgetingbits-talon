@@ -7,13 +7,18 @@ from pathlib import Path
 import talon
 from talon import Context, Module, actions, app, fs, imgui, ui
 
-# Construct at startup a list of overides for application names (similar to how homophone list is managed)
-# ie for a given talon recognition word set  `one note`, recognized this in these switcher functions as `ONENOTE`
-# the list is a comma seperated `<Recognized Words>, <Overide>`
-# TODO: Consider put list csv's (homophones.csv, app_name_overrides.csv) files together in a seperate directory,`community/lists`
+# Construct a list of spoken form overrides for application names (similar to how homophone list is managed)
+# These overrides are used *instead* of the generated spoken forms for the given app name or .exe (on Windows)
+# CSV files contain lines of the form:
+# <spoken form>,<app name or .exe> - to add a spoken form override for the app, or
+# <app name or .exe> - to exclude the app from appearing in "running list" or "focus <app>"
+
+# TODO: Consider moving overrides to settings directory
 overrides_directory = os.path.dirname(os.path.realpath(__file__))
 override_file_name = f"app_name_overrides.{talon.app.platform}.csv"
-override_file_path = os.path.join(overrides_directory, override_file_name)
+override_file_path = os.path.normcase(
+    os.path.join(overrides_directory, override_file_name)
+)
 
 mod = Module()
 mod.list("running", desc="all running applications")
@@ -22,6 +27,9 @@ ctx = Context()
 
 # a list of the current overrides
 overrides = {}
+
+# apps to exclude from running list
+excludes = set()
 
 # a list of the currently running application names
 running_application_dict = {}
@@ -231,16 +239,25 @@ def update_running_list():
     global running_application_dict
     running_application_dict = {}
     running = {}
-    for cur_app in ui.apps(background=False):
-        running_application_dict[cur_app.name] = True
+    foreground_apps = ui.apps(background=False)
+
+    for cur_app in foreground_apps:
+        running_application_dict[cur_app.name.lower()] = cur_app.name
 
         if app.platform == "windows":
-            # print("hit....")
-            # print(cur_app.exe)
-            running_application_dict[cur_app.exe.split(os.path.sep)[-1]] = True
+            exe = os.path.basename(cur_app.exe)
+            running_application_dict[exe.lower()] = exe
+
+    override_apps = excludes.union(overrides.values())
 
     running = actions.user.create_spoken_forms_from_list(
-        [curr_app.name for curr_app in ui.apps(background=False)],
+        [
+            curr_app.name
+            for curr_app in ui.apps(background=False)
+            if curr_app.name.lower() not in override_apps
+            and curr_app.exe.lower() not in override_apps
+            and os.path.basename(curr_app.exe).lower() not in override_apps
+        ],
         words_to_exclude=words_to_exclude,
         generate_subsequences=True,
     )
@@ -259,12 +276,7 @@ def update_running_list():
                 print(f"Adding {override} running[{override}]")
                 running[override] = overrides[override]
 
-    lists = {
-        "self.running": running,
-    }
-
-    # batch update lists
-    ctx.lists.update(lists)
+    ctx.lists["self.running"] = running
 
 
 def update_overrides(name, flags):
@@ -279,24 +291,23 @@ def update_overrides(name, flags):
     global overrides
     overrides = {}
 
-    if name is None or name == override_file_path:
-        # print("update_overrides")
-        with open(override_file_path) as f:
-            for line in f:
-                line = line.rstrip()
-                line = line.split(",")
-                if len(line) == 2:
-                    key = line[0].lower()
-                    value = line[1].strip()
-                    if key not in overrides:
-                        overrides[key] = value
-                        break
-                    if isinstance(overrides[key], list):
-                        overrides[key].append(value)
-                    else:
-                        overrides[key] = [overrides[key]]
+    # print("update_overrides")
+    with open(override_file_path) as f:
+        for line in f:
+            line = line.rstrip().lower()
+            line = line.split(",")
+            if len(line) == 2:
+                key = line[0].lower()
+                value = line[1].strip()
+                if key not in overrides:
+                    overrides[key] = value
+                    break
+                if isinstance(overrides[key], list):
+                    overrides[key].append(value)
+                else:
+                    overrides[key] = [overrides[key]]
 
-        update_running_list()
+    update_running_list()
 
 
 @mod.action_class
@@ -322,7 +333,7 @@ class Actions:
         for application in ui.apps(background=False):
             if application.name == name or (
                 app.platform == "windows"
-                and application.exe.split(os.path.sep)[-1] == name
+                and os.path.basename(application.exe).lower() == name
             ):
                 return application
 
@@ -358,6 +369,9 @@ class Actions:
             if time.perf_counter() - t1 > 1:
                 raise RuntimeError(f"Can't focus app: {app.name}")
             actions.sleep(0.1)
+
+    def switcher_focus_last():
+        """Focus last window/application"""
 
     def switcher_focus_window(window: ui.Window):
         """Focus window and wait until switch is made"""
@@ -421,10 +435,13 @@ class Actions:
 
 @imgui.open()
 def gui_running(gui: imgui.GUI):
-    gui.text("Names of running applications")
+    gui.text("Running applications (with spoken forms)")
     gui.line()
-    for line in ctx.lists["self.running"]:
-        gui.text(line)
+    running_apps = sorted(
+        (v.lower(), k, v) for k, v in ctx.lists["self.running"].items()
+    )
+    for _, running_name, full_application_name in running_apps:
+        gui.text(f"{full_application_name}: {running_name}")
 
     gui.spacer()
     if gui.button("Running close"):
