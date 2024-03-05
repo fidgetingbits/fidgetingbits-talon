@@ -73,3 +73,8 @@ nix show (drive|derivation) clip:
 nix profile install: "nix profile install nixpkgs#"
 nix profile remove: "nix profile remove "
 nix profile list: "nix profile list"
+
+nix run here: "nix run .\n"
+nix format: "nix fmt\n"
+
+nix flake check all: "nix flake check --all-systems\n"
