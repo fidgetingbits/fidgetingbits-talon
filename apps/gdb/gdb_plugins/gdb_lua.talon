@@ -40,7 +40,7 @@ lua get local: "luagetlocal "
 
 dump table array clip:
     edit.delete_line()
-    insert(f"p/x ")
+    insert("p/x ")
     edit.paste()
     key(enter)
 

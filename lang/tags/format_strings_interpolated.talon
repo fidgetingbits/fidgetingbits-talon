@@ -1,4 +1,5 @@
 tag: user.code_format_strings_interpolated
+-
 
 # e.g. {:#08x} in python
 # will insert_between like "{", ":#08x}"

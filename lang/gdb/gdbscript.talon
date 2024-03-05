@@ -23,7 +23,6 @@ tag(): user.code_operators_math
 # general
 put set: "set"
 func stir equal: "$_streq()"
-set system root: "set sysroot "
 put run: "run"
 
 # breakpoints

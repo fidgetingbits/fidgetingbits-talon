@@ -472,6 +472,12 @@ debug clean: user.vscode("workbench.debug.panel.action.clearReplAction")
 # Select specific run config
 debug run config: user.vscode("workbench.action.debug.selectandstart")
 
+debug attach node first:
+    user.vscode("extension.pwa-node-debug.attachNodeProcess")
+    sleep(150ms)
+    key(down)
+    key(enter)
+
 #
 # Terminal
 #
