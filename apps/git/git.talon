@@ -118,13 +118,10 @@ git diff {user.git_branches}: "git diff {git_branches}  \n"
 git diff tool: "git difftool -d\n"
 git diff tool cached: "git difftool --cached -d\n"
 git diff names only: "git diff --name-only "
+
 git fetch: "git fetch\n"
-git fetch and rebase: "git fetch && git rebase\n"
-# XXX - Make this a script that checks if there are changes to stash
-git update:
-    insert.update("git stash\n")
-    insert.update("git fetch && git rebase")
-    insert.update("git stash pop\n")
+(git fetch and rebase|G base): "git fetch && git rebase\n"
+
 git fetch prune: "git fetch --prune\n"
 git fetch all: "git fetch --all\n"
 git garbage collect aggressive: "git gc --aggressive"
@@ -288,9 +285,11 @@ git stash push: user.insert_between("git stash push -m '", "'")
 git stash apply: "git stash apply\n"
 git stash list: "git stash list\n"
 git stash show: "git stash show"
-git status: "git status --untracked-files=no\n"
-git status (all | full | everything): "git status\n"
-git status staged: "git status --short | grep '^[MARCD]'\n"
+
+(git status|G stat): "git status --untracked-files=no\n"
+(git status|G stat) (all | full | everything): "git status\n"
+(git status|G stat) staged: "git status --short | grep '^[MARCD]'\n"
+
 git sub tree: "git subtree "
 git switch: "git switch "
 git switch {user.git_branches}: "git switch {git_branches}"
@@ -374,12 +373,18 @@ git dump completions:
     user.git_dump_completions()
 
 # git commit automation convenience
-G auto flake lock:
+G calm flake:
     insert("git add flake.lock\n")
     insert("git commit -m 'chore: update flake.lock'\n")
     # because prettier always tweaks the lock file
     insert("git add flake.lock\n")
     insert("git commit -m 'chore: update flake.lock'\n")
 
-G auto lists:
-    insert("git commit -m 'chore: update lists'\n")
+G calm lists:
+    insert("git add -u\n")
+    insert("git status --untracked-files=no\n")
+    insert("git commit -m 'chore: update lists'")
+
+# Personal convenience scripts
+G smart rebase:
+    "git-smart-rebase\n"
