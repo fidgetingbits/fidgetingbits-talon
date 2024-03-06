@@ -1,11 +1,11 @@
 tag: user.find_and_replace
 -
-hunt (lines | this): user.find("")
+(hunter | hunt page): user.find("")
 hunt [lines | this] clip:
     user.find("")
     sleep(25ms)
     edit.paste()
-hunt [lines | this] <user.text>: user.find(text)
+hunt [lines | this] <user.text>$: user.find(text)
 hunt (all | code): user.find_everywhere("")
 hunt (all | code) clip:
     user.find_everywhere("")
