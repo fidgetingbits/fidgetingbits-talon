@@ -1,5 +1,5 @@
 tag: user.zsh_cd_gitroot
 -
 
-pivot [project] root: "cd-gitroot\n"
-pivot [project] next root: "cd-gitroot && ../ && cd-gitroot\n"
+<user.go> [project] root: "cd-gitroot\n"
+<user.go> [project] next root: "cd-gitroot && ../ && cd-gitroot\n"

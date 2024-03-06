@@ -279,48 +279,48 @@ echo split [<user.symbol_key>] ({user.environment_variables}|<user.text>):
     key(enter)
 
 # directory and files
-pivot: "cd "
-pivot (only | first):
+<user.go>: "cd "
+<user.go> (only | first):
     edit.delete_line()
     "cd *\n"
-pivot clip:
+<user.go> clip:
     edit.delete_line()
     insert("cd ")
     edit.paste()
     key(enter)
 # NOTE: I don't auto ls here because zsh is setup to automatically do it for me
 # FIXME: This should get moved to a zsh specific file
-pivot (<user.zsh_path_completion> | <user.folder_paths>):
+<user.go> (<user.zsh_path_completion> | <user.folder_paths>):
     edit.delete_line()
     path = zsh_path_completion or folder_paths
     user.paste("cd {path}")
     key(enter)
-pivot global <user.folder_paths>:
+<user.go> global <user.folder_paths>:
     edit.delete_line()
     user.paste("cd {folder_paths}")
     key(enter)
-pivot local <user.zsh_path_completion>:
+<user.go> local <user.zsh_path_completion>:
     edit.delete_line()
     user.paste("cd {zsh_path_completion}\n")
-# pivot up doesn't work with talon
-pivot back:
+# <user.go> up doesn't work with talon
+<user.go> back:
     edit.delete_line()
     "cd ../\n"
-pivot real:
+<user.go> real:
     edit.delete_line()
     "cd -P .\n"
-pivot real back:
+<user.go> real back:
     edit.delete_line()
     "cd -P ..\n"
-pivot <number_small> back:
+<user.go> <number_small> back:
     edit.delete_line()
     insert("cd ")
     insert(user.path_traverse(number_small))
     key(enter)
-pivot home:
+<user.go> home:
     edit.delete_line()
     "cd\n"
-pivot next:
+<user.go> next:
     edit.delete_line()
     insert("cd ")
     key(tab)
@@ -328,8 +328,8 @@ pivot next:
     key(enter)
     # insert("ls\n")
 
-(pivot | folder) (last | flip): "cd -\n"
-pivot latest:
+(<user.go> | folder) (last | flip): "cd -\n"
+<user.go> latest:
     edit.delete_line()
     insert("cd $(eza --sort changed | tail -n1)\n")
 

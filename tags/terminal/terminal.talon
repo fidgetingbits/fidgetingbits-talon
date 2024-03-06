@@ -4,7 +4,7 @@ tag: terminal
 
 file list: user.terminal_list_directories()
 file list (long | all): user.terminal_list_all_directories()
-pivot: user.terminal_change_directory("")
+<user.go>: user.terminal_change_directory("")
 clear screen: user.terminal_clear_screen()
 run last [command]: user.terminal_run_last()
 rerun [<user.text>]: user.terminal_rerun_search(text or "")

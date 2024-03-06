@@ -1,6 +1,7 @@
 """
 Stores terms that are used in many different places
 """
+
 from talon import Module
 
 mod = Module()
@@ -11,6 +12,8 @@ OPERATOR = "put"
 DELETE = "chuck"
 FIND = "hunt"
 SHOW_LIST = "list"
+# FIXME: Maybe move this elsewhere.. used for cd in terminal
+GO = "(go|pivot)"
 
 
 @mod.capture(rule=SELECT)
@@ -46,4 +49,10 @@ def find(m) -> str:
 @mod.capture(rule=SHOW_LIST)
 def show_list(m) -> str:
     """Verb to use for commands that show lists"""
+    return str(m)
+
+
+@mod.capture(rule=GO)
+def go(m) -> str:
+    """Verb to use for commands that go to some location"""
     return str(m)
