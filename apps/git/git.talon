@@ -72,35 +72,35 @@ git clean: "git clean"
 git clean everything: "git clean -dfx"
 git clean untracked: "git clean -fd"
 
-git commit message <user.text>:
+(git commit|G calm) [message] <user.text>:
     edit.delete_line()
     insert("git commit -m \"{text or ''}")
-git commit message {user.git_conventional_commits}:
+(git commit|G calm) [message] {user.git_conventional_commits}:
     edit.delete_line()
     user.insert_between('git commit -m "{git_conventional_commits}: ', '"')
-# git commit message {user.git_conventional_commits} <user.word>:
+# git commit [message] {user.git_conventional_commits} <user.word>:
 #     edit.delete_line()
 #     insert(user.insert_between('git commit -m "{git_conventional_commits}({word}): ', '"'))
-git commit message {user.git_conventional_commits} <user.text>:
+(git commit|G calm) [message] {user.git_conventional_commits} <user.text>:
     edit.delete_line()
     user.insert_between('git commit -m "{git_conventional_commits}: {text}', '"')
-git commit message:
+(git commit|G calm) [message]:
     edit.delete_line()
     user.insert_between('git commit -m "', '"')
-git commit:
+(git commit|G calm) empty:
     edit.delete_line()
     insert("git commit\n")
-git commit amend: "git commit --amend "
-git commit amend no edit: "git commit --amend --no-edit\n"
-git commit no verify: "git commit -n"
-git commit existing: "git commit -a\n"
+(git commit|G calm) amend: "git commit --amend "
+(git commit|G calm) amend no edit: "git commit --amend --no-edit\n"
+(git commit|G calm) no verify: "git commit -n"
+(git commit|G calm) existing: "git commit -a\n"
 
 # git commit automation convenience
-git commit all {user.git_conventional_commits}:
+(git commit|G calm) all {user.git_conventional_commits}:
     "git add -u\n"
     user.insert_between('git commit -m "{git_conventional_commits}: ', '"')
 # Two useful commands when commit fails due to pre commit hook
-git commit again:
+(git commit|G calm) again:
     key(ctrl-r)
     "git commit\n"
 git re commit [modified | staged]:
@@ -372,3 +372,14 @@ git commit highlighted:
 
 git dump completions:
     user.git_dump_completions()
+
+# git commit automation convenience
+G auto flake lock:
+    insert("git add flake.lock\n")
+    insert("git commit -m 'chore: update flake.lock'\n")
+    # because prettier always tweaks the lock file
+    insert("git add flake.lock\n")
+    insert("git commit -m 'chore: update flake.lock'\n")
+
+G auto lists:
+    insert("git commit -m 'chore: update lists'\n")
