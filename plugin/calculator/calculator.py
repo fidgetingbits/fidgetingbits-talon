@@ -45,6 +45,3 @@ class Actions:
             # int() because it could be a float from division
             result = hex(int(result))
         actions.insert(f"{result}")
-
-
-#  0x7fffd000 0x2000 0x100
