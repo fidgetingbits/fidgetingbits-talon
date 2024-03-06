@@ -1,6 +1,7 @@
 tag: terminal
 and tag: user.git
 -
+
 # Standard commands
 git add patch: "git add . -p\n"
 git add: "git add "
@@ -72,35 +73,35 @@ git clean: "git clean"
 git clean everything: "git clean -dfx"
 git clean untracked: "git clean -fd"
 
-(git commit|G calm) [message] <user.text>:
+<user.git> (commit|calm) [message] <user.text>:
     edit.delete_line()
     insert("git commit -m \"{text or ''}")
-(git commit|G calm) [message] {user.git_conventional_commits}:
+<user.git> (commit|calm) [message] {user.git_conventional_commits}:
     edit.delete_line()
     user.insert_between('git commit -m "{git_conventional_commits}: ', '"')
 # git commit [message] {user.git_conventional_commits} <user.word>:
 #     edit.delete_line()
 #     insert(user.insert_between('git commit -m "{git_conventional_commits}({word}): ', '"'))
-(git commit|G calm) [message] {user.git_conventional_commits} <user.text>:
+<user.git> (commit|calm) [message] {user.git_conventional_commits} <user.text>:
     edit.delete_line()
     user.insert_between('git commit -m "{git_conventional_commits}: {text}', '"')
-(git commit|G calm) [message]:
+<user.git> (commit|calm) [message]:
     edit.delete_line()
     user.insert_between('git commit -m "', '"')
-(git commit|G calm) empty:
+<user.git> (commit|calm) empty:
     edit.delete_line()
     insert("git commit\n")
-(git commit|G calm) amend: "git commit --amend "
-(git commit|G calm) amend no edit: "git commit --amend --no-edit\n"
-(git commit|G calm) no verify: "git commit -n"
-(git commit|G calm) existing: "git commit -a\n"
+<user.git> (commit|calm) amend: "git commit --amend "
+<user.git> (commit|calm) amend no edit: "git commit --amend --no-edit\n"
+<user.git> (commit|calm) no verify: "git commit -n"
+<user.git> (commit|calm) existing: "git commit -a\n"
 
 # git commit automation convenience
-(git commit|G calm) all {user.git_conventional_commits}:
+<user.git> (commit|calm) all {user.git_conventional_commits}:
     "git add -u\n"
     user.insert_between('git commit -m "{git_conventional_commits}: ', '"')
 # Two useful commands when commit fails due to pre commit hook
-(git commit|G calm) again:
+<user.git> (commit|calm) again:
     key(ctrl-r)
     "git commit\n"
 git re commit [modified | staged]:
@@ -138,22 +139,23 @@ git list tracked {user.git_branches}: "git ls-files -r git_branches --name-only\
 git list ignored: "git ls-files . --ignored --exclude-standard --others\n"
 git list untracked: "git ls-files . --ignored --exclude-standard --others\n"
 git show hook folder: "git rev-parse --git-path hooks\n"
-git log all: "git log\n"
-git log all pretty: "git log --pretty=oneline\n"
-git log all changes: "git log -c\n"
-git log: "git log -5\n"
-git log pretty: "git log -5 --pretty=oneline\n"
-git log graph: "git log -5 --graph --pretty=oneline\n"
-git log graph all: "git log --graph --pretty=oneline\n"
-git log find upstream P R: user.insert_between('git log --pretty=oneline --grep="#', '" upstream/main')
-git log diff: "git log -p -5\n"
-git log reverse: "git log -5 --reverse\n"
-git log <number>: "git log -{number}\n"
-git log diff <number>: "git log -p -{number}\n"
-git log files: "git log --name-status -5\n"
-git log files <number>: "git log --name-status -{number}\n"
-git log [changes | code]: "git log -c "
-git log clip:
+
+<user.git> log all: "git log\n"
+<user.git> log all pretty: "git log --pretty=oneline\n"
+<user.git> log all changes: "git log -c\n"
+<user.git> log: "git log -5\n"
+<user.git> log pretty: "git log -5 --pretty=oneline\n"
+<user.git> log graph: "git log -5 --graph --pretty=oneline\n"
+<user.git> log graph all: "git log --graph --pretty=oneline\n"
+<user.git> log find upstream P R: user.insert_between('git log --pretty=oneline --grep="#', '" upstream/main')
+<user.git> log diff: "git log -p -5\n"
+<user.git> log reverse: "git log -5 --reverse\n"
+<user.git> log <number>: "git log -{number}\n"
+<user.git> log diff <number>: "git log -p -{number}\n"
+<user.git> log files: "git log --name-status -5\n"
+<user.git> log files <number>: "git log --name-status -{number}\n"
+<user.git> log [changes | code]: "git log -c "
+<user.git> log clip:
     insert("git log -1 -c ")
     edit.paste()
 
@@ -195,16 +197,19 @@ git move: "git mv "
 git new branch: "git checkout -b "
 git prune: "git prune"
 git remote prune origin: "git remote prune origin\n"
+
 git pull: "git pull"
 git pull origin: "git pull origin "
 git pull rebase: "git pull --rebase "
 git pull fast forward: "git pull --ff-only\n"
 git pull <user.text>: "git pull {} "
-git push: "git push\n"
-git push origin: "git push origin "
-git push up stream origin: "git push -u origin "
-git push <user.text>: "git push {} "
-git push tags: "git push --tags\n"
+
+(git|G) push: "git push\n"
+(git|G) push origin: "git push origin "
+(git|G) push up stream origin: "git push -u origin "
+(git|G) push <user.text>: "git push {} "
+(git|G) push tags: "git push --tags\n"
+
 git rebase: "git rebase "
 git rebase now: "git rebase\n"
 # FIXME: add auto population of upstream branches
@@ -373,18 +378,18 @@ git dump completions:
     user.git_dump_completions()
 
 # git commit automation convenience
-G calm flake:
+<user.git> calm flake:
     insert("git add flake.lock\n")
     insert("git commit -m 'chore: update flake.lock'\n")
     # because prettier always tweaks the lock file
     insert("git add flake.lock\n")
     insert("git commit -m 'chore: update flake.lock'\n")
 
-G calm lists:
+<user.git> calm lists:
     insert("git add -u\n")
     insert("git status --untracked-files=no\n")
     insert("git commit -m 'chore: update lists'")
 
 # Personal convenience scripts
-G smart rebase:
+<user.git> smart rebase:
     "git-smart-rebase\n"

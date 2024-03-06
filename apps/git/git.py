@@ -4,6 +4,8 @@ from pathlib import Path
 
 from talon import Context, Module, actions, app, resource, settings
 
+GIT_COMMAND = "(git|G)"
+
 mod = Module()
 ctx = Context()
 
@@ -59,6 +61,12 @@ def make_list(path):
 
 ctx.lists["self.git_argument"] = make_list(arguments_csv_path)
 ctx.lists["self.git_command"] = make_list(commands_csv_path)
+
+
+@mod.capture(rule=GIT_COMMAND)
+def git(m) -> str:
+    """Verbs to use for git commands"""
+    return str(m)
 
 
 @mod.capture(rule="{user.git_argument}+")
