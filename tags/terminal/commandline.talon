@@ -823,3 +823,6 @@ code here: "code .\n"
 
 re run <number>: "!{number}\n"
 re run last: "!!\n"
+
+# My convenience commands on nix boxen
+repo sync: "update-core-repos\n"
