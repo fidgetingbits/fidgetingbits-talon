@@ -1,4 +1,4 @@
-not tag: user.prefixed_numbers
+tag: user.prefixed_numbers
 -
 # Decimal
 count from <number_small> (to | till | through) <number_small>:
