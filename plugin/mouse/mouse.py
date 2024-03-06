@@ -48,33 +48,31 @@ mod.list(
 mod.tag(
     "mouse_cursor_commands_enable", desc="Tag enables hide/show mouse cursor commands"
 )
-setting_mouse_enable_on_startup = mod.setting(
+mod.setting(
     "mouse_enable_on_startup",
     type=int,
     default=1,
     desc="Enable the mouse on startup without having to issue command.",
 )
-setting_mouse_enable_pop_click = mod.setting(
 mod.setting(
     "mouse_enable_pop_click",
     type=int,
     default=0,
     desc="Pop noise clicks left mouse button. 0 = off, 1 = on with eyetracker but not with zoom mouse mode, 2 = on but not with zoom mouse mode",
 )
-setting_mouse_enable_zoom_auto_click = mod.setting(
+mod.setting(
     "mouse_enable_zoom_auto_click",
     type=int,
     default=0,
     desc="Enable zoom to auto click after the configured time out",
 )
 
-setting_mouse_zoom_auto_click_timeout = mod.setting(
+mod.setting(
     "mouse_zoom_auto_click_timeout",
     type=float,
     default=1,
     desc="The time in seconds to delay auto clicking after a zoom occurs",
 )
-setting_mouse_enable_pop_stops_scroll = mod.setting(
 mod.setting(
     "mouse_enable_pop_stops_scroll",
     type=bool,
@@ -93,21 +91,20 @@ mod.setting(
     default=False,
     desc="When enabled, mouse wake will hide the cursor. mouse_wake enables zoom mouse.",
 )
-setting_mouse_control_mouse = mod.setting(
+mod.setting(
     "mouse_control_mouse",
     type=int,
     default=0,
     desc="When enabled, mouse wake will automatically cause the cursor to track your eyes",
 )
 
-setting_mouse_control_mouse_zoom = mod.setting(
+mod.setting(
     "mouse_control_mouse_zoom",
     type=int,
     default=1,
     desc="When enabled, mouse wake will automatically cause the cursor to track your eyes, using zoom",
 )
 
-setting_mouse_hide_mouse_gui = mod.setting(
 mod.setting(
     "mouse_hide_mouse_gui",
     type=bool,
@@ -146,7 +143,6 @@ def gui_wheel(gui: imgui.GUI):
 
 # XXX - add gui for showing cursor positions
 class MouseTracker:
-
     """Tracks and gives mouse positions"""
 
     def __init__(self):
@@ -164,11 +160,11 @@ class MouseTracker:
 def mouse_wake():
     """Enable control mouse, zoom mouse, and disables cursor"""
     time.sleep(1)
-    if setting_mouse_control_mouse_zoom.get() >= 1:
+    if settings.get("user.mouse_control_mouse_zoom") >= 1:
         actions.tracking.control_zoom_toggle(True)
-    if setting_mouse_control_mouse.get() >= 1:
+    if settings.get("user.mouse_control_mouse") >= 1:
         actions.tracking.control_toggle(True)
-    if setting_mouse_wake_hides_cursor.get() >= 1:
+    if settings.get("user.mouse_wake_hides_cursor") >= 1:
         show_cursor_helper(False)
 
 
@@ -180,12 +176,6 @@ class Actions:
         center = (rect.x + rect.width / 2, rect.y + rect.height / 2)
         ctrl.mouse_move(center)
 
-    def mouse_move_center_active_window():
-        """move the mouse cursor to the center of the active window"""
-
-        rect = ui.active_window().rect
-        ctrl.mouse_move(rect.left + (rect.width / 2), rect.top + (rect.height / 2))
-
     def mouse_click(button: int, count: int):
         """Click the specified mouse button a certain number of times."""
         for i in range(count):
@@ -193,6 +183,7 @@ class Actions:
         if actions.tracking.control_zoom_enabled():
             actions.tracking.zoom_cancel(True)
         actions.user.grid_close()
+
     def zoom_close():
         """Closes an in-progress zoom. Talon will move the cursor position but not click."""
         if eye_zoom_mouse.zoom_mouse.state == eye_zoom_mouse.STATE_OVERLAY:
@@ -258,11 +249,11 @@ class Actions:
         actions.tracking.zoom(True)
         # eye_zoom_mouse.zoom_mouse.on_pop(0)
 
-    def mouse_zoom_single_click():
-        """Click the mouse, prime one click, and zoom if necessary."""
-        # XXX - broken since the new tracking API
-        actions.tracking.zoom(True)
-        # eye_zoom_mouse.zoom_mouse.on_pop(0, 1)
+    # def mouse_zoom_single_click():
+    #     """Click the mouse, prime one click, and zoom if necessary."""
+    #     # XXX - broken since the new tracking API
+    #     actions.tracking.zoom(True)
+    #     # eye_zoom_mouse.zoom_mouse.on_pop(0, 1)
 
     def mouse_zoom_double_click():
         """Click the mouse, prime two clicks, and zoom if necessary."""
@@ -310,11 +301,11 @@ class Actions:
         # XXX - broken since the new tracking API
         actions.tracking.zoom(True)
 
-    def mouse_zoom_auto_single_click():
-        """Click the mouse, prime one click, and zoom if necessary."""
-        # eye_zoom_mouse.zoom_mouse.on_pop(0, 1, auto=True)
-        # XXX - broken since the new tracking API
-        actions.tracking.zoom(True)
+    # def mouse_zoom_auto_single_click():
+    #     """Click the mouse, prime one click, and zoom if necessary."""
+    #     # eye_zoom_mouse.zoom_mouse.on_pop(0, 1, auto=True)
+    #     # XXX - broken since the new tracking API
+    #     actions.tracking.zoom(True)
 
     def mouse_zoom_auto_double_click():
         """Click the mouse, prime two clicks, and zoom if necessary."""
@@ -342,16 +333,16 @@ class Actions:
         """Enable auto click"""
         print("broken")
 
-    #        eye_zoom_mouse.zoom_mouse.auto_click_timeout = (
-    #            setting_mouse_zoom_auto_click_timeout.get()
-    #        )
-    #        eye_zoom_mouse.zoom_mouse.toggle_auto_click()
-    #        s = "Auto-click zoom mouse: "
-    #        if eye_zoom_mouse.zoom_mouse.auto_click_enabled:
-    #            s += "ENABLED"
-    #        else:
-    #            s += "DISABLED"
-    #        actions.user.notify(s)
+        #        eye_zoom_mouse.zoom_mouse.auto_click_timeout = (
+        #            setting_mouse_zoom_auto_click_timeout.get()
+        #        )
+        #        eye_zoom_mouse.zoom_mouse.toggle_auto_click()
+        #        s = "Auto-click zoom mouse: "
+        #        if eye_zoom_mouse.zoom_mouse.auto_click_enabled:
+        #            s += "ENABLED"
+        #        else:
+        #            s += "DISABLED"
+        #        actions.user.notify(s)
         if settings.get("user.mouse_wake_hides_cursor"):
             show_cursor_helper(False)
 
@@ -478,12 +469,12 @@ class Actions:
          - If zoom is disabled, we allow pop to click even if there is no tracker.
          - If zoom is enabled and tracker is connected, zoom click
         """
-        if setting_mouse_enable_pop_stops_scroll.get() >= 1 and (
+        if settings.get("user.mouse_enable_pop_stops_scroll") >= 1 and (
             gaze_job or scroll_job
         ):
             stop_scroll()
         elif not actions.tracking.control_zoom_enabled():
-            if setting_mouse_enable_pop_click.get() >= 1:
+            if settings.get("user.mouse_enable_pop_click") >= 1:
                 ctrl.mouse_click(button=0, hold=16000)
         else:
             actions.tracking.zoom(False)
@@ -537,8 +528,14 @@ def show_cursor_helper(show):
         ctrl.cursor_visible(show)
 
 
-if setting_mouse_enable_on_startup.get() >= 1:
-    app.register("ready", mouse_wake)
+def on_ready():
+    if settings.get("user.mouse_enable_on_startup") >= 1:
+        mouse_wake()
+
+
+app.register("ready", on_ready)
+
+
 @ctx.action_class("user")
 class UserActions:
     def noise_trigger_pop():
@@ -588,12 +585,14 @@ class UserActions:
 
 @ctx.action("user.noise_trigger_pop")
 def on_pop():
-    if setting_mouse_enable_pop_stops_scroll.get() >= 1 and (gaze_job or scroll_job):
+    if settings.get("user.mouse_enable_pop_stops_scroll") >= 1 and (
+        gaze_job or scroll_job
+    ):
         # Allow pop to stop scroll
         stop_scroll()
     else:
         # Otherwise respect the mouse_enable_pop_click setting
-        setting_val = setting_mouse_enable_pop_click.get()
+        setting_val = settings.get("user.mouse_enable_pop_click")
 
         is_using_eye_tracker = (
             actions.tracking.control_zoom_enabled()
@@ -612,7 +611,7 @@ def on_pop():
 
 
 def noise_trigger_hiss(active: bool):
-    if setting_mouse_enable_hiss_scroll.get():
+    if settings.get("user.mouse_enable_hiss_scroll"):
         if active:
             if hiss_scroll_up:
                 actions.user.mouse_scroll_up_continuous()
