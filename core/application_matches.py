@@ -189,3 +189,8 @@ apps.openvpn_connect = """
 os: mac
 and app.bundle: org.openvpn.client.app
 """
+
+apps.copyq = """
+os: linux
+and win.title: /CopyQ/
+"""
