@@ -20,13 +20,12 @@ class Actions:
     def calculator_compute(operator: str, text: str):
         """Calculate some text using the specified operators"""
         use_hex = False
+        if "0x" in text:
+            use_hex = True
         # 1\n2\n3 becomes ["1", "2", "3"]
         operands = text.split("\n")
         # ["1 2 3", "4"] becomes ["1", "2", "3", "4"]
         operands = list(chain(*[i.split() for i in operands]))
-        for o in operands:
-            if "0x" in o:
-                use_hex = True
         operands = [int(i, 0) for i in operands]
         match operator:
             case "add":
