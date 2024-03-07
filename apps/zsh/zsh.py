@@ -2,6 +2,7 @@ import logging
 import os
 import pathlib
 import pprint
+from dataclasses import dataclass
 
 from talon import Context, Module, actions, app, fs, settings, ui
 from talon_init import TALON_HOME
@@ -32,10 +33,7 @@ for entry in plugin_tag_list:
 
 
 mod.list("zsh_folder_completion", desc="zsh folder completions")
-ctx.lists["user.zsh_folder_completion"] = {}
-
 mod.list("zsh_file_completion", desc="zsh file completions")
-ctx.lists["user.zsh_file_completion"] = {}
 
 
 @mod.capture(rule="{user.zsh_folder_completion}")
@@ -57,59 +55,64 @@ def zsh_path_completion(m) -> str:
 
 
 if app.platform == "linux":
-    completion_base = (
+    completion_base_folder = (
         pathlib.Path(os.environ.get("XDG_RUNTIME_DIR", "/tmp"))
         / "talon/cache/completions"
     )
-    zsh_folder_path = completion_base / "talon_zsh_folders"
-    zsh_file_path = completion_base / "talon_zsh_files"
+    zsh_folder_path = completion_base_folder / "talon_zsh_folders"
+    zsh_file_path = completion_base_folder / "talon_zsh_files"
 else:
-    completion_base = TALON_HOME / "cache/completions/"
+    completion_base_folder = TALON_HOME / "cache/completions/"
     # FIXME: use getconf DARWIN_USER_TMP_DIR for mac
-    zsh_folder_path = completion_base / "talon_zsh_folders"
-    zsh_file_path = completion_base / "talon_zsh_files"
+    zsh_folder_path = completion_base_folder / "talon_zsh_folders"
+    zsh_file_path = completion_base_folder / "talon_zsh_files"
 
 current_zsh_pid = None
 
 
-def _zsh_cwd_watch_folders(path, flags):
-    """Update the folder list based off of a change of working directory"""
-    # print(f"_zsh_cwd_watch_folders() Detected an update for {path} with flags {flags}")
+@dataclass
+class WatchCallback:
+    watch_file: str
+    setting: str
+    list_name: str
+    callback: str
+
+
+def _dispatch_watch_callbacks(path, flags):
+    """Find the callback associated with the path and run it"""
+
+    # The files we watch are some known name with a pid tacked on the end, so normalize it and
+    # see which callback to run
+    p = pathlib.Path(path)
+    file = p.name.split(".")[0]
+    for entry in watch_callbacks:
+        if entry.watch_file == file:
+            entry.callback(entry, path)
+            # We don't break in case eventually there's multiple callbacks for the same file
+
+
+def paths_watch_callback(cb: WatchCallback, path: str):
+    """Update a list based off changes in working directory
+
+    Each entry in the watched file is a full path, so we just want the basename. Otherwise this is the same
+    as the basic watch callback
+
+    FIXME: Probably could fix this to not use the full path in the zsh hook and then we don't need a separate function?
+    """
+    # print(f"_zsh_cwd_watch() Detected an update for {path}")
     try:
         with open(path, "r") as f:
             folder_list = [os.path.basename(x) for x in f.read().splitlines()]
             if len(folder_list) == 0:
-                ctx.lists["user.zsh_folder_completion"] = {}
+                ctx.lists[cb.list_name] = {}
             else:
-                ctx.lists["user.zsh_folder_completion"] = (
-                    actions.user.create_spoken_forms_from_list(folder_list)
+                ctx.lists[cb.list_name] = actions.user.create_spoken_forms_from_list(
+                    folder_list
                 )
-                # print(f"Updating zsh_folder_completion with {len(folder_list)} entries")
+                # print(f"Updating {cb.list_name} with {len(folder_list)} entries")
     except Exception:
         # If there's no folders in a directory this is expected
         # print(f"zsh.py _zsh_cwd_watch_folders() failed to read {path}: {e}")
-        pass
-
-
-def _zsh_cwd_watch_files(cwd, flags):
-    """Update the file list based off of a change of working directory"""
-    # print(f"_zsh_cwd_watch_files() Detected an update for {cwd} with flags {flags}")
-
-    try:
-        with open(cwd, "r") as f:
-            file_list = [os.path.basename(x) for x in f.read().splitlines()]
-            if len(file_list) == 0:
-                ctx.lists["user.zsh_file_completion"] = {}
-            else:
-                # print(
-                #     f"Updating zsh_file_completion with {len(file_list)} file entries"
-                # )
-                ctx.lists["user.zsh_file_completion"] = (
-                    actions.user.create_spoken_forms_from_list(file_list)
-                )
-    except Exception:
-        # If there's no files in a directory this is expected
-        # print(f"zsh.py _zsh_cwd_watch_files() failed to read {path}: {e}")
         pass
 
 
@@ -130,16 +133,57 @@ def _get_zsh_pid(title):
         print(f"zsh.py _get_zsh_pid() failed to extract pid from {title}: {e}")
 
 
-extra_callbacks = []
+watch_callbacks = []
 old_callback_count = 0
+
+
+def _basic_watch_callback(cb: WatchCallback, path: str):
+    """Update the list based off of a change of working directory"""
+    # print("_basic_watch_callback()")
+    if not settings.get(cb.setting):
+        return
+    try:
+        with open(path, "r") as f:
+            commands = f.read().splitlines()
+            if len(commands) == 0:
+                ctx.lists[cb.list_name] = {}
+            else:
+                ctx.lists[cb.list_name] = actions.user.create_spoken_forms_from_list(
+                    commands
+                )
+            # print(
+            #     f"Updated {cb.list_name} with {len(commands)} entries: {ctx.lists[cb.list_name]}"
+            # )
+    except Exception:
+        pass
+
+
+def _register_callback(
+    watch_file: str, setting_name: str, list_name: str, callback: str
+):
+    """Register a callback for a watch file
+
+    @param watch_file: The file to watch
+    @param list_name: The talon list to update
+    @param callback: The callback to run on file update. Is passed the list name
+    """
+    global watch_callbacks
+    new = WatchCallback(watch_file, setting_name, list_name, callback)
+    ctx.lists[list_name] = {}
+    for entry in watch_callbacks:
+        if entry.watch_file == new.watch_file:
+            entry.callback = callback
+            return
+    watch_callbacks.append(new)
+    # print(f"new {new.watch_file} callback registered")
 
 
 def _setup_watches(window):
     # Checking here lets us enable it after the fact
     if not settings.get("user.zsh_auto_completion"):
         return
-    # print("_setup_watches")
     global zsh_folder_path
+    global completion_base_folder
     if window == ui.active_window() and _is_zsh_window(window):
         pid = _get_zsh_pid(window.title)
         # print(f"zsh.py _setup_watches() detected zsh pid {pid}")
@@ -149,63 +193,51 @@ def _setup_watches(window):
             #     f"zsh.py _setup_watches() detected zsh pid {pid} != {current_zsh_pid}"
             # )
             if current_zsh_pid is not None:
-                fs.unwatch(
-                    f"{zsh_folder_path}.{current_zsh_pid}", _zsh_cwd_watch_folders
-                )
-                fs.unwatch(f"{zsh_file_path}.{current_zsh_pid}", _zsh_cwd_watch_files)
-                for entry in extra_callbacks:
-                    # print(f"unwatching {entry['watch_file']}")
-                    fs.unwatch(
-                        f'{entry["watch_file"]}..{current_zsh_pid}', entry["callback"]
+                for entry in watch_callbacks:
+                    watch_file = (
+                        completion_base_folder / f"{entry.watch_file}.{current_zsh_pid}"
                     )
+                    fs.unwatch(
+                        watch_file,
+                        entry.callback,
+                    )
+                    # print(f"unwatching {watch_file}")
 
             current_zsh_pid = pid
-            # print(f"zsh.py win_title() watching /proc/{current_zsh_pid}/cwd")
-            # fs.watch(f"/proc/{pid}/cwd", _zsh_cwd_watch_folders)
-            folder_path = f"{zsh_folder_path}.{pid}"
-            file_path = f"{zsh_file_path}.{pid}"
-            # Pre-run functions just to load any existing data, this is mostly relevant
-            # for first executing the shell
-            _zsh_cwd_watch_files(file_path, None)
-            _zsh_cwd_watch_folders(folder_path, None)
-            if os.path.exists(folder_path):
-                fs.watch(folder_path, _zsh_cwd_watch_folders)
-            if os.path.exists(file_path):
-                fs.watch(file_path, _zsh_cwd_watch_files)
 
-            # print(f"Setting watch for {len(extra_callbacks)} extra callbacks")
+            # print(f"Setting watch for {len(watch_callbacks)} watch callbacks")
             global old_callback_count
-            old_callback_count = len(extra_callbacks)
-            for entry in extra_callbacks:
-                watch_path = f'{entry["watch_file"]}.{pid}'
+            old_callback_count = len(watch_callbacks)
+            for entry in watch_callbacks:
+                watch_path = completion_base_folder / f"{entry.watch_file}.{pid}"
                 # print(f"calling callback for {watch_path}")
-                entry["callback"](watch_path, None)
+                entry.callback(entry, watch_path)
                 # print(f"Setting watch on {watch_path}")
-                fs.watch(watch_path, entry["callback"])
-        elif len(extra_callbacks) != old_callback_count:
+                fs.watch(watch_path, _dispatch_watch_callbacks)
+        elif len(watch_callbacks) != old_callback_count:
             # Sometimes the callbacks get added after the first pid detection
-            for entry in extra_callbacks:
+            for entry in watch_callbacks:
                 # print(f"unwatching {entry['watch_file']}")
                 fs.unwatch(
-                    f'{entry["watch_file"]}..{current_zsh_pid}', entry["callback"]
+                    completion_base_folder / f"{entry.watch_file}.{current_zsh_pid}",
+                    _dispatch_watch_callbacks,
                 )
-            for entry in extra_callbacks:
-                watch_path = f'{entry["watch_file"]}.{pid}'
-                # print(f"calling callback for {watch_path}")
-                entry["callback"](watch_path, None)
+            for entry in watch_callbacks:
+                watch_path = completion_base_folder / f"{entry.watch_file}.{pid}"
+                print(f"calling callback for {watch_path}")
+                entry.callback(entry, watch_path)
                 # print(f"Setting watch on {watch_path}")
-                fs.watch(watch_path, entry["callback"])
+                fs.watch(watch_path, _dispatch_watch_callbacks)
             # print(
             #     f"zsh.py _setup_watches() detected zsh pid {pid} == {current_zsh_pid}"
             # )
             pass
     else:
         if current_zsh_pid is not None:
-            fs.unwatch("{zsh_folder_path}.{current_zsh_pid}", _zsh_cwd_watch_folders)
-            fs.unwatch("{zsh_file_path}.{current_zsh_pid}", _zsh_cwd_watch_files)
-            for entry in extra_callbacks:
+            for entry in watch_callbacks:
                 fs.unwatch(
-                    f'{entry["watch_file"]}..{current_zsh_pid}', entry["callback"]
+                    completion_base_folder / f"{entry.watch_file}.{current_zsh_pid}",
+                    _dispatch_watch_callbacks,
                 )
             current_zsh_pid = None
 
@@ -224,6 +256,19 @@ def on_ready():
 
 
 app.register("ready", on_ready)
+
+_register_callback(
+    "talon_zsh_folders",
+    "user.zsh_auto_completion",
+    "user.zsh_folder_completion",
+    paths_watch_callback,
+)
+_register_callback(
+    "talon_zsh_files",
+    "user.zsh_auto_completion",
+    "user.zsh_file_completion",
+    paths_watch_callback,
+)
 
 
 @mod.action_class
@@ -251,19 +296,32 @@ class Actions:
         """Return the current zsh pid"""
         return current_zsh_pid
 
-    def zsh_register_watch_file_callback(watch_file: str, callback: str):
-        """Register a callback for a watch file"""
-        global extra_callbacks
-        for entry in extra_callbacks:
-            if entry["watch_file"] == watch_file:
-                entry["callback"] = callback
-                return
-        extra_callbacks.append({"watch_file": watch_file, "callback": callback})
-        # print("new callback registered")
+    def zsh_register_watch_file_callback_basic(
+        watch_file: str, setting_name: str, list_name: str
+    ):
+        """Register a default callback for a watch file
+
+        @param watch_file: The file to watch
+        @param setting_name: The setting to check if the callback should run
+        @param list_name: The talon list to update
+        """
+        _register_callback(watch_file, setting_name, list_name, _basic_watch_callback)
+
+    def zsh_register_watch_file_callback_custom(
+        watch_file: str, setting_name: str, list_name: str, callback: str
+    ):
+        """Register a custom callback for a watch file
+
+        @param watch_file: The file to watch
+        @param setting_name: The setting to check if the callback should run
+        @param list_name: The talon list to update
+        @param callback: The callback to run on file update, is passed a FileWatchCallback object
+        """
+        _register_callback(watch_file, setting_name, list_name, callback)
 
     def zsh_completion_base_dir():
         """Return the base directory for zsh completions"""
-        return completion_base
+        return completion_base_folder
 
     def update_completion_list(
         completion_list: dict,

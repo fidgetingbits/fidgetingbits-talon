@@ -20,33 +20,9 @@ ctx.lists["user.justfile_commands"] = {}
 
 
 def on_ready():
-    actions.user.zsh_register_watch_file_callback(
-        "justfile_commands", update_justfile_commands
+    actions.user.zsh_register_watch_file_callback_basic(
+        "justfile_commands", "user.justfile_auto_completion", "user.justfile_commands"
     )
-    # print("Registered justfile watch callback")
-
-
-def update_justfile_commands(cwd, flags):
-    """Update the available justfile commands based off of a change of working directory"""
-    if not settings.get("user.justfile_auto_completion"):
-        return
-    # print(f"watch_justfile_commands called, with {cwd}")
-
-    try:
-        path = actions.user.zsh_completion_base_dir()
-
-        with open(f"{path}/{cwd}", "r") as f:
-            commands = f.read().splitlines()
-            if len(commands) == 0:
-                # print("No justfile commands found")
-                ctx.lists["user.justfile_commands"] = {}
-            else:
-                ctx.lists[
-                    "user.justfile_commands"
-                ] = actions.user.create_spoken_forms_from_list(commands)
-            # print(f"Updated justfile_commands with {len(commands)} entries")
-    except Exception:
-        pass
 
 
 @mod.action_class

@@ -9,7 +9,7 @@ settings():
     # Enable if you'd like the picker gui to automatically appear when explorer has focus
     user.file_manager_auto_show_pickers = 0
 
-    # Set the max number of command lines per page in help
+    # Set the max numbcer of command lines per page in help
     user.help_max_command_lines_per_page = 50
 
     # Set the max number of contexts display per page in help
@@ -169,9 +169,11 @@ settings():
     # Uncomment the below line to add a directory (relative to the Talon user dir) with additional .snippet files
     # Changing this setting requires a restart of Talon
     # user.snippets_dir = "snippets"
+
+    # My zsh-based auto completion stuff
     user.zsh_auto_completion = true
     user.justfile_auto_completion = true
-    user.git_branch_auto_completion = true
+    user.git_auto_completion = true
 
 # uncomment tag to enable mouse grid
 # tag(): user.mouse_grid_enabled

@@ -12,15 +12,15 @@ ctx = Context()
 mod.list("git_command", desc="Git commands.")
 mod.list("git_argument", desc="Command-line git options and arguments.")
 mod.list("git_conventional_commits", desc="Git conventional_commits.")
-mod.list("git_branches", desc="Git conventional_commits.")
+mod.list("git_branches", desc="Git branches in current repo.")
+mod.list("git_remotes", desc="Git remotes in current repo.")
 mod.setting(
-    "git_branch_auto_completion",
+    "git_auto_completion",
     type=bool,
     default=False,
-    desc="Enable git branch auto completion",
+    desc="Enable git auto completion for branches, remotes, etc",
 )
 
-ctx.lists["user.git_branches"] = {}
 ctx.lists["self.git_conventional_commits"] = {
     "feature": "feat",
     "feet": "feat",
@@ -79,37 +79,21 @@ def git_arguments(m) -> str:
 class Actions:
     def git_dump_completions():
         """Dump add a pretty version of the git branch completions to the log"""
-        print("git Branch Completions:")
+        print("git Auto Completions:")
+        print("Branches:")
         print(pprint.pformat(ctx.lists["user.git_branches"]))
-        print("Enabled: ", settings.get("user.git_branch_auto_completion"))
-
-
-# FIXME: This should just be a default function for basic parsing and we pass the list name in, since it duplicates
-# everywhere?
-# It won't work for all, but for ones with just basic unmodified lists it should be fine.
-def update_git_branches(file, flags):
-    """Update the available git branches based off of a change of working directory"""
-    # Checking here allows it to be enabled after the fact
-    if not settings.get("user.git_branch_auto_completion"):
-        return
-    # print("calling update_git_branches")
-    # actions.user.update_completion_list(ctx.lists["user.git_branches"], path)
-    try:
-        path = actions.user.zsh_completion_base_dir()
-        with open(f"{path}/{file}", "r") as f:
-            commands = f.read().splitlines()
-            if len(commands) == 0:
-                ctx.lists["user.git_branches"] = {}
-            else:
-                ctx.lists[
-                    "user.git_branches"
-                ] = actions.user.create_spoken_forms_from_list(commands)
-    except Exception:
-        pass
+        print("Remotes:")
+        print(pprint.pformat(ctx.lists["user.git_remotes"]))
+        print("Enabled: ", settings.get("user.git_auto_completion"))
 
 
 def on_ready():
-    actions.user.zsh_register_watch_file_callback("git_branches", update_git_branches)
+    actions.user.zsh_register_watch_file_callback_basic(
+        "git_branches", "user.git_auto_completion", "user.git_branches"
+    )
+    actions.user.zsh_register_watch_file_callback_basic(
+        "git_remotes", "user.git_auto_completion", "user.git_remotes"
+    )
 
 
 app.register("ready", on_ready)
