@@ -12,8 +12,6 @@ ctx = Context()
 mod.list("git_command", desc="Git commands.")
 mod.list("git_argument", desc="Command-line git options and arguments.")
 mod.list("git_conventional_commits", desc="Git conventional_commits.")
-mod.list("git_branches", desc="Git branches in current repo.")
-mod.list("git_remotes", desc="Git remotes in current repo.")
 mod.setting(
     "git_auto_completion",
     type=bool,
@@ -75,16 +73,8 @@ def git_arguments(m) -> str:
     return " " + " ".join(m.git_argument_list)
 
 
-@mod.action_class
-class Actions:
-    def git_dump_completions():
-        """Dump add a pretty version of the git branch completions to the log"""
-        print("git Auto Completions:")
-        print("Branches:")
-        print(pprint.pformat(ctx.lists["user.git_branches"]))
-        print("Remotes:")
-        print(pprint.pformat(ctx.lists["user.git_remotes"]))
-        print("Enabled: ", settings.get("user.git_auto_completion"))
+mod.list("git_branches", desc="Branches in the current git repository.")
+mod.list("git_remotes", desc="Remotes in the current git repository.")
 
 
 def on_ready():

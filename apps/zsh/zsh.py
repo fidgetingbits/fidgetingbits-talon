@@ -31,9 +31,8 @@ plugin_tag_list = [
 for entry in plugin_tag_list:
     mod.tag(entry, f"tag to load {entry} zsh plugin commands")
 
-
-mod.list("zsh_folder_completion", desc="zsh folder completions")
-mod.list("zsh_file_completion", desc="zsh file completions")
+mod.list("zsh_folder_completion", desc="ZSH folder completions")
+mod.list("zsh_file_completion", desc="ZSH file completions")
 
 
 @mod.capture(rule="{user.zsh_folder_completion}")
@@ -68,6 +67,10 @@ else:
     zsh_file_path = completion_base_folder / "talon_zsh_files"
 
 current_zsh_pid = None
+
+# FIXME: arguably this whole watching subsystem could be replaced with dynamic lists and it would be a lot cleaner
+# but I don't like the idea of running actions.user.create_spoken_forms_from_list() on big lists every single time
+# I say a command..
 
 
 @dataclass
@@ -169,7 +172,10 @@ def _register_callback(
     """
     global watch_callbacks
     new = WatchCallback(watch_file, setting_name, list_name, callback)
-    ctx.lists[list_name] = {}
+    if list_name not in ctx.lists:
+        ctx.lists[list_name] = {}
+    # print(f"registered {list_name}: {ctx.lists[list_name]}")
+
     for entry in watch_callbacks:
         if entry.watch_file == new.watch_file:
             entry.callback = callback
@@ -224,7 +230,7 @@ def _setup_watches(window):
                 )
             for entry in watch_callbacks:
                 watch_path = completion_base_folder / f"{entry.watch_file}.{pid}"
-                print(f"calling callback for {watch_path}")
+                # print(f"calling callback for {watch_path}")
                 entry.callback(entry, watch_path)
                 # print(f"Setting watch on {watch_path}")
                 fs.watch(watch_path, _dispatch_watch_callbacks)
@@ -291,6 +297,9 @@ class Actions:
         """Dump add a pretty version of the completions to the log"""
         actions.user.zsh_dump_folder_completions()
         actions.user.zsh_dump_file_completions()
+        for entry in watch_callbacks:
+            logging.info(f"{entry.watch_file} completions:")
+            logging.info(pprint.pformat(ctx.lists[entry.list_name]))
 
     def zsh_get_pid():
         """Return the current zsh pid"""
