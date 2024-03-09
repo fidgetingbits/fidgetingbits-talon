@@ -15,6 +15,9 @@ class Actions:
     def clipboard_manager_hide():
         """Hide clipboard manager"""
 
+    def clipboard_manager_show():
+        """Show the clipboard manager"""
+
     def clipboard_manager_remove(numbers: list[int] = None):
         """Remove clipboard manager history"""
 
@@ -26,8 +29,3 @@ class Actions:
 
     def clipboard_manager_paste(numbers: list[int], match_style: bool = False):
         """Paste from clipboard manager"""
-        actions.user.clipboard_manager_copy(numbers)
-        if match_style:
-            actions.edit.paste_match_style()
-        else:
-            actions.edit.paste()
