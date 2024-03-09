@@ -38,6 +38,14 @@ lua stack: "luastack "
 lua trace back: "luatraceback "
 lua get local: "luagetlocal "
 
+lua table array clip:
+    insert("p/x (*(Table *) ")
+    edit.paste()
+    insert(")->array\n")
+    insert("p/x (*(Table *) ")
+    edit.paste()
+    insert(")->sizearray\n")
+
 dump table array clip:
     edit.delete_line()
     insert("p/x ")

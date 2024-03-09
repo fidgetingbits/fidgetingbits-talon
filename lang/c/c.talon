@@ -49,15 +49,16 @@ prot <user.c_protections>: "{c_protections}"
 ret {user.c_return_values}: "{c_return_values}"
 
 # XXX - create a preprocessor tag for these, as they will match cpp, etc
+# FIXME: maybe the should have macro prefix? define conflicts with cursorless...
 put define: "#define "
 put (undefine | undeaf): "#undef "
 put if (define | deaf): "#ifdef "
 put [short] if not (define | deaf): "#ifndef "
-[put] define <user.text>$:
+put define <user.text>$:
     "#define {user.formatted_text(text, 'ALL_CAPS,SNAKE_CASE')}"
-[put] (undefine | undeaf) <user.text>$:
+put (undefine | undeaf) <user.text>$:
     "#undef {user.formatted_text(text, 'ALL_CAPS,SNAKE_CASE')}"
-[put] if (define | deaf) <user.text>$:
+put if (define | deaf) <user.text>$:
     "#ifdef {user.formatted_text(text, 'ALL_CAPS,SNAKE_CASE')}"
 put pre if: "#if "
 put pre if zero: "#if 0"
@@ -100,11 +101,11 @@ push braces:
 
 # Declare variables or structs etc.
 # Ex. * int myList
-<user.c_variable> <phrase>:
+put <user.c_variable> <phrase>:
     insert("{c_variable} ")
     insert(user.formatted_text(phrase, "PRIVATE_CAMEL_CASE,NO_SPACES"))
 
-<user.c_variable> <user.letter>: insert("{c_variable} {letter} ")
+put <user.c_variable> <user.letter>: insert("{c_variable} {letter} ")
 
 # XXX - we should make these expressible to gdb
 # Ex. (int *)
