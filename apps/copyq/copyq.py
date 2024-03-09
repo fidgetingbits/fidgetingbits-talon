@@ -1,6 +1,7 @@
 from talon import Module, Context, actions, clip, app, cron, settings
 from typing import Optional
 import subprocess
+import shlex
 
 
 mod = Module()
@@ -40,14 +41,23 @@ class CopyQ:
     def read(self, row: int):
         return self._read_output(f"read {row}")
 
-    def paste(self, index: int = 0):
-        self._run("paste")
+    def count(self):
+        return int(self._read_output("count").decode("utf-8"))
 
-    def paste_many(self, indexes: list[int] = [0]):
+    def paste(self, index: int = 0):
         self._run("paste")
 
     def remove(self, row: int = 0):
         self._read_output(f"remove {row}")
+
+    def enable(self):
+        self._run("enable")
+
+    def disable(self):
+        self._run("disable")
+
+    def separator(self, sep="\n"):
+        self.run(f"separator {shlex.quote(sep)}")
 
 
 copyq = CopyQ()
@@ -64,6 +74,12 @@ class UserActions:
     def clipboard_manager_show():
         copyq.show()
 
+    def clipboard_manager_enable():
+        copyq.enable()
+
+    def clipboard_manager_disable():
+        copyq.disable()
+
     def clipboard_manager_remove(numbers: list[int]):
         if 0 in numbers:
             print("ERROR: 0 is not a valid copyq index")
@@ -75,7 +91,7 @@ class UserActions:
         for n in numbers:
             copyq.remove(n - 1)
 
-    def clipboard_manager_paste(numbers: list[int], match_style: bool = False):
+    def clipboard_manager_copy(numbers: list[int]):
         if 0 in numbers:
             print("ERROR: 0 is not a valid copyq index")
             return
@@ -83,7 +99,19 @@ class UserActions:
         # FIXME: for image pasting, we want to special handle utf-8
         for n in numbers:
             items.append(copyq.read(n - 1).decode("utf-8"))
-        print(items)
         clip.set_text("\n".join(items))
+
+    def clipboard_manager_paste(numbers: list[int], match_style: bool = False):
+        actions.user.clipboard_manager_copy(numbers)
         actions.edit.paste()
+        # Remove the new entry created by clipboard_manager_copy() ?
+        # FIXME: Not sure I want to keep this yet
         copyq.remove()
+
+    def clipboard_manager_clear_all():
+        items = copyq.count()
+        for i in range(0, items):
+            copyq.remove()
+
+    def clipboard_manager_launch():
+        copyq.launch()

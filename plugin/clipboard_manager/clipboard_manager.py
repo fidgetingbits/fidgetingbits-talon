@@ -18,6 +18,12 @@ class Actions:
     def clipboard_manager_show():
         """Show the clipboard manager"""
 
+    def clipboard_manager_clear_all():
+        """Clear all entries from the clipboard manager"""
+
+    def clipboard_manager_launch():
+        """Launch the clipboard manager"""
+
     def clipboard_manager_remove(numbers: list[int] = None):
         """Remove clipboard manager history"""
 
@@ -29,3 +35,9 @@ class Actions:
 
     def clipboard_manager_paste(numbers: list[int], match_style: bool = False):
         """Paste from clipboard manager"""
+
+    def clipboard_manager_enable():
+        """Enable the clipboard manager"""
+
+    def clipboard_manager_disable():
+        """Disable the clipboard manager"""
