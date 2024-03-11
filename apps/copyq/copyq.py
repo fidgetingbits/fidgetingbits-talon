@@ -1,5 +1,5 @@
 from talon import Module, Context, actions, clip, app, cron, settings
-from typing import Optional
+from typing import Optional, Tuple
 import subprocess
 import shlex
 
@@ -38,8 +38,17 @@ class CopyQ:
     def show(self):
         self._run("show")
 
+    def validate(self, indexes: list[int]):
+        count = self.count()
+        for i in indexes:
+            if i > count or i == 0:
+                self.error(f"ERROR: {i} is not a valid index")
+
     def read(self, row: int):
         return self._read_output(f"read {row}")
+
+    def insert(self, content: str, row: int = 0):
+        return self._run(f"add {content}")
 
     def count(self):
         return int(self._read_output("count").decode("utf-8"))
@@ -56,8 +65,19 @@ class CopyQ:
     def disable(self):
         self._run("disable")
 
+    def pin(self, rows: str):
+        self._run(f"plugins.itempinned.pin {rows}")
+
+    def unpin(self, rows: str):
+        self._run(f"plugins.itempinned.unpin {rows}")
+
     def separator(self, sep="\n"):
         self.run(f"separator {shlex.quote(sep)}")
+
+    def error(msg: str):
+        error_msg = f"CopyQ - {msg}"
+        actions.user.notify(error_msg)
+        raise ValueError(error_msg)
 
 
 copyq = CopyQ()
@@ -81,25 +101,33 @@ class UserActions:
         copyq.disable()
 
     def clipboard_manager_remove(numbers: list[int]):
-        if 0 in numbers:
-            print("ERROR: 0 is not a valid copyq index")
-            return
         if not numbers:
-            # remove index 0 only
+            # remove first item
             copyq.remove()
-            return
-        for n in numbers:
-            copyq.remove(n - 1)
+        else:
+            copyq.validate(numbers)
+            for n in numbers:
+                copyq.remove(n - 1)
 
     def clipboard_manager_copy(numbers: list[int]):
-        if 0 in numbers:
-            print("ERROR: 0 is not a valid copyq index")
-            return
+        copyq.validate(numbers)
         items = []
         # FIXME: for image pasting, we want to special handle utf-8
         for n in numbers:
             items.append(copyq.read(n - 1).decode("utf-8"))
         clip.set_text("\n".join(items))
+
+    # FIXME: Should this delete the originals?
+    # FIXME: This should allow splitting on an arbitrary separator
+    def clipboard_manager_split(numbers: list[int]):
+        copyq.validate(numbers)
+        new_items = []
+        for i in reversed(numbers):
+            split_entry = reversed(copyq.read(i - 1).decode("utf-8").split("\n"))
+            for item in split_entry:
+                new_items.append(item)
+        for item in new_items:
+            copyq.insert(item)
 
     def clipboard_manager_paste(numbers: list[int], match_style: bool = False):
         actions.user.clipboard_manager_copy(numbers)
@@ -115,3 +143,12 @@ class UserActions:
 
     def clipboard_manager_launch():
         copyq.launch()
+
+    def clipboard_manager_pin(numbers: list[int]):
+        copyq.pin(" ".join(map(lambda n: str(n - 1), numbers)))
+
+    def clipboard_manager_unpin(numbers: list[int]):
+        copyq.unpin(" ".join(map(lambda n: str(n - 1), numbers)))
+
+    def clipboard_manager_open(numbers: list[int]):
+        copyq.open(numbers)
