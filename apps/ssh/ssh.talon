@@ -8,8 +8,8 @@ ssh dump hosts: user.ssh_dump_hosts_list()
 #(secure shell|tunnel) [<user.text>]:
 #    insert("ssh ")
 #    insert(text or "")
-tunnel {user.ssh_hosts}: insert("ssh {ssh_hosts}\n")
-tunnel host {user.ssh_hosts}: insert("ssh {ssh_hosts}")
+# tunnel {user.ssh_hosts}: insert("ssh {ssh_hosts}\n")
+tunnel [to|host] {user.ssh_hosts}: insert("ssh {ssh_hosts}")
 tunnel last:
     key(ctrl-r)
     sleep(500ms)
@@ -41,3 +41,5 @@ tunnel copy to {user.ssh_hosts}: user.insert_between("scp -r ", " {ssh_hosts}:")
 edit authorized keys: "edit ~/.ssh/authorized_keys\n"
 go secure shell config: "cd ~/.ssh\n"
 tunnel (pop | terminate): key(enter ~ .)
+
+tunnel key copy {user.ssh_keys} [{user.ssh_hosts}]: "ssh-copy-id -i {ssh_keys} {ssh_hosts or ''}"
