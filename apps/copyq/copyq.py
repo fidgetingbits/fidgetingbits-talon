@@ -1,30 +1,41 @@
 import shlex
 import subprocess
 
-from talon import Context, Module, actions, clip
+from talon import Context, Module, actions, app, clip
 
 mod = Module()
 ctx = Context()
 
 ctx.matches = """
-user.running: copyq
+os: linux
+and user.running: copyq
+
+os:mac
 """
 
 
 class CopyQ:
     """Helper class for executing copyq commands"""
 
+    def __init__(self):
+        if app.platform == "mac":
+            # FIXME: this should just be part of PATH, but just in case
+            # also once nix-darwin supports copyq, this will be wrong
+            self.bin = "/opt/homebrew/bin/copyq"
+        else:
+            self.bin = "copyq"
+
     def _run(self, args):
         """Run copyq with the specified arguments"""
         try:
-            subprocess.Popen(["copyq"] + args.split())
+            subprocess.Popen([self.bin] + args.split())
         except Exception:
             print("copyq.py error: unable to run copyq")
 
     def _read_output(self, args):
         """Run copyq with the specified arguments"""
         try:
-            return subprocess.check_output(["copyq"] + args.split())
+            return subprocess.check_output([self.bin] + args.split())
         except Exception:
             print("copyq.py error: unable to run copyq")
 
