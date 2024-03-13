@@ -1,6 +1,6 @@
 from itertools import chain
 
-from talon import Context, Module, actions
+from talon import Context, Module, actions, clip
 
 mod = Module()
 ctx = Context()
@@ -44,3 +44,10 @@ class Actions:
             # int() because it could be a float from division
             result = hex(int(result))
         actions.insert(f"{result}")
+        return result
+
+    def calculator_compute_from_clipboard(operator: str, rows: list[int]):
+        """Calculate the clipboard using the specified operators"""
+        items = actions.user.clipboard_manager_get(rows)
+        result = actions.user.calculator_compute(operator, " ".join(items))
+        clip.set_text(result)

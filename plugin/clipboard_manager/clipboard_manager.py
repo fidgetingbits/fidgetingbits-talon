@@ -1,5 +1,4 @@
-from talon import Module, Context, actions, clip, app, cron, settings
-from typing import Optional
+from talon import Context, Module
 
 mod = Module()
 ctx = Context()
@@ -39,6 +38,9 @@ class Actions:
     def clipboard_manager_unpin(numbers: list[int]):
         """Unpin clipboard specified rows"""
 
+    def clipboard_manager_get(numbers: list[int]):
+        """Get entries from clipboard manager"""
+
     def clipboard_manager_copy(numbers: list[int]):
         """Copy from clipboard manager"""
 
@@ -56,3 +58,15 @@ class Actions:
 
     def clipboard_manager_open(numbers: list[int]):
         """Open items from clipboard manager (eg: urls)"""
+
+    def clipboard_manager_tab_new():
+        """Create a new tab"""
+
+    def clipboard_manager_tab_close():
+        """Closes a tab"""
+
+    def clipboard_manager_tab_left():
+        """Move to tab to the left"""
+
+    def clipboard_manager_tab_right():
+        """Move to tab to the right"""

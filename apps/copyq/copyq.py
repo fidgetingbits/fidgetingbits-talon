@@ -1,8 +1,7 @@
-from talon import Module, Context, actions, clip, app, cron, settings
-from typing import Optional, Tuple
-import subprocess
 import shlex
+import subprocess
 
+from talon import Context, Module, actions, clip
 
 mod = Module()
 ctx = Context()
@@ -109,12 +108,21 @@ class UserActions:
             for n in numbers:
                 copyq.remove(n - 1)
 
-    def clipboard_manager_copy(numbers: list[int]):
+    def clipboard_manager_remove_range(start: int, end: int):
+        copyq.validate([start, end])
+        for i in range(end, start - 1, -1):
+            copyq.remove(i - 1)
+
+    def clipboard_manager_get(numbers: list[int]):
         copyq.validate(numbers)
         items = []
         # FIXME: for image pasting, we want to special handle utf-8
         for n in numbers:
             items.append(copyq.read(n - 1).decode("utf-8"))
+        return items
+
+    def clipboard_manager_copy(numbers: list[int]):
+        items = actions.user.clipboard_manager_get(numbers)
         clip.set_text("\n".join(items))
 
     # FIXME: Should this delete the originals?
@@ -152,3 +160,15 @@ class UserActions:
 
     def clipboard_manager_open(numbers: list[int]):
         copyq.open(numbers)
+
+    def clipboard_manager_tab_new():
+        pass
+
+    def clipboard_manager_tab_close():
+        pass
+
+    def clipboard_manager_tab_left():
+        pass
+
+    def clipboard_manager_tab_right():
+        pass
