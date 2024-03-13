@@ -13,22 +13,22 @@ comment [line] <number>:
 comment <number> until <number>:
     user.select_range(number_1, number_2)
     code.toggle_comment()
-clear [line] <number>:
+clear line <number>:
     user.select_range(number, number)
     edit.delete()
 clear <number> until <number>:
     user.select_range(number_1, number_2)
     edit.delete()
-copy [line] <number>:
+copy line <number>:
     user.select_range(number, number)
     edit.copy()
 copy <number> until <number>:
     user.select_range(number_1, number_2)
     edit.copy()
-cut [line] <number>:
+cut line <number>:
     user.select_range(number, number)
     edit.cut()
-cut [line] <number> until <number>:
+cut line <number> until <number>:
     user.select_range(number_1, number_2)
     edit.cut()
 (paste | replace) <number> until <number>:
