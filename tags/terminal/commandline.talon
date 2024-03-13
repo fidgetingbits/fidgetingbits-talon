@@ -63,7 +63,10 @@ rerun <user.text>:
     key(ctrl-r)
     insert(text)
 rerun list: key(ctrl-r)
-rerun last command: key(! ! enter enter)
+rerun last command:
+    edit.delete_line()
+    key(! ! enter enter)
+
 # XXX - it would be good to have overrides for words that are harder to say,
 # like ssh, ex: see following tunnel word
 rerun last <user.word>:
@@ -99,6 +102,7 @@ file list with paths: 'ls --sort changed -d - "$PWD"/*'
 file list latest: "eza --sort changed | tail -n1\n"
 file list today: 'find . -maxdepth 1 -newermt "$(date +%D)"\n'
 file list deep: "fd .\n"
+file list names: "ls -1 --icons=never\n"
 
 # I can't always rely on -newermt, since an old file might get extracted from from an archive, in the timestamp is
 # actually quite old. This allows me to give it the actual local birthdate of the file
@@ -822,7 +826,7 @@ folder sync here: "rsync -avz . "
 code here: "code .\n"
 
 re run <number>: "!{number}\n"
-re run last: "!!\n"
+# re run last: "!!\n"
 
 # My convenience commands on nix boxen
 repo sync: "update-core-repos\n"
