@@ -40,3 +40,6 @@ class tab_actions:
 
     def tab_last():
         """Go to the most recently focused tab"""
+
+    def tab_rename(name: str):
+        """Rename the current tab"""
