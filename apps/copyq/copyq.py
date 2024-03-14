@@ -1,3 +1,4 @@
+import time
 import shlex
 import subprocess
 
@@ -57,8 +58,18 @@ class CopyQ:
     def read(self, row: int):
         return self._read_output(f"read {row}")
 
-    def insert(self, content: str, row: int = 0):
+    def add(self, content: str, row: int = 0):
         return self._run(f"add {content}")
+
+    def insert(self, content: str, row: int = 0):
+        if not isinstance(content, str):
+            content = str(content)
+        return self._run(f"insert {row} {content}")
+
+    def write(self, content: str, row: int = 0):
+        if not isinstance(content, str):
+            content = str(content)
+        return self._run(f"write {row} {content}")
 
     def count(self):
         return int(self._read_output("count").decode("utf-8"))
@@ -116,13 +127,17 @@ class UserActions:
             copyq.remove()
         else:
             copyq.validate(numbers)
-            for n in numbers:
+            for n in reversed(sorted(numbers)):
                 copyq.remove(n - 1)
 
     def clipboard_manager_remove_range(start: int, end: int):
         copyq.validate([start, end])
         for i in range(end, start - 1, -1):
             copyq.remove(i - 1)
+
+    def clipboard_manager_remove_all():
+        for i in reversed(range(0, copyq.count())):
+            copyq.remove(i)
 
     def clipboard_manager_get(numbers: list[int]):
         copyq.validate(numbers)
@@ -172,14 +187,53 @@ class UserActions:
     def clipboard_manager_open(numbers: list[int]):
         copyq.open(numbers)
 
-    def clipboard_manager_tab_new():
-        pass
+    def clipboard_manager_move(src_row: int, dest_row: int):
+        if src_row == dest_row:
+            return
+        copyq.validate([src_row, dest_row])
+        source_row = copyq.read(src_row - 1)
+        copyq.remove(src_row - 1)
+        copyq.insert(source_row, dest_row - 1)
 
-    def clipboard_manager_tab_close():
-        pass
+    def clipboard_manager_swap(src_row: int, dest_row: int):
+        if src_row == dest_row:
+            return
+        copyq.validate([src_row, dest_row])
+        # FIXME: Need to check of any of these are pinned
+        src_row = src_row - 1
+        dest_row = dest_row - 1
+        source_contents = copyq.read(src_row).decode("utf-8")
+        dest_contents = copyq.read(dest_row).decode("utf-8")
+        print(f"source_contents: {source_contents}")
+        print(f"dest_contents: {dest_contents}")
+        copyq.remove(dest_row)
+        if " " in source_contents or "\n" in source_contents:
+            source_contents = f'"{source_contents}"'
+        if " " in dest_contents or "\n" in dest_contents:
+            dest_contents = f'"{dest_contents}"'
+        copyq.insert(dest_contents, src_row)
+        copyq.remove(src_row)
+        copyq.insert(source_contents, dest_row)
 
-    def clipboard_manager_tab_left():
-        pass
 
-    def clipboard_manager_tab_right():
-        pass
+@ctx.action_class("app")
+class app_actions:
+    def tab_open():
+        actions.key("ctrl-t")
+
+    def tab_close():
+        actions.key("ctrl-w")
+
+    def tab_next():
+        actions.key("right")
+
+    def tab_previous():
+        actions.key("left")
+
+
+@ctx.action_class("user")
+class user_actions:
+    # FIXME: They should have some formatter probably
+    def tab_rename(name):
+        actions.key("ctrl-f2")
+        actions.insert(name)

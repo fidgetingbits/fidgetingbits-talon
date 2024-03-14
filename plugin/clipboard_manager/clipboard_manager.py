@@ -29,6 +29,9 @@ class Actions:
     def clipboard_manager_remove_range(start: int, end: int):
         """Remove clipboard manager from start index to end index"""
 
+    def clipboard_manager_remove_all():
+        """Remove all non-pinned clipboard manager history"""
+
     def clipboard_manager_split(numbers: list[int]):
         """Split clipboard content on new line to add new items to clipboard manager history"""
 
@@ -70,3 +73,9 @@ class Actions:
 
     def clipboard_manager_tab_right():
         """Move to tab to the right"""
+
+    def clipboard_manager_move(src_row: int, dest_row: int):
+        """Move a clipboard row to different row"""
+
+    def clipboard_manager_swap(src_row: int, dest_row: int):
+        """Swap a clipboard row with a different row"""

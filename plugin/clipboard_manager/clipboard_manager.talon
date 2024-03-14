@@ -54,6 +54,13 @@ clippy flush unpinned:
 clippy open <number_small> [and <number_small>]*:
     user.clipboard_manager_open(number_small_list)
 
+clippy move <number_small> to <number_small>:
+    user.clipboard_manager_move(number_small_1, number_small_2)
+
+clippy swap <number_small> (with|and) <number_small>:
+    user.clipboard_manager_swap(number_small_1, number_small_2)
+
 # Requires calculator plugin
 clippy {user.calculator_operators} <number_small> [and <number_small>]*:
     user.calculator_compute_from_clipboard(calculator_operators, number_small_list)
+
