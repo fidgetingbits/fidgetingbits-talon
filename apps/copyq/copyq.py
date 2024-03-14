@@ -6,12 +6,17 @@ from talon import Context, Module, actions, app, clip
 
 mod = Module()
 ctx = Context()
+ctx_open = Context()
 
 ctx.matches = """
 os: linux
 and user.running: copyq
 
 os:mac
+"""
+
+ctx_open.matches = """
+app: copyq
 """
 
 
@@ -216,7 +221,8 @@ class UserActions:
         copyq.insert(source_contents, dest_row)
 
 
-@ctx.action_class("app")
+# Actions for when CopyQ is focused
+@ctx_open.action_class("app")
 class app_actions:
     def tab_open():
         actions.key("ctrl-t")
@@ -231,7 +237,7 @@ class app_actions:
         actions.key("left")
 
 
-@ctx.action_class("user")
+@ctx_open.action_class("user")
 class user_actions:
     # FIXME: They should have some formatter probably
     def tab_rename(name):
