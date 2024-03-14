@@ -331,7 +331,7 @@ class Actions:
                     name = full_application_name
                     break
         for application in ui.apps(background=False):
-            if application.name == name or (
+            if application.name.lower() == name or (
                 app.platform == "windows"
                 and os.path.basename(application.exe).lower() == name
             ):
@@ -382,12 +382,12 @@ class Actions:
                 raise RuntimeError(f"Can't focus window: {window.title}")
             actions.sleep(0.1)
 
-    def switcher_focus_or_launch(path: str):
+    def switcher_focus_or_launch(name: str):
         """Focus on an application, or launch it if it's not running"""
         try:
-            actions.user.switcher_focus(path)
+            actions.user.switcher_focus(name)
         except RuntimeError:
-            actions.user.switcher_launch(path)
+            actions.user.switcher_launch(name)
 
     def switcher_launch(path: str):
         """Launch a new application by path (all OSes), or AppUserModel_ID path on Windows"""
