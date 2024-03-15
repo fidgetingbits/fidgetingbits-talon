@@ -141,6 +141,8 @@ arch_linux_folder_paths = {
 windows_folder_paths = {}
 
 unix_file_paths = {
+    "O S release": "/etc/os-release",
+    "system version": "/etc/os-release",
     "muscle lib": "/lib/ld-musl-x86_64.so.1",
     "apache conf": "/etc/apache2/apache2.conf",
     "G D B init": "~/.gdbinit",

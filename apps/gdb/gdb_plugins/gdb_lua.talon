@@ -1,30 +1,30 @@
 app: gdb
 -
 
-lua {user.lua_structs}:
+[print] lua {user.lua_structs}:
     edit.delete_line()
     user.gdb_print_typed_pointer("", lua_structs, false)
 
-lua raw {user.lua_structs}:
+[print] lua raw {user.lua_structs}:
     edit.delete_line()
     user.gdb_print_typed_pointer("", lua_structs, true)
 
-lua {user.lua_structs} {user.registers}:
+[print] lua {user.lua_structs} {user.registers}:
     edit.delete_line()
     register = "${registers}"
     user.gdb_print_typed_pointer(register, lua_structs, false)
 
-lua raw {user.lua_structs} {user.registers}:
+[print] lua raw {user.lua_structs} {user.registers}:
     edit.delete_line()
     register = "${registers}"
     user.gdb_print_typed_pointer(register, lua_structs, true)
 
-lua {user.lua_structs} clip:
+[print] lua {user.lua_structs} clip:
     edit.delete_line()
     user.gdb_print_typed_pointer(clip.text(), lua_structs, false)
     key(enter)
 
-lua raw {user.lua_structs} clip:
+[print] lua raw {user.lua_structs} clip:
     edit.delete_line()
     user.gdb_print_typed_pointer(clip.text(), lua_structs, true)
     key(enter)

@@ -77,7 +77,8 @@ class EditActions:
         # talon starts inserting before the paste is actually done
         # Should make this type of thing configurable in a setting
         # if I'm gonna have to keep it
-        time.sleep(0.5)
+        # KILL ME: this is still not long enough sometimes
+        time.sleep(1)
 
     def copy():
         actions.key("ctrl-shift-c")

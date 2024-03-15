@@ -5,6 +5,7 @@ ctx = Context()
 ctx.matches = r"""
 tag: user.package_manager
 """
+pinned_contexts = []
 mod.setting(
     "package_manager_default",
     type=str,
