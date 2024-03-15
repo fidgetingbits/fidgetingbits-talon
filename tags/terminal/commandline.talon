@@ -21,6 +21,7 @@ tag(): user.readline
 # running some terminal emulator on your system. See the associated talon
 # files for information and links to what tools they are associated with.
 ###
+tag(): user.package_manager
 
 #tag(): user.buku
 tag(): user.ssh
@@ -388,7 +389,7 @@ now less [that]:
     insert("| less\n")
 
 # piping
-tea that: "| tee "
+now tea that: "| tee "
 
 # grepping
 
