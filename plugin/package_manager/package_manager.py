@@ -1,10 +1,16 @@
-from talon import Context, Module, actions, imgui, ui
+from talon import Context, Module, actions, app, imgui, settings, ui
 
 mod = Module()
 ctx = Context()
 ctx.matches = r"""
 tag: user.package_manager
 """
+mod.setting(
+    "package_manager_default",
+    type=str,
+    default=None,
+    desc="Default package manager to use",
+)
 
 mod.mode("packager_picker_open")
 
@@ -23,9 +29,29 @@ packager_list = [
     {"tag": "packager_npm", "desc": "Node package manager"},
     {"tag": "packager_nix", "desc": "Nix package manager"},
 ]
+mod.list("package_managers", "List of common package managers for Darwin/Linux")
+
+ctx.lists["user.package_managers"] = {
+    "brew": "packager_brew",
+    "yay": "packager_yay",
+    "pack man": "packager_pacman",
+    "pam": "packager_pamac",
+    "alpine": "packager_apk",
+    "debian": "packager_apt",
+    "ubuntu": "packager_apt",
+    "snap": "packager_snap",
+    "suse": "packager_zypper",
+    "zipper": "packager_zypper",
+    "D N F": "packager_dnf",
+    "yum": "packager_yum",
+    "node": "packager_npm",
+    "N P M": "packager_npm",
+    "nix": "packager_nix",
+}
 
 for packager in packager_list:
     mod.tag(packager["tag"], packager["desc"])
+current_packager = None
 
 main_screen = ui.main_screen()
 
@@ -39,19 +65,15 @@ def close_packager_picker():
 def gui(gui: imgui.GUI):
     gui.line()
     gui.text("Active Packager:")
-    gui.text("replay <number>")
-    gui.text("Select New Active Packager:")
-    gui.text("replay save <number>")
-    gui.text("replay yank <number>")
+
     gui.line()
-    index = 1
 
     if gui.button("Hide"):
         close_packager_picker()
 
 
 @mod.action_class
-class Actions:
+class UserActions:
     def packager():
         """Run the default packager"""
 
@@ -96,3 +118,35 @@ class Actions:
 
     def package_help():
         """List the packages help menu"""
+
+
+@mod.action_class
+class PackageManagerActions:
+    def package_manager_reset():
+        """Reset the package manager to the default"""
+        global current_packager
+        current_packager = settings.get(
+            "user.package_manager_default",
+            "packager_brew" if app.platform == "mac" else "packager_apt",
+        )
+        ctx.tags = [f"user.{current_packager}"]
+        app.notify(f"Package manager set to {current_packager}")
+
+    def package_manager_set(packager: str):
+        """Set the package manager to the specified packager"""
+        global current_packager
+        current_packager = packager
+        ctx.tags = [f"user.{current_packager}"]
+        app.notify(f"Package manager set to {packager}")
+
+    def package_manager_show():
+        """Show the current package manager"""
+        global current_packager
+        app.notify(f"Current package manager: {current_packager}")
+
+
+def on_ready():
+    actions.user.package_manager_reset()
+
+
+app.register("ready", on_ready)

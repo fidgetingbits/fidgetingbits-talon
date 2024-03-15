@@ -1,9 +1,10 @@
-os: linux
-tag: terminal
-and tag: user.package_manager
+tag: user.package_manager
 -
-# assert your system packager here
-tag(): user.packager_yay
+
+pack man reset: user.package_manager_reset()
+pack man set {user.package_managers}: user.package_manager_set(package_managers)
+pack man show: user.package_manager_show()
+
 
 packager: user.packager()
 package search: user.package_search()
