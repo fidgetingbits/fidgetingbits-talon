@@ -5,17 +5,28 @@ name: luaDumpTable
 phrase: dumpTable
 insertionScope: statement
 -
-function dump_table(o)
-  if type(o) == 'table' then
-    local s = '{ '
-    for k,v in pairs(o) do
-       if type(k) ~= 'number' then k = '"'..k..'"' end
-       s = s .. '['..k..'] = ' .. dump_table(v) .. ','
+local function dump_table(o, depth)
+    local seen_tables = {}
+    local function dump(o, depth)
+        depth = depth or 0
+        if seen_tables[o] then
+            return "{ DUPLICATE }"
+        end
+        seen_tables[o] = true
+        if type(o) == "table" then
+            local s = "{ \n"
+            for k, v in pairs(o) do
+                if type(k) ~= "number" then
+                    k = '"' .. k .. '"'
+                end
+                s = s .. string.rep(" ", depth * 2) .. "[" .. k .. "] = " .. dump(v, depth + 1) .. ",\n"
+            end
+            return s .. string.rep(" ", depth * 2) .. "} "
+        else
+            return tostring(o)
+        end
     end
-    return s .. '} '
- else
-    return tostring(o)
- end
+    return dump(o, depth)
 end
 ---
 
