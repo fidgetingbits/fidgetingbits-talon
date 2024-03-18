@@ -170,7 +170,6 @@ def spongebob(i, word, _):
 
 
 def brief(word):
-    formatted_string = ""
     if word in registry.lists["user.abbreviation"][0].keys():
         return registry.lists["user.abbreviation"][0][word]
     return word
@@ -233,8 +232,9 @@ formatters_dict = {
 # Mapping from spoken phrases to formatter names
 code_formatter_names = {
     "arguing": "COMMA_SEPARATED",
-    "upper": "ALL_CAPS",
-    "lower": "ALL_LOWERCASE",
+    "to upper": "ALL_CAPS",
+    # WARN: bare lower is very false positive prone lately...
+    "to lower": "ALL_LOWERCASE",
     "camel": "PRIVATE_CAMEL_CASE",
     "dotted": "DOT_SEPARATED",
     "dunder": "DOUBLE_UNDERSCORE",

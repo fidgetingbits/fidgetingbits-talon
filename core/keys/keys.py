@@ -83,16 +83,16 @@ def upper_letter(m) -> str:
     return m.letter.upper()
 
 
-@mod.capture(rule="{self.letters}")
+@mod.capture(rule="{self.letter}+")
 def letters(m) -> str:
     "Multiple letter keys"
-    return m.letters
+    return "".join(m.letter_list)
 
 
-@mod.capture(rule="{self.hex_letters}")
+@mod.capture(rule="{self.hex_letter}+")
 def hex_letters(m) -> str:
-    "Multiple hex letter keys"
-    return m.hex_letters
+    "Multiple letter keys"
+    return "".join(m.hex_letter_list)
 
 
 @mod.capture(rule="{self.special_key}")
@@ -156,22 +156,10 @@ def keys(m) -> str:
     return " ".join(m.key_list)
 
 
-@mod.capture(rule="{self.letter}+")
-def letters(m) -> str:
-    "Multiple letter keys"
-    return "".join(m.letter_list)
-
-
 @mod.capture(rule="{self.number_key}+")
 def number_keys(m) -> str:
     "Multiple number keys"
     return "".join(m.number_key_list)
-
-
-@mod.capture(rule="{self.hex_letter}+")
-def hex_letters(m) -> str:
-    "Multiple letter keys"
-    return "".join(m.hex_letter_list)
 
 
 ctx = Context()
@@ -222,8 +210,8 @@ symbol_key_words = {
     "void": " ",
     "semi": ";",
     "tick": "'",
-    "locker": "[",
-    "rocker": "]",
+    "lock": "[",
+    "rock": "]",
     "slash": "/",
     "stroke": "\\",
     "minus": "-",
@@ -262,13 +250,13 @@ symbol_key_words = {
 symbol_key_words.update(punctuation_words)
 ctx.lists["self.punctuation"] = punctuation_words
 ctx.lists["self.symbol_key"] = symbol_key_words
-number_keys = dict(zip(default_digits, numbers))
-ctx.lists["self.number_key"] = number_keys
+numbers = dict(zip(default_digits, numbers))
+ctx.lists["self.number_key"] = numbers
 
 
 hex_spoken = dict(zip(list(alphabet_list.values())[0:6], hex_letters_string))
 hex_alphabet = dict(zip(hex_alphabet, hex_letters_string))
-ctx.lists["self.hex_letter"] = {**hex_spoken, **hex_alphabet, **number_keys}
+ctx.lists["self.hex_letter"] = {**hex_spoken, **hex_alphabet, **numbers}
 
 ctx.lists["self.arrow_key"] = {
     "down": "down",
