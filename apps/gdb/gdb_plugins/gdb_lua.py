@@ -13,9 +13,13 @@ app: gdb
 # a language thing.
 ctx.lists["user.lua_structs"] = {
     "state": "lua_State",
+    "global state": "global_State",
     "value": "TValue",
     "string": "TString",
     "table": "Table",
     "C funk": "CClosure",
     "lua funk": "LClosure",
+    "user data": "Udata",
+    "proto": "Proto",
+    "up value": "UpVal",
 }
