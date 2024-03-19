@@ -2,8 +2,8 @@ tag: user.splits
 -
 split right: user.split_window_right()
 split left: user.split_window_left()
-split down: user.split_window_down()
-split up: user.split_window_up()
+split (down|south): user.split_window_down()
+split (up|north): user.split_window_up()
 pillar: user.split_window_vertically()
 river: user.split_window_horizontally()
 split flip: user.split_flip()
