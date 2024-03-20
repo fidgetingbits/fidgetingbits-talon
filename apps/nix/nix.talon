@@ -79,3 +79,8 @@ nix run here: "nix run\n"
 nix format: "nix fmt\n"
 
 nix flake check all: "nix flake check --all-systems\n"
+
+# Stuff useful for hacking on nixpkgs
+nix export packages: "export NIXPKGS=$PWD"
+nix search local: "nix-env -f $NIXPKGS -qaP '*'"
+nix build local: "nix-build $NIXPKGS -A "
