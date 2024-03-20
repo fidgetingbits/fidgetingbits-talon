@@ -25,15 +25,15 @@ numbers_map.update(tens_map)
 numbers_map.update(scales_map)
 
 
-def parse_number(l: list[str]) -> str:
+def parse_number(num_list: list[str]) -> str:
     """Parses a list of words into a number/digit string."""
-    l = list(scan_small_numbers(l))
+    num_list = list(scan_small_numbers(num_list))
     for scale in scales:
-        l = parse_scale(scale, l)
-    return "".join(str(n) for n in l)
+        num_list = parse_scale(scale, num_list)
+    return "".join(str(n) for n in num_list)
 
 
-def scan_small_numbers(l: list[str]) -> Iterator[Union[str, int]]:
+def scan_small_numbers(num_list: list[str]) -> Iterator[Union[str, int]]:
     """
     Takes a list of number words, yields a generator of mixed numbers & strings.
     Translates small number terms (<100) into corresponding numbers.
@@ -45,12 +45,12 @@ def scan_small_numbers(l: list[str]) -> Iterator[Union[str, int]]:
     Does nothing to scale words ("hundred", "thousand", "million", etc).
     """
     # reversed so that repeated pop() visits in left-to-right order
-    l = [x for x in reversed(l) if x != "and"]
-    while l:
-        n = l.pop()
+    num_list = [x for x in reversed(num_list) if x != "and"]
+    while num_list:
+        n = num_list.pop()
         # fuse tens onto digits, eg. "twenty", "one" -> 21
-        if n in tens_map and l and digits_map.get(l[-1], 0) != 0:
-            d = l.pop()
+        if n in tens_map and num_list and digits_map.get(num_list[-1], 0) != 0:
+            d = num_list.pop()
             yield numbers_map[n] + numbers_map[d]
         # turn small number terms into corresponding numbers
         elif n not in scales_map:
@@ -59,7 +59,7 @@ def scan_small_numbers(l: list[str]) -> Iterator[Union[str, int]]:
             yield n
 
 
-def parse_scale(scale: str, l: list[Union[str, int]]) -> list[Union[str, int]]:
+def parse_scale(scale: str, num_list: list[Union[str, int]]) -> list[Union[str, int]]:
     """Parses a list of mixed numbers & strings for occurrences of the following
     pattern:
 
@@ -79,7 +79,7 @@ def parse_scale(scale: str, l: list[Union[str, int]]) -> list[Union[str, int]]:
     scale_digits = len(str(scale_value))
 
     # Split the list on the desired scale word, then parse from left to right.
-    left, *splits = split_list(scale, l)
+    left, *splits = split_list(scale, num_list)
     for right in splits:
         # (1) Figure out the multiplier by looking to the left of the scale
         # word. We ignore non-integers because they are scale words that we
@@ -110,17 +110,17 @@ def parse_scale(scale: str, l: list[Union[str, int]]) -> list[Union[str, int]]:
     return left
 
 
-def split_list(value, l: list) -> Iterator:
+def split_list(value, num_list: list) -> Iterator:
     """Splits a list by occurrences of a given value."""
     start = 0
     while True:
         try:
-            i = l.index(value, start)
+            i = num_list.index(value, start)
         except ValueError:
             break
-        yield l[start:i]
+        yield num_list[start:i]
         start = i + 1
-    yield l[start:]
+    yield num_list[start:]
 
 
 # # ---------- TESTS (uncomment to run) ----------
@@ -280,15 +280,15 @@ class Actions:
 
     def expand_to_int16_hex(number: str):
         """convert a number string to hex value"""
-        actions.insert(f"0x{number*2}")
+        actions.insert(f"0x{number*int((4/len(number)))}")
 
     def expand_to_int32_hex(number: str):
         """convert a number string to hex value"""
-        actions.insert(f"0x{number*4}")
+        actions.insert(f"0x{number*int((8/len(number)))}")
 
     def expand_to_int64_hex(number: str):
         """convert a number string to hex value"""
-        actions.insert(f"0x{number*8}")
+        actions.insert(f"0x{number*int((16/len(number)))}")
 
     def convert_number_to_escaped_hex(number: str):
         """convert a number string to hex value"""
@@ -303,4 +303,4 @@ class Actions:
 
     def paste_clipboard_as_dec():
         """convert and paste the number in the clipboard to decimal"""
-        actions.user.paste(ast.literal_eval(clip.text()))
+        actions.user.paste(f"{int(clip.text())}")
