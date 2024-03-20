@@ -171,9 +171,9 @@ settings():
     # user.snippets_dir = "snippets"
 
     # My zsh-based auto completion stuff
-    user.zsh_auto_completion = true
-    user.justfile_auto_completion = true
-    user.git_auto_completion = true
+    user.zsh_auto_completion = false
+    user.justfile_auto_completion = false
+    user.git_auto_completion = false
 
 # uncomment tag to enable mouse grid
 # tag(): user.mouse_grid_enabled
