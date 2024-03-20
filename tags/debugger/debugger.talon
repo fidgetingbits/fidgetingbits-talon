@@ -2,8 +2,8 @@ tag: user.debugger
 -
 
 # Assembly language selection
-architecture show: user.debugger_current_architecture()
-architecture cycle: user.debugger_cycle_architecture()
+(architecture|arch|ark) show: user.debugger_current_architecture()
+(architecture|arch|ark) cycle: user.debugger_cycle_architecture()
 
 # Code execution
 
@@ -33,8 +33,8 @@ debug restart: user.debugger_restart()
 (show | info) (reg | regs | registers): user.debugger_show_registers()
 # XXX -
 (show | get) register [{user.registers}]: user.debugger_get_register(registers or "")
-register {user.registers}: user.debugger_register_variable(registers)
-set register {user.registers}: user.debugger_set_register(registers)
+(register|reg) {user.registers}: user.debugger_register_variable(registers)
+set (register|reg) {user.registers}: user.debugger_set_register(registers)
 
 # Breakpoints
 break (now | into): user.debugger_break_now()
