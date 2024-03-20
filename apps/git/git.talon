@@ -5,6 +5,7 @@ and tag: user.git
 # Standard commands
 <user.git> add patch: "git add . -p\n"
 <user.git> add: "git add "
+
 <user.git> add force: "git add -f "
 <user.git> add (all | changed | everything):
     edit.delete_line()
@@ -317,7 +318,9 @@ get stash help: "git stash --help\n"
 <user.git> stash push: user.insert_between("git stash push -m '", "'")
 <user.git> stash apply: "git stash apply\n"
 <user.git> stash list: "git stash list\n"
-<user.git> stash show: "git stash show"
+<user.git> stash show: "git stash show "
+<user.git> stash drop: "git stash drop "
+
 
 <user.git> (status|stat): "git status --untracked-files=no\n"
 <user.git> (status|stat) (all | full | everything): "git status\n"
