@@ -86,3 +86,14 @@ insertionScope: statement
 
 }
 ---
+
+name: nixInheritedPackages
+phrase: inherited packages
+insertionScope: statement
+-
+builtins.attrValues {
+    inherit (pkgs)
+    $0
+    ;
+};
+---
