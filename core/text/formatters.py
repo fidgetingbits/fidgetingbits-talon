@@ -153,6 +153,11 @@ def every_word(word_func):
     return lambda i, word, _: word_func(word)
 
 
+def every_number(number_func):
+    """Apply one function to every number."""
+    return lambda i, number, _: number_func(number)
+
+
 def spongebob(i, word, _):
     capitalize = bool(randint(0, 1))
     formatted_string = ""
@@ -175,6 +180,14 @@ def brief(word):
     return word
 
 
+def is_number(n):
+    try:
+        int(n, 0)
+        return True
+    except ValueError:
+        return False
+
+
 # All formatters (code and prose)
 formatters_dict = {
     "ALL_CAPS": (SEP, every_word(lambda w: w.upper())),
@@ -193,6 +206,23 @@ formatters_dict = {
     "DOUBLE_COLON_SEPARATED": words_with_joiner("::"),
     "DOUBLE_QUOTED_STRING": (SEP, surround('"')),
     "DOUBLE_UNDERSCORE": (NOSEP, first_vs_rest(lambda w: f"__{w}__")),
+    "ESCAPED_DECIMAL": (
+        NOSEP,
+        every_number(lambda n: f"\\{int(n, 0)}" if is_number(n) else n),
+    ),
+    "DECIMAL": (SEP, every_number(lambda n: str(int(n, 0)))),
+    "ESCAPED_HEX": (
+        NOSEP,
+        every_number(lambda n: f"\\x{int(n, 0):02x}" if is_number(n) else n),
+    ),
+    "HEX": (SEP, every_number(lambda n: f"0x{int(n, 0):02x}")),
+    "UNPREFIXED_HEX": (SEP, every_number(lambda n: f"{int(n, 0):02x}")),
+    "ESCAPED_OCTAL": (
+        NOSEP,
+        every_number(lambda n: f"\\{int(n, 0):03o}" if is_number(n) else n),
+    ),
+    "BINARY": (SEP, every_number(lambda n: f"0b{int(n, 0):03b}")),
+    "OCTAL": (SEP, every_number(lambda n: f"0o{int(n, 0):03o}")),
     "EQUAL_SEPARATED": words_with_joiner("="),
     "FIRST_THREE": (NOSEP, lambda i, word, _: word[0:3]),
     "FIRST_FOUR": (NOSEP, lambda i, word, _: word[0:4]),
@@ -258,6 +288,18 @@ code_formatter_names = {
     "stacking": "COLON_SEPARATED",
     "turbo": "DOUBLE_COLON_SEPARATED",
 }
+
+number_formatter_names = {
+    "escaped deck": "ESCAPED_DECIMAL",
+    "deck": "DECIMAL",
+    "escaped hex": "ESCAPED_HEX",
+    "hex": "HEX",
+    "unprefixed hex": "UNPREFIXED_HEX",
+    "escaped octal": "ESCAPED_OCTAL",
+    "octal": "OCTAL",
+    "binary": "BINARY",
+}
+
 prose_formatter_names = {
     "briefing": "ALL_BRIEF",
     "say": "NOOP",
@@ -277,7 +319,9 @@ formatters_keys = {
 # Mapping from spoken phrases to formatters
 formatter_words = {
     phrase: formatters_dict[name]
-    for phrase, name in (code_formatter_names | prose_formatter_names).items()
+    for phrase, name in (
+        code_formatter_names | prose_formatter_names | number_formatter_names
+    ).items()
 }
 
 # Allow referencing formatters by either their names or spoken forms
@@ -323,6 +367,8 @@ def format_text(m) -> str:
     """Formats text and returns a string"""
     out = ""
     formatters = m[0]
+
+    print(m[1:])
     for chunk in m[1:]:
         if isinstance(chunk, ImmuneString):
             out += chunk.string
@@ -429,7 +475,10 @@ class Actions:
 
     def reformat_text(text: str, formatters: str) -> str:
         """Reformat the text."""
-        if formatters not in all_prose_formatters:
+        if (
+            formatters not in all_prose_formatters
+            and formatters not in number_formatter_names
+        ):
             text = unformat_text(text)
         return actions.user.formatted_text(text, formatters)
 
