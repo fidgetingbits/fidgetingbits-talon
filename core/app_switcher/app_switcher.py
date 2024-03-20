@@ -317,7 +317,7 @@ class Actions:
         # We should use the capture result directly if it's already in the list
         # of running applications. Otherwise, name is from <user.text> and we
         # can be a bit fuzzier
-        if name not in running_application_dict.keys():
+        if name.lower() not in running_application_dict.keys():
             if len(name) < 3:
                 raise RuntimeError(
                     f'Skipped getting app: "{name}" has less than 3 chars.'
@@ -330,6 +330,7 @@ class Actions:
                 ):
                     name = full_application_name
                     break
+
         for application in ui.apps(background=False):
             if application.name.lower() == name.lower() or (
                 app.platform == "windows"
