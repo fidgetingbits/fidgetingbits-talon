@@ -243,6 +243,17 @@ def number_small(m) -> int:
 #    return int(parse_number(list(m)))
 
 
+def expand_hex_number(number: str, size: int, delimit: bool = False) -> str:
+    """Expands a number to a hex value of given size by repeating it."""
+    result = (number * int((size / len(number)))).upper()
+    modulo = size % len(number)
+    if modulo:
+        result = result + number[:modulo].upper()
+    if delimit:
+        result = "_".join(result[i : i + 4] for i in range(0, len(result), 4))
+    return f"0x{result}"
+
+
 @mod.action_class
 class Actions:
     def count_numbers(num1: int, num2: int):
@@ -276,30 +287,42 @@ class Actions:
     def convert_number_to_hex(number: str):
         """convert a number string to hex value"""
         val = int(number)
-        actions.insert(f"{val:#x}")
+        actions.insert(f"{val:#X}")
 
     def expand_to_int16_hex(number: str):
         """convert a number string to hex value"""
-        actions.insert(f"0x{number*int((4/len(number)))}")
+        actions.insert(expand_hex_number(number, 4))
 
     def expand_to_int32_hex(number: str):
         """convert a number string to hex value"""
-        actions.insert(f"0x{number*int((8/len(number)))}")
+        actions.insert(expand_hex_number(number, 8))
 
     def expand_to_int64_hex(number: str):
         """convert a number string to hex value"""
-        actions.insert(f"0x{number*int((16/len(number)))}")
+        actions.insert(expand_hex_number(number, 16))
+
+    def expand_to_delimited_int16_hex(number: str):
+        """convert a number string to hex value"""
+        actions.insert(expand_hex_number(number, 4, True))
+
+    def expand_to_delimited_int32_hex(number: str):
+        """convert a number string to hex value"""
+        actions.insert(expand_hex_number(number, 8, True))
+
+    def expand_to_delimited_int64_hex(number: str):
+        """convert a number string to hex value"""
+        actions.insert(expand_hex_number(number, 16, True))
 
     def convert_number_to_escaped_hex(number: str):
         """convert a number string to hex value"""
         val = int(number)
         # XXX - This is wrong because it doesn't correctly handle endian
         # conversion atm. So 300 becomes \x12\x0c instead of \x2c\x01
-        actions.user.escape_hex_string(f"{val:#x}"[2:])
+        actions.user.escape_hex_string(f"{val:#X}"[2:])
 
     def paste_clipboard_as_hex():
         """convert and paste the number in the clipboard to hexadecimal"""
-        actions.user.paste(f"{int(clip.text()):#x}")
+        actions.user.paste(f"{int(clip.text()):#X}")
 
     def paste_clipboard_as_dec():
         """convert and paste the number in the clipboard to decimal"""

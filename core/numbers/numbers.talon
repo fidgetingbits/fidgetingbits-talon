@@ -57,6 +57,12 @@ hex short <user.hex_letters>: user.expand_to_int16_hex(hex_letters)
 hex int <user.hex_letters>: user.expand_to_int32_hex(hex_letters)
 # "hex long four one" produces 0x4141414141414141
 hex long <user.hex_letters>: user.expand_to_int64_hex(hex_letters)
+
+hex delimited short <user.hex_letters>: user.expand_to_delimited_int16_hex(hex_letters)
+hex delimited int <user.hex_letters>: user.expand_to_delimited_int32_hex(hex_letters)
+hex delimited long <user.hex_letters>: user.expand_to_delimited_int64_hex(hex_letters)
+
+
 hex code <user.hex_letters>$: user.escape_hex_string(hex_letters)
 hex convert <user.number_string>: user.convert_number_to_hex(number_string)
 (hex dump pointer | paste as pointer): user.convert_hex_dump_pointer()
