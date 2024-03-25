@@ -97,7 +97,6 @@ def _garbage_collect():
 
     This is required because we don't know when a given process is terminated from inside talon
     """
-    print("_garbage_collect()")
 
     global tracked_contexts
     pid_list = [x.pid for x in tracked_contexts]
@@ -106,9 +105,7 @@ def _garbage_collect():
         clean_up = find_dead_processes(pid_list)
     else:
         return
-    if len(clean_up) > 0:
-        print(f"PACKAGE MANAGER: Cleaning up {len(clean_up)} dead processes")
     tracked_contexts = [x for x in tracked_contexts if x.pid not in clean_up]
 
 
-cron.interval("10s", _garbage_collect)
+cron.interval("10m", _garbage_collect)
