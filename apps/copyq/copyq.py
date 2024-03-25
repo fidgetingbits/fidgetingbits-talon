@@ -24,12 +24,7 @@ class CopyQ:
     """Helper class for executing copyq commands"""
 
     def __init__(self):
-        if app.platform == "mac":
-            # FIXME: this should just be part of PATH, but just in case
-            # also once nix-darwin supports copyq, this will be wrong
-            self.bin = "/opt/homebrew/bin/copyq"
-        else:
-            self.bin = "copyq"
+        self.bin = "copyq"
 
     def _run(self, args):
         """Run copyq with the specified arguments"""
