@@ -1,4 +1,4 @@
-from talon import Context, Module, actions, app, imgui, settings, ui
+from talon import Context, Module, actions, app, imgui, registry, settings, ui
 
 mod = Module()
 ctx = Context()
@@ -61,6 +61,7 @@ for packager in packager_list:
 current_packager = None
 
 main_screen = ui.main_screen()
+last_title = None
 
 
 def close_packager_picker():
@@ -131,13 +132,26 @@ class UserActions:
 class PackageManagerActions:
     def package_manager_reset():
         """Reset the package manager to the default"""
-        global current_packager
-        current_packager = settings.get(
+        # print("package_manager_reset")
+        default_packager = settings.get(
             "user.package_manager_default",
-            "packager_brew" if app.platform == "mac" else "packager_apt",
+            "brew" if app.platform == "mac" else "apt",
         )
-        ctx.tags = [f"user.{current_packager}"]
-        app.notify(f"Package manager set to {current_packager}")
+        # Prefer people to just use the name of the packager, but don't break if someone uses the full tag name
+        if default_packager.startswith("user."):
+            default_packager = default_packager[5:]
+        elif default_packager.startswith("packager_"):
+            default_packager = default_packager[9:]
+        elif default_packager.startswith("user.packager_"):
+            default_packager = default_packager[14:]
+
+        if settings.get("user.package_manager_pinning", False):
+            actions.user.pin_tag(f"user.{default_packager}", "package_manager")
+        else:
+            global current_packager
+            current_packager = default_packager
+            ctx.tags = [f"user.{current_packager}"]
+            app.notify(f"Package manager set to {current_packager}")
 
     def package_manager_set(packager: str):
         """Set the package manager to the specified packager"""
@@ -170,4 +184,16 @@ def on_ready():
     actions.user.package_manager_reset()
 
 
+def win_title(window):
+    global last_titlei
+    # FIXME: Eventually this should just be any terminal and we pull out the pid even if it's not zsh, but need to test
+    if "user.zsh" not in registry.tags:
+        return
+    global last_title
+    if window == ui.active_window() and window.title != last_title:
+        last_title = window.title
+        actions.user.package_manager_reset()
+
+
 app.register("ready", on_ready)
+ui.register("win_title", win_title)

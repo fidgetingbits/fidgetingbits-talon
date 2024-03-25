@@ -1,9 +1,10 @@
 tag: user.package_manager
 -
 
-pack man reset: user.package_manager_reset()
-pack man set {user.package_managers}: user.package_manager_set(package_managers)
-pack man show: user.package_manager_show()
+
+package man (unset|reset): user.package_manager_reset()
+package man set {user.package_managers}: user.package_manager_set(package_managers)
+package man show: user.package_manager_show()
 
 
 packager: user.packager()
@@ -17,4 +18,4 @@ package list: user.package_list()
 package dependencies: user.package_dependencies()
 package list contents: user.package_list_contents()
 package help: user.package_help()
-# XXX - add an automatic gui based packager switcher
+# FIXME: add an automatic gui based packager switcher
