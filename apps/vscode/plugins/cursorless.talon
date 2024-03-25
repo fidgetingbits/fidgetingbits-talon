@@ -41,3 +41,10 @@ then: skip()
 trouble fix <user.cursorless_target>:
     user.cursorless_command("setSelectionBefore", cursorless_target)
     user.vscode("editor.action.quickFix")
+
+repeat length of <user.cursorless_target>:
+    len  = user.c_get_target_length(cursorless_target)
+    core.repeat_command(len-1)
+
+confetti:
+    user.vscode('cursorless.toggleDecorations')
