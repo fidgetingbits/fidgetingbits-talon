@@ -139,8 +139,12 @@ class EditActions:
         # action(edit.paragraph_start):
 
     def paste():
-        actions.key("ctrl-v")
+        # paste without style by default
+        actions.key("ctrl-shift-v")
         # action(paste_match_style):
+
+    def paste_match_style():
+        actions.key("ctrl-v")
 
     def print():
         actions.key("ctrl-p")
@@ -174,7 +178,7 @@ class EditActions:
 
 
 @zoom_ctx.action_class("edit")
-class EditActions:
+class ZoomEditActions:
     def zoom_in():
         actions.key("ctrl-+")
 
