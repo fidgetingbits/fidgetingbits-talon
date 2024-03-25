@@ -34,3 +34,5 @@ tabby close <user.rango_target>:
     user.rango_command_without_target("toggleHints")
 
 tabby <user.rango_target>: user.rango_command_with_target("activateTab", rango_target)
+
+confetti: user.rango_command_without_target("toggleHints")
