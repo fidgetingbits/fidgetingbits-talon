@@ -331,13 +331,13 @@ class Actions:
                     name = full_application_name
                     break
         for application in ui.apps(background=False):
-            if application.name.lower() == name or (
+            if application.name.lower() == name.lower() or (
                 app.platform == "windows"
                 and os.path.basename(application.exe).lower() == name
             ):
                 return application
 
-        # print(ui.apps(background=False))
+        print(ui.apps(background=False))
         raise RuntimeError(f'App not running: "{name}"')
 
     def switch_last_focused():
