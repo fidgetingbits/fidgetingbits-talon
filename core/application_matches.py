@@ -194,3 +194,8 @@ apps.copyq = """
 os: linux
 and win.title: /CopyQ/
 """
+
+apps.utm = """
+os: mac
+and app.bundle: com.utmapp.UTM
+"""
