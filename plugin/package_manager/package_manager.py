@@ -12,6 +12,12 @@ mod.setting(
     default=None,
     desc="Default package manager to use",
 )
+mod.setting(
+    "package_manager_pinning",
+    type=bool,
+    default=False,
+    desc="Pins package tags to shell-specific PID contexts. Requires vim terminals atm.",
+)
 
 mod.mode("packager_picker_open")
 
@@ -135,15 +141,29 @@ class PackageManagerActions:
 
     def package_manager_set(packager: str):
         """Set the package manager to the specified packager"""
-        global current_packager
-        current_packager = packager
-        ctx.tags = [f"user.{current_packager}"]
-        app.notify(f"Package manager set to {packager}")
+        if settings.get("user.package_manager_pinning", False):
+            actions.user.pin_tag(f"user.{packager}", "package_manager")
+            app.notify(f"Pinned package manager to {packager}")
+        else:
+            global current_packager
+            current_packager = packager
+            ctx.tags = [f"user.{current_packager}"]
+            app.notify(f"Package manager set to {packager}")
 
     def package_manager_show():
         """Show the current package manager"""
-        global current_packager
-        app.notify(f"Current package manager: {current_packager}")
+        if settings.get("user.package_manager_pinning", False):
+            packager = actions.user.find_pinned_tag("package_manager")
+            if packager is not None:
+                app.notify(f"Current pinned package manager: {packager}")
+            else:
+                app.notify("No package manager set")
+        else:
+            global current_packager
+            if current_packager is None:
+                app.notify("No package manager set")
+            else:
+                app.notify(f"Current package manager: {current_packager}")
 
 
 def on_ready():

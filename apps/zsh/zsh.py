@@ -303,6 +303,8 @@ class Actions:
 
     def zsh_get_pid():
         """Return the current zsh pid"""
+        if current_zsh_pid is None:
+            return _get_zsh_pid(ui.active_window().title)
         return current_zsh_pid
 
     def zsh_register_watch_file_callback_basic(
