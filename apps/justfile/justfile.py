@@ -1,6 +1,6 @@
-import pprint
+import subprocess
 
-from talon import Context, Module, actions, app, settings
+from talon import Context, Module, actions
 
 mod = Module()
 mod.setting(
@@ -15,13 +15,26 @@ ctx.matches = r"""
 tag: user.just_commands
 """
 
-mod.list("justfile_commands", desc="Just commands.")
+mod.list("justfile_commands", desc="Just commands from the justfile")
 
 
-def on_ready():
-    actions.user.zsh_register_watch_file_callback_basic(
-        "justfile_commands", "user.justfile_auto_completion", "user.justfile_commands"
+@ctx.dynamic_list("user.justfile_commands")
+def user_justfile_commands(m) -> dict[str, str]:
+    """A dynamic list of available just commands"""
+    ps = subprocess.Popen(
+        ("just", "--list"), stdout=subprocess.PIPE, cwd=actions.user.zsh_get_cwd()
     )
+    output = subprocess.check_output(
+        ("grep", "-v", "'(Available recipes|Error:)'"), stdin=ps.stdout
+    ).decode("utf-8")
+    ps.wait()
+    if not output:
+        print("no output")
+        return {}
 
-
-app.register("ready", on_ready)
+    commands = []
+    for line in output.splitlines():
+        if "#" in line:
+            line = line.split("#")[0]
+        commands.append(line.strip())
+    return actions.user.create_spoken_forms_from_list(commands)

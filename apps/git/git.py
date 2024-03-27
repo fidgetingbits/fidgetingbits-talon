@@ -1,8 +1,8 @@
 import csv
-import pprint
+import subprocess
 from pathlib import Path
 
-from talon import Context, Module, actions, app, resource, settings
+from talon import Context, Module, actions, resource
 
 GIT_COMMAND = "(git|G)"
 
@@ -77,13 +77,39 @@ mod.list("git_branches", desc="Branches in the current git repository.")
 mod.list("git_remotes", desc="Remotes in the current git repository.")
 
 
-def on_ready():
-    actions.user.zsh_register_watch_file_callback_basic(
-        "git_branches", "user.git_auto_completion", "user.git_branches"
-    )
-    actions.user.zsh_register_watch_file_callback_basic(
-        "git_remotes", "user.git_auto_completion", "user.git_remotes"
-    )
+@ctx.dynamic_list("user.git_branches")
+def users_git_branches(m) -> dict[str, str]:
+    """A dynamic list of available git branches"""
+
+    output = subprocess.check_output(
+        ("git", "branch"), cwd=actions.user.zsh_get_cwd()
+    ).decode("utf-8")
+    if not output:
+        print("no output")
+        return {}
+
+    commands = []
+    for line in output.splitlines():
+        if line.startswith("*"):
+            line = line.split("*")[1]
+        commands.append(line.strip())
+    return actions.user.create_spoken_forms_from_list(commands)
 
 
-app.register("ready", on_ready)
+@ctx.dynamic_list("user.git_remotes")
+def users_git_remotes(m) -> dict[str, str]:
+    """A dynamic list of available git branches"""
+
+    output = subprocess.check_output(
+        ("git", "remote"), cwd=actions.user.zsh_get_cwd()
+    ).decode("utf-8")
+    if not output:
+        print("no output")
+        return {}
+
+    commands = []
+    for line in output.splitlines():
+        if line.startswith("*"):
+            line = line.split("*")[1]
+        commands.append(line.strip())
+    return actions.user.create_spoken_forms_from_list(commands)
