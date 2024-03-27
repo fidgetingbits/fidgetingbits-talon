@@ -9,8 +9,13 @@ and tag: user.git
 <user.git> add (all | changed | everything):
     edit.delete_line()
     insert("git add -u\n")
+<user.git> add <user.zsh_path_completion>:
+    "git add {zsh_path_completion}\n"
+
 <user.git> bisect: "git bisect "
+
 <user.git> blame: "git blame "
+
 <user.git> branch: "git branch "
 <user.git> branch help: "git branch --help\n"
 <user.git> branch list [all]:
@@ -31,6 +36,7 @@ and tag: user.git
 <user.git> branch remote: "git branch --remote\n"
 <user.git> branch (rename | move): "git branch -m "
 <user.git> branch <user.text>: "git branch {text}"
+
 <user.git> checkout: "git checkout "
 <user.git> checkout {user.git_branches}:
     edit.paste()
@@ -51,11 +57,14 @@ and tag: user.git
     insert("git checkout ")
     edit.paste()
     key(enter)
+
 <user.git> check ignore: "git check-ignore -v "
+
 <user.git> cherry pick: "git cherry-pick "
 <user.git> cherry pick continue: "git cherry-pick --continue "
 <user.git> cherry pick (cancel|quit): "git cherry-pick --quit "
 <user.git> cherry pick skip: "git cherry-pick --skip "
+
 <user.git> clone: "git clone "
 <user.git> clone clip:
     edit.delete_line()
@@ -69,6 +78,7 @@ and tag: user.git
     edit.paste()
     key(enter)
 # Leave \n out for confirmation since the operation is destructive
+
 <user.git> clean: "git clean"
 <user.git> clean everything: "git clean -dfx"
 <user.git> clean untracked: "git clean -fd"
@@ -95,7 +105,6 @@ and tag: user.git
 <user.git> (commit|calm) amend no edit: "git commit --amend --no-edit\n"
 <user.git> (commit|calm) no verify: "git commit -n"
 <user.git> (commit|calm) existing: "git commit -a\n"
-
 # git commit automation convenience
 <user.git> (commit|calm) all {user.git_conventional_commits}:
     "git add -u\n"
@@ -104,7 +113,7 @@ and tag: user.git
 <user.git> (commit|calm) again:
     key(ctrl-r)
     "git commit\n"
-<user.git> re commit [modified | staged]:
+<user.git> re (commit|calm):
     'git status -s | grep -e "^MM" | cut -d" " -f2- | xargs git add\n'
     key(ctrl-r)
     sleep(500ms)
@@ -204,11 +213,11 @@ and tag: user.git
 <user.git> pull fast forward: "git pull --ff-only\n"
 <user.git> pull <user.text>: "git pull {} "
 
-(git|G) push: "git push\n"
-(git|G) push origin: "git push origin "
-(git|G) push up stream origin: "git push -u origin "
-(git|G) push <user.text>: "git push {} "
-(git|G) push tags: "git push --tags\n"
+<user.git> push: "git push\n"
+<user.git> push origin: "git push origin "
+<user.git> push up stream origin: "git push -u origin "
+<user.git> push <user.text>: "git push {} "
+<user.git> push tags: "git push --tags\n"
 
 <user.git> rebase: "git rebase "
 <user.git> rebase now: "git rebase\n"
@@ -359,6 +368,7 @@ get stash help: "git stash --help\n"
     insert("git diff ")
     edit.paste()
     key(enter)
+
 <user.git> add highlighted:
     edit.copy()
     insert("git add ")
@@ -368,14 +378,12 @@ get stash help: "git stash --help\n"
     insert("git add ")
     edit.paste()
     key(enter)
+
 <user.git> commit highlighted:
     edit.copy()
     insert("git add ")
     edit.paste()
     insert("\ngit commit\n")
-
-<user.git> dump completions:
-    user.git_dump_completions()
 
 # git commit automation convenience
 <user.git> calm flake:
