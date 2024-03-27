@@ -134,19 +134,25 @@ and tag: user.git
 
 <user.git> fetch prune: "git fetch --prune\n"
 <user.git> fetch all: "git fetch --all\n"
-<user.git> garbage collect aggressive: "git gc --aggressive"
 <user.git> fetch upstream: "git fetch upstream\n"
 <user.git> fetch (pull | P R) <number>: "git fetch origin pull/{number}/head:"
 <user.git> fetch upstream (pull | P R) <number>: "git fetch upstream pull/{number}/head:"
+
 #git fetch <user.text>: "git fetch {text}"
 <user.git> filter branch: "git filter-branch --subdirectory-filter"
+
+<user.git> garbage collect aggressive: "git gc --aggressive"
+
 <user.git> ignore changes: "git update-index --assume-unchanged "
+
 <user.git> in it: "git init\n"
+
 <user.git> list files: "git ls-files\n"
 <user.git> list modified: "git ls-files -m\n"
 <user.git> list tracked {user.git_branches}: "git ls-files -r git_branches --name-only\n"
 <user.git> list ignored: "git ls-files . --ignored --exclude-standard --others\n"
 <user.git> list untracked: "git ls-files . --ignored --exclude-standard --others\n"
+
 <user.git> show hook folder: "git rev-parse --git-path hooks\n"
 
 <user.git> log all: "git log\n"
@@ -167,8 +173,6 @@ and tag: user.git
 <user.git> log clip:
     insert("git log -1 -c ")
     edit.paste()
-
-
 # diff-filter
 #--diff-filter=[(A|C|D|M|R|T|U|X|B)…​[*]]
 #
@@ -185,15 +189,12 @@ and tag: user.git
 
 <user.git> merge base: "git merge-base "
 <user.git> merge base {user.git_branches}: "git merge-base {git_branches} HEAD"
-
 <user.git> merge (cancel|quit): "git merge --quit\n"
-
 <user.git> merge pull request: user.insert_between("git pull origin pull/", "/head:")
 <user.git> merge pull request <number>: "git pull origin pull/{number}/head:"
 <user.git> merge upstream pull request:
     user.insert_between("git pull upstream pull/", "/head:")
 <user.git> merge upstream pull request <number>: "git pull upstream pull/{number}/head:"
-
 <user.git> merge: "git merge "
 <user.git> merge {user.git_branches}: "git merge {git_branches}"
 <user.git> merge ours: "git merge -X ours "
@@ -202,8 +203,11 @@ and tag: user.git
     insert("git merge ")
     edit.paste()
 <user.git> merge tool: "git mergetool\n"
+
 <user.git> move: "git mv "
+
 <user.git> new branch: "git checkout -b "
+
 <user.git> prune: "git prune"
 <user.git> remote prune origin: "git remote prune origin\n"
 
@@ -234,10 +238,14 @@ and tag: user.git
 <user.git> rebase continue: "GIT_EDITOR=true git rebase --continue\n"
 <user.git> rebase continue edit: "git rebase --continue\n"
 <user.git> rebase skip: "git rebase --skip"
-<user.git> remove: "git rm "
+
+<user.git_remotes> remove [<user.zsh_path_completion>]:
+    insert("git rm ")
+    insert(zsh_path_completion or "")
 <user.git> remove cached: "git rm --cached"
 <user.git> (remove | delete) remote branch: "git push --delete origin "
 <user.git> remove remote origin: "git remote rm origin"
+
 <user.git> reset: "git reset "
 <user.git> reset soft: "git reset --soft "
 <user.git> reset soft head: "git reset --soft HEAD~1"
@@ -247,22 +255,31 @@ and tag: user.git
 # FIXME: See about a way to do something stash-equivalent so we don't really just lose everything
 # git reset hard head: "git reset --hard HEAD~1"
  #git reset hard head <number_small>: "git reset --hard HEAD~{number_small}"
-
 # These two are useful for mass commit squashing
 <user.git> reset [merge] base {user.git_branches}: "git reset --soft $(git merge-base {git_branches} HEAD)"
 
 
-<user.git> restore: "git restore "
+<user.git> restore: "git "
+<user.git>restore [<user.zsh_path_completion>]:
+    insert("git restore ")
+    insert(zsh_path_completion or "")
+<user.git> restore staged: "git restore --staged "
+<user.git> restore staged [<user.zsh_path_completion>]:
+    insert("git restore --staged ")
+    insert(zsh_path_completion or "")
 # Purposefully no \n because it is destructive
 <user.git> restore all: "git restore --source=HEAD :/"
-<user.git> restore staged: "git restore --staged "
 get restore staged all: "git restore --staged :/\n"
 <user.git> restore source: "git restore --source="
 # This allows you to remove file(s) from HEAD^ and then git commit --amend
 <user.git> restore commited file:  "git restore -s@^ -S -- "
 get remote set origin: "git remote set-url origin "
+
 <user.git> remote: "git remote "
-<user.git> remote add: "git remote add "
+<user.git> remote add [<user.git_remotes>]:
+    insert("git remote add ")
+    insert(git_remotes or "")
+# FIXME: Confirm these aren't needed after using the above action
 <user.git> remote add origin: "git remote add origin "
 <user.git> remote add upstream: "git remote add upstream "
 <user.git> remote list: "git remote -v\n"
@@ -270,10 +287,12 @@ get remote set origin: "git remote set-url origin "
 <user.git> remote remove: "git remote remove "
 <user.git> remote rename: "git remote rename "
 <user.git> [remote] show [remote] origin: "git remote show origin\n"
+
 <user.git> revert: "git revert "
 <user.git> revert clip:
     insert("git revert ")
     edit.paste()
+
 <user.git> show: "git show "
 <user.git> show clip:
     insert("git show ")
@@ -300,9 +319,9 @@ get stash help: "git stash --help\n"
 <user.git> stash list: "git stash list\n"
 <user.git> stash show: "git stash show"
 
-(git status|G stat): "git status --untracked-files=no\n"
-(git status|G stat) (all | full | everything): "git status\n"
-(git status|G stat) staged: "git status --short | grep '^[MARCD]'\n"
+<user.git> (status|stat): "git status --untracked-files=no\n"
+<user.git> (status|stat) (all | full | everything): "git status\n"
+<user.git> (status|stat) staged: "git status --short | grep '^[MARCD]'\n"
 
 <user.git> sub tree: "git subtree "
 <user.git> switch: "git switch "
