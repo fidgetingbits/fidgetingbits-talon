@@ -100,7 +100,6 @@ def _garbage_collect():
 
     global tracked_contexts
     pid_list = [x.pid for x in tracked_contexts]
-    print(pid_list)
     if app.platform == "linux" or app.platform == "mac":
         clean_up = find_dead_processes(pid_list)
     else:
