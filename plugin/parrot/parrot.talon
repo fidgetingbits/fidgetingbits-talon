@@ -1,8 +1,8 @@
 # parrot(tut):
     # app.notify("tut")
 
-parrot(side_click):
-    user.mouse_toggle_control_mouse()
+# parrot(side_click):
+#     user.mouse_toggle_control_mouse()
 #    app.notify("side_click")
 
 toggle mouse:
