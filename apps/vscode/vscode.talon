@@ -459,24 +459,26 @@ test cancel: user.vscode("testing.cancelRun")
 # Debugging
 #
 break point: user.vscode("editor.debug.action.toggleBreakpoint")
-[debug] step over: user.vscode("workbench.action.debug.stepOver")
-debug step into: user.vscode("workbench.action.debug.stepInto")
-debug step out [of]: user.vscode("workbench.action.debug.stepOut")
-debug start: user.vscode("workbench.action.debug.start")
-debug pause: user.vscode("workbench.action.debug.pause")
-debug stop: user.vscode("workbench.action.debug.stop")
-debug continue: user.vscode("workbench.action.debug.continue")
-debug restart: user.vscode("workbench.action.debug.restart")
-debug console: user.vscode("workbench.debug.action.toggleRepl")
-debug clean: user.vscode("workbench.debug.panel.action.clearReplAction")
+[(debug|bug)] step over: user.vscode("workbench.action.debug.stepOver")
+[(debug|bug)] step into: user.vscode("workbench.action.debug.stepInto")
+(debug|bug) step out [of]: user.vscode("workbench.action.debug.stepOut")
+(debug|bug) start: user.vscode("workbench.action.debug.start")
+(debug|bug) pause: user.vscode("workbench.action.debug.pause")
+(debug|bug) stop: user.vscode("workbench.action.debug.stop")
+(debug|bug) continue: user.vscode("workbench.action.debug.continue")
+(debug|bug) restart: user.vscode("workbench.action.debug.restart")
+(debug|bug) console: user.vscode("workbench.debug.action.toggleRepl")
+(debug|bug) clean: user.vscode("workbench.debug.panel.action.clearReplAction")
 # Select specific run config
-debug run config: user.vscode("workbench.action.debug.selectandstart")
+(debug|bug) run config: user.vscode("workbench.action.debug.selectandstart")
 
-debug attach node first:
+debug node:
     user.vscode("extension.pwa-node-debug.attachNodeProcess")
     sleep(150ms)
     key(down)
     key(enter)
+    sleep(1s)
+    user.vscode("workbench.action.debug.continue")
 
 #
 # Terminal
