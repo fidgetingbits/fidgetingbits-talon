@@ -38,14 +38,20 @@ FILE_LIMIT = 100
 
 def _find_items_in_current_path(type: str) -> dict[str, str]:
     # grab any items of requested type
+    # NOTE: Don't use -printf below because it doesn't work on Darwin
     ps = subprocess.Popen(
         [
-            f"find $PWD -maxdepth 1 -type {type} -not -path '*/\\.*' -not -path '\\.' -printf '%f\\n'"
+            f"bash -c \"find $PWD -maxdepth 1 -type {type} -not -path '*/\\.*' -not -path '\\.' -exec basename {{}} \\; -exec echo \\; \""
         ],
         stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
         cwd=actions.user.zsh_get_cwd(),
         shell=True,
     )
+    cmd_error = ps.stderr.read()
+    if len(cmd_error) > 0:
+        print(f"Error running find command: {cmd_error}")
+        return {}
     results = subprocess.check_output(
         [f"head -n {FILE_LIMIT}"], stdin=ps.stdout, shell=True
     ).decode("utf-8")
@@ -139,7 +145,11 @@ def _get_zsh_cwd(title):
         # remove the trailing part after the path
         cwd = cwd.split("(term")[0]
         # resolve any ~
-        return pathlib.Path(cwd.strip()).expanduser()
+        cwd = pathlib.Path(cwd.strip()).expanduser()
+        if cwd.exists():
+            return cwd
+        else:
+            print(f"zsh.py _get_zsh_cwd() extracted cwd does not exist: {cwd}")
     except Exception as e:
         print(f"zsh.py _get_zsh_cwd() failed to extract cwd from {title}: {e}")
 
