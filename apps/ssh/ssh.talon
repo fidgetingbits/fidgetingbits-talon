@@ -10,6 +10,7 @@ ssh dump hosts: user.ssh_dump_hosts_list()
 #    insert(text or "")
 # tunnel {user.ssh_hosts}: insert("ssh {ssh_hosts}\n")
 tunnel [to|host] {user.ssh_hosts}: insert("ssh {ssh_hosts}")
+tunnel no (pass|password) {user.ssh_hosts}: insert("ssh -o PreferredAuthentications=publickey {ssh_hosts}")
 tunnel last:
     key(ctrl-r)
     sleep(500ms)
@@ -43,3 +44,9 @@ go secure shell config: "cd ~/.ssh\n"
 tunnel (pop | terminate): key(enter ~ .)
 
 tunnel key copy {user.ssh_keys} [{user.ssh_hosts}]: "ssh-copy-id -i {ssh_keys} {ssh_hosts or ''}"
+
+tunnel control check {user.ssh_keys}: "ssh -O check {ssh_hosts or ''}"
+tunnel control exit {user.ssh_keys}: "ssh -O exit {ssh_hosts or ''}"
+tunnel control stop {user.ssh_keys}: "ssh -O stop {ssh_hosts or ''}"
+tunnel control cancel {user.ssh_keys}: "ssh -O cancel {ssh_hosts or ''}"
+tunnel control forward {user.ssh_keys}: "ssh -O forward {ssh_hosts or ''}"
