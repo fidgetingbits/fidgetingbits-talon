@@ -26,15 +26,17 @@ nix store query dependencies: "nix-store --query --references "
 nix build help: "nix-build --help\n"
 nix build: "nix-build "
 nix build standard: "nix-build '<nixpkgs>' -A "
-nix build with paths:
-    user.insert_between("nix build nixpkgs#", "--print-out-paths --no-link")
 nix build local package:
     "nix-build -E 'with import <nixpkgs> {{}}; pkgs.callPackage ./default.nix {{}}'"
+
+nix build with paths:
+    user.insert_between("nix build nixpkgs#", "--print-out-paths --no-link")
 
 # Flake build commands
 nix three build: "nix build "
 nix three build now: "nix build .\n"
 nix three build log: "nix build -L "
+nix three build impure: "nix build --impure "
 nix three build with paths:
     user.insert_between("nix build nixpkgs#", "--print-out-paths --no-link")
 nix three build debug: " nix build --verbose --debug --print-build-logs\n"
