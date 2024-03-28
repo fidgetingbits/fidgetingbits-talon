@@ -5,7 +5,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 from uuid import uuid4
-
+from tempfile import gettempdir
 from talon import Context, Module, actions, app, speech_system
 
 # How old a request file needs to be before we declare it stale and are willing
@@ -137,6 +137,7 @@ def run_command(
     # variable argument lists
     args = [x for x in args if x is not NotSet]
 
+
     communication_dir_path = get_communication_dir_path()
 
     if not communication_dir_path.exists():
@@ -205,11 +206,18 @@ command_server_directory = None
 
 # NB: See https://github.com/talonhub/community/issues/966 for why we do OS-specific temp dirs
 def get_platform_specific_communication_dir_path():
-    home_dir = Path(os.path.expanduser("~"))
+    home_dir = Path.home()
     if app.platform == "linux" or app.platform == "mac":
-        return (
-            Path(home_dir) / f".talon/.comms/{actions.user.command_server_directory()}"
-        )
+        if actions.win.title().startswith("VIM"):
+            suffix = f"-{os.getuid()}"
+            path = Path(gettempdir()) / f"{actions.user.command_server_directory()}{suffix}"
+            print("Using vim temp dir:", path)
+            return path
+        else:
+            path = Path(home_dir) / f".talon/.comms/{actions.user.command_server_directory()}"
+            print("Using vscode temp dir:", path)
+            return path
+
     elif app.platform == "windows":
         # subprocess.run(["attrib","+H","myfile.txt"],check=True)
         return Path(
@@ -224,9 +232,9 @@ def get_communication_dir_path():
     Returns:
         Path: The path to the communication dir
     """
-    global command_server_directory
-    if command_server_directory is None:
-        command_server_directory = get_platform_specific_communication_dir_path()
+    # NOTE: Don't use global to allow neovim/vscode to coexist
+    command_server_directory = get_platform_specific_communication_dir_path()
+    print("Using command server directory:", command_server_directory)
     return command_server_directory
 
 
