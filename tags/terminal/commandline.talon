@@ -185,8 +185,8 @@ file find excluding:
 file (move | rename): "mv "
 file move files: user.insert_between("find . -maxdepth 1 -type f -exec mv {} ", " \\;")
 file P D F: "evince "
-file touch: "touch "
-[file] (touch | create) {user.common_files}: "touch {common_files}\n"
+file (touch|new): "touch "
+[file] (touch | create|new) {user.common_files}: "touch {common_files}\n"
 # TODO: This should also include the names of files in the current folder
 file name (<user.zsh_file_completion> | {user.common_files}):
     file = zsh_file_completion or common_files
