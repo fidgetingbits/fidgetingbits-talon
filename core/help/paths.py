@@ -14,6 +14,12 @@ ctx = Context()
 
 TALON_REPO = "fidgetingbits-talon"
 
+neovim_folder_paths = {
+    "vim sessions": "~/.config/nvim/sessions/",
+}
+neovim_file_paths = {
+    "R plugins": "~/.config/nvim/rplugins.vim",
+}
 nix_folder_paths = {
     # nix
     "nix profile": "~/.nix-profile/",
@@ -228,14 +234,14 @@ windows_paths = {
 }
 
 if app.platform == "mac":
-    folder_paths = {**unix_folder_paths, **nix_folder_paths, **mac_folder_paths}
-    file_paths = {**unix_file_paths, **mac_file_paths}
+    folder_paths = {**unix_folder_paths, **nix_folder_paths, **mac_folder_paths, **neovim_folder_paths}
+    file_paths = {**unix_file_paths, **mac_file_paths, **neovim_file_paths}
 elif app.platform == "windows":
     # FIXME: This should probably have something like wsl awareness
     folder_paths = {**windows_paths}
 elif app.platform == "linux":
-    folder_paths = {**unix_folder_paths, **nix_folder_paths, **linux_folder_paths}
-    file_paths = {**unix_file_paths, **linux_file_paths, **arch_linux_file_paths}
+    folder_paths = {**unix_folder_paths, **nix_folder_paths, **linux_folder_paths, **arch_linux_folder_paths, **neovim_folder_paths}
+    file_paths = {**unix_file_paths, **linux_file_paths, **arch_linux_file_paths, **neovim_file_paths}
 else:
     folder_paths = {**unix_folder_paths, **nix_folder_paths}
     file_paths = {**unix_file_paths}
