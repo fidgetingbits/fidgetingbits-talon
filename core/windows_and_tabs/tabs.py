@@ -43,3 +43,7 @@ class tab_actions:
 
     def tab_rename(name: str):
         """Rename the current tab"""
+
+    def tab_name_format():
+        """Formatters for tab names in given app"""
+        return "ALL_CAPS,DASH_SEPARATED"
