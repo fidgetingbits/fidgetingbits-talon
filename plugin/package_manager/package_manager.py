@@ -146,11 +146,11 @@ class PackageManagerActions:
             default_packager = default_packager[14:]
 
         if settings.get("user.package_manager_pinning", False):
-            actions.user.pin_tag(f"user.{default_packager}", "package_manager")
+            actions.user.pin_tag(f"user.packager_{default_packager}", "package_manager")
         else:
             global current_packager
             current_packager = default_packager
-            ctx.tags = [f"user.{current_packager}"]
+            ctx.tags = [f"user.packager_{current_packager}"]
             app.notify(f"Package manager set to {current_packager}")
 
     def package_manager_set(packager: str):
