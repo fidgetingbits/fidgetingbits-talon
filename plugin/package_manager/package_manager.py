@@ -5,7 +5,7 @@ ctx = Context()
 ctx.matches = r"""
 tag: user.package_manager
 """
-pinned_contexts = []
+
 mod.setting(
     "package_manager_default",
     type=str,
@@ -185,7 +185,7 @@ def on_ready():
 
 
 def win_title(window):
-    global last_titlei
+
     # FIXME: Eventually this should just be any terminal and we pull out the pid even if it's not zsh, but need to test
     if "user.zsh" not in registry.tags:
         return
