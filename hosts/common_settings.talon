@@ -175,6 +175,7 @@ settings():
     user.justfile_auto_completion = false
     user.git_auto_completion = false
     user.package_manager_pinning = true
+    user.path_manager_pinning = true
 
 # uncomment tag to enable mouse grid
 # tag(): user.mouse_grid_enabled
