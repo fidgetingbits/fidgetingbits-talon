@@ -240,7 +240,7 @@ and tag: user.git
 <user.git> rebase continue edit: "git rebase --continue\n"
 <user.git> rebase skip: "git rebase --skip"
 
-<user.git_remotes> remove [<user.zsh_path_completion>]:
+<user.git> remove [<user.zsh_path_completion>]:
     insert("git rm ")
     insert(zsh_path_completion or "")
 <user.git> remove cached: "git rm --cached"
@@ -261,7 +261,7 @@ and tag: user.git
 
 
 <user.git> restore: "git "
-<user.git>restore [<user.zsh_path_completion>]:
+<user.git> restore [<user.zsh_path_completion>]:
     insert("git restore ")
     insert(zsh_path_completion or "")
 <user.git> restore staged: "git restore --staged "
@@ -277,17 +277,20 @@ get restore staged all: "git restore --staged :/\n"
 get remote set origin: "git remote set-url origin "
 
 <user.git> remote: "git remote "
-<user.git> remote add [<user.git_remotes>]:
+<user.git> remote add [{user.git_remotes}]:
     insert("git remote add ")
     insert(git_remotes or "")
-# FIXME: Confirm these aren't needed after using the above action
 <user.git> remote add origin: "git remote add origin "
 <user.git> remote add upstream: "git remote add upstream "
 <user.git> remote list: "git remote -v\n"
 <user.git> remote set url: "git remote set-url "
-<user.git> remote remove: "git remote remove "
-<user.git> remote rename: "git remote rename "
-<user.git> [remote] show [remote] origin: "git remote show origin\n"
+<user.git> remote remove [{user.git_remotes}]:
+    insert("git remote remove ")
+    insert(git_remotes or "")
+<user.git> remote rename [{user.git_remotes}]:
+    insert("git remote rename ")
+    insert(git_remotes or "")
+<user.git> [remote] show [remote] {user.git_remotes}: "git remote show {git_remotes}\n"
 
 <user.git> revert: "git revert "
 <user.git> revert clip:

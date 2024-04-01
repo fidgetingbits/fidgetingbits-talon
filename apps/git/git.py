@@ -97,7 +97,7 @@ def users_git_branches(m) -> dict[str, str]:
 
 
 @ctx.dynamic_list("user.git_remotes")
-def users_git_remotes(m) -> dict[str, str]:
+def user_git_remotes(m) -> dict[str, str]:
     """A dynamic list of available git branches"""
 
     output = subprocess.check_output(
