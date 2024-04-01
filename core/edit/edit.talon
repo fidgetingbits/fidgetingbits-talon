@@ -3,10 +3,10 @@
 # VIM uses find for line searching
 # XXX - is a good chance this conflicts with other grammars from certain
 # applications
-search:
+scout:
     edit.find()
 
-next one:
+scout next:
     edit.find_next()
 
 find <user.unmodified_key>:
@@ -33,56 +33,44 @@ go (up | north):
 go (down | south):
     edit.down()
 
-go (line start | head):
+pre line:
     edit.line_start()
 
-go (line end | tail):
+post line:
     edit.line_end()
 
-go way left:
-    edit.line_start()
-
-go way right:
-    edit.line_end()
-
-go way down:
-    edit.file_end()
-
-go way up:
+pre file:
     edit.file_start()
 
-go bottom:
+post file:
     edit.file_end()
-
-go top:
-    edit.file_start()
 
 scroll:
     edit.page_down()
 
-(go page up | punk):
+punk:
     edit.page_up()
 
 # selecting
-select line:
+take line:
     edit.select_line()
 
-(select | take) all:
+take all:
     edit.select_all()
 
-select left:
+extend left:
     edit.extend_left()
 
-select right:
+extend right:
     edit.extend_right()
 
-select (up | north):
+extend (up | north):
     edit.extend_line_up()
 
-select (down | south):
+extend (down | south):
     edit.extend_line_down()
 
-select word:
+take (this|token):
     edit.select_word()
 
 select word left:
@@ -91,16 +79,16 @@ select word left:
 select word right:
     edit.extend_word_right()
 
-select (way left | bend):
+take head life:
     edit.extend_line_start()
 
-select (way right | lend):
+take tail line:
     edit.extend_line_end()
 
-select (way up | loft):
+take head file:
     edit.extend_file_start()
 
-select (way down | gut):
+take tail file:
     edit.extend_file_end()
 
 # editing
@@ -111,14 +99,8 @@ de dent:
     edit.indent_less()
 
 # deleting
-clear line:
+chuck line:
     edit.delete_line()
-
-clear left:
-    key(backspace)
-
-clear right:
-    key(delete)
 
 clear up:
     edit.extend_line_up()
@@ -128,34 +110,34 @@ clear down:
     edit.extend_line_down()
     edit.delete()
 
-#clear word:
-#    edit.delete_word()
+chuck (this|token):
+    edit.delete_word()
 
-(clear word left | clear back):
+chuck head (this|token):
     user.delete_word_left()
 
-clear word [right]:
+chuck tail (this|token):
     user.delete_word_right()
 
-(clear way left | clear bend):
+chuck head:
     user.delete_line_beginning()
 
-(clear way right | clear lend):
+chuck tail:
     user.delete_line_remaining()
 
-clear way up:
+chuck head file:
     edit.extend_file_start()
     edit.delete()
 
-clear way down:
+chuck tail file:
     edit.extend_file_end()
     edit.delete()
 
-#clear all:
-#    edit.select_all()
-#    edit.delete()
+chuck all:
+   edit.select_all()
+   edit.delete()
 
-copy that:
+copy this:
     edit.copy()
 #copy commands
 copy all:
@@ -214,33 +196,30 @@ paste match: edit.paste_match_style()
 
 
 # duplication
-clone that:
+clone this:
     edit.selection_clone()
 clone line:
     edit.line_clone()
 
 
-slap: key(enter)
+slap:
+    edit.line_end()
+    key(enter)
+
 parrot(side_click):
     app.notify("side_click")
     key(enter)
-
-# XXX - block alone conflicts with vim key words
-add code block:
-    insert("{}")
-    key(left enter enter up tab)
 
 zoom in: edit.zoom_in()
 zoom out: edit.zoom_out()
 zoom reset: edit.zoom_reset()
 (page | scroll) up: key(pgup)
 (page | scroll) down: key(pgdown)
-file save: edit.save()
+(file save|disk): edit.save()
+(file save all|disk all): edit.save_all()
 
 (undo that | nope | scratcher): edit.undo()
 (redo that | yes indeed): edit.redo()
-disk: edit.save()
-disk oliver: edit.save_all()
 
 # XXX - should be part of some networking thing
 link web: "https://"
@@ -272,4 +251,4 @@ shrink [<number>] right: user.shrink_right(number or 1)
 curse swap: user.swap_cursor_anchor()
 
 # This syntax breaks the talon formatter
-talon format test: key(")")
+# talon format test: key(")")
