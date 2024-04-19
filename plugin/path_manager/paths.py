@@ -137,6 +137,7 @@ unix_folder_paths = {
     "var web": "/var/www/",
     "code extensions": "~/.vscode/extensions/",
     "talon completions": "$XDG_RUNTIME_DIR/talon/cache/completions/",
+    "qemu images": "/var/lib/libvirt/images/"
 }
 
 mac_folder_paths = {}

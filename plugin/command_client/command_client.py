@@ -137,7 +137,6 @@ def run_command(
     # variable argument lists
     args = [x for x in args if x is not NotSet]
 
-
     communication_dir_path = get_communication_dir_path()
 
     if not communication_dir_path.exists():
@@ -210,12 +209,18 @@ def get_platform_specific_communication_dir_path():
     if app.platform == "linux" or app.platform == "mac":
         if actions.win.title().startswith("VIM"):
             suffix = f"-{os.getuid()}"
-            path = Path(gettempdir()) / f"{actions.user.command_server_directory()}{suffix}"
-            print("Using vim temp dir:", path)
+            path = (
+                Path(gettempdir())
+                / f"{actions.user.command_server_directory()}{suffix}"
+            )
+           # print("Using vim temp dir:", path)
             return path
         else:
-            path = Path(home_dir) / f".talon/.comms/{actions.user.command_server_directory()}"
-            print("Using vscode temp dir:", path)
+            path = (
+                Path(home_dir)
+                / f".talon/.comms/{actions.user.command_server_directory()}"
+            )
+           # print("Using vscode temp dir:", path)
             return path
 
     elif app.platform == "windows":
@@ -234,7 +239,7 @@ def get_communication_dir_path():
     """
     # NOTE: Don't use global to allow neovim/vscode to coexist
     command_server_directory = get_platform_specific_communication_dir_path()
-    print("Using command server directory:", command_server_directory)
+    #print("Using command server directory:", command_server_directory)
     return command_server_directory
 
 
