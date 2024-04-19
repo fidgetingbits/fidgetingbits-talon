@@ -1,8 +1,6 @@
 # NOTE: these are command line commands, not shell-specific bindings
 # see shell.talon for shell-specific keybindings
-os: linux
-and tag: terminal
-os: mac
+not os: windows
 and tag: terminal
 -
 
@@ -52,6 +50,9 @@ tag(): user.aws_cli
 tag(): user.s3fs
 tag(): user.direnv
 tag(): user.ykman
+tag(): user.btrfs
+tag(): user.qcow2
+
 
 # Shell commands
 
@@ -508,23 +509,6 @@ so do edit <user.paths>: "sudoedit {paths}\n"
 
 run d message: "sudo dmesg --color --reltime\n"
 run d message samba: "sudo dmesg --color --reltime | rg CIFS\n"
-
-# disk management
-# NOTE - talon doesn't like the word disk with on MD431-II
-(disk | drive) (usage | space): "df -h\n"
-(disk | drive) list: "lsblk\n"
-(disk | drive) file systems: "lsblk -f\n"
-(disk | drive) mounted: "mount\n"
-(disk | drive) mount: "mount "
-(disk | drive) mount list: "mount | rg '^/'\n"
-(disk | drive) mount list fuse: "mount | rg fuse\n"
-(disk | drive) mount list all: "mount\n"
-(disk | drive) (unmount | U mount): "umount "
-
-(disk | drive) F stab: "cat /etc/fstab\n"
-(disk | drive) remount temp (exec | executable): "mount /tmp -o remount,exec"
-
-
 
 # tar extraction
 # TODO: Should add the version with zsh completion

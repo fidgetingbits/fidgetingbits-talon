@@ -12,6 +12,7 @@ OPERATOR = "put"
 DELETE = "chuck"
 FIND = "hunt"
 SHOW_LIST = "list"
+DRIVE = "drive"
 # FIXME: Maybe move this elsewhere.. used for cd in terminal
 GO = "(go|pivot)"
 
@@ -55,4 +56,10 @@ def show_list(m) -> str:
 @mod.capture(rule=GO)
 def go(m) -> str:
     """Verb to use for commands that go to some location"""
+    return str(m)
+
+
+@mod.capture(rule=DRIVE)
+def drive(m) -> str:
+    """Verb to use for commands that deal with disks/drives"""
     return str(m)

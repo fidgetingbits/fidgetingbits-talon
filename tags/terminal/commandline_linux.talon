@@ -59,8 +59,7 @@ net [dev | device] down: user.insert_between("ip link set dev ", " down")
 
 
 
-(disk | drive) key dump: "sudo cryptsetup luksDump /dev/"
-(disk | drive) key add: "sudo cryptsetup luksAddKey --key-slot "
+
 
 file change attributes: "chattr "
 (file | folder) make immutable: "chattr +i "
@@ -223,3 +222,7 @@ D N S cache flush: "sudo systemd-resolve --flush-caches\n"
 
 # Useful for something like /proc/<pid>/environ
 file show zero delimited: "xargs -0 -L1 -a"
+
+
+# UEFI Stuff
+boot cuddle status: "bootctl status --no-pager\n"
