@@ -50,3 +50,7 @@ tunnel control exit {user.ssh_keys}: "ssh -O exit {ssh_hosts or ''}"
 tunnel control stop {user.ssh_keys}: "ssh -O stop {ssh_hosts or ''}"
 tunnel control cancel {user.ssh_keys}: "ssh -O cancel {ssh_hosts or ''}"
 tunnel control forward {user.ssh_keys}: "ssh -O forward {ssh_hosts or ''}"
+
+# FIXME: Add an option with ssh hosts to target
+tunnel (gen|generate) age key:
+    user.insert_between("nix shell nixpkgs#ssh-to-age.out -c sh -c 'ssh-keyscan -p 10022 -t ssh-ed25519 ", " 2>&1 | rg ssh-ed25519 | cut -f2- -d\" \" | ssh-to-age'")
