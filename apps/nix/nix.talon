@@ -86,3 +86,12 @@ nix flake check all: "nix flake check --all-systems\n"
 nix export packages: "export NIXPKGS=$PWD"
 nix search local: "nix-env -f $NIXPKGS -qaP '*'"
 nix build local: "nix-build $NIXPKGS -A "
+
+# NixOS Installation Commands
+nix O S enter: "nixos-enter\n"
+
+nix shell with:
+    "nix shell nixpkgs#"
+
+nix shell command with:
+    user.insert_between("nix shell nixpkgs#", " --command ")
