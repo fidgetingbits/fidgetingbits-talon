@@ -63,6 +63,8 @@ tagList = [
     "s3fs",  # amazon aws s3 bucket mounting
     "direnv",  # direnv commands
     "ykman",  # yubikey manager commands
+    "btrfs",  # btrfs filesystem commands
+    "qcow2", # qemu qcow2 image commands
 ]
 
 for entry in tagList:
