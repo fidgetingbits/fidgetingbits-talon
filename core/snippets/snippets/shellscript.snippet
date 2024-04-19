@@ -17,7 +17,7 @@ fi
 ---
 
 name: shellIfNodeExists
-phrase: if node exists
+phrase: if exists
 insertionScope: statement
 -
 if [ -e "$1" ]; then
@@ -26,7 +26,7 @@ fi
 ---
 
 name: shellIfNodeNotExists
-phrase: if node not exists
+phrase: if not exists
 insertionScope: statement
 -
 if [ ! -e "$1" ]; then
@@ -53,7 +53,7 @@ fi
 ---
 
 name: shellIfDirExists
-phrase: if dir exists
+phrase: if folder exists
 insertionScope: statement
 -
 if [ -d "$1" ]; then
@@ -62,7 +62,7 @@ fi
 ---
 
 name: shellIfDirNotExists
-phrase: if dir not exists
+phrase: if folder not exists
 insertionScope: statement
 -
 if [ ! -d "$1" ]; then
