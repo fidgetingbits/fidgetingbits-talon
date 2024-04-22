@@ -5,8 +5,6 @@ settings():
     # gnome-terminal
     user.terminal_app = "terminal"
     user.package_manager_default = "nix"
-
-settings():
     ###
     # GUI
     ###
