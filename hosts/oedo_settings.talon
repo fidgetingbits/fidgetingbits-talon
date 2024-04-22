@@ -7,3 +7,4 @@ settings():
     user.package_manager_default = "nix"
 
 # tag(): user.i3wm
+tag(): user.gnome-shell
