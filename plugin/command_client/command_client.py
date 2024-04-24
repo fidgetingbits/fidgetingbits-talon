@@ -213,14 +213,14 @@ def get_platform_specific_communication_dir_path():
                 Path(gettempdir())
                 / f"{actions.user.command_server_directory()}{suffix}"
             )
-           # print("Using vim temp dir:", path)
+            # print("Using vim temp dir:", path)
             return path
         else:
             path = (
                 Path(home_dir)
                 / f".talon/.comms/{actions.user.command_server_directory()}"
             )
-           # print("Using vscode temp dir:", path)
+            # print("Using vscode temp dir:", path)
             return path
 
     elif app.platform == "windows":
@@ -239,7 +239,7 @@ def get_communication_dir_path():
     """
     # NOTE: Don't use global to allow neovim/vscode to coexist
     command_server_directory = get_platform_specific_communication_dir_path()
-    #print("Using command server directory:", command_server_directory)
+    # print("Using command server directory:", command_server_directory)
     return command_server_directory
 
 
