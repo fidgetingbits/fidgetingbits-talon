@@ -43,16 +43,15 @@ last_title = None
 
 @mod.action_class
 class PathManagerActions:
-
     def path_manager_reset():
         """Resets the current path to the operating system's default"""
-        if settings.get("user.package_manager_pinning", False):
+        if settings.get("user.path_manager_pinning", False):
             actions.user.pin_tag(f"user.{default_path_os}", "path_manager")
         else:
             global current_os_version
             current_os_version = default_path_os
             ctx.tags = [f"user.{current_os_version}"]
-            app.notify(f"Package manager set to {current_os_version}")
+            app.notify(f"Path manager set to {current_os_version}")
 
     def path_manager_set(path_os: str):
         """Set the path manager to the specified path_os"""
@@ -90,9 +89,10 @@ def win_title(window):
     # if "user.zsh" not in registry.tags:
     #     return
     global last_title
-    if window == ui.active_window() and window.title != last_title:
-        last_title = window.title
-        actions.user.path_manager_reset()
+    if settings.get("user.path_manager_pinning", False):
+        if window == ui.active_window() and window.title != last_title:
+            last_title = window.title
+            actions.user.path_manager_reset()
 
 
 app.register("ready", on_ready)

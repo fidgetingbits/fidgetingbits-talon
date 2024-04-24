@@ -132,7 +132,9 @@ def _get_zsh_pid(title):
         pid = int(title.split("term://")[1].split(":")[0].split("/")[-1])
         return pid
     except Exception as e:
-        print(f"zsh.py _get_zsh_pid() failed to extract pid from {title}: {e}")
+        # FIXME:
+        # print(f"zsh.py _get_zsh_pid() failed to extract pid from {title}: {e}")
+        pass
 
 
 def _get_zsh_cwd(title):
