@@ -52,7 +52,7 @@ tag(): user.direnv
 tag(): user.ykman
 tag(): user.btrfs
 tag(): user.qcow2
-
+tag(): user.borg
 
 # Shell commands
 
@@ -819,3 +819,5 @@ repo sync: "update-core-repos\n"
 draw extract [<user.zsh_file_completion>]:
     insert("drawio-export-all.py ")
     insert(zsh_file_completion or "")
+
+folder make temp: "mktemp -d\n"

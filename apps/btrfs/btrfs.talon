@@ -8,3 +8,6 @@ butter [sub] volume list clip:
     key(enter)
 butter [sub] volume delete: "btrfs subvolume delete "
 butter [sub] volume create: "btrfs subvolume create "
+
+butter [sub] volume snapshot: "btrfs subvolume snapshot "
+butter [sub] volume find new: "btrfs subvolume find-new "

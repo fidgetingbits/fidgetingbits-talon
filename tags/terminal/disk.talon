@@ -23,3 +23,6 @@ swap make: "mkswap "
 <user.drive> key dump: "sudo cryptsetup luksDump /dev/"
 <user.drive> key add: "sudo cryptsetup luksAddKey --key-slot "
 <user.drive> enroll pass key: "sudo systemd-cryptenroll --fido2-device auto /dev/"
+
+# FIXME: abstract this to use per-device paths
+<user.drive> mount nix volume: "sudo mount /dev/mapper/encrypted-nixos"

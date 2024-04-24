@@ -65,6 +65,7 @@ tagList = [
     "ykman",  # yubikey manager commands
     "btrfs",  # btrfs filesystem commands
     "qcow2", # qemu qcow2 image commands
+    "borg",  # borg backup commands
 ]
 
 for entry in tagList:

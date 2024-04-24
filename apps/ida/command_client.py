@@ -386,7 +386,7 @@ def get_signal_path(name: str) -> Path:
         Path: The signal path
     """
     communication_dir_path = get_communication_dir_path()
-    print(communication_dir_path)
+    # print(communication_dir_path)
 
     if not communication_dir_path.exists():
         raise MissingCommunicationDir()
