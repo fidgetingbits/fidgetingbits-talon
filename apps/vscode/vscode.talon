@@ -411,10 +411,19 @@ git review switch: user.vscode("gitlens.toggleReviewMode")
 # action: https://code.visualstudio.com/api/references/when-clause-contexts
 change next: user.vscode("workbench.action.editor.nextChange")
 change last: user.vscode("workbench.action.editor.previousChange")
-diff next: user.vscode("workbench.action.compareEditor.nextChange")
-diff last: user.vscode("workbench.action.compareEditor.previousChange")
+(diff|hunk) next: user.vscode("workbench.action.compareEditor.nextChange")
+(diff|hunk) last: user.vscode("workbench.action.compareEditor.previousChange")
 
 stage this: user.vscode("git.stageChange")
+stage hunk: user.vscode("git.diff.stageHunk")
+stage last:
+    user.vscode("workbench.action.compareEditor.previousChange")
+    user.vscode("git.diff.stageHunk")
+
+stage next:
+    user.vscode("workbench.action.compareEditor.nextChange")
+    user.vscode("git.diff.stageHunk")
+stage selected: user.vscode("git.stageSelectedRanges")
 # These are specific to being in the diff view only
 # change stage: key(ctrl-k ctrl-alt-s)
 # change unstage: key(ctrl-k ctrl-alt-n)
