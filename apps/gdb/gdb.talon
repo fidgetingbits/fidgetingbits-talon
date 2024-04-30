@@ -210,3 +210,5 @@ groundhog:
     # back to console
     key(up)
     key(enter)
+
+show envy: "show env "
