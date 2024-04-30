@@ -2,6 +2,7 @@ from talon import Context, Module, app
 
 mod = Module()
 mod.list("common_files", desc="Common file names")
+mod.list("common_extension_pairs", desc="Common file extension pairs")
 mod.list("paths_public", desc="Common public paths")
 mod.list("paths_private", desc="Common private paths")
 mod.list("folder_paths", desc="Common folders")
@@ -137,7 +138,7 @@ unix_folder_paths = {
     "var web": "/var/www/",
     "code extensions": "~/.vscode/extensions/",
     "talon completions": "$XDG_RUNTIME_DIR/talon/cache/completions/",
-    "qemu images": "/var/lib/libvirt/images/"
+    "qemu images": "/var/lib/libvirt/images/",
 }
 
 mac_folder_paths = {}
@@ -235,14 +236,30 @@ windows_paths = {
 }
 
 if app.platform == "mac":
-    folder_paths = {**unix_folder_paths, **nix_folder_paths, **mac_folder_paths, **neovim_folder_paths}
+    folder_paths = {
+        **unix_folder_paths,
+        **nix_folder_paths,
+        **mac_folder_paths,
+        **neovim_folder_paths,
+    }
     file_paths = {**unix_file_paths, **mac_file_paths, **neovim_file_paths}
 elif app.platform == "windows":
     # FIXME: This should probably have something like wsl awareness
     folder_paths = {**windows_paths}
 elif app.platform == "linux":
-    folder_paths = {**unix_folder_paths, **nix_folder_paths, **linux_folder_paths, **arch_linux_folder_paths, **neovim_folder_paths}
-    file_paths = {**unix_file_paths, **linux_file_paths, **arch_linux_file_paths, **neovim_file_paths}
+    folder_paths = {
+        **unix_folder_paths,
+        **nix_folder_paths,
+        **linux_folder_paths,
+        **arch_linux_folder_paths,
+        **neovim_folder_paths,
+    }
+    file_paths = {
+        **unix_file_paths,
+        **linux_file_paths,
+        **arch_linux_file_paths,
+        **neovim_file_paths,
+    }
 else:
     folder_paths = {**unix_folder_paths, **nix_folder_paths}
     file_paths = {**unix_file_paths}
@@ -284,6 +301,11 @@ ctx.lists["user.common_files"] = {
     "docker compose": "docker-compose.yml",
     "package json": "package.json",
     "yarn lock": "yarn.lock",
+}
+
+
+ctx.lists["user.common_extension_pairs"] = {
+    "talon": "py,talon",
 }
 
 
