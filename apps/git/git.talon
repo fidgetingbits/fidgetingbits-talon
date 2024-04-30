@@ -135,9 +135,21 @@ and tag: user.git
 
 <user.git> fetch prune: "git fetch --prune\n"
 <user.git> fetch all: "git fetch --all\n"
-<user.git> fetch upstream: "git fetch upstream\n"
-<user.git> fetch (pull | P R) <number>: "git fetch origin pull/{number}/head:"
-<user.git> fetch upstream (pull | P R) <number>: "git fetch upstream pull/{number}/head:"
+<user.git> fetch {user.git_remotes}: "git fetch git_remotes\n"
+
+
+<user.git> fetch (pull [request]| P R) <number>: "git fetch origin pull/{number}/head:"
+<user.git> fetch (pull [request]| P R) clip:
+    insert("git fetch origin pull/")
+    edit.paste()
+    insert("/head:")
+<user.git> fetch {user.git_remotes} (pull [request]| P R) <number>:
+    "git fetch {git_remote} pull/{number}/head:"
+<user.git> fetch {user.git_remotes} (pull [request]| P R) clip:
+    insert("git fetch {git_remotes} pull/")
+    edit.paste()
+    insert("/head:")
+
 
 #git fetch <user.text>: "git fetch {text}"
 <user.git> filter branch: "git filter-branch --subdirectory-filter"
