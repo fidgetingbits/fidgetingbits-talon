@@ -243,6 +243,12 @@ file locate clip:
 run update paths: "sudo updatedb\n"
 file [full] path: "readlink -f "
 
+
+file cut first line: "tail -n +2 "
+file cut <number> (lines|line): "tail -n+{number+1} "
+file cut last <number> (lines|line): "head -n -{number} "
+file cut last line: "head -n -1 "
+
 # dd
 file disk image copy:
     user.insert_between("dd bs=4M if=", " of=/dev/sdX conv=fsync oflag=direct status=progress")
@@ -656,6 +662,8 @@ python three nine env: "virtualenv -p python3.9 py39"
 ###
 # Environment variables
 ###
+
+# FIXME: Make these less annoying to say, and use a dynamic_list to pull them out
 (environment|variable) list: "env\n"
 (environment|variable) search: "env|rg "
 (environment|variable) fuzzy: "env|rg -i "
