@@ -29,6 +29,11 @@ nix build standard: "nix-build '<nixpkgs>' -A "
 nix build local package:
     "nix-build -E 'with import <nixpkgs> {{}}; pkgs.callPackage ./default.nix {{}}'"
 
+# FIXME: Move this to private, since I use a private path
+nix build nix package:
+    insert("cd ~/dev/nix/nixpkgs\n")
+    user.insert_between("nix-build -I nixpkgs=$PWD -E 'with import <nixpkgs> {}; callPackage ./pkgs/by-name/", " {}'")
+
 nix build with paths:
     user.insert_between("nix build nixpkgs#", "--print-out-paths --no-link")
 
