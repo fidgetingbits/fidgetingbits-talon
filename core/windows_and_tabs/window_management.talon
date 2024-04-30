@@ -5,6 +5,7 @@ window close: app.window_close()
 (window | snap) hide: app.window_hide()
 need <user.running_applications>: user.switcher_focus(running_applications)
 (need flip|flipper): user.switch_last_focused()
+
 [help] running list: user.switcher_toggle_running()
 running close: user.switcher_hide_running()
 launch <user.launch_applications>: user.switcher_launch(launch_applications)
@@ -20,3 +21,6 @@ snap <user.running_applications> [screen] <number>:
     user.move_app_to_screen(running_applications, number)
 
 snap (in | out): user.desktop_show()
+
+# alt-tab style cycling
+win cycle: user.switcher_focus_last()
