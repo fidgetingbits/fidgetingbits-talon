@@ -152,6 +152,7 @@ you dev admin: "udevadm "
 you dev reload: "sudo udevadm control --reload-rules && sudo udevadm trigger"
 you dev monitor: "udevadm monitor\n"
 
+
 ###
 # keyctl
 ###
@@ -216,8 +217,6 @@ net restart: "sudo systemctl restart NetworkManager\n"
 (cis | system) show release: "cat /etc/lsb-release\n"
 system info: "hostnamectl\n"
 
-udev reload: "sudo udevadm control --reload-rules && sudo udevadm trigger"
-
 D N S cache list: "sudo systemd-resolve --statistics\n"
 D N S cache flush: "sudo systemd-resolve --flush-caches\n"
 
@@ -227,3 +226,5 @@ file show zero delimited: "xargs -0 -L1 -a"
 
 # UEFI Stuff
 boot cuddle status: "bootctl status --no-pager\n"
+
+
