@@ -1,3 +1,5 @@
+# FIXME: add the fallback support like Andreas
+not tag: user.cursorless
 -
 
 # VIM uses find for line searching
