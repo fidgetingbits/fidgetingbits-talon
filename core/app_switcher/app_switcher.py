@@ -1,3 +1,4 @@
+import pprint
 import os
 import shlex
 import subprocess
@@ -30,6 +31,11 @@ overrides = {}
 
 # apps to exclude from running list
 excludes = set()
+
+# FIXME: make this come from a file
+additional = {
+    "term": "wezterm",
+}
 
 # a list of the currently running application names
 running_application_dict = {}
@@ -217,7 +223,7 @@ if app.platform == "linux":
                                 "get_linux_apps: skipped parsing application file ",
                                 entry.name,
                             )
-        return items
+        return {**items, **additional}
 
 
 @mod.capture(rule="{self.running}")  # | <user.text>)")

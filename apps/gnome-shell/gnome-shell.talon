@@ -12,14 +12,6 @@ lock screen: key(super-l)
 notify show: key(super-v)
 (dismiss|notify close): key(esc)
 
-term me:
-    key(super)
-    terminal = user.terminal_default_app()
-    sleep(200ms)
-    insert(terminal)
-    sleep(200ms)
-    key(ctrl-enter)
-
 app select:
     key(alt:down)
     key(tab)

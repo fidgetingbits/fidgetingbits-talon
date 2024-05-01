@@ -9,6 +9,9 @@ need <user.running_applications>: user.switcher_focus(running_applications)
 [help] running list: user.switcher_toggle_running()
 running close: user.switcher_hide_running()
 launch <user.launch_applications>: user.switcher_launch(launch_applications)
+term me:
+    terminal = user.terminal_default_app()
+    user.switcher_launch(terminal)
 
 # top, bottom, left, right, center, full
 snap {user.window_snap_positions}: user.snap_window_to_position(window_snap_positions)
