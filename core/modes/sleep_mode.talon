@@ -10,4 +10,9 @@ settings():
 
 <phrase>: skip()
 #wake up: user.talon_wake()
-parrot(palate_click):user.talon_wake()
+parrot(palate_click):
+    user.talon_wake()
+gamepad(south):
+    user.talon_wake()
+
+
