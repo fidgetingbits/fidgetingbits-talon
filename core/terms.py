@@ -14,7 +14,7 @@ FIND = "hunt"
 SHOW_LIST = "list"
 DRIVE = "drive"
 # FIXME: Maybe move this elsewhere.. used for cd in terminal
-GO = "(go|pivot)"
+GO = "pivot"
 
 
 @mod.capture(rule=SELECT)
