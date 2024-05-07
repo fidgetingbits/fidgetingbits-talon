@@ -150,6 +150,7 @@ clipboard as Q R code: "xclip -o -s c | qrencode -o - | feh --force-aliasing -ZF
 
 you dev admin: "udevadm "
 you dev reload: "sudo udevadm control --reload-rules && sudo udevadm trigger"
+you dev monitor: "udevadm monitor\n"
 
 ###
 # keyctl
