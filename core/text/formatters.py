@@ -308,7 +308,7 @@ prose_formatter_names = {
     "title": "CAPITALIZE_ALL_WORDS",
     "sponge bob": "SPONGEBOB",
     "quoted": "DOUBLE_QUOTED_STRING",
-    "ticks": "SINGLE_QUOTED_STRING",
+    "primus": "SINGLE_QUOTED_STRING",
 }
 
 # This is the mapping for series of letters to formatters ex: abc to A B C

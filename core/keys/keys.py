@@ -209,7 +209,7 @@ symbol_key_words = {
     # "blank": " ", # suddenly always conflicting with bat
     "void": " ",
     "semi": ";",
-    "tick": "'",
+    "prime": "'",  # I stopped using tick because I wanted to use pick for enter, and choosing, and they collide
     "lacker": "[",
     "racker": "]",
     "slash": "/",

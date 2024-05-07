@@ -39,8 +39,8 @@ tide (square | list): user.insert_between("\\[", "\\]")
 [pair] (angles | diamond): user.insert_between("<", ">")
 tide (angles | diamond): user.insert_between("\\<", "\\>")
 
-[pair] ticks: user.insert_between("'", "'")
-tide ticks: user.insert_between("\\'", "\\'")
+[pair] primus: user.insert_between("'", "'")
+tide primus: user.insert_between("\\'", "\\'")
 
 [pair] quotes: user.insert_between('"', '"')
 tide quotes: user.insert_between('\\"', '\\"')
