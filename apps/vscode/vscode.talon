@@ -700,10 +700,16 @@ skip:
     uservscode("jumpToNextSnippetPlaceholder")
 
 # Pedal
-deck(pedal_left): key("pageup")
-deck(pedal_right): key("pagedown")
-deck(pedal_middle): edit.save()
+deck(pedal_left):
+    key("pageup")
+    print("deck page up")
+deck(pedal_right):
+    key("pagedown")
+    print("deck page down")
 
+deck(pedal_middle):
+    edit.save()
+    print("deck save")
 
 # direnv extensionl
 envy allow: user.vscode("direnv.loadEnvrc")
