@@ -394,8 +394,11 @@ class MacUserActions:
 @ctx.action_class("user")
 class UserActions:
     def emit_pre_phrase_signal():
-        get_signal_path("prePhrase").touch()
-        return True
+        try:
+            get_signal_path("prePhrase").touch()
+            return True
+        except MissingCommunicationDir:
+            return False
 
 
 class MissingCommunicationDir(Exception):
