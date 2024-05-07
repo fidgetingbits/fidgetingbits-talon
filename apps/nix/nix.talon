@@ -23,14 +23,14 @@ nix store query dependencies: "nix-store --query --references "
 # When playing with a local result, it would be nice to just throw on a 'result' command, and have it auto-complete
 
 # Build
-nix build help: "nix-build --help\n"
-nix build: "nix-build "
-nix build standard: "nix-build '<nixpkgs>' -A "
-nix build local package:
+nix old build help: "nix-build --help\n"
+nix old build: "nix-build "
+nix old build standard: "nix-build '<nixpkgs>' -A "
+nix old build local package:
     "nix-build -E 'with import <nixpkgs> {{}}; pkgs.callPackage ./default.nix {{}}'"
 
 # FIXME: Move this to private, since I use a private path
-nix build nix package:
+nix old build nix package:
     insert("cd ~/dev/nix/nixpkgs\n")
     user.insert_between("nix-build -I nixpkgs=$PWD -E 'with import <nixpkgs> {}; callPackage ./pkgs/by-name/", " {}'")
 
@@ -38,13 +38,13 @@ nix build with paths:
     user.insert_between("nix build nixpkgs#", "--print-out-paths --no-link")
 
 # Flake build commands
-nix three build: "nix build "
-nix three build now: "nix build .\n"
-nix three build log: "nix build -L "
-nix three build impure: "nix build --impure "
-nix three build with paths:
+nix build: "nix build "
+nix build (this|now): "nix build .\n"
+nix build log: "nix build -L "
+nix build impure: "nix build --impure "
+nix build with paths:
     user.insert_between("nix build nixpkgs#", "--print-out-paths --no-link")
-nix three build debug: " nix build --verbose --debug --print-build-logs\n"
+nix build debug: " nix build --verbose --debug --print-build-logs\n"
 
 nix flake check: "nix flake check\n"
 nix flake update: "nix flake update\n"
