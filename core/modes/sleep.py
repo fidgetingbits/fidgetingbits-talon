@@ -19,7 +19,11 @@ class Actions:
     def talon_wake():
         """Wake Talon from sleep"""
         actions.speech.enable()
-        actions.user.mouse_wake()
+        # I'm only using control mouse tracking with pressing a button now, so don't wakeup the mouse when I wake up
+        # the system, which it seems to do automatically otherwise on wakeup ...
+        # FIXME: This should be based off of a setting
+        actions.user.mouse_sleep()
+        # actions.user.mouse_wake()
         # actions.user.talon_wake_callback()
         actions.user.notify("Talon awake")
 
