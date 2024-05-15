@@ -50,3 +50,5 @@ type raw {user.nix_types}: "{nix_types}"
 # Will prefix type, eg: `types`
 # FIXME: Might be nice to have an option if it prefixes lib.types or types
 type <user.nix_types>: "{nix_types}"
+
+put var: user.insert_between('${', '}')
