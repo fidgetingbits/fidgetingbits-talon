@@ -88,11 +88,15 @@ def users_git_branches(m) -> dict[str, str]:
         print("no output")
         return {}
 
+    # FIXME: Atm having like remote/origin/ prefix makes it hard to dictate some
+    # branch names, so likely want to strip them..
+
     commands = []
     for line in output.splitlines():
         if line.startswith("*"):
             line = line.split("*")[1]
         commands.append(line.strip())
+    print(commands)
     return actions.user.create_spoken_forms_from_list(commands)
 
 

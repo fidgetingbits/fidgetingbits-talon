@@ -40,10 +40,8 @@ and tag: user.git
 
 <user.git> checkout: "git checkout "
 <user.git> checkout {user.git_branches}:
-    edit.paste()
     insert("git checkout {git_branches}\n")
 <user.git> checkout file {user.git_branches}:
-    edit.paste()
     insert("git checkout {git_branches} -- ")
 <user.git> checkout upstream (main | men):
     edit.delete_line()
@@ -272,11 +270,13 @@ and tag: user.git
 <user.git> reset [merge] base {user.git_branches}: "git reset --soft $(git merge-base {git_branches} HEAD)"
 
 
-<user.git> restore: "git "
+<user.git> restore: "git restore "
+# FIXME: add auto population of the actual modified paths...
 <user.git> restore [<user.zsh_path_completion>]:
     insert("git restore ")
     insert(zsh_path_completion or "")
 <user.git> restore staged: "git restore --staged "
+# FIXME: add auto population of the actual modified paths...
 <user.git> restore staged [<user.zsh_path_completion>]:
     insert("git restore --staged ")
     insert(zsh_path_completion or "")
