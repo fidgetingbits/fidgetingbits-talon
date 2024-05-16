@@ -143,6 +143,14 @@ class UserActions:
         actions.edit.paste()
         actions.key("enter")
 
+    def debugger_inspect_all_types():
+        actions.insert("info types\n")
+
+    def debugger_search_types(type: str):
+        actions.insert(f"info types {type}")
+        if len(type) > 0:
+            actions.key("enter")
+
     def debugger_show_binary_sections():
         actions.user.paste("maintenance info sections")
         actions.key("enter")

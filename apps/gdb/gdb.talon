@@ -212,3 +212,15 @@ groundhog:
     key(enter)
 
 show envy: "show env "
+
+# FIXME: These could be generic
+symbol file: "symbol-file "
+symbol file clip:
+    insert("symbol-file ")
+    edit.paste()
+    key(enter)
+symbol add: "add-symbol-file "
+symbol add clip:
+    insert("add-symbol-file ")
+    edit.paste()
+    key(enter)
