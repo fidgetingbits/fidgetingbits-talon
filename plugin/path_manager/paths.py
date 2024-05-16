@@ -29,6 +29,7 @@ nix_folder_paths = {
     "nix profile bin": "~/.nix-profile/bin/",
     "nix running bin": "/run/current-system/sw/bin/",
     "nix global bin": "/nix/var/nix/profiles/default/bin",
+    "sops secrets": "/var/run/secrets/",
 }
 
 # paths that will work with pivot command
@@ -142,7 +143,10 @@ unix_folder_paths = {
 }
 
 mac_folder_paths = {}
-linux_folder_paths = {}
+linux_folder_paths = {
+    "net man": "/etc/NetworkManager",
+    "network manager": "/etc/NetworkManager",
+}
 arch_linux_folder_paths = {
     "packman hooks": "/etc/pacman.d/hooks/",
 }
