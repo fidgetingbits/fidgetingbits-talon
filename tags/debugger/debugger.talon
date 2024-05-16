@@ -88,6 +88,11 @@ list sections: user.debugger_show_binary_sections()
 # Type inspection
 inspect type: user.debugger_inspect_type()
 inspect type clip: user.debugger_inspect_type_clip()
+inspect all types:
+    user.debugger_inspect_all_types()
+    key(enter)
+type search [<user.text>]:
+     user.debugger_search_types(text or "")
 
 # Memory Analysis
 hex dump help: user.debugger_hexdump_help()
