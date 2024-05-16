@@ -16,7 +16,8 @@ class AppActions:
         actions.key("ctrl-shift-n")
 
     def window_close():
-        actions.key("ctrl-shift-w")
+        actions.key("alt-f4")
+        # actions.key("ctrl-shift-w")
 
 
 @ctx.action_class("user")
