@@ -85,23 +85,27 @@ and tag: user.git
 <user.git> (commit|calm) [message] <user.text>:
     edit.delete_line()
     insert("git commit -m \"{text or ''}")
-<user.git> (commit|calm) [message] {user.git_conventional_commits}:
+<user.git> (commit|calm) [message] <user.git_conventional_commits>:
     edit.delete_line()
-    user.insert_between('git commit -m "{git_conventional_commits}: ', '"')
+    user.insert_between('git commit -m "{git_conventional_commits}', '"')
 # git commit [message] {user.git_conventional_commits} <user.word>:
 #     edit.delete_line()
 #     insert(user.insert_between('git commit -m "{git_conventional_commits}({word}): ', '"'))
-<user.git> (commit|calm) [message] {user.git_conventional_commits} <user.text>:
+<user.git> (commit|calm) [message] <user.git_conventional_commits> <user.text>:
     edit.delete_line()
-    user.insert_between('git commit -m "{git_conventional_commits}: {text}', '"')
+    user.insert_between('git commit -m "{git_conventional_commits}{text}', '"')
 <user.git> (commit|calm) [message]:
     edit.delete_line()
     user.insert_between('git commit -m "', '"')
 <user.git> (commit|calm) empty:
     edit.delete_line()
     insert("git commit\n")
-<user.git> (commit|calm) amend: "git commit --amend "
-<user.git> (commit|calm) amend no edit: "git commit --amend --no-edit\n"
+<user.git> (commit|calm) amend:
+    edit.delete_line()
+    "git commit --amend "
+<user.git> (commit|calm) amend no edit:
+    edit.delete_line()
+    "git commit --amend --no-edit\n"
 <user.git> (commit|calm) no verify: "git commit -n"
 <user.git> (commit|calm) existing: "git commit -a\n"
 # git commit automation convenience
@@ -112,6 +116,10 @@ and tag: user.git
 <user.git> (commit|calm) again:
     key(ctrl-r)
     "git commit\n"
+<user.git> (commit|calm) clip:
+    user.insert_between('git commit -m "', '"')
+    edit.paste()
+    key(enter)
 <user.git> re (commit|calm):
     'git status -s | grep -e "^MM" | cut -d" " -f2- | xargs git add\n'
     key(ctrl-r)

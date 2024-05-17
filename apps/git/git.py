@@ -73,6 +73,14 @@ def git_arguments(m) -> str:
     return " " + " ".join(m.git_argument_list)
 
 
+@mod.capture(rule="{user.git_conventional_commits} [cat <user.word>]")
+def git_conventional_commits(m) -> str:
+    """A non-empty sequence of git command arguments, preceded by a space."""
+    if len(list(m)) == 3:
+        return f"{m.git_conventional_commits}({m.word}): "
+    return f"{m.git_conventional_commits}: "
+
+
 mod.list("git_branches", desc="Branches in the current git repository.")
 mod.list("git_remotes", desc="Remotes in the current git repository.")
 
