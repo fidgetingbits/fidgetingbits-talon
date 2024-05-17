@@ -433,16 +433,16 @@ stage selected: user.vscode("git.stageSelectedRanges")
 # Merge Conflicts
 #
 [merge] reject all [theirs]: user.vscode("merge-conflict.accept.all-current")
-[merge] accept all [ours]: user.vscode("merge-conflict.accept.all-incoming")
-[merge] accept both all: user.vscode("merge-conflict.accept.all-both")
-[merge] accept (ours | current): user.vscode("merge-conflict.accept.current")
+[merge] (accept|keep) all [ours]: user.vscode("merge-conflict.accept.all-incoming")
+[merge] (accept|keep) both all: user.vscode("merge-conflict.accept.all-both")
+[merge] (accept|keep) (ours | current): user.vscode("merge-conflict.accept.current")
 [merge] reject [(theirs | incoming)]:
     user.vscode("merge-conflict.accept.current")
     user.vscode("merge-conflict.next")
-[merge] accept (theirs | incoming): user.vscode("merge-conflict.accept.incoming")
+[merge] (accept|keep) (theirs | incoming): user.vscode("merge-conflict.accept.incoming")
 # FIXME: Add a cursorless variation for selecting stuff
-[merge] accept (selection | that): user.vscode("merge-conflict.accept.selection")
-[merge] accept both: user.vscode("merge-conflict.accept.both")
+[merge] (accept|keep) (selection | that): user.vscode("merge-conflict.accept.selection")
+[merge] (accept|keep) both: user.vscode("merge-conflict.accept.both")
 (merge | conflict) next: user.vscode("merge-conflict.next")
 (merge | conflict) last: user.vscode("merge-conflict.previous")
 merge compare: user.vscode("merge-conflict.compare")
