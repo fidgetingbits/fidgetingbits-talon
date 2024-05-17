@@ -48,6 +48,11 @@ nix build debug: " nix build --verbose --debug --print-build-logs\n"
 
 nix flake check: "nix flake check\n"
 nix flake update: "nix flake update\n"
+nix flake meta data: "nix flake metadata\n"
+nix flake show: "nix flake show\n"
+# nix flake lock update: "nix flake lock --update-input "
+nix flake list inputs: "nix flake metadata --json | jq -r '.locks.nodes.root.inputs | keys[]'\n"
+nix flake lock update {user.flake_inputs}: "nix flake lock --update-input {flake_inputs}\n"
 
 nix (dev|develop) [flake]: "nix develop\n"
 
