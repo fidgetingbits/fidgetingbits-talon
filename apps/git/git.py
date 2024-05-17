@@ -82,21 +82,24 @@ def users_git_branches(m) -> dict[str, str]:
     """A dynamic list of available git branches"""
 
     output = subprocess.check_output(
-        ("git", "branch"), cwd=actions.user.zsh_get_cwd()
+        ("git", "branch", "-a"), cwd=actions.user.zsh_get_cwd()
     ).decode("utf-8")
     if not output:
         print("no output")
         return {}
 
-    # FIXME: Atm having like remote/origin/ prefix makes it hard to dictate some
-    # branch names, so likely want to strip them..
-
     commands = []
     for line in output.splitlines():
         if line.startswith("*"):
             line = line.split("*")[1]
-        commands.append(line.strip())
-    print(commands)
+        if "remotes/" in line:
+            line = line.split("/")[-1]
+            # Deal with this remotes/origin/HEAD -> origin/dev
+            if line.startswith("HEAD"):
+                line = "head"
+        if line not in commands:
+            commands.append(line.strip())
+    # print(commands)
     return actions.user.create_spoken_forms_from_list(commands)
 
 

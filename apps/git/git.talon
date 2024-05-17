@@ -133,7 +133,7 @@ and tag: user.git
 
 <user.git> fetch prune: "git fetch --prune\n"
 <user.git> fetch all: "git fetch --all\n"
-<user.git> fetch {user.git_remotes}: "git fetch git_remotes\n"
+<user.git> fetch {user.git_remotes}: "git fetch {git_remotes}\n"
 
 
 <user.git> fetch (pull [request]| P R) <number>: "git fetch origin pull/{number}/head:"
