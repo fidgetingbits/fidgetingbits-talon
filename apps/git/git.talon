@@ -229,6 +229,7 @@ and tag: user.git
 <user.git> pull <user.text>: "git pull {} "
 
 <user.git> push: "git push\n"
+<user.git> push force: "git push --force"
 <user.git> push origin: "git push origin "
 <user.git> push up stream origin: "git push -u origin "
 <user.git> push <user.text>: "git push {} "
