@@ -26,3 +26,6 @@ swap make: "mkswap "
 
 # FIXME: abstract this to use per-device paths
 <user.drive> mount nix volume: "sudo mount /dev/mapper/encrypted-nixos"
+
+# Few changes on my impermanent of subvolume
+<user.drive> diff volumes: "sudo btrfs-diff\n"
