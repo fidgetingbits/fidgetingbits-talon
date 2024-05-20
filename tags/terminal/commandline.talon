@@ -540,14 +540,12 @@ file unzip C P I O: user.insert_between("gzip -cd ", " | cpio -idmv")
 # TODO: This should be tweaked with a copy that uses fake root for device nodes
 file extract root F S:
     "mkdir rootfs 2>/dev/null; cd rootfs; gzip -cd ../rootfs.gz | cpio -idmv"
-#favor 7z because it supports newer decryption mechanisms
-#file unzip: "unzip "
 file B unzip: "bunzip2 "
 file (gun zip | unzip | seven extract): "7z x "
 file (seven | zip) list: "7z l "
 file G zip: "gzip "
-file zip folder: "zip -rP changepassword output.zip "
-file create encrypted (zip | archive): "zip -P changepassword output.zip "
+file zip folder: "TMP_PASS=$(genpasswd); echo password: $TMP_PASS; 7z a -r -p$TMP_PASS output.7z "
+file create encrypted (zip | archive): "TMP_PASS=$(genpasswd); echo password: $TMP_PASS; 7z -p $TMP_PASS output.7z "
 
 run curl: "curl "
 (file | web) (download | get): "wget "
@@ -837,3 +835,8 @@ draw extract [<user.zsh_file_completion>]:
     insert(zsh_file_completion or "")
 
 folder make temp: "mktemp -d\n"
+
+# FIXME: It might be nice to have some helper function that allows you to automatically put the given commands inside of
+# a sub call...
+(gen|generate) (pass|password): "genpasswd\n"
+sub (gen|generate) (pass|password): "$(genpasswd)"
