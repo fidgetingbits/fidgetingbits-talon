@@ -1,8 +1,3 @@
-(connect | start) work (tunnel | vpn):
-    user.system_command_nb("/home/aa/scripts/connect_work_vpn.sh")
-(disconnect | stop) work (tunnel | vpn):
-    user.system_command_nb("/home/aa/scripts/disconnect_work_vpn.sh")
-
 talon restart: user.system_command_nb("/home/aa/scripts/talon/restart_talon.sh")
 talon kill: user.system_command_nb("/home/aa/scripts/talon/terminate_talon.sh")
 pauly restart: user.system_command_nb("/home/aa/.config/polybar/launch.sh")
