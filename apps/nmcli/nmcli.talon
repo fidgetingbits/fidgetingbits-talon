@@ -18,3 +18,8 @@ net man edit:
     key(tab)
 net man (connections | connection) list: "nmcli connection show\n"
 net man (connections | connection) list active: "nmcli connection show --active\n"
+
+net man (V P N|tunnel) list: "nmcli -t -f NAME,TYPE connection show | rg vpn | cut -f1 -d:\n"
+net man (V P N|tunnel) list active: "nmcli -t -f NAME,TYPE,STATE connection show | rg 'vpn:activated' | cut -f1 -d:\n"
+net man [(V P N|tunnel)] {user.nmcli_vpns} up: "nmcli con up {nmcli_vpns}\n"
+net man [(V P N|tunnel)] {user.nmcli_vpns} down: "nmcli con down {nmcli_vpns}\n"
