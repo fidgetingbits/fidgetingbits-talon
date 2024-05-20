@@ -215,7 +215,9 @@ file show clip:
 file show (<user.zsh_file_completion> | <user.word>):
     file = zsh_file_completion or word
     insert("cat {file}")
-file edit: insert("edit ")
+file edit:
+    edit.delete_line()
+    insert("edit ")
 
 file edit <user.zsh_file_completion>: insert("edit {zsh_file_completion}")
 file edit here: insert("edit .\n")
@@ -556,7 +558,8 @@ run curl: "curl "
 (file | web) (download | get) ignore cert: "wget --no-check-certificate "
 
 (run script | file run): "./"
-run script <user.word>: "./{word}"
+(run script | file run) {user.executable_files}: "./{executable_files}"
+
 run again:
     insert("./")
     key(up enter)
@@ -611,6 +614,8 @@ process kill: "kill -9 "
 process sudo kill: "sudo kill -9 "
 process kill all: "killall "
 process kill all <user.word>: "killall {word}"
+job list: "jobs\n"
+job kill <number>: "kill -9 %{number}"
 
 system reboot [now]: "sudo reboot -h now"
 system shutdown [now]: "sudo shutdown -h now"
@@ -803,6 +808,7 @@ run tail talon log: "tail -f ~/.talon/talon.log\n"
 pipe to C P I O: "| cpio -idmv"
 
 mime type list: "handlr list\n"
+mime type show: "file --mime-type"
 
 file json: "jq . "
 
