@@ -137,8 +137,10 @@ def _get_zsh_pid(title):
         pass
 
 
-def _get_zsh_cwd(title):
+def _get_zsh_cwd(title, noisy=False):
     """Extract the zsh cwd from the window title"""
+    if not title.startswith("VIM"):
+        return
     try:
         # Title: VIM MODE:t RPC:/run/user/1000/nvim.2299162.0 FILETYPE: TERM:zsh:~/dev/nix/nix-config
         # (term://~//2299179:/usr/bin/zsh) zsh
@@ -151,9 +153,11 @@ def _get_zsh_cwd(title):
         if cwd.exists():
             return cwd
         else:
-            print(f"zsh.py _get_zsh_cwd() extracted cwd does not exist: {cwd}")
+            if noisy:
+                print(f"zsh.py _get_zsh_cwd() extracted cwd does not exist: {cwd}")
     except Exception as e:
-        print(f"zsh.py _get_zsh_cwd() failed to extract cwd from {title}: {e}")
+        if noisy:
+            print(f"zsh.py _get_zsh_cwd() failed to extract cwd from {title}: {e}")
 
 
 @mod.action_class
@@ -176,6 +180,6 @@ class Actions:
         """Return the current zsh pid"""
         return _get_zsh_pid(ui.active_window().title)
 
-    def zsh_get_cwd():
+    def zsh_get_cwd(noisy: bool = False):
         """Return the current zsh cwd"""
-        return _get_zsh_cwd(ui.active_window().title)
+        return _get_zsh_cwd(ui.active_window().title, noisy)
