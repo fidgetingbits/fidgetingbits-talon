@@ -343,6 +343,10 @@ echo split [<user.symbol_key>] ({user.environment_variables}|<user.text>):
     sleep(100ms)
     key(enter)
     # insert("ls\n")
+<user.go> deep [<user.text>]:
+    edit.delete_line()
+    insert("cd $(find . -type d | fzf --reverse)\n")
+    insert(text or "")
 
 (<user.go> | folder) (last | flip): "cd -\n"
 <user.go> latest:
