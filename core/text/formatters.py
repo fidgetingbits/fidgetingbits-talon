@@ -21,11 +21,11 @@ last_phrase_formatted = ""
 
 # Internally, a formatter is a pair (sep, fn).
 #
-# - sep: a boolean, true iff the formatter should leave spaces between words.
+# - sep: a boolean, true if the formatter should leave spaces between words.
 #   We use SEP & NOSEP for this for clarity.
 #
 # - fn: a function (i, word, is_end) --> formatted_word, called on each `word`.
-#   `i` is the word's index in the list, and `is_end` is True iff it's the
+#   `i` is the word's index in the list, and `is_end` is True if it's the
 #   last word in the list.
 SEP = True
 NOSEP = False
@@ -150,6 +150,7 @@ def title_case():
 
 def every_word(word_func):
     """Apply one function to every word."""
+
     return lambda i, word, _: word_func(word)
 
 
