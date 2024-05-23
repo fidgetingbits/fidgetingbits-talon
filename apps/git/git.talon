@@ -43,6 +43,7 @@ and tag: user.git
     insert("git checkout {git_branches}\n")
 <user.git> checkout file {user.git_branches}:
     insert("git checkout {git_branches} -- ")
+<user.git> checkout {user.git_tags}: "git checkout {git_tags}"
 <user.git> checkout upstream (main | men):
     edit.delete_line()
     insert("git checkout upstream/main\n")
@@ -131,7 +132,8 @@ and tag: user.git
 <user.git> diff: "git diff "
 <user.git> diff cached: "git diff --cached\n"
 <user.git> diff staged: "git diff --staged\n"
-<user.git> diff {user.git_branches}: "git diff {git_branches}  \n"
+<user.git> diff {user.git_branches}: "git diff {git_branches}\n"
+<user.git> diff {user.git_tags}: "git diff {git_tags}\n"
 <user.git> diff tool: "git difftool -d\n"
 <user.git> diff tool cached: "git difftool --cached -d\n"
 <user.git> diff names only: "git diff --name-only "

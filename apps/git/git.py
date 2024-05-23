@@ -82,6 +82,7 @@ def git_conventional_commits(m) -> str:
 
 
 mod.list("git_branches", desc="Branches in the current git repository.")
+mod.list("git_tags", desc="Tags in the current git repository.")
 mod.list("git_remotes", desc="Remotes in the current git repository.")
 
 
@@ -97,6 +98,8 @@ def users_git_branches(m) -> dict[str, str]:
         return {}
 
     commands = []
+    # FIXME: For things that aren't origin, we should include versions with the proceeding value,
+    # like upstream/dev
     for line in output.splitlines():
         if line.startswith("*"):
             line = line.split("*")[1]
@@ -108,6 +111,23 @@ def users_git_branches(m) -> dict[str, str]:
         if line not in commands:
             commands.append(line.strip())
     # print(commands)
+    return actions.user.create_spoken_forms_from_list(commands)
+
+
+@ctx.dynamic_list("user.git_tags")
+def user_git_tags(m) -> dict[str, str]:
+    """A dynamic list of available git tags"""
+
+    output = subprocess.check_output(
+        ("git", "tag"), cwd=actions.user.zsh_get_cwd()
+    ).decode("utf-8")
+    if not output:
+        print("no output")
+        return {}
+
+    commands = []
+    for line in output.splitlines():
+        commands.append(line.strip())
     return actions.user.create_spoken_forms_from_list(commands)
 
 
