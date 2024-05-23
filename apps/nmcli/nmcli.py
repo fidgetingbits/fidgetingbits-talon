@@ -25,6 +25,5 @@ def user_nmcli_vpns(m) -> dict[str, str]:
     if not output:
         print("no output")
         return {}
-    print(output)
 
     return actions.user.create_spoken_forms_from_list(output.splitlines())
