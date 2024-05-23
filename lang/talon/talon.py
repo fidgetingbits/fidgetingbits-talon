@@ -46,6 +46,7 @@ ctx.lists["user.code_common_function"] = {
     "right": "edit.right",
     "up": "edit.up",
     "down": "edit.down",
+    "delete line": "edit.delete_line",
 }
 
 
@@ -108,6 +109,11 @@ class UserActions:
         actions.auto_insert("# ")
 
     def code_insert_function(text: str, selection: str):
+        text += f"({selection or ''})"
+        actions.user.paste(text)
+        actions.edit.left()
+
+    def code_insert_terminated_function(text: str, selection: str):
         text += f"({selection or ''})"
         actions.user.paste(text)
         actions.edit.left()
