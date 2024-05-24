@@ -345,7 +345,12 @@ echo split [<user.symbol_key>] ({user.environment_variables}|<user.text>):
     # insert("ls\n")
 <user.go> deep [<user.text>]:
     edit.delete_line()
-    insert("cd $(find . -type d | fzf --reverse)\n")
+    insert("cd $(fd -t d . | fzf --reverse)\n")
+    insert(text or "")
+# don't honour .gitignore
+<user.go> (all|hiddeni) deep [<user.text>]:
+    edit.delete_line()
+    insert("cd $(fd -I -t d . | fzf --reverse)\n")
     insert(text or "")
 
 (<user.go> | folder) (last | flip): "cd -\n"
