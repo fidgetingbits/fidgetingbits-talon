@@ -150,7 +150,7 @@ def user_git_modified_files(m) -> dict[str, str]:
 
 
 @ctx.dynamic_list("user.git_branches")
-def users_git_branches(m) -> dict[str, str]:
+def user_git_branches(m) -> dict[str, str]:
     """A dynamic list of available git branches"""
     """A dynamic list of available git branches"""
 
@@ -158,17 +158,22 @@ def users_git_branches(m) -> dict[str, str]:
         ("git", "branch", "-a"), cwd=actions.user.zsh_get_cwd()
     ).decode("utf-8")
     if not output:
-        print("no output")
+        print("users_git_branches(): no output")
         return {}
 
     commands = []
-    # FIXME: For things that aren't origin, we should include versions with the proceeding value,
-    # like upstream/dev
     for line in output.splitlines():
         if line.startswith("*"):
             line = line.split("*")[1]
         if "remotes/" in line:
-            line = line.split("/")[-1]
+            # remotes/origin that already exist, we skip
+            if line.startswith("remotes/origin"):
+                line = line.split("/")[-1]
+                if line in commands:
+                    continue
+            else:
+                line = line[len("  remotes/") :]
+
             # Deal with this remotes/origin/HEAD -> origin/dev
             if line.startswith("HEAD"):
                 line = "head"
