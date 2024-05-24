@@ -10,8 +10,14 @@ and tag: user.git
 <user.git> add (all | changed | everything):
     edit.delete_line()
     insert("git add -u\n")
-<user.git> add <user.zsh_path_completion>:
-    "git add {zsh_path_completion}\n"
+# <user.git> add <user.zsh_path_completion>:
+#     "git add {zsh_path_completion}"
+<user.git> add {user.git_modified_files}:
+    "git add {git_modified_files}"
+<user.git> add untracked {user.git_untracked_files}:
+    "git add {git_untracked_files}"
+# FIXME: Support chaining multiple files with and
+
 
 <user.git> bisect: "git bisect "
 
@@ -34,9 +40,9 @@ and tag: user.git
 <user.git> branch remove remote clip:
     "git push origin --delete "
     edit.paste()
+<user.git> branch (remove | delete) {user.git_branches}: "git branch -d {git_branches}"
 <user.git> branch remote: "git branch --remote\n"
 <user.git> branch (rename | move): "git branch -m "
-<user.git> branch <user.text>: "git branch {text}"
 
 <user.git> checkout: "git checkout "
 <user.git> checkout {user.git_branches}:
@@ -288,9 +294,12 @@ and tag: user.git
     insert(zsh_path_completion or "")
 <user.git> restore staged: "git restore --staged "
 # FIXME: add auto population of the actual modified paths...
-<user.git> restore staged [<user.zsh_path_completion>]:
-    insert("git restore --staged ")
-    insert(zsh_path_completion or "")
+<user.git> restore staged {user.git_staged_files}:
+    insert("git restore --staged {git_staged_files}")
+
+# <user.git> restore staged <user.zsh_path_completion>:
+#     insert("git restore --staged ")
+#     insert(zsh_path_completion or "")
 # Purposefully no \n because it is destructive
 <user.git> restore all: "git restore --source=HEAD :/"
 get restore staged all: "git restore --staged :/\n"
@@ -337,6 +346,8 @@ get remote set origin: "git remote set-url origin "
 get stash help: "git stash --help\n"
 <user.git> stash pop: "git stash pop\n"
 <user.git> stash: "git stash\n"
+# This will stash untracked files as well
+<user.git> stash everything: "git stash -u\n"
 <user.git> stash rebase:
     "git stash -m 'Talon auto stash'\n"
     "git fetch && git rebase\n"
@@ -349,7 +360,9 @@ get stash help: "git stash --help\n"
 
 
 <user.git> (status|stat): "git status --untracked-files=no\n"
+<user.git> (status|stat) sum: "git status -s --untracked-files=no\n"
 <user.git> (status|stat) (all | full | everything): "git status\n"
+<user.git> (status|stat) sum (all | full | everything): "git status -s\n"
 <user.git> (status|stat) staged: "git status --short | grep '^[MARCD]'\n"
 
 <user.git> sub tree: "git subtree "
@@ -449,3 +462,8 @@ get stash help: "git stash --help\n"
 # Personal convenience scripts
 <user.git> smart rebase:
     "git-smart-rebase\n"
+
+<user.git> undo amend:
+    # ᕙ(◕ل͜◕)ᕗ
+    # https://stackoverflow.com/questions/1459150/how-to-undo-git-commit-amend-done-instead-of-git-commit
+    "git reset --soft HEAD@{1}"
