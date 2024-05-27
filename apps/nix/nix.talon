@@ -40,6 +40,7 @@ nix build with paths:
 # Flake build commands
 nix build: "nix build "
 nix build (this|now): "nix build .\n"
+nix build (this|now) impure: "nix build --impure .\n"
 nix build log: "nix build -L "
 nix build impure: "nix build --impure "
 nix build with paths:
@@ -106,3 +107,7 @@ nix shell with:
 
 nix shell command with:
     user.insert_between("nix shell nixpkgs#", " --command ")
+
+nix run this impure: "nix run --impure .\n"
+nix run this: "nix run .\n"
+nix run: "nix run "
