@@ -274,13 +274,18 @@ file [disk] usage all: "du -sh *\n"
 file watch latest: "vlc $(eza --sort changed | tail -n1)"
 file play audio: "vlc --play-and-exit --intf dummy --no-interact"
 
-echo [param] ({user.environment_variables}|<user.text>):
-    insert("echo ${")
-    snake = user.formatted_text(environment_variables or text, "snake")
-    upper = user.formatted_text(snake, "upper")
-    insert(upper)
-    insert("}")
+# This uses an actual dynamic list
+echo [param] {user.runtime_environment_variables}:
+    insert("echo ${{{runtime_environment_variables}}}")
     key(enter)
+
+# echo [param] ({user.environment_variables}|<user.text>):
+#     insert("echo ${")
+#     snake = user.formatted_text(environment_variables or text, "snake")
+#     upper = user.formatted_text(snake, "upper")
+#     insert(upper)
+#     insert("}")
+#     key(enter)
 
 # FIXME: Maybe tweak these to use an action, since lots of dupe
 # Split a variable into a list based on specified symbol (or ':')
@@ -629,9 +634,11 @@ system shutdown [now]: "sudo shutdown -h now"
 
 # debugging
 file debug: "gdb "
+run G D B: "gdb -q\n"
 file debug with command: "gdb -ex "
 file arm debug: "arm-none-eabi-gdb "
 file arm sixty forty bug: "aarch64-linux-gnu-gdb "
+
 run (debug script | debugger): "gdb -x debug.gdb\n"
 run arm (debug script | debugger): "arm-none-eabi-gdb -x debug.gdb\n"
 run debug server: "gdbserver "
@@ -849,3 +856,4 @@ folder make temp: "mktemp -d\n"
 # a sub call...
 (gen|generate) (pass|password): "genpasswd\n"
 sub (gen|generate) (pass|password): "$(genpasswd)"
+
