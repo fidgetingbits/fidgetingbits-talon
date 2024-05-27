@@ -2,6 +2,8 @@ tag: terminal
 and tag: user.git
 -
 
+<user.git> version: "git --version\n"
+
 # Standard commands
 <user.git> add patch: "git add . -p\n"
 <user.git> add: "git add "
@@ -416,7 +418,7 @@ get stash help: "git stash --help\n"
 #git diff (cached | cashed)$: "git diff --cached\n"
 
 # Convenience
-<user.git> clone clipboard:
+<user.git> clone clip:
     insert("git clone ")
     edit.paste()
     key(enter)
@@ -425,7 +427,7 @@ get stash help: "git stash --help\n"
     insert("git diff ")
     edit.paste()
     key(enter)
-<user.git> diff clipboard:
+<user.git> diff clip:
     insert("git diff ")
     edit.paste()
     key(enter)
@@ -435,7 +437,7 @@ get stash help: "git stash --help\n"
     insert("git add ")
     edit.paste()
     key(enter)
-<user.git> add clipboard:
+<user.git> add clip:
     insert("git add ")
     edit.paste()
     key(enter)
