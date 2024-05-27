@@ -20,3 +20,5 @@ set exception debugger off: "set exception-debugger off\n"
 
 # This should move into my own helpers file
 dump list: "list-print "
+
+map gaps: "vmmap --gaps\n"
