@@ -638,6 +638,7 @@ run G D B: "gdb -q\n"
 file debug with command: "gdb -ex "
 file arm debug: "arm-none-eabi-gdb "
 file arm sixty forty bug: "aarch64-linux-gnu-gdb "
+debug file {user.executable_files}: "gdb {executable_files}\n"
 
 run (debug script | debugger): "gdb -x debug.gdb\n"
 run arm (debug script | debugger): "arm-none-eabi-gdb -x debug.gdb\n"
