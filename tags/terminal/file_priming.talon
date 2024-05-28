@@ -4,7 +4,7 @@ os: mac
 and tag: terminal
 -
 
-prime env R C:
+envy flake init:
     insert("echo 'use flake' > .envrc\n")
     insert("git add flake.nix .envrc\n")
     insert("direnv allow\n")
