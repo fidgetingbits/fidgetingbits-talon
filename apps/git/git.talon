@@ -91,9 +91,9 @@ and tag: user.git
 <user.git> clean everything: "git clean -dfx"
 <user.git> clean untracked: "git clean -fd"
 
-<user.git> (commit|calm) [message] <user.text>:
-    edit.delete_line()
-    insert("git commit -m \"{text or ''}")
+# <user.git> (commit|calm) [message] <user.text>:
+#     edit.delete_line()
+#     insert("git commit -m \"{text or ''}")
 <user.git> (commit|calm) [message] <user.git_conventional_commits>:
     edit.delete_line()
     user.insert_between('git commit -m "{git_conventional_commits}', '"')
