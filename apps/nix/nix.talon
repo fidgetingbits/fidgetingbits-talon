@@ -45,6 +45,7 @@ nix build impure: "nix build --impure "
 nix build with paths:
     user.insert_between("nix build nixpkgs#", "--print-out-paths --no-link")
 nix build debug: " nix build --verbose --debug --print-build-logs\n"
+nix build {user.flake_outputs}: "nix build {flake_outputs}\n"
 
 nix flake check: "nix flake check\n"
 nix flake update: "nix flake update\n"
