@@ -43,6 +43,7 @@ and tag: user.git
     "git push origin --delete "
     edit.paste()
 <user.git> branch (remove | delete) {user.git_branches}: "git branch -d {git_branches}"
+<user.git> branch (remove | delete) force {user.git_branches}: "git branch -D {git_branches}"
 <user.git> branch remote: "git branch --remote\n"
 <user.git> branch (rename | move): "git branch -m "
 
@@ -145,6 +146,13 @@ and tag: user.git
 <user.git> diff tool: "git difftool -d\n"
 <user.git> diff tool cached: "git difftool --cached -d\n"
 <user.git> diff names only: "git diff --name-only "
+<user.git> diff status: "git diff --name-status "
+<user.git> diff status {user.git_branches}: "git diff --name-status {git_branches}\n
+
+<user.git> diff {user.git_modified_files}:
+    "git diff {git_modified_files}"
+<user.git> diff staged {user.git_staged_files}:
+    "git diff --staged {user.git_staged_files}"
 
 <user.git> fetch: "git fetch\n"
 (git fetch and rebase|G base): "git fetch && git rebase\n"
