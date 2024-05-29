@@ -9,7 +9,9 @@ tag: user.code_types
 put <user.code_containing_type> of [<user.code_type>]:
     type = user.code_type or ""
     insert("{code_containing_type}<{type}>")
-
+add type <user.code_type>:
+    insert(user.code_alternative_type_separator())
+    insert(code_type)
 # TODO: The should have single versions that encapsulate the containing type style
 # for annotating function parameters
 is type <user.code_type>: user.code_insert_type_annotation(code_type)
