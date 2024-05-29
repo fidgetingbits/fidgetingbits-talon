@@ -19,7 +19,7 @@ tag(): user.code_operators_lambda
 tag(): user.code_operators_math
 tag(): user.code_format_strings
 tag(): user.code_format_strings_interpolated
-
+tag(): user.code_types
 
 settings():
     user.code_private_function_formatter = "SNAKE_CASE"
@@ -101,11 +101,6 @@ raw string: user.insert_between('r"', '"')
 [state] except {user.python_exception} as:
     user.insert_between("except {python_exception} as ", ":")
 
-# function # for annotating function parameters
-is type {user.code_type}: insert(": {code_type}")
-returns [type] {user.code_type}: insert(" -> {code_type}")
-# for generic reference of types
-type {user.code_type}: insert("{code_type}")
 
 # decorators
 (deck | put) {user.python_decorator}: insert("@{python_decorator}")

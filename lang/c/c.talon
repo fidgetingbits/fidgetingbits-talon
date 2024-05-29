@@ -16,6 +16,7 @@ tag(): user.code_operators_bitwise
 tag(): user.code_operators_math
 tag(): user.code_operators_pointer
 tag(): user.code_format_strings
+tag(): user.code_types
 
 settings():
     user.code_private_function_formatter = "SNAKE_CASE"

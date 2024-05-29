@@ -9,8 +9,6 @@ mod = Module()
 
 mod.tag("code_functions", desc="Tag for enabling commands for functions")
 
-mod.list("code_type", desc="List of types for active language")
-mod.list("code_containing_types", desc="List of containing types for active language")
 mod.list(
     "code_parameter_name", desc="List of common parameter names for active language"
 )
@@ -25,34 +23,6 @@ ctx.lists["user.code_function_modifier"] = {
     "private": "private",
     "static": "static",
 }
-
-
-@ctx.capture("user.code_type", rule="[{user.code_type_modifier}] {user.code_type}")
-def code_type(m) -> str:
-    """Returns a macro name"""
-    return "".join(m)
-
-
-@ctx.capture(
-    "user.code_containing_type",
-    rule="[{user.code_type_modifier}] {user.code_containing_types}",
-)
-def code_containing_type(m) -> str:
-    """Returns a macro name"""
-    return "".join(m)
-
-
-@mod.capture(rule="{user.code_type}")
-def code_type(m) -> str:
-    """Returns a type name"""
-    return m.code_type
-
-
-@mod.capture(rule="{user.code_containing_type}")
-def code_containing_type(m) -> str:
-    """Returns a containing type name"""
-    return m.code_containing_type
-
 
 setting_private_function_formatter = mod.setting("code_private_function_formatter", str)
 setting_protected_function_formatter = mod.setting(
@@ -164,9 +134,6 @@ class Actions:
                 name, settings.get("user.code_public_variable_formatter")
             )
         )
-
-    def code_insert_type_annotation(type: str):
-        """Inserts a type annotation"""
 
     def code_insert_return_type(type: str):
         """Inserts a return type"""

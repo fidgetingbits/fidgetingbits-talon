@@ -200,6 +200,8 @@ ctx.lists["user.code_type"] = {
     "callable": "Callable",
     "list": "List",
     "no return": "NoReturn",
+    # gdb
+    "value": "gdb.Value",
 }
 
 ctx.lists["user.code_keyword"] = {
@@ -520,6 +522,9 @@ class UserActions:
 
     def code_insert_return_type(type: str):
         actions.insert(f" -> {type}")
+
+    def code_alternative_type_separator():
+        return " | "
 
 
 @mod.action_class
