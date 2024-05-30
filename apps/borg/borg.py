@@ -41,7 +41,7 @@ ctx.lists["user.borg_commands"] = {
 mod.list("borg_servers", desc="List of borg servers")
 mod.list("borg_private_servers", desc="List of private borg servers")
 mod.list("borg_hosts", desc="List of backed up hosts")
-mod.list("borg_private_hostss", desc="List of private backed up hosts")
+mod.list("borg_private_hosts", desc="List of private backed up hosts")
 
 ctx.lists["user.borg_servers"] = {}
 ctx.lists["user.borg_private_servers"] = {}
@@ -49,8 +49,8 @@ ctx.lists["user.borg_hosts"] = {}
 ctx.lists["user.borg_private_hosts"] = {}
 
 
-@mod.action_class("user")
-class Actions:
+@mod.action_class
+class BorgActions:
     def borg_command() -> str:
         """Default borg command to run"""
         return "borg"
