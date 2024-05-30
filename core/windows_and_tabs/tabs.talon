@@ -14,7 +14,7 @@ tabby search: user.tab_search()
 tabby (duplicate): user.tab_duplicate()
 tabby pin: user.tab_pin()
 tabby unpin: user.tab_unpin()
-(tabby flip | flip): user.tab_last()
+# (tabby flip | flip): user.tab_last()
 tabby rename [<user.text>]:
     name = text or ''
     user.tab_rename(user.formatted_text(name, user.tab_name_format()))
