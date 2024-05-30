@@ -147,7 +147,7 @@ and tag: user.git
 <user.git> diff tool cached: "git difftool --cached -d\n"
 <user.git> diff names only: "git diff --name-only "
 <user.git> diff status: "git diff --name-status "
-<user.git> diff status {user.git_branches}: "git diff --name-status {git_branches}\n
+<user.git> diff status {user.git_branches}: "git diff --name-status {git_branches}\n"
 
 <user.git> diff {user.git_modified_files}:
     "git diff {git_modified_files}"
