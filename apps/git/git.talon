@@ -351,6 +351,15 @@ get remote set origin: "git remote set-url origin "
     key(enter)
 <user.git> show (head | last): "git show -c HEAD\n"
 <user.git> show (head | last) [minus] <number>: "git show -c HEAD~{number}\n"
+<user.git> show names: "git show --name-status "
+<user.git> show names clip:
+    insert("git show --name-status ")
+    edit.paste()
+    key(enter)
+<user.git> show names (head | last): "git show --name-status HEAD\n"
+<user.git> show names (head | last) [minus] <number>: "git show --name-status HEAD~{number}\n"
+
+
 <user.git> change head to main:
     "git symbolic-ref refs/remotes/origin/HEAD refs/remotes/origin/main\n"
 get stash help: "git stash --help\n"
