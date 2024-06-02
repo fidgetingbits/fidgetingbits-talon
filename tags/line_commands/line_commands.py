@@ -39,3 +39,9 @@ class Actions:
         """Clones specified line at current position"""
         actions.edit.jump_line(line)
         actions.edit.line_clone()
+
+    def line_find_forward(key: str):
+        """Finds the next character in the line"""
+
+    def line_find_backward(key: str):
+        """Finds the previous character in the line"""
