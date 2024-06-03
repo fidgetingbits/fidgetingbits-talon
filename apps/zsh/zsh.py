@@ -9,7 +9,7 @@ ctx = Context()
 mod = Module()
 
 ctx.matches = r"""
-app: zsh
+tag: user.zsh
 """
 
 mod.tag("zsh", desc="Tag for enabling zsh shell support")
@@ -183,3 +183,9 @@ class Actions:
     def zsh_get_cwd(noisy: bool = False):
         """Return the current zsh cwd"""
         return _get_zsh_cwd(ui.active_window().title, noisy)
+
+
+@ctx.action_class("user")
+class UserActions:
+    def get_pinned_tag_id() -> tuple[int, str]:
+        return (actions.user.zsh_get_pid(), "pid")

@@ -69,6 +69,7 @@ def close_packager_picker():
     actions.mode.disable("user.packager_picker_open")
 
 
+# FIXME: Actually implement this so you can pick from the selection of packagers
 @imgui.open(y=0, x=main_screen.width / 2.6)
 def gui(gui: imgui.GUI):
     gui.line()
@@ -173,7 +174,6 @@ class PackageManagerActions:
             else:
                 app.notify("No package manager set")
         else:
-            global current_packager
             if current_packager is None:
                 app.notify("No package manager set")
             else:
@@ -184,13 +184,15 @@ def on_ready():
     actions.user.package_manager_reset()
 
 
+# FIXME: Not entirely sure this is needed anymore, as depending on how the pinned_tag_id is retrieved, it may
+# automatically go out of context and thus will change back to the default.
 def win_title(window):
-
-    # FIXME: Eventually this should just be any terminal and we pull out the pid even if it's not zsh, but need to test
-    if "user.zsh" not in registry.tags:
-        return
     global last_title
-    if window == ui.active_window() and window.title != last_title:
+    if (
+        window == ui.active_window()
+        and window.title != last_title
+        and "user.package_manager" in ctx.tags
+    ):
         last_title = window.title
         actions.user.package_manager_reset()
 
