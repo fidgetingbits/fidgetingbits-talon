@@ -27,7 +27,7 @@ def user_runtime_environment_variables(m) -> dict[str, str]:
     try:
         output = subprocess.check_output(
             ("env",),
-            cwd=actions.user.zsh_get_cwd(),
+            cwd=actions.user.get_cwd(),
         ).decode("utf-8")
     except subprocess.CalledProcessError as e:
         print(e.output)
@@ -57,7 +57,7 @@ def executable_files(m) -> dict[str, str]:
                 "-printf",
                 "%P\n",
             ),
-            cwd=actions.user.zsh_get_cwd(),
+            cwd=actions.user.get_cwd(),
         ).decode("utf-8")
     except subprocess.CalledProcessError as e:
         print(e.output)

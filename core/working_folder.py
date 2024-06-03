@@ -19,7 +19,7 @@ def working_folder():
                 cwd = cwd.replace(str(Path.home()), "~")
         return cwd
     except Exception as e:
-        print(f"working_folder() threw exception: {e}")
+        # print(f"working_folder() threw exception: {e}")
         return None
 
 
