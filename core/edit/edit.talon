@@ -11,12 +11,6 @@ scout:
 scout next:
     edit.find_next()
 
-find <user.unmodified_key>:
-    user.line_find_forward(unmodified_key)
-
-find last <user.unmodified_key>:
-    user.line_find_backward(unmodified_key)
-
 go (word left | back):
     edit.word_left()
 
@@ -122,10 +116,10 @@ chuck tail (this|token):
     user.delete_word_right()
 
 chuck head:
-    user.delete_line_beginning()
+    user.delete_line_start()
 
 chuck tail:
-    user.delete_line_remaining()
+    user.delete_line_end()
 
 chuck head file:
     edit.extend_file_start()

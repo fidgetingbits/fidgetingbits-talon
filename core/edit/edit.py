@@ -248,13 +248,3 @@ class Actions:
         """Delete to start of current word"""
         actions.edit.extend_word_left()
         actions.edit.delete()
-
-    def delete_line_beginning():
-        """Delete to beginning of current line"""
-        actions.edit.extend_line_start()
-        actions.edit.delete()
-
-    def delete_line_remaining():
-        """Delete to end of current line"""
-        actions.edit.extend_line_beginning()
-        actions.edit.delete()
