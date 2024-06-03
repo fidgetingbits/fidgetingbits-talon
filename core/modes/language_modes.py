@@ -1,4 +1,4 @@
-from talon import Context, Module, actions
+from talon import Context, Module, actions, app
 
 # Maps language mode names to the extensions that activate them. Only put things
 # here which have a supported language mode; that's why there are so many
@@ -107,7 +107,6 @@ forced_language = ""
 class CodeActions:
     def language():
         file_name = actions.win.filename()
-        # print(file_name)
         if file_name in special_file_map:
             return special_file_map[file_name]
 
@@ -143,19 +142,18 @@ class Actions:
         """Show the active language for this context"""
         forced = actions.user.code_get_forced_language()
         if len(forced):
-            print(f"Forced language: {forced}")
+            app.notify(f"Forced language: {forced}")
 
     def code_get_forced_language_with_fallback(fallback: str) -> str:
         """Allows an app to force a language as a fallback, but still favor the user's forced language if it's set"""
-        print(forced_language)
         if len(forced_language):
             return forced_language
         if fallback:
             if fallback in language_ids:
                 return fallback
             else:
-                print(f"Invalid fallback language specified: {fallback}")
-        return FileNotFoundError
+                print(f"ERROR: Invalid fallback language specified: {fallback}")
+        return None
 
     def code_get_forced_language():
         """Return the currently forced language"""
