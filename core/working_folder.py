@@ -4,6 +4,7 @@ from talon import Module, actions, ui
 mod = Module()
 
 
+# FIXME: Test starting folder, using something like /^<path>/
 @mod.scope
 def scope():
     return {"working_folder": {working_folder()}}
@@ -11,7 +12,7 @@ def scope():
 
 def working_folder():
     try:
-        cwd = str(actions.user.zsh_get_cwd())
+        cwd = str(actions.user.get_cwd())
         # None means action failed
         if cwd:
             if cwd.startswith(str(Path.home())):

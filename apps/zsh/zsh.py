@@ -189,3 +189,6 @@ class Actions:
 class UserActions:
     def get_pinned_tag_id() -> tuple[int, str]:
         return (actions.user.zsh_get_pid(), "pid")
+
+    def get_cwd() -> str:
+        return actions.user.zsh_get_cwd()

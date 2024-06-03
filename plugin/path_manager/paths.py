@@ -378,3 +378,7 @@ class Actions:
     def escape_path(path: str):
         """Escape separators in a path string"""
         return path.replace("/", "\\/")
+
+    def get_cwd() -> str:
+        """Get the current working directory of the app"""
+        return None
