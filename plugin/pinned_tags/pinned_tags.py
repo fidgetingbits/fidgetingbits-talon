@@ -125,21 +125,35 @@ def _garbage_collect():
 
     This is required because we don't know when a given process is terminated from inside talon
     """
-    return
+    print("INFO: Garbage collecting pinned tags")
     global tracked_contexts
-    for ctx in tracked_contexts:
-        match ctx.tag_id.type:
-            case "window":
-                window_list = [x.id for x in ui.windows()]
-            case "pid":
-                pid_list = [x.pid for x in ui.windows() if x.id == ctx.tag_id.id]
-            case _:
-                return
-    if app.platform == "linux" or app.platform == "mac":
-        clean_up = _find_dead_unix_processes(pid_list)
-    else:
-        return
-    tracked_contexts = [x for x in tracked_contexts if x.pid not in clean_up]
+    active_pid_contexts = []
+    pid_list = [x.tag_id.id for x in tracked_contexts if x.tag_id.type == "pid"]
+    active_window_contexts = []
+    window_list = [x.tag_id.id for x in tracked_contexts if x.tag_id.type == "window"]
+
+    if len(pid_list):
+        if app.platform == "linux" or app.platform == "mac":
+            clean_up = _find_dead_unix_processes(pid_list)
+            print("Found dead processes", clean_up)
+            active_pid_contexts = [
+                x
+                for x in tracked_contexts
+                if x.tag_id.type == "pid" and x.tag_id.id not in clean_up
+            ]
+    if len(window_list):
+        active_window_ids = [x.id for x in ui.windows()]
+        active_window_contexts = [
+            x
+            for x in tracked_contexts
+            if x.tag_id.type == "window" and x.tag_id.id in active_window_ids
+        ]
+        if len(active_window_contexts) != len(window_list):
+            print("INFO: Found dead windows")
+            print("INFO: Active windows", active_window_ids)
+            print("INFO: Pinned windows", window_list)
+
+    tracked_contexts = active_pid_contexts + active_window_contexts
 
 
-cron.interval("10m", _garbage_collect)
+cron.interval("10s", _garbage_collect)
