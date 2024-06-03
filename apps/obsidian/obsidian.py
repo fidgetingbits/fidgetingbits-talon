@@ -8,6 +8,7 @@ ctx = Context()
 ctx.matches = r"""
 app: obsidian
 """
+ctx.tags = ["user.code_language_forced"]
 
 macCtx = Context()
 macCtx.matches = r"""
@@ -29,3 +30,9 @@ class Actions:
 
 
 # TODO: Implement per-platform actions to override
+
+
+@ctx.action_class("user")
+class UserActions:
+    def code_get_forced_language():
+        return actions.user.code_get_forced_language_with_fallback("markdown")

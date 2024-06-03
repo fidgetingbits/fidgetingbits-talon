@@ -47,16 +47,6 @@ language_extensions = {
     "zsh": "zsh",
 }
 
-# This list can be indirectly updated by other modules when they know at some
-# language should be implicitly enabled for a specific context, for instance
-# detecting the application repl is running in a terminal. Note that this is
-# different than the auto_lang mode, which sets a global mode across all
-# talon contexts.
-# XXX - we might want to change this to try to be closer to the new auto_lang
-# changes
-forced_context_language = None
-
-
 # Files without specific extensions but are associated with languages
 special_file_map = {
     "CMakeLists.txt": "cmake",
@@ -128,21 +118,11 @@ class CodeActions:
 @ctx_forced.action_class("code")
 class ForcedCodeActions:
     def language():
-        return forced_language
+        return actions.user.code_get_forced_language()
 
 
 @mod.action_class
 class Actions:
-    def code_set_context_language(language: str):
-        """Sets the active language for this context"""
-        global forced_context_language
-        forced_context_language = language
-
-    def code_clear_context_language():
-        """Unsets the active language for this context"""
-        global forced_context_language
-        forced_context_language = None
-
     def code_set_language_mode(language: str):
         """Sets the active language mode, and disables extension matching"""
         global forced_language
@@ -160,7 +140,23 @@ class Actions:
         ctx.tags = []
 
     def code_show_forced_language_mode():
-        """Unsets the active language for this context"""
-        print(
-            f"Forced languages: {[t[:len('_forced')] for t in ctx.tags if t.endswith('_forced')]}"
-        )
+        """Show the active language for this context"""
+        forced = actions.user.code_get_forced_language()
+        if len(forced):
+            print(f"Forced language: {forced}")
+
+    def code_get_forced_language_with_fallback(fallback: str) -> str:
+        """Allows an app to force a language as a fallback, but still favor the user's forced language if it's set"""
+        print(forced_language)
+        if len(forced_language):
+            return forced_language
+        if fallback:
+            if fallback in language_ids:
+                return fallback
+            else:
+                print(f"Invalid fallback language specified: {fallback}")
+        return FileNotFoundError
+
+    def code_get_forced_language():
+        """Return the currently forced language"""
+        return actions.user.code_get_forced_language_with_fallback(None)
