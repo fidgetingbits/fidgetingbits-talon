@@ -24,3 +24,12 @@ class AppActions:
 class UserActions:
     def window_maximize():
         actions.key("alt-f10")
+
+    def window_pin():
+        actions.key("alt-space")
+        actions.sleep("500ms")
+        actions.key("down:6")
+        actions.key("enter")
+
+    def window_unpin():
+        actions.user.window_pin()

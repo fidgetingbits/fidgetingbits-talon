@@ -9,6 +9,12 @@ class Actions:
     def window_maximize():
         """Use the window manager defined maximize function"""
 
+    def window_pin():
+        """Use the window manager defined pin function"""
+
+    def window_unpin():
+        """Use the window manager defined unpin function"""
+
 
 @ctx.action_class("app")
 class AppActions:

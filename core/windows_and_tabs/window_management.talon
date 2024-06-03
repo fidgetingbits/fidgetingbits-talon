@@ -27,3 +27,6 @@ snap (in | out): user.desktop_show()
 
 # alt-tab style cycling
 win cycle: user.switcher_focus_last()
+
+window pin: user.window_pin()
+window unpin: user.window_unpin()
