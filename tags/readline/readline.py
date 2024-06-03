@@ -42,10 +42,10 @@ class EditActions:
 
 @ctx.action_class("user")
 class UserActions:
-    def delete_line_beginning():
+    def delete_line_start():
         actions.key("ctrl-u")
 
-    def delete_line_remaining():
+    def delete_line_end():
         actions.key("ctrl-k")
 
     def delete_word_right():
