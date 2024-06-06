@@ -19,6 +19,10 @@ nix_libs = {
     "packages": "pkgs",
 }
 
+# I try to use library prefixes to keep with best practices, which try to avoid `with` as well as `builtins`, were
+# necessary. However I also favor brevity, so for for example for something that is defined in lib.strings, but that is
+# also alias in lib, a favor lib. If you want a good reference for this type of thing check out noogle.dev.
+
 
 # As of 22.05: https://nixos.org/manual/nix/stable/language/builtin-constants
 builtin_constants = {
