@@ -1,16 +1,19 @@
-tag: user.npm
+tag: user.nodejs
+tag: user.packager_node
 -
 
-node update: "npm update\n"
-node global update: "npm -g update\n"
-node install: "npm install "
-node global install: "npm -g install "
-node uninstall: "npm uninstall "
-node global uninstall: "npm -g uninstall "
-node list: "npm list\n"
-node global list: "npm -g list\n"
-node list depth <number_small>: "npm list --depth={number_small}\n"
-node global list <number_small>: "npm -g list --depth={number_small}\n"
-node config set prefix:
-    insert("npm config set prefix ''")
-    edit.left()
+node search: user.nodejs_package_search()
+node install <user.text>: user.nodejs_package_install_by_name(text or "")
+node install local: user.nodejs_package_local_install()
+node remove: user.nodejs_package_remove()
+node remove local: user.nodejs_package_local_remove()
+node update [<user.text>]: user.nodejs_package_update(text or "")
+
+
+# node config set prefix:
+#     insert(f"{user.nodejs_packager()} config set prefix ''")
+#     edit.left()
+# node list depth <number_small>: insert(f"{user.nodejs_packager()} list --depth={number_small}\n")
+node run {user.nodejs_scripts}:
+    user.nodejs_packager()
+    insert(" run {user.nodejs_scripts}")

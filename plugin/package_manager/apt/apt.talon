@@ -1,5 +1,7 @@
-tag: user.packager_apt
+# Commands to use apt if not using the package manager overrides
+tag: user.apt
 -
+
 apt: "apt "
 apt autoremove: "apt autoremove "
 apt edit sources: "apt edit-sources\n"

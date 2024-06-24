@@ -33,8 +33,9 @@ packager_list = [
     {"tag": "packager_zypper", "desc": "SuSE packager"},
     {"tag": "packager_dnf", "desc": "Fedora/Redhat DNF packager"},
     {"tag": "packager_yum", "desc": "Fedora/Redhat YUM packager"},
-    {"tag": "packager_npm", "desc": "Node package manager"},
+    {"tag": "packager_nodejs", "desc": "Nodejs package manager (npm or pnpm)"},
     {"tag": "packager_nix", "desc": "Nix package manager"},
+    {"tag": "packager_yarn", "desc": "Yarn package manager"},
 ]
 mod.list("package_managers", "List of common package managers for Darwin/Linux")
 
@@ -94,24 +95,51 @@ class UserActions:
 
     def package_install():
         """Install from the package database"""
+        actions.user.package_install_by_name("")
 
     def package_install_by_name(name: str):
         """Install specified package from the package database"""
 
+    def package_local_install():
+        """Install locally (eg: into current workspace) from the package database"""
+        actions.user.package_install_by_name("")
+
+    def package_local_install_by_name(name: str):
+        """Install specified package locally from the package database"""
+
     def package_remove():
         """Uninstall the package"""
+        actions.user.package_remove_by_name("")
 
     def package_remove_by_name(name: str):
         """Uninstall the package by name"""
 
-    def package_update(name: str):
+    def package_local_remove():
+        """Uninstall the package locally"""
+        actions.user.package_local_remove_by_name("")
+
+    def package_local_remove_by_name(name: str):
+        """Uninstall the package locally by name"""
+
+    def package_update():
         """Update from the package database"""
+        actions.user.package_update_by_name("")
 
     def package_update_by_name(name: str):
         """Update specified package from the package database"""
 
     def package_update_all():
         """Update everything from the package database"""
+
+    def package_local_update():
+        """Update locally (eg: into current workspace) from the package database"""
+        actions.user.package_local_update_by_name("")
+
+    def package_local_update_by_name(name: str):
+        """Update specified package locally from the package database"""
+
+    def package_local_update_all():
+        """Update everything locally (eg: into current workspace) from the package database"""
 
     def package_upgrade_system():
         """Update the entire system point release"""
@@ -121,6 +149,12 @@ class UserActions:
 
     def package_list_contents():
         """List a packages local contents"""
+
+    def package_local_list():
+        """List locally (eg: from current workspace) installed packages"""
+
+    def package_local_list_contents():
+        """List a packages (eg: from current workspace) local contents"""
 
     def package_dependencies():
         """List packages dependent on a specific package"""
