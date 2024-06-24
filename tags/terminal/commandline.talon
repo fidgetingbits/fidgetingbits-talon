@@ -34,7 +34,7 @@ tag(): user.docker
 tag(): user.podman
 tag(): user.virsh
 tag(): user.yarn
-#tag(): user.npm
+tag(): user.nodejs
 #tag(): user.meson
 #tag(): user.kubectl
 tag(): user.vboxmanage
@@ -53,6 +53,7 @@ tag(): user.ykman
 tag(): user.btrfs
 tag(): user.qcow2
 tag(): user.borg
+tag(): user.atuin
 
 # Shell commands
 
@@ -61,27 +62,28 @@ run last script:
     insert("./")
     key(up)
     key(enter)
-rerun <user.text>:
+recall [<user.text>]:
     key(ctrl-r)
-    insert(text)
-rerun list: key(ctrl-r)
-rerun last command:
+    insert(text or "")
+recall last command:
     edit.delete_line()
     key(! ! enter enter)
 
+
+
 # XXX - it would be good to have overrides for words that are harder to say,
 # like ssh, ex: see following tunnel word
-rerun last <user.word>:
+recall last <user.word>:
     key(!)
     insert(word)
     #this is pretty dangerous...
     #key(enter)
-rerun last tunnel:
+recall last tunnel:
     key(!)
     insert("ssh\n")
     key(enter)
 
-rerun force <user.text>:
+recall force <user.text>:
     key(ctrl-r)
     insert(text)
     key(enter:2)
