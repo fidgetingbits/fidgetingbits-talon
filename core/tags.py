@@ -64,8 +64,9 @@ tagList = [
     "direnv",  # direnv commands
     "ykman",  # yubikey manager commands
     "btrfs",  # btrfs filesystem commands
-    "qcow2", # qemu qcow2 image commands
+    "qcow2",  # qemu qcow2 image commands
     "borg",  # borg backup commands
+    "atuin",  # atuin terminal commands
 ]
 
 for entry in tagList:
