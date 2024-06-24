@@ -53,7 +53,7 @@ settings():
 
     # Uncomment to insert text longer than 10 characters (customizable) by pasting from
     # the clipboard. This is often faster than typing.
-    # user.paste_to_insert_threshold = 10
+    user.paste_to_insert_threshold = 5
 
     # Uncomment to enable context-sensitive dictation. This determines how to format
     # (capitalize, space) dictation-mode speech by selecting & copying surrounding text
@@ -68,7 +68,7 @@ settings():
     # user.window_snap_screen = "size aware"
 
     # neovim-talon
-    user.neovim_command_server_shortcut = "ctrl-q"
+    user.neovim_command_server_shortcut = "ctrl-`"
 
 # Uncomment to enable the curse yes/curse no commands (show/hide mouse cursor).
 # See issue #688 for more detail: https://github.com/talonhub/community/issues/688
