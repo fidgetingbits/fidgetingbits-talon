@@ -22,7 +22,7 @@ mod.list("justfile_commands", desc="Just commands from the justfile")
 def user_justfile_commands(m) -> dict[str, str]:
     """A dynamic list of available just commands"""
     ps = subprocess.Popen(
-        ("just", "--list"), stdout=subprocess.PIPE, cwd=actions.user.zsh_get_cwd()
+        ("just", "--list"), stdout=subprocess.PIPE, cwd=actions.user.get_cwd()
     )
     output = subprocess.check_output(
         ("grep", "-v", "'(Available recipes|Error:)'"), stdin=ps.stdout

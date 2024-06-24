@@ -16,7 +16,7 @@ mod.list("flake_outputs", desc="Outputs defined by a nix foodflake")
 
 def read_flake_metadata() -> str:
     """Ensure flake exists and return metadata as json string"""
-    if not os.path.exists(f"{actions.user.zsh_get_cwd()}/flake.nix"):
+    if not os.path.exists(f"{actions.user.get_cwd()}/flake.nix"):
         print("no flake.nix")
         return {}
 
@@ -25,7 +25,7 @@ def read_flake_metadata() -> str:
         capture_output=True,
         text=True,
         check=True,
-        cwd=actions.user.zsh_get_cwd(),
+        cwd=actions.user.get_cwd(),
         # stdout=subprocess.PIPE,
     )
     return result.stdout

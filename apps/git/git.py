@@ -91,7 +91,7 @@ mod.list("git_staged_files", desc="Git tracked files that have been staged")
 
 def git_status():
     return subprocess.check_output(
-        ("git", "status", "-s"), cwd=actions.user.zsh_get_cwd()
+        ("git", "status", "-s"), cwd=actions.user.get_cwd()
     ).decode("utf-8")
 
 
@@ -155,7 +155,7 @@ def user_git_branches(m) -> dict[str, str]:
     """A dynamic list of available git branches"""
 
     output = subprocess.check_output(
-        ("git", "branch", "-a"), cwd=actions.user.zsh_get_cwd()
+        ("git", "branch", "-a"), cwd=actions.user.get_cwd()
     ).decode("utf-8")
     if not output:
         print("users_git_branches(): no output")
@@ -187,9 +187,9 @@ def user_git_branches(m) -> dict[str, str]:
 def user_git_tags(m) -> dict[str, str]:
     """A dynamic list of available git tags"""
 
-    output = subprocess.check_output(
-        ("git", "tag"), cwd=actions.user.zsh_get_cwd()
-    ).decode("utf-8")
+    output = subprocess.check_output(("git", "tag"), cwd=actions.user.get_cwd()).decode(
+        "utf-8"
+    )
     if not output:
         print("no output")
         return {}
@@ -205,7 +205,7 @@ def user_git_remotes(m) -> dict[str, str]:
     """A dynamic list of available git branches"""
 
     output = subprocess.check_output(
-        ("git", "remote"), cwd=actions.user.zsh_get_cwd()
+        ("git", "remote"), cwd=actions.user.get_cwd()
     ).decode("utf-8")
     if not output:
         print("no output")

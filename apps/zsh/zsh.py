@@ -45,7 +45,7 @@ def _find_items_in_current_path(type: str) -> dict[str, str]:
         ],
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
-        cwd=actions.user.zsh_get_cwd(),
+        cwd=actions.user.get_cwd(),
         shell=True,
     )
     cmd_error = ps.stderr.read()
@@ -64,7 +64,7 @@ def _find_items_in_current_path(type: str) -> dict[str, str]:
     ps = subprocess.Popen(
         ["find $PWD -maxdepth 1 -type l -not -path '*/\\.*' -not -path '\\.' -print"],
         stdout=subprocess.PIPE,
-        cwd=actions.user.zsh_get_cwd(),
+        cwd=actions.user.get_cwd(),
         shell=True,
     )
     symlink_list = subprocess.check_output(
@@ -126,18 +126,18 @@ def _is_zsh_window(window):
     )
 
 
-def _get_zsh_pid(title):
+def _zsh_get_pid(title):
     """Extract the zsh pid from the window title"""
     try:
         pid = int(title.split("term://")[1].split(":")[0].split("/")[-1])
         return pid
     except Exception as e:
         # FIXME:
-        # print(f"zsh.py _get_zsh_pid() failed to extract pid from {title}: {e}")
+        # print(f"zsh.py _zsh_get_pid() failed to extract pid from {title}: {e}")
         pass
 
 
-def _get_zsh_cwd(title, noisy=False):
+def _zsh_get_cwd(title, noisy=False) -> pathlib.Path:
     """Extract the zsh cwd from the window title"""
     if not title.startswith("VIM"):
         return
@@ -178,11 +178,11 @@ class Actions:
 
     def zsh_get_pid():
         """Return the current zsh pid"""
-        return _get_zsh_pid(ui.active_window().title)
+        return _zsh_get_pid(ui.active_window().title)
 
     def zsh_get_cwd(noisy: bool = False):
         """Return the current zsh cwd"""
-        return _get_zsh_cwd(ui.active_window().title, noisy)
+        return _zsh_get_cwd(ui.active_window().title, noisy)
 
 
 @ctx.action_class("user")
