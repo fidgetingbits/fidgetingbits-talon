@@ -50,7 +50,7 @@ class UserActions:
         actions.browser.focus_address()
         actions.key("%")
 
-    def tab_jump_name(name: str):
+    def tab_focus_named(name: str):
         actions.user.tab_search()
         actions.sleep("500ms")
         actions.edit.paste(name)

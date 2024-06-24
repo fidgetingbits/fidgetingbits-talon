@@ -652,10 +652,14 @@ file open cargo: user.vscode("rust-analyzer.cargo.openCargoToml")
 
 # TODO: It would be good to close the panel on success with certain commits
 task build: user.vscode("workbench.action.tasks.build")
-task run <user.text>:
+task recall:
     user.vscode("workbench.action.tasks.runTask")
     sleep(50ms)
-    insert(text)
+    key(enter)
+task run [<user.text>]:
+    user.vscode("workbench.action.tasks.runTask")
+    sleep(50ms)
+    insert(text or "")
 (task run go | runner) <user.text>:
     user.vscode("workbench.action.tasks.runTask")
     sleep(50ms)
