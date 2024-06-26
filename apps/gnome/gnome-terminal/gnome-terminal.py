@@ -29,9 +29,6 @@ class UserActions:
     def tab_jump(number):
         actions.key(f"alt-{number}")
 
-    def tabs_show():
-        actions.key("ctrl-shift-o")
-
     def page_find():
         actions.key("ctrl-shift-f")
 
