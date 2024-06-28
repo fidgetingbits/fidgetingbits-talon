@@ -133,8 +133,8 @@ chuck all:
    edit.select_all()
    edit.delete()
 
-copy this:
-    edit.copy()
+# copy this:
+#     edit.copy()
 #copy commands
 copy all:
     edit.select_all()

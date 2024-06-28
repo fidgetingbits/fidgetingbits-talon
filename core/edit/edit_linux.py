@@ -140,8 +140,8 @@ class EditActions:
 
     def paste():
         # paste without style by default
-        actions.key("ctrl-shift-v")
-        # action(paste_match_style):
+        # actions.key("ctrl-shift-v")
+        actions.edit.paste_match_style()
 
     def paste_match_style():
         actions.key("ctrl-v")

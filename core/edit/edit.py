@@ -98,7 +98,9 @@ class Actions:
 
         with clip.revert():
             clip.set_text(text)
-            actions.edit.paste()
+            # Some apps don't like ctrl-shift-v, so we use ctrl-v instead, which is okay, because
+            # we are just pasting text here anyway
+            actions.edit.paste_match_style()
             # sleep here so that clip.revert doesn't revert the clipboard too soon
             actions.sleep("150ms")
 
