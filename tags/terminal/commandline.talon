@@ -94,6 +94,9 @@ kill all: key(ctrl-c)
 file list (<user.zsh_path_completion> | <user.folder_paths>):
     path = zsh_path_completion or folder_paths
     "ls {path} \n"
+file list long (<user.zsh_path_completion> | <user.folder_paths>):
+    path = zsh_path_completion or folder_paths
+    "ls -l {path} \n"
 file list local <user.zsh_file_completion>: "ls {zsh_file_completion} \n"
 file list global <user.folder_paths>: "ls {folder_paths} \n"
 file list bare exact: "ls "
