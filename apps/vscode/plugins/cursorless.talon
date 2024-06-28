@@ -48,3 +48,7 @@ repeat length of <user.cursorless_target>:
 
 confetti:
     user.vscode('cursorless.toggleDecorations')
+
+(bug|debug) to <user.cursorless_target>:
+    user.cursorless_command("setSelectionBefore", cursorless_target)
+    user.vscode("editor.debug.action.runToCursor")

@@ -481,13 +481,36 @@ break point: user.vscode("editor.debug.action.toggleBreakpoint")
 # Select specific run config
 (debug|bug) run config: user.vscode("workbench.action.debug.selectandstart")
 
-debug node:
-    user.vscode("extension.pwa-node-debug.attachNodeProcess")
-    sleep(150ms)
-    key(down)
+# These should be project specific
+(debug|bug) run neovim:
+    user.vscode("workbench.action.debug.selectandstart")
+    sleep(1)
+    insert("Neovim: Run")
     key(enter)
-    sleep(1s)
-    user.vscode("workbench.action.debug.continue")
+    sleep(1)
+    # Pops up a terminal
+    user.snap_window_to_position("bottom")
+    user.switcher_focus("code")
+    sleep(1)
+    user.attach_node_and_continue()
+
+# These should be project specific
+(debug|bug) test neovim:
+    user.vscode("workbench.action.debug.selectandstart")
+    sleep(1)
+    insert("Neovim: Test")
+    key(enter)
+    sleep(1)
+    # Pops up a terminal
+    user.snap_window_to_position("bottom")
+
+debug start node:
+    user.vscode("workbench.action.debug.start")
+    sleep(1)
+    user.attach_node_and_continue()
+
+debug node:
+    user.attach_node_and_continue()
 
 #
 # Terminal

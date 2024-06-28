@@ -526,3 +526,12 @@ class UserActions:
     def swap_cursor_anchor():
         """Swap the cursor and anchor point of the selection"""
         actions.user.vscode("selectby.swapActive")
+
+    def attach_node_and_continue():
+        """Attach to node process and and continue"""
+        actions.user.vscode("extension.pwa-node-debug.attachNodeProcess")
+        actions.sleep("150ms")
+        actions.key("down")
+        actions.key("enter")
+        actions.sleep("1s")
+        actions.user.vscode("workbench.action.debug.continue")
