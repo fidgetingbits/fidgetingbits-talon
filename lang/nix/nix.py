@@ -162,6 +162,10 @@ lib_functions = {
     "make option type": "mkOptionType",
 }
 
+attrs_functions = {
+    "recursive update": "recursiveUpdate",
+}
+
 stdenv_functions = {
     "make derivation": "mkDerivation",
 }

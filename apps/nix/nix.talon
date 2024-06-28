@@ -113,3 +113,6 @@ nix shell command with:
 nix run this impure: "nix run --impure .\n"
 nix run this: "nix run .\n"
 nix run: "nix run "
+
+nix [store] show dependencies: "nix-store -q --references"
+
