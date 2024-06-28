@@ -1,3 +1,4 @@
+import pathlib
 from talon import Context, Module, app
 
 mod = Module()
@@ -220,6 +221,7 @@ unix_file_paths = {
     "S S H D config": "/etc/ssh/sshd_config",
     "talon log": "~/.talon/talon.log/",
     "S S M T P config": "/etc/ssmtp/ssmtp.conf",
+    "root mount": "/mnt",
 }
 
 mac_file_paths = {}
@@ -382,3 +384,8 @@ class Actions:
     def get_cwd() -> str:
         """Get the current working directory of the app"""
         return None
+
+    def path_folder(path: str) -> str:
+        """Get the folder part of the given path"""
+        path = pathlib.Path(path)
+        return str(path.parent)

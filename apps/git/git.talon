@@ -16,6 +16,10 @@ and tag: user.git
 #     "git add {zsh_path_completion}"
 <user.git> add {user.git_modified_files}:
     "git add {git_modified_files}"
+<user.git> add base {user.git_modified_files}:
+    insert("git add ")
+    insert(user.path_folder(git_modified_files))
+
 <user.git> add untracked {user.git_untracked_files}:
     "git add {git_untracked_files}"
 # FIXME: Support chaining multiple files with and
