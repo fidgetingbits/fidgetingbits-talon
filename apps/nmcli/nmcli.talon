@@ -1,6 +1,6 @@
 os: linux
-tag: terminal
-and tag: user.nmcli
+app: terminal
+tag: user.nmcli
 -
 
 net man: "nmcli "

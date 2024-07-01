@@ -1,4 +1,5 @@
 os: linux
+app: terminal
 tag: user.virsh
 -
 

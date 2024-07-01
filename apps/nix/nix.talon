@@ -1,5 +1,5 @@
-tag: terminal
-and tag: user.nix_cli
+app: terminal
+tag: user.nix_cli
 -
 
 # TODO:

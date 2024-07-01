@@ -1,5 +1,5 @@
-tag: terminal
-and tag: user.systemd
+app: terminal
+tag: user.systemd
 -
 
 journal disk usage: "journalctl --disk-usage\n"

@@ -1,7 +1,6 @@
 os: linux
-and tag: terminal
 os: mac
-and tag: terminal
+app: terminal
 -
 
 envy flake init:

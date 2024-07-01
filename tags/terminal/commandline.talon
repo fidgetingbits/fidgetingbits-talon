@@ -68,7 +68,9 @@ recall [<user.text>]:
 recall last command:
     edit.delete_line()
     key(! ! enter enter)
-
+# atuin_open.talon for other tweak commands
+tweak last:
+    key(up)
 
 
 # XXX - it would be good to have overrides for words that are harder to say,
@@ -83,10 +85,6 @@ recall last tunnel:
     insert("ssh\n")
     key(enter)
 
-recall force <user.text>:
-    key(ctrl-r)
-    insert(text)
-    key(enter:2)
 
 kill all: key(ctrl-c)
 

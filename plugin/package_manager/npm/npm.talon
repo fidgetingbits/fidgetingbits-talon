@@ -1,3 +1,4 @@
+app: terminal
 tag: user.nodejs
 tag: user.packager_node
 -

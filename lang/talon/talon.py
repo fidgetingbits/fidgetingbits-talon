@@ -69,7 +69,9 @@ def on_update_decls(decls):
             )
         )
         # print(
-        #     "List: {} \n {}".format(thing, str(ctx_talon_lists.lists[f"user.talon_{thing}"]))
+        #     "List: {} \n {}".format(
+        #         thing, str(ctx_talon_lists.lists[f"user.talon_{thing}"])
+        #     )
         # )
 
 
@@ -77,6 +79,7 @@ def on_ready():
     # print("on_ready")
     on_update_decls(registry.decls)
     registry.register("update_decls", on_update_decls)
+    print()
 
 
 app.register("ready", on_ready)

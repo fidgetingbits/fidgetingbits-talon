@@ -1,4 +1,5 @@
-tag: terminal
+app: terminal
+tag: user.howdy
 -
 
 howdy add [face]: "sudo howdy add\n"

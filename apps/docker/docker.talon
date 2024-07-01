@@ -1,5 +1,6 @@
 tag: user.docker
 tag: user.podman
+app: terminal
 -
 
 docker build: user.docker("build .\n")

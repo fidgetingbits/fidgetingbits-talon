@@ -1,3 +1,4 @@
+app: terminal
 tag: user.nftables
 -
 firewall list all: "sudo iptables-nft -L --line-numbers\n"

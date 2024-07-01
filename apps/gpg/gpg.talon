@@ -1,5 +1,5 @@
-tag: terminal
-and tag: user.gpg
+app: terminal
+tag: user.gpg
 -
 
 # Helpful gpg commands

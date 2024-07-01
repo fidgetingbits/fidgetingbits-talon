@@ -1,5 +1,5 @@
-tag: terminal
-and tag: user.git
+app: terminal
+tag: user.git
 -
 
 <user.git> version: "git --version\n"

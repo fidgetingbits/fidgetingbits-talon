@@ -199,3 +199,20 @@ apps.utm = """
 os: mac
 and app.bundle: com.utmapp.UTM
 """
+
+apps.terminal = """
+app: zsh
+app: wezterm
+app: kitty
+app: gnome-terminal
+app: termite
+app: alacritty
+"""
+
+apps.wezterm = """
+app.name: /wezterm/
+"""
+
+apps.alacritty = """
+app.name: /alacritty/
+"""

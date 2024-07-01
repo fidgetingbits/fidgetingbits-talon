@@ -1,5 +1,5 @@
-tag: terminal
-and tag: user.systemd
+app: terminal
+tag: user.systemd
 -
 
 service [demon] reload: "sudo systemctl daemon-reload\n"

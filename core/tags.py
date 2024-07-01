@@ -67,6 +67,7 @@ tagList = [
     "qcow2",  # qemu qcow2 image commands
     "borg",  # borg backup commands
     "atuin",  # atuin terminal commands
+    "esxcli",  # vmware esxi cli commands
 ]
 
 for entry in tagList:

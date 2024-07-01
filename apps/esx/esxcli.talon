@@ -1,3 +1,7 @@
+app: terminal
+tag: user.esxcli
+-
+
 E S X get maintenance mode: "esxcli system maintenanceMode get\n"
 E S X set maintenance true: "esxcli system maintenanceMode set --enable true"
 E S X set maintenance false: "esxcli system maintenanceMode set --enable false"

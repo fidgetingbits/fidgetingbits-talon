@@ -1,5 +1,5 @@
 not os: windows
-and tag: terminal
+app: terminal
 -
 
 # disk management

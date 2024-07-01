@@ -1,6 +1,6 @@
 os: linux
-tag: terminal
-and tag: user.make_commands
+app: terminal
+tag: user.make_commands
 -
 
 run make: "make -j`nproc`\n"

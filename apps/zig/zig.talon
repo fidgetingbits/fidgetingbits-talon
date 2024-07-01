@@ -1,4 +1,5 @@
-tag: terminal
+app: terminal
+tag: user.zig
 -
 
 zig version: "zig version\n"

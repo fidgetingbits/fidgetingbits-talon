@@ -15,6 +15,7 @@ SHOW_LIST = "list"
 DRIVE = "drive"
 # FIXME: Maybe move this elsewhere.. used for cd in terminal
 GO = "pivot"
+HISTORY = "(history|atuin)"
 
 
 @mod.capture(rule=SELECT)
@@ -62,4 +63,10 @@ def go(m) -> str:
 @mod.capture(rule=DRIVE)
 def drive(m) -> str:
     """Verb to use for commands that deal with disks/drives"""
+    return str(m)
+
+
+@mod.capture(rule=HISTORY)
+def history(m) -> str:
+    """Verb to use for commands that deal with shell history"""
     return str(m)
