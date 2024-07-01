@@ -1,3 +1,4 @@
+# FIXME(nix): That should now integrate the service running on nix
 talon restart: user.system_command_nb("/home/aa/scripts/talon/restart_talon.sh")
 talon kill: user.system_command_nb("/home/aa/scripts/talon/terminate_talon.sh")
 pauly restart: user.system_command_nb("/home/aa/.config/polybar/launch.sh")
