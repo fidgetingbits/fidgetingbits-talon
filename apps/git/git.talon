@@ -382,11 +382,11 @@ get stash help: "git stash --help\n"
 <user.git> stash drop: "git stash drop "
 
 
-<user.git> (status|stat): "git status --untracked-files=no\n"
-<user.git> (status|stat) sum: "git status -s --untracked-files=no\n"
+<user.git> (status|stat) long: "git status --untracked-files=no\n"
+<user.git> (status|stat) [sum]: "git status -s --untracked-files=no\n"
 <user.git> (status|stat) (all | full | everything): "git status\n"
-<user.git> (status|stat) sum (all | full | everything): "git status -s\n"
-<user.git> (status|stat) staged: "git status --short | grep '^[MARCD]'\n"
+<user.git> (status|stat) [sum] (all | full | everything): "git status -s\n"
+<user.git> (status|stat) staged: "git status -s | grep '^[MARCD]'\n"
 
 <user.git> sub tree: "git subtree "
 <user.git> switch: "git switch "

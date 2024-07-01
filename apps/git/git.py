@@ -108,7 +108,8 @@ def user_git_staged_files(m) -> dict[str, str]:
     commands = []
     # print(output)
     for line in output.splitlines():
-        if line.startswith("M"):
+        # man git status for more info
+        if line[:1] in ["A", "M", "D", "R", "C", "U"]:
             line = line.split(" ")[-1]
             commands.append(line.strip())
     # print(commands)
