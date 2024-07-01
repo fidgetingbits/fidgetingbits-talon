@@ -724,7 +724,7 @@ next: user.vscode_and_wait("jumpToNextSnippetPlaceholder")
 snip last: user.vscode("jumpToPrevSnippetPlaceholder")
 skip:
     key("backspace")
-    uservscode("jumpToNextSnippetPlaceholder")
+    user.vscode("jumpToNextSnippetPlaceholder")
 
 # Pedal
 deck(pedal_left):
