@@ -147,7 +147,7 @@ settings():
 
     # Uncomment the below to insert text longer than 10 characters (customizable) by
     # pasting from the clipboard. This is often faster than typing.
-    user.paste_to_insert_threshold = 10
+    # user.paste_to_insert_threshold = 10
 
     # Uncomment the below to enable context-sensitive dictation. This determines
     # how to format (capitalize, space) dictation-mode speech by selecting &
@@ -190,3 +190,4 @@ tag(): user.mouse_cursor_commands_enable
 #tag(): user.mouse_guide_enabled
 #tag(): user.mouse_grid_enabled
 tag(): user.shotbox_enabled
+tag(): user.prefixed_numbers

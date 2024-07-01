@@ -1,1 +1,1 @@
-common/settings.talon
+hosts/common_settings.talon
