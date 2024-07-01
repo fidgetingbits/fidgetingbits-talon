@@ -22,7 +22,7 @@ class Actions:
     def service():
         """Run the default service manager"""
 
-    def service_list():
+    def service_list(all: bool):
         """List services"""
 
     def service_find():
@@ -65,13 +65,67 @@ class Actions:
         """Stop a service by name"""
 
     def service_start_by_name(name: str):
-        """Start to service by name"""
+        """Start a service by name"""
 
     def service_restart_by_name(name: str):
-        """Start to service by name"""
+        """Restart a service by name"""
 
     def service_enable_by_name(name: str):
         """Enable a service by name"""
 
     def service_disable_by_name(name: str):
         """Disable a service by name"""
+
+    def service_user():
+        """Run the default user service manager"""
+
+    def service_user_list(all: bool):
+        """List user services"""
+
+    def service_user_find():
+        """Find an user service"""
+
+    def service_user_status():
+        """Show the user service status"""
+
+    def service_user_stop():
+        """Stop an user service"""
+
+    def service_user_start():
+        """Start an user service"""
+
+    def service_user_disable():
+        """Disable an user service"""
+
+    def service_user_enable():
+        """Enable an user service"""
+
+    def service_user_reload():
+        """Reload an user service"""
+
+    def service_user_restart():
+        """Restart an user service"""
+
+    def service_user_kill():
+        """Kill an user service"""
+
+    def service_user_is_enabled():
+        """List if an user service is enabled"""
+
+    def service_user_status_by_name(name: str):
+        """List an user service's status by name"""
+
+    def service_user_stop_by_name(name: str):
+        """Stop an user service by name"""
+
+    def service_user_start_by_name(name: str):
+        """Start an user service by name"""
+
+    def service_user_restart_by_name(name: str):
+        """Restart an user service by name"""
+
+    def service_user_enable_by_name(name: str):
+        """Enable an user service by name"""
+
+    def service_user_disable_by_name(name: str):
+        """Disable an user service by name"""
