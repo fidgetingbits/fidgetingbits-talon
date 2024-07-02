@@ -1,10 +1,99 @@
+import subprocess
+from dataclasses import dataclass
 from talon import Context, actions
 
 ctx = Context()
 ctx.matches = r"""
-tag: terminal
-and tag: user.systemd
+app: terminal
+tag: user.systemd
 """
+
+
+@dataclass
+class SystemdService:
+    unit: str
+    load: str
+    active: str
+    sub: str
+    description: str
+
+    @staticmethod
+    def from_line(line: str) -> "SystemdService":
+        items = line.lstrip().split()
+        unit, load, active, sub = items[:4]
+        description = " ".join(items[4:])
+        return SystemdService(unit, load, active, sub, description)
+
+
+def get_user_services() -> list[SystemdService]:
+    return get_services(user=True)
+
+
+def get_services(user: bool = False) -> list[SystemdService]:
+    user_flag = "--user" if user else ""
+    services = subprocess.check_output(
+        (
+            "systemctl",
+            f"{user_flag}",
+            "list-units",
+            "--type=service",
+            "--no-pager",
+            "--all",
+        ),
+    ).decode("utf-8")
+    if len(services) == 0:
+        return []
+    return parse_services(services)
+
+
+def parse_services(input: str) -> list[SystemdService]:
+    services = []
+    for line in input.splitlines():
+        if not len(line) or line.startswith("UNIT"):
+            continue
+        if line.startswith("Legend:"):
+            break
+        services.append(SystemdService.from_line(line))
+
+    return services
+
+
+def active_services(
+    services: list[SystemdService],
+) -> list[SystemdService]:
+    return [service for service in services if service.active == "active"]
+
+
+def inactive_services(
+    services: list[SystemdService],
+) -> list[SystemdService]:
+    return [service for service in services if service.active == "inactive"]
+
+
+@ctx.dynamic_list("user.service_all_system_services")
+def user_service_all_system_services(m) -> dict[str, str]:
+    """A dynamic list of all running system services"""
+
+    # FIXME: maybe strip off the .service suffix?
+    service_names = [service.unit for service in get_services()]
+    return actions.user.create_spoken_forms_from_list(service_names)
+
+
+@ctx.dynamic_list("user.service_all_user_services")
+def user_service_all_user_services(m) -> dict[str, str]:
+    """A dynamic list of all running user services"""
+
+    # FIXME: maybe strip off the .service suffix?
+    service_names = [service.unit for service in get_user_services()]
+    return actions.user.create_spoken_forms_from_list(service_names)
+
+
+@ctx.dynamic_list("user.service_inactive_user_services")
+def user_service_inactive_user_services(m) -> dict[str, str]:
+    """A dynamic list of all inactive user services"""
+
+    service_names = [service.unit for service in inactive_services(get_user_services())]
+    return actions.user.create_spoken_forms_from_list(service_names)
 
 
 @ctx.action_class("user")

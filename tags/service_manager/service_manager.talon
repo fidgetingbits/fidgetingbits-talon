@@ -1,49 +1,49 @@
-tag: terminal
-and tag: user.service_manager
+app: terminal
+tag: user.service_manager
 -
 
 # service: user.service()
-service name {user.service_names}: "{service_names}"
+service name {user.service_all_system_services}: "{service_all_system_services}"
 service list: user.service_list(false)
 service list all: user.service_list(true)
 service find: user.service_find()
 service restart: user.service_restart()
-service restart {user.service_names}: user.service_restart_by_name(service_names)
+service restart {user.service_all_system_services}: user.service_restart_by_name(service_all_system_services)
 service reload: user.service_reload()
 service stop: user.service_stop()
-service stop {user.service_names}: user.service_stop_by_name(service_names)
+service stop {user.service_all_system_services}: user.service_stop_by_name(service_all_system_services)
 service start: user.service_start()
-service start {user.service_names}: user.service_start_by_name(service_names)
+service start {user.service_dead_system_services}: user.service_start_by_name(service_dead_system_services)
 service enable: user.service_enable()
-service enable {user.service_names}: user.service_enable_by_name(service_names)
+service enable {user.service_all_system_services}: user.service_enable_by_name(service_all_system_services)
 service disable: user.service_disable()
-service disable {user.service_names}: user.service_disable_by_name(service_names)
+service disable {user.service_all_system_services}: user.service_disable_by_name(service_all_system_services)
 service status: user.service_status()
-service status {user.service_names}: user.service_status_by_name(service_names)
+service status {user.service_all_system_services}: user.service_status_by_name(service_all_system_services)
 service help: user.service_help()
 service kill: user.service_kill()
-service kill {user.service_names}: user.service_kill_by_name(service_names)
+service kill {user.service_all_system_services}: user.service_kill_by_name(service_all_system_services)
 service is enabled: user.service_is_enabled()
 
-service user name {user.service_user_names}: "{service_user_names}"
+service user name {user.service_all_user_services}: "{service_all_user_services}"
 service user list: user.service_user_list(false)
-service user list: user.service_user_list(true)
+service user list all: user.service_user_list(true)
 service user find: user.service_user_find()
 service user restart: user.service_user_restart()
-service user restart {user.service_user_names}: user.service_user_restart_by_name(service_user_names)
+service user restart {user.service_all_user_services}: user.service_user_restart_by_name(service_all_user_services)
 service user reload: user.service_user_reload()
 service user stop: user.service_user_stop()
-service user stop {user.service_user_names}: user.service_user_stop_by_name(service_user_names)
+service user stop {user.service_all_user_services}: user.service_user_stop_by_name(service_all_user_services)
 service user start: user.service_user_start()
-service user start {user.service_user_names}: user.service_user_start_by_name(service_user_names)
+service user start {user.service_dead_user_services}: user.service_user_start_by_name(service_dead_user_services)
 service user enable: user.service_user_enable()
-service user enable {user.service_user_names}: user.service_user_enable_by_name(service_user_names)
+service user enable {user.service_all_user_services}: user.service_user_enable_by_name(service_all_user_services)
 service user disable: user.service_user_disable()
-service user disable {user.service_user_names}: user.service_user_disable_by_name(service_user_names)
+service user disable {user.service_all_user_services}: user.service_user_disable_by_name(service_all_user_services)
 service user status: user.service_user_status()
-service user status {user.service_user_names}: user.service_user_status_by_name(service_user_names)
+service user status {user.service_all_user_services}: user.service_user_status_by_name(service_all_user_services)
 # FIXME: Do we need this?
 # service user help: user.service_user_help()
 service user kill: user.service_user_kill()
-service user kill {user.service_user_names}: user.service_user_kill_by_name(service_user_names)
+service user kill {user.service_all_user_services}: user.service_user_kill_by_name(service_all_user_services)
 service user is enabled: user.service_user_is_enabled()

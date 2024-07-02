@@ -16,7 +16,8 @@ nix_services = {
     "sops": "org.nix-community.home.sops-nix",
 }
 
-ctx.lists["user.service_names"] = {
+# FIXME: Turn this into a dynamic list
+ctx.lists["user.service_all_system_services"] = {
     **macos_services,
     **nix_services,
 }

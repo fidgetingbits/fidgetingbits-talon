@@ -7,14 +7,13 @@ mod.tag("launchctl", desc="darwin service management")
 mod.tag("systemd", desc="systemd service management")
 mod.tag("upstart", desc="ubuntu upstart service management")
 
-# FIXME: Automatically update service list based on the service manager and use
-# the spoken form API
+# FIXME: Need to add things like enable, disabled, dead
 mod.list("service_all_user_services", desc="List of user services")
 mod.list("service_all_system_services", desc="List of system services")
-mod.list("service_dead_user_services", desc="List of dead user services")
-mod.list("service_dead_system_services", desc="List of dead system services")
-mod.list("service_running_user_services", desc="List of running user services")
-mod.list("service_running_system_services", desc="List of running system services")
+mod.list("service_inactive_user_services", desc="List of inactive user services")
+mod.list("service_inactive_system_services", desc="List of inactive system services")
+mod.list("service_active_user_services", desc="List of active user services")
+mod.list("service_active_system_services", desc="List of active system services")
 
 
 @mod.action_class

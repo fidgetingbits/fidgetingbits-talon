@@ -11,4 +11,3 @@ recall force <user.text>:
     key(ctrl-r)
     insert(text)
     key(tab)
-
