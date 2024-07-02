@@ -20,7 +20,7 @@ journal V P N: "journalctl -u openvpn-client --no-pager --lines 100\n"
 journal network time: "journalctl -u ntpd --no-pager --lines 100\n"
 
 journal grep: user.insert_between("journalctl -u ", " --no-pager --lines 100 -g")
-journal service: user.insert_between("journalctl -u ", " --no-pager --lines 100")
+(journal service|service log): user.insert_between("journalctl -u ", " --no-pager --lines 100")
 
 journal user (list | show): 'journalctl --user --no-pager --no-hostname --since "1 hour ago"\n'
-journal user service: user.insert_between("journalctl --user -u ", " --no-pager --lines 100")
+(journal user service|service user log): user.insert_between("journalctl --user -u ", " --no-pager --lines 100")
