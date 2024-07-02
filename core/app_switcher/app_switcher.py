@@ -56,9 +56,12 @@ linux_application_directories = [
     f"{Path.home()}/.local/share/applications",
     "/var/lib/flatpak/exports/share/applications",
     "/var/lib/snapd/desktop/applications",
-    f"{Path.home()}/.nix-profile/share/applications",
 ]
-
+xdg_data_dirs = os.environ.get("XDG_DATA_DIRS")
+if xdg_data_dirs is not None:
+    for directory in xdg_data_dirs.split(":"):
+        linux_application_directories.append(f"{directory}/applications")
+linux_application_directories = list(set(linux_application_directories))
 
 words_to_exclude = [
     "zero",
