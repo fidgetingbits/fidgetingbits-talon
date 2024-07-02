@@ -1,11 +1,6 @@
-from talon import Context, Module
+from talon import Module
 
 mod = Module()
-ctx = Context()
-ctx.matches = r"""
-tag: terminal
-and tag: user.service_manager
-"""
 
 mod.tag("service_manager", desc="generic service manager support")
 mod.tag("launchctl", desc="darwin service management")
@@ -14,7 +9,12 @@ mod.tag("upstart", desc="ubuntu upstart service management")
 
 # FIXME: Automatically update service list based on the service manager and use
 # the spoken form API
-mod.list("service_names", desc="List of services")
+mod.list("service_all_user_services", desc="List of user services")
+mod.list("service_all_system_services", desc="List of system services")
+mod.list("service_dead_user_services", desc="List of dead user services")
+mod.list("service_dead_system_services", desc="List of dead system services")
+mod.list("service_running_user_services", desc="List of running user services")
+mod.list("service_running_system_services", desc="List of running system services")
 
 
 @mod.action_class

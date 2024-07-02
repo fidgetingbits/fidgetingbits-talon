@@ -4,7 +4,7 @@ webby: user.switcher_focus_or_launch("firefox")
 # slacker: user.switcher_focus("firefox", "slack)
 
 # this should just be a function
-tweaker [<phrase>]$:
+pop talon [<phrase>]$:
     user.vscode_open_workspace("fidgetingbits-talon (workspace)", phrase or "")
 
 hail nix [<phrase>]$:
