@@ -6,9 +6,11 @@ mod = Module()
 
 vscode_plugin_cache = None
 
+
 @mod.scope
 def scope():
     return {"vscode_plugin": vscode_plugin_list()}
+
 
 def vscode_update_plugin_list():
     """Queries the list of vscode plugins"""
@@ -18,6 +20,7 @@ def vscode_update_plugin_list():
     with extensions.open() as f:
         return [x["identifier"]["id"] for x in json.loads(f.read())]
 
+
 def vscode_plugin_list():
     """Returns a cached or new list of installed vscode plugins"""
     global vscode_plugin_cache
@@ -25,8 +28,8 @@ def vscode_plugin_list():
         vscode_plugin_cache = vscode_update_plugin_list()
     if vscode_plugin_cache is None:
         return []
-    print(set(vscode_plugin_cache))
     return set(vscode_plugin_cache)
+
 
 @mod.action_class
 class PluginActions:
@@ -42,6 +45,7 @@ class PluginActions:
         if vscode_plugin_cache is None:
             actions.user.vscode_plugin_list_refresh()
         print(vscode_plugin_cache)
+
 
 ui.register("win_focus", scope.update)
 ui.register("win_title", scope.update)
