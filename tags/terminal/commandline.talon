@@ -54,6 +54,7 @@ tag(): user.btrfs
 tag(): user.qcow2
 tag(): user.borg
 tag(): user.atuin
+tag(): user.cyberpower-pdu
 
 # Shell commands
 
