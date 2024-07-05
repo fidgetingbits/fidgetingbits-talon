@@ -334,14 +334,16 @@ def update_overrides(name, flags):
 
     update_running_list()
 
+
 def get_process_name(pid):
     """Read the process name for a given PID"""
     try:
         # Get the process name for a given PID
-        result = subprocess.check_output(['ps', '-p', str(pid), '-o', 'comm='])
+        result = subprocess.check_output(["ps", "-p", str(pid), "-o", "comm="])
         return result.decode().strip()
     except subprocess.CalledProcessError:
         return None
+
 
 def get_parent_processes():
     """Get the parent processes of the current process"""
@@ -350,7 +352,9 @@ def get_parent_processes():
     while True:
         try:
             # Get the parent PID (PPID)
-            ppid = int(subprocess.check_output(['ps', '-p', str(pid), '-o', 'ppid=']).strip())
+            ppid = int(
+                subprocess.check_output(["ps", "-p", str(pid), "-o", "ppid="]).strip()
+            )
             if ppid == 0:
                 break
             # Get the process name of the parent
@@ -362,17 +366,28 @@ def get_parent_processes():
             break
     return parent_processes
 
+
 bubblewrap_sandbox = None
-def is_bubblewrap_sandbox():
+
+
+def _is_bubblewrap_sandbox():
     """Check if the current process is running inside a bubblewrap sandbox"""
     global bubblewrap_sandbox
     if bubblewrap_sandbox is not None:
         return bubblewrap_sandbox
     parent_processes = get_parent_processes()
-    bubblewrap_sandbox = 'bwrap' in parent_processes
+    bubblewrap_sandbox = "bwrap" in parent_processes
     return bubblewrap_sandbox
+
+
 @mod.action_class
 class Actions:
+    def is_bubblewrap_sandbox():
+        """Check if the current process is running inside a bubblewrap sandbox"""
+        if app.platform == "linux":
+            return _is_bubblewrap_sandbox()
+        return False
+
     def launch_command_prompt():
         """The keyboard shortcut to open the launch command prompt in a desktop/window environment"""
 
@@ -468,7 +483,7 @@ class Actions:
             cmd = shlex.split(path)[0]
             args = shlex.split(path)[1:]
             print(f"Launching: {cmd} with args: {args}")
-            if is_bubblewrap_sandbox():
+            if _is_bubblewrap_sandbox():
                 actions.user.launch(cmd, args)
             else:
                 ui.launch(path=cmd, args=args)
@@ -538,7 +553,7 @@ def update_launch_list():
     elif app.platform == "linux":
         launch = get_linux_apps()
 
-        #actions.user.talon_pretty_print(launch)
+        # actions.user.talon_pretty_print(launch)
 
     ctx.lists["self.launch"] = actions.user.create_spoken_forms_from_map(
         launch, words_to_exclude
