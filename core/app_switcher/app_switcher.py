@@ -334,9 +334,51 @@ def update_overrides(name, flags):
 
     update_running_list()
 
+def get_process_name(pid):
+    """Read the process name for a given PID"""
+    try:
+        # Get the process name for a given PID
+        result = subprocess.check_output(['ps', '-p', str(pid), '-o', 'comm='])
+        return result.decode().strip()
+    except subprocess.CalledProcessError:
+        return None
 
+def get_parent_processes():
+    """Get the parent processes of the current process"""
+    pid = os.getpid()
+    parent_processes = []
+    while True:
+        try:
+            # Get the parent PID (PPID)
+            ppid = int(subprocess.check_output(['ps', '-p', str(pid), '-o', 'ppid=']).strip())
+            if ppid == 0:
+                break
+            # Get the process name of the parent
+            process_name = get_process_name(ppid)
+            if process_name:
+                parent_processes.append(process_name)
+            pid = ppid
+        except subprocess.CalledProcessError:
+            break
+    return parent_processes
+
+bubblewrap_sandbox = None
+def is_bubblewrap_sandbox():
+    """Check if the current process is running inside a bubblewrap sandbox"""
+    global bubblewrap_sandbox
+    if bubblewrap_sandbox is not None:
+        return bubblewrap_sandbox
+    parent_processes = get_parent_processes()
+    bubblewrap_sandbox = 'bwrap' in parent_processes
+    return bubblewrap_sandbox
 @mod.action_class
 class Actions:
+    def launch_command_prompt():
+        """The keyboard shortcut to open the launch command prompt in a desktop/window environment"""
+
+    def launch(cmd: str, args: list):
+        """Launch a command with arguments. An alternative to ui.launch(), that uses the desktop/window manager"""
+
     def get_running_app(name: str) -> ui.App:
         """Get the first available running app with `name`."""
         # We should use the capture result directly if it's already in the list
@@ -420,12 +462,16 @@ class Actions:
         if app.platform == "mac":
             ui.launch(path=path)
         elif app.platform == "linux":
-            # Could potentially be merged with OSX code. Done in this explicit
-            # way for expediency around the 0.4 release.
+            # If talon inside of a bubblewrap sandbox, like is the case with using the talon-nix flake,
+            # we want to spawn processes outside of the sandbox. This allows you to spawn a terminal that
+            # can use sudo for example.
             cmd = shlex.split(path)[0]
             args = shlex.split(path)[1:]
             print(f"Launching: {cmd} with args: {args}")
-            ui.launch(path=cmd, args=args)
+            if is_bubblewrap_sandbox():
+                actions.user.launch(cmd, args)
+            else:
+                ui.launch(path=cmd, args=args)
         elif app.platform == "windows":
             is_valid_path = False
             try:

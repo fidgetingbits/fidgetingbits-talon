@@ -3,7 +3,7 @@ os: linux
 and tag: user.gnome-shell
 -
 
-launch command: key(alt-f2)
+launch command: user.launch_command_prompt()
 launch [app]: key(super)
 app show: key(super-a)
 

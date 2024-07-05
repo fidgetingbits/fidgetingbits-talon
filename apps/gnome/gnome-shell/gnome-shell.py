@@ -22,6 +22,19 @@ class AppActions:
 
 @ctx.action_class("user")
 class UserActions:
+    def launch(cmd: str, args: list):
+        """Use the built-in launch command to run gnome-shell commands"""
+        actions.user.launch_command_prompt()
+        actions.sleep("50ms")
+        #actions.user.notify(f"Running command: {cmd} {' '.join(args)}")
+        actions.user.paste(cmd + " " + " ".join(args))
+        actions.sleep("50ms")
+        actions.key("enter")
+
+    def launch_command_prompt():
+        """The keyboard shortcut to open the launch command prompt"""
+        actions.key("alt-f2")
+
     def window_maximize():
         actions.key("alt-f10")
 
