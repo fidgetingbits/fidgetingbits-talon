@@ -35,19 +35,19 @@ class Actions:
 
     def cyberpower_outlet_status(outlet: str):
         """Get the status of a CyberPower PDU outlet"""
-        run_cyberpower_cmd("{outlet}")
+        run_cyberpower_cmd(f"{outlet}")
 
     def cyberpower_outlet_on(outlet: str):
         """Turn on a CyberPower PDU outlet"""
-        run_cyberpower_cmd("{outlet} on")
+        run_cyberpower_cmd(f"{outlet} on")
 
     def cyberpower_outlet_off(outlet: str):
         """Turn off a CyberPower PDU outlet"""
-        run_cyberpower_cmd("{outlet} off")
+        run_cyberpower_cmd(f"{outlet} off")
 
     def cyberpower_outlet_reboot(outlet: str):
         """Reboot a CyberPower PDU outlet"""
-        run_cyberpower_cmd("{outlet} reboot")
+        run_cyberpower_cmd(f"{outlet} reboot")
 
     def cyberpower_outlet_rename(outlet: str):
         """Rename a CyberPower PDU outlet"""
