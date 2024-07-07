@@ -141,10 +141,19 @@ tag: user.git
     "git commit -m\n"
     key(enter)
 
+##
+# diff
+##
 <user.git> diff (colour | color) words: "git diff --color-words "
-<user.git> diff: "git diff "
+<user.git> doll: "git diff\n"
+<user.git> diff [{user.git_modified_files}]:
+    insert("git diff "
+    insert(git_modified_files or "")
 <user.git> diff cached: "git diff --cached\n"
-<user.git> diff staged: "git diff --staged\n"
+<user.git> diff staged [{user.git_staged_files}]:
+    insert("git diff --staged ")
+    insert(git_staged_files or "")
+<user.git> stall: "git diff --staged\n"
 <user.git> diff {user.git_branches}: "git diff {git_branches}\n"
 <user.git> diff {user.git_tags}: "git diff {git_tags}\n"
 <user.git> diff tool: "git difftool -d\n"
