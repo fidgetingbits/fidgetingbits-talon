@@ -31,15 +31,14 @@ for entry in plugin_tag_list:
 
 mod.list("zsh_folder_completion", desc="ZSH folder completions")
 mod.list("zsh_file_completion", desc="ZSH file completions")
-mod.list(
-    "completions_cwd_blacklist", desc="Folders to ignore when searching for completions"
-)
+
 
 # FIXME: make this is setting
 FILE_LIMIT = 100
 
 # Folders that we know for certain are too big and that will break the find command, even when using -maxdepth 1
-ctx.lists["user.completions_cwd_blacklist"] = [
+# FIXME: add private lists
+blacklist = [
     "/nix/store",
 ]
 
@@ -48,7 +47,7 @@ def _find_items_in_current_path(type: str) -> dict[str, str]:
     # grab any items of requested type
     # NOTE: Don't use -printf below because it doesn't work on Darwin
     cwd = actions.user.get_cwd()
-    if str(cwd) in ctx.lists["user.completions_cwd_blacklist"]:
+    if str(cwd) in blacklist:
         print(f"Skipping find in blacklisted folder: {actions.user.get_cwd()}")
         return {}
 
