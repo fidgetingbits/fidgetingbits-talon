@@ -41,27 +41,6 @@ additional = {
 running_application_dict = {}
 last_focused_app = None
 
-mac_application_directories = [
-    "/Applications",
-    "/Applications/Utilities",
-    "/System/Applications",
-    "/System/Applications/Utilities",
-    f"{Path.home()}/Applications",
-    f"{Path.home()}/.nix-profile/Applications",
-]
-
-linux_application_directories = [
-    "/usr/share/applications",
-    "/usr/local/share/applications",
-    f"{Path.home()}/.local/share/applications",
-    "/var/lib/flatpak/exports/share/applications",
-    "/var/lib/snapd/desktop/applications",
-]
-xdg_data_dirs = os.environ.get("XDG_DATA_DIRS")
-if xdg_data_dirs is not None:
-    for directory in xdg_data_dirs.split(":"):
-        linux_application_directories.append(f"{directory}/applications")
-linux_application_directories = list(set(linux_application_directories))
 
 words_to_exclude = [
     "zero",
@@ -90,11 +69,11 @@ words_to_exclude = [
     "windows",
 ]
 
-# on Windows, WindowsApps are not like normal applications, so
-# we use the shell:AppsFolder to populate the list of applications
-# rather than via e.g. the start menu. This way, all apps, including "modern" apps are
-# launchable. To easily retrieve the apps this makes available, navigate to shell:AppsFolder in Explorer
 if app.platform == "windows":
+    # on Windows, WindowsApps are not like normal applications, so
+    # we use the shell:AppsFolder to populate the list of applications
+    # rather than via e.g. the start menu. This way, all apps, including "modern" apps are
+    # launchable. To easily retrieve the apps this makes available, navigate to shell:AppsFolder in Explorer
     import ctypes
     import os
 
@@ -168,7 +147,7 @@ if app.platform == "windows":
         result.sort(key=lambda x: x.upper())
         return result
 
-    def get_windows_apps():
+    def get_apps():
         items = {}
         for item in enum_known_folder(FOLDERID_AppsFolder):
             try:
@@ -192,11 +171,24 @@ if app.platform == "windows":
         return items
 
 
-if app.platform == "linux":
+elif app.platform == "linux":
     import configparser
     import re
 
-    def get_linux_apps():
+    linux_application_directories = [
+        "/usr/share/applications",
+        "/usr/local/share/applications",
+        f"{Path.home()}/.local/share/applications",
+        "/var/lib/flatpak/exports/share/applications",
+        "/var/lib/snapd/desktop/applications",
+    ]
+    xdg_data_dirs = os.environ.get("XDG_DATA_DIRS")
+    if xdg_data_dirs is not None:
+        for directory in xdg_data_dirs.split(":"):
+            linux_application_directories.append(f"{directory}/applications")
+    linux_application_directories = list(set(linux_application_directories))
+
+    def get_apps():
         # app shortcuts in program menu are contained in .desktop files. This function parses those files for the app name and command
         items = {}
         # find field codes in exec key with regex
@@ -243,6 +235,27 @@ if app.platform == "linux":
                                 entry.name,
                             )
         return {**items, **additional}
+
+elif app.platform == "mac":
+    mac_application_directories = [
+        "/Applications",
+        "/Applications/Utilities",
+        "/System/Applications",
+        "/System/Applications/Utilities",
+        f"{Path.home()}/Applications",
+        f"{Path.home()}/.nix-profile/Applications",
+    ]
+
+    def get_apps():
+        items = {}
+        for base in mac_application_directories:
+            base = os.path.expanduser(base)
+            if os.path.isdir(base):
+                for name in os.listdir(base):
+                    path = os.path.join(base, name)
+                    name = name.rsplit(".", 1)[0].lower()
+                    items[name] = path
+        return items
 
 
 @mod.capture(rule="{self.running}")  # | <user.text>)")
@@ -537,23 +550,9 @@ def gui_running(gui: imgui.GUI):
 
 
 def update_launch_list():
-    launch = {}
-    if app.platform == "mac":
-        for base in mac_application_directories:
-            base = os.path.expanduser(base)
-            if os.path.isdir(base):
-                for name in os.listdir(base):
-                    path = os.path.join(base, name)
-                    name = name.rsplit(".", 1)[0].lower()
-                    launch[name] = path
+    launch = get_apps()
 
-    elif app.platform == "windows":
-        launch = get_windows_apps()
-
-    elif app.platform == "linux":
-        launch = get_linux_apps()
-
-        # actions.user.talon_pretty_print(launch)
+    # actions.user.talon_pretty_print(launch)
 
     ctx.lists["self.launch"] = actions.user.create_spoken_forms_from_map(
         launch, words_to_exclude
