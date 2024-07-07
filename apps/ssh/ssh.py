@@ -15,8 +15,6 @@ tag: user.ssh
 """
 
 
-# This is slower than using fs.watch in that we have to parse every time, but the benefit is it will pick up
-# the case where say someone creates .ssh/config.d/ or .ssh/config if its created after talon starts.
 @ctx.dynamic_list("user.ssh_hosts")
 def user_ssh_hosts(m) -> dict[str, str]:
     """This is a dynamic list of ssh hosts"""
@@ -29,6 +27,8 @@ def user_ssh_hosts(m) -> dict[str, str]:
         ssh_configs.extend(ssh_config_dir.glob("*"))
     host_list = []
     for file in ssh_configs:
+        if not file.exists():
+            continue
         with open(file) as f:
             for line in f:
                 if line.startswith("Host "):
