@@ -461,8 +461,13 @@ net ping clip:
     edit.paste()
     key(enter)
 
-net cat: "nc -vv "
-net connect <user.domains>: "nc -vv {domains} "
+net (cat|connect) [<user.domains>] [(<user.ports>|<number>)]:
+    insert("nc ")
+    insert(domains or "")
+    key(space)
+    insert(ports or "")
+    insert(number  or "")
+net connect <user.domains>: "nc {domains} "
 net cat listener: "nc -v -l -p "
 net cat listen [on] <number>:
     user.bind_nc_listener(number)
