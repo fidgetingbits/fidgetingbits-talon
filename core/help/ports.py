@@ -4,7 +4,10 @@ mod = Module()
 mod.list("ports", desc="Common ports")
 
 ctx = Context()
+# TODO: We could probably just auto populate this with some file
 ctx.lists["user.ports"] = {
+    "F T P": "21",
+    "S S H": "22",
     "web": "80",
     "T L S": "443",
     "remote desktop": "3389",
