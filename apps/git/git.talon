@@ -147,7 +147,7 @@ tag: user.git
 <user.git> diff (colour | color) words: "git diff --color-words "
 <user.git> doll: "git diff\n"
 <user.git> diff [{user.git_modified_files}]:
-    insert("git diff "
+    insert("git diff ")
     insert(git_modified_files or "")
 <user.git> diff cached: "git diff --cached\n"
 <user.git> diff staged [{user.git_staged_files}]:
