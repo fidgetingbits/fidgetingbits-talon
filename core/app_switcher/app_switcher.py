@@ -495,7 +495,7 @@ class Actions:
             # can use sudo for example.
             cmd = shlex.split(path)[0]
             args = shlex.split(path)[1:]
-            print(f"Launching: {cmd} with args: {args}")
+            #print(f"Launching: {cmd} with args: {args}")
             if _is_bubblewrap_sandbox():
                 actions.user.launch(cmd, args)
             else:
