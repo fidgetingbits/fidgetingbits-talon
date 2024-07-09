@@ -7,7 +7,7 @@ launch command: user.launch_command_prompt()
 launch [app]: key(super)
 app show: key(super-a)
 
-power off: key(ctrl-alt-delete)
+system power off: key(ctrl-alt-delete)
 lock screen: key(super-l)
 notify show: key(super-v)
 (dismiss|notify close): key(esc)
@@ -21,3 +21,6 @@ app next:
 
 app choose:
     key(alt:up)
+
+show workspace key bindings: "gsettings list-recursively | grep 'org\.gnome.*switch.*workspace'\n"
+show all key bindings: "gsettings list-recursively | grep 'keybindings'\n"
