@@ -1,1 +1,0 @@
-domain <user.domains>: "{domains}"

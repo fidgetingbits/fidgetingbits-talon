@@ -1,7 +1,8 @@
 import json
 import pathlib
+import socket
 
-from talon import Context, Module, fs
+from talon import Context, Module, fs, actions
 from talon_init import TALON_HOME
 
 mod = Module()
@@ -37,3 +38,10 @@ domain = Domain()
 def domains(m) -> str:
     "One domains"
     return m.domains
+
+
+@mod.action_class
+class Actions:
+    def domain_resolve_ip(domain: str) -> str:
+        """Resolve the IP address of a domain"""
+        actions.insert(repr(socket.gethostbyname(domain)).replace("'", ""))
