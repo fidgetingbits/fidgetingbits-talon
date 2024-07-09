@@ -47,9 +47,6 @@ scroll:
 punk:
     edit.page_up()
 
-# selecting
-take line:
-    edit.select_line()
 
 take all:
     edit.select_all()
@@ -66,26 +63,13 @@ extend (up | north):
 extend (down | south):
     edit.extend_line_down()
 
-take (this|token):
-    edit.select_word()
-
 select word left:
     edit.extend_word_left()
 
 select word right:
     edit.extend_word_right()
 
-take head life:
-    edit.extend_line_start()
 
-take tail line:
-    edit.extend_line_end()
-
-take head file:
-    edit.extend_file_start()
-
-take tail file:
-    edit.extend_file_end()
 
 # editing
 indent [more]:
@@ -94,9 +78,6 @@ indent [more]:
 de dent:
     edit.indent_less()
 
-# deleting
-chuck line:
-    edit.delete_line()
 
 clear up:
     edit.extend_line_up()
@@ -104,29 +85,6 @@ clear up:
 
 clear down:
     edit.extend_line_down()
-    edit.delete()
-
-chuck (this|token):
-    edit.delete_word()
-
-chuck head (this|token):
-    user.delete_word_left()
-
-chuck tail (this|token):
-    user.delete_word_right()
-
-chuck head:
-    user.delete_line_start()
-
-chuck tail:
-    user.delete_line_end()
-
-chuck head file:
-    edit.extend_file_start()
-    edit.delete()
-
-chuck tail file:
-    edit.extend_file_end()
     edit.delete()
 
 chuck all:
@@ -156,7 +114,7 @@ copy all:
 # Cut
 cut that: edit.cut()
 cut all: user.cut_all()
-cut line: user.cut_line()
+
 cut line start: user.cut_line_start()
 cut line end: user.cut_line_end()
 cut word: user.cut_word()
@@ -169,9 +127,7 @@ copy word left:
 copy word right:
     user.copy_word_right()
 
-copy line:
-    edit.select_line()
-    edit.copy()
+
 
 paste all: user.paste_all()
 paste line: user.paste_line()
@@ -191,11 +147,6 @@ paste in quotes:
 paste match: edit.paste_match_style()
 
 
-# duplication
-clone this:
-    edit.selection_clone()
-clone line:
-    edit.line_clone()
 
 
 slap:
@@ -227,8 +178,6 @@ link git: "git://"
 link secure shell: "ssh://"
 link bucket: "s3://"
 link F T P: "ftp://"
-
-
 
 ###
 # Chat
