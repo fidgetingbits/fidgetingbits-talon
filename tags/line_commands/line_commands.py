@@ -38,8 +38,8 @@ class Actions:
     def line_clone(line: int):
         """Clones specified line at current position"""
 
-    def line_find_forward(key: str):
-        """Finds the next character in the line"""
+    def jump_cursor_to_next_char(key: str):
+        """Jumps the first to the next instance of the specified character on the current line"""
 
-    def line_find_backward(key: str):
-        """Finds the previous character in the line"""
+    def jump_cursor_to_prev_char(key: str):
+        """Jumps the first to the previous instance of the specified character on the current line"""
