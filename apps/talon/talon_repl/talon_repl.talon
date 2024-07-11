@@ -1,5 +1,4 @@
-win.title: /repl/
-win.title: /Talon - REPL/
+app: talon_repl
 -
 tag(): user.talon_python
 
