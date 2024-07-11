@@ -24,6 +24,18 @@ class Actions:
     def service_list(all: bool):
         """List services"""
 
+    def service_list_active():
+        """List services that are active"""
+
+    def service_list_inactive():
+        """List services that are inactive"""
+
+    def service_list_running():
+        """List services that are running"""
+
+    def service_list_exited():
+        """List services that are exited"""
+
     def service_find():
         """Find a service"""
 
@@ -80,6 +92,18 @@ class Actions:
 
     def service_user_list(all: bool):
         """List user services"""
+
+    def service_user_list_active():
+        """List user services that are active"""
+
+    def service_user_list_inactive():
+        """List user services that are inactive"""
+
+    def service_user_list_running():
+        """List user services that are running"""
+
+    def service_user_list_exited():
+        """List user services that are exited"""
 
     def service_user_find():
         """Find an user service"""

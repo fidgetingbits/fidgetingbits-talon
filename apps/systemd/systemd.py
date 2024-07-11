@@ -88,12 +88,29 @@ def user_service_all_user_services(m) -> dict[str, str]:
     return actions.user.create_spoken_forms_from_list(service_names)
 
 
+@ctx.dynamic_list("user.service_active_user_services")
+def user_service_active_user_services(m) -> dict[str, str]:
+    """A dynamic list of all active user services"""
+
+    service_names = [service.unit for service in active_services(get_user_services())]
+    return actions.user.create_spoken_forms_from_list(service_names)
+
+
 @ctx.dynamic_list("user.service_inactive_user_services")
 def user_service_inactive_user_services(m) -> dict[str, str]:
     """A dynamic list of all inactive user services"""
 
     service_names = [service.unit for service in inactive_services(get_user_services())]
     return actions.user.create_spoken_forms_from_list(service_names)
+
+
+# FIXME(systemd): Reuse the same functions across user and system, ant just pass a boolean flag
+
+
+def _service_list_state(state: str, user: bool = False):
+    actions.insert(
+        f"systemctl {'--user' if user else ''} list-units --type=service --no-pager --state={state}\n"
+    )
 
 
 @ctx.action_class("user")
@@ -106,6 +123,18 @@ class UserActions:
         actions.insert(
             f"systemctl list-units --type=service --no-pager {'--all' if all else ''}\n"
         )
+
+    def service_list_active():
+        _service_list_state("active")
+
+    def service_list_inactive():
+        _service_list_state("inactive")
+
+    def service_list_running():
+        _service_list_state("running")
+
+    def service_list_exited():
+        _service_list_state("exited")
 
     def service_find():
         actions.insert("systemctl list-units --type=service --no-pager | grep ")
@@ -154,6 +183,18 @@ class UserActions:
         actions.insert(
             f"systemctl --user list-units --type=service --no-pager {'--all' if all else ''}\n"
         )
+
+    def service_user_list_active():
+        _service_list_state("active", user=True)
+
+    def service_user_list_inactive():
+        _service_list_state("inactive", user=True)
+
+    def service_user_list_running():
+        _service_list_state("running", user=True)
+
+    def service_user_list_exited():
+        _service_list_state("exited", user=True)
 
     def service_user_find():
         actions.insert("systemctl --user list-units --type=service --no-pager | grep ")
