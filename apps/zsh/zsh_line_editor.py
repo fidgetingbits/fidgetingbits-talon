@@ -97,8 +97,10 @@ zle_keymap = {
     "up-case-word": None,
     "up-line-or-beginning-search": None,
     "up-line-or-history": None,
+    "vi-backward-blank-word": None,
     "vi-cmd-mode": None,
     "vi-find-next-char": None,
+    "vi-forward-blank-word": None,
     "vi-goto-column": None,
     "vi-join": None,
     "vi-match-bracket": None,
@@ -127,7 +129,6 @@ zsh_key_to_talon_map = {
 
 zle_command_ignore_list = [
     '"ls^J"',
-    '" magic-space',
 ]
 
 
@@ -153,7 +154,7 @@ def _read_zle_keymap():
         i = 0
         # print(f"bindkeys: {bindkeys}")
         # "^[ " expand-history breaks this
-        if len(bindkeys) == 1 and bindkeys[0] == "^":
+        if len(bindkeys) <= 1:
             continue
         while i < len(bindkeys):
             char = bindkeys[i]
@@ -166,7 +167,8 @@ def _read_zle_keymap():
         # print(f"keys: {keys}")
 
         if command in zle_keymap:
-            zle_keymap[command] = keys
+            if zle_keymap[command] is None:
+                zle_keymap[command] = keys
         else:
             if command not in zle_command_ignore_list:
                 print(
@@ -174,7 +176,7 @@ def _read_zle_keymap():
                 )
 
     # "\M-^@"-"\M-^?" self-insert breaks this as well
-    # print(f"zle_keymap: {pprint.pformat(zle_keymap)}")
+    print(f"zle_keymap: {pprint.pformat(zle_keymap)}")
 
 
 _read_zle_keymap()
@@ -246,10 +248,16 @@ class UserActions:
         _trigger_keys("backward-kill-word")
 
     def delete_word_long_right():
-        _trigger_keys("kill-word")
+        # There's no native zsh command for this, so we'll leverage marks
+        _trigger_keys("set-mark-command")
+        actions.user.word_long_right()
+        _trigger_keys("kill-region")
 
     def delete_word_long_left():
-        _trigger_keys("backward-kill-word")
+        # There's no native zsh command for this, so we'll leverage marks
+        _trigger_keys("set-mark-command")
+        actions.user.word_long_left()
+        _trigger_keys("kill-region")
 
     ##
     # Movement - https://zsh.sourceforge.io/Doc/Release/Zsh-Line-Editor.html#Movement

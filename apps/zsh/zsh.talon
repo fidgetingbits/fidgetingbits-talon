@@ -18,3 +18,8 @@ zsh dump file (completion | completions): user.zsh_dump_file_completions()
 zsh dump folder (completion | completions): user.zsh_dump_folder_completions()
 zsh (dump | get) pid: insert("{user.zsh_get_pid()}")
 zsh (update|refresh) key map: user.zle_update_keymap()
+
+key map show: "bindkey\n"
+key map find: "bindkey | grep "
+key map show emacs: "bindkey -M emacs\n"
+key map show vim: "bindkey -M vicmd\n"
