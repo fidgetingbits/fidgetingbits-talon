@@ -201,7 +201,6 @@ and app.bundle: com.utmapp.UTM
 """
 
 apps.terminal = """
-app: zsh
 app: wezterm
 app: kitty
 app: gnome-terminal

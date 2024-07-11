@@ -108,6 +108,20 @@ class Actions:
         """Delete character to the right"""
         actions.key("delete")
 
+    def word_left_short():
+        """Moves left by a word delimited by special characters."""
+        actions.edit.word_left()
+
+    def word_right_short():
+        """Moves right by a word delimited by special characters."""
+        actions.edit.word_right()
+
+    def word_left_long():
+        """Moves left by a space-delimited word."""
+
+    def word_right_long():
+        """Moves right by a space-delimited word."""
+
     def words_left(n: int):
         """Moves left by n words."""
         for _ in range(n):

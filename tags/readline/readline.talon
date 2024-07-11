@@ -12,8 +12,16 @@
 # traditional emacs-style keyboard shortcuts
 tag: user.readline
 -
+
+# readline.py should parse the key bindings in the currentl terminal and then automatically update the action
+
 clear screen: key(ctrl-l)
 line search: key(ctrl-r)
 found it: key(ctrl-J)
 punch it: key(ctrl-J enter)
 abort: key(ctrl-g)
+
+# FIXME(cursorless-neovim): This should eventually something we can use cursorless for on the cmdline
+chuck word: user.delete_word_right()
+chuck back: user.delete_word_left()
+chuck line: edit.delete_line()

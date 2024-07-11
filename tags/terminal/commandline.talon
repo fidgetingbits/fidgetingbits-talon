@@ -5,14 +5,6 @@ and tag: terminal
 -
 
 ###
-# Shell-specific
-#
-# XXX - this should move to zsh
-###
-# unset this if you use `bindkey -v`
-tag(): user.readline
-
-###
 # Packages
 #
 # These tags correspond to talon grammars you want to enable while you're
