@@ -377,7 +377,6 @@ class UserActions:
             )
         )
 
-        actions.key("left:1")
         actions.user.code_insert_function(result, None)
 
     def code_public_function(text: str):
@@ -385,12 +384,11 @@ class UserActions:
 
     def code_insert_function(text: str, selection: str):
         if selection:
-            text = text + f"({selection})"
+            text = text + f"{selection}"
         else:
-            text = text + "()"
+            text = f"{text} "
 
         actions.user.paste(text)
-        actions.edit.left()
 
     ##
     # code_libraries

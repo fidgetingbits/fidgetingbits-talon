@@ -66,7 +66,7 @@ nix strict eval local package:
     "nix-instantiate --eval --strict -E 'with import <nixpkgs> {{}}; pkgs.callPackage ./default.nix {{}}'"
 nix instantiate: "nix-instantiate -A "
 
-run nix repl: "nix repl\n"
+[run] nix repl: "nix repl\n"
 
 nix tree: "nix-tree\n"
 
