@@ -32,7 +32,7 @@ mod.list("talon_modes")
 ctx_talon.matches = r"""
 code.language: talon
 """
-ctx.lists["user.code_common_function"] = {
+ctx_talon.lists["user.code_common_function"] = {
     "insert": "insert",
     "key": "key",
     "print": "print",
