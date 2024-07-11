@@ -108,30 +108,39 @@ class Actions:
         """Delete character to the right"""
         actions.key("delete")
 
-    def word_left_short():
-        """Moves left by a word delimited by special characters."""
+    def word_short_left():
+        """Moves left by one special-char-delimited word."""
         actions.edit.word_left()
 
-    def word_right_short():
-        """Moves right by a word delimited by special characters."""
+    def word_short_right():
+        """Moves right by one special-char-delimited word."""
         actions.edit.word_right()
 
-    def word_left_long():
+    def word_long_left():
         """Moves left by a space-delimited word."""
 
-    def word_right_long():
+    def word_long_right():
         """Moves right by a space-delimited word."""
 
     def words_left(n: int):
-        """Moves left by n words."""
-        for _ in range(n):
-            actions.edit.word_left()
+        """Alias for words_short_left"""
+        actions.user.words_short_left(n)
 
     def words_right(n: int):
-        """Moves right by n words."""
-        for _ in range(n):
-            actions.edit.word_right()
+        """Alias for words_short_right"""
+        actions.user.words_short_right(n)
 
+    def words_short_left(n: int):
+        """Moves left by n special-char-delimited words."""
+        for _ in range(n):
+            actions.user.word_short_left()
+
+    def words_short_right(n: int):
+        """Moves right by n special-char-delimited words."""
+        for _ in range(n):
+            actions.user.word_short_right()
+
+    # FIXME: The should all use the new short/long versions
     def cut_word():
         """Cut word under cursor"""
         actions.edit.select_word()
@@ -256,12 +265,30 @@ class Actions:
         actions.edit.delete()
 
     def delete_word_right():
-        """Delete to end of current word"""
+        """Alias for delete_word_short_right"""
+        actions.user.delete_word_short_right()
+
+    def delete_word_left():
+        """Alias for delete_word_short_left"""
+        actions.user.delete_word_short_left()
+
+    def delete_word_short_right():
+        """Delete to end of special-char-delimited current word"""
         actions.edit.extend_word_right()
         actions.edit.delete()
 
-    def delete_word_left():
-        """Delete to start of current word"""
+    def delete_word_short_left():
+        """Delete to start of special-char-delimited current word"""
+        actions.edit.extend_word_left()
+        actions.edit.delete()
+
+    def delete_word_long_right():
+        """Delete to end of space-delimited current word"""
+        actions.edit.extend_word_right()
+        actions.edit.delete()
+
+    def delete_word_long_left():
+        """Delete to start of space-delimited current word"""
         actions.edit.extend_word_left()
         actions.edit.delete()
 

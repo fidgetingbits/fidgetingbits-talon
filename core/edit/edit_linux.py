@@ -5,7 +5,7 @@ ctx = Context()
 ctx.matches = r"""
 os: linux
 not tag: user.readline
-and not tag: terminal
+not app: terminal
 """
 
 # This is a less restricted context to allow certain more general commands like zoom

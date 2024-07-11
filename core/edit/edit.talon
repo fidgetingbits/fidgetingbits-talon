@@ -11,11 +11,17 @@ scout:
 scout next:
     edit.find_next()
 
-go (word left | back):
-    edit.word_left()
+go [short] (word left | back):
+    user.word_short_left()
 
-go (word right | word):
-    edit.word_right()
+go [short] (word right | word):
+    user.word_short_right()
+
+go long (word left | back):
+    user.word_long_left()
+
+go long (word right | word):
+    user.word_long_right()
 
 go left:
     edit.left()
@@ -85,6 +91,32 @@ clear up:
 
 clear down:
     edit.extend_line_down()
+    edit.delete()
+
+clear word: edit.delete_word()
+
+clear line: edit.delete_line()
+clear head: user.delete_line_start()
+clear tail: user.delete_line_end()
+
+(clear|chuck) [short] back:
+    user.delete_word_short_left()
+
+(clear|chuck) long back:
+    user.delete_word_long_left()
+
+(clear|chuck) [short] word:
+    user.delete_word_short_right()
+
+(clear|chuck) long word:
+    user.delete_word_long_right()
+
+clear way left:
+    edit.extend_line_start()
+    edit.delete()
+
+clear way right:
+    edit.extend_line_end()
     edit.delete()
 
 chuck all:
