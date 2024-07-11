@@ -1,5 +1,7 @@
 tag: browser
 -
+tag(): user.navigation
+
 address bar | go address | go url: browser.focus_address()
 go page | page focus: browser.focus_page()
 address copy | url copy | copy address | copy url:
@@ -8,8 +10,6 @@ address copy | url copy | copy address | copy url:
     edit.copy()
 go search: browser.focus_search()
 go home: browser.go_home()
-(go | page) forward: browser.go_forward()
-(go | page) (back | backward): browser.go_back()
 go to {user.website}: browser.go(website)
 go to clip: user.browser_go_clip()
 go private: browser.open_private_window()

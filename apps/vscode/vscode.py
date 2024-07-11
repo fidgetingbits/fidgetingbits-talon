@@ -12,6 +12,8 @@ os: mac
 and app.bundle: com.microsoft.VSCodeInsiders
 os: mac
 and app.bundle: com.visualstudio.code.oss
+os: mac
+and app.bundle: com.todesktop.230313mzl4w4u92
 """
 mod.apps.vscode = """
 os: linux
@@ -140,6 +142,9 @@ class EditActions:
         actions.insert(str(n))
         actions.key("enter")
         actions.edit.line_start()
+
+    def zoom_reset():
+        actions.user.vscode("workbench.action.zoomReset")
 
 
 @ctx.action_class("win")
@@ -403,7 +408,37 @@ class UserActions:
     def multi_cursor_skip_occurrence():
         actions.user.vscode("editor.action.moveSelectionToNextFindMatch")
 
-    # find_and_replace.py support begin
+    def tab_jump(number: int):
+        if number < 10:
+            if is_mac:
+                actions.user.vscode_with_plugin(
+                    f"workbench.action.openEditorAtIndex{number}"
+                )
+            else:
+                actions.key(f"alt-{number}")
+        else:
+            actions.user.vscode_with_plugin(
+                "workbench.action.openEditorAtIndex", number
+            )
+
+    def tab_final():
+        if is_mac:
+            actions.user.vscode("workbench.action.lastEditorInGroup")
+        else:
+            actions.key("alt-0")
+
+    # splits.py support begin
+    def split_number(index: int):
+        """Navigates to a the specified split"""
+        if index < 9:
+            if is_mac:
+                actions.key(f"cmd-{index}")
+            else:
+                actions.key(f"ctrl-{index}")
+
+    # splits.py support end
+
+    # find.py support begin
 
     def find(text: str):
         """Triggers find in current editor"""
@@ -420,6 +455,10 @@ class UserActions:
 
     def find_previous():
         actions.user.vscode("editor.action.previousMatchFindAction")
+
+    # find.py support end
+
+    # find_and_replace.py support begin
 
     def find_everywhere(text: str):
         """Triggers find across project"""

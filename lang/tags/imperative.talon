@@ -1,5 +1,6 @@
 tag: user.code_imperative
 -
+
 put block: user.code_block()
 (state | put) if: user.code_state_if()
 (state | put) else if: user.code_state_else_if()
@@ -14,6 +15,6 @@ put block: user.code_block()
 (state | put) goto: user.code_state_go_to()
 (state | put) return: user.code_state_return()
 (state | put) break: user.code_break()
-(state | put) continue: user.code_state_continue()
-(state | put) next: user.code_next()
+(state | put) (continue|next): user.code_next()
 (state | put) try catch: user.code_try_catch()
+

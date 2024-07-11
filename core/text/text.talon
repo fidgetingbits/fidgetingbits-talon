@@ -12,10 +12,13 @@ phrase <user.text> over:
 <user.format_code>+ over: user.insert_many(format_code_list)
 <user.format_letters>+$: user.insert_many(format_letters_list)
 <user.formatters> that: user.formatters_reformat_selection(user.formatters)
+
 (only | lonely) <user.word>:
     user.add_phrase_to_history(user.word)
     insert(user.word)
 format help: user.formatters_help_toggle()
+
+<user.formatters> (pace | paste): user.insert_formatted(clip.text(), formatters)
 
 recent list: user.toggle_phrase_history()
 recent close: user.phrase_history_hide()
@@ -28,8 +31,6 @@ select that: user.select_last_phrase()
 before that: user.before_last_phrase()
 (nope that | scratch that): user.clear_last_phrase()
 nope that was <user.formatters>: user.formatters_reformat_last(formatters)
-
-# @rntz recommendation on slack
-#<user.format_text>+ [over]: user.insert_many(format_text_list)
-#(<user.formatters> exactly | phrase) <user.text>$:
-#  user.insert_formatted(text, formatters or "NOOP")
+(abbreviate | abreviate | brief) {user.abbreviation}: "{abbreviation}"
+<user.formatters> (abbreviate | abreviate | brief) {user.abbreviation}:
+    user.insert_formatted(abbreviation, formatters)

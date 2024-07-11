@@ -10,14 +10,8 @@ tag(): user.code_functions_common
 tag(): user.talon_populate_lists
 
 user dot: "user."
-#defintion blocks for the context
-action block: user.insert_between("action(", "):")
-setting block: insert("settings():\n\t")
-setting {user.talon_settings}: user.paste("{talon_settings} = ")
-require win: insert("os: windows\n")
-require mac: insert("os: mac\n")
-require linux: insert("os: linux\n")
-require title: insert("win.title: ")
+
+
 require (application | app) [{user.talon_apps}]:
     app = talon_apps or ""
     user.paste("app: {app}")

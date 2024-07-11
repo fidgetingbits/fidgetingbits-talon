@@ -1,2 +1,0 @@
--
-brief {user.abbreviation}: "{abbreviation}"

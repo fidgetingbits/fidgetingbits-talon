@@ -526,6 +526,11 @@ class UserActions:
     def code_alternative_type_separator():
         return " | "
 
+    def code_break():
+        actions.insert("break")
+
+    def code_next():
+        actions.insert("continue")
 
 @mod.action_class
 class module_actions:

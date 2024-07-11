@@ -22,7 +22,10 @@ please [<user.text>]:
     user.vscode("workbench.action.showCommands")
     insert(user.text or "")
 
-#
+go view [<user.text>]:
+    user.vscode("workbench.action.openView")
+    insert(user.text or "")
+
 # Sidebar
 #
 bar (files | explore): user.vscode("workbench.view.explorer")
@@ -535,6 +538,9 @@ term dog: user.vscode_and_wait("workbench.action.terminal.toggleTerminal")
 # Some duplication with above, but I don't always work on it as a terminal
 low zoom: user.vscode("workbench.action.toggleMaximizedPanel")
 
+task run [<user.text>]:
+    user.vscode("workbench.action.tasks.runTask")
+    insert(user.text or "")
 #TODO: should this be added to linecommands?
 copy line down: user.vscode("editor.action.copyLinesDownAction")
 copy line up: user.vscode("editor.action.copyLinesUpAction")

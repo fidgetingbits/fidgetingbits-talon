@@ -117,6 +117,7 @@ cut all: user.cut_all()
 
 cut line start: user.cut_line_start()
 cut line end: user.cut_line_end()
+cut block: user.cut_paragraph()
 cut word: user.cut_word()
 cut word left: user.cut_word_left()
 cut word right: user.cut_word_right()
@@ -145,9 +146,12 @@ paste in quotes:
     key(")
 
 paste match: edit.paste_match_style()
-
-
-
+(pace | paste) [to] all: user.paste_all()
+(pace | paste) [to] line: user.paste_line()
+(pace | paste) [to] line start: user.paste_line_start()
+(pace | paste) [to] line end: user.paste_line_end()
+(pace | paste) [to] block: user.paste_paragraph()
+(pace | paste) [to] word: user.paste_word()
 
 slap:
     edit.line_end()
@@ -197,3 +201,5 @@ curse swap: user.swap_cursor_anchor()
 
 # This syntax breaks the talon formatter
 # talon format test: key(")")
+
+[go] line mid: user.line_middle()
