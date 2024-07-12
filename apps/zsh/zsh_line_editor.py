@@ -4,7 +4,7 @@ from talon import Module, Context, actions
 
 mod = Module()
 ctx = Context()
-# We use a not tag user.readline to allow the user to pin a session temporarily to
+# `not tag user.readline` allows pinning a shell session temporarily to
 # use readline. For instance if from zsh you ssh into a non-zsh-based shell, etc
 ctx.matches = r"""
 app: zsh
@@ -15,25 +15,9 @@ and not tag: user.readline
 # Need to trim down to the actual readline ones...
 # zsh line editor: https://zsh.sourceforge.io/Doc/Release/Zsh-Line-Editor.html
 zle_keymap = {
-    "_bash_complete-word": None,
-    "_bash_list-choices": None,
-    "_complete_debug": None,
-    "_complete_help": None,
-    "_complete_tag": None,
-    "_correct_filename": None,
-    "_correct_word": None,
-    "_expand_alias": None,
-    "_expand_word": None,
-    "_history-complete-newer": None,
-    "_history-complete-older": None,
-    "_list_expansions": None,
-    "_most_recent_file": None,
-    "_next_tags": None,
-    "_read_comp": None,
     "accept-and-hold": None,
     "accept-line-and-down-history": None,
     "accept-line": None,
-    "atuin-up-search": None,
     "backward-char": None,
     "backward-delete-char": None,
     "backward-kill-word": None,
@@ -65,11 +49,6 @@ zle_keymap = {
     "forward-char": None,
     "forward-word": None,
     "get-line": None,
-    "history-incremental-search-backward": None,
-    "history-incremental-search-forward": None,
-    "history-search-backward": None,
-    "history-search-forward": None,
-    "infer-next-history": None,
     "insert-last-word": None,
     "kill-buffer": None,
     "kill-line": None,
@@ -84,8 +63,6 @@ zle_keymap = {
     "quote-line": None,
     "quote-region": None,
     "quoted-insert": None,
-    "reverse-menu-complete": None,
-    "run-help": None,
     "self-insert-unmeta": None,
     "self-insert": None,
     "send-break": None,
@@ -145,26 +122,31 @@ def _read_zle_keymap():
             continue
 
         bindkey, command = line.split(None, 1)
-        command = command.strip()
+        #command = command.strip()
 
         # bindkey is something like this: "^[[A" up-line-or-beginning-search
         # We want to pass each to key() as "ctrl-[", "[", "A"
         keys = []
+        # "ctrl-[A" -> ctrl-[A
         bindkeys = list(bindkey)[1:-1]
-        i = 0
-        # print(f"bindkeys: {bindkeys}")
-        # "^[ " expand-history breaks this
+        # FIXME(zle): '"\M-^@"-"\M-^?" self-insert' seems broken
+
+        # Skip anything too small to be a ctrl sequence
         if len(bindkeys) <= 1:
             continue
+        i = 0
         while i < len(bindkeys):
             char = bindkeys[i]
             if char in zsh_key_to_talon_map:
-                keys.append(f"{zsh_key_to_talon_map[char]}-{bindkeys[i+1].lower()}")
+                # ['^', 'A', ...] -> ['ctrl-a', ...]
+                modifier = zsh_key_to_talon_map[char]
+                key = bindkeys[i + 1].lower()
+                keys.append(f"{modifier}-{key}")
                 i += 1
             else:
                 keys.append(char)
             i += 1
-        # print(f"keys: {keys}")
+
 
         if command in zle_keymap:
             if zle_keymap[command] is None:
@@ -172,12 +154,9 @@ def _read_zle_keymap():
         else:
             if command not in zle_command_ignore_list:
                 print(
-                    f"Unsupported command: ' {command} ', update zle_keymap in zsh_line_editor.py"
+                    f"Unsupported zle command: ' {command} ', update zle_keymap in zsh_line_editor.py"
                 )
-
-    # "\M-^@"-"\M-^?" self-insert breaks this as well
-    print(f"zle_keymap: {pprint.pformat(zle_keymap)}")
-
+    # print(f"zle_keymap: {pprint.pformat(zle_keymap)}")
 
 _read_zle_keymap()
 
