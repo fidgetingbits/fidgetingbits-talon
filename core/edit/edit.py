@@ -299,3 +299,9 @@ class Actions:
         actions.edit.left()
         for i in range(0, half_line_length):
             actions.edit.right()
+
+    def jump_cursor_to_matching_char():
+        """Jump cursor to matching character
+
+        For example, jump from an opening bracket to its closing bracket.
+        """

@@ -43,3 +43,6 @@ class Actions:
 
     def jump_cursor_to_prev_char(key: str):
         """Jumps the first to the previous instance of the specified character on the current line"""
+
+    def join_lines():
+        """Join the current line with the line below"""

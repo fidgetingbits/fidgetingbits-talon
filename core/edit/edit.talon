@@ -235,3 +235,4 @@ curse swap: user.swap_cursor_anchor()
 # talon format test: key(")")
 
 [go] line mid: user.line_middle()
+go match: user.jump_cursor_to_matching_char()

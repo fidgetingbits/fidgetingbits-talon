@@ -3,6 +3,7 @@
 not os: windows
 and tag: terminal
 -
+tag(): user.line_commands
 
 ###
 # Packages

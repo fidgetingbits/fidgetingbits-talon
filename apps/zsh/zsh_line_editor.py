@@ -11,81 +11,89 @@ app: zsh
 and not tag: user.readline
 """
 
+custom_zle_functions = [
+    # "indent-line",
+    # "unindent-line",
+]
+
+builtin_zle_functions = [
+    "accept-and-hold",
+    "accept-line-and-down-history",
+    "accept-line",
+    "backward-char",
+    "backward-delete-char",
+    "backward-kill-line",
+    "backward-kill-word",
+    "backward-word",
+    "beginning-of-buffer-or-history",
+    "beginning-of-line",
+    "bracketed-paste",
+    "capitalize-word",
+    "clear-screen",
+    "copy-prev-shell-word",
+    "copy-prev-word",
+    "copy-region-as-kill",
+    "delete-char-or-list",
+    "delete-char",
+    "digit-argument",
+    "down-case-word",
+    "down-line-or-beginning-search",
+    "down-line-or-history",
+    "edit-command-line",
+    "end-of-buffer-or-history",
+    "end-of-line",
+    "exchange-point-and-mark",
+    "execute-last-named-cmd",
+    "execute-named-cmd",
+    "expand-history",
+    "expand-or-complete",
+    "expand-word",
+    "forward-char",
+    "forward-word",
+    "get-line",
+    "insert-last-word",
+    "kill-buffer",
+    "kill-line",
+    "kill-region",
+    "kill-whole-line",
+    "kill-word",
+    "list-choices",
+    "list-expand",
+    "neg-argument",
+    "overwrite-mode",
+    "push-line",
+    "quote-line",
+    "quote-region",
+    "quoted-insert",
+    "redo",
+    "self-insert-unmeta",
+    "self-insert",
+    "send-break",
+    "set-mark-command",
+    "spell-word",
+    "transpose-chars",
+    "transpose-words",
+    "undo",
+    "up-case-word",
+    "up-line-or-beginning-search",
+    "up-line-or-history",
+    "vi-backward-blank-word",
+    "vi-cmd-mode",
+    "vi-find-next-char",
+    "vi-forward-blank-word",
+    "vi-goto-column",
+    "vi-join",
+    "vi-match-bracket",
+    "what-cursor-position",
+    "which-command",
+    "yank-pop",
+    "yank",
+]
+
 # This is everything from bindkey that is set, but missing everything that isn't set
 # Need to trim down to the actual readline ones...
 # zsh line editor: https://zsh.sourceforge.io/Doc/Release/Zsh-Line-Editor.html
-zle_keymap = {
-    "accept-and-hold": None,
-    "accept-line-and-down-history": None,
-    "accept-line": None,
-    "backward-char": None,
-    "backward-delete-char": None,
-    "backward-kill-word": None,
-    "backward-kill-line": None,
-    "backward-word": None,
-    "beginning-of-buffer-or-history": None,
-    "beginning-of-line": None,
-    "bracketed-paste": None,
-    "capitalize-word": None,
-    "clear-screen": None,
-    "copy-prev-shell-word": None,
-    "copy-prev-word": None,
-    "copy-region-as-kill": None,
-    "delete-char-or-list": None,
-    "delete-char": None,
-    "digit-argument": None,
-    "down-case-word": None,
-    "down-line-or-beginning-search": None,
-    "down-line-or-history": None,
-    "edit-command-line": None,
-    "end-of-buffer-or-history": None,
-    "end-of-line": None,
-    "exchange-point-and-mark": None,
-    "execute-last-named-cmd": None,
-    "execute-named-cmd": None,
-    "expand-history": None,
-    "expand-or-complete": None,
-    "expand-word": None,
-    "forward-char": None,
-    "forward-word": None,
-    "get-line": None,
-    "insert-last-word": None,
-    "kill-buffer": None,
-    "kill-line": None,
-    "kill-region": None,
-    "kill-whole-line": None,
-    "kill-word": None,
-    "list-choices": None,
-    "list-expand": None,
-    "neg-argument": None,
-    "overwrite-mode": None,
-    "push-line": None,
-    "quote-line": None,
-    "quote-region": None,
-    "quoted-insert": None,
-    "self-insert-unmeta": None,
-    "self-insert": None,
-    "send-break": None,
-    "set-mark-command": None,
-    "spell-word": None,
-    "transpose-chars": None,
-    "transpose-words": None,
-    "undo": None,
-    "up-case-word": None,
-    "up-line-or-beginning-search": None,
-    "up-line-or-history": None,
-    "vi-backward-blank-word": None,
-    "vi-cmd-mode": None,
-    "vi-find-next-char": None,
-    "vi-forward-blank-word": None,
-    "vi-goto-column": None,
-    "vi-join": None,
-    "vi-match-bracket": None,
-    "what-cursor-position": None,
-    "which-command": None,
-    "yank-pop": None,
-    "yank": None,
-}
+zle_keymap = {name: None for name in custom_zle_functions + builtin_zle_functions}
 
 
 def _trigger_keys(entry):
@@ -122,7 +130,7 @@ def _read_zle_keymap():
             continue
 
         bindkey, command = line.split(None, 1)
-        #command = command.strip()
+        # command = command.strip()
 
         # bindkey is something like this: "^[[A" up-line-or-beginning-search
         # We want to pass each to key() as "ctrl-[", "[", "A"
@@ -147,16 +155,17 @@ def _read_zle_keymap():
                 keys.append(char)
             i += 1
 
-
         if command in zle_keymap:
             if zle_keymap[command] is None:
                 zle_keymap[command] = keys
         else:
             if command not in zle_command_ignore_list:
-                print(
-                    f"Unsupported zle command: ' {command} ', update zle_keymap in zsh_line_editor.py"
-                )
+                # print(
+                #     f"Unsupported zle command: ' {command} ', update zle_keymap in zsh_line_editor.py"
+                # )
+                pass
     # print(f"zle_keymap: {pprint.pformat(zle_keymap)}")
+
 
 _read_zle_keymap()
 
@@ -199,6 +208,12 @@ class EditActions:
     def delete_line():
         _trigger_keys("kill-whole-line")
 
+    # def indent_more():
+    #     _trigger_keys("indent-line")
+
+    # def indent_less():
+    #     _trigger_keys("unindent-line")
+
     ##
     # Miscellaneous - https://zsh.sourceforge.io/Doc/Release/Zsh-Line-Editor.html#Miscellaneous
     ##
@@ -238,6 +253,9 @@ class UserActions:
         actions.user.word_long_left()
         _trigger_keys("kill-region")
 
+    def join_lines():
+        _trigger_keys("vi-join")
+
     ##
     # Movement - https://zsh.sourceforge.io/Doc/Release/Zsh-Line-Editor.html#Movement
     ##
@@ -261,6 +279,9 @@ class UserActions:
     def jump_cursor_to_prev_char(key: str):
         _trigger_keys("vi-find-prev-char")
         actions.key(key)
+
+    def jump_cursor_to_matching_char():
+        _trigger_keys("vi-match-bracket")
 
     ##
     # Miscellaneous - https://zsh.sourceforge.io/Doc/Release/Zsh-Line-Editor.html#Miscellaneous
