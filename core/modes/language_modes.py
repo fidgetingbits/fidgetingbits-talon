@@ -1,5 +1,6 @@
 from talon import Context, Module, actions, app
 
+
 # Maps language mode names to the extensions that activate them. Only put things
 # here which have a supported language mode; that's why there are so many
 # commented out entries. TODO: make this a csv file?
@@ -22,15 +23,11 @@ language_extensions = {
     "javascriptreact": "jsx",
     "json": "json json5",
     "lua": "lua nse",
-    # 'json': 'json',
     "kotlin": "kt",
-    "lua": "lua",
-    "markdown": "md",
-    # 'perl': 'pl',
+    "perl": "pl",
     "php": "php",
     "markdown": "md",
     "nix": "nix",
-    "perl": "pl",
     "powershell": "ps1",
     "postscript": "ps",
     "python": "py",
@@ -93,11 +90,19 @@ tag: user.code_language_forced
 
 mod.tag("code_language_forced", "This tag is active when a language mode is forced")
 mod.list("language_mode", desc="Name of a programming language mode.")
+mod.list(
+    "language_extensions", desc="File extension name of a programming language mode."
+)
 
 ctx.lists["self.language_mode"] = {
     name: language
     for language in language_extensions
     for name in language_name_overrides.get(language, [language])
+}
+
+# Lazily use the first extension as the primary extension for a language.
+ctx.lists["user.language_extensions"] = {
+    name: extensions.split()[0] for name, extensions in language_extensions.items()
 }
 
 # Maps extension to languages.
