@@ -25,8 +25,8 @@ settings():
     user.code_private_variable_formatter = "SNAKE_CASE"
     user.code_protected_variable_formatter = "SNAKE_CASE"
     user.code_public_variable_formatter = "SNAKE_CASE"
-    # Whether or not to use uint8_t style datatypes
-    #    user.use_stdint_datatypes = 1
+    # Whether or not to use uint8_t style datatypes by default
+    user.use_stdint_datatypes = 1
 
 ^funky <user.text>$: user.code_default_function(text)
 ^static funky <user.text>$: user.code_private_static_function(text)
@@ -159,3 +159,5 @@ dock in: insert("@param[in] ")
 dock out: insert("@param[out] ")
 dock in out: insert("@param[in, out] ")
 dock file: insert("/** @file */")
+
+lint ignore: "// clang-format off"
