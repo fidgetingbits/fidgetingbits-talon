@@ -191,3 +191,5 @@ tag(): user.mouse_cursor_commands_enable
 #tag(): user.mouse_grid_enabled
 tag(): user.shotbox_enabled
 tag(): user.prefixed_numbers
+
+tag(): user.rango_exclude_singles
