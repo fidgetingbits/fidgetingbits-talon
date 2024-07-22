@@ -2,5 +2,9 @@ app: terminal
 tag: user.just_commands
 -
 
-[run] just list: "just -l\n"
-just {user.justfile_commands}: "just {justfile_commands}\n"
+[run] just list:
+    edit.delete_line()
+    insert("just -l\n")
+just {user.justfile_commands}:
+    edit.delete_line()
+    insert("just {justfile_commands}\n")
