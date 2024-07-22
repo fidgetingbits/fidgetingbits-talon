@@ -183,7 +183,10 @@ file find excluding with depth:
     user.insert_between("find . -mindepth 2 -maxdepth 2 -type d '!' -exec sh -c 'ls -1 \"{}\"|egrep -i -q \"^*.", "$\"' ';' -print")
 file find excluding:
     user.insert_between("find . -type d '!' -exec sh -c 'ls -1 \"{}\"|egrep -i -q \"^*.", "$\"' ';' -print")
-file (move | rename): "mv "
+file (move | rename):
+    "mv "
+file (move | rename) <user.zsh_file_completions>:
+    insert("mv {zsh_file_completions} ")
 file move files: user.insert_between("find . -maxdepth 1 -type f -exec mv {} ", " \\;")
 file P D F: "evince "
 file (touch|new): "touch "
@@ -265,9 +268,7 @@ folder tree permissions:
     user.insert_between('FILE=", "; until [ "$FILE" = "/" ]; do ls -lda $FILE; FILE=`dirname $FILE` done')
 
 # NOTE: these are deprecated in light of these zsh autocompletion
-#file edit read me: insert("edit README.md\n")
-#file edit make file: insert("edit Makefile\n")
-file [disk] usage all: "du -sh *\n"
+(file|disk) usage (all|here): "du -sh *\n"
 #file [disk] usage: "du -sh "
 
 file watch latest: "vlc $(eza --sort changed | tail -n1)"
