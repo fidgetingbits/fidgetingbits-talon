@@ -19,8 +19,8 @@ def working_folder():
                 cwd = cwd.replace(str(Path.home()), "~")
         return cwd
     except Exception as e:
-        # print(f"working_folder() threw exception: {e}")
-        return None
+        print(f"working_folder() threw exception: {e}")
+        return ""
 
 
 ui.register("win_title", scope.update)

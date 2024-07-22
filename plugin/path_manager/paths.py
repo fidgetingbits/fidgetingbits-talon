@@ -15,6 +15,8 @@ mod.list("file_paths", desc="Common files")
 ctx = Context()
 
 TALON_REPO = "fidgetingbits-talon"
+# FIXME: Automate finding this
+USER = "aa"
 
 neovim_folder_paths = {
     "vim sessions": "~/.config/nvim/sessions/",
@@ -217,7 +219,9 @@ unix_file_paths = {
     "kernel config": "/proc/config.gz",
     "A W S credentials": "~/.aws/credentials",
     "cargo config": "~/.cargo/config",
-    "authorized keys": "~/.ssh/authorized_keys",
+    "user authorized keys": f"/etc/ssh/authorized_keys.d/{USER}",
+    "root authorized keys": "/etc/ssh/authorized_keys.d/root",
+    # "authorized keys": "~/.ssh/authorized_keys",
     "S S H D config": "/etc/ssh/sshd_config",
     "talon log": "~/.talon/talon.log/",
     "S S M T P config": "/etc/ssmtp/ssmtp.conf",
@@ -383,7 +387,7 @@ class Actions:
 
     def get_cwd() -> str:
         """Get the current working directory of the app"""
-        return None
+        return ""
 
     def path_folder(path: str) -> str:
         """Get the folder part of the given path"""
