@@ -83,13 +83,13 @@ recall last tunnel:
 kill all: key(ctrl-c)
 
 (file | folder) name <user.zsh_path_completion>: "{user.zsh_path_completion}"
-file list (<user.zsh_path_completion> | <user.folder_paths>):
+file list (<user.zsh_path_completions> | <user.folder_paths>):
     path = zsh_path_completion or folder_paths
     "ls {path} \n"
-file list long (<user.zsh_path_completion> | <user.folder_paths>):
+file list long (<user.zsh_path_completions> | <user.folder_paths>):
     path = zsh_path_completion or folder_paths
     "ls -l {path} \n"
-file list local <user.zsh_file_completion>: "ls {zsh_file_completion} \n"
+file list local <user.zsh_file_completions>: "ls {zsh_file_completions} \n"
 file list global <user.folder_paths>: "ls {folder_paths} \n"
 file list bare exact: "ls "
 file list bare: "ls -l \n"
@@ -190,12 +190,11 @@ file (touch|new): "touch "
 [file] (touch | create|new) {user.common_files}: "touch {common_files}\n"
 file touch pair {user.common_extension_pairs}:
     user.insert_between("touch ", ".{{{common_extension_pairs}}}")
-# TODO: This should also include the names of files in the current folder
-file name (<user.zsh_file_completion> | {user.common_files}):
-    file = zsh_file_completion or common_files
+file name (<user.zsh_file_completions> | {user.common_files}):
+    file = zsh_file_completions or common_files
     insert("{file}")
 file global name {user.common_files}: "{common_files}"
-file local name <user.zsh_file_completion>: "{zsh_file_completion}"
+file local name <user.zsh_file_completions>: "{zsh_file_completions}"
 file copy: "cp -d "
 file recopy: "!cp\n"
 file copy latest <user.folder_paths>:
@@ -212,14 +211,14 @@ file show clip:
     "cat "
     edit.paste()
 
-file show (<user.zsh_file_completion> | <user.word>):
-    file = zsh_file_completion or word
+file show (<user.zsh_file_completions> | <user.word>):
+    file = zsh_file_completions or word
     insert("cat {file}")
 file edit:
     edit.delete_line()
     insert("edit ")
 
-file edit <user.zsh_file_completion>: insert("edit {zsh_file_completion}")
+file edit <user.zsh_file_completions>: insert("edit {zsh_file_completions}")
 file edit here: insert("edit .\n")
 
 file code: "code "
@@ -230,9 +229,9 @@ code install extension: "code --install-extension "
 
 file (delete | remove): "rm -I "
 # TODO: It might be nice to automatically escape the file name in this case
-file (delete | remove) [<user.zsh_file_completion>]:
-    "rm -I "
-    insert('"{zsh_file_completion}"')
+file (delete | remove) [<user.zsh_file_completions>]:
+    insert("rm -I ")
+    insert(zsh_file_completions or "")
 file safe (delete | remove) all: "rm -i -- *"
 file real (delete | remove): "/bin/rm -I "
 (file | folder) deep remove: "rm -rIf "
@@ -369,7 +368,10 @@ oxide <user.text>:
     insert("z {text}\n")
 
 folder (remove | delete): "rmdir "
-folder (create | new): "mkdir -p  "
+folder (create | new) [<user.text>]:
+    insert("mkdir -p  ")
+    insert(text or "")
+
 
 # XXX - It would be nice to make the depth configurable
 # flat tree

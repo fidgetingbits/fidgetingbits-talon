@@ -29,7 +29,7 @@ go <user.system_path>: user.file_manager_open_directory(system_path)
     user.file_manager_select_file(file_manager_files)
 
 #new folder
-folder new <user.text>: user.file_manager_new_folder(text)
+folder new [<user.text>]: user.file_manager_new_folder(text or "")
 
 #show properties
 properties show: user.file_manager_show_properties()

@@ -118,16 +118,34 @@ def zsh_folder_completion(m) -> str:
     return m
 
 
+@mod.capture(rule="{user.zsh_folder_completion}")
+def zsh_folder_completions(m) -> str:
+    """Returns one or more folder names"""
+    return " ".join(m.zsh_folder_completion_list)
+
+
 @mod.capture(rule="{user.zsh_file_completion}")
 def zsh_file_completion(m) -> str:
     """Returns a speakable file name"""
     return m
 
 
+@mod.capture(rule="{user.zsh_file_completion} [and {user.zsh_file_completion}]")
+def zsh_file_completions(m) -> str:
+    """Returns one or more file names"""
+    return " ".join(m.zsh_file_completion_list)
+
+
 @mod.capture(rule="({user.zsh_folder_completion} | {user.zsh_file_completion})")
 def zsh_path_completion(m) -> str:
     """Returns a speakable file name"""
     return m
+
+
+@mod.capture(rule="<user.zsh_path_completion> [and <user.zsh_path_completion>]")
+def zsh_path_completions(m) -> str:
+    """Returns a speakable file name"""
+    return " ".join(m.zsh_path_completion_list)
 
 
 def _is_zsh_window(window):

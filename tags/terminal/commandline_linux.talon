@@ -24,7 +24,7 @@ file hash five twelve: "sha512sum "
 file hash M D five: "md5sum "
 file hash shaw one: "sha1sum "
 file hash blake two: "b2sum "
-file hash <user.zsh_file_completion>: "sha256sum {zsh_file_completion}"
+file hash <user.zsh_file_completions>: "sha256sum {zsh_file_completions}"
 
 file tree permission: "tree -pufid "
 
