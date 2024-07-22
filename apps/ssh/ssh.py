@@ -9,6 +9,15 @@ mod.tag("ssh", desc="tag for ssh functionality")
 mod.list("ssh_hosts", desc="List for storing speakable ssh hosts")
 mod.list("ssh_keys", desc="List for storing speakable ssh keys")
 
+SSH = "tunnel"
+
+
+@mod.capture(rule=SSH)
+def ssh(m) -> str:
+    """Term for ssh"""
+    return str(m)
+
+
 ctx = Context()
 ctx.matches = r"""
 tag: user.ssh
