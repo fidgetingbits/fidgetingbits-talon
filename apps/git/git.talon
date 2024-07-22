@@ -22,8 +22,8 @@ tag: user.git
 
 <user.git> add untracked <user.git_untracked_files>:
     "git add {git_untracked_files}"
-# FIXME: Support chaining multiple files with and
-
+<user.git> add untracked everything:
+    "git add .\n"
 
 <user.git> bisect: "git bisect "
 
