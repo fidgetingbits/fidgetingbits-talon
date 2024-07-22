@@ -81,12 +81,12 @@ def git_conventional_commits(m) -> str:
     return f"{m.git_conventional_commits}: "
 
 
-mod.list("git_branches", desc="Branches in the current git repository.")
-mod.list("git_tags", desc="Tags in the current git repository.")
-mod.list("git_remotes", desc="Remotes in the current git repository.")
-mod.list("git_modified_files", desc="Git tracked files that have been modified")
-mod.list("git_untracked_files", desc="Git untracked files")
-mod.list("git_staged_files", desc="Git tracked files that have been staged")
+mod.list("git_branch", desc="Branches in the current git repository.")
+mod.list("git_tag", desc="Tags in the current git repository.")
+mod.list("git_remote", desc="Remotes in the current git repository.")
+mod.list("git_modified_file", desc="Git tracked files that have been modified")
+mod.list("git_untracked_file", desc="Git untracked files")
+mod.list("git_staged_file", desc="Git tracked files that have been staged")
 
 
 def git_status():
@@ -95,14 +95,15 @@ def git_status():
     ).decode("utf-8")
 
 
-@ctx.dynamic_list("user.git_staged_files")
-def user_git_staged_files(m) -> dict[str, str]:
+@ctx.dynamic_list("user.git_staged_file")
+def user_git_staged_file(m) -> dict[str, str]:
     """A dynamic list of staged git files"""
 
-    # print("user_git_staged_files()")
+    print("dynamic_list")
+    # print("user_git_staged_file()")
     output = git_status()
     if not output:
-        print("user_git_staged_files(): no output")
+        print("user_git_staged_file(): no output")
         return {}
 
     commands = []
@@ -116,8 +117,20 @@ def user_git_staged_files(m) -> dict[str, str]:
     return actions.user.create_spoken_forms_from_list(commands)
 
 
-@ctx.dynamic_list("user.git_untracked_files")
-def user_git_untracked_files(m) -> dict[str, str]:
+@mod.capture(rule="{user.git_staged_file}")
+def git_staged_file(m) -> str:
+    """Returns one git staged file"""
+    return m
+
+
+@mod.capture(rule="<user.get_staged_file> [and <user.get_staged_file>]")
+def git_staged_files(m) -> str:
+    """Returns one or more git staged files"""
+    return " ".join([str(s) for s in m.get_staged_file_list])
+
+
+@ctx.dynamic_list("user.git_untracked_file")
+def user_git_untracked_file(m) -> dict[str, str]:
     """A dynamic list of untracked git files"""
 
     output = git_status()
@@ -133,10 +146,22 @@ def user_git_untracked_files(m) -> dict[str, str]:
     return actions.user.create_spoken_forms_from_list(commands)
 
 
-@ctx.dynamic_list("user.git_modified_files")
-def user_git_modified_files(m) -> dict[str, str]:
-    """A dynamic list of modified tracked git files"""
+@mod.capture(rule="{user.git_untracked_file}")
+def git_untracked_file(m) -> str:
+    """Returns one git untracked tile"""
+    return m
 
+
+@mod.capture(rule="<user.git_untracked_file> [and <user.git_untracked_file>]")
+def git_untracked_files(m) -> str:
+    """Returns one or more git untracked files"""
+    return " ".join([str(s) for s in m.git_untracked_file_list])
+
+
+@ctx.dynamic_list("user.git_modified_file")
+def user_git_modified_file(m) -> dict[str, str]:
+    """A dynamic list of modified tracked git files"""
+    print("user_git_modified_files")
     output = git_status()
     if not output:
         return {}
@@ -146,20 +171,31 @@ def user_git_modified_files(m) -> dict[str, str]:
         if line.startswith(" M ") or line.startswith("MM"):
             line = line.split(" ")[-1]
             commands.append(line.strip())
-    print(commands)
+    # print(commands)
     return actions.user.create_spoken_forms_from_list(commands)
 
 
-@ctx.dynamic_list("user.git_branches")
-def user_git_branches(m) -> dict[str, str]:
-    """A dynamic list of available git branches"""
+@mod.capture(rule="{user.git_modified_file}")
+def git_modified_file(m) -> str:
+    """Returns modified tracked git file"""
+    return m
+
+
+@mod.capture(rule="<user.git_modified_file> [and <user.git_modified_file>]")
+def git_modified_files(m) -> str:
+    """Returns one or more modified tracked git files"""
+    return " ".join([str(s) for s in m.git_modified_file_list])
+
+
+@ctx.dynamic_list("user.git_branch")
+def user_git_branch(m) -> dict[str, str]:
     """A dynamic list of available git branches"""
 
     output = subprocess.check_output(
         ("git", "branch", "-a"), cwd=actions.user.get_cwd()
     ).decode("utf-8")
     if not output:
-        print("users_git_branches(): no output")
+        print("users_git_branch(): no output")
         return {}
 
     commands = []
@@ -184,8 +220,20 @@ def user_git_branches(m) -> dict[str, str]:
     return actions.user.create_spoken_forms_from_list(commands)
 
 
-@ctx.dynamic_list("user.git_tags")
-def user_git_tags(m) -> dict[str, str]:
+@mod.capture(rule="{user.git_branch}")
+def git_branch(m) -> str:
+    """Returns one git branch"""
+    return m
+
+
+@mod.capture(rule="<user.git_branch> [and <user.git_branch>]")
+def git_branches(m) -> str:
+    """Returns one or more git branches"""
+    return " ".join([str(s) for s in m.git_branch_list])
+
+
+@ctx.dynamic_list("user.git_tag")
+def user_git_tag(m) -> dict[str, str]:
     """A dynamic list of available git tags"""
 
     output = subprocess.check_output(("git", "tag"), cwd=actions.user.get_cwd()).decode(
@@ -201,8 +249,20 @@ def user_git_tags(m) -> dict[str, str]:
     return actions.user.create_spoken_forms_from_list(commands)
 
 
-@ctx.dynamic_list("user.git_remotes")
-def user_git_remotes(m) -> dict[str, str]:
+@mod.capture(rule="{user.git_tag}")
+def git_tag(m) -> str:
+    """Returns one or more git staged files"""
+    return m
+
+
+@mod.capture(rule="<user.git_tag> [and <user.git_tag>]")
+def git_tages(m) -> str:
+    """Returns one or more git tags"""
+    return " ".join([str(s) for s in m.git_tag_list])
+
+
+@ctx.dynamic_list("user.git_remote")
+def user_git_remote(m) -> dict[str, str]:
     """A dynamic list of available git branches"""
 
     output = subprocess.check_output(
@@ -218,3 +278,15 @@ def user_git_remotes(m) -> dict[str, str]:
             line = line.split("*")[1]
         commands.append(line.strip())
     return actions.user.create_spoken_forms_from_list(commands)
+
+
+@mod.capture(rule="{user.git_remote} [and {user.git_remote}]")
+def git_remote(m) -> str:
+    """Returns one git remote"""
+    return " ".join(m.git_remote_list)
+
+
+@mod.capture(rule="<user.git_remote> [and <user.git_remote>]")
+def git_remotes(m) -> str:
+    """Returns one or more git remotes"""
+    return " ".join([str(s) for s in m.git_remote_list])

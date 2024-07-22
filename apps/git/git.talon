@@ -14,13 +14,13 @@ tag: user.git
     insert("git add -u\n")
 # <user.git> add <user.zsh_path_completion>:
 #     "git add {zsh_path_completion}"
-<user.git> add {user.git_modified_files}:
+<user.git> add <user.git_modified_files>:
     "git add {git_modified_files}"
-<user.git> add base {user.git_modified_files}:
+<user.git> add base <user.git_modified_files>:
     insert("git add ")
     insert(user.path_folder(git_modified_files))
 
-<user.git> add untracked {user.git_untracked_files}:
+<user.git> add untracked <user.git_untracked_files>:
     "git add {git_untracked_files}"
 # FIXME: Support chaining multiple files with and
 
@@ -46,17 +46,17 @@ tag: user.git
 <user.git> branch remove remote clip:
     "git push origin --delete "
     edit.paste()
-<user.git> branch (remove | delete) {user.git_branches}: "git branch -d {git_branches}"
-<user.git> branch (remove | delete) force {user.git_branches}: "git branch -D {git_branches}"
+<user.git> branch (remove | delete) <user.git_branches>: "git branch -d {git_branches}"
+<user.git> branch (remove | delete) force <user.git_branches>: "git branch -D {git_branches}"
 <user.git> branch remote: "git branch --remote\n"
 <user.git> branch (rename | move): "git branch -m "
 
 <user.git> checkout: "git checkout "
-<user.git> checkout {user.git_branches}:
-    insert("git checkout {git_branches}\n")
-<user.git> checkout file {user.git_branches}:
-    insert("git checkout {git_branches} -- ")
-<user.git> checkout {user.git_tags}: "git checkout {git_tags}"
+<user.git> checkout <user.git_branch>:
+    insert("git checkout {git_branch}\n")
+<user.git> checkout file <user.git_branch>:
+    insert("git checkout {git_branch} -- ")
+<user.git> checkout <user.git_tag>: "git checkout {git_tag}"
 <user.git> checkout upstream (main | men):
     edit.delete_line()
     insert("git checkout upstream/main\n")
@@ -146,33 +146,33 @@ tag: user.git
 ##
 <user.git> diff (colour | color) words: "git diff --color-words "
 <user.git> doll: "git diff\n"
-<user.git> diff [{user.git_modified_files}]:
+<user.git> diff [<user.git_modified_files>]:
     insert("git diff ")
     insert(git_modified_files or "")
 <user.git> diff cached: "git diff --cached\n"
-<user.git> diff staged [{user.git_staged_files}]:
+<user.git> diff staged [<user.git_staged_files>]:
     insert("git diff --staged ")
     insert(git_staged_files or "")
 <user.git> stall: "git diff --staged\n"
-<user.git> diff {user.git_branches}: "git diff {git_branches}\n"
-<user.git> diff {user.git_tags}: "git diff {git_tags}\n"
+<user.git> diff <user.git_branch>: "git diff {git_branch}\n"
+<user.git> diff <user.git_tag>: "git diff {git_tag}\n"
 <user.git> diff tool: "git difftool -d\n"
 <user.git> diff tool cached: "git difftool --cached -d\n"
 <user.git> diff names only: "git diff --name-only "
 <user.git> diff status: "git diff --name-status "
-<user.git> diff status {user.git_branches}: "git diff --name-status {git_branches}\n"
+<user.git> diff status <user.git_branch>: "git diff --name-status {git_branch}\n"
 
-<user.git> diff {user.git_modified_files}:
+<user.git> diff <user.git_modified_files>:
     "git diff {git_modified_files}"
-<user.git> diff staged {user.git_staged_files}:
-    "git diff --staged {user.git_staged_files}"
+<user.git> diff staged <user.git_staged_files>:
+    "git diff --staged {git_staged_files}"
 
 <user.git> fetch: "git fetch\n"
 (git fetch and rebase|G base): "git fetch && git rebase\n"
 
 <user.git> fetch prune: "git fetch --prune\n"
 <user.git> fetch all: "git fetch --all\n"
-<user.git> fetch {user.git_remotes}: "git fetch {git_remotes}\n"
+<user.git> fetch <user.git_remote>: "git fetch {git_remote}\n"
 
 
 <user.git> fetch (pull [request]| P R) <number>: "git fetch origin pull/{number}/head:"
@@ -180,10 +180,10 @@ tag: user.git
     insert("git fetch origin pull/")
     edit.paste()
     insert("/head:")
-<user.git> fetch {user.git_remotes} (pull [request]| P R) <number>:
+<user.git> fetch <user.git_remote> (pull [request]| P R) <number>:
     "git fetch {git_remote} pull/{number}/head:"
-<user.git> fetch {user.git_remotes} (pull [request]| P R) clip:
-    insert("git fetch {git_remotes} pull/")
+<user.git> fetch <user.git_remote> (pull [request]| P R) clip:
+    insert("git fetch {git_remote} pull/")
     edit.paste()
     insert("/head:")
 
@@ -199,7 +199,7 @@ tag: user.git
 
 <user.git> list files: "git ls-files\n"
 <user.git> list modified: "git ls-files -m\n"
-<user.git> list tracked {user.git_branches}: "git ls-files -r git_branches --name-only\n"
+<user.git> list tracked <user.git_branch>: "git ls-files -r {git_branch} --name-only\n"
 <user.git> list ignored: "git ls-files . --ignored --exclude-standard --others\n"
 <user.git> list untracked: "git ls-files . --ignored --exclude-standard --others\n"
 
@@ -238,7 +238,7 @@ tag: user.git
 <user.git> log removed files only: "git log --diff-filter=D --summary | grep delete\n"
 
 <user.git> merge base: "git merge-base "
-<user.git> merge base {user.git_branches}: "git merge-base {git_branches} HEAD"
+<user.git> merge base <user.git_branch>: "git merge-base {git_branch} HEAD"
 <user.git> merge (cancel|quit): "git merge --quit\n"
 <user.git> merge pull request: user.insert_between("git pull origin pull/", "/head:")
 <user.git> merge pull request <number>: "git pull origin pull/{number}/head:"
@@ -246,7 +246,7 @@ tag: user.git
     user.insert_between("git pull upstream pull/", "/head:")
 <user.git> merge upstream pull request <number>: "git pull upstream pull/{number}/head:"
 <user.git> merge: "git merge "
-<user.git> merge {user.git_branches}: "git merge {git_branches}"
+<user.git> merge <user.git_branch>: "git merge {git_branch}"
 <user.git> merge ours: "git merge -X ours "
 <user.git> merge theirs: "git merge -X theirs "
 <user.git> merge clip:
@@ -290,9 +290,9 @@ tag: user.git
 <user.git> rebase continue edit: "git rebase --continue\n"
 <user.git> rebase skip: "git rebase --skip"
 
-<user.git> remove [<user.zsh_path_completion>]:
+<user.git> remove [<user.zsh_path_completions>]:
     insert("git rm ")
-    insert(zsh_path_completion or "")
+    insert(zsh_path_completions or "")
 <user.git> remove cached: "git rm --cached"
 <user.git> (remove | delete) remote branch: "git push --delete origin "
 <user.git> remove remote origin: "git remote rm origin"
@@ -307,22 +307,18 @@ tag: user.git
 # git reset hard head: "git reset --hard HEAD~1"
  #git reset hard head <number_small>: "git reset --hard HEAD~{number_small}"
 # These two are useful for mass commit squashing
-<user.git> reset [merge] base {user.git_branches}: "git reset --soft $(git merge-base {git_branches} HEAD)"
+<user.git> reset [merge] base <user.git_branch>: "git reset --soft $(git merge-base {git_branch} HEAD)"
 
 
 <user.git> restore: "git restore "
-# FIXME: add auto population of the actual modified paths...
-<user.git> restore [<user.zsh_path_completion>]:
+<user.git> restore [<user.zsh_path_completions>]:
     insert("git restore ")
-    insert(zsh_path_completion or "")
+    insert(zsh_path_completions or "")
 <user.git> restore staged: "git restore --staged "
-# FIXME: add auto population of the actual modified paths...
-<user.git> restore staged {user.git_staged_files}:
+<user.git> restore staged <user.git_staged_files>:
     insert("git restore --staged {git_staged_files}")
 
-# <user.git> restore staged <user.zsh_path_completion>:
-#     insert("git restore --staged ")
-#     insert(zsh_path_completion or "")
+
 # Purposefully no \n because it is destructive
 <user.git> restore all: "git restore --source=HEAD :/"
 get restore staged all: "git restore --staged :/\n"
@@ -332,20 +328,20 @@ get restore staged all: "git restore --staged :/\n"
 get remote set origin: "git remote set-url origin "
 
 <user.git> remote: "git remote "
-<user.git> remote add [{user.git_remotes}]:
+<user.git> remote add [<user.text>]:
     insert("git remote add ")
-    insert(git_remotes or "")
+    insert(text or "")
 <user.git> remote add origin: "git remote add origin "
 <user.git> remote add upstream: "git remote add upstream "
 <user.git> remote list: "git remote -v\n"
 <user.git> remote set url: "git remote set-url "
-<user.git> remote remove [{user.git_remotes}]:
+<user.git> remote remove [<user.git_remotes>]:
     insert("git remote remove ")
     insert(git_remotes or "")
-<user.git> remote rename [{user.git_remotes}]:
+<user.git> remote rename [<user.git_remote>]:
     insert("git remote rename ")
-    insert(git_remotes or "")
-<user.git> [remote] show [remote] {user.git_remotes}: "git remote show {git_remotes}\n"
+    insert(git_remote or "")
+<user.git> [remote] show [remote] <user.git_remote>: "git remote show {git_remote}\n"
 
 <user.git> revert: "git revert "
 <user.git> revert clip:
@@ -399,7 +395,7 @@ get stash help: "git stash --help\n"
 
 <user.git> sub tree: "git subtree "
 <user.git> switch: "git switch "
-<user.git> switch {user.git_branches}: "git switch {git_branches}"
+<user.git> switch <user.git_branch>: "git switch {git_branch}"
 <user.git> switch detached: "git switch --detach "
 <user.git> (switch create | new branch) [<user.text>]:
     "git switch -c {user.formatted_text(text or '', 'DASH_SEPARATED')}"
@@ -448,10 +444,6 @@ get stash help: "git stash --help\n"
 #git diff (cached | cashed)$: "git diff --cached\n"
 
 # Convenience
-<user.git> clone clip:
-    insert("git clone ")
-    edit.paste()
-    key(enter)
 <user.git> diff highlighted:
     edit.copy()
     insert("git diff ")
