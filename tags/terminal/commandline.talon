@@ -456,7 +456,7 @@ net trace clip:
 net ping: "ping "
 net ping <user.domains>: "ping {domains}\n"
 net ping clip:
-    insert("ping")
+    insert("ping ")
     edit.paste()
     key(enter)
 
