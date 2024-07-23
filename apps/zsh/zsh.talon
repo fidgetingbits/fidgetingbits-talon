@@ -23,3 +23,12 @@ key map show: "bindkey\n"
 key map find: "bindkey | grep "
 key map show emacs: "bindkey -M emacs\n"
 key map show vim: "bindkey -M vicmd\n"
+
+# These depend on custom zsh functions (extraInit.zsh in nix-config), so don't put in commandline.talon
+# These are fzf-based commands.
+# fuzzy directory deep
+pivot in: "fdd\n"
+# fuzzy directory shallow
+pivot shallow: "fds\n"
+# fuzzy directory reverse
+pivot out: "fdr\n"
