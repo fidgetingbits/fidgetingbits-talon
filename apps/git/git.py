@@ -123,10 +123,10 @@ def git_staged_file(m) -> str:
     return m
 
 
-@mod.capture(rule="<user.get_staged_file> [and <user.get_staged_file>]")
+@mod.capture(rule="<user.git_staged_file> [and <user.git_staged_file>]")
 def git_staged_files(m) -> str:
     """Returns one or more git staged files"""
-    return " ".join([str(s) for s in m.get_staged_file_list])
+    return " ".join([str(s) for s in m.git_staged_file_list])
 
 
 @ctx.dynamic_list("user.git_untracked_file")
