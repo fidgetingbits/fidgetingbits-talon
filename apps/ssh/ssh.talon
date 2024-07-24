@@ -46,11 +46,11 @@ go secure shell config: "cd ~/.ssh\n"
 
 <user.ssh> key copy {user.ssh_keys} [{user.ssh_hosts}]: "ssh-copy-id -i {ssh_keys} {ssh_hosts or ''}"
 
-<user.ssh> control check {user.ssh_keys}: "ssh -O check {ssh_hosts or ''}"
-<user.ssh> control exit {user.ssh_keys}: "ssh -O exit {ssh_hosts or ''}"
-<user.ssh> control stop {user.ssh_keys}: "ssh -O stop {ssh_hosts or ''}"
-<user.ssh> control cancel {user.ssh_keys}: "ssh -O cancel {ssh_hosts or ''}"
-<user.ssh> control forward {user.ssh_keys}: "ssh -O forward {ssh_hosts or ''}"
+<user.ssh> control check {user.ssh_hosts}: "ssh -O check {ssh_hosts or ''}"
+<user.ssh> control exit {user.ssh_hosts}: "ssh -O exit {ssh_hosts or ''}"
+<user.ssh> control stop {user.ssh_hosts}: "ssh -O stop {ssh_hosts or ''}"
+<user.ssh> control cancel {user.ssh_hosts}: "ssh -O cancel {ssh_hosts or ''}"
+<user.ssh> control forward {user.ssh_hosts}: "ssh -O forward {ssh_hosts or ''}"
 
 # FIXME: Add an option with ssh hosts to target
 <user.ssh> (gen|generate) age key:
