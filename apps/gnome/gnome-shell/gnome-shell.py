@@ -25,10 +25,10 @@ class UserActions:
     def launch(cmd: str, args: list):
         """Use the built-in launch command to run gnome-shell commands"""
         actions.user.launch_command_prompt()
-        actions.sleep("50ms")
+        actions.sleep("100ms")
         # actions.user.notify(f"Running command: {cmd} {' '.join(args)}")
         actions.user.paste(cmd + " " + " ".join(args))
-        actions.sleep("50ms")
+        actions.sleep("100ms")
         actions.key("enter")
 
     def launch_command_prompt():
