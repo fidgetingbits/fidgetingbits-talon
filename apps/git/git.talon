@@ -8,10 +8,14 @@ tag: user.git
 <user.git> add patch: "git add . -p\n"
 <user.git> add: "git add "
 
+
 <user.git> add force: "git add -f "
 <user.git> add (all | changed | everything):
     edit.delete_line()
     insert("git add -u\n")
+<user.git> add intend (all  | everything):
+    edit.delete_line()
+    insert("git add --intent-to-add .\n")
 # <user.git> add <user.zsh_path_completion>:
 #     "git add {zsh_path_completion}"
 <user.git> add <user.git_modified_files>:
@@ -259,19 +263,19 @@ tag: user.git
 <user.git> new branch: "git checkout -b "
 
 <user.git> prune: "git prune"
-<user.git> remote prune origin: "git remote prune origin\n"
+<user.git> remote prune <user.git_remote>: "git remote prune {git_remote}\n"
 
 <user.git> pull: "git pull"
-<user.git> pull origin: "git pull origin "
+<user.git> pull <user.git_remote>: "git pull {git_remote} "
 <user.git> pull rebase: "git pull --rebase "
 <user.git> pull fast forward: "git pull --ff-only\n"
-<user.git> pull <user.text>: "git pull {} "
 
 <user.git> push: "git push\n"
 <user.git> force push: "git push --force-with-lease"
-<user.git> push origin: "git push origin "
-<user.git> push up stream origin: "git push -u origin "
-<user.git> push <user.text>: "git push {} "
+<user.git> push <user.git_remote>: "git push {git_remote} "
+<user.git> push [to] up stream <user.git_remote> [<user.git_branch>]:
+    insert("git push -u {git_remote} ")
+    insert(git_branch or "")
 <user.git> push tags: "git push --tags\n"
 
 <user.git> rebase: "git rebase "
