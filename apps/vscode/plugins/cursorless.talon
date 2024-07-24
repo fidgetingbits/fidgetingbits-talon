@@ -1,4 +1,5 @@
 tag: user.cursorless
+not app: terminal
 -
 
 # Command to repeat the last action on a new target
