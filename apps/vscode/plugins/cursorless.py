@@ -23,6 +23,11 @@ class Actions:
             }
         )
 
+    def c_get_target_string(target: Any) -> str:
+        """Get the string representation for Cursorless target"""
+        texts = actions.user.c_get_texts(target)
+        return " ".join(texts)
+
     def c_get_target_length(target: str) -> int:
         """Return the length of a cursorless target"""
         texts = actions.user.c_get_texts(target)
