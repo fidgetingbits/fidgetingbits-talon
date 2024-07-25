@@ -15,17 +15,20 @@ mod.list("code_containing_types", desc="List of containing types for active lang
     rule="[{user.code_type_modifier}] {user.code_type} [or {user.code_type}]",
 )
 def code_type(m) -> str:
-    """Returns a macro name"""
+    """Returns a, possibly modified, type name"""
     s = ""
     types = m
     if "code_type_modifier" in m:
         s += m.code_type_modifier
-        types = m[1:]
+        types = m.code_type_list
     if len(types) > 1:
         # Pull out every other element which will be "or"
         types = types[::2]
-    separator = actions.user.code_alternative_type_separator()
-    return separator.join(types)
+        separator = actions.user.code_alternative_type_separator()
+        final = s + separator.join([str(x) for x in types])
+    else:
+        final = s + str(types[0])
+    return final
 
 
 @ctx.capture(
@@ -33,7 +36,7 @@ def code_type(m) -> str:
     rule="[{user.code_type_modifier}] {user.code_containing_types}",
 )
 def code_containing_type(m) -> str:
-    """Returns a macro name"""
+    """Returns a, possibly modified, containing type name"""
     return "".join(m)
 
 
@@ -55,4 +58,8 @@ class Actions:
         """Inserts a type annotation"""
 
     def code_alternative_type_separator():
-        """Separator for multi-types variables declarations"""
+        """Separator for multi-types variables declarations
+
+        Example: In python you could have `foo: int | str`
+        """
+        return " "

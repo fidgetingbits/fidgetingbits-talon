@@ -1,3 +1,7 @@
+# Other non-community rust implementations:
+# https://github.com/mrob95/MR-talon/blob/4db05e59/lang/rust.py
+# https://github.com/rokubop/roku_talon/blob/0e632275/lang/rust/rust.py#L1
+
 from typing import Any, Callable, TypeVar
 
 from talon import Context, Module, actions, settings
@@ -62,9 +66,19 @@ class Actions:
 
 
 ctx = Context()
-# NOTE: This used to have user.rust_apps, but deleted during community merge. Re-add it if stuff breaks
 ctx.matches = r"""
 code.language: rust
+"""
+
+# This context is used when coding Rust, but also by cli apps like cargo
+ctx_cli = Context()
+
+ctx_cli.matches = r"""
+tag: user.rust_apps
+and not code.language: rust
+
+not tag: user.rust_apps
+and code.language: rust
 """
 
 ctx.lists["user.rust_std_modules"] = {
@@ -380,7 +394,7 @@ ctx.lists["user.code_type_modifier"] = {
     "dine": "dyn ",
 }
 
-ctx.lists["user.rust_crates"] = {
+rust_crates = {
     "native T L S": "native_tls",
     "hyper": "hyper",
     "tokyo": "tokio",
@@ -395,14 +409,12 @@ ctx.lists["user.rust_crates"] = {
     "goblin": "goblin",
     "random": "rand",
     "walk dir": "walkdir",
-    "log": "log",
     "open S S L": "openssl",
     "serde": "serde",
     "serde JSON": "serde_json",
     "thirty four": "thirtyfour",
     "simple log": "simplelog",
     "async recursion": "async_recursion",
-    "serde": "serde",
     "serde json": "serde_json",
     "ray on": "rayon",
     "shaw two": "sha2",
@@ -414,6 +426,8 @@ ctx.lists["user.rust_crates"] = {
     "regex": "regex",
 }
 
+ctx_cli.lists["user.rust_crates"] = rust_crates
+
 ctx.lists["user.rust_toolchains"] = {
     "stable": "stable",
     "nightly": "nightly",
@@ -421,7 +435,7 @@ ctx.lists["user.rust_toolchains"] = {
 }
 
 # TODO: These are a little loose with the architecture's atm
-ctx.lists["user.rust_targets"] = {
+rust_targets = {
     "windows M S V C": "x86_64-pc-windows-msvc",
     "windows G N U": "x86_64-pc-windows-gnu",
     "mac O S": "x86_64-apple-darwin",
@@ -433,6 +447,7 @@ ctx.lists["user.rust_targets"] = {
     "linux arm": "armv7-unknown-linux-gnueabihf",
     "linux muscle arm": "armv7-unknown-linux-musleabihf",
 }
+ctx_cli.lists["user.rust_targets"] = rust_targets
 
 ctx.lists["user.formatted_functions"] = {**all_string_formatted_functions_macros}
 

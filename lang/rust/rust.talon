@@ -22,7 +22,6 @@ tag(): user.code_operators_assignment
 tag(): user.code_operators_bitwise
 tag(): user.code_operators_math
 
-
 tag(): user.code_format_strings_interpolated
 
 settings():
@@ -36,15 +35,15 @@ settings():
 # rust-specific grammars
 
 ## for unsafe rust
-put unsafe: "unsafe "
-(put) unsafe block: user.code_state_unsafe()
+<user.operator> unsafe: "unsafe "
+(<user.operator>) unsafe block: user.code_state_unsafe()
 
 ## rust centric struct and enum definitions
-put (struct | structure) [<user.text>]:
+<user.operator> (struct | structure) [<user.text>]:
     insert("struct ")
     insert(user.formatted_text(text or "", "PUBLIC_CAMEL_CASE"))
 
-put enum [<user.text>]:
+<user.operator> enum [<user.text>]:
     insert("enum ")
     insert(user.formatted_text(text or "", "PUBLIC_CAMEL_CASE"))
 
@@ -53,49 +52,49 @@ toggle use: user.code_toggle_libraries()
 # TODO: It would be nice if there was a way to not let text match on certain words, because this conflict with
 # the let type command below
 
-put let <user.text>:
+[<user.operator>] let untyped <user.text>:
     insert("let ")
     insert(user.formatted_text(text or "", "SNAKE_CASE"))
     insert(" = ")
 
-put let mute <user.text>:
+[<user.operator>] let untyped mute <user.text>:
     insert("let mut ")
     insert(user.formatted_text(text or "", "SNAKE_CASE"))
 
-put let type <user.code_type> <user.text>:
+[<user.operator>] let type <user.code_type> <user.text>:
     insert("let ")
     insert(user.formatted_text(text or "", "SNAKE_CASE"))
     insert(": ")
-    insert(user.code_type())
+    insert(code_type)
     insert(" = ")
 
 ## Simple aliases
-[put] (borrowed | borrow): "&"
-[put] (borrowed | borrow) (mutable | mute): "&mut "
-put (a sink | async | asynchronous): "async "
-put (pub | public): "pub "
-put (pub | public) crate: "pub(crate) "
-put (dyn | dynamic): "dyn "
-put type: "type "
-put (const | constant): "const "
-put (funk | func | function): "fn "
-put (imp | implements): "impl "
-put let mute: "let mut "
-put let: "let "
-put (mute | mutable): "mut "
-put (mod | module): "mod "
-put ref (mute | mutable): "ref mut "
-put ref: "ref "
-put trait: "trait "
-put match: user.code_state_switch()
-put (some | sum): "Some"
-put static: "static "
+[<user.operator>] (borrowed | borrow): "&"
+[<user.operator>] (borrowed | borrow) (mutable | mute): "&mut "
+<user.operator> (a sink | async | asynchronous): "async "
+<user.operator> (pub | public): "pub "
+<user.operator> (pub | public) crate: "pub(crate) "
+<user.operator> (dyn | dynamic): "dyn "
+# <user.operator> type: "type "
+<user.operator> (const | constant): "const "
+<user.operator> (funk | func | function): "fn "
+<user.operator> (imp | implements): "impl "
+<user.operator> let mute: "let mut "
+<user.operator> let: "let "
+<user.operator> (mute | mutable): "mut "
+<user.operator> (mod | module): "mod "
+<user.operator> ref (mute | mutable): "ref mut "
+<user.operator> ref: "ref "
+<user.operator> trait: "trait "
+<user.operator> match: user.code_state_switch()
+<user.operator> (some | sum): "Some"
+<user.operator> static: "static "
 self taught: "self."
-put a sync block: user.insert_between("async {", "}")
-put match a sync block: user.insert_between("match async {", "}.await {}")
-put await: ".await"
+<user.operator> a sync block: user.insert_between("async {", "}")
+<user.operator> match a sync block: user.insert_between("match async {", "}.await {}")
+<user.operator> await: ".await"
 
-put init defaults: "..Default::default()"
+<user.operator> init defaults: "..Default::default()"
 
 use <user.code_libraries>:
     user.code_insert_library(code_libraries, "")
@@ -103,12 +102,15 @@ use <user.code_libraries>:
 use {user.rust_crates} prelude:
     insert("use {rust_crates}::prelude::*;")
     key(enter)
-use crate: user.insert_between("use crate::", ";")
+
+# This is for local use crate:: only, use "use <user.code_libraryes>" for external crates
+use crate:    user.insert_between("use crate::", ";")
+
 
 ## specialist flow control
-put if let some: user.code_insert_if_let_some()
-put if let (ok | okay): user.code_insert_if_let_okay()
-put if let error: user.code_insert_if_let_error()
+<user.operator> if let some: user.code_insert_if_let_some()
+<user.operator> if let (ok | okay): user.code_insert_if_let_okay()
+<user.operator> if let error: user.code_insert_if_let_error()
 
 ## rust centric synonyms
 is some: user.code_insert_is_not_null()
@@ -137,128 +139,135 @@ block dock comment: user.code_comment_documentation_block()
 inner dock comment: user.code_comment_documentation_inner()
 inner block dock comment: user.code_comment_documentation_block_inner()
 
-put returns: " -> "
+<user.operator> returns: " -> "
 # TODO: They should use a list
-put empty ok: "Ok(())"
-put empty error: "Err(())"
-put empty some: "Some(())"
-put doc [comment]: "///"
-put empty result: "Result::Ok(())"
-put arm: "=> "
-put arm open: "=> {"
-put arm block: "=> {}"
-put right [inclusive] range: "..="
-put left [inclusive] range: "=.."
-put range: ".."
-put at range: "@ .."
-[put] turbo fish: "::<>"
+<user.operator> empty ok: "Ok(())"
+<user.operator> empty error: "Err(())"
+<user.operator> empty some: "Some(())"
+<user.operator> doc [comment]: "///"
+<user.operator> empty result: "Result::Ok(())"
+<user.operator> arm: "=> "
+<user.operator> arm open: "=> {"
+<user.operator> arm block: "=> {}"
+<user.operator> right [inclusive] range: "..="
+<user.operator> left [inclusive] range: "=.."
+<user.operator> range: ".."
+<user.operator> at range: "@ .."
+[<user.operator>] turbo fish: "::<>"
 turbo crate: "crate::"
 turbo stood: "std::"
-[put] turbo <user.word>: "{word}::"
-put at <user.text>: "{text} @ "
-put label range: user.insert_between("", "@ ..")
-put new vec: "Vec::new()"
-put new box: "Box::new()"
-put use: user.code_import()
-#put use: "use "
-put use block: user.insert_between("use {", "};")
-put use {user.rust_crates}: user.insert_between("use {rust_crates}::", ";")
-put tokyo main: "#[tokio::main]"
-put A sink: "async "
-put pub: "pub "
-put mod: "mod "
-put static ref: "static ref "
+[<user.operator>] turbo <user.word>: "{word}::"
+<user.operator> at <user.text>: "{text} @ "
+<user.operator> label range: user.insert_between("", "@ ..")
+<user.operator> new vec: "Vec::new()"
+<user.operator> new box: "Box::new()"
+<user.operator> use: user.code_import()
+#<user.operator> use: "use "
+<user.operator> use block: user.insert_between("use {", "};")
+<user.operator> use {user.rust_crates}: user.insert_between("use {rust_crates}::", ";")
+<user.operator> tokyo main: "#[tokio::main]"
+<user.operator> A sink: "async "
+<user.operator> pub: "pub "
+<user.operator> mod: "mod "
+<user.operator> static ref: "static ref "
 
 # TODO: Make all derivable trait values something we can say and have automatically added
-put derive: user.insert_between("#[derive(", ")]")
-put derive debug: "#[derive(Debug)]"
-put derive clone: "#[derive(Clone)]"
-put derive copy: "#[derive(Copy)]"
-put derive default: "#[derive(Default)]"
-put derive display: "#[derive(Display)]"
-put derive error: "#[derive(Error)]"
-put default: "#[default]"
+<user.operator> derive: user.insert_between("#[derive(", ")]")
+<user.operator> derive debug: "#[derive(Debug)]"
+<user.operator> derive clone: "#[derive(Clone)]"
+<user.operator> derive copy: "#[derive(Copy)]"
+<user.operator> derive default: "#[derive(Default)]"
+<user.operator> derive display: "#[derive(Display)]"
+<user.operator> derive error: "#[derive(Error)]"
+<user.operator> default: "#[default]"
 funk {user.formatted_functions}:
     insert(formatted_functions)
     user.insert_between('("', '");')
-put A sink trait: "#[async_trait]"
+<user.operator> A sink trait: "#[async_trait]"
 
-put used: "#[used]"
-put test: "#[test]"
-put ignore: "#[ignore]"
-put ignored test: "#[test]\n#[ignore]"
-put config test: "#[cfg(test)]"
-put config any: user.insert_between("#[cfg(any(", "))]")
-put config X sixty four: '#[cfg(target_arch = "x86_64")]'
-put config X thirty two: '#[cfg(target_arch = "x86")]'
-put config arm: '#[cfg(target_arch = "arm")]'
-put config arm sixty four: '#[cfg(target_arch = "aarch64")]'
+<user.operator> used: "#[used]"
+<user.operator> test: "#[test]"
+<user.operator> ignore: "#[ignore]"
+<user.operator> ignored test: "#[test]\n#[ignore]"
+<user.operator> config test: "#[cfg(test)]"
+<user.operator> config any: user.insert_between("#[cfg(any(", "))]")
+<user.operator> config X sixty four: '#[cfg(target_arch = "x86_64")]'
+<user.operator> config X thirty two: '#[cfg(target_arch = "x86")]'
+<user.operator> config arm: '#[cfg(target_arch = "arm")]'
+<user.operator> config arm sixty four: '#[cfg(target_arch = "aarch64")]'
 # TODO: It would be nice to automatically be able to specify multiple
 # architecture's and wrap it inside of any()
 # TODO: automatically create test module in functions, add things like expect panic
-put (rep | represent) C: "#[repr(C)]"
+<user.operator> (rep | represent) C: "#[repr(C)]"
 
-put global warn unused variables: "#![warn(unused_variables)]"
-put global warn unused imports: "#![warn(unused_imports)]"
-put global warn unused results: "#![warn(unused_results)]"
-put global warn unused mut: "#![warn(unused_mut)]"
-put global warn dead code: "#![warn(dead_code)]"
+<user.operator> global warn unused variables: "#![warn(unused_variables)]"
+<user.operator> global warn unused imports: "#![warn(unused_imports)]"
+<user.operator> global warn unused results: "#![warn(unused_results)]"
+<user.operator> global warn unused mut: "#![warn(unused_mut)]"
+<user.operator> global warn dead code: "#![warn(dead_code)]"
 
-put warn unused variables: "#[warn(unused_variables)]"
-put warn unused imports: "#[warn(unused_imports)]"
-put warn unused results: "#[warn(unused_results)]"
-put warn unused mut: "#[warn(unused_mut)]"
-put warn dead code: "#[warn(dead_code)]"
+<user.operator> warn unused variables: "#[warn(unused_variables)]"
+<user.operator> warn unused imports: "#[warn(unused_imports)]"
+<user.operator> warn unused results: "#[warn(unused_results)]"
+<user.operator> warn unused mut: "#[warn(unused_mut)]"
+<user.operator> warn dead code: "#[warn(dead_code)]"
 
-put global allow unused variables: "#![allow(unused_variables)]"
-put global allow unused imports: "#![allow(unused_imports)]"
-put global allow unused results: "#![allow(unused_results)]"
-put global allow unused mut: "#![allow(unused_mut)]"
-put global allow non camel [case] [types]: "#![allow(non_camel_case_types)]"
-put global allow dead code: "#![allow(dead_code)]"
-put global allow unreachable code: "#![allow(unreachable_code)]"
+<user.operator> global allow unused variables: "#![allow(unused_variables)]"
+<user.operator> global allow unused imports: "#![allow(unused_imports)]"
+<user.operator> global allow unused results: "#![allow(unused_results)]"
+<user.operator> global allow unused mut: "#![allow(unused_mut)]"
+<user.operator> global allow non camel [case] [types]: "#![allow(non_camel_case_types)]"
+<user.operator> global allow dead code: "#![allow(dead_code)]"
+<user.operator> global allow unreachable code: "#![allow(unreachable_code)]"
 
-put allow unused variables: "#[allow(unused_variables)]"
-put allow unused imports: "#[allow(unused_imports)]"
-put allow unused results: "#[allow(unused_results)]"
-put allow unused mut: "#[allow(unused_mut)]"
-put allow non camel [case] [types]: "#[allow(non_camel_case_types)]"
-put allow dead code: "#[allow(dead_code)]"
-put allow unreachable code: "#[allow(unreachable_code)]"
+<user.operator> allow unused variables: "#[allow(unused_variables)]"
+<user.operator> allow unused imports: "#[allow(unused_imports)]"
+<user.operator> allow unused results: "#[allow(unused_results)]"
+<user.operator> allow unused mut: "#[allow(unused_mut)]"
+<user.operator> allow non camel [case] [types]: "#[allow(non_camel_case_types)]"
+<user.operator> allow dead code: "#[allow(dead_code)]"
+<user.operator> allow unreachable code: "#[allow(unreachable_code)]"
 
-[put] returns [result] box error: "-> Result<(), Box<dyn Error>>"
-put result box error: "Result<(), Box<dyn Error>>"
+[<user.operator>] returns [result] box error: "-> Result<(), Box<dyn Error>>"
+<user.operator> result box error: "Result<(), Box<dyn Error>>"
 
-put result of <user.code_type> and <user.code_type>:
+<user.operator> result of <user.code_type> and <user.code_type>:
     "Result<{code_type}, Box<dyn Error>>"
 
-put form {user.closed_format_strings}: insert("{closed_format_strings}")
-put form inner {user.inner_format_strings}: insert(":{inner_format_strings}")
+<user.operator> form {user.closed_format_strings}: insert("{closed_format_strings}")
+<user.operator> form inner {user.inner_format_strings}: insert(":{inner_format_strings}")
 
-put [{user.code_type_modifier}] sliced <user.code_type>:
+<user.operator> [{user.code_type_modifier}] sliced <user.code_type>:
     insert(code_type_modifier or "")
     insert("[{code_type}]")
 
-put [{user.code_type_modifier}] <number> element <user.code_type> array:
+<user.operator> [{user.code_type_modifier}] <number> element <user.code_type> array:
     insert(code_type_modifier or "")
     insert("[{code_type}; {number}]")
 
-put [{user.code_type_modifier}] <user.code_type> array:
+<user.operator> [{user.code_type_modifier}] <user.code_type> array:
     insert(code_type_modifier or "")
     user.insert_between("[{code_type}; ", "]")
 
-put zero init <number> elements: insert("[0; {number}]")
+<user.operator> zero init <number> elements: insert("[0; {number}]")
 
-put as <user.code_type>: "as {code_type}"
+<user.operator> as <user.code_type>: "as {code_type}"
 
-put new {user.rust_allocatable_types}: insert("{rust_allocatable_types}::new()")
+<user.operator> new {user.rust_allocatable_types}: insert("{rust_allocatable_types}::new()")
 
-put (stood | standard) {user.rust_std_modules}: insert("std::{rust_std_modules}::")
+<user.operator> (stood | standard) {user.rust_std_modules}: insert("std::{rust_std_modules}::")
 
-put (stood | standard) {user.rust_std_modules} <user.text>:
+<user.operator> (stood | standard) {user.rust_std_modules} <user.text>:
     insert("std::{rust_std_modules}::")
     insert(user.formatted_text(text or "", "PUBLIC_CAMEL_CASE"))
 
-put collect as <user.code_containing_type> of [<user.code_type>]:
+<user.operator> collect as <user.code_containing_type> of [<user.code_type>]:
     type = user.code_type or ""
     insert("collect::{code_containing_type}<{type}>()")
+
+##
+# Cursorless-only commands
+##
+rust docs <user.cursorless_target>:
+    text = user.c_get_target_string(cursorless_target)
+    user.open_url("https://doc.rust-lang.org/std/index.html?search={text}")
