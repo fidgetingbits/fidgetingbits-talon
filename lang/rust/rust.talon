@@ -61,12 +61,18 @@ toggle use: user.code_toggle_libraries()
     insert("let mut ")
     insert(user.formatted_text(text or "", "SNAKE_CASE"))
 
-[<user.operator>] let type <user.code_type> <user.text>:
+# let type bytes called data: "let data: u8 = "
+[<user.operator>] let type <user.code_type> called <user.text>:
     insert("let ")
     insert(user.formatted_text(text or "", "SNAKE_CASE"))
-    insert(": ")
-    insert(code_type)
-    insert(" = ")
+    insert(": {code_type} = ")
+
+# let type borrowed vector of bytes called data: "let data: &Vec<u8> = "
+[<user.operator>] let type <user.code_containing_type> of <user.code_type> called <user.text>:
+    insert("let ")
+    insert(user.formatted_text(text or "", "SNAKE_CASE"))
+    insert(": {code_containing_type}<{code_type}> = ")
+
 
 ## Simple aliases
 [<user.operator>] (borrowed | borrow): "&"
