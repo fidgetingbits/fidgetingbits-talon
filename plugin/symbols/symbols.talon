@@ -1,3 +1,4 @@
+# I use tide to mean escaped
 question [mark]: "?"
 score: "_"
 double dash: "--"
@@ -27,14 +28,15 @@ end of file: "EOF"
 dashing: "-- "
 prompt: "❯"
 
-[pair] (round): user.insert_between("(", ")")
+# NOTE: You made this explicit because it kept conflicting with cursorless `round wrap ...`
+pair round: user.insert_between("(", ")")
 tide round: user.insert_between("\\(", "\\)")
 
 [pair] (brackets | braces | curly): user.insert_between("{", "}")
 tide (brackets | braces | curly): user.insert_between("\\{", "\\}")
 
-[pair] (square | squares): user.insert_between("[", "]")
-tide (square | list): user.insert_between("\\[", "\\]")
+[pair] squares: user.insert_between("[", "]")
+tide (squares | list): user.insert_between("\\[", "\\]")
 
 [pair] (angles | diamond): user.insert_between("<", ">")
 tide (angles | diamond): user.insert_between("\\<", "\\>")
@@ -58,6 +60,7 @@ tide slashes: user.insert_between("\\/", "\\/")
 # Because of turbo fish from rust: ::<>
 turbo: "::"
 
+# FIXME(cursorless): Some of these should probably only be enabled if not in cursorless?
 angles that:
     text = edit.selected_text()
     user.paste("<{text}>")
