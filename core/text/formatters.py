@@ -308,7 +308,7 @@ prose_formatter_names = {
     "sentence": "CAPITALIZE_FIRST_WORD",
     "title": "CAPITALIZE_ALL_WORDS",
     "sponge bob": "SPONGEBOB",
-    "quoted": "DOUBLE_QUOTED_STRING",
+    "string": "DOUBLE_QUOTED_STRING",
     "primus": "SINGLE_QUOTED_STRING",
 }
 
