@@ -10,7 +10,9 @@ cargo run help: "cargo run -- --help\n"
 cargo run release: "cargo run --release\n"
 cargo add: "cargo add "
 cargo add {user.rust_crates}: "cargo add {rust_crates}\n"
-cargo remove: "cargo remove "
+cargo remove [{user.cargo_crates}]:
+    insert("cargo remove ")
+    insert(cargo_crates or "")
 cargo install: "cargo install "
 cargo install <user.text>: "cargo install {text}"
 cargo uninstall: "cargo uninstall "
@@ -25,6 +27,7 @@ cargo build (all | workspace): "cargo build --workspace\n"
 # TODO: It would be nice to automatically derive valid packages
 cargo build package: "cargo build --package "
 cargo build package <user.text>: "cargo build --package {text}"
+cargo tree: "cargo tree\n"
 cargo test: "cargo test\n"
 cargo test no capture: "cargo test -- --nocapture\n"
 cargo test ignored: "cargo test -- --ignored\n"
