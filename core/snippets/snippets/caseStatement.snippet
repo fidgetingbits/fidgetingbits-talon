@@ -2,14 +2,14 @@ name: caseStatement
 phrase: case
 ---
 
-language: javascript | java
+language: javascript | java | python
 -
 case $1:
     $0
 ---
 
-language: python
+language: rust
 -
-case $1:
-    $0
+    $0 => $1
+}
 ---

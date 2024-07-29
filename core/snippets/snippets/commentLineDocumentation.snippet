@@ -1,0 +1,11 @@
+name: commentLineDocumentation
+phrase: line doc comment | line doc string
+insertionScope: statement
+
+$0.insertionFormatter: CAPITALIZE_FIRST_WORD
+---
+
+language: rust
+-
+/// $0
+---
