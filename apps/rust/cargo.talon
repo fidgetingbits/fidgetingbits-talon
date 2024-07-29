@@ -5,19 +5,31 @@ tag: user.rust_apps
 cargo init: "cargo init "
 cargo init (library | lib): "cargo init --lib "
 cargo new: "cargo new "
+
 cargo run: "cargo run\n"
 cargo run help: "cargo run -- --help\n"
 cargo run release: "cargo run --release\n"
-cargo add: "cargo add "
-cargo add {user.rust_crates}: "cargo add {rust_crates}\n"
-cargo remove [{user.cargo_crates}]:
+cargo run with args: "cargo run -- "
+cargo run release with args: "cargo run --release -- "
+
+cargo add dev [dep]: "cargo add --dev "
+cargo add [dep] [{user.rust_crates}]:
+    insert("cargo add ")
+    insert(rust_crates or "")
+cargo add dev [dep] {user.rust_crates}:
+    insert("cargo add --dev ")
+    insert(rust_crates or "")
+cargo remove [dep] [{user.rust_crates}]:
     insert("cargo remove ")
-    insert(cargo_crates or "")
+    insert(rust_crates or "")
+cargo remove dev [dep] [{user.rust_crates}]:
+    insert("cargo remove --dev ")
+    insert(rust_crates or "")
+
+
 cargo install: "cargo install "
 cargo install <user.text>: "cargo install {text}"
 cargo uninstall: "cargo uninstall "
-cargo run with args: "cargo run -- "
-cargo run release with args: "cargo run --release -- "
 cargo build: "cargo build\n"
 cargo build with output: "cargo -vv build\n"
 cargo build release: "cargo build --release\n"
