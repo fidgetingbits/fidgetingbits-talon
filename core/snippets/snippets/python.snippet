@@ -1,63 +1,6 @@
 language: python
 ---
 
-name: talonAppDeclaration
-phrase: module app
-insertionScope: statement
--
-mod.apps.$1 = r"""
-$0
-"""
----
-
-name: talonModuleClass
-phrase: module class
-insertionScope: class | statement
--
-@mod.action_class
-class Actions:
-    $0
----
-
-name: talonContextMatch
-phrase: context match
-insertionScope: statement
--
-ctx.matches = r"""
-$0
-"""
----
-
-name: talonContextList
-phrase: context list
-insertionScope: statement
--
-ctx.lists["user.$1"] = {
-    $0
-}
----
-
-name: talonContextClass
-phrase: context class
-insertionScope: class | statement
--
-@ctx.action_class("$1")
-class $2Actions:
-    $0
----
-
-name: talonPythonFile
-phrase: talon file
-insertionScope: statement
--
-from talon import Context, Module, actions
-
-mod = Module()
-ctx = Context()
-
-$0
----
-
 name: pythonDataClass
 phrase: data class
 insertionScope: class | statement
@@ -75,14 +18,14 @@ from dataclasses import dataclass
 ---
 
 name: pythonDictString
-phrase: dick string
+phrase: map string
 insertionScope: statement
 -
     "$1": "$2",
 ---
 
 name: pythonFormattedDictString
-phrase: form dick string
+phrase: form map string
 insertionScope: statement
 -
     "$1": f"$2",

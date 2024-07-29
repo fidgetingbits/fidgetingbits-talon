@@ -1,2 +1,110 @@
 language: rust
 ---
+
+name: ifLet
+phrase: if let
+insertionScope: statement
+-
+if let $1 = $2 {
+    $0
+}
+---
+
+name: ifLetOkay
+phrase: if let okay
+insertionScope: statement
+-
+if let Ok($1) = $2 {
+    $0
+}
+---
+
+name: ifLetSome
+phrase: if let some
+insertionScope: statement
+-
+if let Some($1) = $2 {
+    $0
+}
+---
+
+name: ifLetError
+phrase: if let error
+insertionScope: statement
+-
+if let Err(e) = $1 {
+    $0
+}
+---
+
+name: matchOption
+phrase: match option
+insertionScope: statement
+-
+match $1 {
+    Some($2) => {
+        $0
+    }
+    None => {}
+}
+---
+
+name: letMatchOption
+phrase: let match option
+insertionScope: statement
+-
+let $1 = match $2 {
+    Some($3) => {
+        $4
+    }
+    None => {
+        $5
+    }
+};
+$0
+---
+
+name: letMatchResult
+phrase: let match result
+insertionScope: statement
+-
+let $1 = match $2 {
+    Ok($3) => {
+        $4
+    }
+    Err(e) => {
+        $5
+    }
+};
+---
+
+name: implementStruct
+phrase: im pull struct
+insertionScope: function
+-
+impl $1 {
+    $0
+}
+---
+
+name: implementStructNew
+phrase: im pull struct new
+insertionScope: function
+-
+impl $1 {
+    fn new() -> Self {
+        Self {
+           $0
+        }
+    }
+}
+---
+
+name: implementTrait
+phrase: im pull trait
+insertionScope: function
+-
+impl $1 for $2 {
+    $0
+}
+---

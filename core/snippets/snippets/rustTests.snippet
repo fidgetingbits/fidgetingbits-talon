@@ -1,0 +1,45 @@
+language: rust
+---
+
+name: testModule
+phrase: test module
+insertionScope: statement
+-
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_$1() {
+        $0
+    }
+}
+---
+
+name: testCommandLineModule
+phrase: test cli module
+insertionScope: statement
+-
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use assert_cmd::prelude::*;
+    use predicates::prelude::*;
+    use std::process::Command; // Run programs
+
+    #[test]
+    fn test_$1() -> Result<(), Box<dyn std::error::Error>>{
+        $0
+    }
+}
+---
+
+name: testFunction
+phrase: test funk
+insertionScope: statement
+-
+#[test]
+fn test_$1() {
+    $0
+}
+---
