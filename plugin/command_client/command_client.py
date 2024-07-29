@@ -207,7 +207,9 @@ command_server_directory = None
 def get_platform_specific_communication_dir_path():
     home_dir = Path.home()
     if app.platform == "linux" or app.platform == "mac":
-        if actions.win.title().startswith("VIM"):
+        # Doen't use startswitch because some mac apps, like default Terminal, hijack the title
+        # Maybe active app is neovim is better?
+        if "VIM MODE" in actions.win.title():
             suffix = f"-{os.getuid()}"
             path = (
                 Path(gettempdir())
