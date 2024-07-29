@@ -420,7 +420,10 @@ def formatter_immune(m) -> ImmuneString:
 @mod.action_class
 class Actions:
     def formatted_text(phrase: Union[str, Phrase], formatters: str) -> str:
-        """Formats a phrase according to formatters. formatters is a comma-separated string of formatters (e.g. 'CAPITALIZE_ALL_WORDS,DOUBLE_QUOTED_STRING')"""
+        """Formats a phrase according to formatters. formatters is a comma-separated string of formatters (e.g.
+        'CAPITALIZE_ALL_WORDS,DOUBLE_QUOTED_STRING')"""
+        if len(phrase) == 0:
+            return ""
         return format_phrase(phrase, formatters)
 
     def insert_formatted(phrase: Union[str, Phrase], formatters: str):

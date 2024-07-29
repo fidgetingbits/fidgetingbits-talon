@@ -59,7 +59,7 @@ run last script:
 recall [<user.text>]:
     key(ctrl-r)
     insert(text or "")
-recall last command:
+recall last [command]:
     edit.delete_line()
     key(! ! enter enter)
 # atuin_open.talon for other tweak commands
@@ -111,12 +111,14 @@ file move [last] <number> minutes:
     'find . -maxdepth 1 -type f -exec bash -c \'cur=$(date "+%s"); birth=$(stat -c %W "{{}}"); delta=$((cur - (60*{number}))); if [ $birth -ge $delta ]; then echo "{{}}"; fi\' \\; | xargs mv -t '
 file list (last | latest) <number>: "eza --sort changed | tail -n{number}\n"
 file list count: "ls -1 | wc -l\n"
+
 folder list latest: "eza -D --sort changed | tail -n1\n"
 folder list (last | latest) <number>: "eza -D --sort changed | tail -n{number}\n"
 folder list: "eza -D -l\n"
 folder list dead symlinks here: "find -L . -maxdepth 1 -type l\n"
 folder list dead symlinks: user.insert_between("find -L ", " -maxdepth 1 -type l\n")
 folder delete dead symlinks here: "find -L . -maxdepth 1 -type l -delete\n"
+
 file list (folders | directories): "ls -d */\n"
 file list (folders | directories) long: "ls -ld */\n"
 file list (runnable | executable): "find . -type f -executable\n"
@@ -370,8 +372,9 @@ oxide <user.text>:
 
 folder (remove | delete): "rmdir "
 folder (create | new) [<user.text>]:
-    insert("mkdir -p  ")
-    insert(text or "")
+    insert("mkdir -p ")
+    pathing = user.formatted_text(text, "pathing")
+    insert(pathing)
 
 
 # XXX - It would be nice to make the depth configurable
