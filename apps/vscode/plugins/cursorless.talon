@@ -36,6 +36,16 @@ bump <user.cursorless_target>:
     user.cursorless_command("setSelectionAfter", cursorless_target)
     key(space)
 
+# pull air: b a -> ba
+pull <user.cursorless_target>:
+    user.cursorless_command("setSelectionBefore", cursorless_target)
+    key(left delete)
+
+# mag b: b a -> ba
+mag <user.cursorless_target>:
+    user.cursorless_command("setSelectionAfter", cursorless_target)
+    key(delete)
+
 # Allow unambiguous commands
 then: skip()
 
