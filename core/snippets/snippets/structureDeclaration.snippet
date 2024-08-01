@@ -1,0 +1,27 @@
+name: struct
+phrase: struct
+insertionScope: statement
+---
+
+language: rust
+
+$1.insertionFormatter: PUBLIC_HAMMER_CASE
+-
+struct $1 {
+    $0
+}
+---
+
+name: pubStruct
+phrase: pub struct
+insertionScope: statement
+---
+
+language: rust
+
+$1.insertionFormatter: PUBLIC_HAMMER_CASE
+-
+pub struct $1 {
+    $0
+}
+---

@@ -108,3 +108,26 @@ impl $1 for $2 {
     $0
 }
 ---
+
+name: implementStructMethod
+phrase: im pull struct method
+insertionScope: statement
+-
+fn $2(&self, $3) -> $4 {
+    $0
+}
+---
+
+name: mapCloneEach
+phrase: map clone each
+insertionScope: statement
+-
+.map(|$0| $0.clone())
+---
+
+name: mapIntoStruct
+phrase: map into struct
+insertionScope: statement
+-
+.map(|$1| $2 { $0 })
+---
