@@ -102,6 +102,8 @@ self taught: "self."
 
 <user.operator> init defaults: "..Default::default()"
 
+# FIXME(rust): We need to merge code libraries and rust crate somehow, may be the rust crate needs like a pure prefix to
+# imply we're not bringing in additional things yet
 use <user.code_libraries>:
     user.code_insert_library(code_libraries, "")
     key(; enter)
@@ -114,9 +116,9 @@ use crate:    user.insert_between("use crate::", ";")
 
 
 ## specialist flow control
-<user.operator> if let some: user.code_insert_if_let_some()
+# <user.operator> if let some: user.code_insert_if_let_some()
 <user.operator> if let (ok | okay): user.code_insert_if_let_okay()
-<user.operator> if let error: user.code_insert_if_let_error()
+# <user.operator> if let error: user.code_insert_if_let_error()
 
 ## rust centric synonyms
 is some: user.code_insert_is_not_null()
@@ -240,8 +242,10 @@ funk {user.formatted_functions}:
 <user.operator> result of <user.code_type> and <user.code_type>:
     "Result<{code_type}, Box<dyn Error>>"
 
-<user.operator> form {user.closed_format_strings}: insert("{closed_format_strings}")
-<user.operator> form inner {user.inner_format_strings}: insert(":{inner_format_strings}")
+# FIXME(rust): switch this to work with the format strings tag instead
+# https://doc.rust-lang.org/std/fmt/
+<user.operator> form {user.format_strings}: insert("{{{format_strings}}}")
+<user.operator> form inner {user.format_strings}: insert("{format_strings}")
 
 <user.operator> [{user.code_type_modifier}] sliced <user.code_type>:
     insert(code_type_modifier or "")

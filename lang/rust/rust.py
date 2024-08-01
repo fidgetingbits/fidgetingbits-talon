@@ -12,8 +12,7 @@ mod.list("code_type_modifier", desc="List of type modifiers for active language"
 mod.list("code_macros", desc="List of macros for active language")
 mod.list("code_trait", desc="List of traits for active language")
 mod.list("rust_crates", desc="List of common rust crates")
-mod.list("closed_format_strings", desc="List of common closed rust format strings")
-mod.list("inner_format_strings", desc="List of common rust format strings")
+mod.list("format_strings", desc="List of common rust format strings")
 mod.list("rust_types", desc="List of common rust types")
 mod.list("code_containing_types", desc="List of common rust container types")
 mod.list("formatted_functions", desc="List of common rust formatted functions")
@@ -459,16 +458,7 @@ ctx_cli.lists["user.rust_targets"] = rust_targets
 ctx.lists["user.formatted_functions"] = {**all_string_formatted_functions_macros}
 
 
-ctx.lists["user.closed_format_strings"] = {
-    "hex": r"{:#x}",
-    "octal": r"{:#o}",
-    "binary": r"{:#b}",
-    "decimal": r"{:#}",
-    "float": r"{:.2}",
-    "debug": r"{:?}",
-}
-
-ctx.lists["user.inner_format_strings"] = {
+ctx.lists["user.format_strings"] = {
     "hex": r":#x",
     "octal": r":#o",
     "binary": r":#b",
