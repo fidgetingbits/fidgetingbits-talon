@@ -39,6 +39,7 @@ bar switch: user.vscode("workbench.action.toggleSidebarVisibility")
 bar [focus] tabs: user.vscode("andreas.tabs.focus")
 bar terminal: user.vscode("workbench.action.terminal.focus")
 bar cursorless: user.vscode("workbench.view.extension.cursorless")
+bar chat: user.vscode("workbench.panel.chat.view.copilot.focus")
 (left | side) dog: user.vscode("workbench.action.toggleSidebarVisibility")
 # Toggle Secondary Side Bar
 # right dog: key(ctrl-alt-b)
