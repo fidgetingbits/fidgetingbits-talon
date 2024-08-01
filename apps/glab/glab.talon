@@ -23,9 +23,16 @@ gitlab project list: "glab project list\n"
 gitlab project create help: "glab project create --help\n"
 gitlab project (create | new) public: "glab project create -P "
 gitlab project (create | new) [private]: "glab project create -p "
-gitlab project search: "glab search "
-gitlab project search help: "glab search --help\n"
+gitlab project search: "glab project search "
+gitlab project search help: "glab project search --help\n"
+gitlab project view [{user.gitlab_namespace}]:
+    edit.delete_line()
+    insert("glab project view ")
+    insert(gitlab_namespace or "")
+gitlab project {user.gitlab_namespace} (create|new): "glab project create -p -g {gitlab_namespace} "
+
 
 # issue
 gitlab issue list help: "glab issue list --help\n"
 gitlab issue list: "glab issue list\n"
+
