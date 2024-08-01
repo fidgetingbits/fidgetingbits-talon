@@ -1,0 +1,12 @@
+name: logLevelDebug
+phrase: log debug
+insertionScope: statement
+
+$1.wrapperPhrase: log debug
+$1.wrapperScope: statement
+---
+
+language: rust
+-
+debug!($1);
+---

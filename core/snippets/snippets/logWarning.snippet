@@ -1,0 +1,12 @@
+name: logLevelWarning
+phrase: log warning
+insertionScope: statement
+
+$1.wrapperPhrase: log warning
+$1.wrapperScope: statement
+---
+
+language: rust
+-
+warning!($1);
+---

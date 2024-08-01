@@ -1,0 +1,12 @@
+name: logLevelInfo
+phrase: log info
+insertionScope: statement
+
+$1.wrapperPhrase: log info
+$1.wrapperScope: statement
+---
+
+language: rust
+-
+info!($1);
+---

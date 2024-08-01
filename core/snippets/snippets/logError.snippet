@@ -1,0 +1,12 @@
+name: logLevelError
+phrase: log error
+insertionScope: statement
+
+$1.wrapperPhrase: log error
+$1.wrapperScope: statement
+---
+
+language: rust
+-
+error!($1);
+---

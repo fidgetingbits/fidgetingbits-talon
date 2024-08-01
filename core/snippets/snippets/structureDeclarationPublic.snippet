@@ -1,5 +1,5 @@
-name: struct
-phrase: struct
+name: pubStruct
+phrase: pub struct
 insertionScope: statement
 
 $1.insertionFormatter: PUBLIC_HAMMER_CASE
@@ -7,7 +7,7 @@ $1.insertionFormatter: PUBLIC_HAMMER_CASE
 
 language: rust
 -
-struct $1 {
+pub struct $1 {
     $0
 }
 ---
