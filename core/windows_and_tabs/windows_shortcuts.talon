@@ -19,7 +19,7 @@ pop nix secrets:
     user.vscode_open_workspace("nix-secrets (workspace)")
 
 pop nix vim [flake]:
-    user.vscode_open_workspace("nix-vim (workspace)")
+    user.vscode_open_workspace("nixvim-flake (workspace)")
 
 pop neovim talon:
     user.vscode_open_workspace("neovim-talon (workspace)")
