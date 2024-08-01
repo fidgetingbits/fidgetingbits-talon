@@ -14,3 +14,6 @@ num pad plus: key("keypad_plus")
 hold {user.modifier_key}: key("{modifier_key}:down")
 release {user.modifier_key}: key("{modifier_key}:up")
 release all keys: user.keys_release_all()
+
+soft:
+    key(shift-enter)
