@@ -829,6 +829,10 @@ get stash help:
 <user.git> [sub] module update:
     edit.delete_line()
     "git submodule update --init --recursive --remote"
+<user.git> [sub] module set U R L:
+    edit.delete_line()
+    "git submodule set-url "
+
 <user.git> module references:
     edit.delete_line()
     "git ls-files --stage | grep 160000\n"
