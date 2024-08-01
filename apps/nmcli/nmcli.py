@@ -30,6 +30,25 @@ def user_nmcli_vpns(m) -> dict[str, str]:
 
 @mod.action_class
 class NetworkManagerClientActions:
+    def nmcli_connection_toggle(name: str):
+        """Toggle a network manager connection up/down using the cli"""
+        # Check if the connection is up or down
+        output = subprocess.check_output(
+            (
+                "bash",
+                "-c",
+                f"nmcli -t -f NAME,STATE connection show | rg {name } | cut -f2 -d:",
+            ),
+            text=True,
+        )
+        if not output:
+            actions.user.notify(f"VPN {name} not found")
+            return
+        if "activated" in output:
+            actions.user.nmcli_connection_down(name)
+        else:
+            actions.user.nmcli_connection_up(name)
+
     def nmcli_connection_up(name: str):
         """Bring a network manager connection up using the cli"""
         actions.user.notify(f"Bringing up VPN {name}")
