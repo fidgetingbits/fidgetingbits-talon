@@ -72,5 +72,5 @@ go camel left: user.camel_left()
 go camel right: user.camel_right()
 
 go char <user.unmodified_key>: user.jump_cursor_to_next_char(unmodified_key)
-go last char <user.unmodified_key>: user.jump_cursor_to_prev_char(unmodified_key)
+go (prev|previous|last) char <user.unmodified_key>: user.jump_cursor_to_prev_char(unmodified_key)
 join line: user.join_lines()
