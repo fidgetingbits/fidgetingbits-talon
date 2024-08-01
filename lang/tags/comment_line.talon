@@ -54,4 +54,7 @@ comment perf:
     insert("PERF: ")
 comment fix me:
     user.code_comment_line_prefix()
-    insert("FIXME: ")
+    insert("FIXME:")
+comment fix me cat <user.word>:
+    user.code_comment_line_prefix()
+    insert("FIXME({word}):")
