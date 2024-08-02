@@ -817,6 +817,9 @@ get stash help:
 <user.git> [sub] module add:
     edit.delete_line()
     "git submodule add "
+<user.git> [sub] module delete:
+    edit.delete_line()
+    "git rm  "
 <user.git> [sub] module status:
     edit.delete_line()
     "git submodule status\n"
