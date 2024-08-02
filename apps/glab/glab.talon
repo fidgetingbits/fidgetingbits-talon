@@ -25,9 +25,10 @@ gitlab project (create | new) public: "glab project create -P "
 gitlab project (create | new) [private]: "glab project create -p "
 gitlab project search: "glab project search "
 gitlab project search help: "glab project search --help\n"
-gitlab project view [{user.gitlab_namespace}]:
+gitlab project view [{user.gitlab_server}] [{user.gitlab_namespace}]:
     edit.delete_line()
-    insert("glab project view ")
+    insert("PAGER=cat glab project view ")
+    insert(user.gitlab_server or "")
     insert(gitlab_namespace or "")
 gitlab project {user.gitlab_namespace} (create|new): "glab project create -p -g {gitlab_namespace} "
 
