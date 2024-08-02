@@ -2,6 +2,8 @@
 # not tag: user.cursorless
 -
 
+tag(): user.zoom
+
 # VIM uses find for line searching
 # XXX - is a good chance this conflicts with other grammars from certain
 # applications
@@ -193,11 +195,11 @@ parrot(side_click):
     app.notify("side_click")
     key(enter)
 
-zoom in: edit.zoom_in()
-zoom out: edit.zoom_out()
-zoom reset: edit.zoom_reset()
+# FIXME: This should be pages
 (page | scroll) up: key(pgup)
 (page | scroll) down: key(pgdown)
+
+
 (file save|disk): edit.save()
 (file save all|disk all): edit.save_all()
 
