@@ -25,7 +25,7 @@ speech_system.register("post:phrase", on_post_phrase)
 class Actions:
     def parse_phrase(phrase: Union[Phrase, str]):
         """Rerun phrase"""
-        if phrase == "":
+        if not phrase or phrase == "" or "words" not in phrase:
             return
         current_phrase = phrase_stack[-1]
         ts = current_phrase["_ts"]
