@@ -110,6 +110,8 @@ common_functions = {
     "G D B execute": "gdb.execute",
     # pathlib
     "path": "pathlib.Path",
+    # shutil
+    "which": "shutil.which",
 }
 ctx.lists["user.code_common_function"] = {
     **builtin_functions,
@@ -531,6 +533,7 @@ class UserActions:
 
     def code_next():
         actions.insert("continue")
+
 
 @mod.action_class
 class module_actions:
