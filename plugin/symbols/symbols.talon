@@ -29,7 +29,7 @@ dashing: "-- "
 prompt: "❯"
 
 # NOTE: You made this explicit because it kept conflicting with cursorless `round wrap ...`
-pair round: user.insert_between("(", ")")
+[pair] rounder: user.insert_between("(", ")")
 tide round: user.insert_between("\\(", "\\)")
 
 [pair] (brackets | braces | curly): user.insert_between("{", "}")
