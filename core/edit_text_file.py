@@ -1,6 +1,7 @@
 import os
 import subprocess
 import typing
+import shutil
 from pathlib import Path
 
 from talon import Context, Module, actions, app
@@ -80,9 +81,11 @@ class LinuxActions:
         # we use xdg-open for this even though it might not open a text
         # editor. we could use $EDITOR, but that might be something that
         # requires a terminal (eg nano, vi).
-        open_with_subprocess(
-            path, ["/usr/bin/xdg-open", Path(path).expanduser().absolute()]
-        )
+        open_cmd = shutil.which("xdg-open")
+        if not open_cmd:
+            app.notify("xdg-open is not available, cannot open file for editing.")
+            return
+        open_with_subprocess(path, [open_cmd, Path(path).expanduser().absolute()])
 
 
 # Helper for linux and mac.
