@@ -20,11 +20,20 @@ chomp <user.cursorless_target>:
     edit.delete()
 
 # bully air: <foo>a</foo> -> <foo> a </foo>
+# NOTE: You can use void wrap
 bully <user.cursorless_target>:
     user.cursorless_command("setSelectionAfter", cursorless_target)
     key(space)
     user.cursorless_command("setSelectionBefore", cursorless_target)
     key(space)
+
+# crush air: <foo> a </foo> -> <foo>a</foo>
+# WARNING: This isn't reliable with multiple targets, so select first
+crush <user.cursorless_target>:
+    user.cursorless_command("setSelectionBefore", cursorless_target)
+    key(backspace)
+    user.cursorless_command("setSelectionAfter", cursorless_target)
+    key(right delete)
 
 # tug air: <foo>a -> <foo> a
 tug <user.cursorless_target>:
