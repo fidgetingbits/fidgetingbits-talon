@@ -21,4 +21,14 @@ customize ({user.talon_settings_csv} | <user.file_paths_string>):
     sleep(500ms)
     edit.file_end()
 
+customize ({user.talon_settings_csv} | <user.file_paths_string>) clip:
+    user.edit_text_file(talon_settings_csv or file_paths_string)
+    sleep(500ms)
+    edit.file_end()
+    key(,)
+    edit.paste()
+    sleep(500ms)
+    edit.line_start()
+
+
 over: skip()
