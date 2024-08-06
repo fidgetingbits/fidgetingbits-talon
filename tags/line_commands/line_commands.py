@@ -38,10 +38,10 @@ class Actions:
     def line_clone(line: int):
         """Clones specified line at current position"""
 
-    def jump_cursor_to_next_char(key: str):
+    def jump_cursor_to_next_char(char: str):
         """Jumps the first to the next instance of the specified character on the current line"""
 
-    def jump_cursor_to_prev_char(key: str):
+    def jump_cursor_to_prev_char(char: str):
         """Jumps the first to the previous instance of the specified character on the current line"""
 
     def join_lines():

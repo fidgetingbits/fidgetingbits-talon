@@ -1,5 +1,5 @@
 app: vscode
-user.vscode_plugin: paulschaaf.talon-filetree
+user.plugin_installed: paulschaaf.talon-filetree
 -
 # See https://github.com/paul-schaaf/talon-filetree-commands/blob/master/tree.talon for original file
 # This opens thbe file tree in the sidebar

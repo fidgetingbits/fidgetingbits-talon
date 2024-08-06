@@ -1,18 +1,19 @@
 import pathlib
 import json
-from talon import Module, actions, ui, registry
+from talon import Context, Module, actions
 
 mod = Module()
+ctx = Context()
 
 vscode_plugin_cache = None
 
+ctx.matches = r"""
+    app: vscode
+    tag: user.plugins
+"""
 
-@mod.scope
-def scope():
-    return {"vscode_plugin": vscode_plugin_list()}
 
-
-def vscode_update_plugin_list():
+def vscode_update_plugins_list():
     """Queries the list of vscode plugins"""
     extensions = pathlib.Path.home() / ".vscode/extensions/extensions.json"
     if not extensions.exists():
@@ -21,31 +22,28 @@ def vscode_update_plugin_list():
         return [x["identifier"]["id"] for x in json.loads(f.read())]
 
 
-def vscode_plugin_list():
+def vscode_plugins_list():
     """Returns a cached or new list of installed vscode plugins"""
     global vscode_plugin_cache
     if vscode_plugin_cache is None:
-        vscode_plugin_cache = vscode_update_plugin_list()
+        vscode_plugin_cache = vscode_update_plugins_list()
     if vscode_plugin_cache is None:
         return []
     return set(vscode_plugin_cache)
 
 
-@mod.action_class
+@ctx.action_class
 class PluginActions:
-    def vscode_plugin_list_refresh():
-        """Refresh the cached list of installed vscode plugins"""
-        global vscode_plugin_cache
-        vscode_plugin_cache = vscode_update_plugin_list()
-        scope.update()
+    def plugins_list():
+        return vscode_plugins_list()
 
-    def vscode_plugin_list_print():
-        """Print the list of installed vscode plugins"""
+    def plugins_list_refresh():
+        global vscode_plugin_cache
+        vscode_plugin_cache = vscode_update_plugins_list()
+        actions.user.plugins_scope_update()
+
+    def plugins_list_print():
         global vscode_plugin_cache
         if vscode_plugin_cache is None:
-            actions.user.vscode_plugin_list_refresh()
+            actions.user.plugins_list_refresh()
         print(vscode_plugin_cache)
-
-
-ui.register("win_focus", scope.update)
-ui.register("win_title", scope.update)

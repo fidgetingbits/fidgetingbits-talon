@@ -272,13 +272,13 @@ class UserActions:
     def word_long_right():
         _trigger_keys("vi-forward-blank-word")
 
-    def jump_cursor_to_next_char(key: str):
+    def jump_cursor_to_next_char(char: str):
         _trigger_keys("vi-find-next-char")
-        actions.key(key)
+        actions.key(char)
 
-    def jump_cursor_to_prev_char(key: str):
+    def jump_cursor_to_prev_char(char: str):
         _trigger_keys("vi-find-prev-char")
-        actions.key(key)
+        actions.key(char)
 
     def jump_cursor_to_matching_char():
         _trigger_keys("vi-match-bracket")
