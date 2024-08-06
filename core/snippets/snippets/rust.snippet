@@ -131,3 +131,19 @@ insertionScope: statement
 -
 .map(|$1| $2 { $0 })
 ---
+
+name: printCargoWarning
+phrase: cargo warning
+insertionScope: string
+-
+println!("cargo:warning=$1");
+$0
+---
+
+name: printFormattedCargoWarning
+phrase: formatted cargo warning
+insertionScope: string
+-
+println!("cargo:warning=$1 {}", $2);
+$0
+---
