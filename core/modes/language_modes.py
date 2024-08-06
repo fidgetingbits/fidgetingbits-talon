@@ -64,6 +64,7 @@ special_file_map = {
     "PKGBUILD": "pkgbuild",
     ".vimrc": "vimscript",
     "vimrc": "vimscript",
+    ".busted": "lua",
 }
 
 # Override speakable forms for language modes. If not present, a language mode's
