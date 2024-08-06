@@ -48,10 +48,10 @@ class UserActions:
     def delete_line_end():
         actions.key("ctrl-k")
 
-    def delete_word_right():
+    def delete_word_short_right():
         actions.key("alt-d")
 
-    def delete_word_left():
+    def delete_word_short_left():
         actions.key("ctrl-w")
         # XXX - make this generic
 
