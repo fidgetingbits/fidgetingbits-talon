@@ -293,8 +293,8 @@ echo [param] {user.runtime_environment_variables}:
 # Split a variable into a list based on specified symbol (or ':')
 echo split [<user.symbol_key>] ({user.environment_variables}|<user.text>):
     insert("echo ${")
-    snake = user.formatted_text(environment_variables or text, "snake")
-    upper = user.formatted_text(snake, "upper")
+    snake = user.formated_text(environment_variables or text, "SNAKE_CASE")
+    upper = user.formatted_text(snake, "UPPER")
     insert(upper)
     insert("} | tr '")
     insert(symbol_key or ":")
@@ -697,10 +697,17 @@ python three nine env: "virtualenv -p python3.9 py39"
 ###
 
 # FIXME: Make these less annoying to say, and use a dynamic_list to pull them out
-(environment|variable) list: "env\n"
-(environment|variable) search: "env|rg "
-(environment|variable) fuzzy: "env|rg -i "
-(environment|variable) show: "echo $"
+(environment|variable|able) list: "env\n"
+(environment|variable|able) find [<user.text>]:
+    insert("env|rg -i ")
+    snake = user.formatted_text(text or "", "ALL_CAPS,SNAKE_CASE")
+
+    insert(snake)
+(environment|variable|able) find strict [<user.text>]:
+    insert("env|rg ")
+    snake = user.formatted_text(text or "", "ALL_CAPS,SNAKE_CASE")
+    insert(snake)
+(environment|variable|able) show: "echo $"
 
 set var {user.environment_variables}: "export {environment_variables}="
 put var {user.environment_variables}: "${{{environment_variables}}}"
