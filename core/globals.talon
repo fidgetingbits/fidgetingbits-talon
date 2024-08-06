@@ -1,6 +1,9 @@
 # FIXME(nix): That should now integrate the service running on nix
-talon restart: user.system_command_nb("/home/aa/scripts/talon/restart_talon.sh")
-talon kill: user.system_command_nb("/home/aa/scripts/talon/terminate_talon.sh")
+talon restart: user.talon_restart()
+talon kill: user.talon_kill()
+
+#talon restart: user.system_command_nb("/home/aa/scripts/talon/restart_talon.sh")
+#talon kill: user.system_command_nb("/home/aa/scripts/talon/terminate_talon.sh")
 pauly restart: user.system_command_nb("/home/aa/.config/polybar/launch.sh")
 
 # bluetooth
@@ -20,15 +23,5 @@ customize ({user.talon_settings_csv} | <user.file_paths_string>):
     user.edit_text_file(talon_settings_csv or file_paths_string)
     sleep(500ms)
     edit.file_end()
-
-customize ({user.talon_settings_csv} | <user.file_paths_string>) clip:
-    user.edit_text_file(talon_settings_csv or file_paths_string)
-    sleep(500ms)
-    edit.file_end()
-    key(,)
-    edit.paste()
-    sleep(500ms)
-    edit.line_start()
-
 
 over: skip()
