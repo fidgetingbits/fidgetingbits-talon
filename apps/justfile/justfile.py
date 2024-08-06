@@ -12,6 +12,7 @@ mod.setting(
 
 ctx = Context()
 ctx.matches = r"""
+user.talon_branch: beta
 tag: user.just_commands
 """
 
