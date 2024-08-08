@@ -17,8 +17,8 @@ cargo_toml_tables = dict()
 for name in [
     "package",
     "dependencies",
-    "dev-dependencies",
-    "build-dependencies",
+    "dev dependencies",
+    "build dependencies",
     "lib",
     "badges",
     "features",
@@ -28,7 +28,7 @@ for name in [
     "profile",
     "workspace",
 ]:
-    cargo_toml_tables = name
+    cargo_toml_tables[name] = "-".join(name.split(" "))
 ctx.lists["self.cargo_toml_tables"] = cargo_toml_tables
 
 cargo_toml_keys = dict()
@@ -82,7 +82,7 @@ for name in [
     "lto",
     "codegen units",
 ]:
-    cargo_toml_keys = name
+    cargo_toml_keys[name] = "-".join(name.split(" "))
 ctx.lists["self.cargo_toml_keys"] = cargo_toml_keys
 ctx.lists["self.cargo_toml_arrays"] = {
     "bin": "bin",
