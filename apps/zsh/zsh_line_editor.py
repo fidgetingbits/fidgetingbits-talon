@@ -11,92 +11,12 @@ app: zsh
 and not tag: user.readline
 """
 
-custom_zle_functions = [
-    # "indent-line",
-    # "unindent-line",
-]
-
-builtin_zle_functions = [
-    "accept-and-hold",
-    "accept-line-and-down-history",
-    "accept-line",
-    "backward-char",
-    "backward-delete-char",
-    "backward-kill-line",
-    "backward-kill-word",
-    "backward-word",
-    "beginning-of-buffer-or-history",
-    "beginning-of-line",
-    "bracketed-paste",
-    "capitalize-word",
-    "clear-screen",
-    "copy-prev-shell-word",
-    "copy-prev-word",
-    "copy-region-as-kill",
-    "delete-char-or-list",
-    "delete-char",
-    "digit-argument",
-    "down-case-word",
-    "down-line-or-beginning-search",
-    "down-line-or-history",
-    "edit-command-line",
-    "end-of-buffer-or-history",
-    "end-of-line",
-    "exchange-point-and-mark",
-    "execute-last-named-cmd",
-    "execute-named-cmd",
-    "expand-history",
-    "expand-or-complete",
-    "expand-word",
-    "forward-char",
-    "forward-word",
-    "get-line",
-    "insert-last-word",
-    "kill-buffer",
-    "kill-line",
-    "kill-region",
-    "kill-whole-line",
-    "kill-word",
-    "list-choices",
-    "list-expand",
-    "neg-argument",
-    "overwrite-mode",
-    "push-line",
-    "quote-line",
-    "quote-region",
-    "quoted-insert",
-    "redo",
-    "self-insert-unmeta",
-    "self-insert",
-    "send-break",
-    "set-mark-command",
-    "spell-word",
-    "transpose-chars",
-    "transpose-words",
-    "undo",
-    "up-case-word",
-    "up-line-or-beginning-search",
-    "up-line-or-history",
-    "vi-backward-blank-word",
-    "vi-cmd-mode",
-    "vi-find-next-char",
-    "vi-forward-blank-word",
-    "vi-goto-column",
-    "vi-join",
-    "vi-match-bracket",
-    "what-cursor-position",
-    "which-command",
-    "yank-pop",
-    "yank",
-]
-
-# This is everything from bindkey that is set, but missing everything that isn't set
-# Need to trim down to the actual readline ones...
 # zsh line editor: https://zsh.sourceforge.io/Doc/Release/Zsh-Line-Editor.html
-zle_keymap = {name: None for name in custom_zle_functions + builtin_zle_functions}
+zle_keymap = {}
 
 
 def _trigger_keys(entry):
+    global zle_keymap
     if entry in zle_keymap:
         print(f"{entry}: {zle_keymap[entry]}")
         for key in zle_keymap[entry]:
@@ -104,6 +24,7 @@ def _trigger_keys(entry):
             actions.key(key)
     else:
         print(f"Unbound zle command: {entry}")
+        print(f"zle_keymap: {pprint.pformat(zle_keymap)}")
         actions.next()
 
 
@@ -128,7 +49,7 @@ def _read_zle_keymap():
     output = subprocess.check_output(
         ("zsh", "-ic", "source ~/.config/zsh/.zshrc; bindkey")
     ).decode("utf-8")
-    # print(output)
+    print(output)
     for line in output.split("\n"):
         if not line.strip():
             continue
@@ -158,15 +79,12 @@ def _read_zle_keymap():
                 keys.append(char)
             i += 1
 
-        if command in zle_keymap:
-            if zle_keymap[command] is None:
-                zle_keymap[command] = keys
-        else:
-            if command not in zle_command_ignore_list:
-                # print(
-                #     f"Unsupported zle command: ' {command} ', update zle_keymap in zsh_line_editor.py"
-                # )
-                pass
+        # FIXME: This won't catch rebinds if someone updates this shell
+        # but in practice some subsequent rebinds of the same key that worked earlier didn't work, so I'm just favouring
+        # the first one for now
+        if command not in zle_keymap or zle_keymap[command] is None:
+            zle_keymap[command] = keys
+
     # print(f"zle_keymap: {pprint.pformat(zle_keymap)}")
 
 
