@@ -205,6 +205,9 @@ class EditActions:
     ##
     # Modifying Text - https://zsh.sourceforge.io/Doc/Release/Zsh-Line-Editor.html#Modifying-Text
     ##
+    def delete_word():
+        actions.user.delete_word_short_right()
+
     def delete_line():
         _trigger_keys("kill-whole-line")
 
