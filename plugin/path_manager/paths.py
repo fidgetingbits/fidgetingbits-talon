@@ -301,6 +301,8 @@ ctx.lists["user.common_files"] = {
     "just": "justfile",
     "just file": "justfile",
     "git ignore": ".gitignore",
+    "git attributes": ".gitattributes",
+    "git modules": ".gitmodules",
     "env R C": ".envrc",
     "env": ".env",
     "pre commit config": ".pre-commit-config.yaml",
