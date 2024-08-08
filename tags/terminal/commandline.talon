@@ -215,15 +215,15 @@ file show max width <number>: "cut -c-{number} "
 file show clip:
     "cat "
     edit.paste()
-
 file show (<user.zsh_file_completions> | <user.word>):
     file = zsh_file_completions or word
     insert("cat {file}")
+
 file edit:
     edit.delete_line()
     insert("edit ")
-
 file edit <user.zsh_file_completions>: insert("edit {zsh_file_completions}")
+file edit latest: "edit $(eza --sort changed | tail -n1)\n"
 file edit here: insert("edit .\n")
 
 file code: "code "
