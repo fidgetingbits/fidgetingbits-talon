@@ -123,12 +123,15 @@ def _read_zle_keymap():
     Note we use an interactive zsh shell to get the keybindings."""
 
     global zle_keymap
-    output = subprocess.check_output(("zsh", "-ic", "bindkey")).decode("utf-8")
+
+    # FIXME(zsh): I'm not entirely clear why I have to source this file still, better works
+    output = subprocess.check_output(
+        ("zsh", "-ic", "source ~/.config/zsh/.zshrc; bindkey")
+    ).decode("utf-8")
     # print(output)
     for line in output.split("\n"):
         if not line.strip():
             continue
-
         bindkey, command = line.split(None, 1)
         # command = command.strip()
 
@@ -174,7 +177,18 @@ _read_zle_keymap()
 class Actions:
     def zle_update_keymap():
         """Updates the zle keymap"""
+        global zle_keymap
+        old_zle_keymap = zle_keymap
         _read_zle_keymap()
+        # print(f"zle_keymap: {pprint.pformat(zle_keymap)}")
+        print("Added keybindings:")
+        for key, value in zle_keymap.items():
+            if key not in old_zle_keymap:
+                print(f"{key}: {value}")
+        print("Removed keybindings:")
+        for key, value in old_zle_keymap.items():
+            if key not in zle_keymap:
+                print(f"{key}: {value}")
 
 
 @ctx.action_class("edit")
@@ -201,6 +215,9 @@ class EditActions:
     def line_end():
         # This will skip to following lines ifa lready at the end
         _trigger_keys("end-of-line")
+
+    def word_left():
+        actions.user.word_short_left()
 
     ##
     # Modifying Text - https://zsh.sourceforge.io/Doc/Release/Zsh-Line-Editor.html#Modifying-Text
