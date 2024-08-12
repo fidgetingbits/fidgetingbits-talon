@@ -12,13 +12,19 @@ cargo run release: "cargo run --release\n"
 cargo run with args: "cargo run -- "
 cargo run release with args: "cargo run --release -- "
 
+cargo add: "cargo add "
 cargo add dev [dep]: "cargo add --dev "
+cargo add package: "cargo add --package "
 cargo add [dep] [{user.rust_crates}]:
     insert("cargo add ")
     insert(rust_crates or "")
 cargo add dev [dep] {user.rust_crates}:
     insert("cargo add --dev ")
     insert(rust_crates or "")
+
+cargo remove: "cargo remove "
+cargo remove dev: "cargo remove --dev "
+cargo remove package: "cargo remove --package "
 cargo remove [dep] [{user.rust_crates}]:
     insert("cargo remove ")
     insert(rust_crates or "")
