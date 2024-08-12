@@ -19,9 +19,9 @@ service list disabled:
     "systemctl list-unit-files --type=service --no-pager | grep disabled\n"
 
 # TODO - generic
-system list user timers: "systemctl --user list-timers --no-pager\n"
+system (list user timers|user timer list): "systemctl --user list-timers --no-pager\n"
 system list all user timers: "systemctl --user --all list-timers --no-pager\n"
-system list timers: "systemctl list-timers --no-pager\n"
+system (list timers|timer list): "systemctl list-timers --no-pager\n"
 system timer all: "systemctl --all list-timers --no-pager\n"
 system timer log: user.insert_between("journalctl -u ", ".timer")
 system start user timer: user.insert_between("systemctl --user start", ".timer")
