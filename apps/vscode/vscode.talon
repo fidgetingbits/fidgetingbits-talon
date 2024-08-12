@@ -757,3 +757,7 @@ envy reset: user.vscode("direnv.reset")
 <user.teleport> alter: user.vscode("alternate.alternateFile")
 make alter: user.vscode("alternate.createAlternateFile")
 split alter: user.vscode("alternate.alternateFileInSplit")
+
+# indentation
+convert file to tabs: user.vscode("editor.action.indentationToTabs")
+convert file to spaces: user.vscode("editor.action.indentationToSpaces")
