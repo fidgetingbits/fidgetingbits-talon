@@ -19,6 +19,15 @@ class Actions:
     def timer():
         """Run the default timer manager"""
 
+    def timer_list():
+        """List active timers"""
+
+    def timer_list_all():
+        """List all timers"""
+
+    def timer_log():
+        """Show the timer log"""
+
     def timer_status():
         """Show the timer status"""
 
@@ -67,6 +76,12 @@ class Actions:
     # User timers vs system-wide timers
     def timer_user():
         """Run the default timer manager"""
+
+    def timer_user_list():
+        """List active user timers"""
+
+    def timer_user_list_all():
+        """List all user timers"""
 
     def timer_user_status():
         """Show the timer status"""

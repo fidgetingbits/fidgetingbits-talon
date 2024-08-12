@@ -239,6 +239,15 @@ class UserActions:
     def timer():
         actions.user.insert_between("systemctl --no-pager ", ".timer")
 
+    def timer_list():
+        actions.insert("systemctl list-timers --no-pager\n")
+
+    def timer_list_all():
+        actions.insert("systemctl list-timers --all --no-pager\n")
+
+    def timer_log():
+        actions.user.insert_between("journalctl -u ", ".timer")
+
     def timer_stop():
         actions.user.insert_between("systemctl --no-pager stop ", ".timer")
 
@@ -260,6 +269,12 @@ class UserActions:
     # User timers
     def timer_user():
         actions.user.insert_between("systemctl --user --no-pager ", ".timer")
+
+    def timer_user_list():
+        actions.insert("systemctl --user list-timers --no-pager\n")
+
+    def timer_user_list_all():
+        actions.insert("systemctl --user list-timers --all --no-pager\n")
 
     def timer_user_stop():
         actions.user.insert_between("systemctl --user --no-pager stop ", ".timer")
