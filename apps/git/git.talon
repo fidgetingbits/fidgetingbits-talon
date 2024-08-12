@@ -13,38 +13,30 @@ tag: user.git
 <user.git> add:
     edit.delete_line()
     "git add "
-
-
 <user.git> add force:
     edit.delete_line()
     "git add -f "
 <user.git> add (all | changed | everything):
-
     edit.delete_line()
     insert("git add -u\n")
 <user.git> add intend (all  | everything):
-
     edit.delete_line()
     insert("git add --intent-to-add .\n")
 # <user.git> add <user.zsh_path_completion>:
 #     "git add {zsh_path_completion}"
 <user.git> add <user.git_modified_files>:
-
     edit.delete_line()
     "git add {git_modified_files}"
 <user.git> add base <user.git_modified_files>:
-
     edit.delete_line()
     insert("git add ")
     insert(user.path_folder(git_modified_files))
 
 <user.git> add untracked <user.git_untracked_files>:
-
     edit.delete_line()
     "git add {git_untracked_files}"
 <user.git> add untracked everything:
-
-    edit.delete_line()
+   edit.delete_line()
     "git add .\n"
 
 <user.git> bisect:
@@ -62,11 +54,9 @@ tag: user.git
     edit.delete_line()
     "git branch --help\n"
 <user.git> branch list [all]:
-
     edit.delete_line()
     insert("git branch -a\n")
 <user.git> branch list remote:
-
     edit.delete_line()
     insert("git branch -r\n")
 <user.git> branch list local:
@@ -573,11 +563,11 @@ tag: user.git
     edit.delete_line()
     "git rebase --skip"
 
-<user.git> remove [<user.zsh_path_completions>]:
-
+<user.git> remove [(<user.git_modified_files>|<user.zsh_path_completions>)]:
     edit.delete_line()
     insert("git rm ")
-    insert(zsh_path_completions or "")
+    optional = zsh_path_completions or git_modified_files
+    insert(optional or "")
 <user.git> remove cached:
     edit.delete_line()
     "git rm --cached"
@@ -587,6 +577,7 @@ tag: user.git
 <user.git> remove remote origin:
     edit.delete_line()
     "git remote rm origin"
+
 
 <user.git> reset:
     edit.delete_line()

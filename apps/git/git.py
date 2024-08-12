@@ -168,7 +168,7 @@ def user_git_modified_file(m) -> dict[str, str]:
 
     commands = []
     for line in output.splitlines():
-        if line.startswith(" M ") or line.startswith("MM"):
+        if line.startswith(" M ") or line.startswith("MM") or line.startswith(" D "):
             line = line.split(" ")[-1]
             commands.append(line.strip())
     # print(commands)
