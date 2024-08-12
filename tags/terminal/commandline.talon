@@ -205,7 +205,14 @@ file recopy: "!cp\n"
 file copy latest <user.folder_paths>:
     user.paste("cp $(ls --sort changed -d {folder_paths}/* | tail -n1) .")
 (file | folder) (deep copy | copy deep): "cp -dR "
-file (file | info | type): "file "
+file (file | info | type): "file -L "
+file (file | info | type) <user.zsh_file_completions>:
+    insert("file -L ")
+    insert(zsh_file_completions)
+file (file | info | type) clip:
+    insert("file -L ")
+    edit.paste()
+    key(enter)
 
 file show: "cat "
 # assuming you are using bat
