@@ -876,3 +876,9 @@ folder make temp: "mktemp -d\n"
 (gen|generate) (pass|password): "genpasswd\n"
 sub (gen|generate) (pass|password): "$(genpasswd)"
 
+
+now paginate [width <user.number_string> call <user.number_string>]:
+    insert("| pr -tw")
+    insert(number_string_1 or "100")
+    insert(" --columns ")
+    insert(number_string_2 or "3")
