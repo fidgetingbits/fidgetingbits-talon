@@ -31,6 +31,7 @@ for entry in plugin_tag_list:
 
 mod.list("zsh_folder_completion", desc="ZSH folder completions")
 mod.list("zsh_file_completion", desc="ZSH file completions")
+mod.list("zsh_symlink_completion", desc="ZSH symlink completions")
 
 
 # FIXME: make this is setting
@@ -96,6 +97,8 @@ def _find_items_in_current_path(type: str) -> dict[str, str]:
                 items.append(pathlib.Path(line).name)
             elif type == "f" and link_path.is_file():
                 items.append(pathlib.Path(line).name)
+            elif type == "l" and link_path.is_symlink():
+                items.append(pathlib.Path(line).name)
 
     return actions.user.create_spoken_forms_from_list(items)
 
@@ -110,6 +113,12 @@ def user_zsh_folder_completion(m) -> dict[str, str]:
 def user_zsh_file_completion(m) -> dict[str, str]:
     """A dynamic list of files in the current folder"""
     return _find_items_in_current_path("f")
+
+
+@ctx.dynamic_list("user.zsh_symlink_completion")
+def user_zsh_symlink_completion(m) -> dict[str, str]:
+    """A dynamic list of symlinks in the current folder"""
+    return _find_items_in_current_path("l")
 
 
 @mod.capture(rule="{user.zsh_folder_completion}")
@@ -136,6 +145,19 @@ def zsh_file_completions(m) -> str:
     return " ".join(m.zsh_file_completion_list)
 
 
+@mod.capture(rule="{user.zsh_symlink_completion}")
+def zsh_symlink_completion(m) -> str:
+    """Returns a speakable symlink name"""
+    return m
+
+
+@mod.capture(rule="{user.zsh_symlink_completion} [and {user.zsh_symlink_completion}]")
+def zsh_symlink_completions(m) -> str:
+    """Returns one or more symlink names"""
+    return " ".join(m.zsh_symlink_completion_list)
+
+
+# FIXME: Decide if I want symlinks included in this
 @mod.capture(rule="({user.zsh_folder_completion} | {user.zsh_file_completion})")
 def zsh_path_completion(m) -> str:
     """Returns a speakable file name"""

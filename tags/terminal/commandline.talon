@@ -380,7 +380,10 @@ folder (create | new) [<user.text>]:
 # XXX - It would be nice to make the depth configurable
 # flat tree
 file [flat] tree: "fd . -d 2\n"
+file [flat] tree follow: "fd . -d 2 -L\n"
+file [flat] tree follow <user.zsh_symlink_completion>: "fd . '{zsh_symlink_completion}' -d 2 -L\n"
 file [flat] tree <user.folder_paths>: "fd . -d 2 '{folder_paths}'\n"
+file [flat] tree <user.zsh_folder_completion>: "fd . -d 2 '{zsh_folder_completion}'\n"
 file [flat] tree more: "fd . -d "
 file [flat] tree long: "fd . -d 2 -l\n"
 file [flat] tree all: "fd . -d 2 -I\n"
@@ -426,6 +429,7 @@ now tea that: "| tee "
 
 rip that: " | rg -i "
 file rip: "rg -i "
+file rip hidden: "rg -i --hidden"
 file rip binary: "rg -i --binary"
 file rip clip:
     insert("rg -i ")
