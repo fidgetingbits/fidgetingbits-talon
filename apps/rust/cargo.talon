@@ -12,40 +12,35 @@ cargo run release: "cargo run --release\n"
 cargo run with args: "cargo run -- "
 cargo run release with args: "cargo run --release -- "
 
-cargo add: "cargo add "
-cargo add dev [dep]: "cargo add --dev "
-cargo add package: "cargo add --package "
-cargo add [dep] [{user.rust_crates}]:
-    insert("cargo add ")
-    insert(rust_crates or "")
-cargo add dev [dep] {user.rust_crates}:
+cargo add [dep] [package {user.cargo_workspace_packages}] [{user.rust_crates}]:
+    insert("cargo add --package ")
+    if cargo_workspace_packages: insert(cargo_workspace_packages + " ")
+    if rust_crates: insert(rust_crates)
+cargo add dev [dep] [package {user.cargo_workspace_packages}] [{user.rust_crates}]:
     insert("cargo add --dev ")
-    insert(rust_crates or "")
+    if cargo_workspace_packages: insert(cargo_workspace_packages + " ")
+    if rust_crates: insert(rust_crates)
 
-cargo remove: "cargo remove "
-cargo remove dev: "cargo remove --dev "
-cargo remove package: "cargo remove --package "
-cargo remove [dep] [{user.rust_crates}]:
-    insert("cargo remove ")
-    insert(rust_crates or "")
-cargo remove dev [dep] [{user.rust_crates}]:
+cargo remove [dep] [package {user.cargo_workspace_packages}] [{user.rust_crates}]:
+    insert("cargo remove --package ")
+    if cargo_workspace_packages: insert(cargo_workspace_packages + " ")
+    if rust_crates: insert(rust_crates)
+cargo remove dev [dep] [package {user.cargo_workspace_packages}] [{user.rust_crates}]:
     insert("cargo remove --dev ")
-    insert(rust_crates or "")
-
+    if cargo_workspace_packages: insert(cargo_workspace_packages + " ")
+    if rust_crates: insert(rust_crates)
 
 cargo install: "cargo install "
 cargo install <user.text>: "cargo install {text}"
 cargo uninstall: "cargo uninstall "
 
-# FIXME(rust): Add dynamic lists to choose packages by name
 cargo build: "cargo build\n"
 cargo build with output: "cargo -vv build\n"
 cargo build release: "cargo build --release\n"
 cargo build all release: "cargo build --all --release\n"
 cargo build release with output: "cargo -vv build --release\n"
 cargo build (all | workspace): "cargo build --workspace\n"
-cargo build package: "cargo build --package "
-cargo build package <user.text>: "cargo build --package {text}"
+cargo build package {user.cargo_workspace_packages}: "cargo build --package {cargo_workspace_packages}\n"
 cargo build bin: "cargo build --bin "
 cargo build lib: "cargo build --lib\n"
 

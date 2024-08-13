@@ -32,11 +32,14 @@ def user_cargo_crates(m) -> dict[str, str]:
 def cargo_workspace_packages():
     # tomlq '.["workspace"]["members"][]' Cargo.toml
     if not shutil.which("tomlq"):
+        print("no")
         return []
     query = '.["workspace"]["members"][]'
-    return subprocess.check_output(
+    entries = subprocess.check_output(
         ("tomlq", query, "Cargo.toml"), cwd=actions.user.get_cwd()
     ).decode("utf-8")
+    # create_spoken_forms_from_list doesn't handle quoted strings, so strip those
+    return [entry.strip('"') for entry in entries.splitlines()]
 
 
 @ctx.dynamic_list("user.cargo_workspace_packages")
@@ -44,4 +47,5 @@ def user_cargo_workspace_packages(m) -> dict[str, str]:
     """A dynamic list of cargo workspace packages"""
 
     packages = cargo_workspace_packages()
-    return actions.user.create_spoken_forms_from_list(packages)
+    spoken = actions.user.create_spoken_forms_from_list(packages)
+    return spoken
