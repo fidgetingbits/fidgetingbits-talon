@@ -4,7 +4,9 @@
 
 from typing import Any, Callable, TypeVar
 
+from ...core.utils import expand_map
 from talon import Context, Module, actions, settings
+
 
 mod = Module()
 # rust specific grammar
@@ -87,26 +89,28 @@ ctx.lists["user.rust_std_modules"] = {
     "I O": "io",
 }
 
-scalar_types = {
-    "eye eight": "i8",
-    "you eight": "u8",
-    "bytes": "u8",
-    "eye sixteen": "i16",
-    "you sixteen": "u16",
-    "eye thirty two": "i32",
-    "you thirty two": "u32",
-    "eye sixty four": "i64",
-    "you sixty four": "u64",
-    "eye one hundred and twenty eight": "i128",
-    "you one hundred and twenty eight": "u128",
-    "eye size": "isize",
-    "you size": "usize",
-    "float thirty two": "f32",
-    "float sixty four": "f64",
-    "boolean": "bool",
-    "bool": "bool",
-    "character": "char",
+scalar_types = {}
+scalars = {
+    "eight": "8",
+    "sixteen": "16",
+    "thirty two": "32",
+    "sixty four": "64",
+    "one hundred and twenty eight": "128",
+    "size": "size",
 }
+for key, value in scalars.items():
+    for name, short in [("eye", "i"), ("signed", "i"), ("you", "u"), ("unsigned", "u")]:
+        scalar_types[f"{name} {key}"] = f"{short}{value}"
+scalar_types.update(
+    expand_map(
+        {
+            "float thirty two": "f32",
+            "float sixty four": "f64",
+            ("boolean", "bool"): "bool",
+            "character": "char",
+        }
+    )
+)
 
 compound_types = {
     "tuple": "()",
