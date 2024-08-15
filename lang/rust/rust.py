@@ -291,8 +291,7 @@ all_traits = {
 
 # tag: libraries_gui
 
-# TODO: A lot of people refer to these as "stood" something, so we should possibly include a optional
-# "stood" prefix command disk for these
+
 standard_imports = {
     "super": "super::*",
     "prelude": "std::prelude::*",
@@ -314,6 +313,12 @@ standard_imports = {
     "from stir": "std::str::FromStr",
     "channel": "std::sync::mpsc",
 }
+expanded_standard_imports = {}
+# Add optional "stood" prefix for all standard imports
+for key, value in standard_imports.items():
+    expanded_standard_imports[(f"stood {key}", key)] = value
+standard_imports = expand_map(expanded_standard_imports)
+
 tokio_imports = {"tracing": "tracing::{info};"}
 common_imports = {
     "glob": "glob::glob",
@@ -334,51 +339,64 @@ ctx.lists["user.code_libraries"] = {
     **common_imports,
 }
 
+std_env_functions = {"current dir": "std::env::current_dir"}
 
 # tag: functions_common
-ctx.lists["user.code_common_function"] = {
+common_functions = {
     "drop": "drop",
-    "catch unwind": "catch_unwind",
-    "iterator": "iter",
-    "into iterator": "into_iter",
-    "into iter": "into_iter",
-    "from iterator": "from_iter",
-    "from iter": "from_iter",
-    "as stir": "as_str",
-    "to string": "to_string",
-    "to string lossy": "to_string_lossy",
-    "to stir": "to_str",
-    "as bytes": "as_bytes",
-    "to bytes": "to_bytes",
-    "as pointer": "as_ptr",
-    "as mutable pointer": "as_mut_ptr",
-    "as reference": "as_ref",
-    "as ref": "as_ref",
-    "as mute": "as_mut",
-    "is some": "is_some",
-    "is none": "is_none",
-    "is ok": "is_ok",
-    "is error": "is_err",
-    "is empty": "is_empty",
-    "to path buf": "to_path_buf",
-    "unwrap": "unwrap",
-    "unwrap or": "unwrap_or",
-    "unwrap or else": "unwrap_or_else",
-    "expect": "expect",
-    "to vec": "to_vec",
-    "to vector": "to_vec",
-    "trim": "trim",
-    "split white space": "split_whitespace",
-    "display": "display",
-    "or insert": "or_insert",
-    "or insert with": "or_insert_with",
-    "cloned": "cloned",
-    "clone": "clone",
-    "is digit": "is_digit",
-    "is alphanum": "is_alphanumeric",
-    "is ascii": "is_ascii",
-    "is ascii hex digit": "is_ascii_hex_digit",
-    "in to": "into",
+}
+common_methods = expand_map(
+    {
+        "catch unwind": "catch_unwind",
+        "iterator": "iter",
+        ("into iterator", "into iter"): "into_iter",
+        ("from iterator", "from iter"): "from_iter",
+        "as stir": "as_str",
+        "to string": "to_string",
+        "to string lossy": "to_string_lossy",
+        "to stir": "to_str",
+        "as bytes": "as_bytes",
+        "to bytes": "to_bytes",
+        "as pointer": "as_ptr",
+        "as mutable pointer": "as_mut_ptr",
+        "as reference": "as_ref",
+        "as ref": "as_ref",
+        "as mute": "as_mut",
+        "is some": "is_some",
+        "is none": "is_none",
+        "is ok": "is_ok",
+        "is error": "is_err",
+        "is empty": "is_empty",
+        "to path buf": "to_path_buf",
+        "unwrap": "unwrap",
+        "unwrap or": "unwrap_or",
+        "unwrap or else": "unwrap_or_else",
+        "expect": "expect",
+        "to vec": "to_vec",
+        "to vector": "to_vec",
+        "trim": "trim",
+        "split white space": "split_whitespace",
+        "display": "display",
+        "or insert": "or_insert",
+        "or insert with": "or_insert_with",
+        "cloned": "cloned",
+        "clone": "clone",
+        "is digit": "is_digit",
+        "is alphanum": "is_alphanumeric",
+        "is ascii": "is_ascii",
+        "is ascii hex digit": "is_ascii_hex_digit",
+        "in to": "into",
+    }
+)
+ctx.lists["user.code_common_method"] = {
+    **common_methods,
+    **common_implementations,
+}
+
+ctx.lists["user.code_common_function"] = {
+    **common_functions,
+    **common_methods,
+    **std_env_functions,
     **common_implementations,
     **all_macros,
 }
