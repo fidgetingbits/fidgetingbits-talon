@@ -5,6 +5,7 @@ tag: user.rust_apps
 cargo init: "cargo init "
 cargo init (library | lib): "cargo init --lib "
 cargo new: "cargo new "
+cargo new (library | lib): "cargo new --lib "
 
 cargo run: "cargo run\n"
 cargo run help: "cargo run -- --help\n"
