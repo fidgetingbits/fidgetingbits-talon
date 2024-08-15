@@ -1,5 +1,5 @@
 def expand_map(mapping):
-    """Meta-function to allow multiple strings to be mapped to one value.
+    """Allow multiple strings to be mapped to one value.
 
     The input `mapping` will be expanded like this:
 
@@ -8,7 +8,7 @@ def expand_map(mapping):
 
     (Note we use a tuple as the key because dictionary keys must be hashable).
 
-    From: https://github.com/lenardos/talon_config-jcaw/blob/master/utils/__init__.py
+    Originally from: https://github.com/lenardos/talon_config-jcaw/blob/master/utils/__init__.py
     """
     result = {}
     for key, value in mapping.items():
