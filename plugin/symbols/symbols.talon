@@ -15,6 +15,7 @@ bang E: "!!!"
 tickle: "''"
 snipped code: "[SNIPPED]"
 (spam | spamma): ", "
+kwama: '", "'
 stacked: ": "
 arrow: "->"
 dub arrow: "=>"
@@ -82,9 +83,8 @@ quote that:
 (double quote | dub quote) that:
     text = edit.selected_text()
     user.paste('"{text}"')
-(globby | glob line):
-    insert("s///g")
-    key(left:3)
+globby:
+    user.insert_between("s/", "//g")
 (grave | back tick) that:
     text = edit.selected_text()
     user.paste("`{text}`")
