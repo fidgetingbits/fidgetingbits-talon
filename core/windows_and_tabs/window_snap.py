@@ -40,6 +40,8 @@ setting_window_snap_margin_bottom = mod.setting(
     desc="""Margin in pixels to leave at the bottom of the screen when snapping windows.""",
 )
 
+window_position_cache = {}
+
 
 def _set_window_pos(window, x, y, width, height):
     """Helper to set the window position."""
@@ -199,6 +201,8 @@ def _move_to_screen(
 
 
 def _snap_window_helper(window, pos):
+    global window_position_cache
+    window_position_cache[window.app.pid] = window.rect
     screen = window.screen.visible_rect
     bottom_margin = setting_window_snap_margin_bottom.get()
     screen_height = screen.height - bottom_margin
@@ -318,6 +322,13 @@ class Actions:
         else:
             actions.user.snap_window(_snap_positions[position_name])
 
+    def snap_window_to_last_position() -> None:
+        """Move the active window to the last position it was snapped to."""
+        window = ui.active_window()
+        if window.app.pid in window_position_cache:
+            rect = window_position_cache[window.app.pid]
+            _set_window_pos(window, rect.x, rect.y, rect.width, rect.height)
+
     def move_window_next_screen() -> None:
         """Move the active window to a specific screen."""
         _move_to_screen(ui.active_window(), offset=1)
@@ -344,3 +355,20 @@ class Actions:
             window,
             screen_number=screen_number,
         )
+
+
+def win_focus():
+    global window_position_cache
+    window = ui.active_window()
+    if window.app.pid not in window_position_cache:
+        window_position_cache[window.app.pid] = window.rect
+
+
+def on_ready():
+    global window_position_cache
+    for window in ui.windows():
+        window_position_cache[window.app.pid] = window.rect
+
+
+ui.register("win_focus", win_focus)
+app.register("ready", on_ready)

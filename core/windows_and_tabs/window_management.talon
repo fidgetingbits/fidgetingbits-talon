@@ -24,6 +24,7 @@ snap <user.running_applications> [screen] <number>:
     user.move_app_to_screen(running_applications, number)
 
 snap (in | out): user.desktop_show()
+snap last: user.snap_window_to_last_position()
 
 # alt-tab style cycling
 win cycle: user.switcher_focus_last()
