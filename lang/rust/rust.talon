@@ -203,6 +203,9 @@ funk {user.formatted_functions}:
 <user.operator> config X thirty two: '#[cfg(target_arch = "x86")]'
 <user.operator> config arm: '#[cfg(target_arch = "arm")]'
 <user.operator> config arm sixty four: '#[cfg(target_arch = "aarch64")]'
+<user.operator> config windows: '#[cfg(target_os = "windows")]'
+<user.operator> config linux: '#[cfg(target_os = "linux")]'
+<user.operator> config mac: '#[cfg(target_os = "macos")]'
 # TODO: It would be nice to automatically be able to specify multiple
 # architecture's and wrap it inside of any()
 # TODO: automatically create test module in functions, add things like expect panic
