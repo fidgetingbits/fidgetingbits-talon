@@ -203,6 +203,7 @@ def _move_to_screen(
 def _snap_window_helper(window, pos):
     global window_position_cache
     window_position_cache[window.app.pid] = window.rect
+
     screen = window.screen.visible_rect
     bottom_margin = setting_window_snap_margin_bottom.get()
     screen_height = screen.height - bottom_margin
@@ -357,9 +358,8 @@ class Actions:
         )
 
 
-def win_focus():
+def win_focus(window):
     global window_position_cache
-    window = ui.active_window()
     if window.app.pid not in window_position_cache:
         window_position_cache[window.app.pid] = window.rect
 
