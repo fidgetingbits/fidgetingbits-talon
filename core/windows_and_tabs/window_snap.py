@@ -10,6 +10,8 @@ Originally from dweil/talon_community - modified for newapi by jcaw.
 import logging
 from typing import Optional
 
+from ..utils import expand_map
+
 from talon import Context, Module, actions, settings, ui, app
 
 mod = Module()
@@ -215,72 +217,80 @@ class RelativeScreenPos:
     def __init__(self, left, top, right, bottom):
         self.left = left
         self.top = top
-        self.bottom = bottom
         self.right = right
+        self.bottom = bottom
 
 
-_snap_positions = {
-    # Halves
-    # .---.---.     .-------.
-    # |   |   |  &  |-------|
-    # '---'---'     '-------'
-    "left": RelativeScreenPos(0, 0, 0.5, 1),
-    "right": RelativeScreenPos(0.5, 0, 1, 1),
-    "top": RelativeScreenPos(0, 0, 1, 0.5),
-    "bottom": RelativeScreenPos(0, 0.5, 1, 1),
-    # Thirds
-    # .--.--.--.
-    # |  |  |  |
-    # '--'--'--'
-    "center third": RelativeScreenPos(1 / 3, 0, 2 / 3, 1),
-    "left third": RelativeScreenPos(0, 0, 1 / 3, 1),
-    "right third": RelativeScreenPos(2 / 3, 0, 1, 1),
-    "left two thirds": RelativeScreenPos(0, 0, 2 / 3, 1),
-    "right two thirds": RelativeScreenPos(1 / 3, 0, 1, 1),
-    # Alternate (simpler) spoken forms for thirds
-    "center small": RelativeScreenPos(1 / 3, 0, 2 / 3, 1),
-    "left small": RelativeScreenPos(0, 0, 1 / 3, 1),
-    "right small": RelativeScreenPos(2 / 3, 0, 1, 1),
-    "left large": RelativeScreenPos(0, 0, 2 / 3, 1),
-    "right large": RelativeScreenPos(1 / 3, 0, 1, 1),
-    # Quarters
-    # .---.---.
-    # |---|---|
-    # '---'---'
-    "top left": RelativeScreenPos(0, 0, 0.5, 0.5),
-    "top right": RelativeScreenPos(0.5, 0, 1, 0.5),
-    "bottom left": RelativeScreenPos(0, 0.5, 0.5, 1),
-    "bottom right": RelativeScreenPos(0.5, 0.5, 1, 1),
-    # Sixths
-    # .--.--.--.
-    # |--|--|--|
-    # '--'--'--'
-    "top left third": RelativeScreenPos(0, 0, 1 / 3, 0.5),
-    "top right third": RelativeScreenPos(2 / 3, 0, 1, 0.5),
-    "top left two thirds": RelativeScreenPos(0, 0, 2 / 3, 0.5),
-    "top right two thirds": RelativeScreenPos(1 / 3, 0, 1, 0.5),
-    "top center third": RelativeScreenPos(1 / 3, 0, 2 / 3, 0.5),
-    "bottom left third": RelativeScreenPos(0, 0.5, 1 / 3, 1),
-    "bottom right third": RelativeScreenPos(2 / 3, 0.5, 1, 1),
-    "bottom left two thirds": RelativeScreenPos(0, 0.5, 2 / 3, 1),
-    "bottom right two thirds": RelativeScreenPos(1 / 3, 0.5, 1, 1),
-    "bottom center third": RelativeScreenPos(1 / 3, 0.5, 2 / 3, 1),
-    # Alternate (simpler) spoken forms for sixths
-    "top left small": RelativeScreenPos(0, 0, 1 / 3, 0.5),
-    "top right small": RelativeScreenPos(2 / 3, 0, 1, 0.5),
-    "top left large": RelativeScreenPos(0, 0, 2 / 3, 0.5),
-    "top right large": RelativeScreenPos(1 / 3, 0, 1, 0.5),
-    "top center small": RelativeScreenPos(1 / 3, 0, 2 / 3, 0.5),
-    "bottom left small": RelativeScreenPos(0, 0.5, 1 / 3, 1),
-    "bottom right small": RelativeScreenPos(2 / 3, 0.5, 1, 1),
-    "bottom left large": RelativeScreenPos(0, 0.5, 2 / 3, 1),
-    "bottom right large": RelativeScreenPos(1 / 3, 0.5, 1, 1),
-    "bottom center small": RelativeScreenPos(1 / 3, 0.5, 2 / 3, 1),
-    # Special
-    "center": RelativeScreenPos(1 / 8, 1 / 6, 7 / 8, 5 / 6),
-    "full": RelativeScreenPos(0, 0, 1, 1),
-    "fullscreen": RelativeScreenPos(0, 0, 1, 1),
-}
+_snap_positions = expand_map(
+    {
+        # Halves
+        # .---.---.     .-------.
+        # |   |   |  &  |-------|
+        # '---'---'     '-------'
+        "left": RelativeScreenPos(0, 0, 0.5, 1),
+        "right": RelativeScreenPos(0.5, 0, 1, 1),
+        "top": RelativeScreenPos(0, 0, 1, 0.5),
+        "bottom": RelativeScreenPos(0, 0.5, 1, 1),
+        # Vertical Thirds
+        # .--.--.--.
+        # |  |  |  |
+        # '--'--'--'
+        ("center third", "center small"): RelativeScreenPos(1 / 3, 0, 2 / 3, 1),
+        ("left third", "left small"): RelativeScreenPos(0, 0, 1 / 3, 1),
+        ("right third", "right small"): RelativeScreenPos(2 / 3, 0, 1, 1),
+        ("left two thirds", "left large"): RelativeScreenPos(0, 0, 2 / 3, 1),
+        ("right two thirds", "right large"): RelativeScreenPos(1 / 3, 0, 1, 1),
+        # Horizontal Thirds
+        # .---.---.
+        # |-------|
+        # |-------|
+        # '-------'
+        ("top third", "top small"): RelativeScreenPos(0, 0, 1, 1 / 3),
+        ("top two thirds", "top large"): RelativeScreenPos(0, 0, 1, 2 / 3),
+        ("middle third", "middle small"): RelativeScreenPos(0, 1 / 3, 1, 2 / 3),
+        ("bottom third", "bottom small"): RelativeScreenPos(0, 2 / 3, 1, 1),
+        ("bottom two thirds", "bottom large"): RelativeScreenPos(0, 1 / 3, 1, 1),
+        # Quarters
+        # .---.---.
+        # |---|---|
+        # '---'---'
+        "top left": RelativeScreenPos(0, 0, 0.5, 0.5),
+        "top right": RelativeScreenPos(0.5, 0, 1, 0.5),
+        "bottom left": RelativeScreenPos(0, 0.5, 0.5, 1),
+        "bottom right": RelativeScreenPos(0.5, 0.5, 1, 1),
+        # Sixths
+        # .--.--.--.
+        # |--|--|--|
+        # '--'--'--'
+        ("top left third", "top left small"): RelativeScreenPos(0, 0, 1 / 3, 0.5),
+        ("top right third", "top right small"): RelativeScreenPos(2 / 3, 0, 1, 0.5),
+        ("top left two thirds", "top left large"): RelativeScreenPos(0, 0, 2 / 3, 0.5),
+        ("top right two thirds", "top right large"): RelativeScreenPos(
+            1 / 3, 0, 1, 0.5
+        ),
+        ("top center third", "top center small"): RelativeScreenPos(
+            1 / 3, 0, 2 / 3, 0.5
+        ),
+        ("bottom left third", "bottom left small"): RelativeScreenPos(0, 0.5, 1 / 3, 1),
+        ("bottom right third", "bottom right small"): RelativeScreenPos(
+            2 / 3, 0.5, 1, 1
+        ),
+        ("bottom left two thirds", "bottom left large"): RelativeScreenPos(
+            0, 0.5, 2 / 3, 1
+        ),
+        ("bottom right two thirds", "bottom right large"): RelativeScreenPos(
+            1 / 3, 0.5, 1, 1
+        ),
+        ("bottom center third", "bottom center small"): RelativeScreenPos(
+            1 / 3, 0.5, 2 / 3, 1
+        ),
+        # Special
+        "center": RelativeScreenPos(1 / 8, 1 / 6, 7 / 8, 5 / 6),
+        "middle": RelativeScreenPos(0, 1 / 6, 1, 7 / 8),
+        "full": RelativeScreenPos(0, 0, 1, 1),
+        "fullscreen": RelativeScreenPos(0, 0, 1, 1),
+    }
+)
 
 
 @mod.capture(rule="{user.window_snap_positions}")
