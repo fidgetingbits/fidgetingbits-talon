@@ -271,7 +271,7 @@ file read <number> bytes: user.insert_between("dd bs=1 count={number} if=", " of
 file read <number> bytes at offset <number>:
     user.insert_between("dd bs=1 count={number_1} skip={number_2} if=", " of=")
 
-loop for file: insert("for FILE in $(eza); do echo ${{FILE}}; done")
+loop for file: user.insert_between("for FILE in $(command ls); do ", "echo ${{FILE}}; done")
 
 folder tree permissions:
     user.insert_between('FILE=", "; until [ "$FILE" = "/" ]; do ls -lda $FILE; FILE=`dirname $FILE` done')
