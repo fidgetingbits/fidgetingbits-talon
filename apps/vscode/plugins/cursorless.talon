@@ -76,3 +76,9 @@ confetti:
 terminate <user.cursorless_target>:
     user.cursorless_command("setSelectionAfter", cursorless_target)
     user.code_state_terminate()
+
+# This is meant for use with strings, to quickly add new lines to them
+newt <user.cursorless_target>:
+    user.cursorless_command("setSelectionAfter", cursorless_target)
+    key(left)
+    insert("\\n")
