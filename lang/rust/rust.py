@@ -546,6 +546,9 @@ class UserActions:
     def code_state_return():
         actions.auto_insert("return ")
 
+    def code_state_terminate():
+        actions.key(";")
+
     def code_break():
         actions.auto_insert("break;")
 

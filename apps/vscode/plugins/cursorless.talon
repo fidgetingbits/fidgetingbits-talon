@@ -72,3 +72,7 @@ confetti:
 (bug|debug) to <user.cursorless_target>:
     user.cursorless_command("setSelectionBefore", cursorless_target)
     user.vscode("editor.debug.action.runToCursor")
+
+terminate <user.cursorless_target>:
+    user.cursorless_command("setSelectionAfter", cursorless_target)
+    user.code_state_terminate()

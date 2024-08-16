@@ -327,6 +327,9 @@ class UserActions:
     def code_state_else():
         actions.insert("else\n")
 
+    def code_state_terminate():
+        actions.key(";")
+
     ##
     # code_comment_line
     ##

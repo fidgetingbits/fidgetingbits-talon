@@ -64,6 +64,10 @@ class Actions:
     def code_try_catch():
         """Inserts try/catch. If selection is true, does so around the selection"""
 
+    def code_state_terminate():
+        """Terminate a statement"""
+        pass
+
 
 @c_like_ctx.action_class("self")
 class CActions:
