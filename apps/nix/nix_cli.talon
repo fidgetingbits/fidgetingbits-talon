@@ -41,12 +41,15 @@ nix build with paths:
 nix build: "nix build "
 nix build (this|now): "nix build .\n"
 nix build (this|now) impure: "nix build --impure .\n"
+nix build show traces: "nix build --show-trace "
+
 nix build log: "nix build -L "
 nix build impure: "nix build --impure "
 nix build with paths:
     user.insert_between("nix build nixpkgs#", "--print-out-paths --no-link")
 nix build debug: " nix build --verbose --debug --print-build-logs\n"
 nix build {user.flake_outputs}: "nix build {flake_outputs}\n"
+
 
 nix flake check: "nix flake check\n"
 nix flake update: "nix flake update\n"
@@ -66,7 +69,6 @@ nix strict eval local package:
     "nix-instantiate --eval --strict -E 'with import <nixpkgs> {{}}; pkgs.callPackage ./default.nix {{}}'"
 nix instantiate: "nix-instantiate -A "
 
-[run] nix repl: "nix repl\n"
 
 nix tree: "nix-tree\n"
 
@@ -116,3 +118,10 @@ nix run: "nix run "
 
 nix [store] show dependencies: "nix-store -q --references"
 
+[run] nix repl: "nix repl\n"
+[run] nix repl with flake packages: "nix repl --extra-experimental-features 'flakes repl-flake' nixpkgs\n"
+[run] nix repl with packages: "nix repl --expr 'import <nixpkgs>{}'\n"
+
+nix repl evaluate: "nix repl --eval "
+
+nix eval with packages: user.insert_between("nix eval --impure --expr '(let pkgs = import <nixpkgs>{}; in ", ")'")
