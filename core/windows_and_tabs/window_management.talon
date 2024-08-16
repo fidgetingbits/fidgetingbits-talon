@@ -4,7 +4,9 @@ window last: app.window_previous()
 window close: app.window_close()
 (window | snap) hide: app.window_hide()
 need <user.running_applications>: user.switcher_focus(running_applications)
-(need flip|flipper): user.switch_last_focused()
+
+# FIXME: I used to support flipping to the last application I explicitly called need on, do I still want it?
+(win focus flip|flipper): user.window_focus_last()
 
 [help] running list: user.switcher_toggle_running()
 running close: user.switcher_hide_running()

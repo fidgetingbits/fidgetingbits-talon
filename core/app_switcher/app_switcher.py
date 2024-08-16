@@ -39,7 +39,6 @@ additional = {
 
 # a list of the currently running application names
 running_application_dict = {}
-last_focused_app = None
 
 
 words_to_exclude = [
@@ -426,18 +425,8 @@ class Actions:
         print(ui.apps(background=False))
         raise RuntimeError(f'App not running: "{name}"')
 
-    def switch_last_focused():
-        """Focus the last use application"""
-        global last_focused_app
-        if last_focused_app is not None:
-            new_app = last_focused_app
-            last_focused_app = ui.active_app()
-            new_app.focus()
-
     def switcher_focus(name: str):
         """Focus a new application by name"""
-        global last_focused_app
-        last_focused_app = ui.active_app()
         app = actions.user.get_running_app(name)
 
         # Focus next window on same app
@@ -485,7 +474,7 @@ class Actions:
             # can use sudo for example.
             cmd = shlex.split(path)[0]
             args = shlex.split(path)[1:]
-            #print(f"Launching: {cmd} with args: {args}")
+            # print(f"Launching: {cmd} with args: {args}")
             if _is_bubblewrap_sandbox():
                 actions.user.launch(cmd, args)
             else:

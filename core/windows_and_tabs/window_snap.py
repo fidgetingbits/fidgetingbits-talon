@@ -41,6 +41,8 @@ setting_window_snap_margin_bottom = mod.setting(
 )
 
 window_position_cache = {}
+last_focused_window = None
+saved_focused_window = None
 
 
 def _set_window_pos(window, x, y, width, height):
@@ -357,11 +359,24 @@ class Actions:
             screen_number=screen_number,
         )
 
+    def window_focus_last():
+        """Focus on the last window that was focused."""
+        if last_focused_window:
+            last_focused_window.focus()
+
 
 def win_focus(window):
     global window_position_cache
     if window.app.pid not in window_position_cache:
         window_position_cache[window.app.pid] = window.rect
+    global last_focused_window
+    global saved_focused_window
+    # The first time we get an event is the first time we set this
+    if saved_focused_window is None:
+        saved_focused_window = window
+    else:
+        last_focused_window = saved_focused_window
+        saved_focused_window = window
 
 
 def on_ready():
