@@ -41,11 +41,11 @@ settings():
 ## rust centric struct and enum definitions
 <user.operator> (struct | structure) [<user.text>]:
     insert("struct ")
-    insert(user.formatted_text(text or "", "PUBLIC_CAMEL_CASE"))
+    insert(user.formatted_text(text or "", "PASCAL_CASE"))
 
 <user.operator> enum [<user.text>]:
     insert("enum ")
-    insert(user.formatted_text(text or "", "PUBLIC_CAMEL_CASE"))
+    insert(user.formatted_text(text or "", "PASCAL_CASE"))
 
 toggle use: user.code_toggle_libraries()
 
@@ -272,7 +272,7 @@ funk {user.formatted_functions}:
 
 <user.operator> (stood | standard) {user.rust_std_modules} <user.text>:
     insert("std::{rust_std_modules}::")
-    insert(user.formatted_text(text or "", "PUBLIC_CAMEL_CASE"))
+    insert(user.formatted_text(text or "", "PASCAL_CASE"))
 
 <user.operator> collect as <user.code_containing_type> of [<user.code_type>]:
     type = user.code_type or ""

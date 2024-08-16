@@ -15,12 +15,12 @@ tag(): user.code_operators_math
 tag(): user.code_functions
 
 settings():
-    user.code_private_function_formatter = "PRIVATE_CAMEL_CASE"
-    user.code_protected_function_formatter = "PRIVATE_CAMEL_CASE"
-    user.code_public_function_formatter = "PRIVATE_CAMEL_CASE"
-    user.code_private_variable_formatter = "PRIVATE_CAMEL_CASE"
-    user.code_protected_variable_formatter = "PRIVATE_CAMEL_CASE"
-    user.code_public_variable_formatter = "PRIVATE_CAMEL_CASE"
+    user.code_private_function_formatter = "CAMEL_CASE"
+    user.code_protected_function_formatter = "CAMEL_CASE"
+    user.code_public_function_formatter = "CAMEL_CASE"
+    user.code_private_variable_formatter = "CAMEL_CASE"
+    user.code_protected_variable_formatter = "CAMEL_CASE"
+    user.code_public_variable_formatter = "CAMEL_CASE"
 
 (op | is) loosely equal: " == "
 (op | is) loosely not equal: " != "
@@ -30,4 +30,4 @@ state catch: "catch (\\Throwable $exception) {\n"
 
 var <phrase> [over]:
     insert("$")
-    insert(user.formatted_text(phrase, "PRIVATE_CAMEL_CASE"))
+    insert(user.formatted_text(phrase, "CAMEL_CASE"))

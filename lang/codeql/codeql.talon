@@ -9,12 +9,12 @@ tag(): user.code_libraries
 tag(): user.code_libraries_gui
 
 settings():
-    user.code_private_function_formatter = "PRIVATE_CAMEL_CASE"
-    user.code_protected_function_formatter = "PRIVATE_CAMEL_CASE"
-    user.code_public_function_formatter = "PRIVATE_CAMEL_CASE"
-    user.code_private_variable_formatter = "PRIVATE_CAMEL_CASE"
-    user.code_protected_variable_formatter = "PRIVATE_CAMEL_CASE"
-    user.code_public_variable_formatter = "PRIVATE_CAMEL_CASE"
+    user.code_private_function_formatter = "CAMEL_CASE"
+    user.code_protected_function_formatter = "CAMEL_CASE"
+    user.code_public_function_formatter = "CAMEL_CASE"
+    user.code_private_variable_formatter = "CAMEL_CASE"
+    user.code_protected_variable_formatter = "CAMEL_CASE"
+    user.code_public_variable_formatter = "CAMEL_CASE"
 
 state where: "where "
 state from: "from "

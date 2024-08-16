@@ -147,3 +147,16 @@ insertionScope: string
 println!("cargo:warning=$1 {}", $2);
 $0
 ---
+
+name: configTargetWindows
+phrase: config windows
+insertionScope: statement
+
+$0.wrapperPhrase: config windows
+$0.wrapperScope: statement
+-
+#[cfg(target_os = "windows")]
+{
+    $0
+}
+---

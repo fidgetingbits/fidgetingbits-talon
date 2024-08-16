@@ -104,7 +104,7 @@ push braces:
 # Ex. * int myList
 put <user.c_variable> <phrase>:
     insert("{c_variable} ")
-    insert(user.formatted_text(phrase, "PRIVATE_CAMEL_CASE,NO_SPACES"))
+    insert(user.formatted_text(phrase, "CAMEL_CASE,NO_SPACES"))
 
 put <user.c_variable> <user.letter>: insert("{c_variable} {letter} ")
 

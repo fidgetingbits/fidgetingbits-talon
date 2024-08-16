@@ -17,9 +17,9 @@ tag(): user.code_operators_math
 tag(): user.code_keywords
 
 settings():
-    user.code_private_function_formatter = "PRIVATE_CAMEL_CASE"
-    user.code_protected_function_formatter = "PRIVATE_CAMEL_CASE"
-    user.code_public_function_formatter = "PRIVATE_CAMEL_CASE"
-    user.code_private_variable_formatter = "PRIVATE_CAMEL_CASE"
-    user.code_protected_variable_formatter = "PRIVATE_CAMEL_CASE"
-    user.code_public_variable_formatter = "PRIVATE_CAMEL_CASE"
+    user.code_private_function_formatter = "CAMEL_CASE"
+    user.code_protected_function_formatter = "CAMEL_CASE"
+    user.code_public_function_formatter = "CAMEL_CASE"
+    user.code_private_variable_formatter = "CAMEL_CASE"
+    user.code_protected_variable_formatter = "CAMEL_CASE"
+    user.code_public_variable_formatter = "CAMEL_CASE"

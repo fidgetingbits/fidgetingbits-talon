@@ -152,22 +152,26 @@ builtin_functions = {
     "zip with attributes": "zipWithAttrs",
 }
 
-# FIXME: One of many dicts to change to having variable dictation, ex: (list to addrs|list to attributes)
+# FIXME: We should just run map over all of these after
 lib_functions = {
-    "list to adders": "listToAttrs",
-    "adder by path": "attrByPath",
-    "make default": "mkDefault",
-    "make option": "mkOption",
-    "make option default": "mkOptionDefault",
-    "make option type": "mkOptionType",
+    "list to adders": "lib.listToAttrs",
+    "adder by path": "lib.attrByPath",
+    "make default": "lib.mkDefault",
+    "make option": "lib.mkOption",
+    "make option default": "lib.mkOptionDefault",
+    "make option type": "lib.mkOptionType",
+}
+
+version_functions = {
+    "major version": "lib.versions.major",
 }
 
 attrs_functions = {
-    "recursive update": "recursiveUpdate",
+    "recursive update": "lib.attrs.recursiveUpdate",
 }
 
 stdenv_functions = {
-    "make derivation": "mkDerivation",
+    "make derivation": "stdenv.mkDerivation",
 }
 
 # Incomplete, but the most common
@@ -200,12 +204,17 @@ ctx.lists["user.nix_builtins_functions"] = {
     **builtin_functions,
 }
 
-ctx.lists["user.nix_lib_functions"] = {**lib_functions}
+ctx.lists["user.nix_lib_functions"] = {
+    **lib_functions,
+    **version_functions,
+}
 
 ctx.lists["user.nix_pkgs_functions"] = {**pkgs_functions}
 
 ctx.lists["user.code_common_function"] = {
     **builtin_functions,
+    **lib_functions,
+    **version_functions,
 }
 
 ctx.lists["user.code_libraries"] = {}
@@ -386,12 +395,19 @@ class UserActions:
         actions.user.code_private_function(text)
 
     def code_insert_function(text: str, selection: str):
+        if " " in text:
+            text = actions.user.formatted_text(
+                text, settings.get("user.code_private_function_formatter")
+            )
         if selection:
             text = text + f"{selection}"
         else:
             text = f"{text} "
 
         actions.user.paste(text)
+
+    def code_insert_terminated_function(text: str, selection: str):
+        actions.user.code_insert_function(text, selection)
 
     ##
     # code_libraries

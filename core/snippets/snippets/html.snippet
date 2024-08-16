@@ -5,7 +5,7 @@ name: element
 phrase: element | tag
 insertionScope: xmlElement
 
-$1.insertionFormatter: PRIVATE_CAMEL_CASE
+$1.insertionFormatter: CAMEL_CASE
 -
 <$1>
     $0
@@ -15,7 +15,7 @@ $1.insertionFormatter: PRIVATE_CAMEL_CASE
 name: attribute
 phrase: attribute
 
-$1.insertionFormatter: PRIVATE_CAMEL_CASE
+$1.insertionFormatter: CAMEL_CASE
 -
 $1=$0
 ---
