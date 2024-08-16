@@ -371,12 +371,8 @@ def win_focus(window):
         window_position_cache[window.app.pid] = window.rect
     global last_focused_window
     global saved_focused_window
-    # The first time we get an event is the first time we set this
-    if saved_focused_window is None:
-        saved_focused_window = window
-    else:
-        last_focused_window = saved_focused_window
-        saved_focused_window = window
+    last_focused_window = saved_focused_window
+    saved_focused_window = window
 
 
 def on_ready():
