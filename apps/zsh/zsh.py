@@ -8,6 +8,10 @@ from talon import Context, Module, actions, settings, ui
 ctx = Context()
 mod = Module()
 
+# FIXME:This currently will only match how it works in neovim terminal:
+# Title: VIM MODE:t RPC:/run/user/1000/nvim.3972676.0 FILETYPE: TERM:nix repl --expr 'import <nixpkgs>{}':~/foo (term://~//3972689:/run/current-system/sw/bin/zsh) zsh
+mod.apps.zsh = "title: /zsh$/"
+
 ctx.matches = r"""
 tag: user.zsh
 """

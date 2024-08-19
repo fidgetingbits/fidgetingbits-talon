@@ -3,6 +3,7 @@ import pprint
 from talon import Module, Context, actions
 
 mod = Module()
+
 ctx = Context()
 # `not tag user.readline` allows pinning a shell session temporarily to
 # use readline. For instance if from zsh you ssh into a non-zsh-based shell, etc
@@ -76,7 +77,7 @@ def _read_zle_keymap():
                 keys.append(f"{modifier}-{key}")
                 i += 1
             else:
-                keys.append(char)
+                keys.append(char.lower())
             i += 1
 
         # FIXME: This won't catch rebinds if someone updates this shell
