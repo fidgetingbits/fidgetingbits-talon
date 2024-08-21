@@ -172,7 +172,8 @@ def zsh_path_completion(m) -> str:
 def zsh_path_completions(m) -> str:
     """Returns a speakable file name"""
     # We get something like this from m.zsh_path_completion_list: [C(user.zsh_path_completion, shell-x86_64.nix)]
-    return " ".join([x[1] for x in m.zsh_path_completion_list])
+    # print(m.zsh_path_completion_list)
+    return " ".join([x[0] for x in m.zsh_path_completion_list])
 
 
 def _is_zsh_window(window):
