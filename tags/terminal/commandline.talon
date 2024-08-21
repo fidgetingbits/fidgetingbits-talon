@@ -102,6 +102,10 @@ file list latest: "eza --sort changed | tail -n1\n"
 file list today: 'find . -maxdepth 1 -newermt "$(date +%D)"\n'
 file list deep: "fd .\n"
 file list names: "ls -1 --icons=never\n"
+file list clip:
+    "ls "
+    user.paste_without_new_lines()
+    key(enter)
 
 # I can't always rely on -newermt, since an old file might get extracted from from an archive, in the timestamp is
 # actually quite old. This allows me to give it the actual local birthdate of the file
@@ -674,15 +678,16 @@ errors ignore: "2>/dev/null"
 ###
 # ELF file
 ###
-file elf [read] header: "readelf -h "
-file [elf] [read] symbols: "readelf -s "
-file elf [read] (program headers | sections): "readelf -l "
-file elf dependencies: "readelf -d "
-file elf debug info: user.insert_between("readelf -w", "| head -15")
-file strip: "strip --strip-all "
-file [elf] extract (debug | symbols): "objcopy --only-keep-debug "
-file elf read got: "readelf -r "
-file elf read P L T: "objdump -d -s -j .plt -j .got.plt "
+[file] elf [read] header: "readelf -h "
+[file] elf [read] symbols: "readelf -s "
+[file] elf [read] (program headers | sections): "readelf -l "
+[file] elf dependencies: "readelf -d "
+[file] elf debug info: user.insert_between("readelf -w", "| head -15")
+[file] strip: "strip --strip-all "
+[file] elf extract (debug | symbols): "objcopy --only-keep-debug "
+[file] elf read got: "readelf -r "
+[file] elf read P L T: "objdump -d -s -j .plt -j .got.plt "
+[file] elf exports: user.insert_between("nm -D --demangle ", "| rg ' T '")
 
 ###
 # Python

@@ -186,6 +186,24 @@ class Actions:
         actions.edit.select_all()
         actions.edit.copy()
 
+    def paste_without_new_lines():
+        """Paste to the current entry without new lines
+
+        This is mostly centered around copy and paste in the terminal, which will insert a new line if what you copy
+        crosses two lines. For example, given a line like:
+
+        ```
+        -lm -lgcc -lmingwex -lmingw32 -lkernel32 -luser32 -lshell32 -llibwindows -L native=/nix/store/hmypgg46gh6mi918hml3l7nmmpw80zr2-v
+        endor-cargo-deps/c19b7c6f923b580ac259164a89f2577984ad5ab09ee9d583b888f934adbbe8d0/windows_x86_64_gnu-0.52.6/lib` (exit status: 1)
+        ```
+
+        If selecting the /nix/store/ path and pasting it, it will insert a new line. This command will remove it
+
+        """
+        entry = clip.get().strip()
+        for line in entry.split("\n"):
+            actions.insert(line)
+
     def paste_all():
         """Paste to the current document"""
         actions.edit.select_all()
