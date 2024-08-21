@@ -898,3 +898,11 @@ now paginate [width <user.number_string> call <user.number_string>]:
     insert(number_string_1 or "100")
     insert(" --columns ")
     insert(number_string_2 or "3")
+
+file U U decode [<user.zsh_file_completion>]:
+    insert("uudecode ")
+    insert(zsh_file_completion or "")
+
+file U U encode [<user.zsh_file_completion>]:
+    insert("uuencode ")
+    insert(zsh_file_completion or "")
