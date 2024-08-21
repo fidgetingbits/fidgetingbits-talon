@@ -234,29 +234,30 @@ tag: user.git
 <user.git> diff (colour | color) words:
     edit.delete_line()
     "git diff --color-words "
-<user.git> doll:
+<user.git> (doll|diff all):
     edit.delete_line()
     "git diff\n"
-<user.git> diff [<user.git_modified_files>]:
+<user.git> diff <user.git_modified_files>:
     edit.delete_line()
     insert("git diff ")
-    insert(git_modified_files or "")
+    insert(git_modified_files)
 <user.git> diff cached:
     edit.delete_line()
     "git diff --cached\n"
-<user.git> diff staged [<user.git_staged_files>]:
+<user.git> diff staged <user.git_staged_files>:
     edit.delete_line()
     insert("git diff --staged ")
-    insert(git_staged_files or "")
-<user.git> stall:
+    insert(git_staged_files)
+<user.git> (stall|diff staged all):
     edit.delete_line()
     "git diff --staged\n"
-<user.git> diff <user.git_branch>:
+<user.git> diff branch <user.git_branch>:
     edit.delete_line()
     "git diff {git_branch}\n"
-<user.git> diff <user.git_tag>:
+<user.git> diff tag <user.git_tag>:
     edit.delete_line()
     "git diff {git_tag}\n"
+
 <user.git> diff tool:
     edit.delete_line()
     "git difftool -d\n"
@@ -273,14 +274,6 @@ tag: user.git
     edit.delete_line()
     "git diff --name-status {git_branch}\n"
 
-<user.git> diff <user.git_modified_files>:
-
-    edit.delete_line()
-    "git diff {git_modified_files}"
-<user.git> diff staged <user.git_staged_files>:
-
-    edit.delete_line()
-    "git diff --staged {git_staged_files}"
 
 <user.git> fetch:
     edit.delete_line()
@@ -852,64 +845,50 @@ get remote set origin:
 #    message = prose or ""
 #    user.insert_between("git commit{args} --message '{message}", "'")
 <user.git> stash [push] [<user.git_arguments>] message [<user.prose>]:
-
     edit.delete_line()
     args = git_arguments or ""
     message = prose or ""
     user.insert_between('git stash push{args} --message "{message}', '"')
 
-# Optimistic execution for frequently used commands that are harmless (don't
-# change repository or index state).
-# XXX - revisit as I'm just favouring my old stuff for now
-#git status$: "git status\n"
 <user.git> add patch$:
     edit.delete_line()
     "git add --patch"
-# git add patch all: "git add --patch\n"
-#git show head$: "git show HEAD\n"
-#git diff: "git diff\n"
-#git diff (cached | cashed)$: "git diff --cached\n"
+
 
 # Convenience
 <user.git> diff highlighted:
-
-    edit.delete_line()
     edit.copy()
+    edit.delete_line()
     insert("git diff ")
     edit.paste()
     key(enter)
 <user.git> diff clip:
-
     edit.delete_line()
     insert("git diff ")
     edit.paste()
     key(enter)
 
 <user.git> add highlighted:
-
-    edit.delete_line()
     edit.copy()
+    edit.delete_line()
     insert("git add ")
     edit.paste()
     key(enter)
 <user.git> add clip:
-
     edit.delete_line()
     insert("git add ")
     edit.paste()
     key(enter)
 
 <user.git> commit highlighted:
-
-    edit.delete_line()
     edit.copy()
+    edit.delete_line()
     insert("git add ")
     edit.paste()
     insert("\ngit commit\n")
 
 # git commit automation convenience
 <user.git> calm flake:
-
     edit.delete_line()
     insert("git add flake.lock\n")
     insert("git commit -m 'chore: update flake.lock'\n")
@@ -918,7 +897,6 @@ get remote set origin:
     insert("git commit -m 'chore: update flake.lock'\n")
 
 <user.git> calm lists:
-
     edit.delete_line()
     insert("git add -u\n")
     insert("git status --untracked-files=no\n")
@@ -926,12 +904,10 @@ get remote set origin:
 
 # Personal convenience scripts
 <user.git> smart rebase:
-
     edit.delete_line()
     "git-smart-rebase\n"
 
 <user.git> undo amend:
-
     edit.delete_line()
     # ᕙ(◕ل͜◕)ᕗ
     # https://stackoverflow.com/questions/1459150/how-to-undo-git-commit-amend-done-instead-of-git-commit
