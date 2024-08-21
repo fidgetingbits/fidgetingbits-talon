@@ -244,10 +244,10 @@ tag: user.git
 <user.git> diff cached:
     edit.delete_line()
     "git diff --cached\n"
-<user.git> diff staged <user.git_staged_files>:
+<user.git> diff staged [<user.git_staged_files>]:
     edit.delete_line()
     insert("git diff --staged ")
-    insert(git_staged_files)
+    insert(git_staged_files or "")
 <user.git> (stall|diff staged all):
     edit.delete_line()
     "git diff --staged\n"
