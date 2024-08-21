@@ -323,3 +323,9 @@ class Actions:
 
         For example, jump from an opening bracket to its closing bracket.
         """
+
+    def scroll_start():
+        """Scroll to the start of the document"""
+
+    def scroll_end():
+        """Scroll to the end of the document"""
