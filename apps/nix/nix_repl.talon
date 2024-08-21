@@ -34,7 +34,7 @@ repl build clip:
 
 repl [build] log: ":log "
 
-[repl] describe: ":t "
+[repl] (describe|type): ":t "
 repl doc: ":doc "
 
 repl trace enable: ":te true\n"

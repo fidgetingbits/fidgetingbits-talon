@@ -125,3 +125,9 @@ nix [store] show dependencies: "nix-store -q --references"
 nix repl evaluate: "nix repl --eval "
 
 nix eval with packages: user.insert_between("nix eval --impure --expr '(let pkgs = import <nixpkgs>{}; in ", ")'")
+
+nix log: "nix log "
+nix log clip:
+    insert("PAGER=cat nix log ")
+    user.paste_without_new_lines()
+    key(enter)
