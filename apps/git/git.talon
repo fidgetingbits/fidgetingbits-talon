@@ -207,24 +207,20 @@ tag: user.git
     "git commit -a\n"
 # git commit automation convenience
 <user.git> (commit|calm) all {user.git_conventional_commits}:
-
     edit.delete_line()
     "git add -u\n"
     user.insert_between('git commit -m "{git_conventional_commits}: ', '"')
 # Two useful commands when commit fails due to pre commit hook
 <user.git> (commit|calm) again:
-
     edit.delete_line()
     key(ctrl-r)
     "git commit\n"
 <user.git> (commit|calm) clip:
-
     edit.delete_line()
     user.insert_between('git commit -m "', '"')
     edit.paste()
     key(enter)
 <user.git> re (commit|calm):
-
     edit.delete_line()
     'git status -s | grep -e "^MM" | cut -d" " -f2- | xargs git add\n'
     key(ctrl-r)
@@ -242,7 +238,6 @@ tag: user.git
     edit.delete_line()
     "git diff\n"
 <user.git> diff [<user.git_modified_files>]:
-
     edit.delete_line()
     insert("git diff ")
     insert(git_modified_files or "")
@@ -250,7 +245,6 @@ tag: user.git
     edit.delete_line()
     "git diff --cached\n"
 <user.git> diff staged [<user.git_staged_files>]:
-
     edit.delete_line()
     insert("git diff --staged ")
     insert(git_staged_files or "")
@@ -607,11 +601,10 @@ tag: user.git
 <user.git> restore:
     edit.delete_line()
     "git restore "
-<user.git> restore [<user.zsh_path_completions>]:
-
+<user.git> restore [<user.git_modified_files>]:
     edit.delete_line()
     insert("git restore ")
-    insert(zsh_path_completions or "")
+    insert(git_modified_files or "")
 <user.git> restore staged:
     edit.delete_line()
     "git restore --staged "
@@ -724,10 +717,9 @@ get remote set origin:
 
 
 <user.git> change head to main:
-
     edit.delete_line()
     "git symbolic-ref refs/remotes/origin/HEAD refs/remotes/origin/main\n"
-get stash help:
+<user.git> stash help:
     edit.delete_line()
     "git stash --help\n"
 <user.git> stash pop:
