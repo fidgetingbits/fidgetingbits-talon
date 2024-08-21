@@ -174,8 +174,6 @@ file find (all | type) {user.file_extension}:
 call file latest: "$(eza --sort changed | tail -n1)\n"
 [sub] file latest: "$(eza --sort changed | tail -n1) "
 
-# TODO - somehow make this scriptable to print anything
-file edit latest: "edit $(eza --sort changed | tail -n1)\n"
 file link: "ln -s "
 file link force: "ln -sf "
 file link force clip:
@@ -215,7 +213,7 @@ file (file | info | type) <user.zsh_file_completions>:
     insert(zsh_file_completions)
 file (file | info | type) clip:
     insert("file -L ")
-    edit.paste()
+    user.paste_without_new_lines()
     key(enter)
 
 file show: "cat "
@@ -225,7 +223,7 @@ file show max width: "cut -c-120 "
 file show max width <number>: "cut -c-{number} "
 file show clip:
     "cat "
-    edit.paste()
+    user.paste_without_new_lines()
 file show (<user.zsh_file_completions> | <user.word>):
     file = zsh_file_completions or word
     insert("cat {file}")
@@ -258,7 +256,7 @@ file check sec: "checksec --file="
 file locate: "locate "
 file locate clip:
     "locate "
-    edit.paste()
+    user.paste_without_new_lines()
 run update paths: "sudo updatedb\n"
 file [full] path: "readlink -f "
 
@@ -320,7 +318,7 @@ echo split [<user.symbol_key>] ({user.environment_variables}|<user.text>):
 <user.go> clip:
     edit.delete_line()
     insert("cd ")
-    edit.paste()
+    user.paste_without_new_lines()
     key(enter)
 # NOTE: I don't auto ls here because zsh is setup to automatically do it for me
 # FIXME: This should get moved to a zsh specific file
@@ -402,7 +400,7 @@ file [flat] tree folders: "fd . -d 2 -t d\n"
 file [flat] tree [depth] <number_small>: "fd . -d {number_small}\n"
 file [flat] tree clip [depth <number_small>]:
     "fd . -d {number_small or 2} "
-    edit.paste()
+    user.paste_without_new_lines()
     key(enter)
 
 file deep tree: "eza --tree --git-ignore\n"
@@ -444,7 +442,7 @@ file rip hidden: "rg -i --hidden"
 file rip binary: "rg -i --binary"
 file rip clip:
     insert("rg -i ")
-    edit.paste()
+    user.paste_without_new_lines()
     key(enter)
 file rip exclude: "rg -i -g \\!"
 file rip around: "rg -B2 -A2 -i "
@@ -591,7 +589,7 @@ run curl: "curl "
 (file | web) (download | get): "wget "
 (file | web) (download | get) clip:
     insert("wget ")
-    edit.paste()
+    user.paste_without_new_lines()
     key(enter)
 (file | web) (download | get) ignore cert: "wget --no-check-certificate "
 
