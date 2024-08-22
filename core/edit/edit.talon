@@ -19,6 +19,11 @@ go [short] (word left | back):
 go [short] (word right | word):
     user.word_short_right()
 
+
+# FIXME(edit): have to implement this in zle
+# go word end:
+#     user.word_short_end()
+
 go long (word left | back):
     user.word_long_left()
 
@@ -51,6 +56,12 @@ post file:
 
 scroll:
     edit.page_down()
+
+scroll top:
+    user.scroll_start()
+
+scroll bottom:
+    user.scroll_end()
 
 punk:
     edit.page_up()
