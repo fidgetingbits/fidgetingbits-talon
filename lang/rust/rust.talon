@@ -278,6 +278,8 @@ funk {user.formatted_functions}:
     type = user.code_type or ""
     insert("collect::{code_containing_type}<{type}>()")
 
+<user.operator> target <user.rust_targets>: "{rust_targets}"
+
 ##
 # Cursorless-only commands
 ##

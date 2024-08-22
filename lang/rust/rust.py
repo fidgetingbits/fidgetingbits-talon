@@ -463,18 +463,20 @@ ctx.lists["user.rust_toolchains"] = {
 }
 
 # TODO: These are a little loose with the architecture's atm
-rust_targets = {
-    "windows M S V C": "x86_64-pc-windows-msvc",
-    "windows G N U": "x86_64-pc-windows-gnu",
-    "mac O S": "x86_64-apple-darwin",
-    "mac O S arm": "aarch64-apple-darwin",
-    "linux": "x86_64-unknown-linux-gnu",
-    "linux muscle": "x86_64-unknown-linux-musl",
-    "linux arm sixty four": "aarch64-unknown-linux-gnu",
-    "linux muscle arm sixty four": "aarch64-unknown-linux-musl",
-    "linux arm": "armv7-unknown-linux-gnueabihf",
-    "linux muscle arm": "armv7-unknown-linux-musleabihf",
-}
+rust_targets = expand_map(
+    {
+        "windows M S V C": "x86_64-pc-windows-msvc",
+        ("windows G N U", "windows new"): "x86_64-pc-windows-gnu",
+        "mac O S": "x86_64-apple-darwin",
+        "mac O S arm": "aarch64-apple-darwin",
+        "linux": "x86_64-unknown-linux-gnu",
+        "linux muscle": "x86_64-unknown-linux-musl",
+        "linux arm sixty four": "aarch64-unknown-linux-gnu",
+        "linux muscle arm sixty four": "aarch64-unknown-linux-musl",
+        "linux arm": "armv7-unknown-linux-gnueabihf",
+        "linux muscle arm": "armv7-unknown-linux-musleabihf",
+    }
+)
 ctx_cli.lists["user.rust_targets"] = rust_targets
 
 ctx.lists["user.formatted_functions"] = {**all_string_formatted_functions_macros}
