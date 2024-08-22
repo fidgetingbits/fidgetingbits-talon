@@ -17,6 +17,8 @@ win.title: /TERM:.*| more/
 win.title: /TERM:git diff/
 win.title: /TERM:git log/
 win.title: /TERM:git show/
+
+win.title: /TERM:nix log/
 """
 
 ctx.matches = r"""
