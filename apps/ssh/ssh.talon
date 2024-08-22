@@ -39,7 +39,7 @@ ssh dump hosts: user.ssh_dump_hosts_list()
 <user.ssh> copy from {user.ssh_hosts}: insert("scp -r {ssh_hosts}:")
 <user.ssh> copy to {user.ssh_hosts}: user.insert_between("scp -r ", " {ssh_hosts}:")
 [<user.ssh>] show authorized keys: "cat ~/.ssh/authorized_keys\n"
-[<user.ssh>] show pub keys: "cat ~/.ssh/*.pub\n"
+[<user.ssh>] show pub keys: "for file in $(find ~/.ssh  -name 'id_*' \! -name '*.pub'); do echo \"$file:\"; if [ -f $file.pub ]; then command cat $file.pub; elif grep -q 'ENCRYPTED' $file; then echo Skipped due to passphrase; else ssh-keygen -y -f $file; fi; echo; done\n"
 edit authorized keys: "edit ~/.ssh/authorized_keys\n"
 go secure shell config: "cd ~/.ssh\n"
 <user.ssh> (pop | terminate): key(enter ~ .)
