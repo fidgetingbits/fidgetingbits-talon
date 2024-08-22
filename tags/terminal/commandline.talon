@@ -247,9 +247,9 @@ file (delete | remove) [<user.zsh_file_completions>]:
     insert("rm -I ")
     insert(zsh_file_completions or "")
 file safe (delete | remove) all: "rm -i -- *"
-file real (delete | remove): "/bin/rm -I "
+file real (delete | remove): "command rm -I "
 (file | folder) deep remove: "rm -rIf "
-(file | folder) real deep remove: "/bin/rm -rIf "
+(file | folder) real deep remove: "command rm -rIf "
 file diff: "diff "
 
 file check sec: "checksec --file="
