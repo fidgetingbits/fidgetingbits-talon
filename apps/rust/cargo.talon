@@ -4,8 +4,11 @@ tag: user.rust_apps
 
 cargo init: "cargo init "
 cargo init (library | lib): "cargo init --lib "
+
 cargo new: "cargo new "
 cargo new (library | lib): "cargo new --lib "
+
+cargo update: "cargo update\n"
 
 cargo run: "cargo run\n"
 cargo run help: "cargo run -- --help\n"
@@ -13,22 +16,40 @@ cargo run release: "cargo run --release\n"
 cargo run with args: "cargo run -- "
 cargo run release with args: "cargo run --release -- "
 
+# cargo add [--package <package>] <crate>
 cargo add [dep] [package {user.cargo_workspace_packages}] [{user.rust_crates}]:
-    insert("cargo add --package ")
-    if cargo_workspace_packages: insert(cargo_workspace_packages + " ")
+    insert("cargo add ")
+    package = "--package " + cargo_workspace_packages
+    if cargo_workspace_packages: insert(package + " ")
     if rust_crates: insert(rust_crates)
 cargo add dev [dep] [package {user.cargo_workspace_packages}] [{user.rust_crates}]:
     insert("cargo add --dev ")
-    if cargo_workspace_packages: insert(cargo_workspace_packages + " ")
+    package = "--package " + cargo_workspace_packages
+    if cargo_workspace_packages: insert(package + " ")
+    if rust_crates: insert(rust_crates)
+# cargo add [--package <package>] --path <path>
+cargo add [dep] local crate [package {user.cargo_workspace_packages}] [{user.rust_crates}]:
+    insert("cargo add ")
+    package = "--package " + cargo_workspace_packages
+    if cargo_workspace_packages: insert(package + " ")
+    insert("--path ")
+    if rust_crates: insert(rust_crates)
+cargo add dev local crate [dep] [package {user.cargo_workspace_packages}] [{user.rust_crates}]:
+    insert("cargo add --dev ")
+    package = "--package " + cargo_workspace_packages
+    if cargo_workspace_packages: insert(package + " ")
+    insert("--path ")
     if rust_crates: insert(rust_crates)
 
 cargo remove [dep] [package {user.cargo_workspace_packages}] [{user.rust_crates}]:
-    insert("cargo remove --package ")
-    if cargo_workspace_packages: insert(cargo_workspace_packages + " ")
+    insert("cargo remove ")
+    package = "--package " + cargo_workspace_packages
+    if cargo_workspace_packages: insert(package + " ")
     if rust_crates: insert(rust_crates)
 cargo remove dev [dep] [package {user.cargo_workspace_packages}] [{user.rust_crates}]:
     insert("cargo remove --dev ")
-    if cargo_workspace_packages: insert(cargo_workspace_packages + " ")
+    package = "--package " + cargo_workspace_packages
+    if cargo_workspace_packages: insert(package + " ")
     if rust_crates: insert(rust_crates)
 
 cargo install: "cargo install "
@@ -45,7 +66,6 @@ cargo build package {user.cargo_workspace_packages}: "cargo build --package {car
 cargo build bin: "cargo build --bin "
 cargo build lib: "cargo build --lib\n"
 
-cargo tree: "cargo tree\n"
 cargo test: "cargo test\n"
 cargo test no capture: "cargo test -- --nocapture\n"
 cargo test ignored: "cargo test -- --ignored\n"
@@ -73,3 +93,5 @@ cargo cross linux release: "cross build --target x86_64-unknown-linux-gnu --rele
 cargo tree: "cargo tree\n"
 cargo tree dupe: "cargo tree --duplicate\n"
 
+
+cargo flush locks: "rm -rf ~/.cargo/registry/index/* ~/.cargo/.package-cache"
