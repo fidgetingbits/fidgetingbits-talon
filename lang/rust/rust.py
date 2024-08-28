@@ -340,6 +340,7 @@ ctx.lists["user.code_libraries"] = {
 }
 
 std_env_functions = {"current dir": "std::env::current_dir"}
+core_mem_function = {"transmute": "core::mem::transmute"}
 
 # tag: functions_common
 common_functions = {
@@ -397,6 +398,7 @@ ctx.lists["user.code_common_function"] = {
     **common_functions,
     **common_methods,
     **std_env_functions,
+    **core_mem_function,
     **common_implementations,
     **all_macros,
 }
