@@ -142,11 +142,15 @@ file list long [sym] links:
 file list [sym] links: 'find . -maxdepth 1 -type l -printf "%f\\n"\n'
 
 # find
-file find: user.insert_between('find . -name "", "" 2>/dev/null')
-file find file: user.insert_between('find . -type f -name "", "" 2>/dev/null')
-file find folder: user.insert_between('find . -type d -name "", "" 2>/dev/null')
+file find:
+    user.insert_between('find . -name "", "" 2>/dev/null')
+file find file:
+    user.insert_between('find . -type f -name "", "" 2>/dev/null')
+file find folder:
+    user.insert_between('find . -type d -name "", "" 2>/dev/null')
 # case insensitive fuzzy find
-file fuzzy find: user.insert_between('find . -iname "*', '*" 2>/dev/null')
+file fuzzy find:
+    user.insert_between('find . -iname "*', '*" 2>/dev/null')
 file fuzzy hash:
     user.insert_between('find . -path "*", "*" -exec sha256sum {{}} \\; 2>/dev/null')
 
@@ -160,12 +164,15 @@ file fuzzy find today:
     user.insert_between('find . -mtime -1 -name "*", "*" 2>/dev/null')
 file fuzzy find at clip:
     insert("find ")
-    edit.paste()
+    user.paste_without_new_lines()
     user.insert_between(' -iname "*", "*" 2>/dev/null')
 
-file find all links: "find . -maxdepth 1 -type l  -ls\n"
-file find all folders: "find . -maxdepth 1 -type d  -ls\n"
-file fine all files: "find . -maxdepth 1 -type f  -ls\n"
+file find all links:
+     insert("find . -maxdepth 1 -type l  -ls\n")
+file find all folders:
+     insert("find . -maxdepth 1 -type d  -ls\n")
+file fine all files:
+     insert("find . -maxdepth 1 -type f  -ls\n")
 
 file find (all | type) {user.file_extension}:
     'find . -type f  -name "*{file_extension}"\n'
@@ -202,19 +209,33 @@ file name (<user.zsh_file_completions> | {user.common_files}):
     insert("{file}")
 file global name {user.common_files}: "{common_files}"
 file local name <user.zsh_file_completions>: "{zsh_file_completions}"
-file copy: "cp -d "
+
+file copy [<user.zsh_file_completions>]:
+    insert("cp -d ")
+    insert(zsh_file_completions or "")
 file recopy: "!cp\n"
 file copy latest <user.folder_paths>:
     user.paste("cp $(ls --sort changed -d {folder_paths}/* | tail -n1) .")
-(file | folder) (deep copy | copy deep): "cp -dR "
-file (file | info | type): "file -L "
-file (file | info | type) <user.zsh_file_completions>:
+(file | folder) (deep copy | copy deep) [<user.zsh_folder_completions>]:
+    insert("cp -dR ")
+    insert(zsh_folder_completions or "")
+file (file | info | type) [<user.zsh_file_completions>]:
     insert("file -L ")
-    insert(zsh_file_completions)
+    nnibf..IHaveItinsert(zsh_file_completions or "")g.101h 
 file (file | info | type) clip:
     insert("file -L ")
     user.paste_without_new_lines()
     key(enter)
+
+file fuzzy file (here|<user.zsh_folder_completion>):
+    path = zsh_folder_completion or "."
+    insert("file -L {path}/*\n")
+
+file fuzzy file clip:
+    insert("file -L ")
+    user.paste_without_new_lines()
+    insert("/*\n")
+
 
 file show: "cat "
 # assuming you are using bat
@@ -278,9 +299,11 @@ loop for file: user.insert_between("for FILE in $(command ls); do ", "echo ${{FI
 folder tree permissions:
     user.insert_between('FILE=", "; until [ "$FILE" = "/" ]; do ls -lda $FILE; FILE=`dirname $FILE` done')
 
-# NOTE: these are deprecated in light of these zsh autocompletion
-(file|disk) usage (all|here): "du -sh *\n"
+(file sizes|disk usage) (all|here): "du -Lsh *\n"
+(file sizes|disk usage) <user.zsh_folder_completion>:
+    insert("du -Lsh {zsh_folder_completion}/*\n")
 #file [disk] usage: "du -sh "
+
 
 file watch latest: "vlc $(eza --sort changed | tail -n1)"
 file play audio: "vlc --play-and-exit --intf dummy --no-interact"
@@ -904,3 +927,12 @@ file U U decode [<user.zsh_file_completion>]:
 file U U encode [<user.zsh_file_completion>]:
     insert("uuencode ")
     insert(zsh_file_completion or "")
+
+link tree: user.insert_between("linktree $(which ", ")")
+
+link tree clip:
+    insert("linktree $(which ")
+    edit.paste()
+    insert(")\n")
+
+P E bear: "PE-bear"
