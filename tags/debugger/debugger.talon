@@ -26,6 +26,7 @@ debug start: user.debugger_start()
 debug stop: user.debugger_stop()
 debug (exit | quit): user.debugger_exit()
 (quitter | debug force exit): user.debugger_exit_force()
+debug attach: user.debugger_attach()
 debug detach: user.debugger_detach()
 debug restart: user.debugger_restart()
 
@@ -37,6 +38,7 @@ debug restart: user.debugger_restart()
 set (register|reg) {user.registers}: user.debugger_set_register(registers)
 
 # Breakpoints
+break toggle: user.debugger_breakpoint_toggle()
 break (now | into): user.debugger_break_now()
 break here: user.debugger_break_here()
 break [point] (list | show): user.debugger_show_breakpoints()
