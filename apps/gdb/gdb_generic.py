@@ -6,7 +6,8 @@ mod = Module()
 
 ctx = Context()
 ctx.matches = r"""
-not tag: user.gef
+app: gdb
+and not tag: user.gef
 and not tag: user.pwndbg
 """
 

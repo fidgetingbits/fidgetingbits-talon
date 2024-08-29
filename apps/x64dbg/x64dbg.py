@@ -24,10 +24,10 @@ class app_actions:
 class UserActions:
     # Code execution
 
-    def debugger_step_line():
+    def debugger_step_into():
         actions.key("f7")
 
-    def debugger_step_over_line():
+    def debugger_step_over():
         actions.key("f8")
 
     def debugger_step_out():
