@@ -136,6 +136,9 @@ class Actions:
     def debugger_exit_force():
         """Force exit the debugger"""
 
+    def debugger_attach():
+        """Attach the debugger"""
+
     def debugger_detach():
         """Detach the debugger"""
 
@@ -165,6 +168,9 @@ class Actions:
 
     def debugger_break_here():
         """Set a break on the current line"""
+
+    def debugger_breakpoint_toggle():
+        """Toggle breakpoint on the current line"""
 
     def debugger_show_breakpoints():
         """Print the current breakpoints in the debugger"""
