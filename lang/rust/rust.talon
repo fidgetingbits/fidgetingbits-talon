@@ -286,3 +286,5 @@ funk {user.formatted_functions}:
 rust docs <user.cursorless_target>:
     text = user.c_get_target_string(cursorless_target)
     user.open_url("https://doc.rust-lang.org/std/index.html?search={text}")
+
+<user.operator> raw string: user.insert_between("r#", "#")
