@@ -91,6 +91,7 @@ cargo cross linux: "cross build --target x86_64-unknown-linux-gnu\n"
 cargo cross linux release: "cross build --target x86_64-unknown-linux-gnu --release\n"
 
 cargo tree: "cargo tree\n"
+cargo tree depth <number>: "cargo tree --depth {number}\n"
 cargo tree dupe: "cargo tree --duplicate\n"
 
 

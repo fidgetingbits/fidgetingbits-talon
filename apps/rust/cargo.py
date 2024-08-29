@@ -1,5 +1,6 @@
 import subprocess
 import shutil
+import os
 from pathlib import Path
 
 from talon import Context, Module, actions, resource
@@ -38,8 +39,8 @@ def cargo_workspace_packages():
     entries = subprocess.check_output(
         ("tomlq", query, "Cargo.toml"), cwd=actions.user.get_cwd()
     ).decode("utf-8")
-    # create_spoken_forms_from_list doesn't handle quoted strings, so strip those
-    return [entry.strip('"') for entry in entries.splitlines()]
+    # "crates/foo" -> foo" -> foo
+    return [entry.split(os.sep)[-1].strip('"') for entry in entries.splitlines()]
 
 
 @ctx.dynamic_list("user.cargo_workspace_packages")
