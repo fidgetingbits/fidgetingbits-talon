@@ -49,3 +49,5 @@ key <user.modifiers> over: "{modifiers}"
 # all actions (requires uncommenting user.talon_populate_lists tag above)
 action {user.talon_actions}:
     user.code_insert_function(talon_actions, edit.selected_text())
+
+put operator: "<user.operator>"
