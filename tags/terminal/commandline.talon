@@ -59,6 +59,10 @@ run last script:
 recall [<user.text>]:
     key(ctrl-r)
     insert(text or "")
+re force <user.text>:
+    key(ctrl-r)
+    insert(text)
+    key(enter)
 recall last [command]:
     edit.delete_line()
     key(! ! enter enter)
@@ -221,7 +225,7 @@ file copy latest <user.folder_paths>:
     insert(zsh_folder_completions or "")
 file (file | info | type) [<user.zsh_file_completions>]:
     insert("file -L ")
-    nnibf..IHaveItinsert(zsh_file_completions or "")g.101h 
+    insert(zsh_file_completions or "")
 file (file | info | type) clip:
     insert("file -L ")
     user.paste_without_new_lines()
@@ -936,3 +940,7 @@ link tree clip:
     insert(")\n")
 
 P E bear: "PE-bear"
+
+run wine shell:
+    edit.delete_line()
+    insert("WINEDEBUG=-all wine64 cmd\n")

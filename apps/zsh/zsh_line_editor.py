@@ -10,6 +10,7 @@ ctx = Context()
 ctx.matches = r"""
 app: zsh
 and not tag: user.readline
+and not tag: user.windows_cli
 """
 
 # zsh line editor: https://zsh.sourceforge.io/Doc/Release/Zsh-Line-Editor.html

@@ -5,6 +5,10 @@ from talon import Context, actions
 ctx = Context()
 ctx.matches = r"""
 os: windows
+and not tag: user.windows_cli
+
+not os: windows
+and tag: user.windows_cli
 """
 
 
