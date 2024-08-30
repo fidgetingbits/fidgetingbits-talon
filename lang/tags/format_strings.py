@@ -43,6 +43,7 @@ ctx.lists["user.code_format_specifiers"] = {
     "float": "f",
     "exponential": "e",
     "unsigned": "u",
+    "pointer": "p",
 }
 
 
