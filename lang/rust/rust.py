@@ -483,11 +483,12 @@ ctx_cli.lists["user.rust_targets"] = rust_targets
 
 ctx.lists["user.formatted_functions"] = {**all_string_formatted_functions_macros}
 
-
+# FIXME: This should be part of format_strings.py
 ctx.lists["user.format_strings"] = {
     "hex": r":#x",
     "octal": r":#o",
     "binary": r":#b",
+    "pointer": r":#p",
     "decimal": r":#",
     "float": r":.2",
     "debug": r":?",
