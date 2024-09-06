@@ -131,3 +131,6 @@ nix log clip:
     insert("PAGER=cat nix log ")
     user.paste_without_new_lines()
     key(enter)
+
+# Personal alias
+nix log last: "nix-log-last\n"
