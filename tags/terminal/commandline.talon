@@ -468,6 +468,11 @@ sudo [file] change deep owner: "sudo chown -R "
 sudo [file] change deep owner me:
     user.insert_between("sudo bash -c 'chown -R $SUDO_UID:$SUDO_GID ", "'")
 
+now command that:
+    edit.up()
+    edit.line_start()
+    insert("command ")
+    edit.line_end()
 # file viewing
 less this:
     edit.line_end()
