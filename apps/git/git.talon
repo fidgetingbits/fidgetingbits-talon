@@ -40,6 +40,9 @@ tag: user.git
 <user.git> add untracked everything:
    edit.delete_line()
     "git add .\n"
+<user.git> add file type {user.file_extension}:
+    edit.delete_line()
+    "git add **/*{file_extension}"
 
 <user.git> bisect:
     edit.delete_line()
