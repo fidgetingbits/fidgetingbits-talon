@@ -3,7 +3,11 @@ tag: user.glab
 -
 
 gitlab help: "glab\n"
-gitlab auth login: "glab auth login\n"
+gitlab auth login [{user.gitlab_server}]:
+    insert("glab auth login ")
+    if gitlab_server: insert("--hostname {gitlab_server}")
+    key(enter)
+gitlab auth status: "glab auth status\n"
 
 # projects
 #  archive:     Get an archive of the repository.
@@ -19,7 +23,13 @@ gitlab auth login: "glab auth login\n"
 #  view:        View a project/repositorsty
 
 gitlab project help: "glab project\n"
-gitlab project list: "glab project list\n"
+gitlab project list [{user.gitlab_server}]:
+    if gitlab_server: insert("GITLAB_HOST=https://{gitlab_server} ")
+    insert("glab project list -P 100")
+gitlab project list help: "glab project list --help\n"
+gitlab project list all [{user.gitlab_server}]:
+    if gitlab_server: insert("GITLAB_HOST=https://{gitlab_server} ")
+    insert("glab project list -P 100 --all")
 gitlab project create help: "glab project create --help\n"
 gitlab project (create | new) public: "glab project create -P "
 gitlab project (create | new) [private]: "glab project create -p "
@@ -37,3 +47,5 @@ gitlab project {user.gitlab_namespace} (create|new): "glab project create -p -g 
 gitlab issue list help: "glab issue list --help\n"
 gitlab issue list: "glab issue list\n"
 
+gitlab put {user.gitlab_server}: "{gitlab_server}"
+gitlab put host var {user.gitlab_server}: insert("GITLAB_HOST=https://{gitlab_server}")
