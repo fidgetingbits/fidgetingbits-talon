@@ -288,3 +288,5 @@ rust docs <user.cursorless_target>:
     user.open_url("https://doc.rust-lang.org/std/index.html?search={text}")
 
 <user.operator> raw string: user.insert_between("r#", "#")
+
+<user.operator> in line (assembly|A S M): user.insert_between("core::arch::asm!(\"", "\");")

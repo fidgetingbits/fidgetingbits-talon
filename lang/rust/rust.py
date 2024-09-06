@@ -237,6 +237,10 @@ errno_values = {
     "permission denied": "EPERM",  # 1
 }
 
+debug_macros = {
+    "debug break": "debug_break!",
+}
+
 error_methods = {"raw os error": "raw_os_error"}
 
 all_string_formatted_functions_macros = {
@@ -247,6 +251,7 @@ all_string_formatted_functions_macros = {
 all_function_macros = {
     **standard_function_macros,
     **testing_macros,
+    **debug_macros,
 }
 
 all_array_macros = {
@@ -340,7 +345,8 @@ ctx.lists["user.code_libraries"] = {
 }
 
 std_env_functions = {"current dir": "std::env::current_dir"}
-core_mem_function = {"transmute": "core::mem::transmute"}
+core_mem_functions = {"transmute": "core::mem::transmute"}
+core_arch_functions = {}
 
 # tag: functions_common
 common_functions = {
@@ -398,7 +404,7 @@ ctx.lists["user.code_common_function"] = {
     **common_functions,
     **common_methods,
     **std_env_functions,
-    **core_mem_function,
+    **core_mem_functions,
     **common_implementations,
     **all_macros,
 }
@@ -438,6 +444,7 @@ rust_crates = {
     "log": "log",
     "native T L S": "native_tls",
     "open S S L": "openssl",
+    "page size": "page_size",
     "predicates": "predicates",
     "random": "rand",
     "ray on": "rayon",
@@ -454,6 +461,7 @@ rust_crates = {
     "tokyo": "tokio",
     "walk dir": "walkdir",
     "which": "which",
+    "win A P I": "winapi",
 }
 
 ctx_cli.lists["user.rust_crates"] = rust_crates
