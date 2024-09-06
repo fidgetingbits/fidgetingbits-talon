@@ -12,6 +12,12 @@ mod.list("folder_paths_private", desc="Common private folders")
 mod.list("file_paths_public", desc="Common public files")
 mod.list("file_paths_private", desc="Common private files")
 mod.list("file_paths", desc="Common files")
+
+mod.list("windows_file_paths_public", desc="Common windows file paths")
+mod.list("windows_file_paths_private", desc="Private windows file paths")
+mod.list("windows_folder_paths_public", desc="Common windows folder paths")
+mod.list("windows_folder_paths_private", desc="Private windows folder paths")
+
 ctx = Context()
 
 TALON_REPO = "fidgetingbits-talon"
@@ -226,6 +232,7 @@ unix_file_paths = {
     "talon log": "~/.talon/talon.log/",
     "S S M T P config": "/etc/ssmtp/ssmtp.conf",
     "root mount": "/mnt",
+    "G lab config": "~/.config/glab/config.yml",
 }
 
 mac_file_paths = {}
@@ -235,7 +242,7 @@ windows_file_paths = {}
 
 
 # XXX - add support for selecting
-windows_paths = {
+windows_folder_paths = {
     "desktop": "%USERPROFILE%\\Desktop\\",
     "profile": "%USERPROFILE%\\",
     "root": "%SYSTEMROOT%\\",
@@ -255,7 +262,7 @@ if app.platform == "mac":
     file_paths = {**unix_file_paths, **mac_file_paths, **neovim_file_paths}
 elif app.platform == "windows":
     # FIXME: This should probably have something like wsl awareness
-    folder_paths = {**windows_paths}
+    folder_paths = {**windows_folder_paths}
 elif app.platform == "linux":
     folder_paths = {
         **unix_folder_paths,
@@ -289,6 +296,10 @@ ctx.lists["user.paths_private"] = {}
 ctx.lists["user.folder_paths_private"] = {}
 ctx.lists["user.file_paths_private"] = {}
 
+ctx.lists["user.windows_folder_paths_public"] = windows_folder_paths
+ctx.lists["user.windows_folder_paths_private"] = {}
+ctx.lists["user.windows_file_paths_public"] = windows_file_paths
+ctx.lists["user.windows_file_paths_private"] = {}
 
 ctx.lists["user.common_files"] = {
     "read me": "README.md",
@@ -375,6 +386,26 @@ def paths(m) -> str:
     return m
 
 
+@mod.capture(rule="{user.windows_file_paths_private}|{user.windows_file_paths_public}")
+def windows_file_paths(m) -> str:
+    "One public or private windows path that represents a file"
+    return str(m)
+
+
+@mod.capture(
+    rule="{user.windows_folder_paths_private}|{user.windows_folder_paths_public}"
+)
+def windows_folder_paths(m) -> str:
+    "One public or private windows path that represents a folder"
+    return str(m)
+
+
+@mod.capture(rule="<user.windows_folder_paths>|<user.windows_file_paths>")
+def windows_paths(m) -> str:
+    "One public or private windows path that represents a file or folder"
+    return m
+
+
 @mod.action_class
 class Actions:
     def path_traverse(num: int) -> str:
@@ -391,7 +422,15 @@ class Actions:
         """Get the current working directory of the app"""
         return ""
 
-    def path_folder(path: str) -> str:
+    def path_folder(path: str, index: int) -> str:
         """Get the folder part of the given path"""
         path = pathlib.Path(path)
-        return str(path.parent)
+        if index == -1:
+            return str(path.parent)
+        # Don't count / as a parent, so subtract 1
+        parents = len(list(path.parents)) - 1
+        if index >= parents:
+            return str(path)
+        # Count left to right, so we need to subtract
+        # 0-based index, so subtract 1
+        return str(path.parents[parents - index - 1])

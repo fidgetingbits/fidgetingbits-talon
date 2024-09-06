@@ -27,10 +27,12 @@ tag: user.git
 <user.git> add <user.git_modified_files>:
     edit.delete_line()
     "git add {git_modified_files}"
-<user.git> add base <user.git_modified_files>:
+# FIXME: This should be wrapped in some sort of generic path capture that supports base
+<user.git> add base [<number>] <user.git_modified_files>:
     edit.delete_line()
     insert("git add ")
-    insert(user.path_folder(git_modified_files))
+    index = number or -1
+    insert(user.path_folder(git_modified_files, index))
 
 <user.git> add untracked <user.git_untracked_files>:
     edit.delete_line()
