@@ -148,24 +148,31 @@ file list [sym] links: 'find . -maxdepth 1 -type l -printf "%f\\n"\n'
 # find
 file find:
     user.insert_between('find . -name "", "" 2>/dev/null')
-file find file:
+file find file [<user.word>]:
     user.insert_between('find . -type f -name "", "" 2>/dev/null')
-file find folder:
+    insert(word or "")
+file find folder [<user.word>]:
     user.insert_between('find . -type d -name "", "" 2>/dev/null')
+    insert(word or "")
 # case insensitive fuzzy find
-file fuzzy find:
+file fuzzy find [<user.word>]:
     user.insert_between('find . -iname "*', '*" 2>/dev/null')
+    insert(word or "")
 file fuzzy hash:
     user.insert_between('find . -path "*", "*" -exec sha256sum {{}} \\; 2>/dev/null')
 
-file fuzzy find depth <number>:
+file fuzzy find depth <number> [<user.word>]:
     user.insert_between('find . -maxdepth {number} -iname "*", "*" 2>/dev/null')
-(file fuzzy find folder | folder fuzzy find):
+    insert(word or "")
+(file fuzzy find folder | folder fuzzy find) [<user.word>]:
     user.insert_between('find . -type d -iname "*", "*" 2>/dev/null')
-(file fuzzy find folder | folder fuzzy find) depth <number>:
+    insert(word or "")
+(file fuzzy find folder | folder fuzzy find) depth <number> [<user.word>]:
     user.insert_between('find . -maxdepth {number} -type d -iname "*", "*" 2>/dev/null')
-file fuzzy find today:
+    insert(word or "")
+file fuzzy find today [<user.word>]:
     user.insert_between('find . -mtime -1 -name "*", "*" 2>/dev/null')
+    insert(word or "")
 file fuzzy find at clip:
     insert("find ")
     user.paste_without_new_lines()
@@ -749,9 +756,13 @@ python three nine env: "virtualenv -p python3.9 py39"
     snake = user.formatted_text(text or "", "ALL_CAPS,SNAKE_CASE")
     insert(snake)
 (environment|variable|able) show: "echo $"
-
-set var {user.environment_variables}: "export {environment_variables}="
-put var {user.environment_variables}: "${{{environment_variables}}}"
+able prefix <user.text>:
+    edit.line_start()
+    snake = user.formatted_text(text or "", "ALL_CAPS,SNAKE_CASE")
+    insert(snake)
+    insert("=")
+able set {user.environment_variables}: "export {environment_variables}="
+able put {user.environment_variables}: "${{{environment_variables}}}"
 
 # Custom utility stuff
 bat cache build: "bat cache --build\n"
@@ -944,3 +955,11 @@ P E bear: "PE-bear"
 run wine shell:
     edit.delete_line()
     insert("WINEDEBUG=-all wine64 cmd\n")
+
+run wine command:
+    edit.delete_line()
+    user.insert_between("WINEDEBUG=-all wine64 cmd /c \"", "\"")
+
+run zsh:
+    edit.delete_line()
+    insert("zsh\n")
