@@ -148,9 +148,21 @@ file list [sym] links: 'find . -maxdepth 1 -type l -printf "%f\\n"\n'
 # find
 file find:
     user.insert_between('find . -name "", "" 2>/dev/null')
+file find clip:
+    insert("find . -name ")
+    user.paste_without_new_lines()
+    key(enter)
+file find file clip:
+    insert("find . -type f -name ")
+    user.paste_without_new_lines()
+    key(enter)
 file find file [<user.word>]:
     user.insert_between('find . -type f -name "", "" 2>/dev/null')
     insert(word or "")
+file find folder clip:
+    insert("find . -type d -name ")
+    user.paste_without_new_lines()
+    key(enter)
 file find folder [<user.word>]:
     user.insert_between('find . -type d -name "", "" 2>/dev/null')
     insert(word or "")
