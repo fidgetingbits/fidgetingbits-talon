@@ -1,10 +1,9 @@
-- [fidgetingbits Talon Repo](#fidgetingbits-talon-repo)
-- [My Setup](#my-setup)
-  - [Arch Linux](#arch-linux)
-  - [NixOS](#nixos)
-  - [Mac](#mac)
+# fidgetingbits' Talon Repo
+
+- [fidgetingbits' Talon Repo](#fidgetingbits-talon-repo)
   - [Interesting features](#interesting-features)
   - [Other stuff](#other-stuff)
+  - [Deprecated Features](#deprecated-features)
   - [WARNING](#warning)
   - [Dependencies](#dependencies)
     - [Monkey Patching](#monkey-patching)
@@ -12,16 +11,14 @@
   - [Recommendations](#recommendations)
   - [Pull requests](#pull-requests)
 
-# fidgetingbits Talon Repo
-
 Please read the WARNING section before you use this repo, as using some of
 the stuff I have may break your talon experience as I only test this repo on my
 own environment, and you should avoid reporting these problems to aegis or
 talon, without first validating that a repo like
 [community](https://github.com/talonhub/community) works properly first.
 
-This repo is fairly thoroughly tested on both Linux (i3wm and Gnome) and Mac
-(Sonoma). Linux functionality has only been tested on Arch Linux and NixOS.
+This repo is fairly thoroughly tested on both Linux (i3wm and Gnome) and Mac (Sonoma). Linux functionality was
+originally built for Arch Linux, but now is only ever tested on NixOS.
 
 I use the beta version of Talon so this may result in errors related to
 functionality if you aren't using it. I highly recommend paying for beta on
@@ -30,27 +27,33 @@ functionality if you aren't using it. I highly recommend paying for beta on
 In general I try to keep merging the core features from knausj_talon repo, but
 sometimes it might be months behind.
 
-# My Setup
-
-## Arch Linux
-
-## NixOS
-
-## Mac
-
 ## Interesting features
 
-Following in the steps of [Andreas
-Arvidsson](https://github.com/AndreasArvidsson/andreas-talon) the following is
-a list of interesting stuff in is repo that you might want take.
+Following in the steps of [Andreas Arvidsson](https://github.com/AndreasArvidsson/andreas-talon) the following is a list
+of interesting things you will find in is repo that you can take/reuse, that hasn't been added to community yet. I'd
+love to add most of it, but have never found the time.
 
-1. _vim_ The main feature I added that most people come to this repo for is vim support.
-   See `apps/vim/` for more details.
+- _types support_ - I have language tab support for types that I use to help me dictate rust/C types more easily
+- _package manager support_ -
+- _zle_ -
+- _tag pinning_ -
+- _vscode plugin scope_ -
+- _service manager support_ -
 
 ## Other stuff
 
-1. _run_talon.sh_ A [script](https://gist.github.com/fidgetingbits/cfc1699da2e8a60533db6c4cfdf390c3) I use to run talon that auto-restarts on stalls.
-2. _talon-python-command-server_ - Talon file-based [RPC server](https://github.com/fidgetingbits/talon-python-command-server)
+- _vim support_ - The main feature most people were using was my vim support. This is now split between
+   [neovim-talon](https://github.com/hands-free-vim/neovim-talon/tree/main) and my own
+   [talon-vim](https://github.com/fidgetingbits/talon-vim) repo, where neovim-talon occasionally lifts parts from..
+- _systemd user services_ - I use a systemd user service and watchdog to launch Talon on login, and also restart it if
+  it stalls. See [here](https://gist.github.com/fidgetingbits/a9c9d4786dd28c0f5224071280edfb66)
+- _talon-python-command-server_ - Talon file-based [RPC server](https://github.com/fidgetingbits/talon-python-command-server)
+- _talon-shotbox_ - A [screenshot tool](https://github.com/fidgetingbits/talon-shotbox) that allows you to select
+  regions of screen by voice. A bit rough around the edges, but usable. Inspired by flameshot on Linux.
+
+## Deprecated Features
+
+- _run_talon.sh_ A [script](https://gist.github.com/fidgetingbits/cfc1699da2e8a60533db6c4cfdf390c3) I use to run talon that auto-restarts on stalls. (NOTE: I not longer use this since moving to NixOS)
 
 ## WARNING
 
