@@ -239,6 +239,8 @@ tag: user.git
 <user.git> diff (colour | color) words:
     edit.delete_line()
     "git diff --color-words "
+# REMINDER: This exists instead of a optional [<user.git_modified_files>] because sometimes I literally want to say
+# git diff and just end up with git diff with no arguments yet
 <user.git> (doll|diff all):
     edit.delete_line()
     "git diff\n"
