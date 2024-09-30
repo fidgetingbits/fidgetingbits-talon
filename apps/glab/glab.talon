@@ -42,6 +42,9 @@ gitlab project view [{user.gitlab_server}] [{user.gitlab_namespace}]:
     insert(gitlab_namespace or "")
 gitlab project {user.gitlab_namespace} (create|new): "glab project create -p -g {gitlab_namespace} "
 
+gitlab group list [{user.gitlab_server}]:
+    if gitlab_server: insert("GITLAB_HOST=https://{gitlab_server} ")
+    insert("glab api groups | jq -r '.[].name'")
 
 # issue
 gitlab issue list help: "glab issue list --help\n"
