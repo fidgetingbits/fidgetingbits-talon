@@ -16,6 +16,7 @@ DRIVE = "drive"
 # FIXME: Maybe move this elsewhere.. used for cd in terminal
 GO = "pivot"
 HISTORY = "(history|atuin)"
+VPN = "V P N"
 
 
 @mod.capture(rule=SELECT)
@@ -69,4 +70,10 @@ def drive(m) -> str:
 @mod.capture(rule=HISTORY)
 def history(m) -> str:
     """Verb to use for commands that deal with shell history"""
+    return str(m)
+
+
+@mod.capture(rule=VPN)
+def vpn(m) -> str:
+    """Verb to use for commands that deal with global vpn connections"""
     return str(m)

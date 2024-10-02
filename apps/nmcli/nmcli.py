@@ -2,7 +2,7 @@ import os
 import subprocess
 import shlex
 
-from talon import Context, Module, actions, system
+from talon import Context, Module, actions, system, imgui, registry
 
 mod = Module()
 ctx = Context()
@@ -12,20 +12,47 @@ os: linux
 """
 
 mod.list("nmcli_vpns", desc="Configure network manager vpn connections")
+mod.tag(
+    "nmcli_vpns_gui_active",
+    desc="Active when the vpn picker GUI is showing",
+)
 
 
-@ctx.dynamic_list("user.nmcli_vpns")
-def user_nmcli_vpns(m) -> dict[str, str]:
-    """A dynamic list of VPN connections"""
+def get_vpn_list():
     output = subprocess.check_output(
         ("bash", "-c", "nmcli -t -f NAME,TYPE connection show | rg vpn | cut -f1 -d:"),
         text=True,
     )
     if not output:
-        print("no output")
+        return None
+    return output.splitlines()
+
+
+@imgui.open()
+def gui_vpns(gui: imgui.GUI):
+    gui.text("NetworkManager VPNs")
+    gui.line()
+
+    vpn_list = get_vpn_list()
+    if not vpn_list:
+        gui.text("No VPNs found")
+    else:
+        for vpn in vpn_list:
+            gui.text(vpn)
+
+    gui.spacer()
+    if gui.button("V P N hide (close window)"):
+        actions.user.nmcli_connection_toggle_list()
+
+
+@ctx.dynamic_list("user.nmcli_vpns")
+def user_nmcli_vpns(m) -> dict[str, str]:
+    """A dynamic list of VPN connections"""
+    vpn_list = get_vpn_list()
+    if not vpn_list:
         return {}
 
-    return actions.user.create_spoken_forms_from_list(output.splitlines())
+    return actions.user.create_spoken_forms_from_list(vpn_list)
 
 
 @mod.action_class
@@ -64,3 +91,12 @@ class NetworkManagerClientActions:
         args = shlex.split(f"bash -c 'nmcli con down {name}'")
         cmd, args = args[0], args[1:]
         system.launch(path=cmd, args=args)
+
+    def nmcli_connection_toggle_list():
+        """Display the detected VPN connections"""
+        if gui_vpns.showing:
+            gui_vpns.hide()
+            ctx.tags = []
+        else:
+            gui_vpns.show()
+            ctx.tags = ["user.nmcli_vpns_gui_active"]
