@@ -48,7 +48,9 @@ gitlab group list [{user.gitlab_server}]:
 
 # issue
 gitlab issue list help: "glab issue list --help\n"
-gitlab issue list: "glab issue list\n"
+gitlab issue list [{user.gitlab_server}]:
+    if gitlab_server: insert("GITLAB_HOST=https://{gitlab_server} ")
+    insert("glab issue list")
 
 gitlab put {user.gitlab_server}: "{gitlab_server}"
 gitlab put host var {user.gitlab_server}: insert("GITLAB_HOST=https://{gitlab_server}")
