@@ -1,3 +1,7 @@
+# I don't like the behavior of some of the defaults zsh movements, so I use zsh-edit bindings so I can
+# use -subword binds
+# https://github.com/marlonrichert/zsh-edit/blob/113a0d53919c4866a1492574592eccafacdabe0b/functions/zsh-edit#L49
+
 import subprocess
 import pprint
 from talon import Module, Context, actions
@@ -47,9 +51,9 @@ def _read_zle_keymap():
 
     global zle_keymap
 
-    # FIXME(zsh): I'm not entirely clear why I have to source this file still, better works
+    # FIXME(zsh): I'm not entirely clear why I have to source this file still, but it works
     output = subprocess.check_output(
-        ("zsh", "-ic", "source ~/.config/zsh/.zshrc; bindkey")
+        ("zsh", "-ic", "source ~/.config/zsh/wh/.zshrc; bindkey")
     ).decode("utf-8")
     print(output)
     for line in output.split("\n"):
@@ -176,10 +180,10 @@ class UserActions:
         _trigger_keys("kill-line")
 
     def delete_word_short_right():
-        _trigger_keys("kill-word")
+        _trigger_keys("kill-subword")
 
     def delete_word_short_left():
-        _trigger_keys("backward-kill-word")
+        _trigger_keys("backward-kill-subword")
 
     def delete_word_long_right():
         # There's no native zsh command for this, so we'll leverage marks
@@ -201,10 +205,10 @@ class UserActions:
     ##
 
     def word_short_left():
-        _trigger_keys("backward-word")
+        _trigger_keys("backward-subword")
 
     def word_short_right():
-        _trigger_keys("forward-word")
+        _trigger_keys("forward-subword")
 
     def word_long_left():
         _trigger_keys("vi-backward-blank-word")

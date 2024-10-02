@@ -8,7 +8,7 @@ tag(): user.zsh_zhooks
 
 # XXX - should be generic shell command
 # zsh commands
-reload shell config: "source ~/.zshrc\n"
+(source|reload) (zsh|shell) config: "source ~/.config/zsh/.zshrc\n"
 
 # XXX - This functionality is disabled for now
 #^<user.zsh_completion>:
