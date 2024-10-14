@@ -140,15 +140,6 @@ os: linux
 and app.name: "draw.io"
 """
 
-apps.ida = """
-os: linux
-and app.name: IDA
-"""
-
-apps.hexrays_vault = """
-win.title:/IDA Teams/
-"""
-
 apps.microsoft_teams = """
 os: linux
 and app.name: Teams
