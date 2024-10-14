@@ -11,6 +11,14 @@ mod.setting(
     desc="the number of opcodes to automatically set when toggling",
 )
 ctx = Context()
+mod.apps.ida = """
+os: linux
+and app.name: IDA
+"""
+
+mod.apps.hexrays_vault = """
+win.title:/IDA Teams/
+"""
 
 ctx.matches = r"""
 app: ida
