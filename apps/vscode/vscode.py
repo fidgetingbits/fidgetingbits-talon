@@ -163,6 +163,7 @@ class WinActions:
         # rid of dirty, and other prefixed content, assumes splitting on a
         # space is enough.
         result = title.split(separator)[0].split(" ")[-1]
+        # print(f"filename: {result}")
         return result
 
 

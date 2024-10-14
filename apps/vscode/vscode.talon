@@ -165,6 +165,12 @@ file delete:
 file open current folder: user.vscode("revealFileInOS")
 file reveal: user.vscode("workbench.files.action.showActiveFileInExplorer")
 folder open: user.vscode("workbench.action.files.openFolder")
+folder open clip:
+    user.vscode("workbench.action.files.openFolder")
+    sleep(150ms)
+    # Likely *nix only
+    key('/')
+    edit.paste()
 
 # Saving
 disk:
