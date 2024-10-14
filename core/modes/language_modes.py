@@ -122,11 +122,16 @@ forced_language = ""
 class CodeActions:
     def language():
         file_name = actions.win.filename()
+        if not len(file_name):
+            return ""
         if file_name in special_file_map:
             return special_file_map[file_name]
 
         file_extension = actions.win.file_ext()
-        return extension_lang_map.get(file_extension, "")
+        lang = extension_lang_map.get(file_extension, "")
+        # if not len(lang):
+        #     print(f"WARNING: No language found for extension {file_extension}")
+        return lang
 
 
 @ctx_forced.action_class("code")
