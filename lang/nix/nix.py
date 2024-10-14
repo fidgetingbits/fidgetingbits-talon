@@ -116,6 +116,7 @@ builtin_functions = {
     "path length": "pathLength",
     "placeholder": "placeholder",
     "read directory": "readDir",
+    "read dir": "readDir",
     "read file": "readFile",
     "remove attributes": "removeAttrs",
     "replace strings": "replaceStrings",
