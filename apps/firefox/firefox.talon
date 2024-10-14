@@ -45,3 +45,9 @@ accept certificate:
     sleep(2s)
     key(tab:2)
     key(enter)
+
+preview that:
+    browser.focus_address()
+    key(home)
+    insert("https://htmlpreview.github.io/?")
+    key(end enter)
