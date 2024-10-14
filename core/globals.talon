@@ -20,7 +20,10 @@ blue tooth connect:
     key(enter)
 
 customize ({user.talon_settings_csv} | <user.file_paths_string>):
-    user.edit_text_file(talon_settings_csv or file_paths_string)
+    path = talon_settings_csv or file_paths_string
+    user.system_command_nb("code " + path)
+    # FIXME: Need to modify code.desktop to not open preexisting window before you switch back to this
+    # user.edit_text_file(talon_settings_csv or file_paths_string)
     sleep(500ms)
     edit.file_end()
 
