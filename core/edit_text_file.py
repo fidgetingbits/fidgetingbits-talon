@@ -6,7 +6,7 @@ from pathlib import Path
 
 from talon import Context, Module, actions, app
 
-# path to community/knausj root directory
+# path to community root directory
 REPO_DIR = os.path.dirname(os.path.dirname(__file__))
 SETTINGS_DIR = os.path.join(REPO_DIR, "settings")
 CURSORLESS_SETTINGS_DIR = os.path.join(SETTINGS_DIR, "cursorless-settings")
