@@ -17,7 +17,9 @@ tag(): user.nmcli
 tag(): user.package_manager
 tag(): user.tracing_strace
 
-file open: "xdg-open "
+file open [<user.zsh_file_completions>]:
+    insert("xdg-open ")
+    if zsh_file_completions: insert("{zsh_file_completions}\n")
 
 file hash: "sha256sum "
 file hash five twelve: "sha512sum "

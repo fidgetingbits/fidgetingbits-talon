@@ -48,6 +48,7 @@ tag(): user.qcow2
 tag(): user.borg
 tag(): user.atuin
 tag(): user.cyberpower-pdu
+tag(): user.pip
 
 # Shell commands
 
@@ -131,7 +132,9 @@ file list (folders | directories): "ls -d */\n"
 file list (folders | directories) long: "ls -ld */\n"
 file list (runnable | executable): "find . -type f -executable\n"
 file strings: "strings "
-file (tail | follow): "tail -f "
+file (tail | follow) [<user.zsh_file_completions>]:
+    insert("tail -f ")
+    insert(zsh_file_completions or "")
 file (count lines | line count): "wc -l "
 file list <user.letter>: 'find . -maxdepth 1 -name "{letter}*" -ls\n'
 file fuzzy list <user.text>: 'find . -maxdepth 1 -name "*{text}*" -ls\n'
@@ -739,17 +742,6 @@ errors ignore: "2>/dev/null"
 [file] elf exports: user.insert_between("nm -D --demangle ", "| rg ' T '")
 
 ###
-# Python
-###
-(pie | python) new [virtual] (env | environment): "python -m venv env"
-python module: "python -m "
-python (activate | enter) [env | environment]: "source env/bin/activate\n"
-python (deactivate | leave) [env | environment]: "deactivate\n"
-
-python three eight env: "virtualenv -p python3.8 py38"
-python three nine env: "virtualenv -p python3.9 py39"
-
-###
 # Version stuff
 ###
 (cis | system) I D: "id\n"
@@ -960,7 +952,8 @@ file U U encode [<user.zsh_file_completion>]:
     insert("uuencode ")
     insert(zsh_file_completion or "")
 
-link tree: user.insert_between("linktree $(which ", ")")
+link tree [<user.text>]:
+    user.insert_between("linktree $(which {text or ''}", ")")
 
 link tree clip:
     insert("linktree $(which ")
