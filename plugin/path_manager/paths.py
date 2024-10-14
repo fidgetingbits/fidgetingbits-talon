@@ -3,6 +3,7 @@ from talon import Context, Module, app
 
 mod = Module()
 mod.list("common_files", desc="Common file names")
+mod.list("common_folders", desc="Common folder names")
 mod.list("common_extension_pairs", desc="Common file extension pairs")
 mod.list("paths_public", desc="Common public paths")
 mod.list("paths_private", desc="Common private paths")
@@ -39,6 +40,7 @@ nix_folder_paths = {
     "nix running bin": "/run/current-system/sw/bin/",
     "nix global bin": "/nix/var/nix/profiles/default/bin",
     "sops secrets": "/var/run/secrets/",
+    "sops home secrets": "~/.config/sops-nix/secrets/",
 }
 
 # paths that will work with pivot command
@@ -140,6 +142,7 @@ unix_folder_paths = {
     "kitty": "~/.config/kitty/",
     "python sight packages": "/usr/lib/python3.10/site-packages",
     "dot config": "~/.config/",
+    "home config": "~/.config/",
     "apache": "/etc/apache2/",
     "apache sites": "/etc/apache2/sites-available/",
     "apache sites enabled": "/etc/apache2/sites-enabled/",
@@ -149,6 +152,7 @@ unix_folder_paths = {
     "code extensions": "~/.vscode/extensions/",
     "talon completions": "$XDG_RUNTIME_DIR/talon/cache/completions/",
     "qemu images": "/var/lib/libvirt/images/",
+    "ghidra": "~/.config/ghidra/latest/",  # latest is symlink to current version
 }
 
 mac_folder_paths = {}
@@ -233,6 +237,7 @@ unix_file_paths = {
     "S S M T P config": "/etc/ssmtp/ssmtp.conf",
     "root mount": "/mnt",
     "G lab config": "~/.config/glab/config.yml",
+    "ghidra log": "~/.config/ghidra/latest/application.log",  # latest is symlink to current version
 }
 
 mac_file_paths = {}
@@ -324,6 +329,10 @@ ctx.lists["user.common_files"] = {
     "docker compose": "docker-compose.yml",
     "package json": "package.json",
     "yarn lock": "yarn.lock",
+}
+
+ctx.lists["user.common_folders"] = {
+    "pie cache": "__pycache__",
 }
 
 
@@ -424,13 +433,13 @@ class Actions:
 
     def path_folder(path: str, index: int) -> str:
         """Get the folder part of the given path"""
-        path = pathlib.Path(path)
+        folder = pathlib.Path(path)
         if index == -1:
-            return str(path.parent)
+            return str(folder.parent)
         # Don't count / as a parent, so subtract 1
-        parents = len(list(path.parents)) - 1
+        parents = len(list(folder.parents)) - 1
         if index >= parents:
-            return str(path)
+            return str(folder)
         # Count left to right, so we need to subtract
         # 0-based index, so subtract 1
-        return str(path.parents[parents - index - 1])
+        return str(folder.parents[parents - index - 1])
