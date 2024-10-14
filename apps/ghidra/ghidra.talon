@@ -1,5 +1,5 @@
 os: linux
-app: Ghidra
+app: ghidra
 -
 
 new project: key(ctrl-n)
