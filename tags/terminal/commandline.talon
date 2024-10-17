@@ -188,7 +188,7 @@ file fuzzy find depth <number> [<user.word>]:
 file fuzzy find today [<user.word>]:
     user.insert_between('find . -mtime -1 -name "*", "*" 2>/dev/null')
     insert(word or "")
-file fuzzy find at clip:
+file fuzzy find (at|in) clip:
     insert("find ")
     user.paste_without_new_lines()
     user.insert_between(' -iname "*", "*" 2>/dev/null')
