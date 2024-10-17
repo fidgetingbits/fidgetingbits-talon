@@ -20,12 +20,13 @@ class Actions:
     def desktop_show():
         actions.key("super")
 
-    def window_move_desktop(desktop_number: int):
+    def window_move_desktop(desktop_number: int, follow: bool = True):
         ui.active_window().workspace = desktop_number
-        actions.user.desktop(desktop_number)
+        if follow:
+            actions.user.desktop(desktop_number)
 
-    def window_move_desktop_left():
-        actions.user.window_move_desktop(ui.active_workspace() - 1)
+    def window_move_desktop_left(follow: bool = True):
+        actions.user.window_move_desktop(ui.active_workspace() - 1, follow)
 
-    def window_move_desktop_right():
-        actions.user.window_move_desktop(ui.active_workspace() + 1)
+    def window_move_desktop_right(follow: bool = True):
+        actions.user.window_move_desktop(ui.active_workspace() + 1, follow)

@@ -21,14 +21,14 @@ class Actions:
         """move to previous desktop"""
         app.notify("Not supported on this operating system")
 
-    def window_move_desktop_left():
+    def window_move_desktop_left(follow: bool):
         """move the current window to the desktop to the left"""
         app.notify("Not supported on this operating system")
 
-    def window_move_desktop_right():
+    def window_move_desktop_right(follow: bool):
         """move the current window to the desktop to the right"""
         app.notify("Not supported on this operating system")
 
-    def window_move_desktop(desktop_number: int):
+    def window_move_desktop(desktop_number: int, follow: bool):
         """move the current window to a different desktop"""
         app.notify("Not supported on this operating system")
