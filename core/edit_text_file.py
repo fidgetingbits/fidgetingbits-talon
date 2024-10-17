@@ -81,11 +81,12 @@ class LinuxActions:
         # we use xdg-open for this even though it might not open a text
         # editor. we could use $EDITOR, but that might be something that
         # requires a terminal (eg nano, vi).
-        open_cmd = shutil.which("xdg-open")
+        # open_cmd = shutil.which("xdg-open")
+        open_cmd = shutil.which("code")
         if not open_cmd:
             app.notify("xdg-open is not available, cannot open file for editing.")
             return
-        open_with_subprocess(path, [open_cmd, Path(path).expanduser().absolute()])
+        open_with_subprocess(path, [open_cmd, "-r", Path(path).expanduser().absolute()])
 
 
 # Helper for linux and mac.
