@@ -152,7 +152,10 @@ unix_folder_paths = {
     "code extensions": "~/.vscode/extensions/",
     "talon completions": "$XDG_RUNTIME_DIR/talon/cache/completions/",
     "qemu images": "/var/lib/libvirt/images/",
-    "ghidra": "~/.config/ghidra/latest/",  # latest is symlink to current version
+    "ghidra latest": "~/.config/ghidra/latest/",  # latest is symlink to current version
+    "ghidra config": "~/.config/ghidra",
+    "ghidra scripts": "~/.config/ghidra/scripts/",
+    "ghidra projects": "~/.config/ghidra/repos/",
 }
 
 mac_folder_paths = {}
@@ -244,7 +247,12 @@ mac_file_paths = {}
 linux_file_paths = {}
 arch_linux_file_paths = {}
 windows_file_paths = {}
-
+nix_file_paths = {
+    # < 23.11
+    "home temp files": "~/.config/user-tmpfiles.d/home-manager.conf",
+    # >= 23.11
+    # "home temp files": "~/.local/share/user-tmpfiles.d/home-manager.conf",
+}
 
 # XXX - add support for selecting
 windows_folder_paths = {
@@ -281,6 +289,7 @@ elif app.platform == "linux":
         **linux_file_paths,
         **arch_linux_file_paths,
         **neovim_file_paths,
+        **nix_file_paths,
     }
 else:
     folder_paths = {**unix_folder_paths, **nix_folder_paths}
