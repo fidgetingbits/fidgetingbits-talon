@@ -182,6 +182,7 @@ paste line end: user.paste_line_end()
 paste word: user.paste_word()
 
 (pasty|paste that): edit.paste()
+paste clean: user.paste_without_new_lines()
 
 # This should just be some sort of function with arg to specify the symbol
 paste in quotes:
