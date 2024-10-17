@@ -138,11 +138,20 @@ def run_command(
     args = [x for x in args if x is not NotSet]
 
     communication_dir_path = get_communication_dir_path()
+    if not communication_dir_path:
+        raise Exception("Communication directory was undefined")
 
     if not communication_dir_path.exists():
-        if args or return_command_output:
-            raise Exception("Must use command-server extension for advanced commands")
-        raise NoFileServerException("Communication directory not found")
+        # Some IPC servers may not actually be full blown plugins that can pre create the directory prior to initial
+        # communication. In this case, we'll just create the directory here.
+        communication_dir_path.mkdir(parents=True, exist_ok=True)
+        # if args or return_command_output:
+        #     raise Exception(
+        #         f"Must use a corresponding command-server extension on target software for advanced commands. Communication directory {communication_dir_path} not found"
+        #     )
+        # raise NoFileServerException(
+        #     f"Communication directory {communication_dir_path} not found"
+        # )
 
     request_path = communication_dir_path / "request.json"
     response_path = communication_dir_path / "response.json"
