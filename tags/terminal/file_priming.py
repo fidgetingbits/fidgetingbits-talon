@@ -12,6 +12,13 @@ os: linux
 app: terminal
 """
 
+
+@mod.capture(rule="file prime")
+def file_prime(m) -> str:
+    """Term for priming file from templates"""
+    return str(m)
+
+
 # https://github.com/the-nix-way/dev-templates
 ctx.lists["user.nix_way_template_languages"] = {
     "bun": "bun",
@@ -39,6 +46,7 @@ ctx.lists["user.nix_way_template_languages"] = {
     "proto buf": "protobuf",
     "pulumi": "pulumi",
     "purescript": "purescript",
+    "python": "python",
     "r": "r",
     "ruby": "ruby",
     "rust": "rust",
