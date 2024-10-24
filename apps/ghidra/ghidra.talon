@@ -9,3 +9,5 @@ save project: key(ctrl-s)
 exit ghidra: key(ctrl-q)
 
 # automation
+
+ghidra test: user.run_rpc_command("test", "foo")
