@@ -220,6 +220,22 @@ tag: user.git
     "git commit -m\n"
     key(enter)
 
+
+<user.git> config:
+    edit.delete_line()
+    "git config "
+<user.git> config list:
+    edit.delete_line()
+    "git config --list\n"
+# <user.git> config ignore untracked:
+#     edit.delete_line()
+#     user.insert_between('git config -f .gitmodules submodule.', '.ignore untracked')
+<user.git> module ignore untracked [{user.git_submodule}]:
+    edit.delete_line()
+    # FIXME: It would be ideal if we could find the path to get module on the fly so this doesn't have to be from the root
+    user.insert_between('git config -f .gitmodules submodule.', '.ignore untracked')
+    insert(git_submodule or "")
+
 ##
 # diff
 ##

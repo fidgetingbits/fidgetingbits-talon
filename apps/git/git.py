@@ -87,6 +87,7 @@ mod.list("git_remote", desc="Remotes in the current git repository.")
 mod.list("git_modified_file", desc="Git tracked files that have been modified")
 mod.list("git_untracked_file", desc="Git untracked files")
 mod.list("git_staged_file", desc="Git tracked files that have been staged")
+mod.list("git_submodule", desc="Git submodules in current repository")
 
 
 def git_status():
@@ -295,3 +296,23 @@ def git_remote(m) -> str:
 def git_remotes(m) -> str:
     """Returns one or more git remotes"""
     return " ".join([str(s) for s in m.git_remote_list])
+
+
+@ctx.dynamic_list("user.git_submodule")
+def user_git_submodule(m) -> dict[str, str]:
+    """A dynamic list of untracked git files"""
+
+    submodules = {}
+    output = subprocess.check_output(
+        ("git", "ls-files", "--stage"), cwd=actions.user.get_cwd()
+    ).decode("utf-8")
+    if not output:
+        return {}
+    print(output)
+    for line in output.splitlines():
+        if line.startswith("160000 "):
+            # eg: tools/foobar
+            path = line.split()[-1]
+            submodules[path.split("/")[-1]] = path
+
+    return actions.user.create_spoken_forms_from_map(submodules)
