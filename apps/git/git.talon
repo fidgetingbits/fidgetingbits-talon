@@ -78,7 +78,6 @@ tag: user.git
     edit.delete_line()
     "git push origin --delete "
 <user.git> branch remove remote clip:
-
     edit.delete_line()
     "git push origin --delete "
     edit.paste()
@@ -99,29 +98,24 @@ tag: user.git
     edit.delete_line()
     "git checkout "
 <user.git> checkout <user.git_branch>:
-
     edit.delete_line()
     insert("git checkout {git_branch}\n")
 <user.git> checkout file <user.git_branch>:
-
     edit.delete_line()
     insert("git checkout {git_branch} -- ")
 <user.git> checkout <user.git_tag>:
     edit.delete_line()
     "git checkout {git_tag}"
 <user.git> checkout upstream (main | men):
-
     edit.delete_line()
     insert("git checkout upstream/main\n")
 <user.git> checkout <number_small> before clip:
-
     edit.delete_line()
     insert("git checkout ")
     edit.paste()
     key("^:{number_small}")
     key(enter)
 <user.git> checkout clip:
-
     edit.delete_line()
     insert("git checkout ")
     edit.paste()
@@ -148,7 +142,6 @@ tag: user.git
     edit.delete_line()
     "git clone "
 <user.git> clone clip:
-
     edit.delete_line()
     insert("git clone ")
     edit.paste()
@@ -157,7 +150,6 @@ tag: user.git
     edit.delete_line()
     "git clone --depth {number} "
 <user.git> clone depth <number> clip:
-
     edit.delete_line()
     insert("git clone --depth {number} ")
     edit.paste()
@@ -185,23 +177,18 @@ tag: user.git
 #     edit.delete_line()
 #     insert(user.insert_between('git commit -m "{git_conventional_commits}({word}): ', '"'))
 <user.git> (commit|calm) [message] <user.git_conventional_commits> <user.text>:
-
     edit.delete_line()
     user.insert_between('git commit -m "{git_conventional_commits}{text}', '"')
 <user.git> (commit|calm) [message]:
-
     edit.delete_line()
     user.insert_between('git commit -m "', '"')
 <user.git> (commit|calm) empty:
-
     edit.delete_line()
     insert("git commit\n")
 <user.git> (commit|calm) amend:
-
     edit.delete_line()
     "git commit --amend "
 <user.git> (commit|calm) amend no edit:
-
     edit.delete_line()
     "git commit --amend --no-edit\n"
 <user.git> (commit|calm) no verify:
@@ -304,17 +291,14 @@ tag: user.git
     edit.delete_line()
     "git fetch origin pull/{number}/head:"
 <user.git> fetch (pull [request]| P R) clip:
-
     edit.delete_line()
     insert("git fetch origin pull/")
     edit.paste()
     insert("/head:")
 <user.git> fetch <user.git_remote> (pull [request]| P R) <number>:
-
     edit.delete_line()
     "git fetch {git_remote} pull/{number}/head:"
 <user.git> fetch <user.git_remote> (pull [request]| P R) clip:
-
     edit.delete_line()
     insert("git fetch {git_remote} pull/")
     edit.paste()
@@ -446,7 +430,6 @@ tag: user.git
     edit.delete_line()
     "git pull origin pull/{number}/head:"
 <user.git> merge upstream pull request:
-
     edit.delete_line()
     user.insert_between("git pull upstream pull/", "/head:")
 <user.git> merge upstream pull request <number>:
@@ -465,7 +448,6 @@ tag: user.git
     edit.delete_line()
     "git merge -X theirs "
 <user.git> merge clip:
-
     edit.delete_line()
     insert("git merge ")
     edit.paste()
@@ -510,8 +492,12 @@ tag: user.git
 <user.git> push <user.git_remote>:
     edit.delete_line()
     "git push {git_remote} "
-<user.git> push [to] up stream <user.git_remote> [<user.git_branch>]:
+<user.git> push mirror [<user.git_remote>]:
+    edit.delete_line()
+    insert("git push --mirror ")
+    insert(git_remote or "")
 
+<user.git> push [to] up stream <user.git_remote> [<user.git_branch>]:
     edit.delete_line()
     insert("git push -u {git_remote} ")
     insert(git_branch or "")
@@ -572,7 +558,6 @@ tag: user.git
     edit.delete_line()
     "git remote rm origin"
 
-
 <user.git> reset:
     edit.delete_line()
     "git reset "
@@ -597,7 +582,6 @@ tag: user.git
     edit.delete_line()
     "git reset --soft $(git merge-base {git_branch} HEAD)"
 
-
 <user.git> restore:
     edit.delete_line()
     "git restore "
@@ -609,10 +593,8 @@ tag: user.git
     edit.delete_line()
     "git restore --staged "
 <user.git> restore staged <user.git_staged_files>:
-
     edit.delete_line()
     insert("git restore --staged {git_staged_files}")
-
 
 # Purposefully no \n because it is destructive
 <user.git> restore all:
@@ -636,7 +618,6 @@ get remote set origin:
     edit.delete_line()
     "git remote "
 <user.git> remote add [<user.text>]:
-
     edit.delete_line()
     insert("git remote add ")
     insert(text or "")
@@ -652,13 +633,11 @@ get remote set origin:
 <user.git> remote set url:
     edit.delete_line()
     "git remote set-url "
-<user.git> remote remove [<user.git_remotes>]:
-
+<user.git> remote (remove|delete) [<user.git_remotes>]:
     edit.delete_line()
-    insert("git remote remove ")
+    insert("git remote rm ")
     insert(git_remotes or "")
 <user.git> remote rename [<user.git_remote>]:
-
     edit.delete_line()
     insert("git remote rename ")
     insert(git_remote or "")
@@ -670,7 +649,6 @@ get remote set origin:
     edit.delete_line()
     "git revert "
 <user.git> revert clip:
-
     edit.delete_line()
     insert("git revert ")
     edit.paste()
@@ -679,7 +657,6 @@ get remote set origin:
     edit.delete_line()
     "git show "
 <user.git> show clip:
-
     edit.delete_line()
     insert("git show ")
     edit.paste()
@@ -688,7 +665,6 @@ get remote set origin:
     edit.delete_line()
     "git show -c"
 <user.git> show (code | change) clip:
-
     edit.delete_line()
     insert("git show -c")
     edit.paste()
@@ -703,7 +679,6 @@ get remote set origin:
     edit.delete_line()
     "git show --name-status "
 <user.git> show names clip:
-
     edit.delete_line()
     insert("git show --name-status ")
     edit.paste()
@@ -714,7 +689,6 @@ get remote set origin:
 <user.git> show names (head | last) [minus] <number>:
     edit.delete_line()
     "git show --name-status HEAD~{number}\n"
-
 
 <user.git> change head to main:
     edit.delete_line()
@@ -733,7 +707,6 @@ get remote set origin:
     edit.delete_line()
     "git stash -u\n"
 <user.git> stash rebase:
-
     edit.delete_line()
     "git stash -m 'Talon auto stash'\n"
     "git fetch && git rebase\n"
@@ -753,7 +726,6 @@ get remote set origin:
 <user.git> stash drop:
     edit.delete_line()
     "git stash drop "
-
 
 <user.git> (status|stat) long:
     edit.delete_line()
@@ -784,14 +756,12 @@ get remote set origin:
     edit.delete_line()
     "git switch --detach "
 <user.git> (switch create | new branch) [<user.text>]:
-
     edit.delete_line()
     "git switch -c {user.formatted_text(text or '', 'DASH_SEPARATED')}"
 <user.git> switch orphan:
     edit.delete_line()
     "git switch --orphan "
 <user.git> switch clip:
-
     edit.delete_line()
     insert("git switch ")
     edit.paste()
@@ -800,6 +770,10 @@ get remote set origin:
 <user.git> [sub] module add:
     edit.delete_line()
     "git submodule add "
+<user.git> [sub] module add clip:
+    edit.delete_line()
+    insert("git submodule add ")
+    edit.paste()
 <user.git> [sub] module delete:
     edit.delete_line()
     "git rm  "
@@ -818,10 +792,10 @@ get remote set origin:
 <user.git> [sub] module set U R L:
     edit.delete_line()
     "git submodule set-url "
-
-<user.git> module references:
+<user.git> [sub] module list:
     edit.delete_line()
-    "git ls-files --stage | grep 160000\n"
+    'git ls-files --stage | grep "^160000 "\n'
+
 <user.git> tag:
     edit.delete_line()
     "git tag "
@@ -829,7 +803,6 @@ get remote set origin:
     edit.delete_line()
     "git --no-pager tag\n"
 <user.git> tag list specific:
-
     edit.delete_line()
     insert('git tag -l ""')
     edit.left()
@@ -860,7 +833,6 @@ get remote set origin:
 <user.git> add patch$:
     edit.delete_line()
     "git add --patch"
-
 
 # Convenience
 <user.git> diff highlighted:
