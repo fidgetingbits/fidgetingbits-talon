@@ -1,4 +1,6 @@
-win.title: /TERM:C:\\windows\\system32\\cmd.exe/
+app: cmd
 -
 
-# Note this assumes running under wine
+tag(): user.windows_cli
+
+<user.go> global <user.windows_folder_paths>: insert("cd {windows_folder_paths}\n")
