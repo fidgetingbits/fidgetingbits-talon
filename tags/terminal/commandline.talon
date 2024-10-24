@@ -148,61 +148,6 @@ file list long [sym] links:
     'find . -maxdepth 1 -type l -printf "%f\\n" | xargs ls -l \n'
 file list [sym] links: 'find . -maxdepth 1 -type l -printf "%f\\n"\n'
 
-# find
-file find:
-    user.insert_between('find . -name "", "" 2>/dev/null')
-file find clip:
-    insert("find . -name ")
-    user.paste_without_new_lines()
-    key(enter)
-file find file clip:
-    insert("find . -type f -name ")
-    user.paste_without_new_lines()
-    key(enter)
-file find file [<user.word>]:
-    user.insert_between('find . -type f -name "", "" 2>/dev/null')
-    insert(word or "")
-file find folder clip:
-    insert("find . -type d -name ")
-    user.paste_without_new_lines()
-    key(enter)
-file find folder [<user.word>]:
-    user.insert_between('find . -type d -name "", "" 2>/dev/null')
-    insert(word or "")
-# case insensitive fuzzy find
-file fuzzy find [<user.word>]:
-    user.insert_between('find . -iname "*', '*" 2>/dev/null')
-    insert(word or "")
-file fuzzy hash:
-    user.insert_between('find . -path "*", "*" -exec sha256sum {{}} \\; 2>/dev/null')
-
-file fuzzy find depth <number> [<user.word>]:
-    user.insert_between('find . -maxdepth {number} -iname "*", "*" 2>/dev/null')
-    insert(word or "")
-(file fuzzy find folder | folder fuzzy find) [<user.word>]:
-    user.insert_between('find . -type d -iname "*", "*" 2>/dev/null')
-    insert(word or "")
-(file fuzzy find folder | folder fuzzy find) depth <number> [<user.word>]:
-    user.insert_between('find . -maxdepth {number} -type d -iname "*", "*" 2>/dev/null')
-    insert(word or "")
-file fuzzy find today [<user.word>]:
-    user.insert_between('find . -mtime -1 -name "*", "*" 2>/dev/null')
-    insert(word or "")
-file fuzzy find (at|in) clip:
-    insert("find ")
-    user.paste_without_new_lines()
-    user.insert_between(' -iname "*", "*" 2>/dev/null')
-
-file find all links:
-     insert("find . -maxdepth 1 -type l  -ls\n")
-file find all folders:
-     insert("find . -maxdepth 1 -type d  -ls\n")
-file fine all files:
-     insert("find . -maxdepth 1 -type f  -ls\n")
-
-file find (all | type) {user.file_extension}:
-    'find . -type f  -name "*{file_extension}"\n'
-
 # TODO - revisit the grammar for $() commands
 call file latest: "$(eza --sort changed | tail -n1)\n"
 [sub] file latest: "$(eza --sort changed | tail -n1) "
@@ -216,10 +161,7 @@ file link force clip:
 file hard link: "ln "
 file broken links:
     insert("find . -type l -exec sh -c 'file -b \"$1\" | grep -q ^broken' sh /{} \\; -print")
-file find excluding with depth:
-    user.insert_between("find . -mindepth 2 -maxdepth 2 -type d '!' -exec sh -c 'ls -1 \"{}\"|egrep -i -q \"^*.", "$\"' ';' -print")
-file find excluding:
-    user.insert_between("find . -type d '!' -exec sh -c 'ls -1 \"{}\"|egrep -i -q \"^*.", "$\"' ';' -print")
+
 file (move | rename):
     "mv "
 file (move | rename) <user.zsh_file_completions>:
@@ -424,9 +366,12 @@ echo split [<user.symbol_key>] ({user.environment_variables}|<user.text>):
     insert("cd $(eza --sort changed | tail -n1)\n")
 
 # zoxide
-oxide <user.text>:
+oxy <user.text>:
     edit.delete_line()
     insert("z {text}\n")
+oxy fuzzy <user.text>:
+    edit.delete_line()
+    insert("zi {text}\n")
 
 folder (remove | delete): "rmdir "
 folder (create | new) [<user.text>]:
@@ -477,16 +422,16 @@ now command that:
     insert("command ")
     edit.line_end()
 # file viewing
-less this:
+less that:
     edit.line_end()
     insert("| less")
 file less: "less "
-now less [that]:
+less last:
     edit.up()
     insert("| less\n")
 
 # piping
-now tea that: "| tee "
+tea that: " | tee "
 
 # grepping
 
@@ -503,7 +448,7 @@ file rip around: "rg -B2 -A2 -i "
 file rip (exact | precise): "rg "
 file rip [git] conflicts:
     "rg --no-messages --no-line-number --no-filename -e '^<<<<<<< ' -e '^=======$' -e '>>>>>>>$'\n"
-now rip:
+rip last:
     edit.up()
     insert("| rg -i ")
 
@@ -511,7 +456,7 @@ now rip:
 # etc
 file grep: "grep -i "
 file grep around: "grep -B2 -A2 -i "
-now grep:
+grep last:
     edit.up()
     insert("| grep -i ")
 
@@ -572,6 +517,11 @@ run see scope database:
     insert("cscope -q -R -b -i cscope.files\n")
 
 file head: "head "
+head [<number_small>] this:
+    insert("| head -n {number_small or 10} ")
+head [<number_small>] last:
+    edit.up()
+    insert("| head -n {number_small or 10} ")
 file head <number_small>: "head -n {number_small} "
 folder show: "pwd\n"
 
@@ -678,7 +628,10 @@ parameter:
 history show: "history\n"
 history search: "history | rg -i"
 history search <user.text>: "history | rg -i {text}"
-(X args | extra) that: "| xargs "
+(X args | extra) this: "| xargs "
+(X args | extra) last:
+    edit.up()
+    insert("| xargs ")
 
 
 # virtsh virtual console escape
@@ -753,18 +706,17 @@ errors ignore: "2>/dev/null"
 # Environment variables
 ###
 
-# FIXME: Make these less annoying to say, and use a dynamic_list to pull them out
-(environment|variable|able) list: "env\n"
-(environment|variable|able) find [<user.text>]:
+able list: "env\n"
+able (find|grep|rip) [<user.text>]:
     insert("env|rg -i ")
     snake = user.formatted_text(text or "", "ALL_CAPS,SNAKE_CASE")
 
     insert(snake)
-(environment|variable|able) find strict [<user.text>]:
+able find strict [<user.text>]:
     insert("env|rg ")
     snake = user.formatted_text(text or "", "ALL_CAPS,SNAKE_CASE")
     insert(snake)
-(environment|variable|able) show: "echo $"
+able show: "echo $"
 able prefix <user.text>:
     edit.line_start()
     snake = user.formatted_text(text or "", "ALL_CAPS,SNAKE_CASE")
@@ -904,7 +856,6 @@ pipe to C P I O: "| cpio -idmv"
 mime type list: "handlr list\n"
 mime type show: "file --mime-type"
 
-file json: "jq . "
 
 file show row <number>: "sed -n '{number}p' "
 file chunk row <number>: "sed -i '{number}d' "
