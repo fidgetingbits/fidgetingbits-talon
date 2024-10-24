@@ -73,9 +73,25 @@ def _find_items_in_current_path(type: str) -> dict[str, str]:
         [f"head -n {FILE_LIMIT}"], stdin=ps.stdout, shell=True
     ).decode("utf-8")
     ps.wait()
-    if not results:
-        print("no found items")
+
+    # We want to include some hidden files, but not all
+    ps = subprocess.Popen(
+        [
+            f"bash -c \"find $PWD -maxdepth 1 -type {type} -iname '.git*' -exec basename {{}} \\; -exec echo \\; \""
+        ],
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        cwd=cwd,
+        shell=True,
+    )
+    cmd_error = ps.stderr.read()
+    if len(cmd_error) > 0:
+        print(f"Error running find command: {cmd_error}")
         return {}
+    hidden_results = subprocess.check_output(
+        [f"head -n {FILE_LIMIT}"], stdin=ps.stdout, shell=True
+    ).decode("utf-8")
+    ps.wait()
 
     # grab any symlinks
     ps = subprocess.Popen(
@@ -89,20 +105,31 @@ def _find_items_in_current_path(type: str) -> dict[str, str]:
     ).decode("utf-8")
     ps.wait()
 
+    if not results and not hidden_results and not symlink_list:
+        print("no found items")
+        return {}
+
     items = []
-    for line in results.splitlines():
-        if line == "." or line == "..":
-            continue
-        items.append(line.strip())
-    for line in symlink_list.splitlines():
-        link_path = pathlib.Path(line).resolve()
-        if link_path.exists():
-            if type == "d" and link_path.is_dir():
-                items.append(pathlib.Path(line).name)
-            elif type == "f" and link_path.is_file():
-                items.append(pathlib.Path(line).name)
-            elif type == "l" and link_path.is_symlink():
-                items.append(pathlib.Path(line).name)
+    if results:
+        for line in results.splitlines():
+            if line == "." or line == "..":
+                continue
+            items.append(line.strip())
+    if hidden_results:
+        for line in hidden_results.splitlines():
+            if line == "." or line == "..":
+                continue
+            items.append(line.strip())
+    if symlink_list:
+        for line in symlink_list.splitlines():
+            link_path = pathlib.Path(line).resolve()
+            if link_path.exists():
+                if type == "d" and link_path.is_dir():
+                    items.append(pathlib.Path(line).name)
+                elif type == "f" and link_path.is_file():
+                    items.append(pathlib.Path(line).name)
+                elif type == "l" and link_path.is_symlink():
+                    items.append(pathlib.Path(line).name)
 
     return actions.user.create_spoken_forms_from_list(items)
 
