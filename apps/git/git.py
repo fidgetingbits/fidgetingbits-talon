@@ -12,12 +12,6 @@ ctx = Context()
 mod.list("git_command", desc="Git commands.")
 mod.list("git_argument", desc="Command-line git options and arguments.")
 mod.list("git_conventional_commits", desc="Git conventional_commits.")
-mod.setting(
-    "git_auto_completion",
-    type=bool,
-    default=False,
-    desc="Enable git auto completion for branches, remotes, etc",
-)
 
 ctx.lists["self.git_conventional_commits"] = {
     "feature": "feat",

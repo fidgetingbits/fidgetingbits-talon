@@ -3,12 +3,6 @@ import subprocess
 from talon import Context, Module, actions
 
 mod = Module()
-mod.setting(
-    "justfile_auto_completion",
-    type=bool,
-    default=False,
-    desc="Whether or not to automatically complete just commands with justfile contents",
-)
 
 ctx = Context()
 ctx.matches = r"""
