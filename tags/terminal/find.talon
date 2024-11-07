@@ -5,7 +5,7 @@ tag: terminal
 # default. If you need to use find, use the "find old" version. It is handy to keep both versions here in case inside of
 # an ssh shell that doesn't have it
 
-file old find:
+file find:
     user.insert_between('fd ', ' 2>/dev/null')
 file old find:
     user.insert_between('find . -name "', '" 2>/dev/null')
@@ -18,14 +18,14 @@ file find file clip:
     user.paste_without_new_lines()
     key(enter)
 file find file [<user.word>]:
-    user.insert_between('find . -type f -name "", "" 2>/dev/null')
+    user.insert_between('find . -type f -name ""', '"" 2>/dev/null')
     insert(word or "")
 file find folder clip:
     insert("find . -type d -name ")
     user.paste_without_new_lines()
     key(enter)
 file find folder [<user.word>]:
-    user.insert_between('find . -type d -name "", "" 2>/dev/null')
+    user.insert_between('find . -type d -name ""', '"" 2>/dev/null')
     insert(word or "")
 # case insensitive fuzzy find
 file fuzzy find [<user.word>]:
