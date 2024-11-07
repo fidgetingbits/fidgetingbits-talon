@@ -2,6 +2,7 @@ app: terminal
 tag: user.rust_apps
 -
 
+cargo help: "cargo --help\n"
 cargo init: "cargo init "
 cargo init (library | lib): "cargo init --lib "
 
