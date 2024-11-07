@@ -353,8 +353,8 @@ def create_spoken_number_forms(source: List[str]):
         # the length is currently capped at 31 digits
         if length > 1 and length <= 31 and substring.isnumeric():
             has_fancy_number_version = True
+            spoken_form_years = create_spoken_form_years(substring)
             val = int(substring)
-            spoken_form_years = create_spoken_form_years(val)
             spoken_form = create_spoken_form_for_number(val)
 
             if spoken_form_years:
