@@ -156,6 +156,7 @@ unix_folder_paths = {
     "ghidra config": "~/.config/ghidra",
     "ghidra scripts": "~/.config/ghidra/scripts/",
     "ghidra projects": "~/.config/ghidra/repos/",
+    "easy L K B": "~/.config/easylkb/",
 }
 
 mac_folder_paths = {}
