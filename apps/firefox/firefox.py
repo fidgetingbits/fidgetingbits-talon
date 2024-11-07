@@ -47,7 +47,7 @@ class UserActions:
         actions.sleep("180ms")
         actions.app.tab_close()
 
-    def tab_search():
+    def tab_search(name: str):
         actions.browser.focus_address()
         actions.key("%")
 
