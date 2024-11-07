@@ -17,12 +17,7 @@ tag: user.zsh
 """
 
 mod.tag("zsh", desc="Tag for enabling zsh shell support")
-mod.setting(
-    "zsh_auto_completion",
-    type=bool,
-    default=False,
-    desc="Whether or not to enable autocompletion for zsh",
-)
+
 
 plugin_tag_list = [
     "zsh_cd_gitroot",
@@ -48,78 +43,56 @@ blacklist = [
 ]
 
 
-def _find_items_in_current_path(type: str) -> dict[str, str]:
-    # grab any items of requested type
-    # NOTE: Don't use -printf below because it doesn't work on Darwin
-    cwd = actions.user.get_cwd()
-    if str(cwd) in blacklist:
-        print(f"Skipping find in blacklisted folder: {actions.user.get_cwd()}")
-        return {}
-
+def _run_find_cmd(cwd: str, cmd: str) -> str | None:
     ps = subprocess.Popen(
-        [
-            f"bash -c \"find $PWD -maxdepth 1 -type {type} -not -path '*/\\.*' -not -path '\\.' -exec basename {{}} \\; -exec echo \\; \""
-        ],
-        stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE,
-        cwd=cwd,
-        shell=True,
+        [cmd], stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True, cwd=cwd
     )
-    cmd_error = ps.stderr.read()
-    if len(cmd_error) > 0:
-        print(f"Error running find command: {cmd_error}")
-        return {}
+    if ps.stderr:
+        cmd_error = ps.stderr.read()
+        if len(cmd_error) > 0:
+            print(f"Error running find command: {cmd_error}")
+            return None
     results = subprocess.check_output(
         [f"head -n {FILE_LIMIT}"], stdin=ps.stdout, shell=True
     ).decode("utf-8")
     ps.wait()
+    return results
 
-    # We want to include some hidden files, but not all
-    ps = subprocess.Popen(
-        [
-            f"bash -c \"find $PWD -maxdepth 1 -type {type} -iname '.git*' -exec basename {{}} \\; -exec echo \\; \""
-        ],
-        stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE,
-        cwd=cwd,
-        shell=True,
-    )
-    cmd_error = ps.stderr.read()
-    if len(cmd_error) > 0:
-        print(f"Error running find command: {cmd_error}")
+
+def _find_items_in_current_path(type: str) -> dict[str, str]:
+    # grab any items of requested type
+    # NOTE: Don't use -printf below because it doesn't work on Darwin
+    cwd = actions.user.get_cwd()
+    print(f"DEBUG: _find_items_in_current_path() cwd: {cwd}")
+    if str(cwd) in blacklist:
+        print(f"Skipping find in blacklisted folder: {actions.user.get_cwd()}")
         return {}
-    hidden_results = subprocess.check_output(
-        [f"head -n {FILE_LIMIT}"], stdin=ps.stdout, shell=True
-    ).decode("utf-8")
-    ps.wait()
 
-    # grab any symlinks
-    ps = subprocess.Popen(
-        ["find $PWD -maxdepth 1 -type l -not -path '*/\\.*' -not -path '\\.' -print"],
-        stdout=subprocess.PIPE,
-        cwd=cwd,
-        shell=True,
-    )
-    symlink_list = subprocess.check_output(
-        [f"head -n {FILE_LIMIT}"], stdin=ps.stdout, shell=True
-    ).decode("utf-8")
-    ps.wait()
+    # If in a directory with a . somewhere in the path, we allow it. ex: /home/user/.config/
+    cmd = f"find $PWD -maxdepth 1 -type {type} -not -path '*/\\.*$' -not -path '\\.' -exec basename {{}} \\; -exec echo \\;"
+    base_results = _run_find_cmd(cwd, cmd)
 
-    if not results and not hidden_results and not symlink_list:
+    # include some hidden
+    cmd = f"find $PWD -maxdepth 1 -type {type} -iname '.git*' -exec basename {{}} \\; -exec echo \\;"
+    hidden_results = _run_find_cmd(cwd, cmd)
+
+    # symlinks
+    cmd = "find $PWD -maxdepth 1 -type l -not -path '*/\\.*' -not -path '\\.' -print"
+    symlink_list = _run_find_cmd(cwd, cmd)
+
+    if not base_results and not hidden_results and not symlink_list:
         print("no found items")
         return {}
 
     items = []
-    if results:
-        for line in results.splitlines():
+    for result in [base_results, hidden_results]:
+        if not result:
+            continue
+        for line in result.splitlines():
             if line == "." or line == "..":
                 continue
             items.append(line.strip())
-    if hidden_results:
-        for line in hidden_results.splitlines():
-            if line == "." or line == "..":
-                continue
-            items.append(line.strip())
+
     if symlink_list:
         for line in symlink_list.splitlines():
             link_path = pathlib.Path(line).resolve()
@@ -249,16 +222,15 @@ def _zsh_get_cwd(title, noisy=False) -> pathlib.Path:
 class Actions:
     def zsh_dump_file_completions():
         """Dump add a pretty version of the file completions to the log"""
-        logging.info(
-            f'ZSH File Completions (Enabled {settings.get("user.zsh_auto_completion")}):'
-        )
-        logging.info(pprint.pformat(ctx.lists["user.zsh_file_completion"]))
+        logging.info("ZSH File Completions:")
+        if "user.zsh_file_completion" in ctx.lists:
+            logging.info(pprint.pformat(ctx.lists["user.zsh_file_completion"]))
+        else:
+            logging.info("No file completions found")
 
     def zsh_dump_folder_completions():
         """Dump add a pretty version of the folder completions to the log"""
-        logging.info(
-            f'ZSH Folder Completions (Enabled {settings.get("user.zsh_auto_completion")}):'
-        )
+        logging.info("ZSH Folder Completions:")
         logging.info(pprint.pformat(ctx.lists["user.zsh_folder_completion"]))
 
     def zsh_get_pid():
