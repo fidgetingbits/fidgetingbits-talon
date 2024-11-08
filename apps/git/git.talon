@@ -801,7 +801,10 @@ get remote set origin:
     "git submodule sync\n"
 <user.git> [sub] module update:
     edit.delete_line()
-    "git submodule update --init --recursive --remote"
+    "git submodule update --init --recursive --remote --progress"
+<user.git> [sub] module update shallow:
+    edit.delete_line()
+    "git submodule update --init --recursive --remote --progress --depth 1"
 <user.git> [sub] module set U R L:
     edit.delete_line()
     "git submodule set-url "
