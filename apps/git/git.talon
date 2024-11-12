@@ -170,7 +170,6 @@ tag: user.git
 #     edit.delete_line()
 #     insert("git commit -m \"{text or ''}")
 <user.git> (commit|calm) [message] <user.git_conventional_commits>:
-
     edit.delete_line()
     user.insert_between('git commit -m "{git_conventional_commits}', '"')
 # git commit [message] {user.git_conventional_commits} <user.word>:
@@ -182,6 +181,9 @@ tag: user.git
 <user.git> (commit|calm) [message]:
     edit.delete_line()
     user.insert_between('git commit -m "', '"')
+<user.git> (commit|calm) no verify [message]:
+    edit.delete_line()
+    user.insert_between('git commit -n -m "', '"')
 <user.git> (commit|calm) empty:
     edit.delete_line()
     insert("git commit\n")
