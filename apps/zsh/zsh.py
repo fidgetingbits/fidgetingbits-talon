@@ -69,7 +69,7 @@ def _find_items_in_current_path(type: str) -> dict[str, str]:
         return {}
 
     # If in a directory with a . somewhere in the path, we allow it. ex: /home/user/.config/
-    cmd = f"find $PWD -maxdepth 1 -type {type} -not -path '*/\\.*$' -not -path '\\.' -exec basename {{}} \\; -exec echo \\;"
+    cmd = f'find $PWD -maxdepth 1 -type {type} -not -path "$PWD/.*" -exec basename {{}} \\; -exec echo \\;'
     base_results = _run_find_cmd(cwd, cmd)
 
     # include some hidden
@@ -77,7 +77,7 @@ def _find_items_in_current_path(type: str) -> dict[str, str]:
     hidden_results = _run_find_cmd(cwd, cmd)
 
     # symlinks
-    cmd = "find $PWD -maxdepth 1 -type l -not -path '*/\\.*' -not -path '\\.' -print"
+    cmd = 'find $PWD -maxdepth 1 -type l -not -path "$PWD/.*" -print'
     symlink_list = _run_find_cmd(cwd, cmd)
 
     if not base_results and not hidden_results and not symlink_list:
