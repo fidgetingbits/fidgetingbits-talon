@@ -925,3 +925,7 @@ run wine command:
 run zsh:
     edit.delete_line()
     insert("zsh\n")
+
+
+deck tape: "decktape "
+deck tape help: "decktape --help\n"
