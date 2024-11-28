@@ -218,16 +218,8 @@ parrot(side_click):
 (undo that | nope | scratcher): edit.undo()
 (redo that | yes indeed): edit.redo()
 
-# XXX - should be part of some networking thing
-link web: "https://"
-link insecure web: "http://"
-link file: "file://"
+link {user.uris}: "{uris}"
 link file <user.folder_paths>: "file://{folder_paths}"
-
-link git: "git://"
-link secure shell: "ssh://"
-link bucket: "s3://"
-link F T P: "ftp://"
 
 ###
 # Chat

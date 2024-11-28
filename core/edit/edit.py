@@ -5,6 +5,19 @@ mod = Module()
 
 END_OF_WORD_SYMBOLS = ".!?;:—_/\\|@#$%^&*()[]{}<>=+-~`"
 
+mod.list("uris", desc="List of URI schemes")
+
+ctx.lists["self.uris"] = {
+    "web": "https://",
+    "plain web": "http://",
+    "file": "file://",
+    "git": "git://",
+    "secure shell": "ssh://",
+    "S 3 bucket": "s3://",
+    "F T P": "ftp://",
+    "google bucket": "gs://",
+}
+
 
 @ctx.action_class("edit")
 class EditActions:
