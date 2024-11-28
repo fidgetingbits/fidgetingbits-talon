@@ -71,5 +71,4 @@ timestamps toggle: key(shift-t)
 fullscreen toggle: key(shift-f)
 
 # search field shortcuts
-# FIXME: make this use an array of languages
 git lang {user.language_extensions}: "language:{language_extensions}"
