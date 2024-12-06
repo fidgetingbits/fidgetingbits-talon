@@ -17,41 +17,23 @@ cargo run release: "cargo run --release\n"
 cargo run with args: "cargo run -- "
 cargo run release with args: "cargo run --release -- "
 
-# cargo add [--package <package>] <crate>
-cargo add [dep] [package {user.cargo_workspace_packages}] [{user.rust_crates}]:
-    insert("cargo add ")
-    package = "--package " + cargo_workspace_packages
-    if cargo_workspace_packages: insert(package + " ")
-    if rust_crates: insert(rust_crates)
-cargo add dev [dep] [package {user.cargo_workspace_packages}] [{user.rust_crates}]:
-    insert("cargo add --dev ")
-    package = "--package " + cargo_workspace_packages
-    if cargo_workspace_packages: insert(package + " ")
-    if rust_crates: insert(rust_crates)
-# cargo add [--package <package>] --path <path>
-cargo add [dep] local crate [package {user.cargo_workspace_packages}] [{user.rust_crates}]:
-    insert("cargo add ")
-    package = "--package " + cargo_workspace_packages
-    if cargo_workspace_packages: insert(package + " ")
-    insert("--path ")
-    if rust_crates: insert(rust_crates)
-cargo add dev local crate [dep] [package {user.cargo_workspace_packages}] [{user.rust_crates}]:
-    insert("cargo add --dev ")
-    package = "--package " + cargo_workspace_packages
-    if cargo_workspace_packages: insert(package + " ")
-    insert("--path ")
-    if rust_crates: insert(rust_crates)
+# cargo add [--dev] [--package <package>] <crate>
+cargo add [dep] [<user.rust_crates>]:
+    insert("cargo add {rust_crates or ''}")
+cargo add dev [dep] [<user.rust_crates>]:
+    insert("cargo add --dev {rust_crates or ''}")
 
-cargo remove [dep] [package {user.cargo_workspace_packages}] [{user.rust_crates}]:
-    insert("cargo remove ")
-    package = "--package " + cargo_workspace_packages
-    if cargo_workspace_packages: insert(package + " ")
-    if rust_crates: insert(rust_crates)
-cargo remove dev [dep] [package {user.cargo_workspace_packages}] [{user.rust_crates}]:
-    insert("cargo remove --dev ")
-    package = "--package " + cargo_workspace_packages
-    if cargo_workspace_packages: insert(package + " ")
-    if rust_crates: insert(rust_crates)
+# cargo add [--package <package>] --path <path>
+cargo add [dep] local crate [<user.rust_local_crates>]:
+    insert(f"cargo add {rust_local_crates or '--path '}")
+cargo add dev local crate [dep] [<user.rust_local_crates>]:
+    insert("cargo add --dev {rust_local_crates or '--path '}")
+
+# cargo remove [--dev] [--package <package>] <crate>
+cargo remove [dep] [<user.rust_crates>]:
+    insert("cargo remove {rust_crates or ''}")
+cargo remove dev [dep] [<user.rust_crates>]:
+    insert("cargo remove --dev {rust_crates or ''}"))
 
 cargo install: "cargo install "
 cargo install <user.text>: "cargo install {text}"
