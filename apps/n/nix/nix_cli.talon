@@ -27,7 +27,7 @@ nix old build help: "nix-build --help\n"
 nix old build: "nix-build "
 nix old build standard: "nix-build '<nixpkgs>' -A "
 nix old build local package:
-    "nix-build -E 'with import <nixpkgs> {{}}; pkgs.callPackage ./default.nix {{}}'"
+    "nix-build -E 'with import <nixpkgs> { config = { allowUnfree = true; }; }; pkgs.callPackage ./package.nix {}'"
 
 # FIXME: Move this to private, since I use a private path
 nix old build nix package:
@@ -48,8 +48,8 @@ nix build impure: "nix build --impure "
 nix build with paths:
     user.insert_between("nix build nixpkgs#", "--print-out-paths --no-link")
 nix build debug: " nix build --verbose --debug --print-build-logs\n"
-nix build {user.flake_outputs}: "nix build {flake_outputs}\n"
-
+nix build output {user.flake_outputs}: "nix build {flake_outputs}\n"
+nix build package: "nix build --impure --expr 'with import <nixpkgs> {{ config = {{ allowUnfree = true; }}; }}; pkgs.callPackage ./package.nix {{}}'"
 
 nix flake check: "nix flake check\n"
 nix flake update: "nix flake update\n"
