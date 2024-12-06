@@ -152,11 +152,33 @@ name: configTargetWindows
 phrase: config windows
 insertionScope: statement
 
-$0.wrapperPhrase: config windows
+$0.wrapperPhrase: windows
 $0.wrapperScope: statement
 -
 #[cfg(target_os = "windows")]
 {
     $0
+}
+---
+
+name: fileExtension
+phrase: if file extension
+insertionScope: statement
+
+$0.wrapperPhrase: file extension
+$0.wrapperScope: statement
+-
+$0.extension().and_then(|ext| ext.to_str())
+---
+
+name: ifFileExtension
+phrase: if file extension
+insertionScope: statement
+
+$0.wrapperPhrase: if file extension
+$0.wrapperScope: statement
+-
+if $0.extension().and_then(|ext| ext.to_str()) == Some("$1") {
+    $2
 }
 ---
