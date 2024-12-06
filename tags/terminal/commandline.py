@@ -66,3 +66,12 @@ def executable_files(m) -> dict[str, str]:
         return {}
     print(output)
     return actions.user.create_spoken_forms_from_list(output.splitlines())
+
+
+@mod.action_class
+class Actions:
+    def file_completion():
+        """Completes the current file path"""
+
+    def folder_completion():
+        """Completes the current directory path"""

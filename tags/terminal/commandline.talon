@@ -867,9 +867,6 @@ file chunk row <number>: "sed -i '{number}d' "
 folder sync: "rsync -avz "
 folder sync here: "rsync -avz . "
 
-(cert|certificate) show: "openssl x509 -in "
-(cert|certificate) show expiry: "openssl x509 -enddate -noout -in "
-
 code here: "code .\n"
 
 re run <number>: "!{number}\n"
