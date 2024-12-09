@@ -27,15 +27,12 @@ nix old build help: "nix-build --help\n"
 nix old build: "nix-build "
 nix old build standard: "nix-build '<nixpkgs>' -A "
 nix old build local package:
-    "nix-build -E 'with import <nixpkgs> { config = { allowUnfree = true; }; }; pkgs.callPackage ./package.nix {}'"
+    "nix-build -E 'with import <nixpkgs> {{ config = {{ allowUnfree = true;}}; }}; pkgs.callPackage ./package.nix {{}}'"
 
 # FIXME: Move this to private, since I use a private path
 nix old build nix package:
     insert("cd ~/dev/nix/nixpkgs\n")
-    user.insert_between("nix-build -I nixpkgs=$PWD -E 'with import <nixpkgs> {}; callPackage ./pkgs/by-name/", " {}'")
-
-nix build with paths:
-    user.insert_between("nix build nixpkgs#", "--print-out-paths --no-link")
+    user.insert_between("nix-build -I nixpkgs=$PWD -E 'with import <nixpkgs> {{}}; callPackage ./pkgs/by-name/", " {{}}'")
 
 # Flake build commands
 nix build: "nix build "
@@ -49,7 +46,8 @@ nix build with paths:
     user.insert_between("nix build nixpkgs#", "--print-out-paths --no-link")
 nix build debug: " nix build --verbose --debug --print-build-logs\n"
 nix build output {user.flake_outputs}: "nix build {flake_outputs}\n"
-nix build package: "nix build --impure --expr 'with import <nixpkgs> {{ config = {{ allowUnfree = true; }}; }}; pkgs.callPackage ./package.nix {{}}'"
+nix build package:
+    "nix build --impure --expr 'with import <nixpkgs> {{ config = {{ allowUnfree = true; }}; }}; pkgs.callPackage ./package.nix {{}}'"
 
 nix flake check: "nix flake check\n"
 nix flake update: "nix flake update\n"
@@ -94,7 +92,10 @@ nix run: "nix run "
 nix run impure: "nix run --impure "
 nix run impure here: "nix run --impure .\n"
 nix run here: "nix run .\n"
+nix run this impure: "nix run --impure .\n"
+nix run this: "nix run .\n"
 nix format: "nix fmt\n"
+
 
 nix flake check all: "nix flake check --all-systems\n"
 
@@ -111,10 +112,6 @@ nix shell with:
 
 nix shell command with:
     user.insert_between("nix shell nixpkgs#", " --command ")
-
-nix run this impure: "nix run --impure .\n"
-nix run this: "nix run .\n"
-nix run: "nix run "
 
 nix [store] show dependencies: "nix-store -q --references"
 
