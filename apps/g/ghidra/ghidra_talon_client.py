@@ -28,7 +28,7 @@ class GhidraTalon:
 
 
 @ctx.action_class("user")
-class UserActions:.
+class UserActions:
     def command_server_directory() -> str:
         return "ghidra-talon"
 
