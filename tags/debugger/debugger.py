@@ -1,6 +1,6 @@
-# XXX - execute until line number/cursor
+# FIXME - execute until line number/cursor
 
-from talon import Context, Module, actions, settings, ui
+from talon import Context, Module, actions, settings, app, ui
 
 mod = Module()
 mod.tag("debugger", desc="Tag for enabling generic debugger commands")
@@ -67,7 +67,11 @@ class Debugger:
 
         for arch in self.architectures:
             mod.tag(arch, desc="Tag for enabling {arch} architecture")
-        self.architecture = settings.get("user.debug_default_architecture")
+        try:
+            self.architecture = settings.get("user.debug_default_architecture")
+        except Exception as e:
+            print(f"WARNING: debugger.py - __init__(): {e}")
+            self.architecture = "x64"
 
     def cycle_architecture(self):
         """Switch between supported architectures"""
@@ -82,8 +86,6 @@ class Debugger:
         """Display the current architecture"""
         actions.user.notify(f"Debug architecture: {self.architecture}")
 
-
-debugger = Debugger(mod)
 
 # XXX - pass by windbg to dump
 windows_x64_register_parameters = ["rcx", "rdx", "r8", "r9"]
@@ -319,3 +321,14 @@ class Actions:
 
     def debugger_hexdump_highlighted(count: int):
         """Hex dump highlighted address"""
+
+
+debugger = None
+
+
+def on_ready():
+    global debugger
+    debugger = Debugger(mod)
+
+
+app.register("ready", on_ready)

@@ -332,7 +332,15 @@ class CLangState:
         app.notify(f"Current C lang datatype: {self.datatype}")
 
 
-c_lang_state = CLangState(mod)
+c_lang_state = None
+
+
+def on_ready():
+    global c_lang_state
+    c_lang_state = CLangState(mod)
+
+
+app.register("ready", on_ready)
 
 
 @mod.capture(rule="{self.c_pointers}")

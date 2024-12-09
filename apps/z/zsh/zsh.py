@@ -37,7 +37,7 @@ mod.list("zsh_symlink_completion", desc="ZSH symlink completions")
 FILE_LIMIT = 100
 
 # Folders that we know for certain are too big and that will break the find command, even when using -maxdepth 1
-# FIXME: add private lists
+# FIXME: add private listsc
 blacklist = [
     "/nix/store",
 ]
@@ -50,7 +50,7 @@ def _run_find_cmd(cwd: str, cmd: str) -> str | None:
     if ps.stderr:
         cmd_error = ps.stderr.read()
         if len(cmd_error) > 0:
-            print(f"Error running find command: {cmd_error}")
+            print(f"Error runninbg find command: {cmd_error}")
             return None
     results = subprocess.check_output(
         [f"head -n {FILE_LIMIT}"], stdin=ps.stdout, shell=True
@@ -195,7 +195,7 @@ def _zsh_get_pid(title):
         pass
 
 
-def _zsh_get_cwd(title, noisy=False) -> pathlib.Path:
+def _zsh_get_cwd(title, noisy=False) -> pathlib.Path | None:
     """Extract the zsh cwd from the window title"""
     if not title.startswith("VIM"):
         return
