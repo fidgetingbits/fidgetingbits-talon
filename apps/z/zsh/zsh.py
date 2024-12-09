@@ -13,7 +13,7 @@ mod = Module()
 mod.apps.zsh = "title: /zsh$/"
 
 ctx.matches = r"""
-tag: user.zsh
+app: zsh
 """
 
 mod.tag("zsh", desc="Tag for enabling zsh shell support")

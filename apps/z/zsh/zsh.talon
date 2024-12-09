@@ -1,5 +1,6 @@
-tag: user.zsh
+app: zsh
 -
+tag(): user.zsh
 tag(): user.zsh_cd_gitroot
 tag(): user.zsh_folder_completion
 tag(): user.zsh_zhooks
