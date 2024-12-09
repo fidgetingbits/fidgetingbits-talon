@@ -13,7 +13,7 @@ ctx.lists["self.uris"] = {
     "file": "file://",
     "git": "git://",
     "secure shell": "ssh://",
-    "S 3 bucket": "s3://",
+    "S three bucket": "s3://",
     "F T P": "ftp://",
     "google bucket": "gs://",
 }
