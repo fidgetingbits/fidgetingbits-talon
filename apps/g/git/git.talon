@@ -501,7 +501,7 @@ tag: user.git
 <user.git> push:
     edit.delete_line()
     "git push\n"
-<user.git> force push:
+<user.git> [force] push [force] [with lease]:
     edit.delete_line()
     "git push --force-with-lease"
 <user.git> push <user.git_remote>:
@@ -656,9 +656,9 @@ get remote set origin:
     edit.delete_line()
     insert("git remote rename ")
     insert(git_remote or "")
-<user.git> [remote] show [remote] <user.git_remote>:
+<user.git> [remote] show [remote] [<user.git_remote>]:
     edit.delete_line()
-    "git remote show {git_remote}\n"
+    "git remote show {git_remote or ''}\n"
 
 <user.git> revert:
     edit.delete_line()
