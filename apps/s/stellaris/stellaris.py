@@ -7,7 +7,7 @@ import json
 import os
 from time import sleep
 
-from talon import Context, Module, actions, ctrl, settings, ui
+from talon import Context, Module, actions, ctrl, settings, ui, app
 
 mod = Module()
 # these are used to differentiate between menus with differing hot keys
@@ -35,7 +35,6 @@ def stellaris_topbar(m) -> str:
 
 
 class Stellaris:
-
     """Managed database for tracking ts game screen coordinates"""
 
     def __init__(self):
@@ -154,7 +153,15 @@ class Stellaris:
             ctrl.mouse_click(button=0, hold=16000)
 
 
-stellaris = Stellaris()
+stellaris = None
+
+
+def on_ready():
+    global stellaris
+    stellaris = Stellaris()
+
+
+app.register("ready", on_ready)
 
 
 @mod.action_class
