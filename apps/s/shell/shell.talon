@@ -1,7 +1,6 @@
 not os: windows
 app: terminal
 -
-# tag(): user.zsh
 
 cancel [that]: key(ctrl-c)
 # fzf keybindings
