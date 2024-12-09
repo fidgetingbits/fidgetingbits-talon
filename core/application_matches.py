@@ -194,6 +194,10 @@ apps.wezterm = """
 app.name: /wezterm/
 """
 
+apps.kitty = """
+app.name: /kitty/
+"""
+
 apps.alacritty = """
 app.name: /alacritty/
 """
