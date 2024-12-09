@@ -22,6 +22,12 @@ cargo add [dep] [<user.rust_crates>]:
     insert("cargo add {rust_crates or ''}")
 cargo add dev [dep] [<user.rust_crates>]:
     insert("cargo add --dev {rust_crates or ''}")
+cargo add [dep] clip:
+    insert("cargo add ")
+    edit.paste()
+cargo add dev [dep] clip:
+    insert("cargo add --dev ")
+    edit.paste()
 
 # cargo add [--package <package>] --path <path>
 cargo add [dep] local crate [<user.rust_local_crates>]:
@@ -34,9 +40,18 @@ cargo remove [dep] [<user.rust_crates>]:
     insert("cargo remove {rust_crates or ''}")
 cargo remove dev [dep] [<user.rust_crates>]:
     insert("cargo remove --dev {rust_crates or ''}"))
+cargo remove [dep] clip:
+    insert("cargo remove ")
+    edit.paste()
+cargo remove dev [dep] clip:
+    insert("cargo remove --dev ")
+    edit.paste()
 
 cargo install: "cargo install "
 cargo install <user.text>: "cargo install {text}"
+cargo install clip:
+    insert("cargo install ")
+    edit.paste()
 cargo uninstall: "cargo uninstall "
 
 cargo build: "cargo build\n"
