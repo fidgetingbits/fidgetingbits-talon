@@ -34,7 +34,7 @@ excludes = set()
 
 # FIXME: make this come from a file
 additional = {
-    "term": "wezterm",
+    "term": "kitty",
 }
 
 # a list of the currently running application names
