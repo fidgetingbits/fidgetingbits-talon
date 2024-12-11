@@ -38,10 +38,11 @@ debug restart: user.debugger_restart()
 set (register|reg) {user.registers}: user.debugger_set_register(registers)
 
 # Breakpoints
+# FIXME: When in
 break toggle: user.debugger_breakpoint_toggle()
 break (now | into): user.debugger_break_now()
 break here: user.debugger_break_here()
-break [point] (list | show): user.debugger_show_breakpoints()
+beak [point] (list | show): user.debugger_show_breakpoints()
 break [point] (set | add): user.debugger_add_sw_breakpoint()
 break [point] (set | add) hardware: user.debugger_add_hw_breakpoint()
 break [point] (clear | remove) all: user.debugger_clear_all_breakpoints()
@@ -52,7 +53,7 @@ break [point] disable all: user.debugger_disable_all_breakpoints()
 break [point] disable: user.debugger_disable_breakpoint()
 break [point] disable <number_small>: user.debugger_disable_breakpoint_id(number_small)
 break [point] enable all: user.debugger_enable_all_breakpoints()
-break [point] enable: user.debugger_enable_breakpoint()
+beak [point] enable: user.debugger_enable_breakpoint()
 break [point] enable <number_small>: user.debugger_enable_breakpoint_id(number_small)
 
 break [(set | add)] (indirect | star):

@@ -1,8 +1,8 @@
 # also useful for C programming, but for now i just enable it for gdb
 tag: user.gdb
 -
-cast to <user.datatype>: "{datatype}"
-(de ref | dereference) [cast to] <user.datatype>: "*{datatype}"
+cast to <user.c_types>: "{c_types}"
+(de ref | dereference) [cast to] <user.c_types>: "*{c_types}"
 
 mask (byte | eight bits): "& 0xff"
 mask (word | sixteen bits): "& 0xffff"

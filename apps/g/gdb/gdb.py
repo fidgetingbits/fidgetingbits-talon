@@ -1,7 +1,7 @@
 from talon import Context, Module, actions
 
 mod = Module()
-mod.tag("gdb", desc="tag for running the gdb debugger")
+# mod.tag("gdb", desc="tag for running the gdb debugger")
 mod.tag("gef", desc="Gef gdb plugin")
 mod.tag("pwndbg", desc="pwndbg gdb plugin")
 mod.tag("retsync", desc="retsync gdb/ida plugin")

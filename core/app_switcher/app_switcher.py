@@ -178,7 +178,10 @@ elif app.platform == "linux":
     linux_application_directories = list(set(linux_application_directories))
 
     def get_apps():
-        # app shortcuts in program menu are contained in .desktop files. This function parses those files for the app name and command
+        """
+        App shortcuts in program menu are contained in .desktop files. This function parses those files for the app
+        name and command
+        """
         items = {}
         # find field codes in exec key with regex
         # https://specifications.freedesktop.org/desktop-entry-spec/desktop-entry-spec-latest.html#exec-variables
@@ -218,10 +221,9 @@ elif app.platform == "linux":
                                             " ".join(exec_key.split()[1:]),
                                         )
                                     )
-                        except Exception:
+                        except Exception as e:
                             print(
-                                "get_linux_apps: skipped parsing application file ",
-                                entry.name,
+                                f"get_linux_apps: skipped parsing application file {entry.path}: {e}"
                             )
         return {**items, **additional}
 

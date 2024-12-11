@@ -382,17 +382,26 @@ folder (create | new) [<user.text>]:
 
 # XXX - It would be nice to make the depth configurable
 # flat tree
-file [flat] tree: "fd . -d 2\n"
-file [flat] tree follow: "fd . -d 2 -L\n"
-file [flat] tree follow <user.zsh_symlink_completion>: "fd . '{zsh_symlink_completion}' -d 2 -L\n"
-file [flat] tree <user.folder_paths>: "fd . -d 2 '{folder_paths}'\n"
-file [flat] tree <user.zsh_folder_completion>: "fd . -d 2 '{zsh_folder_completion}'\n"
-file [flat] tree more: "fd . -d "
-file [flat] tree long: "fd . -d 2 -l\n"
-file [flat] tree all: "fd . -d 2 -I\n"
-file [flat] tree folders: "fd . -d 2 -t d\n"
-file [flat] tree [depth] <number_small>: "fd . -d {number_small}\n"
+file [flat] tree [depth <number_small>]:
+     "fd . -d {number_small or 2}\n"
+file [flat] tree follow [depth <number_small>]:
+     "fd . -d {number_small or 2} -L\n"
+file [flat] tree follow <user.zsh_symlink_completion> [depth <number_small>]:
+     "fd . '{zsh_symlink_completion}' -d {number_small or 2} -L\n"
+file [flat] tree <user.folder_paths> [depth <number_small>]:
+     "fd . -d {number_small or 2} '{folder_paths}'\n"
+file [flat] tree <user.zsh_folder_completion> [depth <number_small>]:
+     "fd . -d {number_small or 2} '{zsh_folder_completion}'\n"
+file [flat] tree more [depth <number_small>]:
+     "fd . -d "
+file [flat] tree long [depth <number_small>]:
+     "fd . -d {number_small or 2} -l\n"
+file [flat] tree all [depth <number_small>]:
+     "fd . -d {number_small or 2} -I\n"
+file [flat] tree folders [depth <number_small>]:
+     "fd . -d {number_small or 2} -t d\n"
 file [flat] tree clip [depth <number_small>]:
+
     "fd . -d {number_small or 2} "
     user.paste_without_new_lines()
     key(enter)
