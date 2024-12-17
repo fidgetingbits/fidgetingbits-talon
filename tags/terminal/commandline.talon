@@ -136,6 +136,10 @@ file (tail | follow) [<user.zsh_file_completions>]:
     insert("tail -f ")
     insert(zsh_file_completions or "")
 file (count lines | line count): "wc -l "
+[now] (count lines|line count) this: "| wc -l\n"
+[now] (count lines|line count) that:
+    edit.up()
+    insert("| wc -l\n")
 file list <user.letter>: 'find . -maxdepth 1 -name "{letter}*" -ls\n'
 file fuzzy list <user.text>: 'find . -maxdepth 1 -name "*{text}*" -ls\n'
 file list {user.file_extension} files: "ls *{file_extension}\n"
