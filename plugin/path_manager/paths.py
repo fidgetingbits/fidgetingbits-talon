@@ -41,6 +41,7 @@ nix_folder_paths = {
     "nix global bin": "/nix/var/nix/profiles/default/bin",
     "sops secrets": "/var/run/secrets/",
     "sops home secrets": "~/.config/sops-nix/secrets/",
+    "sops user secrets": "~/.config/sops-nix/secrets/",
 }
 
 # paths that will work with pivot command
