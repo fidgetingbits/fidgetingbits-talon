@@ -557,6 +557,13 @@ tag: user.git
 <user.git> rebase skip:
     edit.delete_line()
     "git rebase --skip"
+<user.git> rebase interactive:
+    edit.delete_line()
+    "git rebase -i "
+<user.git> rebase interactive clip:
+    edit.delete_line()
+    "git rebase -i "
+    edit.paste()
 
 <user.git> remove [(<user.git_modified_files>|<user.zsh_path_completions>)]:
     edit.delete_line()
