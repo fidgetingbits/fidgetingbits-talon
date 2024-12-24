@@ -604,21 +604,7 @@ cell run: user.vscode("notebook.cell.execute")
 
 install local: user.vscode("workbench.extensions.action.installVSIX")
 
-#
-# Copilot
-#
-pilot jest: user.vscode("editor.action.inlineSuggest.trigger")
-previous | pilot next: user.vscode("editor.action.inlineSuggest.showNext")
-pilot (last): user.vscode("editor.action.inlineSuggest.showPrevious")
-pilot: user.vscode("editor.action.inlineSuggest.commit")
-pilot word: user.vscode("editor.action.inlineSuggest.acceptNextWord")
-pilot nope: user.vscode("editor.action.inlineSuggest.undo")
-pilot cancel: user.vscode("editor.action.inlineSuggest.hide")
-pilot generate: user.vscode("github.copilot.generate")
-pilot pan next: user.vscode("github.copilot.nextPanelSuggestion")
-pilot pan (previous | last): user.vscode("github.copilot.previousPanelSuggestion")
-pilot [pan] (accept | commit): user.vscode("github.copilot.acceptPanelSuggestion")
-[pilot] (keeper | keep): key(tab)
+
 
 # pokey
 sesh <user.show_list> [<user.text>] [halt]:
@@ -767,3 +753,12 @@ split alter: user.vscode("alternate.alternateFileInSplit")
 # indentation
 convert file to tabs: user.vscode("editor.action.indentationToTabs")
 convert file to spaces: user.vscode("editor.action.indentationToSpaces")
+
+toggle markdown: user.vscode("markdownlint.toggleLinting")
+toggle (spelling|spell): user.vscode("cSpell.toggleVisible")
+
+fix select: user.vscode("editor.action.autoFix")
+fix this:
+    user.vscode("editor.action.autoFix")
+    sleep(150ms)
+    key(enter)
