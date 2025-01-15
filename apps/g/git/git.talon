@@ -238,6 +238,9 @@ tag: user.git
 ##
 # diff
 ##
+<user.git> diff:
+    edit.delete_line()
+    "git diff"
 <user.git> diff (colour | color) words:
     edit.delete_line()
     "git diff --color-words "
