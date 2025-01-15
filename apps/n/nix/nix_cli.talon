@@ -107,8 +107,8 @@ nix build local: "nix-build $NIXPKGS -A "
 # NixOS Installation Commands
 nix O S enter: "nixos-enter\n"
 
-nix shell with:
-    "nix shell nixpkgs#"
+nix shell with [<user.text>]:
+    insert('nix shell nixpkgs#{text or ""}')
 
 nix shell command with:
     user.insert_between("nix shell nixpkgs#", " --command ")

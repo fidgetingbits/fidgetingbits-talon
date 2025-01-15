@@ -6,8 +6,6 @@ app: nix_repl
 [repl] load flake: ":lf "
 [repl] load flake here: ":lf .\n"
 
-repl reload: ":r\n"
-
 # NOTE: This will open your external editor
 repl edit: ":e "
 repl edit clip:
