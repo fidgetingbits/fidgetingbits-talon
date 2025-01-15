@@ -25,35 +25,3 @@ screen serial [num <number_small>] eleven:
 
 serial list:
     "ls /dev/ttyUSB*\n"
-
-# FIXME: The following could all be abstracted with python list
-# Ideally we want the last for serial attach commands to only work when we're actually on ooze
-serial remote attach fang:
-    "ssh ooze\n"
-    # wait long enough for yubikey press
-    sleep(2)
-    "sudo screen /dev/ttyUSB0 9600\n"
-serial remote attach flux:
-    "ssh ooze\n"
-    # wait long enough for yubikey press
-    sleep(2)
-    "sudo screen /dev/ttyUSB1 9600\n"
-serial remote attach frog:
-    "ssh ooze\n"
-    # wait long enough for yubikey press
-    sleep(2)
-    "sudo screen /dev/ttyUSB2 9600\n"
-serial remote attach furby:
-    "ssh ooze\n"
-    # wait long enough for yubikey press
-    sleep(2)
-    "sudo screen /dev/ttyUSB3 9600\n"
-
-serial attach fang:
-    "sudo screen /dev/ttyUSB0 9600\n"
-serial attach flux:
-    "sudo screen /dev/ttyUSB1 9600\n"
-serial attach frog:
-    "sudo screen /dev/ttyUSB2 9600\n"
-serial attach furby:
-    "sudo screen /dev/ttyUSB3 9600\n"
