@@ -31,5 +31,8 @@ def user_justfile_commands(m) -> dict[str, str]:
     for line in output.splitlines():
         if "#" in line:
             line = line.split("#")[0]
-        commands.append(line.strip())
+        # Some commands may take arguments, but we don't want those pasted. The assumption if you're speaking one of
+        # those, is that the options will use defaults you don't need to dictate.
+
+        commands.append(line.strip().split()[0])
     return actions.user.create_spoken_forms_from_list(commands)
