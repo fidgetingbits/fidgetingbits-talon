@@ -18,6 +18,6 @@ beauty trace: "bbt\n"
 lookup symbol: "bx "
 continue a cursor: "cc\n"
 
-sink [I] D B list: "idblist\n"
+sink list: "idblist\n"
 sink (mod | module) list: "modlist\n"
 sink (mod | module) info: "curmod\n"

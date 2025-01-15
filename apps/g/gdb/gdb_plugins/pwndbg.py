@@ -110,3 +110,7 @@ class UserActions:
 
     def debugger_dump_ascii_string_clip(number: int):
         handle_hexdump_count("da", number, "", clip=True)
+
+    def debugger_show_memory_sections():
+        actions.user.paste("vmmap")
+        actions.key("enter")
