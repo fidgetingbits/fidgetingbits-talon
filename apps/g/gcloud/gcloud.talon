@@ -13,7 +13,8 @@ G cloud list buckets: "gsutil ls\n"
 G cloud list [{user.gcloud_buckets}]:
     insert("gsutil ls ")
     if gcloud_buckets: insert("gs://{gcloud_buckets}")
-G cloud list clip: "gsutil ls "
+G cloud list clip:
+    "gsutil ls "
     edit.paste()
     key(enter)
 
