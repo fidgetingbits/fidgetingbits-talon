@@ -22,5 +22,5 @@ app next:
 app choose:
     key(alt:up)
 
-show workspace key bindings: "gsettings list-recursively | grep 'org\.gnome.*switch.*workspace'\n"
+show workspace key bindings: "gsettings list-recursively | grep 'org\\.gnome.*switch.*workspace'\n"
 show all key bindings: "gsettings list-recursively | grep 'keybindings'\n"
