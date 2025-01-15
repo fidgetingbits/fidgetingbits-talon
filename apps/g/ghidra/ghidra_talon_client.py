@@ -13,8 +13,8 @@ ctx.tags = ["user.command_client"]
 # Ghidra doesn't support python extensions, meaning the first time our command server runs will be after we trigger the
 # command. This means we have to pre create the communication directory here, as a hack, since the command client will
 # otherwise fail if it doesn't exist.
-folder = actions.user.get_full_communication_path()
-pathlib.Path(folder).mkdir(parents=True, exist_ok=True)
+# folder = actions.user.get_full_communication_path()
+# pathlib.Path(folder).mkdir(parents=True, exist_ok=True)
 
 
 class GhidraTalon:

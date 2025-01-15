@@ -2,6 +2,9 @@ os: linux
 app: ghidra
 -
 
+tag(): user.disassembler
+tag(): user.retsync
+
 new project: key(ctrl-n)
 open project: key(ctrl-o)
 close project: key(ctrl-w)
