@@ -105,7 +105,6 @@ raw string: user.insert_between('r"', '"')
 # decorators
 (deck | put) {user.python_decorator}: insert("@{python_decorator}")
 
-dock string: user.code_comment_documentation()
 dock {user.python_docstring_fields}:
     insert("{python_docstring_fields}")
     edit.left()
