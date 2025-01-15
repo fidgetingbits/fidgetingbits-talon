@@ -206,11 +206,9 @@ folder collapse: user.vscode("workbench.files.action.collapseExplorerFolders")
 #
 suggest show: user.vscode("editor.action.triggerSuggest")
 hint show: user.vscode("editor.action.triggerParameterHints")
-(def | definition) show: user.vscode("editor.action.revealDefinition")
-(def | definition) peek: user.vscode("editor(.action.peekDefinition")
-(def | definition) side: user.vscode("editor.action.revealDefinitionAside")
-(jump ref | references show): user.vscode("editor.action.goToReferences")
-(call | hierarchy) peek: user.vscode("editor.showCallHierarchy")
+[go] (def | definition) show: user.vscode("editor.action.revealDefinition")
+[go] (def | definition) side: user.vscode("editor.action.revealDefinitionAside")
+[go] (jump ref | references show): user.vscode("editor.action.goToReferences")
 hunt (ref | references): user.vscode("references-view.find")
 format that: user.vscode("editor.action.formatDocument")
 format selection: user.vscode("editor.action.formatSelection")
@@ -226,6 +224,25 @@ whitespace trim: user.vscode("editor.action.trimTrailingWhitespace")
 language switch: user.vscode("workbench.action.editor.changeLanguageMode")
 # refactor rename: user.vscode("editor.action.rename")
 # refactor this: user.vscode("editor.action.refactor")
+
+bar calls: user.vscode("references-view.showCallHierarchy")
+
+focus refs: user.vscode("references-view.tree.focus")
+follow next: user.vscode("goToNextReference")
+follow last: user.vscode("goToPreviousReference")
+[go] (reference|ref) last:       user.vscode("references-view.prev")
+[go] (reference|ref) next:       user.vscode("references-view.next")
+
+# peeking
+peek (def|definition): user.vscode("editor.action.peekDefinition")
+peek (decl|declaration): user.vscode("editor.action.peekDeclaration")
+peek calls: user.vscode("editor.showCallHierarchy")
+peek type: user.vscode("editor.action.peekTypeDefinition")
+peek (impl|implementation): user.vscode("editor.action.peekImplementation")
+peek (refs|references): user.vscode("editor.action.referenceSearch.trigger")
+# FIXME: These needs to become an action that gets overridden per language
+peek (docs|documentation): user.vscode("rust-analyzer.openDocs")
+peek tests: user.vscode("rust-analyzer.peekTests")
 
 #
 # Code Navigation
@@ -546,9 +563,6 @@ term dog: user.vscode_and_wait("workbench.action.terminal.toggleTerminal")
 # Some duplication with above, but I don't always work on it as a terminal
 low zoom: user.vscode("workbench.action.toggleMaximizedPanel")
 
-task run [<user.text>]:
-    user.vscode("workbench.action.tasks.runTask")
-    insert(user.text or "")
 #TODO: should this be added to linecommands?
 copy line down: user.vscode("editor.action.copyLinesDownAction")
 copy line up: user.vscode("editor.action.copyLinesUpAction")

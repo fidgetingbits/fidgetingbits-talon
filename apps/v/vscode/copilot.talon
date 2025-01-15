@@ -5,7 +5,7 @@ app: vscode
 pilot jest: user.vscode("editor.action.inlineSuggest.trigger")
 previous | pilot next: user.vscode("editor.action.inlineSuggest.showNext")
 pilot (last): user.vscode("editor.action.inlineSuggest.showPrevious")
-copilot: user.vscode("workbench.action.toggleAuxiliaryBar")
+(pie dog|pilot dog|copilot): user.vscode("workbench.action.toggleAuxiliaryBar")
 pilot word: user.vscode("editor.action.inlineSuggest.acceptNextWord")
 pilot nope: user.vscode("editor.action.inlineSuggest.undo")
 pilot cancel: user.vscode("editor.action.inlineSuggest.hide")
