@@ -17,6 +17,9 @@ DRIVE = "drive"
 GO = "pivot"
 HISTORY = "(history|atuin)"
 VPN = "V P N"
+BREAKPOINT = (
+    "point"  # don't use break, as it conflicts with cursorless in neovim terminals
+)
 
 
 @mod.capture(rule=SELECT)
@@ -76,4 +79,10 @@ def history(m) -> str:
 @mod.capture(rule=VPN)
 def vpn(m) -> str:
     """Verb to use for commands that deal with global vpn connections"""
+    return str(m)
+
+
+@mod.capture(rule=BREAKPOINT)
+def breakpoint(m) -> str:
+    """Term for break points"""
     return str(m)
