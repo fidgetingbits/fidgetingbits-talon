@@ -13,6 +13,8 @@ virtual list inactive: insert("sudo virsh list --inactive\n")
 # Network
 virtual net [work] list: insert("sudo virsh net-list --all\n")
 virtual net [work] leases: insert("sudo virsh net-dhcp-leases default\n")
+virtual net [work] static leases: insert("sudo virsh net-dumpxml vm-lan\n")
+
 
 # Running
 virtual run console: insert("sudo virsh start --console ")
