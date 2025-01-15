@@ -113,20 +113,6 @@ settings():
     user.mouse_wheel_down_amount = 120
 
     ###
-    # MOUSE GRID
-    ###
-    # gray
-    user.full_mouse_grid_large_number_color = "CCCCCC"
-    # white
-    user.full_mouse_grid_small_letters_color = "FFFFFF"
-    user.full_mouse_grid_superblock_background_color = "FF55FF"
-    user.full_mouse_grid_superblock_stroke_color = "FFFFFF"
-    user.full_mouse_grid_background_transparency = 30
-    user.full_mouse_grid_label_transparency = 50
-    user.full_mouse_grid_selector_transparency = 50
-    user.full_mouse_grid_click_type_default = "drag"
-
-    ###
     # DEBUGGER
     ###
     user.debug_default_architecture = "x64"
