@@ -65,6 +65,8 @@ special_file_map = {
     ".vimrc": "vimscript",
     "vimrc": "vimscript",
     ".busted": "lua",
+    "justfile": "just",
+    "Justfile": "just",
 }
 
 # Override speakable forms for language modes. If not present, a language mode's
@@ -161,8 +163,10 @@ class Actions:
     def code_show_forced_language_mode():
         """Show the active language for this context"""
         forced = actions.user.code_get_forced_language()
-        if len(forced):
-            app.notify(f"Forced language: {forced}")
+        if not forced:
+            actions.user.notify("No language forced")
+        elif len(forced):
+            actions.user.notify(f"Forced language: {forced}")
 
     def code_get_forced_language_with_fallback(fallback: str) -> str:
         """Allows an app to force a language as a fallback, but still favor the user's forced language if it's set"""
