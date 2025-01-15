@@ -316,19 +316,19 @@ echo split [<user.symbol_key>] ({user.environment_variables}|<user.text>):
     user.paste_without_new_lines()
     key(enter)
 # NOTE: I don't auto ls here because zsh is setup to automatically do it for me
-# FIXME: This should get moved to a zsh specific file
-<user.go> (<user.zsh_path_completion> | <user.folder_paths>):
+# FIXME: This should get moved to a zsh specific file <user.zsh_folder_completion>
+<user.go> (<user.zsh_folder_completion> | <user.folder_paths>):
     edit.delete_line()
-    path = zsh_path_completion or folder_paths
+    path = zsh_folder_completion or folder_paths
     user.paste("cd {path}")
     key(enter)
 <user.go> global <user.folder_paths>:
     edit.delete_line()
     user.paste("cd {folder_paths}")
     key(enter)
-<user.go> local <user.zsh_path_completion>:
+<user.go> local <user.zsh_folder_completion>:
     edit.delete_line()
-    user.paste("cd {zsh_path_completion}\n")
+    user.paste("cd {zsh_folder_completion}\n")
 # <user.go> up doesn't work with talon
 <user.go> back:
     edit.delete_line()
@@ -489,11 +489,19 @@ net ping clip:
     key(enter)
 
 net (cat|connect) [<user.domains>] [(<user.ports>|<number>)]:
-    insert("nc ")
+    insert("nc -v ")
     insert(domains or "")
     key(space)
     insert(ports or "")
     insert(number  or "")
+
+net (cat|connect) U D P [<user.domains>] [(<user.ports>|<number>)]:
+    insert("nc -v -u ")
+    insert(domains or "")
+    key(space)
+    insert(ports or "")
+    insert(number  or "")
+
 net connect <user.domains>: "nc {domains} "
 net cat listener: "nc -v -l -p "
 net cat listen [on] <number>:
@@ -728,7 +736,7 @@ able (find|grep|rip) [<user.text>]:
 
     insert(snake)
 able find strict [<user.text>]:
-    insert("env|rg ")
+    insert("env| rg ")
     snake = user.formatted_text(text or "", "ALL_CAPS,SNAKE_CASE")
     insert(snake)
 able show: "echo $"
@@ -940,3 +948,7 @@ run zsh:
 
 deck tape: "decktape "
 deck tape help: "decktape --help\n"
+
+bin diff help: "bindiff --help\n"
+bin diff help full: "bindiff --helpfull\n"
+bin diff U I: "bindiff --ui\n"
