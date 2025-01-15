@@ -86,6 +86,12 @@ class Actions:
     def disassembler_function_end():
         """Navigate to function end"""
 
+    def disassembler_next_function():
+        """Navigate to next function"""
+
+    def disassembler_previous_function():
+        """Navigate to previous function"""
+
     def disassembler_false_branch():
         """Fall through on false branch"""
 
@@ -140,6 +146,15 @@ class Actions:
         """Repeat search for next instruction with void operand"""
 
     # Documenting
+    def disassembler_change_label():
+        """Change label"""
+
+    def disassembler_change_label_clipboard():
+        """Change label to clipboard value"""
+
+    def disassembler_comment():
+        """Add a comment"""
+
     # Miscellaneous
     def disassembler_undo():
         """undo last action"""
