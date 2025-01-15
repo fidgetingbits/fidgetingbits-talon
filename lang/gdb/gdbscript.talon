@@ -1,18 +1,22 @@
+# FIXME: This is a bit massed up because I wanted a way to detect when we're in gdb but vim normal mode, in order to
+# have certain commands enabled but disable the rest. It kind of broke so need to revisit
 code.language: gdb
-and not tag: user.gdb
+# and not tag: user.gdb
 
-tag: user.gdb
-and not code.language: gdb
+# tag: user.gdb
+# and not code.language: gdb
 
-code.language: gdb
-and tag: user.gdb
+# code.language: gdb
+# and tag: user.gdb
 -
+
 # For commands to run well actually in the debugger, see gdb.talon
 tag(): user.code_imperative
 
 # XXX - this might be overkill since the split of operators, and right now none
 # of these are implemented except comments I think
 tag(): user.code_comment_line
+
 tag(): user.code_functions
 tag(): user.code_functions_common
 tag(): user.code_libraries
